@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import LiveScoringHole from "../components/LiveScoringHole";
 import SectionCardFormFilter from "../components/SectionCardFormFilter";
-import IndividualPlayerScore from "../components/IndividualPlayerScore";
+import IndividualPlayerScore from "../components/LiveIndividualPlayerScore";
 import FriendSection from "../components/SingleTeamName";
 import { Link } from "react-router-dom";
 import ChampionShipName from "../components/ChampionShipName";

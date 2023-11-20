@@ -7,7 +7,7 @@ import LeaderBoardHeader from "../components/LeaderBoardHeader";
 import LeaderBoardFirstRow from "../components/LeaderBoardRow";
 
 import LeaderBoardScoringTab from "../components/LeaderBoardScoringTable";
-import IndiviualPlayerScore from "../components/IndiviualPlayerScore";
+import IndiviualPlayerScore from "../components/LeaderBoardPlayerScore";
 
 
 const ScoreBoard: FunctionComponent = () => {

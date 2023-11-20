@@ -8,7 +8,7 @@ import {
 
 const people = [
   {
-    organizer: "Lindsay Walton",
+    organizer:"GolfMasters",
     time: "12:00 PM",
     date: "Nov 13, SUN",
     event: "ZOZO CHAMPIONSHIP",
@@ -16,10 +16,10 @@ const people = [
     type: "null",
     location: "Yokohama Country Club",
     imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      "/img/ellipse-2311@2x.png",
   },
   {
-    organizer: "Lindsay Walton",
+    organizer: "Fairway Fun",
     time: "12:00 PM",
     date: "Nov 13, SUN",
     event: "ZOZO CHAMPIONSHIP",
@@ -27,10 +27,10 @@ const people = [
     type: "full",
     location: "Yokohama Country Club",
     imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "/img/ellipse-23081@2x.png",
   },
   {
-    organizer: "Lindsay Walton",
+    organizer: "GreenLinks",
     time: "12:00 PM",
     date: "Nov 13, SUN",
     event: "ZOZO CHAMPIONSHIP",
@@ -38,10 +38,10 @@ const people = [
     type: "null",
     location: "Yokohama Country Club",
     imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "/img/ellipse-23082@2x.png",
   },
   {
-    organizer: "Lindsay Walton",
+    organizer: "GolfPro",
     time: "12:00 PM",
     date: "Nov 13, SUN",
     event: "ZOZO CHAMPIONSHIP",
@@ -49,10 +49,10 @@ const people = [
     type: "full",
     location: "Yokohama Country Club",
     imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "/img/ellipse-23083@2x.png",
   },
   {
-    organizer: "Lindsay Walton",
+    organizer: "SwingFest",
     time: "12:00 PM",
     date: "Nov 13, SUN",
     event: "ZOZO CHAMPIONSHIP",
@@ -60,10 +60,10 @@ const people = [
     type: "null",
     location: "Yokohama Country Club",
     imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "/img/ellipse-23084@2x.png",
   },
   {
-    organizer: "Lindsay Walton",
+    organizer: "GolfGather",
     time: "12:00 PM",
     date: "Nov 13, SUN",
     event: "ZOZO CHAMPIONSHIP",
@@ -71,7 +71,7 @@ const people = [
     type: "full",
     location: "Yokohama Country Club",
     imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "/img/ellipse-23085@2x.png",
   },
 ];
 
@@ -129,14 +129,12 @@ export default function Example() {
                 {people.map((person, index) => (
                     <tr
                       key={person.time}
-                      className={`${
+                      className={`rounded-sm ${
                         person.type === "full"
                           ? "bg-[#3A66C0] text-white shadow-[-3.9px_3.9px_3.12px_#0052fb]  "
-                          : "bg-[#D3DAFF] text-black"
+                          : "bg-[#D3DAFF] text-black "
                       }`}
                       style={{
-                        // display: "flex",
-                        // alignItems: "center",
                         width: "100%",
                         borderRadius: "4px",
                         border: "none", // Remove the white border
@@ -144,27 +142,23 @@ export default function Example() {
                       }}
 
                     >
-                      <td className="flex items-center relative whitespace-nowrap overflow-hidden">
-                        {person.type !== "full" && (
+                      <td className="flex items-center  mt-1 ">
                           <div
-                            className={`whitespace-nowrap  -rotate-90 px-8 py-4    text-white  text-sm ml-[-29px] flex justify-center items-center ${
-                              person.type !== "full" && "bg-[#CF4E4E]"
+                            className={` -rotate-90 px-8 py-4    text-white  text-sm my-6 ml-[-29px] flex  items-center ${
+                              person.type !== "full" ? "bg-[#CF4E4E]" : "opacity-0"
                             }`}
                           >
                             FULL
                           </div>
-                        )}
                         <div
-                          className={`flex items-center gap-x-4    ${
-                            person.type === "full" ? "ml-14 " : ""
-                          }`}
+                          className={`flex items-center gap-x-4`}
                         >
                           <img
                             src={person.imageUrl}
                             alt=""
-                            className="h-8 w-8   rounded-full bg-gray-800"
+                            className="h-8 w-8   rounded-full bg-gray-800 "
                           />
-                          <div className="truncate text-sm font-medium leading-6 ">
+                          <div className="truncate text-sm font-medium leading-6  ">
                             {person.organizer}
                           </div>
                         </div>
@@ -175,7 +169,7 @@ export default function Example() {
                       <td className="whitespace-nowrap px-3 py-5  text-sm">
                         {person.date}
                       </td>
-                      <td className="md:flex justify-between items-center text-center ml-2 whitespace-pre-wrap xl:text-left text-sm  font-semibold ">
+                      <td className="flex justify-between items-center text-center ml-2 whitespace-pre-wrap xl:text-left text-sm  font-semibold ">
                         <div className="flex flex-col">
                           {person.event}
                           <span className="flex items-center gap-1 font-normal ">
@@ -191,13 +185,13 @@ export default function Example() {
                         </div>
 
                         <span
-                          className={`md:whitespace-nowrap px-2 text-white py-6 text-sm sm:py-2 px-1   ${
+                          className={`md:whitespace-nowrap px-2 text-white py-2 text-sm mx-0  sm:mx-2    ${
                             person.type === "full"
-                              ? "bg-[#006800] cursor-pointer "
-                              : "bg-[#A1A1A1]"
+                              ? "bg-[#006800] cursor-pointer py-4 mt-[-20px] "
+                              : "bg-[#A1A1A1] mt-[-20px] py-4 "
                           }`}
                         >
-                          <p className="rotate-45  text-xl">
+                          <p className="rotate-45 sm:text-lg xl:text-xl">
                           Join
                           </p>
                          

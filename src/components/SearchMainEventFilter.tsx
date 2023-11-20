@@ -10,7 +10,7 @@ import { FunctionComponent } from "react";
 
 const SearchMainEventFilter: FunctionComponent = () => {
   return (
-    <div className="mt-2 flex w-full shadow-sm">
+    <div className="py-4 mt-2 flex w-full ">
       <div className="relative flex flex-grow  items-stretch focus-within:z-10">
         <input
           type="email"

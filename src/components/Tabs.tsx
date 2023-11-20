@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import Calendar from "../components/Calender";
+import EventMap from "../components/EventMap";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -96,11 +97,11 @@ export default function Example() {
 
         <Tab.Group>
           <Tab.List className="flex flex-wrap justify-between space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
-            <div className="flex flex-wrap lg:flex-nowrap gap-4 py-4">
+            <div className="flex flex-wrap lg:flex-nowrap gap-4 py-2">
               <div className="md:mx-20 xl:relative w-full">
                 <button
                   type="button"
-                  className="md:absolute left-[-88px] top-[-16px] sm:py-4 rounded-md  xl:py-8 sm:inline-flex rounded-l-md items-center gap-x-1.5 text-[18px] px-6 mb-2 bg-[#17B3A6] text-white"
+                  className="md:absolute left-[-88px] top-[-16px] py-4   xl:py-6 rounded-l-md sm:inline-flex   items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
                   Tokyo
@@ -219,18 +220,7 @@ export default function Example() {
                     </div>
                   </div>
                 </div>
-                <div className=" lg:col-span-1 col-span-4  mt-10 h-full ">
-                  <iframe
-                    className="col-span-4 sm:col-span-4 rounded-sm"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8181116.269949623!2d130.64039243803072!3d36.56179855912495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34674e0fd77f192f%3A0xf54275d47c665244!2sJapan!5e0!3m2!1sen!2s!4v1700468556527!5m2!1sen!2s"
-                    width="100%"
-                    height="670"
-                    style={{ border: "0", maxWidth: "850px", margin: "auto" }} // Set max-width and center the iframe
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </div>
+               <EventMap/>
               </div>
             </Tab.Panel>
           </Tab.Panels>

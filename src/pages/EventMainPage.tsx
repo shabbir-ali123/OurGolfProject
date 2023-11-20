@@ -32,14 +32,14 @@ const EventMainPage: FunctionComponent = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup the event listener on component unmount
+    
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
-    <div className="flex flex-col gap-20 overflow-hidden px-10 py-10 mx-0 xl:mx-20">
+    <div className="flex flex-col gap-10 overflow-hidden px-10 py-0 mx-0 xl:mx-20">
       <SearchEventContainer />
       <div className="flex flex-wrap justify-between items-center">
         <div className="flex flex-wrap items-end gap-3">
@@ -65,7 +65,7 @@ const EventMainPage: FunctionComponent = () => {
       
       {isDesktop && (
         <img
-          className="absolute top-[70px] left-[0px] w-20 h-[auto]"
+          className="absolute top-[70px] left-[0px] w-20 "
           alt=""
           src="/img/SideMenuicons.svg"
           onClick={handleImageClick}

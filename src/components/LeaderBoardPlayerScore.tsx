@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 
-const IndiviualPlayerScore: FunctionComponent = () => {
+const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
   return (
     <div className="absolute top-[1983px] left-[220px] w-[1350px] h-[920px] text-left text-lg text-white font-poppins">
       <div className="absolute top-[0px] left-[0px] w-[1350px] h-[363.6px] text-21xl text-darkslateblue-300">
@@ -458,4 +458,4 @@ const IndiviualPlayerScore: FunctionComponent = () => {
   );
 };
 
-export default IndiviualPlayerScore;
+export default LeaderBoardIndiviualPlayerScore;
