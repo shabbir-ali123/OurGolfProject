@@ -4,6 +4,7 @@ import SearchEventContainer from "../components/SearchMainEventFilter";
 import AllEventTabs from "../components/AllEventTabs";
 import EventLocation from "../components/EventLocation";
 import Header from "../components/Header";
+import SideIconMenu from "../components/SideIconMenu";
 import {
   PencilIcon,
   PencilSquareIcon,
@@ -64,14 +65,9 @@ const EventMainPage: FunctionComponent = () => {
       <Tabs />
       
       {isDesktop && (
-        <img
-          className="absolute top-[70px] left-[0px] w-20 "
-          alt=""
-          src="/img/SideMenuicons.svg"
-          onClick={handleImageClick}
-        />
+        <SideIconMenu/>
       )}
-      {isMenuVisible && <HoverSideMenu onItemClick={handleMenuItemClick} />}
+      
     </div>
   );
 };

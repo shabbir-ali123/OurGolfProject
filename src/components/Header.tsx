@@ -16,13 +16,13 @@ export default function Example() {
   return (
     <header className="bg-[#17B3A6] overflow-hidden">
       <nav
-        className="flex items-center justify-between p-2 lg:px-8"
+        className="flex items-center justify-between p-2 lg:px-32"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img className="h-10 w-auto" src="./img/logo.png" alt="" />
+            <img className="h-16 w-auto" src="./img/logo.png" alt="" />
           </Link>
         </div>
         <div className="flex lg:hidden">

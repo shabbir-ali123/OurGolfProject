@@ -101,7 +101,7 @@ export default function Example() {
               <div className="md:mx-20 xl:relative w-full">
                 <button
                   type="button"
-                  className="md:absolute left-[-88px] top-[-16px] py-4   xl:py-6 rounded-l-md sm:inline-flex   items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className="xl:py-6 rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
                   Tokyo

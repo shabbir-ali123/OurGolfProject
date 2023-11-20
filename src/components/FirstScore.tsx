@@ -120,7 +120,7 @@ interface FirstScoreProps {
           
           <div className="relative w-[87px] h-[41px] text-base text-black left-[-45px]">
             <div className="absolute top-[0px] left-[0px] rounded-md box-border w-[87px] h-[41px] border-[1px] border-solid border-dimgray-100" />
-            <div className="absolute top-[10px] left-[39px] leading-[20px]">
+            <div className="flex justify-center items-center">
               -
             </div>
           </div>
