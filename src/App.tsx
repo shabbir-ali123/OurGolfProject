@@ -10,6 +10,7 @@ import ScoreBoard from "./pages/ScoreBoard";
 import OngoingIndiviualScore from "./pages/OngoingIndiviualScore";
 import OngoingTeamScore from "./pages/OngoingTeamScore";
 // import OngoingEvent from "./pages/LiveScoringTable";
+import TeacherPage from "./pages/TeacherPage"
 import EventMainPage from "./pages/EventMainPage";
 import Header from "./components/Header";
 
@@ -41,10 +42,10 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      // case "/ongoing-event":
-      //   title = "";
-      //   metaDescription = "";
-      //   break;
+      case "/teacher-page":
+        title = "";
+        metaDescription = "";
+        break;
       case "/event-main-page":
         title = "";
         metaDescription = "";
@@ -74,7 +75,7 @@ function App() {
           path="/ongoing-indiviual-score"
           element={<OngoingIndiviualScore />}
         />
-        {/* <Route path="/ongoing-event" element={<OngoingEvent  />} /> */}
+        <Route path="/teacher-page" element={<TeacherPage  />} />
         <Route path="/ongoing-team-score" element={<OngoingTeamScore />} />
         <Route path="/event-main-page" element={<EventMainPage />} />
       </Routes>

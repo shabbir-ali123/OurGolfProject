@@ -7,7 +7,7 @@ const navigation = [
   { name: "Home", to: "/" },
   { name: "Posts", to: "#" },
   { name: "Events", to: "/event-main-page" },
-  { name: "Find a teacher", to: "#" },
+  { name: "Find a teacher", to:"/teacher-page" },
 ];
 
 export default function Example() {
