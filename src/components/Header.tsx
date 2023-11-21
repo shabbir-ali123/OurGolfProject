@@ -14,7 +14,7 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-[#17B3A6] overflow-hidden">
+    <header className="bg-[#17B3A6] overflow-hidden ">
       <nav
         className="flex items-center justify-between p-2 lg:px-32"
         aria-label="Global"

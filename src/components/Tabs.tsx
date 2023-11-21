@@ -149,7 +149,7 @@ export default function Example() {
                         Next
                       </a>
                     </div>
-                    <div className="hidden sm:flex sm:flex-1 sm:items-center justify-center mt-10">
+                    <div className="hidden sm:flex sm:flex-1 sm:items-center justify-center my-6">
                       <div>
                         <nav
                           className="isolate inline-flex -space-x-px rounded-md shadow-sm"

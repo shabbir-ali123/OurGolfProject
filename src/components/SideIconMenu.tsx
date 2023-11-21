@@ -9,6 +9,7 @@ import {
   faSignOutAlt,
   faSearch,
   faCalendar,
+  faEnvelope,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,7 +28,7 @@ const SideMenu: React.FC = () => {
     position: 'fixed',
     left: 0,
     top: 0,
-    paddingTop:"30px",
+   
     transition: 'width 0.3s ease',
   };
 
@@ -39,7 +40,8 @@ const SideMenu: React.FC = () => {
     cursor: 'pointer',
     borderBottom: '1px solid #ffff',
     width: '100%',
-    height:'50px'
+    height:'50px',
+    
     
   };
 
@@ -68,6 +70,10 @@ const SideMenu: React.FC = () => {
         <span style={textStyles}>Home</span>
       </div>
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+        <FontAwesomeIcon icon={faBell} style={iconStyles} />
+        <span style={textStyles}>Notifications</span>
+      </div>
+      <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
         <span style={textStyles}>Posts</span>
       </div>
@@ -76,24 +82,24 @@ const SideMenu: React.FC = () => {
         <span style={textStyles}>Events</span>
       </div>
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-        <FontAwesomeIcon icon={faBell} style={iconStyles} />
-        <span style={textStyles}>Notifications</span>
-      </div>
-      <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-        <FontAwesomeIcon icon={faUser} style={iconStyles} />
-        <span style={textStyles}>Profile</span>
-      </div>
-      <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-        <FontAwesomeIcon icon={faCog} style={iconStyles} />
-        <span style={textStyles}>Setting</span>
-      </div>
-      <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faSearch} style={iconStyles} />
         <span style={textStyles}>Find a teacher</span>
       </div>
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
         <span style={textStyles}>Calendar</span>
+      </div>
+      <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+        <FontAwesomeIcon icon={faUser} style={iconStyles} />
+        <span style={textStyles}>Profile</span>
+      </div>
+      <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+        <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
+        <span style={textStyles}>Message</span>
+      </div>
+      <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+        <FontAwesomeIcon icon={faCog} style={iconStyles} />
+        <span style={textStyles}>Setting</span>
       </div>
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
