@@ -1,10 +1,24 @@
+import { useState } from 'react';
+
 const SearchAndFiltersEducator: React.FC = () => {
+    const [search, setSearch] = useState(['Rating']);
+    const searchHandler = (value: string) => {
+        if (search.includes(value)) {
+            let items = search.filter((data) => data != value);
+            setSearch(items);
+            return;
+        }
+        let addSearchitem = [...search];
+        addSearchitem.push(value);
+        setSearch(addSearchitem);
+    };
+    console.log(search);
     return (
         <>
             <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
                 Find Your Educator
             </p>
-            <div className='md:flex bg-white justify-between items-center'>
+            <div className='md:flex flex-col md:flex-row bg-white justify-between items-center'>
                 <div className='relative min-w-[204.64px] h-[24.08px] '>
                     <input
                         placeholder='search'
@@ -16,19 +30,29 @@ const SearchAndFiltersEducator: React.FC = () => {
                         src='/img/search.svg'
                     />
                 </div>
-                <div className=' flex items-center'>
+                <div className='flex flex-row items-center'>
                     <p className='text-[12px] font-bold'>Filter By:</p>
 
                     <div className='flex items-center justify-center gap-x-2'>
-                        <button className='flex justify-center w-[64.34px] p-2 ml-2 rounded-md font-normal text-xs bg-[#A8FFC2] text-xs text-black shadow-sm'>
-                            Rating
-                        </button>
-                        <button className='flex justify-center w-[64.34px] p-2 rounded-md font-normal text-xs bg-[#D9D9D966] text-xs text-black shadow-sm'>
-                            Location
-                        </button>
-                        <button className='flex justify-center w-[70.34px] p-2 mr-1 rounded-md font-normal text-xs bg-[#D9D9D966] text-xs text-black shadow-sm'>
-                            Availability
-                        </button>
+                        {['Rating', 'Location', 'Availability'].map(
+                            (title, index) => {
+                                return (
+                                    <button
+                                        key={index}
+                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs bg-[${
+                                            search.includes(title)
+                                                ? '#A8FFC2'
+                                                : '#D9D9D966'
+                                        }] text-xs text-black shadow-sm`}
+                                        onClick={() => {
+                                            searchHandler(title);
+                                        }}
+                                    >
+                                        {title}
+                                    </button>
+                                );
+                            }
+                        )}
                     </div>
                 </div>
             </div>
