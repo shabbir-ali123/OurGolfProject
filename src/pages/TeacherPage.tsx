@@ -6,41 +6,75 @@ import TeacherTabs from '../components/TeacherTabs';
 // import FavoriteTeachers from './FavoriteTeachers';
 // import TeacherList from './TeacherList';
 // import TeacherDetails from './TeacherDetails';
-
+type Status = 'teacher' | 'student';
 const TeacherProfile: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<'teacher' | 'student'>('teacher');
+    const [selectedTab, setSelectedTab] = useState<Status>('teacher');
 
-  return (
-    <div className="flex">
-      {/* Left Column */}
-      <div className="w-1/4 p-4 bg-black">
-        Teacher page
-        <TeacherTabs selectedTab={selectedTab} onSelectTab={setSelectedTab} />
-        {/* <EventBoxes />
+    return (
+        <div className='flex'>
+            {/* Left Column */}
+            <div className='w-1/4 p-4 bg-black'>
+                Teacher page
+                <TeacherTabs
+                    selectedTab={selectedTab}
+                    onSelectTab={setSelectedTab}
+                />
+                {/* <EventBoxes />
         <CalendarSection />
         <FavoriteTeachers /> */}
-      </div>
+            </div>
 
-      {/* Middle Column */}
-      <div className="w-1/2 p-4 bg-red-500">
-        hello
-        {/* Teacher Images */}
-        {/* Assuming you have a component for displaying a list of teachers */}
-        {/* <TeacherList /> */}
+            {/* Middle Column */}
+            <div className='w-1/2 py-4 px-12 box-border'>
+                <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
+                    Find Your Educator
+                </p>
+                <div className='flex bg-white justify-between items-center'>
+                    <div className='relative w-[254.64px]'>
+                        <input
+                            placeholder='Search'
+                            className='px-2 w-full rounded-md bg-white py-1.5  box-border text-sm text-gray-300'
+                        />
+                        <img
+                            className='absolute w-4 h-4  top-3 right-2'
+                            alt=''
+                            src='/img/search.svg'
+                        />
+                    </div>
+                    <div className='flex items-center'>
+                        <p className='text-xs font-bold'>Filter By:</p>
 
-        {/* Search and Filters */}
-        {/* Assuming you have a component for search and filters */}
-        {/* <SearchAndFilters /> */}
-      </div>
+                        <div className='flex items-center justify-center gap-x-2'>
+                            <button className='flex justify-center w-[64.34px] p-2 ml-2  rounded-md font-normal text-xs bg-[#A8FFC2] text-xs text-black shadow-sm'>
+                                Rating
+                            </button>
+                            <button className='flex justify-center w-[64.34px] p-2  rounded-md font-normal text-xs bg-[#D9D9D966] text-xs text-black shadow-sm'>
+                                Location
+                            </button>
+                            <button className='flex justify-center w-[70.34px] p-2 mr-1 rounded-md font-normal text-xs bg-[#D9D9D966] text-xs text-black shadow-sm'>
+                                Availability
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-      {/* Right Column */}
-      <div className="w-1/4 p-4 bg-blue-50">
-        Teaxher
-        {/* Teacher Details */}
-        {/* <TeacherDetails /> */}
-      </div>
-    </div>
-  );
+                {/* Teacher Images */}
+                {/* Assuming you have a component for displaying a list of teachers */}
+                {/* <TeacherList /> */}
+
+                {/* Search and Filters */}
+                {/* Assuming you have a component for search and filters */}
+                {/* <SearchAndFilters /> */}
+            </div>
+            {/* Right Column */}
+
+            <div className='w-1/4 p-4 bg-blue-50'>
+                Teaxher
+                {/* Teacher Details */}
+                {/* <TeacherDetails /> */}
+            </div>
+        </div>
+    );
 };
 
 export default TeacherProfile;
