@@ -20,7 +20,7 @@ const FavoriteTeachers: React.FC = () => {
             <div className="border-6 border-solid border-green-500">
               <img
                 className="inline-block h-16 w-16 rounded-full "
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                src="/img/ellipse-111@2x.png"
                 alt=""
               />
                <p className="text-base font-medium text-black ">
@@ -37,7 +37,7 @@ const FavoriteTeachers: React.FC = () => {
             <div className="border-6 border-solid border-green-500">
               <img
                 className="inline-block h-16 w-16 rounded-full "
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                src="/img/ellipse-14@2x.png"
                 alt=""
               />
                <p className="text-base font-medium text-black ">
@@ -54,7 +54,7 @@ const FavoriteTeachers: React.FC = () => {
             <div className="border-6 border-solid border-green-500">
               <img
                 className="inline-block h-16 w-16 rounded-full "
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                src="/img/ellipse-131@2x.png"
                 alt=""
               />
                <p className="text-base font-medium text-black ">
@@ -71,7 +71,7 @@ const FavoriteTeachers: React.FC = () => {
             <div className="border-6 border-solid border-green-500">
               <img
                 className="inline-block h-16 w-16 rounded-full "
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                src="/img/ellipse-13@2x.png"
                 alt=""
               />
                <p className="text-base font-medium text-black ">

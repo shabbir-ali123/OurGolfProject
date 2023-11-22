@@ -5,15 +5,17 @@ import EventBoxes from "../components/EventBoxes";
 import TeacherCalendar from "../components/TeacherCalender";
 import FavTeachers from "../components/FavTeacher";
 // import TeacherList from './TeacherList';
-// import TeacherDetails from './TeacherDetails';
-
+import TeacherConDetail from '../components/TeacherConDetail';
+import TeacherActivities from "../components/TeacherActivities";
+type Status = "teacher" | "student";
 const TeacherProfile: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<"teacher" | "student">(
-    "teacher"
+    "student"
   );
 
   return (
-    <div className="grid grid-cols-12 gap-4">
+    <div>
+<div className="grid grid-cols-12 gap-4">
       {/* Left Column */}
       <div className="col-span-12 lg:col-span-3 p-4  h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-full mt-10 mx-10  ">
         <TeacherTabs
@@ -30,30 +32,60 @@ const TeacherProfile: React.FC = () => {
       </div>
 
       {/* Middle Column */}
-      <div className="col-span-12 lg:col-span-6 p-4 bg-red-500">
-        hello
-        {/* Teacher Images */}
-        {/* Assuming you have a component for displaying a list of teachers */}
-        {/* <TeacherList /> */}
-        {/* Search and Filters */}
-        {/* Assuming you have a component for search and filters */}
-        {/* <SearchAndFilters /> */}
-      </div>
+      <div className="col-span-12 lg:col-span-5 py-4 px-12 box-border ">
+        <p className=" text-[21.59px] leading-[25.76px] tracking-wide font-bold">
+          Find Your Teacher
+        </p>
+        <div className="flex bg-white justify-between items-center ">
+          <div className="relative w-[254.64px]">
+            <input
+              placeholder="Search"
+              className="px-2 w-full rounded-md bg-white py-1.5  box-border text-sm text-gray-300"
+            />
+            <img
+              className="absolute w-4 h-4  top-3 right-2"
+              alt=""
+              src="/img/search.svg"
+            />
+          </div>
+          <div className="flex items-center">
+            <p className="text-xs font-bold">Filter By:</p>
 
-      {/* Right Column */}
-      <div className="col-span-12 lg:col-span-3 p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-full mt-10 mx-10">
-        <TeacherTabs
-          selectedTab={selectedTab}
-          onSelectTab={setSelectedTab}
-          showTabs={false}
-          discription='" ning processes to achieve superior results. "
-          '
-          profilePic="/img/ellipse-131@2x.png"
-          name="Cinderella"
-        />
-        {/* <TeacherDetails /> */}
+            <div className="flex items-center justify-center gap-x-2">
+              <button className="flex justify-center w-[64.34px] p-2 ml-2  rounded-md font-normal text-xs bg-[#A8FFC2] text-xs text-black shadow-sm">
+                Rating
+              </button>
+              <button className="flex justify-center w-[64.34px] p-2  rounded-md font-normal text-xs bg-[#D9D9D966] text-xs text-black shadow-sm">
+                Location
+              </button>
+              <button className="flex justify-center w-[70.34px] p-2 mr-1 rounded-md font-normal text-xs bg-[#D9D9D966] text-xs text-black shadow-sm">
+                Availability
+              </button>
+            </div>
+          </div>
+        </div>
+
+       
       </div>
+       {/* Right Column */}
+       <div className="col-span-12 lg:col-span-4 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-full mt-10 mx-10">
+          <TeacherTabs
+            selectedTab={selectedTab}
+            onSelectTab={setSelectedTab}
+            showTabs={false}
+            discription='" ning processes to achieve superior results "
+          '
+            profilePic="/img/profile1.png"
+            name="Cinderella"
+          />
+          <TeacherConDetail  />
+        </div>
+
+        
     </div>
+   
+    </div>
+    
   );
 };
 
