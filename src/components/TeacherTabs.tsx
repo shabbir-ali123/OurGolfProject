@@ -1,14 +1,14 @@
-// TeacherTabs.tsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface TeacherTabsProps {
-  selectedTab: 'teacher' | 'student';
-  onSelectTab: (tab: 'teacher' | 'student') => void;
+  selectedTab: 'student' | 'teacher';
+  onSelectTab: (tab: 'student' | 'teacher') => void;
   showTabs?: boolean;
-  profilePic: string; // Dynamic profile picture
-  name: string; // Dynamic name
-  discription:string;
+  profilePic: string; 
+  name: string; 
+  discription: string;
 }
 
 const TeacherTabs: React.FC<TeacherTabsProps> = ({
@@ -17,7 +17,7 @@ const TeacherTabs: React.FC<TeacherTabsProps> = ({
   showTabs = true,
   profilePic,
   name,
-  discription
+  discription,
 }) => {
   return (
     <div>
@@ -35,7 +35,7 @@ const TeacherTabs: React.FC<TeacherTabsProps> = ({
               <p className="text-black font-sans font-bold text-base group-hover:text-gray-900 m-0">
                 {name}
               </p>
-              <p className='text-center 'style={{ whiteSpace: 'pre-line' }}>{discription}</p>
+              <p className="text-gray-700 font-sans text-xs font-normal">{discription}</p>
             </div>
           </div>
         </Link>
@@ -44,19 +44,19 @@ const TeacherTabs: React.FC<TeacherTabsProps> = ({
         <div className="flex justify-center">
           <button
             className={`px-4 py-2 rounded-l-md cursor-pointer ${
-              selectedTab === 'teacher' ? 'bg-[#52FF86] text-white' : 'bg-gray-300'
-            }`}
-            onClick={() => onSelectTab('teacher')}
-          >
-            Teacher
-          </button>
-          <button
-            className={`px-4 py-2 rounded-r-md cursor-pointer ${
-              selectedTab === 'student' ? 'bg-[#52FF86] text-white' : 'bg-gray-300'
+              selectedTab === 'student' ? 'bg-[#52FF86] text-white' : 'border-solid border-2 border-[#51ff85]'
             }`}
             onClick={() => onSelectTab('student')}
           >
             Student
+          </button>
+          <button
+            className={`px-4 py-2 rounded-r-md cursor-pointer ${
+              selectedTab === 'teacher' ? 'bg-[#52FF86] text-white' : 'border-solid border-2 border-[#51ff85]'
+            }`}
+            onClick={() => onSelectTab('teacher')}
+          >
+            Teacher
           </button>
         </div>
       )}

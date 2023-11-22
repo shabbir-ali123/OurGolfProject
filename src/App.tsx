@@ -13,6 +13,7 @@ import OngoingTeamScore from "./pages/OngoingTeamScore";
 import TeacherPage from "./pages/TeacherPage"
 import EventMainPage from "./pages/EventMainPage";
 import Header from "./components/Header";
+import ActivtiesPage from "./pages/ActivtiesPage";
 
 function App() {
   const action = useNavigationType();
@@ -50,6 +51,10 @@ function App() {
         title = "";
         metaDescription = "";
         break;
+        case "/activties-page":
+          title = "";
+          metaDescription = "";
+          break;
     }
 
     if (title) {
@@ -78,6 +83,7 @@ function App() {
         <Route path="/teacher-page" element={<TeacherPage  />} />
         <Route path="/ongoing-team-score" element={<OngoingTeamScore />} />
         <Route path="/event-main-page" element={<EventMainPage />} />
+        <Route path="/activties-page" element={<ActivtiesPage />} />
       </Routes>
     </div>
   );
