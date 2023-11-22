@@ -4,18 +4,18 @@ import TeacherListButton from './TeacherListButton';
 const TeacherList: React.FC = () => {
     const buttons = [
         {
-            color: '#0038FF',
+            color: 'bg-[#0038FF]',
             title: 'Book an Appointment',
             icon: '/img/appointment.svg',
           
         },
         {
-            color: '#FF0000',
+            color: 'bg-[#FF0000]',
             title: 'Like',
             icon: '/img/like.svg',
         },
         {
-            color: '#52FF86',
+            color: 'bg-[#52FF86]',
             title: 'View Details',
             icon: '/img/details.svg',
             textColor:"#FF0000"
