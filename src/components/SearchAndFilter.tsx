@@ -4,7 +4,7 @@ const SearchAndFiltersEducator: React.FC = () => {
             <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
                 Find Your Educator
             </p>
-            <div className='flex bg-white justify-between items-center'>
+            <div className='md:flex bg-white justify-between items-center'>
                 <div className='relative min-w-[204.64px] h-[24.08px] '>
                     <input
                         placeholder='search'
@@ -16,7 +16,7 @@ const SearchAndFiltersEducator: React.FC = () => {
                         src='/img/search.svg'
                     />
                 </div>
-                <div className='flex items-center'>
+                <div className=' flex items-center'>
                     <p className='text-[12px] font-bold'>Filter By:</p>
 
                     <div className='flex items-center justify-center gap-x-2'>
