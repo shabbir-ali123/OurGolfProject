@@ -1,6 +1,7 @@
 import React from 'react';
 import TeacherListButton from './TeacherListButton';
-
+import { faMapMarkerAlt,faPhoneAlt,faEnvelope,faWifi, faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const TeacherList: React.FC = () => {
     const buttons = [
         {
@@ -52,22 +53,14 @@ const TeacherList: React.FC = () => {
                                     4.5(1300 ratings)
                                 </span>
                             </li>
-                            <li className='flex items-center mb-2'>
-                                <img
-                                    className='w-[22.39px] h-[12.45px]'
-                                    src='/img/phone.png'
-                                    alt=''
-                                />
+                            <li className='flex items-center mb-2  '>
+                            <FontAwesomeIcon icon={faPhoneAlt} className="w-4 h-4 rotate-90 " />
                                 <span className='ml-6 font-normal text-[9.96px] leading-3'>
                                     85985-95415
                                 </span>
                             </li>
                             <li className='flex items-center mb-2'>
-                                <img
-                                    className='w-[22.39px] h-[12.45px]'
-                                    src='/img/email.png'
-                                    alt=''
-                                />
+                            <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4  " />
                                 <span className='ml-6 font-normal text-[9.96px] leading-3'>
                                     sheetalviven@gmail.com
                                 </span>
@@ -77,7 +70,7 @@ const TeacherList: React.FC = () => {
                     <div className='absolute top-[-2px] right-[-2px] flex'>
                         <img className='' src='/img/teacher_rate.png' alt='' />
                         <span className='font-bold text-base tracking-wide absolute flex items-center justify-center w-full h-full'>
-                            $30
+                              ¥30
                             <sub className='font-normal text-[5px] tracking-wide'>
                                 Per/Hr
                             </sub>

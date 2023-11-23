@@ -22,7 +22,7 @@ const TeacherTabs: React.FC<TeacherTabsProps> = ({
   return (
     <div>
       <div className="lg:flex lg:flex-1 lg:justify-center">
-        <Link to="#" className="group block flex-shrink-0">
+        <Link to="#" className=" block flex-shrink-0">
           <div className="text-center">
             <div className="">
               <img

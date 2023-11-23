@@ -17,7 +17,7 @@ const EventBoxes: React.FC = () => {
         </div>
         <div className=" text-center  border-solid border-2 border-[#51ff85] rounded-md py-1 px-2">
           <h3 className="text-black font-semibold font-sans text-lg m-0 ">
-            14
+            3
           </h3>
           <h4 className="text-center font-sans text-xs font-semibold my-0">
           Upcoming
@@ -26,7 +26,7 @@ const EventBoxes: React.FC = () => {
         </div>
         <div className=" text-center  border-solid  border-2 border-[#51ff85] rounded-md py-1 px-2">
           <h3 className="text-black font-semibold font-sans text-lg my-0 ">
-            14
+            1
           </h3>
           <h4 className="text-center font-sans text-xs font-semibold my-0">
           Pending

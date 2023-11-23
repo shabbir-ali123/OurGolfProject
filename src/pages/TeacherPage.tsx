@@ -1,4 +1,4 @@
-// TeacherProfile.tsx
+
 import React, { useState } from 'react';
 import TeacherTabs from '../components/TeacherTabs';
 import TeacherList from '../components/TeacherList';
@@ -12,12 +12,12 @@ import TeacherActivities from "../components/TeacherActivities";
 type Status = "teacher" | "student";
 
 const TeacherProfile: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<Status>('teacher');
+  const [selectedTab, setSelectedTab] = useState<Status>('student');
 
   return (
     <div className="grid grid-cols-12 gap-4">
       {/* Left Column */}
-      <div className='col-span-12 lg:col-span-3 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-full mt-10 mx-10'>
+      <div className='col-span-12 lg:col-span-3 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-10 mx-10'>
         <TeacherTabs
           selectedTab={selectedTab}
           onSelectTab={setSelectedTab}
@@ -45,12 +45,12 @@ const TeacherProfile: React.FC = () => {
     
 
       {/* Right Column */}
-      <div className="col-span-12 lg:col-span-4 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-full mt-10 mx-10">
+      <div className="col-span-12 lg:col-span-4 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-10 mx-10">
         <TeacherTabs
           selectedTab={selectedTab}
           onSelectTab={setSelectedTab}
           showTabs={false}
-          discription='" ning processes to achieve superior results "'
+          discription='" ning processes to achieve superior results"'
           profilePic="/img/profile1.png"
           name="Cinderella"
         />

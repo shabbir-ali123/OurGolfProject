@@ -14,7 +14,7 @@ export default function Example() {
       <div className='flex items-center gap-2'>
         <label htmlFor="" className='text-black font-bold text-md font-sans'>Date</label>
         <Menu.Button
-          className="inline-flex w-full justify-center gap-x-1.5 rounded-full bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          className="flex w-full justify-center items-center gap-x-1.5 rounded-full bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           data-state={selectedOption}
         >
           {selectedOption}
@@ -36,7 +36,7 @@ export default function Example() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
@@ -50,7 +50,7 @@ export default function Example() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
@@ -64,7 +64,7 @@ export default function Example() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
@@ -78,7 +78,7 @@ export default function Example() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
@@ -92,7 +92,7 @@ export default function Example() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
