@@ -76,7 +76,7 @@ const TeacherList: React.FC = () => {
                             </sub>
                         </span>
                     </div>
-                    <div className='absolute right-[14px] bottom-[23px] flex items-center gap-1'>
+                    <div className=' flex items-center justify-end gap-1'>
                         {buttons.map((btn, index) => (
                             <TeacherListButton
                                 key={index}

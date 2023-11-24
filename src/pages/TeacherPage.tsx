@@ -35,9 +35,13 @@ const TeacherProfile: React.FC = () => {
       <div className='col-span-12 lg:col-span-5 p-4'>
         {/* Search and Filters */}
         <SearchAndFiltersEducator />
+       
         {Array.from({ length: 4 }, (_, index) => (
           <TeacherList key={index} />
         ))}
+        
+       
+        
       </div>
 
     

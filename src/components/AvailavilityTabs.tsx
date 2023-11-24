@@ -76,25 +76,25 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
       <div>
         <div className="flex items-center justify-end ">
             <p className="my-1">Not Available-</p>
-            <div className="h-4 w-16 bg-[#E8E8E8]">
+            <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]">
 
             </div>
         </div>
         <div className="flex items-center justify-end ">
             <p className="my-1">Waiting for teacher approval-</p>
-            <div className="h-4 w-16 bg-[#CFEEFF]">
+            <div className=" h-4 w-8 md:w-10 lg:w-16 bg-[#CFEEFF]">
 
             </div>
         </div>
         <div className="flex items-center justify-end ">
             <p className="my-1">Booked by you-</p>
-            <div className="h-4 w-16 bg-[#00A4FE]">
+            <div className="h-4 w-8 md:w-10 lg:w-16  bg-[#00A4FE]">
 
             </div>
         </div>
         <div className="flex items-center justify-end ">
             <p className="my-1">Available-</p>
-            <div className="h-4 w-16 border-solid border-[1px] border-[#838383]">
+            <div className="h-4 w-8  md:w-10 lg:w-16  border-solid border-[1px] border-[#838383]">
             
             </div>
         </div>
