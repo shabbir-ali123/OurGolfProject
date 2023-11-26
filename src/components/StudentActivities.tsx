@@ -1,7 +1,7 @@
 // TeacherActivities.jsx
 import React from "react";
-import TeacherCalSec from "../components/TeacherCalSec";
-import ActivtiesTabs from "../components/ActivtiesTabs"
+import TeacherCalSec from "./StudentCalSec";
+import ActivtiesTabs from "./ActivtiesTabs"
 const TeacherActivities = () => {
   return (
     <div className="grid grid-cols-12 gap-0 ">

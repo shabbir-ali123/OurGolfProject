@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt,faPhoneAlt,faEnvelope,faWifi } from "@fortawesome/free-solid-svg-icons";
-import DropDown from "../components/DropDown"
+import DropDown from "./DropDown"
 import AvailabilityTabs from "./AvailavilityTabs";
 export const TeacherConDetail = () => {
     const handleSelectTime = (selectedTime: string) => {

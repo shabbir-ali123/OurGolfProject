@@ -3,10 +3,10 @@ import React from "react";
 
 const EventBoxes: React.FC = () => {
   return (
-    <div className="">
+    
       <div className="grid grid-flow-col auto-rows-max mx-auto my-4 gap-1 md:gap-2 lg:gap-2">
       
-        <div className="text-center  border-solid border-2 border-[#51ff85] rounded-md py-1 px-1 md:px-2 lg:px-2">
+        <div className="text-center  border-solid border-2 border-[#51ff85] rounded-md py-1 px-1 md:px-2 lg:px-0">
           <h3 className="text-black font-semibold font-sans text-lg m-0 ">
             14
           </h3>
@@ -34,7 +34,7 @@ const EventBoxes: React.FC = () => {
           <h4 className="text-center font-sans text-xs font-semibold my-0">Lesson</h4>
         </div>
       </div>
-    </div>
+  
   );
 };
 

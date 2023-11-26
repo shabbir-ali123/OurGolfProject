@@ -10,7 +10,7 @@ import ScoreBoard from "./pages/ScoreBoard";
 import OngoingIndiviualScore from "./pages/OngoingIndiviualScore";
 import OngoingTeamScore from "./pages/OngoingTeamScore";
 // import OngoingEvent from "./pages/LiveScoringTable";
-import TeacherPage from "./pages/TeacherPage"
+import TeacherPage from "./pages/StudentPage"
 import EventMainPage from "./pages/EventMainPage";
 import Header from "./components/Header";
 import ActivtiesPage from "./pages/ActivtiesPage";
