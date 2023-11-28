@@ -6,7 +6,7 @@ import StudentEventBoxes from '../components/StudentEventBoxes';
 import StudentCalendar from '../components/StudentCalender';
 import FavTeachers from '../components/FavTeacher';
 import SearchAndFiltersEducator from '../components/SearchAndFilter';
-import TeacherConDetail from '../components/StudentConDetail';
+import TeacherConDetail from '../components/TeacherConDetail';
 
 
 const StudentProfile: React.FC = () => {
@@ -25,7 +25,7 @@ const StudentProfile: React.FC = () => {
           onSelectTab={handleSelectTab}
           showTabs={true}
           description=''
-          profilePic='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+          profilePic='/img/profile1.png'
           name='John Miler'
         />
         <StudentEventBoxes />
@@ -74,7 +74,7 @@ const StudentProfile: React.FC = () => {
           onSelectTab={setSelectedTab}
           showTabs={false}
           description='" ning processes to achieve superior results"'
-          profilePic="/img/profile1.png"
+          profilePic="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           name="Cinderella"
         />
         <TeacherConDetail />

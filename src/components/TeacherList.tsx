@@ -24,7 +24,7 @@ const TeacherList: React.FC = () => {
     ];
     return (
         <>
-            <div className='mt-6'>
+            <div className='mt-6 cursor-pointer'>
                 <div className='shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-4 relative   '>
                     <div className='flex items-center'>
                         <img

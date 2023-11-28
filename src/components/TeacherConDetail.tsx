@@ -7,37 +7,11 @@ import {
   faWifi,
 } from "@fortawesome/free-solid-svg-icons";
 import DropDown from "./DropDown";
-import StudentHistory from "../components/StudentHistory"
-export const StudentConDetail = () => {
+import AvailabilityTabs from "./AvailavilityTabs";
+export const TeacherConDetail = () => {
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);
   };
-  const boxData = [
-    {
-      imageUrl: "/img/zozo.png",
-      description: "You have an 30 minutes appointment with Jaine at 2:00PM.",
-      bgColor: "#F2FAFF",
-      borderColor: "#00A4FE",
-    },
-    {
-      imageUrl: "/img/zozo.png",
-      description: "You appointment with Jaine at 3 PM got cancelled.",
-      bgColor: "#FFE6E6",
-      borderColor: "#00A4FE",
-    },
-    {
-      imageUrl: "/img/zozo.png",
-      description: "You appointment with Jaine will start in 5 minutes.",
-      bgColor: "#F2FAFF",
-      borderColor: "#00A4FE",
-    },
-    {
-      imageUrl: "/img/zozo.png",
-      description: "You have an 30 minutes appointment with Jaine at 2:00PM.",
-      bgColor: "#F2FAFF",
-      borderColor: "#00A4FE",
-    },
-  ];
   return (
     <div className="box">
       <div className="grid my-6">
@@ -89,7 +63,7 @@ export const StudentConDetail = () => {
           </p>
         </div>
       </div>
-      <div className="">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="">
             <FontAwesomeIcon
@@ -98,13 +72,15 @@ export const StudentConDetail = () => {
             />
           </div>
           <h3 className="text-black font-bold text-xs font-sans">
-            History
+            Availability
           </h3>
         </div>
-        
+        <div className="div">
+          <DropDown />
+        </div>
       </div>
-      <StudentHistory data={boxData} />
+      <AvailabilityTabs onSelectTime={handleSelectTime} />
     </div>
   );
 };
-export default StudentConDetail;
+export default TeacherConDetail;

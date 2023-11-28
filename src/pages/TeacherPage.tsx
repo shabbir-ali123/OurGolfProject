@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
 import StudentTabs from '../components/StudentTabs';
-import FindActivties from '../components/StudentList';
+import StudentList from '../components/StudentList';
 import StudentEventBoxes from '../components/StudentEventBoxes';
 import TeacherCalSec from "../components/TeacherCalSec";
 import SearchAndFiltersStudent from '../components/SearchStudent';
-import TeacherConDetail from '../components/StudentConDetail';
+import StudentConDetail from '../components/StudentConDetail';
 
 const TeacherProfile: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<'teacher' | 'student'>('teacher');
@@ -34,7 +34,7 @@ const TeacherProfile: React.FC = () => {
         <SearchAndFiltersStudent />
        
         {Array.from({ length: 4 }, (_, index) => (
-          <FindActivties key={index} />
+          <StudentList key={index} />
         ))}
         
         <style>{`
@@ -70,10 +70,10 @@ const TeacherProfile: React.FC = () => {
           onSelectTab={setSelectedTab}
           showTabs={false}
           description='" ning processes to achieve superior results"'
-          profilePic="/img/profile1.png"
-          name="Cinderella"
+          profilePic="/img/student.png"
+          name="Vivek Kumar"
         />
-        <TeacherConDetail />
+        <StudentConDetail />
       </div>
     </div>
   );

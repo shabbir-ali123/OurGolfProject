@@ -33,13 +33,13 @@ const SearchAndFiltersEducator: React.FC = () => {
                 <div className='flex flex-row items-center'>
                     <p className='text-[12px] font-bold'>Filter By:</p>
 
-                    <div className='flex items-center justify-center gap-x-2'>
+                    <div className='flex items-center justify-center gap-x-2 '>
                         {['Rating', 'Location', 'Availability'].map(
                             (title, index) => {
                                 return (
                                     <button
                                         key={index}
-                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs ${
+                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs cursor-pointer ${
                                             search.includes(title)
                                                 ? 'bg-[#A8FFC2]'
                                                 : 'bg-[#D9D9D966]'
