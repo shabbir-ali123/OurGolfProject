@@ -1,18 +1,8 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import AllEventContainer from "../components/AllEventContainer";
 import SearchEventContainer from "../components/SearchMainEventFilter";
-import AllEventTabs from "../components/AllEventTabs";
-import EventLocation from "../components/EventLocation";
-import Header from "../components/Header";
 import SideIconMenu from "../components/SideIconMenu";
-import {
-  PencilIcon,
-  PencilSquareIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
 import { Clip } from "../components/Clip";
 import Tabs from "../components/Tabs";
-import HoverSideMenu from "../components/HoverSideMenu";
 
 const EventMainPage: FunctionComponent = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);

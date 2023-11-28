@@ -1,13 +1,13 @@
-// TeacherActivities.jsx
+
 import React from "react";
-import TeacherCalSec from "./StudentCalSec";
+import StudentCalSec from "./StudentCalSec";
 import ActivtiesTabs from "./ActivtiesTabs"
-const TeacherActivities = () => {
+const StudentActivities = () => {
   return (
     <div className="grid grid-cols-12 gap-0 ">
       {/* Left Column */}
       <div className="col-span-12  lg:col-span-4 ">
-        <TeacherCalSec/>
+        <StudentCalSec/>
       </div>
 
       {/* Middle Column */}
@@ -18,4 +18,4 @@ const TeacherActivities = () => {
   );
 };
 
-export default TeacherActivities;
+export default StudentActivities;

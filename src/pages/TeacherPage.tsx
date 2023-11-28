@@ -1,23 +1,20 @@
 
 import React, { useState } from 'react';
 import StudentTabs from '../components/StudentTabs';
-import TeacherList from '../components/TeacherList';
+import FindActivties from '../components/StudentList';
 import StudentEventBoxes from '../components/StudentEventBoxes';
-import StudentCalendar from '../components/StudentCalender';
-import FavTeachers from '../components/FavTeacher';
-import SearchAndFiltersEducator from '../components/SearchAndFilter';
+import TeacherCalSec from "../components/TeacherCalSec";
+import SearchAndFiltersStudent from '../components/SearchStudent';
 import TeacherConDetail from '../components/StudentConDetail';
 
-
-const StudentProfile: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<'student' | 'teacher'>('student');
-    const handleSelectTab = (tab: 'student' | 'teacher') => {
+const TeacherProfile: React.FC = () => {
+    const [selectedTab, setSelectedTab] = useState<'teacher' | 'student'>('teacher');
+    const handleSelectTab = (tab: 'teacher' | 'student') => {
         setSelectedTab(tab);
       };
-
   return (
     <div className="grid grid-cols-12 gap-0">
-      
+     
       {/* Left Column */}
       <div className='col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-10 mx-10'>
         <StudentTabs
@@ -29,16 +26,15 @@ const StudentProfile: React.FC = () => {
           name='John Miler'
         />
         <StudentEventBoxes />
-        <StudentCalendar />
-        <FavTeachers />
+        <TeacherCalSec/>
       </div>
 
       {/* Middle Column */}
       <div className='col-span-12   lg:col-span-4 p-4 lg:overflow-y-auto scrollbar lg:max-h-screen '>
-        <SearchAndFiltersEducator />
+        <SearchAndFiltersStudent />
        
         {Array.from({ length: 4 }, (_, index) => (
-          <TeacherList key={index} />
+          <FindActivties key={index} />
         ))}
         
         <style>{`
@@ -83,4 +79,4 @@ const StudentProfile: React.FC = () => {
   );
 };
 
-export default StudentProfile;
+export default TeacherProfile;

@@ -10,10 +10,11 @@ import ScoreBoard from "./pages/ScoreBoard";
 import OngoingIndiviualScore from "./pages/OngoingIndiviualScore";
 import OngoingTeamScore from "./pages/OngoingTeamScore";
 // import OngoingEvent from "./pages/LiveScoringTable";
-import TeacherPage from "./pages/StudentPage"
+import StudentPage from "./pages/StudentPage"
 import EventMainPage from "./pages/EventMainPage";
 import Header from "./components/Header";
 import ActivtiesPage from "./pages/ActivtiesPage";
+import TeacherPage from "./pages/TeacherPage";
 
 function App() {
   const action = useNavigationType();
@@ -55,6 +56,10 @@ function App() {
           title = "";
           metaDescription = "";
           break;
+          case "/teacher-page":
+            title = "";
+            metaDescription = "";
+            break;
     }
 
     if (title) {
@@ -80,10 +85,11 @@ function App() {
           path="/ongoing-indiviual-score"
           element={<OngoingIndiviualScore />}
         />
-        <Route path="/teacher-page" element={<TeacherPage  />} />
+        <Route path="/student-page" element={<StudentPage  />} />
         <Route path="/ongoing-team-score" element={<OngoingTeamScore />} />
         <Route path="/event-main-page" element={<EventMainPage />} />
         <Route path="/activties-page" element={<ActivtiesPage />} />
+        <Route path="/teacher-page" element={<TeacherPage />} />
       </Routes>
     </div>
   );

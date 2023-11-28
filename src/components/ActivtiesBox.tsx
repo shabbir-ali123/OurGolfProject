@@ -1,13 +1,13 @@
 import React from 'react';
 
-interface ProfileBoxProps {
+interface ActivtiesBoxProps {
   imageUrl: string;
   description: string;
   bgColor: string;
   borderColor: string;
 }
 
-const ProfileBox: React.FC<ProfileBoxProps> = ({ imageUrl, description, bgColor, borderColor }) => {
+const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ imageUrl, description, bgColor, borderColor }) => {
   return (
     <div className={`max-w-5xl mx-auto p-4 bg-${bgColor} border border-${borderColor} shadow-lg rounded-lg border-solid mt-6`} style={{backgroundColor: bgColor , border:borderColor}}>
       <div className="flex items-center">
@@ -24,4 +24,4 @@ const ProfileBox: React.FC<ProfileBoxProps> = ({ imageUrl, description, bgColor,
   );
 };
 
-export default ProfileBox;
+export default ActivtiesBox;

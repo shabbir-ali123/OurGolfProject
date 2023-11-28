@@ -4,20 +4,20 @@ export default function YourComponent() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    // Update window width when the window is resized
+    
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
 
-    // Remove the event listener when the component is unmounted
+   
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  const isMobile = windowWidth < 768; // Adjust the threshold based on your design
+  const isMobile = windowWidth < 768;
 
   return (
     <div className="lg:col-span-1 col-span-4 mt-10 h-full">

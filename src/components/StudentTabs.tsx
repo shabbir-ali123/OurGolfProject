@@ -2,27 +2,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface TeacherTabsProps {
+interface StudentTabsProps {
   selectedTab: 'student' | 'teacher';
   onSelectTab: (tab: 'student' | 'teacher') => void;
   showTabs?: boolean;
-  profilePic: string; 
-  name: string; 
-  discription: string;
+  profilePic: string;
+  name: string;
+  description: string; // Corrected the prop name
 }
 
-const TeacherTabs: React.FC<TeacherTabsProps> = ({
+const StudentTabs: React.FC<StudentTabsProps> = ({
   selectedTab,
   onSelectTab,
   showTabs = true,
   profilePic,
   name,
-  discription,
+  description,
 }) => {
   return (
     <div>
       <div className="lg:flex lg:flex-1 lg:justify-center">
-        <Link to="#" className=" block flex-shrink-0">
+        <Link to="/" className=" block flex-shrink-0">
           <div className="text-center">
             <div className="">
               <img
@@ -35,13 +35,14 @@ const TeacherTabs: React.FC<TeacherTabsProps> = ({
               <p className="text-black font-sans font-bold text-base group-hover:text-gray-900 m-0">
                 {name}
               </p>
-              <p className="text-gray-700 font-sans text-xs font-normal">{discription}</p>
+              <p className="text-gray-700 font-sans text-xs font-normal">{description}</p>
             </div>
           </div>
         </Link>
       </div>
       {showTabs && (
         <div className="flex justify-center">
+          <Link to="/student-page" className='list-none no-underline'>
           <button
             className={`px-4 py-2 rounded-l-md cursor-pointer ${
               selectedTab === 'student' ? 'bg-[#52FF86] text-white' : 'border-solid border-2 border-[#51ff85]'
@@ -50,6 +51,9 @@ const TeacherTabs: React.FC<TeacherTabsProps> = ({
           >
             Student
           </button>
+          </Link>
+          
+          <Link to="/teacher-page" className='list-none no-underline text-black'>
           <button
             className={`px-4 py-2 rounded-r-md cursor-pointer ${
               selectedTab === 'teacher' ? 'bg-[#52FF86] text-white' : 'border-solid border-2 border-[#51ff85]'
@@ -58,10 +62,13 @@ const TeacherTabs: React.FC<TeacherTabsProps> = ({
           >
             Teacher
           </button>
+          </Link>
+          
+          
         </div>
       )}
     </div>
   );
 };
 
-export default TeacherTabs;
+export default StudentTabs;
