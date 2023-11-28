@@ -9,6 +9,8 @@ import LeaderBoardFirstRow from '../components/LeaderBoardRow';
 import LeaderBoardScoringTab from '../components/LeaderBoardScoringTable';
 import IndiviualPlayerScore from '../components/LeaderBoardPlayerScore';
 import Team from '../utils/Team';
+import IndiviualPlayerTableHeader from '../components/IndiviualPlayerTableHeader';
+import IndiviualPlayerTableRow from '../components/IndiviualPlayerTableRow';
 
 const ScoreBoard: FunctionComponent = () => {
     const teamData = [
@@ -70,36 +72,42 @@ const ScoreBoard: FunctionComponent = () => {
     ];
 
     return (
-        <div className='relative bg-white w-full   text-left text-[1.97px] text-darkslategray-200 font-poppins'>
-            <ChampionShipName />
-            <Slider />
-            <div className='absolute top-[848px] left-[calc(50%_-_675px)] w-[1350px] h-[1095px]'>
-                <LeaderBoardSection />
-                <div className='absolute top-[1036px] left-[590px] w-[171px] h-[59px] text-lg text-black'>
-                    <div className='absolute  top-[0px] left-[0px] rounded-[40px] bg-white shadow-[4px_4px_16px_#268d61] w-[171px] h-[59px]' />
+        <div className='relative w-full font-poppins'>
+            <div className='flex flex-col'>
+                <ChampionShipName />
+                <div className='mt-20 mx-5 md:mx-[80px] shadow-[0px_0px_5px_rgba(0,_0,_0,_0.25)]  p-[80px]'>
+                    <div>
+                        <LeaderBoardHeader />
+                        <div className='mt-20'>
+                            {teamData.map((data, index) => (
+                                <div key={index}>
+                                    <LeaderBoardFirstRow
+                                        data={data}
+                                        rowBackgroundColor={
+                                            data.rowBackgroundColor
+                                        }
+                                        teamBackgroundColor={
+                                            data.teamBackgroundColor
+                                        }
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                {/* loading More Button */}
+                <div className='text-center m-auto mt-10'>
                     <div
-                        className='absolute top-[20px] left-[39px] leading-[20px] font-medium'
+                        className='flex items-center justify-center rounded-[40px] text-lg bg-white shadow-[4px_4px_16px_#268d61] w-[171px] h-[59px] leading-[20px] font-medium'
                         style={{ cursor: 'pointer' }}
                     >{`Load More `}</div>
                 </div>
-
-                <div className='absolute top-[272px] left-[64px] w-[1211px] h-[697px]'>
-                    <LeaderBoardHeader />
-                    <div className='mt-20'>
-                        {teamData.map((data, index) => (
-                            <div key={index}>
-                                <LeaderBoardFirstRow
-                                    data={data}
-                                    rowBackgroundColor={data.rowBackgroundColor}
-                                    teamBackgroundColor={
-                                        data.teamBackgroundColor
-                                    }
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                {/* indiviual player  score */}
+                <IndiviualPlayerScore />
+                {/* Drive Context  and Near Pin Contest */}
             </div>
+            {/* <Slider /> */}
+           
             <div className='absolute top-[2976px] left-[105px] w-[1350px] h-[1470px] text-17xl text-darkslateblue-300'>
                 <div className='absolute top-[785px] left-[120px] w-[1350px] h-[685px]'>
                     <div className='absolute top-[0px] left-[0px] w-[596px] h-[103px]'>
@@ -1317,7 +1325,7 @@ const ScoreBoard: FunctionComponent = () => {
                 </div>
             </div>
             <LeaderBoardScoringTab />
-            <IndiviualPlayerScore />
+           
         </div>
     );
 };

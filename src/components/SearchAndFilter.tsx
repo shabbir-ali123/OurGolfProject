@@ -12,14 +12,13 @@ const SearchAndFiltersEducator: React.FC = () => {
         addSearchitem.push(value);
         setSearch(addSearchitem);
     };
-    console.log(search);
     return (
         <>
             <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
                 Find Your Educator
             </p>
             <div className='flex flex-col md:flex-row bg-white justify-between items-center'>
-                <div className='relative min-w-[204.64px] h-[24.08px] '>
+                <div className='relative w-full h-[44.08px] md:w-[204.64px] md:h-[24.08px] '>
                     <input
                         placeholder='search'
                         className='px-2 w-full h-full rounded-md py-1.5  box-border text-sm text-gray-300 border-solid border-[0.42px] border-[#CDCDCD]'
@@ -39,11 +38,11 @@ const SearchAndFiltersEducator: React.FC = () => {
                                 return (
                                     <button
                                         key={index}
-                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs bg-[${
+                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs ${
                                             search.includes(title)
-                                                ? '#A8FFC2'
-                                                : '#D9D9D966'
-                                        }] text-xs text-black shadow-sm`}
+                                                ? 'bg-[#A8FFC2]'
+                                                : 'bg-[#D9D9D966]'
+                                        } text-xs text-black shadow-sm`}
                                         onClick={() => {
                                             searchHandler(title);
                                         }}
