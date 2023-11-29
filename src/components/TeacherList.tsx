@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from "react";
 import TeacherListButton from './TeacherListButton';
 import { faMapMarkerAlt,faPhoneAlt,faEnvelope,faWifi, faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReschedulePop from "../components/ReschedulePop";
 const TeacherList: React.FC = () => {
+    const [showModal, setShowModal] = useState(false);
+    const handleSelectTime = (selectedTime: string) => {
+      // Handle selected time logic
+      console.log(`Selected Time: ${selectedTime}`);
+    };
+    const handleBookAppointment = () => {
+      setShowModal(false)
+      handleSelectTime("Default Appointment Time");
+      
+    };
     const buttons = [
         {
             color: 'bg-[#0038FF]',
             title: 'Book an Appointment',
             icon: '/img/appointment.svg',
+            onClick: () => setShowModal(true),
           
         },
         {
@@ -83,13 +95,20 @@ const TeacherList: React.FC = () => {
                                 color={btn.color}
                                 title={btn.title}
                                 icon={btn.icon}
-                                onClick={() => {}}
+                                onClick={btn.onClick}
                                 textColor={btn.textColor}
                             />
                         ))}
                     </div>
                 </div>
             </div>
+            {showModal && (
+        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 max-w-md mx-auto rounded-lg">
+           <ReschedulePop onSelectTime={handleSelectTime} onClick={handleBookAppointment} />
+          </div>
+        </div>
+      )}
         </>
     );
 };
