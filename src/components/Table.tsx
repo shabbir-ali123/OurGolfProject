@@ -137,7 +137,7 @@ export default function Example() {
                       style={{
                         width: "100%",
                         borderRadius: "4px",
-                        border: "none", // Remove the white border
+                        border: "none",
                        
                       }}
 
