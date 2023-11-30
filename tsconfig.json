@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["babel__traverse"],
+    // "types": ["babel__traverse"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
