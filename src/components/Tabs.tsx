@@ -9,7 +9,7 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import Table from "../components/Table";
-
+import { Link, useNavigate } from "react-router-dom";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -86,6 +86,7 @@ export default function Example() {
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className=" w-full">
         <div className="md:flex justify-start pb-2 sm:justify-end">
+          <Link to="/create-event">
           <button
             type="button"
             className="inline-flex items-center gap-x-1.5 rounded-md bg-[#65BCFE] px-3 py-3.5 text-xs font-semibold text-white shadow-sm cursor-pointer"
@@ -93,6 +94,8 @@ export default function Example() {
             <PencilSquareIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
             Create Event
           </button>
+          </Link>
+         
         </div>
 
         <Tab.Group>

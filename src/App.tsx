@@ -15,7 +15,7 @@ import EventMainPage from "./pages/EventMainPage";
 import Header from "./components/Header";
 import ActivtiesPage from "./pages/ActivtiesPage";
 import TeacherPage from "./pages/TeacherPage";
-
+import CreateEvent from "./pages/CreateEvent"
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -60,6 +60,10 @@ function App() {
             title = "";
             metaDescription = "";
             break;
+            case "/create-event":
+            title = "";
+            metaDescription = "";
+            break;
     }
 
     if (title) {
@@ -90,6 +94,7 @@ function App() {
         <Route path="/event-main-page" element={<EventMainPage />} />
         <Route path="/activties-page" element={<ActivtiesPage />} />
         <Route path="/teacher-page" element={<TeacherPage />} />
+        <Route path="/create-event" element={<CreateEvent/>} />
       </Routes>
     </div>
   );
