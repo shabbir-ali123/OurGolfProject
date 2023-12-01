@@ -16,11 +16,11 @@ export default function Example() {
   return (
     <header className="bg-[#17B3A6] overflow-hidden ">
       <nav
-        className="flex items-center justify-between p-2 lg:px-32"
+        className="flex items-center justify-between p-0 lg:px-32"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1">
             <span className="sr-only">Your Company</span>
             <img className="h-16 w-auto" src="./img/logo.png" alt="" />
           </Link>
@@ -28,7 +28,7 @@ export default function Example() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2 inline-flex items-center justify-center rounded-md p-1 text-gray-700"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -60,9 +60,7 @@ export default function Example() {
                 <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
                   Esther Howard
                 </p>
-                <p className="text-base font-medium text-white group-hover:text-gray-700 m-0">
-                  Admin
-                </p>
+              
               </div>
             </div>
           </Link>
@@ -116,9 +114,7 @@ export default function Example() {
                       <p className="text-base font-medium text-black group-hover:text-gray-700 m-0">
                         Esther Howard
                       </p>
-                      <p className="text-base font-medium text-black group-hover:text-gray-700 m-0">
-                        Admin
-                      </p>
+                     
                     </div>
                   </div>
                 </Link>

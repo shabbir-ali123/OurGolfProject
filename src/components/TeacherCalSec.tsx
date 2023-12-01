@@ -19,15 +19,7 @@ const meetings = [
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     location: "Appointment - Leslie",
   },
-  {
-    id: 2,
-    date: "January 10th, 2022",
-    datetime: "2022-01-10T17:00",
-    name: "11:00AM - 12:00 PM",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    location: "Appointment - Jaine",
-  },
+ 
   
 ];
 const days = [
@@ -36,7 +28,7 @@ const days = [
   { date: "2021-12-29" },
   { date: "2021-12-30" },
   { date: "2021-12-31" },
-  { date: "2022-01-01", isCurrentMonth: true ,isSelected: true},
+  { date: "2022-01-01", isCurrentMonth: true },
   { date: "2022-01-02", isCurrentMonth: true },
   { date: "2022-01-03", isCurrentMonth: true },
   { date: "2022-01-04", isCurrentMonth: true },
@@ -57,7 +49,7 @@ const days = [
   { date: "2022-01-19", isCurrentMonth: true },
   { date: "2022-01-20", isCurrentMonth: true },
   { date: "2022-01-21", isCurrentMonth: true },
-  { date: "2022-01-22", isCurrentMonth: true },
+  { date: "2022-01-22", isCurrentMonth: true, isSelected: true },
   { date: "2022-01-23", isCurrentMonth: true },
   { date: "2022-01-24", isCurrentMonth: true },
   { date: "2022-01-25", isCurrentMonth: true },
@@ -81,7 +73,7 @@ function classNames(
   return classes.filter(Boolean).join(" ");
 }
 
-export default function TeacherCalSec() {
+export default function Example() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
@@ -99,12 +91,15 @@ export default function TeacherCalSec() {
     setSelectedDate(null);
   };
   return (
-    <div>
-      <div className=" lg:grid lg:grid-cols-12 lg:gap-x-14 pt-10 ">
+    <div className="">
+      <div className=" lg:grid lg:grid-cols-4 justify-center ">
+     
         <div className="lg:col-span-8 xl:col-span-9 px-4 ">
+         
+
           <div className="flex items-center justify-between mx-2 my-2 text-gray-900">
-            <div className="font-inter font-bold text-lg text-[#009C2F]">
-            September 2020
+            <div className="font-inter font-semibold text-[#009C2F]">
+              January 2023
             </div>
             <div className="flex">
               <button
@@ -156,7 +151,7 @@ export default function TeacherCalSec() {
                   className={classNames(
                     "mx-auto flex h-7 w-7 items-center justify-center rounded-full",
                     day.isSelected && day.isToday && "bg-indigo-600",
-                    day.isSelected && !day.isToday && "bg-[#009C2F]"
+                    day.isSelected && !day.isToday && "bg-gray-900"
                   )}
                 >
                   {day.date?.split("-").pop()?.replace(/^0/, "") ?? ""}
@@ -165,6 +160,7 @@ export default function TeacherCalSec() {
             ))}
           </div>
         </div>
+       
       </div>
     </div>
   );

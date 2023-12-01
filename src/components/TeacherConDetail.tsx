@@ -14,7 +14,7 @@ export const TeacherConDetail = () => {
   };
   return (
     <div className="box">
-      <div className="grid my-6">
+      <div className="grid my-0">
         <div className="flex items-center gap-2 ">
           <div className="">
             <FontAwesomeIcon
@@ -31,7 +31,7 @@ export const TeacherConDetail = () => {
         </div>
       </div>
 
-      <div className="grid my-6">
+      <div className="grid my-0">
         <div className="flex items-center gap-2">
           <div className="">
             <FontAwesomeIcon
@@ -47,7 +47,7 @@ export const TeacherConDetail = () => {
           </p>
         </div>
       </div>
-      <div className="grid my-6">
+      <div className="grid my-0">
         <div className="flex items-center gap-2">
           <div className="">
             <FontAwesomeIcon

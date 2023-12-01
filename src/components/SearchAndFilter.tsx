@@ -15,7 +15,7 @@ const SearchAndFiltersEducator: React.FC = () => {
     console.log('hello')
     return (
         <>
-            <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
+            <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold m-0'>
                 Find Your Teacher
             </p>
             <div className='flex flex-col md:flex-row bg-white justify-between items-center'>

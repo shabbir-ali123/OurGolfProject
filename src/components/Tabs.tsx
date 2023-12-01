@@ -85,26 +85,13 @@ export default function Example() {
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className=" w-full">
-        <div className="md:flex justify-start pb-2 sm:justify-end">
-          <Link to="/create-event">
-          <button
-            type="button"
-            className="inline-flex items-center gap-x-1.5 rounded-md bg-[#65BCFE] px-3 py-3.5 text-xs font-semibold text-white shadow-sm cursor-pointer"
-          >
-            <PencilSquareIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-            Create Event
-          </button>
-          </Link>
-         
-        </div>
-
         <Tab.Group>
           <Tab.List className="flex flex-wrap justify-between space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
             <div className="flex flex-wrap lg:flex-nowrap gap-4 py-2">
               <div className="md:mx-20 xl:relative w-full">
                 <button
                   type="button"
-                  className="xl:py-6 rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className="xl:py-5 rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
                   Tokyo
@@ -116,7 +103,7 @@ export default function Example() {
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "w-full rounded-md py-4 px-10 text-base font-normal leading-5",
+                      "w-full rounded-md py-3 px-10 text-base font-normal leading-5",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
                         ? "bg-[#3A66C0]  text-white "

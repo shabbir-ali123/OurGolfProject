@@ -19,7 +19,7 @@ const SideMenu: React.FC = () => {
 
   const menuStyles: React.CSSProperties = {
     height: '100vh',
-    width: isMenuOpen ? '200px' : '60px',
+    width: isMenuOpen ? '150px' : '40px',
     backgroundColor: '#17B3A6',
     display: 'flex',
     flexDirection: 'column',
@@ -28,10 +28,13 @@ const SideMenu: React.FC = () => {
     position: 'fixed',
     left: 0,
     top: 0,
-   
+    padding: '50px 0px',
     transition: 'width 0.3s ease',
+    
   };
-
+  const mediaQueryStyles: React.CSSProperties = {
+    width: '40px', // Set the width to 40px for small screens
+  };
   const menuItemStyles: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
@@ -60,7 +63,7 @@ const SideMenu: React.FC = () => {
 
   return (
     <div
-      style={menuStyles}
+      style={{ ...menuStyles, ...(window.innerWidth <= 768 && mediaQueryStyles) }}
       onMouseEnter={() => setIsMenuOpen(true)}
       onMouseLeave={() => setIsMenuOpen(false)}
     >

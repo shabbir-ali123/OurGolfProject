@@ -3,7 +3,11 @@ import SearchEventContainer from "../components/SearchMainEventFilter";
 import SideIconMenu from "../components/SideIconMenu";
 import { Clip } from "../components/Clip";
 import Tabs from "../components/Tabs";
-
+import {
+ 
+  PencilSquareIcon,
+} from "@heroicons/react/24/outline";
+import { Link, useNavigate } from "react-router-dom";
 const EventMainPage: FunctionComponent = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
@@ -30,9 +34,9 @@ const EventMainPage: FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-10 overflow-hidden px-10 py-0 mx-0 xl:mx-20">
+    <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:mx-20">
       <SearchEventContainer />
-      <div className="flex flex-wrap justify-between items-center">
+        <div className="flex justify-between items-center">
         <div className="flex flex-wrap items-end gap-3">
           <div>
             <img
@@ -49,8 +53,23 @@ const EventMainPage: FunctionComponent = () => {
             <Clip title="Hokkaido" />
           </div>
         </div>
+        <div>
+        <Link to="/create-event">
+        <button
+            type="button"
+            className="flex items-center  rounded-md bg-[#65BCFE] px-3 py-3 text-xs font-semibold text-white shadow-sm cursor-pointer"
+          >
+            <PencilSquareIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+            Create Event
+          </button>
+          </Link>
+        
+        </div>
+        
+        </div>
+        
        
-      </div>
+    
      
       <Tabs />
       

@@ -6,8 +6,8 @@ const CreateEvent: React.FC = () => {
    
   return (
     <div >
-     {/* <TournamentBg/>
-     <BasicInfo/> */}
+     <TournamentBg/>
+     <BasicInfo/>
     </div>
   );
 };

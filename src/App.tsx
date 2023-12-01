@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Routes,
@@ -16,11 +16,23 @@ import Header from "./components/Header";
 import ActivtiesPage from "./pages/ActivtiesPage";
 import TeacherPage from "./pages/TeacherPage";
 import CreateEvent from "./pages/CreateEvent"
+import SideIconMenu from "./components/SideIconMenu";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
+  const [isDesktopScreen, setIsDesktopScreen] = useState(window.innerWidth > 768);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktopScreen(window.innerWidth > 768);
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   useEffect(() => {
     if (action !== "POP") {
       window.scrollTo(0, 0);
@@ -79,10 +91,11 @@ function App() {
       }
     }
   }, [pathname]);
-
+  
   return (
     <div>
       <Header />
+      {isDesktopScreen && <SideIconMenu />}
       <Routes>
         <Route path="/" element={<ScoreBoard />} index />
         <Route

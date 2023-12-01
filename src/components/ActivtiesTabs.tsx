@@ -52,6 +52,24 @@ export default function Example() {
         bgColor: "#FFE6E6",
         borderColor: "#00A4FE",
       },
+      {
+        imageUrl: "/img/zozo.png",
+        description: "You have an 30 minutes appointment with Jaine at 2:00PM.",
+        bgColor: "#F2FAFF",
+        borderColor: "#00A4FE",
+      },
+      {
+        imageUrl: "/img/zozo.png",
+        description: "You appointment with Jaine at 3 PM got cancelled.",
+        bgColor: "#FFE6E6",
+        borderColor: "#00A4FE",
+      },
+      {
+        imageUrl: "/img/zozo.png",
+        description: "You appointment with Jaine at 3 PM got cancelled.",
+        bgColor: "#FFE6E6",
+        borderColor: "#00A4FE",
+      },
     ],
     TodayActivities: [
       {
@@ -82,6 +100,18 @@ export default function Example() {
       {
         imageUrl: "/img/zozo.png",
         description: "You appointment with Jaine will start in 5 minutes.",
+        bgColor: "#F2FAFF",
+        borderColor: "#00A4FE",
+      },
+      {
+        imageUrl: "/img/zozo.png",
+        description: "You appointment with Jaine at 3 PM got cancelled.",
+        bgColor: "#FFE6E6",
+        borderColor: "#00A4FE",
+      },
+      {
+        imageUrl: "/img/zozo.png",
+        description: "You have an 30 minutes appointment with Jaine at 2:00PM.",
         bgColor: "#F2FAFF",
         borderColor: "#00A4FE",
       },
@@ -130,6 +160,18 @@ export default function Example() {
         bgColor: "#FFE6E6",
         borderColor: "#00A4FE",
       },
+      {
+        imageUrl: "/img/zozo.png",
+        description: "You have an 30 minutes appointment with Jaine at 2:00PM.",
+        bgColor: "#F2FAFF",
+        borderColor: "#00A4FE",
+      },
+      {
+        imageUrl: "/img/zozo.png",
+        description: "You appointment with Jaine at 3 PM got cancelled.",
+        bgColor: "#FFE6E6",
+        borderColor: "#00A4FE",
+      },
     ],
   } as Record<string, Category[]>);
   const tabNumbers = [29, 34, 32];
@@ -139,7 +181,7 @@ export default function Example() {
       <div className="w-full">
         <Tab.Group>
           <Tab.List className="flex  justify-center items-center">
-            <div className="flex lg:flex-nowrap gap-4 py-2">
+            <div className="flex lg:flex-nowrap gap-6 py-2">
               {Object.keys(categories).map((category, index) => (
                 <Tab
                   key={category}
@@ -148,14 +190,14 @@ export default function Example() {
                     ring-white ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
                     ${
                       selected
-                        ? `bg-gradient-to-b from-[#0AE94D] to-[#00A632] rounded-lg text-white shadow-lg h-18 w-[170px] sm:w-[170px] sm:h-16 md:h-40 md:w-[250px] xl:w-[340px]`
-                        : `bg-[#ffff] shadow-lg border-solid border-2 border-[#51ff85] h-18 w-[130px] sm:w-[170px] sm:h-16 md:h-40 md:w-250px] xl:w-[340px]`
+                        ? `bg-gradient-to-b from-[#0AE94D] to-[#00A632] rounded-lg text-white shadow-lg h-18 w-[120px] sm:w-[170px] sm:h-16 md:h-32 md:w-[250px] xl:w-[340px]`
+                        : `bg-[#ffff] shadow-lg border-solid border-2 border-[#51ff85] h-18 w-[100px] sm:w-[170px] sm:h-16 md:h-32 md:w-250px] xl:w-[340px]`
                     }`
                   }
                 >
-                  <div className="text-center md:flex items-center justify-center ">
+                  <div className="text-center md:flex items-center justify-center  ">
                     <div
-                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[20px] w-8 h-8 flex items-center justify-center  md:text-[60px] md:font-bold md:w-24  md:h-24 text-[#52FF86]`}
+                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[24px] md:font-bold md:w-16  md:h-16 text-[#52FF86]`}
                     >
                       {tabNumbers[index]}
                     </div>
@@ -168,15 +210,42 @@ export default function Example() {
           <Tab.Panels>
             {Object.keys(categories).map((category) => (
               <Tab.Panel key={category}>
-                {categories[category].map((activity, index) => (
-                  <ActivtiesBox
-                    key={index}
-                    imageUrl={activity.imageUrl}
-                    description={activity.description}
-                    bgColor={activity.bgColor}
-                    borderColor={activity.borderColor}
-                  />
-                ))}
+                <div className=" xl:h-[520px] xl:overflow-y-scroll scrollbar">
+                 
+                  {categories[category].map((activity, index) => (
+                    <ActivtiesBox
+                      key={index}
+                      imageUrl={activity.imageUrl}
+                      description={activity.description}
+                      bgColor={activity.bgColor}
+                      borderColor={activity.borderColor}
+                    />
+
+                  ))}
+              <style>{`
+        
+        @media screen and (min-width: 1300px) {
+          .scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #52FF86 transparent;
+           
+          }
+               
+                .scrollbar::-webkit-scrollbar {
+                    width: 8px;
+                    height:10px;
+                }
+
+                .scrollbar::-webkit-scrollbar-thumb {
+                    background-color: #52FF86;
+                    border-radius: 6px;
+                }
+
+                .scrollbar::-webkit-scrollbar-track {
+                    background-color: transparent;
+                }
+            `}</style>
+                </div>
               </Tab.Panel>
             ))}
           </Tab.Panels>

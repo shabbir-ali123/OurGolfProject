@@ -18,7 +18,7 @@ const TeacherListButton: React.FC<TeacherListButtonProps> = ({
     let textCol = textColor ? 'text-' +[textColor] : 'text-white';
     return (
         <button
-            className={`${color} ${textCol} cursor-pointer font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl inline-flex items-center`}
+            className={`${color} ${textCol} my-2 cursor-pointer font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl flex items-center`}
             onClick={onClick}
         >
             <img className='mr-1' src={icon} alt='' />

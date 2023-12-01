@@ -36,8 +36,9 @@ const TeacherList: React.FC = () => {
     ];
     return (
         <>
-            <div className='mt-6 cursor-pointer'>
-                <div className='shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-4 relative   '>
+            <div className='mt-2 cursor-pointer'>
+                <div className='flex justify-between items-end shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-2 relative   '>
+                    <div>
                     <div className='flex items-center'>
                         <img
                             className='h-[55.25px] w-[55.25px] rounded-full border-solid border-4 border-[#51ff85]'
@@ -53,7 +54,7 @@ const TeacherList: React.FC = () => {
                             </p>
                         </div>
                     </div>
-                    <div className='mt-4 p-2 ml-3'>
+                    <div className='mt-2 p-2 ml-3'>
                         <ul className='list-none m-0 p-0'>
                             <li className='flex items-center mb-2'>
                                 <img
@@ -79,8 +80,10 @@ const TeacherList: React.FC = () => {
                             </li>
                         </ul>
                     </div>
+                    </div>
+                    
                     <div className='absolute top-[-2px] right-[-2px] flex'>
-                        <img className='' src='/img/teacher_rate.png' alt='' />
+                        <img className='w-16' src='/img/teacher_rate.png' alt='' />
                         <span className='font-bold text-base tracking-wide absolute flex items-center justify-center w-full h-full'>
                               ¥30
                             <sub className='font-normal text-[5px] tracking-wide'>
@@ -88,7 +91,7 @@ const TeacherList: React.FC = () => {
                             </sub>
                         </span>
                     </div>
-                    <div className=' flex items-center justify-end gap-1'>
+                    <div className='gap-2'>
                         {buttons.map((btn, index) => (
                             <TeacherListButton
                                 key={index}

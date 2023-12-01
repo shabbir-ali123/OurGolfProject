@@ -78,48 +78,48 @@ const people = [
 export default function Example() {
   return (
     <div className="">
-    <div className="mt-8 flow-root">
+    <div className="mt-2 flow-root">
       <div className=" -my-2 overflow-x-auto">
-        <div className="inline-block min-w-full py-2 align-middle ">
+        <div className="inline-block min-w-full py-0 align-middle ">
           <div className="overflow-hidden  sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300" style={{borderCollapse: "separate", borderSpacing: "0 10px"}}>
               <thead className="bg-[#006800] text-white ">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
+                      className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
                     >
                       Organizer
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold"
+                      className="px-3 py-2 text-left text-sm font-semibold"
                     >
                       Time
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold"
+                      className="px-3 py-2 text-left text-sm font-semibold"
                     >
                       Date
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold"
+                      className="px-3 py-2 text-left text-sm font-semibold"
                     >
                       Event Name
                     </th>
 
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold"
+                      className="px-3 py-2 text-left text-sm font-semibold"
                     >
                       Short Notes
                     </th>
 
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibol"
+                      className="px-3 py-2 text-left text-sm font-semibol"
                     >
                       Actions
                     </th>
@@ -144,7 +144,7 @@ export default function Example() {
                     >
                       <td className="flex items-center  mt-1 ">
                           <div
-                            className={` -rotate-90 px-8 py-4    text-white  text-sm my-6 ml-[-29px] flex  items-center ${
+                            className={` -rotate-90 px-8 py-2    text-white  text-sm my-6 ml-[-29px] flex  items-center ${
                               person.type !== "full" ? "bg-[#CF4E4E]" : "opacity-0"
                             }`}
                           >
@@ -163,10 +163,10 @@ export default function Example() {
                           </div>
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-5 text-sm">
+                      <td className="whitespace-nowrap px-3 py-0 text-sm">
                         {person.time}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-5  text-sm">
+                      <td className="whitespace-nowrap px-3 py-0  text-sm">
                         {person.date}
                       </td>
                       <td className="flex justify-between items-center text-center ml-2 whitespace-pre-wrap xl:text-left text-sm  font-semibold ">
@@ -185,10 +185,10 @@ export default function Example() {
                         </div>
 
                         <span
-                          className={`md:whitespace-nowrap px-2 text-white py-2 text-sm mx-0  sm:mx-2    ${
+                          className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2    ${
                             person.type === "full"
-                              ? "bg-[#006800] cursor-pointer py-4 mt-[-20px] "
-                              : "bg-[#A1A1A1] mt-[-20px] py-4 "
+                              ? "bg-[#006800] cursor-pointer py-0 mt-[-20px] "
+                              : "bg-[#A1A1A1]  py-0 mt-[-20px]"
                           }`}
                         >
                           <p className="rotate-45 sm:text-lg xl:text-xl">
@@ -197,10 +197,10 @@ export default function Example() {
                          
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-5 text-sm">
+                      <td className="whitespace-nowrap px-3 py-0 text-sm">
                         {person.notes}
                       </td>
-                      <td className="flex gap-1 whitespace-nowrap px-3 py-5 text-sm">
+                      <td className="flex gap-1 whitespace-nowrap px-3 py-0 text-sm">
                         <div className="flex  gap-1 flex-col items-center">
                           <div className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md">
                             <HandThumbUpIcon className="h-4 w-4 text-white" />
