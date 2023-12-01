@@ -22,7 +22,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
   return (
     <div>
       <div className="lg:flex lg:flex-1 lg:justify-center">
-        <Link to="/" className=" block flex-shrink-0">
+        <div className=" block flex-shrink-0">
           <div className="text-center">
             <div className="">
               <img
@@ -38,7 +38,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
               <p className="text-gray-700 font-sans text-xs font-normal">{description}</p>
             </div>
           </div>
-        </Link>
+        </div>
       </div>
       {showTabs && (
         <div className="flex justify-center">
