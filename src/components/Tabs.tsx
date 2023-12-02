@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import Calendar from "../components/Calender";
 import EventMap from "../components/EventMap";
+import LocationSelectionPopup from "../components/LocationSelectionPopup";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   MapPinIcon,
-  PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import Table from "../components/Table";
 import { Link, useNavigate } from "react-router-dom";
@@ -81,6 +81,23 @@ export default function Example() {
       },
     ],
   });
+  // State for managing the visibility of the location selection popup
+  const [isLocationPopupOpen, setLocationPopupOpen] = useState(false);
+
+  // State to store selected locations
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+
+  // Function to handle location selection
+  const handleLocationSelect = (locations: string | string[]) => {
+    // Convert a single location to an array
+    const newLocations = Array.isArray(locations) ? locations : [locations];
+
+    // Add the selected locations to the list
+    setSelectedLocations((prevSelectedLocations) => [
+      ...prevSelectedLocations,
+      ...newLocations,
+    ]);
+  };
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
@@ -91,7 +108,8 @@ export default function Example() {
               <div className="md:mx-20 xl:relative w-full">
                 <button
                   type="button"
-                  className="xl:py-5 rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  onClick={() => setLocationPopupOpen(true)}
+                  className="xl:py-[22px] rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
                   Tokyo
@@ -111,9 +129,39 @@ export default function Example() {
                     )
                   }
                 >
-                  {category}
+                  {category === "LIVE" ? (
+                    <>
+                      <div className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="red"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="red"
+                          className="w-6 h-6 pr-2.5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
+                          />
+                        </svg>
+
+                        {category}
+                      </div>
+                    </>
+                  ) : (
+                    category
+                  )}
                 </Tab>
               ))}
+              {isLocationPopupOpen && (
+                <LocationSelectionPopup
+                  onClose={() => setLocationPopupOpen(false)}
+                  onSelect={(locations: string[]) =>
+                    handleLocationSelect(locations[0])
+                  }
+                />
+              )}
             </div>
             <div>
               <Calendar />
@@ -210,7 +258,7 @@ export default function Example() {
                     </div>
                   </div>
                 </div>
-               <EventMap/>
+                <EventMap />
               </div>
             </Tab.Panel>
           </Tab.Panels>
