@@ -8,15 +8,14 @@ import {
 
 const people = [
   {
-    organizer:"GolfMasters",
+    organizer: "GolfMasters",
     time: "12:00 PM",
     date: "Nov 13, SUN",
     event: "ZOZO CHAMPIONSHIP",
     notes: "It's a organizer's note. Keep in mind",
     type: "null",
     location: "Yokohama Country Club",
-    imageUrl:
-      "/img/ellipse-2311@2x.png",
+    imageUrl: "/img/ellipse-2311@2x.png",
   },
   {
     organizer: "Fairway Fun",
@@ -26,8 +25,7 @@ const people = [
     notes: "It's a organizer's note. Keep in mind",
     type: "full",
     location: "Yokohama Country Club",
-    imageUrl:
-    "/img/ellipse-23081@2x.png",
+    imageUrl: "/img/ellipse-23081@2x.png",
   },
   {
     organizer: "GreenLinks",
@@ -37,8 +35,7 @@ const people = [
     notes: "It's a organizer's note. Keep in mind",
     type: "null",
     location: "Yokohama Country Club",
-    imageUrl:
-    "/img/ellipse-23082@2x.png",
+    imageUrl: "/img/ellipse-23082@2x.png",
   },
   {
     organizer: "GolfPro",
@@ -48,8 +45,7 @@ const people = [
     notes: "It's a organizer's note. Keep in mind",
     type: "full",
     location: "Yokohama Country Club",
-    imageUrl:
-    "/img/ellipse-23083@2x.png",
+    imageUrl: "/img/ellipse-23083@2x.png",
   },
   {
     organizer: "SwingFest",
@@ -59,8 +55,7 @@ const people = [
     notes: "It's a organizer's note. Keep in mind",
     type: "null",
     location: "Yokohama Country Club",
-    imageUrl:
-    "/img/ellipse-23084@2x.png",
+    imageUrl: "/img/ellipse-23084@2x.png",
   },
   {
     organizer: "GolfGather",
@@ -70,20 +65,22 @@ const people = [
     notes: "It's a organizer's note. Keep in mind",
     type: "full",
     location: "Yokohama Country Club",
-    imageUrl:
-    "/img/ellipse-23085@2x.png",
+    imageUrl: "/img/ellipse-23085@2x.png",
   },
 ];
 
 export default function Example() {
   return (
     <div className="">
-    <div className="mt-2 flow-root">
-      <div className=" -my-2 overflow-x-auto">
-        <div className="inline-block min-w-full py-0 align-middle ">
-          <div className="overflow-hidden  sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-300" style={{borderCollapse: "separate", borderSpacing: "0 10px"}}>
-              <thead className="bg-[#006800] text-white ">
+      <div className="mt-2 flow-root">
+        <div className=" -my-2 overflow-x-auto">
+          <div className="inline-block min-w-full py-0 align-middle ">
+            <div className="overflow-hidden  sm:rounded-lg">
+              <table
+                className="min-w-full divide-y divide-gray-300"
+                style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
+              >
+                <thead className="bg-[#006800] text-white ">
                   <tr>
                     <th
                       scope="col"
@@ -126,7 +123,7 @@ export default function Example() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white ">
-                {people.map((person, index) => (
+                  {people.map((person, index) => (
                     <tr
                       key={person.time}
                       className={`rounded-sm ${
@@ -138,21 +135,19 @@ export default function Example() {
                         width: "100%",
                         borderRadius: "4px",
                         border: "none",
-                       
                       }}
-
                     >
-                      <td className="flex items-center  mt-1 ">
-                          <div
-                            className={` -rotate-90 px-8 py-2    text-white  text-sm my-6 ml-[-29px] flex  items-center ${
-                              person.type !== "full" ? "bg-[#CF4E4E]" : "opacity-0"
-                            }`}
-                          >
-                            FULL
-                          </div>
+                      <td className="flex items-center  mt-[0px] ">
                         <div
-                          className={`flex items-center gap-x-4`}
+                          className={` -rotate-90 px-4 py-2    text-white  text-sm my-6 ml-[-19px] flex  items-center ${
+                            person.type !== "full"
+                              ? "bg-[#CF4E4E]"
+                              : "opacity-0"
+                          }`}
                         >
+                          FULL
+                        </div>
+                        <div className={`flex items-center gap-x-4`}>
                           <img
                             src={person.imageUrl}
                             alt=""
@@ -174,7 +169,7 @@ export default function Example() {
                           {person.event}
                           <span className="flex items-center gap-1 font-normal ">
                             <MapPinIcon
-                              className={`-mr-0.5 h-3 w-3 ${
+                              className={`-mr-0.5 h-5 w-5 ${
                                 person.type !== "full" && "text-[#CF4E4E]"
                               }`}
                               aria-hidden="true"
@@ -187,14 +182,13 @@ export default function Example() {
                         <span
                           className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2    ${
                             person.type === "full"
-                              ? "bg-[#006800] cursor-pointer py-0 mt-[-20px] "
-                              : "bg-[#A1A1A1]  py-0 mt-[-20px]"
+                              ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] "
+                              : "bg-[#A1A1A1]  py-0 mt-[-10px]"
                           }`}
                         >
                           <p className="rotate-45 sm:text-lg xl:text-xl">
-                          Join
+                            Join
                           </p>
-                         
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-3 py-0 text-sm">
@@ -203,29 +197,36 @@ export default function Example() {
                       <td className="flex gap-1 whitespace-nowrap px-3 py-0 text-sm">
                         <div className="flex  gap-1 flex-col items-center">
                           <div className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md">
-                            <HandThumbUpIcon className="h-4 w-4 text-white" />
+                            <HandThumbUpIcon className="h-3 w-3 text-white" />
                           </div>
-                          <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-4 w-4 p-1 rounded-md">
-                            <div className="text-[10px] text-white">12</div>
+                          <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
+                            <div className="text-[10px] text-white ">12</div>
                           </div>
                         </div>
                         <div className="flex  gap-1 flex-col items-center">
                           <div className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md">
-                            <ChatBubbleBottomCenterIcon className="h-4 w-4 text-white" />
+                            <ChatBubbleBottomCenterIcon className="h-3 w-3 text-white" />
                           </div>
-                          <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-4 w-4 p-1 rounded-md">
+                          <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
                             <div className="text-[10px] text-white">20</div>
                           </div>
                         </div>
                         <div className="flex  gap-1 flex-col items-center">
                           <div className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md">
-                            <PlusIcon className="h-4 w-4 text-white" />
+                            <PlusIcon className="h-3 w-3 text-white" />
                           </div>
-                          <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-4 w-4 p-1 rounded-md">
-                            <ShareIcon className="h-4 w-4 text-white" />
+                          <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
+                            <ShareIcon className="h-3 w-3 text-white" />
                           </div>
+                          
                         </div>
+                        
                       </td>
+                      <div className="flex justify-center my-1">
+                            <button className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
+                              View
+                            </button>
+                          </div>
                     </tr>
                   ))}
                 </tbody>

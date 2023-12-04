@@ -24,7 +24,7 @@ function App() {
   const [isDesktopScreen, setIsDesktopScreen] = useState(window.innerWidth > 768);
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktopScreen(window.innerWidth > 768);
+      setIsDesktopScreen(window.innerWidth > 1300);
     };
 
     window.addEventListener("resize", handleResize);

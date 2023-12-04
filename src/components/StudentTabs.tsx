@@ -26,7 +26,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
           <div className="text-center">
             <div className="">
               <img
-                className="inline-block h-24 w-24 rounded-full border-solid border-[10px] border-[#51ff85]"
+                className="inline-block h-24 w-24 rounded-full border-solid border-[4px] border-[#51ff85]"
                 src={profilePic}
                 alt=""
               />

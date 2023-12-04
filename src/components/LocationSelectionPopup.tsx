@@ -9,33 +9,59 @@ interface LocationSelectionPopupProps {
 }
 
 const locationsData = [
-  "Location 1",
-  "Location 2",
-  "Location 3",
-  // Add more locations as needed
+  {
+    mainCity: "City 1",
+    subCities: ["SubCity 1A", "SubCity 1B", "SubCity 1C"],
+  },
+  {
+    mainCity: "City 2",
+    subCities: ["SubCity 2A", "SubCity 2B", "SubCity 2C"],
+  },
+  {
+    mainCity: "City 3",
+    subCities: ["SubCity 3A", "SubCity 3B", "SubCity 3C"],
+  },
+  // Add more main cities and sub-cities as needed
 ];
 
 const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({
   onClose,
   onSelect,
 }) => {
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [selectedMainCity, setSelectedMainCity] = useState<string>("");
+  const [selectedSubCities, setSelectedSubCities] = useState<string[]>([]);
 
-  const toggleLocation = (location: string) => {
-    if (selectedLocations.includes(location)) {
-      setSelectedLocations(selectedLocations.filter((loc) => loc !== location));
+  const handleMainCityChange = (mainCity: string) => {
+    setSelectedMainCity(mainCity);
+    setSelectedSubCities([]); // Clear sub-city selection when main city changes
+  };
+
+  const handleSubCityChange = (subCity: string) => {
+    setSelectedSubCities((prevSubCities) =>
+      prevSubCities.includes(subCity)
+        ? prevSubCities.filter((city) => city !== subCity)
+        : [...prevSubCities, subCity]
+    );
+  };
+
+  const handleRemoveCity = (city: string) => {
+    if (selectedMainCity === city) {
+      setSelectedMainCity("");
     } else {
-      setSelectedLocations([...selectedLocations, location]);
+      setSelectedSubCities((prevSubCities) =>
+        prevSubCities.filter((subCity) => subCity !== city)
+      );
     }
   };
 
   const handleConfirm = () => {
+    const selectedLocations = [...selectedSubCities, selectedMainCity];
     onSelect(selectedLocations);
     onClose();
   };
 
   return (
-    <Transition.Root show as={React.Fragment}>
+    <Transition.Root show as="div">
       <Dialog
         as="div"
         className="fixed inset-0 overflow-y-auto"
@@ -102,40 +128,62 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({
                   </button>
                 </div>
                 <div className="mt-4">
-                  {locationsData.map((location) => (
-                    <div key={location} className="flex items-center space-x-2">
-                      <button
-                        type="button"
-                        onClick={() => toggleLocation(location)}
-                        className={`${
-                          selectedLocations.includes(location)
-                            ? "text-blue-600"
-                            : "text-gray-600"
-                        } rounded-md focus:outline-none focus:ring focus:border-blue-300`}
-                      >
-                        {selectedLocations.includes(location) ? (
-                          <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                        ) : (
-                          <div className="h-5 w-5 border border-gray-300 rounded-md" />
-                        )}
-                      </button>
-                      <span className="m-1">{location}</span>
-                    </div>
-                  ))}
-                </div>
+      <label>What are you looking for?</label>
+      <select
+        value={selectedMainCity}
+        onChange={(e) => handleMainCityChange(e.target.value)}
+        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring focus:border-blue-300 sm:text-sm rounded-md"
+      >
+        <option value="Tokyo">Tokyo</option>
+        {locationsData.map(({ mainCity }) => (
+          <option key={mainCity} value={mainCity}>
+            {mainCity}
+          </option>
+        ))}
+      </select>
+
+      {selectedMainCity && (
+        <div className="mt-4">
+          <label>Sub Cities:</label>
+          {locationsData
+            .find((location) => location.mainCity === selectedMainCity)
+            ?.subCities.map((subCity) => (
+              <div key={subCity} className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={() => handleSubCityChange(subCity)}
+                  className={`${
+                    selectedSubCities.includes(subCity)
+                      ? "text-blue-600"
+                      : "text-gray-600"
+                  } rounded-md focus:outline-none focus:ring focus:border-blue-300`}
+                >
+                  {selectedSubCities.includes(subCity) ? (
+                      <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  ) : (
+                    <div className="h-5 w-5 border border-gray-300 rounded-md" />
+                  )}
+                </button>
+                <span className="m-1">{subCity}</span>
+                
+              </div>
+            ))}
+        </div>
+      )}
+    </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
@@ -157,6 +205,67 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({
           </Transition.Child>
         </div>
       </Dialog>
+       {/* Add a section to display selected cities */}
+  <div className="fixed bottom-0 right-0 p-4 bg-white border border-gray-300 rounded-tl-md">
+    <p>Selected Cities:</p>
+    {selectedMainCity && (
+      <div className="flex items-center">
+        <p>Main City: {selectedMainCity}</p>
+        {/* Close (cross) button to remove mainCity */}
+        <button
+          type="button"
+          onClick={() => handleRemoveCity(selectedMainCity)}
+          className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-300 ml-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    )}
+    {selectedSubCities.length > 0 && (
+      <div>
+        <p>Sub Cities:</p>
+        {selectedSubCities.map((subCity) => (
+          <div key={subCity} className="flex items-center">
+            <p>{subCity}</p>
+            {/* Close (cross) button to remove subCity */}
+            <button
+              type="button"
+              onClick={() => handleRemoveCity(subCity)}
+              className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring focus:border-blue-300 ml-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
     </Transition.Root>
   );
 };

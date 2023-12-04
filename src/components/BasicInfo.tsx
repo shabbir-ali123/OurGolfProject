@@ -14,7 +14,7 @@ const BasicInfo: React.FC = () => {
       <h2 className="text-[#0f1e56] text-4xl">Basic Information</h2>
       <div className=" bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl mt-4 border-solid border-2 border-[#51ff85]">
         <form className="grid grid-cols-9 mx-auto lg:gap-x-16  px-4 py-8  ">
-          <div className="col-span-5 lg:col-span-4 py-2  md:col-span-5   md:mr-0 md:mb-3 ">
+          <div className="col-span-8 lg:col-span-4 py-2  md:col-span-5   md:mr-0 md:mb-3 ">
             <label
               className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-event-name"
@@ -28,7 +28,7 @@ const BasicInfo: React.FC = () => {
               placeholder="Event Name"
             />
           </div>
-          <div className="col-span-5  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
+          <div className="col-span-8  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
             <label
               className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-short-video"
@@ -42,7 +42,7 @@ const BasicInfo: React.FC = () => {
               placeholder="Short Video Url"
             />
           </div>
-          <div className="col-span-5  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
+          <div className="col-span-8  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
             <label
               className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-short-video"
@@ -55,8 +55,27 @@ const BasicInfo: React.FC = () => {
               type="text"
               placeholder="Event Details"
             />
+            <div className="relative w-full col-span-8  lg:col-span-4  md:col-span-5  md:mr-0 md:mb-2">
+              <div className="absolute grid  place-items-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm rounded-l-sm text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 top-[32px] right-[-42px] ">
+                <button className="bg-transparent text-white cursor-pointer py-2.5 px-4">
+                  Search
+                </button>
+              </div>
+              <label
+                className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="grid-short-video"
+              >
+                Place
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="text"
+                placeholder="Enter Place"
+              />
+            </div>
           </div>
-          <div className="col-span-5  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
+          <div className="col-span-8  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
             <label
               className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-short-video"
@@ -65,7 +84,7 @@ const BasicInfo: React.FC = () => {
             </label>
             <div className="relative ">
               <input
-                className="hidden"
+                className="hidden h-10"
                 id="file-input"
                 type="file"
                 ref={fileInputRef}
@@ -75,13 +94,13 @@ const BasicInfo: React.FC = () => {
               />
               <div className="flex items-center ">
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   type="text"
                   onClick={handleFileInputChange}
                   readOnly
                 />
                 <span
-                  className="absolute top-[15px] left-[50%] transform -translate-x-1/2 pr-3 flex items-center text-gray-700 cursor-pointer"
+                  className="absolute top-[65px] left-[50%] transform -translate-x-1/2 pr-3 flex items-center text-gray-700 cursor-pointer"
                   onClick={handleFileInputChange}
                 >
                   <FontAwesomeIcon icon={faPlus} />
@@ -89,27 +108,8 @@ const BasicInfo: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-5  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
-            <label
-              className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-short-video"
-            >
-              Place
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-first-name"
-              type="text"
-              placeholder="Enter Place"
-            />
-          </div>
-          <div className="col-span-5 flex items-center mt-4  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
-            <button className="cursor-pointer bg-[#0038FF] hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full">
-              Search
-            </button>
-          </div>
         </form>
-        
+
         <div className="col-span-12 mx-4 sm:mx-16 relative md:col-span-8 lg:col-span-8 ">
           {/* Google Map */}
           <iframe
@@ -123,7 +123,7 @@ const BasicInfo: React.FC = () => {
           ></iframe>
 
           <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
-          <button
+            <button
               className="bg-[#51ff85] mx-2 text-white py-3 px-4 mb-2 md:mb-0 md:mr-2 rounded-md"
               onClick={() => {}}
             >
@@ -135,13 +135,13 @@ const BasicInfo: React.FC = () => {
               placeholder="Search location"
             />
             <button
-                className="bg-blue-500 mx-2 text-white py-3 px-4 rounded-md sm:mx-0 lg:mx-2"
-                onClick={() => {
-                  // Handle select button click
-                }}
-              >
-                Select
-              </button>
+              className="bg-blue-500 mx-2 text-white py-3 px-4 rounded-md sm:mx-0 lg:mx-2"
+              onClick={() => {
+                // Handle select button click
+              }}
+            >
+              Select
+            </button>
           </div>
         </div>
       </div>

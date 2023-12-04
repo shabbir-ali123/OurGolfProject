@@ -14,7 +14,7 @@ const FavoriteTeachers: React.FC = () => {
           View All
         </button>
       </div>
-      <div className=" flex flex-wrap justify-center  auto-rows-max mx-auto gap-3 my-4 md:grid-flow-col lg:grid-flow-col xl:grid-flow-col ">
+      <div className=" flex flex-wrap justify-between  auto-rows-max mx-auto gap-3 my-4 md:grid-flow-col lg:grid-flow-col xl:grid-flow-col ">
         <div className="">
           <div className="text-center">
             <div className="border-6 border-solid border-green-500">
