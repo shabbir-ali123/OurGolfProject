@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Table from "../components/Table";
 import { Link, useNavigate } from "react-router-dom";
+import 'animate.css';
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -101,17 +102,17 @@ export default function Example() {
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
-      <div className=" w-full">
+      <div className=" w-full animate__animated animate__fadeInLeft">
         <Tab.Group>
           <Tab.List className="flex flex-wrap justify-between space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
             <div className="flex flex-wrap lg:flex-nowrap gap-4 py-2">
-              <div className="md:mx-20 xl:relative w-full">
+              <div className="md:mx-20 xl:relative w-full animate__animated animate__shakeY">
                 <button
                   type="button"
                   onClick={() => setLocationPopupOpen(true)}
-                  className="xl:py-[22px] rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className=" xl:py-[22px] rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
-                  <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+                  <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
                   Tokyo
                 </button>
               </div>
@@ -121,7 +122,7 @@ export default function Example() {
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "w-full rounded-md py-3 px-10 text-base font-normal leading-5",
+                      "w-full rounded-md py-3 px-10 text-base font-normal leading-5 cursor-pointer hover:animate-bounce",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
                         ? "bg-[#3A66C0]  text-white "
@@ -176,7 +177,7 @@ export default function Example() {
                     <div className="flex flex-1 justify-between sm:hidden">
                       <a
                         href="#"
-                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="animate__bounce relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                       >
                         Previous
                       </a>

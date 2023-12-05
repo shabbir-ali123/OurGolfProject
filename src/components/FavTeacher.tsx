@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 const FavoriteTeachers: React.FC = () => {
   return (
-    <div>
+    <div className="">
       <div className="flex items-center justify-between">
         <h3 className="text-black font-sans font-bold text-xl ">
           Favorite Teachers

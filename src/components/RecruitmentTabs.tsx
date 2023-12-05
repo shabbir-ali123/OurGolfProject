@@ -16,7 +16,7 @@ const Tabs = () => {
           className={`cursor-pointer  rounded-full px-3 py-2 flex justify-center items-center ${
             activeTab === "individual"
               ? "text-white bg-[#0038FF] hover:bg-blue-800 focus:outline-none focus:ring-4   font-medium rounded-full text-sm px-5 py-2 text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              : "bg-transparent border-solid border-2 border-[#0038FF] text-[#0038FF]"
+              : "bg-transparent border-solid border-2 border-[#0038FF] text-[#0038FF] "
           }`}
         >
           Individual

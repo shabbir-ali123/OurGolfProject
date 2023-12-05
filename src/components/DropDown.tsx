@@ -10,7 +10,7 @@ export default function Example() {
   const [selectedOption, setSelectedOption] = useState('29-10-2023');
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-left ">
       <div className='flex items-center gap-2'>
         <label htmlFor="" className='text-black font-bold text-md font-sans'>Date</label>
         <Menu.Button

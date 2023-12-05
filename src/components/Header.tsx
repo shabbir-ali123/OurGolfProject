@@ -3,12 +3,14 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
+import { motion } from "framer-motion"
 
 const navigation = [
   { name: "Home", to: "/", active: false },
   { name: "Posts", to: "#", active: false },
   { name: "Events", to: "/event-main-page", active: false },
-  { name: "Find a teacher", to: "/teacher-page", active: false },
+  { name: "Find a teacher", to: "/student-page", active: false },
+  
 ];
 
 export default function Example() {
@@ -24,19 +26,19 @@ export default function Example() {
   return (
     <header className="bg-[#17B3A6] overflow-hidden ">
       <nav
-        className="flex items-center justify-between p-0 lg:px-32"
+        className="flex items-center justify-between p-0 lg:px-32 "
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
+        <div className="flex lg:flex-1 ">
           <Link to="/" className="-m-1.5 p-1">
             <span className="sr-only">Your Company</span>
-            <img className="h-16 w-auto" src="./img/logo.png" alt="" />
+            <img className="h-16 w-auto animate-pulse" src="./img/logo.png" alt="" />
           </Link>
         </div>
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2 inline-flex items-center justify-center rounded-md p-1 text-gray-700"
+            className="mr-2 inline-flex items-center justify-center rounded-md p-1 text-gray-700"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -57,7 +59,9 @@ export default function Example() {
           </Link>
         ))}
         </div>
-        <ProfileButton/>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <ProfileButton />
+      </div>
       </nav>
       <Dialog
         as="div"
@@ -73,7 +77,7 @@ export default function Example() {
             </Link>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700 "
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>

@@ -16,7 +16,7 @@ const TeacherProfile: React.FC = () => {
     <div className="grid grid-cols-12 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8">
      
       {/* Left Column */}
-      <div className='col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4'>
+      <div className='col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft'>
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={handleSelectTab}
@@ -30,7 +30,7 @@ const TeacherProfile: React.FC = () => {
       </div>
 
       {/* Middle Column */}
-      <div className='col-span-12 md:col-span-12 lg:col-span-12  xl:col-span-3 px-4 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen '>
+      <div className='col-span-12 md:col-span-12 lg:col-span-12  xl:col-span-3 px-4 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen animate__animated animate__fadeInLeft'>
         <SearchAndFiltersStudent />
        
         {Array.from({ length: 4 }, (_, index) => (
@@ -64,7 +64,7 @@ const TeacherProfile: React.FC = () => {
       </div>
 
       {/* Right Column */}
-      <div className="col-span-12 xl:col-span-5 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4">
+      <div className="col-span-12 xl:col-span-5 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight z-[-1]">
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={setSelectedTab}

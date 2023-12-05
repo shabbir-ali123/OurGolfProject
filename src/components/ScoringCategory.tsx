@@ -63,7 +63,7 @@ const ScoringCategory: React.FC = () => {
         <div className="flex gap-10">
           <div>
             <input
-            className="rounded-full"
+            className="rounded-full "
               type="checkbox"
               checked={formData[Tab.Triple].field1}
               onChange={(e) => handleCheckboxChange("field1", e.target.checked)}
@@ -351,7 +351,7 @@ const ScoringCategory: React.FC = () => {
              </div>
            </div>
         )}
-        <div className="flex items-center space-x-4 col-span-12 lg:col-span-6 py-2 md:col-span-5 md:mr-0 md:mb-3">
+        <div className="flex items-center  col-span-12 lg:col-span-6 py-2 md:col-span-5 md:mr-0 md:mb-3">
             <label
               htmlFor="date"
               className="block capitalize tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -359,12 +359,12 @@ const ScoringCategory: React.FC = () => {
               Driver contest
             </label>
             <input
-              className="text-center appearance-none block w-[50px]  bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="text-center appearance-none block w-[50px]  bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none focus:bg-white"
               id="grid-Event-Name"
               type="number"
               placeholder="3"
             />
-            <p className="text-[#ff0000]">Please select whole number</p>
+            <p className="text-[#ff0000] ml-3">Please select whole number</p>
           </div>
           <div className="flex items-center space-x-4 col-span-12 lg:col-span-2 py-2 md:col-span-2 md:mr-0 md:mb-3">
             <label

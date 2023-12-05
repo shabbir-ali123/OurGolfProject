@@ -13,11 +13,12 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { Link, useLocation } from "react-router-dom";
 const SideMenu: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuStyles: React.CSSProperties = {
+    zIndex:"9999",
     height: "100vh",
     width: isMenuOpen ? "150px" : "40px",
     backgroundColor: "#17B3A6",
@@ -67,7 +68,7 @@ const SideMenu: React.FC = () => {
       onMouseEnter={() => setIsMenuOpen(true)}
       onMouseLeave={() => setIsMenuOpen(false)}
     >
-      <div className="absolute top-[8px]">
+      <div className="absolute top-[8px] ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="white"
@@ -83,10 +84,13 @@ const SideMenu: React.FC = () => {
           />
         </svg>
       </div>
+      <Link to="/" className="w-full ">
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faHome} style={iconStyles} />
         <span style={textStyles}>Home</span>
       </div>
+      </Link>
+      
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faBell} style={iconStyles} />
         <span style={textStyles}>Notifications</span>

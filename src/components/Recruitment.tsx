@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import RecruitmentTabs from "../components/RecruitmentTabs"
+import RecruitmentTabs from "../components/RecruitmentTabs";
 const Recruitment: React.FC = () => {
+ 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileInputChange = () => {
@@ -11,7 +12,10 @@ const Recruitment: React.FC = () => {
     }
   };
   return (
-    <div className="lg:max-w-6xl mx-auto px-2 py-8 ">
+    <div
+      className="lg:max-w-6xl mx-auto px-2 py-8 "
+    
+    >
       <h2 className="text-[#0f1e56] text-4xl">Recruitment Details</h2>
       <div className=" bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl mt-4 border-solid border-2 border-[#51ff85]">
         <form className="grid grid-cols-9 mx-auto lg:gap-x-16  px-4 py-8  ">
@@ -103,7 +107,7 @@ const Recruitment: React.FC = () => {
             />
           </div>
           <div className="flex items-center space-x-4 col-span-12 lg:col-span-6 py-2 md:col-span-5 md:mr-0 md:mb-3">
-          <RecruitmentTabs/>
+            <RecruitmentTabs />
           </div>
           <div className="flex items-center space-x-4 col-span-12 lg:col-span-6 py-2 md:col-span-5 md:mr-0 md:mb-3">
             <label

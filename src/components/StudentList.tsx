@@ -41,10 +41,10 @@ const StudentList: React.FC = () => {
   ];
   return (
     <>
-      <div className="mt-6 cursor-pointer">
+      <div className="mt-6 cursor-pointer animate__animated animate__fadeInLeft">
         <div className="flex justify-between items-center shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-4 relative   ">
           <div>
-            <div className="flex items-center">
+            <div className="flex items-center animate__animated animate__bounce animate__repeat-3">
               <img
                 className="h-[55.25px] w-[55.25px] rounded-full border-solid border-4 border-[#51ff85]"
                 src="/img/student.png"
@@ -64,7 +64,7 @@ const StudentList: React.FC = () => {
                 <li className="flex items-center mb-2  ">
                   <FontAwesomeIcon
                     icon={faPhoneAlt}
-                    className="w-4 h-4 rotate-90 "
+                    className="w-4 h-4 rotate-90 animate__animated animate__heartBeat animate__repeat-3 "
                   />
                   <span className="ml-6 font-normal text-[9.96px] leading-3 ">
                     85985-95415
@@ -80,7 +80,7 @@ const StudentList: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid gap-2 ">
+          <div className="grid gap-2 animate__heartBeat">
             {buttons.map((btn, index) => (
               <StudentListButton
                 key={index}

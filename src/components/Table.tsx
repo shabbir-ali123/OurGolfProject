@@ -71,7 +71,7 @@ const people = [
 
 export default function Example() {
   return (
-    <div className="">
+    <div className="animate__animated animate__fadeInLeft">
       <div className="mt-2 flow-root">
         <div className=" -my-2 overflow-x-auto">
           <div className="inline-block min-w-full py-0 align-middle ">
@@ -182,11 +182,11 @@ export default function Example() {
                         <span
                           className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2    ${
                             person.type === "full"
-                              ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] "
+                              ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce "
                               : "bg-[#A1A1A1]  py-0 mt-[-10px]"
                           }`}
                         >
-                          <p className="rotate-45 sm:text-lg xl:text-xl">
+                          <p className="rotate-45 sm:text-lg xl:text-xl ">
                             Join
                           </p>
                         </span>
@@ -194,9 +194,9 @@ export default function Example() {
                       <td className="whitespace-nowrap px-3 py-0 text-sm">
                         {person.notes}
                       </td>
-                      <td className="flex gap-1 whitespace-nowrap px-3 py-0 text-sm">
+                      <td className="flex gap-1 whitespace-nowrap px-3 py-0 text-sm ">
                         <div className="flex  gap-1 flex-col items-center">
-                          <div className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md">
+                          <div className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md ">
                             <HandThumbUpIcon className="h-3 w-3 text-white" />
                           </div>
                           <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">

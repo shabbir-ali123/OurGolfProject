@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import TeacherListButton from './TeacherListButton';
 import { faMapMarkerAlt,faPhoneAlt,faEnvelope,faWifi, faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import 'animate.css';
 import ReschedulePop from "../components/ReschedulePop";
 const TeacherList: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
     const handleSelectTime = (selectedTime: string) => {
-      // Handle selected time logic
+     
       console.log(`Selected Time: ${selectedTime}`);
     };
     const handleBookAppointment = () => {
@@ -36,12 +37,12 @@ const TeacherList: React.FC = () => {
     ];
     return (
         <>
-            <div className='mt-2 cursor-pointer'>
+            <div className='mt-2 cursor-pointer animate__animated animate__fadeInLeft'>
                 <div className='flex justify-between items-end shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-2 relative   '>
                     <div>
-                    <div className='flex items-center'>
+                    <div className='flex items-center animate__animated animate__bounce animate__repeat-2'>
                         <img
-                            className='h-[55.25px] w-[55.25px] rounded-full border-solid border-4 border-[#51ff85]'
+                            className='h-[55.25px] w-[55.25px] rounded-full border-solid border-4 border-[#51ff85] '
                             src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
                             alt=''
                         />
@@ -49,7 +50,7 @@ const TeacherList: React.FC = () => {
                             <p className='text-xs font-bold tracking-wide text-[#52FF86]  m-0'>
                                 Vivek Kumar
                             </p>
-                            <p className='text-[9.13px] font-normal text-[#838383] m-0'>
+                            <p className='text-[9.13px] font-normal text-[#838383] m-0 '>
                                 Bogotá,Colombia
                             </p>
                         </div>
@@ -58,7 +59,7 @@ const TeacherList: React.FC = () => {
                         <ul className='list-none m-0 p-0'>
                             <li className='flex items-center mb-2'>
                                 <img
-                                    className='w-[22.39px] h-[12.45px]'
+                                    className='w-[22.39px] h-[12.45px]  '
                                     src='/img/stars.png'
                                     alt=''
                                 />
@@ -82,7 +83,7 @@ const TeacherList: React.FC = () => {
                     </div>
                     </div>
                     
-                    <div className='absolute top-[-2px] right-[-2px] flex'>
+                    <div className='absolute top-[-2px] right-[-2px] flex animate__animated animate__bounce'>
                         <img className='w-16' src='/img/teacher_rate.png' alt='' />
                         <span className='font-bold text-base tracking-wide absolute flex items-center justify-center w-full h-full'>
                               ¥30

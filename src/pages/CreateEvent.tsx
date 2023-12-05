@@ -6,6 +6,7 @@ import Recruitment from "../components/Recruitment"
 import ItemInstruction from '../components/ItemInstruction';
 import ScoringCategory from "../components/ScoringCategory";
 import PaymentDetails from "../components/PaymentDetails";
+
 const CreateEvent: React.FC = () => {
    
   return (

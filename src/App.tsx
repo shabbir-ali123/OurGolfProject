@@ -17,6 +17,7 @@ import ActivtiesPage from "./pages/ActivtiesPage";
 import TeacherPage from "./pages/TeacherPage";
 import CreateEvent from "./pages/CreateEvent"
 import SideIconMenu from "./components/SideIconMenu";
+import 'animate.css';
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -68,7 +69,7 @@ function App() {
           title = "";
           metaDescription = "";
           break;
-          case "/teacher-page":
+          case "/student-page":
             title = "";
             metaDescription = "";
             break;
@@ -107,6 +108,7 @@ function App() {
         <Route path="/event-main-page" element={<EventMainPage />} />
         <Route path="/activties-page" element={<ActivtiesPage />} />
         <Route path="/teacher-page" element={<TeacherPage />} />
+        <Route path="/student-page" element={<StudentPage />} />
         <Route path="/create-event" element={<CreateEvent/>} />
       </Routes>
     </div>
