@@ -7,14 +7,34 @@ import StudentCalendar from '../components/StudentCalender';
 import FavTeachers from '../components/FavTeacher';
 import SearchAndFiltersEducator from '../components/SearchAndFilter';
 import TeacherConDetail from '../components/TeacherConDetail';
-
+import ReschedulePop from '../components/ReschedulePop';
 
 const StudentProfile: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<'student' | 'teacher'>('student');
+  const [showModal, setShowModal] = useState(false);
     const handleSelectTab = (tab: 'student' | 'teacher') => {
         setSelectedTab(tab);
       };
-
+      const openModal = () => {
+        setShowModal(true);
+      };
+    
+      const closeModal = () => {
+        setShowModal(false);
+      };
+      const handleSelectTime = (selectedTime: string) => {
+     
+        console.log(`Selected Time: ${selectedTime}`);
+      };
+  
+      const handleBookAppointment = () => {
+        // Implement your logic for booking an appointment here
+        console.log('Booking appointment logic');
+      };
+      const handleCloseModal = () => {
+        // Close the modal by updating the state
+        setShowModal(false);
+      };
   return (
     <div  className="grid grid-cols-12 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8 ">
       
@@ -38,7 +58,7 @@ const StudentProfile: React.FC = () => {
         <SearchAndFiltersEducator />
        
         {Array.from({ length: 6 }, (_, index) => (
-          <TeacherList key={index} />
+          <TeacherList key={index} openModal={openModal} handleBookAppointment={handleBookAppointment} />
         ))}
         
         <style>{`
@@ -79,6 +99,13 @@ const StudentProfile: React.FC = () => {
         />
         <TeacherConDetail />
       </div>
+      {showModal && (
+        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center ">
+          <div className="bg-white p-8 max-w-md mx-auto rounded-lg animate__animated animate__fadeInLeft">
+          <ReschedulePop onSelectTime={handleSelectTime} onClose={handleCloseModal} />  
+          </div>
+        </div>
+      )}
     </div>
   );
 };

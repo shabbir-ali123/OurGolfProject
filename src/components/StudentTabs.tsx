@@ -24,7 +24,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
           <div className="text-center">
             <div  className="animate__heartBeat">
               <img
-                className="inline-block h-24 w-24 rounded-full border-solid border-[4px] border-[#51ff85]"
+                className="inline-block h-24 w-24 rounded-full border-solid border-[4px] border-[#51ff85] hover:animate-bounce"
                 src={profilePic}
                 alt=""
               />
@@ -44,10 +44,10 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
         <div className="flex justify-center">
           <Link to="/student-page" className="list-none no-underline">
             <button
-              className={`px-4 py-1 rounded-l-md cursor-pointer ${
+              className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce ${
                 selectedTab === "student"
                   ? "bg-[#52FF86] text-white"
-                  : "border-solid border-2 border-[#51ff85]"
+                  : "border-solid border-2 border-[#51ff85] hover:animate-bounce"
               }`}
               onClick={() => onSelectTab("student")}
             >
@@ -60,10 +60,10 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
             className="list-none no-underline text-black"
           >
             <button
-              className={`px-4 py-1 rounded-r-md cursor-pointer ${
+              className={`px-4 py-1 rounded-r-md cursor-pointer hover:animate-bounce ${
                 selectedTab === "teacher"
                   ? "bg-[#52FF86] text-white"
-                  : "border-solid border-2 border-[#51ff85]"
+                  : "border-solid border-2 border-[#51ff85] "
               }`}
               onClick={() => onSelectTab("teacher")}
             >

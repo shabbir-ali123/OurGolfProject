@@ -34,11 +34,11 @@ const EventMainPage: FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:mx-20">
+    <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">
       <SearchEventContainer />
         <div className="flex justify-between items-center">
         <div className="flex flex-wrap items-end gap-3">
-          <div>
+          <div className="animate__animated animate__rotateIn">
             <img
               className="object-cover w-16 animate-pulse"
               alt=""
@@ -49,7 +49,7 @@ const EventMainPage: FunctionComponent = () => {
             <h1 className="text-[#193A8B] text-[3xl] font-semibold animate__animated animate__rubberBand animate__repeat-3">
               EVENTS IN
             </h1>
-            <Clip title="Tokyo" />
+            <Clip  title="Tokyo" />
             <Clip title="Hokkaido" />
           </div>
         </div>

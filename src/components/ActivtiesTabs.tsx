@@ -190,14 +190,14 @@ export default function Example() {
                     ring-white ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
                     ${
                       selected
-                        ? `bg-gradient-to-b from-[#0AE94D] to-[#00A632] rounded-lg text-white shadow-lg h-18 w-[120px] sm:w-[170px] sm:h-16 md:h-32 md:w-[250px] xl:w-[340px]`
+                        ? `bg-gradient-to-b from-[#0AE94D] to-[#00A632] rounded-lg text-white shadow-lg h-18 w-[120px] sm:w-[170px] sm:h-16 md:h-32 md:w-[250px] xl:w-[340px] animate-bounce`
                         : `bg-[#ffff] shadow-lg border-solid border-2 border-[#51ff85] h-18 w-[100px] sm:w-[170px] sm:h-16 md:h-32 md:w-250px] xl:w-[340px]`
                     }`
                   }
                 >
                   <div className="text-center md:flex items-center justify-center  ">
                     <div
-                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[24px] md:font-bold md:w-16  md:h-16 text-[#52FF86]`}
+                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[24px] md:font-bold md:w-16  md:h-16 text-[#52FF86] animate-bounce`}
                     >
                       {tabNumbers[index]}
                     </div>

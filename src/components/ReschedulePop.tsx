@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import DropDown from "../components/DropDown";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 interface ReschedulePopProps {
   onSelectTime: (selectedTime: string) => void;
-  onClick: () => void;
+  onClose: () => void;
 }
 
-const ReschedulePop: React.FC<ReschedulePopProps> = ({
-  onSelectTime,
-  onClick,
-}) => {
+const ReschedulePop: React.FC<ReschedulePopProps> = ({ onSelectTime, onClose }) => {
+ 
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
 
   const timeSlots = [
@@ -35,10 +34,18 @@ const ReschedulePop: React.FC<ReschedulePopProps> = ({
     setSelectedTab(index);
     onSelectTime(timeSlots[index]);
   };
-
+  const handleBookAppointment = () => {
+       onClose();
+  };
   return (
-    <div>
+    <div className="">
       <div className="">
+        <div className="flex justify-end cursor-pointer "onClick={handleBookAppointment}>
+          <span className="border-solid border-[2px] border-[#52FF86] rounded-full px-2 p-2 flex justify-center items-center">
+          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+          </span>
+        
+        </div>
         <DropDown />
         <div className="flex flex-wrap justify-start  mt-4 gap-1 border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
           {timeSlots.map((time, index) => (
@@ -59,8 +66,8 @@ const ReschedulePop: React.FC<ReschedulePopProps> = ({
         </div>
         <div className="mt-8 ml-2">
           <button
-            className="cursor-pointer bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 "
-            onClick={onClick}
+            className="hover:animate-bounce cursor-pointer bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 "
+            onClick={handleBookAppointment}
           >
             <svg
               width="24"
@@ -74,7 +81,7 @@ const ReschedulePop: React.FC<ReschedulePopProps> = ({
                 fill="white"
               />
             </svg>
-            <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl">
+            <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl ">
               Book an Appointment
             </span>
           </button>

@@ -18,7 +18,7 @@ const SearchAndFiltersStudent: React.FC = () => {
             <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
                 Find Your Activities
             </p>
-            <div className='flex flex-col md:flex-row bg-white justify-between items-center'>
+            <div className='flex flex-col md:flex-row  justify-between items-center'>
                 <div className='relative w-full h-[44.08px] md:w-[204.64px] md:h-[24.08px] '>
                     <input
                         placeholder='search'

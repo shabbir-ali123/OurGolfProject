@@ -9,7 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReschedulePop from "../components/ReschedulePop";
-const StudentList: React.FC = () => {
+interface StudentListProps {
+  openModal: () => void;
+  handleBookAppointment?: () => void;
+}
+const StudentList: React.FC<StudentListProps> = ({ openModal }) => {
   const [showModal, setShowModal] = useState(false);
   const handleSelectTime = (selectedTime: string) => {
     // Handle selected time logic
@@ -36,17 +40,22 @@ const StudentList: React.FC = () => {
       color: "bg-[#FF0000]",
       title: "Reschedule",
       icon: "/img/reschedule.svg",
-      onClick: () => setShowModal(true),
+      onClick: () => {
+        openModal();
+        if (handleBookAppointment) {
+          handleBookAppointment();
+        }
+      },
     },
   ];
   return (
     <>
       <div className="mt-6 cursor-pointer animate__animated animate__fadeInLeft">
-        <div className="flex justify-between items-center shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-4 relative   ">
+        <div className="flex justify-between items-center shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-4 relative  hover:animate-bounce  ">
           <div>
-            <div className="flex items-center animate__animated animate__bounce animate__repeat-3">
+            <div className="flex items-center animate__animated animate__bounce">
               <img
-                className="h-[55.25px] w-[55.25px] rounded-full border-solid border-4 border-[#51ff85]"
+                className="h-[55.25px] w-[55.25px] rounded-full border-solid border-4 border-[#51ff85] "
                 src="/img/student.png"
                 alt=""
               />
@@ -94,11 +103,10 @@ const StudentList: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 max-w-md mx-auto rounded-lg">
-           <ReschedulePop onSelectTime={handleSelectTime} onClick={handleBookAppointment} />
+           <ReschedulePop onSelectTime={handleSelectTime} onClose={handleBookAppointment} />
           </div>
         </div>
       )}

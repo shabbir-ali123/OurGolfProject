@@ -173,7 +173,7 @@ export default function Example() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div className="col-span-3">
                   <Table />
-                  <div className="flex items-center justify-between border-t border-gray-950 bg-white px-4 py-3 sm:px-6">
+                  <div className="flex items-center justify-between border-t border-gray-950  px-4 py-3 sm:px-6 ">
                     <div className="flex flex-1 justify-between sm:hidden">
                       <a
                         href="#"

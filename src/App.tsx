@@ -94,7 +94,7 @@ function App() {
   }, [pathname]);
   
   return (
-    <div>
+    <div className="bg-[white]  transition-colors duration-2000 animate-color-change">
       <Header />
       {isDesktopScreen && <SideIconMenu />}
       <Routes>

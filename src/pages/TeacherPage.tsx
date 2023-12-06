@@ -6,14 +6,35 @@ import StudentEventBoxes from '../components/StudentEventBoxes';
 import TeacherCalSec from "../components/TeacherCalSec";
 import SearchAndFiltersStudent from '../components/SearchStudent';
 import StudentConDetail from '../components/StudentConDetail';
-
+import ReschedulePop from '../components/ReschedulePop';
 const TeacherProfile: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<'teacher' | 'student'>('teacher');
+    const [showModal, setShowModal] = useState(false);
     const handleSelectTab = (tab: 'teacher' | 'student') => {
         setSelectedTab(tab);
       };
+      const openModal = () => {
+        setShowModal(true);
+      };
+    
+      const closeModal = () => {
+        setShowModal(false);
+      };
+      const handleSelectTime = (selectedTime: string) => {
+     
+        console.log(`Selected Time: ${selectedTime}`);
+      };
+  
+      const handleBookAppointment = () => {
+        // Implement your logic for booking an appointment here
+        console.log('Booking appointment logic');
+      };
+      const handleCloseModal = () => {
+        // Close the modal by updating the state
+        setShowModal(false);
+      };
   return (
-    <div className="grid grid-cols-12 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8">
+    <div className="grid grid-cols-12 gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
      
       {/* Left Column */}
       <div className='col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft'>
@@ -34,7 +55,7 @@ const TeacherProfile: React.FC = () => {
         <SearchAndFiltersStudent />
        
         {Array.from({ length: 4 }, (_, index) => (
-          <StudentList key={index} />
+          <StudentList key={index} openModal={openModal} handleBookAppointment={handleBookAppointment} />
         ))}
         
         <style>{`
@@ -62,9 +83,9 @@ const TeacherProfile: React.FC = () => {
             `}</style>
         
       </div>
-
+ 
       {/* Right Column */}
-      <div className="col-span-12 xl:col-span-5 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight z-[-1]">
+      <div className="col-span-12 xl:col-span-5 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight ">
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={setSelectedTab}
@@ -75,6 +96,13 @@ const TeacherProfile: React.FC = () => {
         />
         <StudentConDetail />
       </div>
+      {showModal && (
+        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center ">
+          <div className="bg-white p-8 max-w-md mx-auto rounded-lg animate__animated animate__lightSpeedInRight">
+           <ReschedulePop onSelectTime={handleSelectTime} onClose={handleCloseModal} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

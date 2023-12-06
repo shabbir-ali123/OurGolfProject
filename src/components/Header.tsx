@@ -50,10 +50,10 @@ export default function Example() {
           <Link
             key={item.name}
             to={item.to}
-            className={`text-2xl list-none no-underline font-normal leading-6 text-white ${
+            className={`text-2xl list-none no-underline font-normal leading-6 text-white hover:animate-bounce hover:text-[#ffe000] hover:text-xl ${
               item.active ? "active" : ""
             }`}
-            style={item.active ? { borderBottom: "3px solid #fff" ,borderRadius:'2px'  } : {}}
+            style={item.active ? { borderBottom: "3px solid #51ff85", color:"#51ff85", fontWeight:"900" ,borderRadius:'2px'  } : {}}
           >
             {item.name}
           </Link>

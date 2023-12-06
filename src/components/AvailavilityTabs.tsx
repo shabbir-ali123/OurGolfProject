@@ -44,7 +44,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
             className={`mcenter relative inline-block select-none whitespace-nowrap px-0 mt-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white`}
           >
             <button
-              className={`rounded-full py-4  ${
+              className={`rounded-full py-4 hover:animate-bounce cursor-pointer  ${
                 selectedTab === index ? "bg-active" : tabColors[index]
               }`}
               onClick={() => handleTabClick(index)}
@@ -55,7 +55,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
         ))}
       </div>
       <div className="mt-8 ml-2">
-        <button className="bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 ">
+        <button className="bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 animate__animated animate__lightSpeedInRight cursor-pointer">
           <svg
             width="24"
             height="24"

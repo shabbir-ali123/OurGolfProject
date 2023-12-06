@@ -11,10 +11,16 @@ const CreateEvent: React.FC = () => {
    
   return (
     <div >
-      {/* CreateEvent Components */}
+     <div className=' animate__animated animate__lightSpeedInRight'>
      <TournamentBg/>
+     </div>
+     
+     <div className='animate__animated animate__rollIn'>
      <BasicInfo/>
+     </div>
      <Recruitment/>
+    
+     
      <ItemInstruction/>
      <ScoringCategory/>
      <PaymentDetails/>

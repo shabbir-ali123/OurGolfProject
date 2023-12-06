@@ -13,7 +13,7 @@ const Recruitment: React.FC = () => {
   };
   return (
     <div
-      className="lg:max-w-6xl mx-auto px-2 py-8 "
+      className="lg:max-w-6xl mx-auto px-2 py-8  "
     
     >
       <h2 className="text-[#0f1e56] text-4xl">Recruitment Details</h2>

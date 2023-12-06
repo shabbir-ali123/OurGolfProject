@@ -93,7 +93,7 @@ export default function Example() {
   return (
     <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent">
        <Link to="/student-page" >
-            <button className="m-2 cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 mb-4 rounded-full inline-flex items-center">
+            <button className="m-2 cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 mb-4 rounded-full inline-flex items-center hover:animate-bounce">
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
               <span>Back</span>
             </button>
@@ -175,8 +175,8 @@ export default function Example() {
           <div>
             <div className="flex justify-between items-center">
             <p className="text-[#00A632] font-semibold ">1/24/2023</p>
-            <button className=" cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mb-4 rounded-md inline-flex items-center">
-              <span>See All</span>
+            <button className=" cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mb-4 rounded-md inline-flex items-center hover:animate-bounce">
+              <span className="">See All</span>
             </button>
             </div>
             

@@ -16,10 +16,10 @@ export const TeacherConDetail = () => {
     <div className="box">
       <div className="grid my-0">
         <div className="flex items-center gap-2 ">
-          <div className="">
+          <div className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] flex justify-center items-center">
             <FontAwesomeIcon
               icon={faMapMarkerAlt}
-              className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] text-[#51ff85]"
+              className=" text-[#51ff85] animate-bounce "
             />
           </div>
           <h3 className="text-black font-bold text-xs font-sans">Location</h3>
@@ -33,10 +33,10 @@ export const TeacherConDetail = () => {
 
       <div className="grid my-0">
         <div className="flex items-center gap-2">
-          <div className="">
+          <div className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] flex justify-center items-center">
             <FontAwesomeIcon
               icon={faPhoneAlt}
-              className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] text-[#51ff85]"
+              className=" text-[#51ff85] animate-bounce"
             />
           </div>
           <h3 className="text-black font-bold text-xs font-sans">Mobile No</h3>
@@ -49,10 +49,10 @@ export const TeacherConDetail = () => {
       </div>
       <div className="grid my-0">
         <div className="flex items-center gap-2">
-          <div className="">
+          <div className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] flex justify-center items-center">
             <FontAwesomeIcon
               icon={faEnvelope}
-              className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] text-[#51ff85]"
+              className=" text-[#51ff85] animate-bounce"
             />
           </div>
           <h3 className="text-black font-bold text-xs font-sans">Email</h3>
@@ -65,10 +65,10 @@ export const TeacherConDetail = () => {
       </div>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="">
+          <div className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] flex justify-center items-center">
             <FontAwesomeIcon
               icon={faWifi}
-              className="w-4 h-4 rounded-full border-solid border-2 p-2 border-[#51ff85] text-[#51ff85]"
+              className=" text-[#51ff85] animate-bounce"
             />
           </div>
           <h3 className="text-black font-bold text-xs font-sans">

@@ -18,7 +18,21 @@ a {
   text-decoration: none;
 }
 /* global.css */
+@keyframes colorChange {
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: #F0FFF9; /* Change to the color you want halfway through the animation */
+  }
+  100% {
+    background-color: #FDEEFF;
+  }
+}
 
+.animate-color-change {
+  animation: colorChange 4s infinite; /* Adjust the duration (4s) as needed */
+}
 .glow-on-hover {
   
   border: none;
