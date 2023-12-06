@@ -11,6 +11,7 @@ const CreateEvent: React.FC = () => {
    
   return (
     <div >
+      {/* CreateEvent Components */}
      <TournamentBg/>
      <BasicInfo/>
      <Recruitment/>
