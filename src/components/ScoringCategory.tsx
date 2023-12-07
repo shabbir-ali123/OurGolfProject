@@ -70,7 +70,7 @@ const ScoringCategory: React.FC = () => {
             />
             <button
               onClick={() => handleTabClick(Tab.Single)}
-              className={activeTab === Tab.Single ? "active-tab" : ""}
+              className={activeTab === Tab.Single ? "active-tab bg-[#51ff85] rounded-md  cursor-pointer animate-bounce py-2 px-4" : "bg-transparent py-2 px-4 cursor-pointer"}
             >
               Peria
             </button>
@@ -84,7 +84,7 @@ const ScoringCategory: React.FC = () => {
             />
             <button
               onClick={() => handleTabClick(Tab.Double)}
-              className={activeTab === Tab.Double ? "active-tab" : ""}
+              className={activeTab === Tab.Double ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4" : "bg-transparent py-2 px-4 cursor-pointer"}
             >
               Double Peria
             </button>
@@ -93,12 +93,12 @@ const ScoringCategory: React.FC = () => {
             <input
             className="rounded-full"
               type="checkbox"
-              checked={formData[Tab.Triple].field1}
-              onChange={(e) => handleCheckboxChange("field1", e.target.checked)}
+              checked
+              
             />
             <button
               onClick={() => handleTabClick(Tab.Triple)}
-              className={activeTab === Tab.Triple ? "active-tab" : ""}
+              className={activeTab === Tab.Triple ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4" : "bg-transparent py-2 px-4 cursor-pointer"}
             >
               Triple Peria
             </button>

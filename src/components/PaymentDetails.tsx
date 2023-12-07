@@ -28,7 +28,7 @@ const PaymentTabs = () => {
           style={{ x: 0 }}
             className={` ${
               activeTab === "bank"
-                ? "bg-blue-500 text-white cursor-pointer"
+                ? "bg-blue-500 text-white cursor-pointer animate-bounce border-none"
                 : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
             } px-4 py-2 border rounded-full`}
             onClick={() => handleTabClick("bank")}
@@ -41,7 +41,7 @@ const PaymentTabs = () => {
           style={{ x: 6 }}
             className={`${
               activeTab === "paypal"
-                ? "bg-blue-500 text-white cursor-pointer"
+                ? "bg-blue-500 text-white cursor-pointer animate-bounce"
                 : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 over:scale-105 transform transition duration-300 ease-in-out"
             } px-4 py-2   rounded-full`}
             onClick={() => handleTabClick("paypal")}
@@ -63,7 +63,7 @@ const PaymentTabs = () => {
                   Bank Name
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white hover:animate-bounce"
                   id="grid-Event-Name"
                   type="text"
                   placeholder="Payment ID"
@@ -77,7 +77,7 @@ const PaymentTabs = () => {
                   Branch
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
                   id="grid-first-name"
                   type="text"
                   placeholder="Branch Name"
@@ -91,7 +91,7 @@ const PaymentTabs = () => {
                   Account Number
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
                   id="grid-first-name"
                   type="text"
                   placeholder="Account Number"
@@ -105,7 +105,7 @@ const PaymentTabs = () => {
                   Account Holder Name
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
                   id="grid-first-name"
                   type="text"
                   placeholder="Account Holder Name"
@@ -128,7 +128,7 @@ const PaymentTabs = () => {
                   Paypal ID
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
                   id="grid-Event-Name"
                   type="text"
                   placeholder="Paypal ID"
@@ -142,7 +142,7 @@ const PaymentTabs = () => {
                   Participation fee (approximate per person)
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
                   id="grid-Event-Name"
                   type="number"
                   pattern="[0-9]*"
