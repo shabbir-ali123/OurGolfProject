@@ -96,7 +96,7 @@ const LeaderBoardRow: FunctionComponent<PlayerScoreProps> = ({ data }) => {
                                             0
                                         </div>
                                         <div className='absolute top-[32.1px] left-[7.4px] leading-[2.7px] font-semibold'>
-                                            2sdfg
+                                            2
                                         </div>
                                         <div className='absolute top-[32.1px] left-[14.6px] leading-[2.7px] font-semibold'>
                                             4

@@ -1,37 +1,95 @@
-import { FunctionComponent } from "react";
-import StateDefault from "./StateDefault";
+import { FunctionComponent } from 'react';
+import LeaderBoardHeader from '../components/LeaderBoardHeader';
+import LeaderBoardFirstRow from '../components/LeaderBoardRow';
+import Team from '../utils/Team';
 
 const LeaderBoardSection: FunctionComponent = () => {
-  return (
-    <div className="absolute top-[0px] left-[calc(50%_-_675px)] w-[1350px] h-[1004px] text-left text-21xl text-gray1-700 font-poppins">
-      <div className="absolute top-[0px] left-[calc(50%_-_675px)] bg-white shadow-[0px_0px_5px_rgba(0,_0,_0,_0.25)] w-[1350px] h-[1004px]" />
-      <div className="absolute top-[87px] left-[64px] w-[563px] h-[147px]">
-        <div className="absolute top-[129px] left-[0px] tracking-[0.04em] leading-[18px] font-semibold [text-shadow:0px_7px_4px_#17b3a6]">
-          Leader Board
-        </div>
-        <div className="absolute top-[0px] left-[8px] w-[555px] h-[62px]">
-          <div className="absolute top-[0px] left-[0px] w-[55px] h-[62px]">
-            <div className="absolute top-[0px] left-[0px] rounded-md bg-white shadow-[0px_0px_4px_rgba(0,_0,_0,_0.25)] box-border w-[55px] h-[62px] border-[1px] border-solid border-silver" />
-            <img
-              className="absolute h-[33.87%] w-[32.73%] top-[33.87%] right-[34.55%] bottom-[32.26%] left-[32.73%] max-w-full overflow-hidden max-h-full"
-              alt=""
-              src="/img/icon.svg"
-            />
-          </div>
-          <StateDefault
-            search="Search player score here..."
-            stateDefaultWidth="490px"
-            stateDefaultPosition="absolute"
-            stateDefaultTop="2px"
-            stateDefaultLeft="65px"
-            stateDefaultBorder="1px solid #b5b5b5"
-            stateDefaultHeight="60px"
-            searchFontSize="19px"
-          />
-        </div>
-      </div>
-    </div>
-  );
+    const teamData = [
+        new Team(
+            1,
+            'Fore Friends',
+            26,
+            15,
+            22,
+            78,
+            '/img/ellipse-23085@2x.png',
+            '#B8E4FD',
+            '#00BF9E'
+        ),
+        new Team(
+            2,
+            'Birdie Brigad',
+            26,
+            15,
+            22,
+            28,
+            '/img/ellipse-23085@2x.png',
+            '#B8E4FD',
+            '#00BF9E'
+        ),
+        new Team(
+            3,
+            'Hole-in-Won',
+            26,
+            15,
+            23,
+            78,
+            '/img/ellipse-23085@2x.png',
+            '#B8E4FD',
+            '#00BF9E'
+        ),
+        new Team(
+            4,
+            'Fore Friends',
+            26,
+            15,
+            22,
+            28,
+            '/img/ellipse-23085@2x.png',
+            '#B8E4FD',
+            '#00BF9E'
+        ),
+        new Team(
+            1,
+            'Eagle Express',
+            23,
+            5,
+            212,
+            748,
+            '/img/ellipse-23085@2x.png',
+            '#B8E4FD',
+            '#00BF9E'
+        ),
+    ];
+    return (
+        <>
+            <div className='mt-20 mx-5 md:mx-[80px] shadow-[0px_0px_5px_rgba(0,_0,_0,_0.25)]  p-[80px]'>
+                <div>
+                    <LeaderBoardHeader />
+                    <div className='mt-20'>
+                        {teamData.map((data, index) => (
+                            <div key={index}>
+                                <LeaderBoardFirstRow
+                                    data={data}
+                                    rowBackgroundColor={data.rowBackgroundColor}
+                                    teamBackgroundColor={
+                                        data.teamBackgroundColor
+                                    }
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+              {/* loading More Button */}
+            <div className='text-center m-auto mt-10'>
+                <div
+                    className='flex items-center justify-center rounded-[40px] text-lg bg-white shadow-[4px_4px_16px_#268d61] w-[171px] h-[59px] leading-[20px] font-medium'
+                    style={{ cursor: 'pointer' }}
+                >{`Load More `}</div>
+            </div>
+        </>
+    );
 };
 
 export default LeaderBoardSection;
