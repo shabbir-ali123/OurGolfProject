@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface TeacherListButtonProps {
+interface StudentListButtonProps {
     color: string;
     title: string;
     icon: string;
@@ -8,7 +8,7 @@ interface TeacherListButtonProps {
     textColor?: string;
 }
 
-const TeacherListButton: React.FC<TeacherListButtonProps> = ({
+const StudentListButton: React.FC<StudentListButtonProps> = ({
     color,
     title,
     icon,
@@ -18,7 +18,7 @@ const TeacherListButton: React.FC<TeacherListButtonProps> = ({
     let textCol = textColor ? 'text-' +[textColor] : 'text-white';
     return (
         <button
-            className={`${color} ${textCol} my-2 cursor-pointer font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl flex items-center`}
+            className={`${color} ${textCol} font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
             onClick={onClick}
         >
             <img className='mr-1' src={icon} alt='' />
@@ -26,4 +26,4 @@ const TeacherListButton: React.FC<TeacherListButtonProps> = ({
         </button>
     );
 };
-export default TeacherListButton;
+export default StudentListButton;

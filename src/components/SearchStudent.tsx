@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const SearchAndFiltersEducator: React.FC = () => {
+const SearchAndFiltersStudent: React.FC = () => {
     const [search, setSearch] = useState(['Rating']);
      const searchHandler = (value: string) => {
         if (search.includes(value)) {
@@ -15,11 +15,11 @@ const SearchAndFiltersEducator: React.FC = () => {
     console.log('hello')
     return (
         <>
-            <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold m-0'>
-                Find Your Teacher
+            <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
+                Find Your Activities
             </p>
             <div className='flex flex-col md:flex-row  justify-between items-center'>
-                <div className='relative w-full h-[44.08px] md:w-[204.64px] md:h-[24.08px]  '>
+                <div className='relative w-full h-[44.08px] md:w-[204.64px] md:h-[24.08px] '>
                     <input
                         placeholder='search'
                         className='px-2 w-full h-full rounded-md py-1.5  box-border text-sm text-gray-300 border-solid border-[0.42px] border-[#CDCDCD]'
@@ -31,15 +31,15 @@ const SearchAndFiltersEducator: React.FC = () => {
                     />
                 </div>
                 <div className='flex flex-row items-center'>
-                    <p className='text-[10px] font-normal'>Filter By:</p>
+                    <p className='text-[12px] font-bold'>Filter By:</p>
 
-                    <div className='flex items-center justify-center gap-x-0'>
-                        {['Rating', 'Location', 'Availability'].map(
+                    <div className='flex items-center justify-center gap-x-2'>
+                        {[ 'Location', 'Availability'].map(
                             (title, index) => {
                                 return (
                                     <button
                                         key={index}
-                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs cursor-pointer ${
+                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs ${
                                             search.includes(title)
                                                 ? 'bg-[#A8FFC2]'
                                                 : 'bg-[#D9D9D966]'
@@ -59,4 +59,4 @@ const SearchAndFiltersEducator: React.FC = () => {
         </>
     );
 };
-export default SearchAndFiltersEducator;
+export default SearchAndFiltersStudent;

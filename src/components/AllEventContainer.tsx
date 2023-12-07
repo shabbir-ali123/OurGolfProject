@@ -10,7 +10,7 @@ const AllEventContainer: FunctionComponent = () => {
         golfMasters="GolfMasters"
         nov13SUN="Nov 13, SUN"
         zOZOCHAMPIONSHIP="ZOZO CHAMPIONSHIP"
-      />
+        />
       <FairwayFunContainer
         imageDimensions="/img/ellipse-23111@2x.png"
         activityImageUrl="Fairway Fun"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   faHome,
   faGlobe,
@@ -11,64 +11,86 @@ import {
   faCalendar,
   faEnvelope,
   faUser,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, useLocation } from "react-router-dom";
 const SideMenu: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuStyles: React.CSSProperties = {
-    height: '100vh',
-    width: isMenuOpen ? '200px' : '60px',
-    backgroundColor: '#17B3A6',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'fixed',
+    zIndex:"9999",
+    height: "100vh",
+    width: isMenuOpen ? "150px" : "40px",
+    backgroundColor: "#17B3A6",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "fixed",
     left: 0,
     top: 0,
-   
-    transition: 'width 0.3s ease',
+    padding: "40px 0px",
+    transition: "width 0.3s ease",
   };
-
+  const mediaQueryStyles: React.CSSProperties = {
+    width: "0px", // Set the width to 40px for small screens
+  };
   const menuItemStyles: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginBottom: '20px',
-    cursor: 'pointer',
-    borderBottom: '1px solid #ffff',
-    width: '100%',
-    height:'50px',
-    
-    
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginBottom: "20px",
+    cursor: "pointer",
+    borderBottom: "1px solid #ffff",
+    width: "100%",
+    height: "50px",
   };
 
   const iconStyles: React.CSSProperties = {
-    fontSize: '24px',
-    color: 'white',
-    marginBottom: '5px',
+    fontSize: "24px",
+    color: "white",
+    marginBottom: "5px",
   };
 
   const textStyles: React.CSSProperties = {
-    fontSize: '14px',
-    color: 'white',
-    visibility: isMenuOpen ? 'visible' : 'hidden',
-    transition: 'visibility 0.3s ease',
+    fontSize: "14px",
+    color: "white",
+    visibility: isMenuOpen ? "visible" : "hidden",
+    transition: "visibility 0.3s ease",
   };
 
   return (
     <div
-      style={menuStyles}
+      style={{
+        ...menuStyles,
+        ...(window.innerWidth <= 768 && mediaQueryStyles),
+      }}
       onMouseEnter={() => setIsMenuOpen(true)}
       onMouseLeave={() => setIsMenuOpen(false)}
     >
-     
+      <div className="absolute top-[8px] ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="white"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="white"
+          className="w-12 h-12 border border-[#51ff85] p-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </div>
+      <Link to="/" className="w-full ">
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faHome} style={iconStyles} />
         <span style={textStyles}>Home</span>
       </div>
+      </Link>
+      
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faBell} style={iconStyles} />
         <span style={textStyles}>Notifications</span>

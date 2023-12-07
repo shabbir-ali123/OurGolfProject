@@ -1,16 +1,18 @@
 
 import React, { useState } from 'react';
 import StudentTabs from '../components/StudentTabs';
-import StudentList from '../components/StudentList';
+import TeacherList from '../components/TeacherList';
 import StudentEventBoxes from '../components/StudentEventBoxes';
-import TeacherCalSec from "../components/TeacherCalSec";
-import SearchAndFiltersStudent from '../components/SearchStudent';
-import StudentConDetail from '../components/StudentConDetail';
+import StudentCalendar from '../components/StudentCalender';
+import FavTeachers from '../components/FavTeacher';
+import SearchAndFiltersEducator from '../components/SearchAndFilter';
+import TeacherConDetail from '../components/TeacherConDetail';
 import ReschedulePop from '../components/ReschedulePop';
-const TeacherProfile: React.FC = () => {
-    const [selectedTab, setSelectedTab] = useState<'teacher' | 'student'>('teacher');
-    const [showModal, setShowModal] = useState(false);
-    const handleSelectTab = (tab: 'teacher' | 'student') => {
+
+const StudentProfile: React.FC = () => {
+  const [selectedTab, setSelectedTab] = useState<'student' | 'teacher'>('student');
+  const [showModal, setShowModal] = useState(false);
+    const handleSelectTab = (tab: 'student' | 'teacher') => {
         setSelectedTab(tab);
       };
       const openModal = () => {
@@ -34,33 +36,34 @@ const TeacherProfile: React.FC = () => {
         setShowModal(false);
       };
   return (
-    <div className="grid grid-cols-12 gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
-     
+    <div  className="grid grid-cols-12 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8 ">
+      
       {/* Left Column */}
-      <div className='col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft'>
+      <div className='col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft '>
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={handleSelectTab}
           showTabs={true}
           description=''
-          profilePic='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+          profilePic='/img/profile1.png'
           name='John Miler'
         />
         <StudentEventBoxes />
-        <TeacherCalSec/>
+        <StudentCalendar />
+        <FavTeachers />
       </div>
 
       {/* Middle Column */}
-      <div className='col-span-12 md:col-span-12 lg:col-span-12  xl:col-span-3 px-4 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen animate__animated animate__fadeInLeft'>
-        <SearchAndFiltersStudent />
+      <div className='col-span-12 md:col-span-12 lg:col-span-3  xl:col-span-3 p-4 lg:overflow-y-auto scrollbar lg:max-h-screen '>
+        <SearchAndFiltersEducator />
        
-        {Array.from({ length: 4 }, (_, index) => (
-          <StudentList key={index} openModal={openModal} handleBookAppointment={handleBookAppointment} />
+        {Array.from({ length: 6 }, (_, index) => (
+          <TeacherList key={index} openModal={openModal} handleBookAppointment={handleBookAppointment} />
         ))}
         
         <style>{`
         
-        @media screen and (min-width: 768px) {
+        @media screen and (min-width: 1300px) {
           .scrollbar {
             scrollbar-width: thin;
             scrollbar-color: #52FF86 transparent;
@@ -83,23 +86,23 @@ const TeacherProfile: React.FC = () => {
             `}</style>
         
       </div>
- 
+
       {/* Right Column */}
-      <div className="col-span-12 xl:col-span-5 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight ">
+      <div className=" col-span-12 xl:col-span-5 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight ">
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={setSelectedTab}
           showTabs={false}
           description='" ning processes to achieve superior results"'
-          profilePic="/img/student.png"
-          name="Vivek Kumar"
+          profilePic="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          name="Cinderella"
         />
-        <StudentConDetail />
+        <TeacherConDetail />
       </div>
       {showModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center ">
-          <div className="bg-white p-8 max-w-md mx-auto rounded-lg animate__animated animate__lightSpeedInRight">
-           <ReschedulePop onSelectTime={handleSelectTime} onClose={handleCloseModal} />
+          <div className="bg-white p-8 max-w-md mx-auto rounded-lg animate__animated animate__fadeInLeft">
+          <ReschedulePop onSelectTime={handleSelectTime} onClose={handleCloseModal} />  
           </div>
         </div>
       )}
@@ -107,4 +110,4 @@ const TeacherProfile: React.FC = () => {
   );
 };
 
-export default TeacherProfile;
+export default StudentProfile;

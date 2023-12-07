@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import Calendar from "../components/Calender";
 import EventMap from "../components/EventMap";
+import LocationSelectionPopup from "../components/LocationSelectionPopup";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   MapPinIcon,
-  PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import Table from "../components/Table";
-
+import { Link, useNavigate } from "react-router-dom";
+import 'animate.css';
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -81,29 +82,37 @@ export default function Example() {
       },
     ],
   });
+  // State for managing the visibility of the location selection popup
+  const [isLocationPopupOpen, setLocationPopupOpen] = useState(false);
+
+  // State to store selected locations
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+
+  // Function to handle location selection
+  const handleLocationSelect = (locations: string | string[]) => {
+    // Convert a single location to an array
+    const newLocations = Array.isArray(locations) ? locations : [locations];
+
+    // Add the selected locations to the list
+    setSelectedLocations((prevSelectedLocations) => [
+      ...prevSelectedLocations,
+      ...newLocations,
+    ]);
+  };
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
-      <div className=" w-full">
-        <div className="md:flex justify-start pb-2 sm:justify-end">
-          <button
-            type="button"
-            className="inline-flex items-center gap-x-1.5 rounded-md bg-[#65BCFE] px-3 py-3.5 text-xs font-semibold text-white shadow-sm cursor-pointer"
-          >
-            <PencilSquareIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-            Create Event
-          </button>
-        </div>
-
+      <div className=" w-full animate__animated animate__fadeInLeft">
         <Tab.Group>
           <Tab.List className="flex flex-wrap justify-between space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
             <div className="flex flex-wrap lg:flex-nowrap gap-4 py-2">
-              <div className="md:mx-20 xl:relative w-full">
+              <div className="md:mx-20 xl:relative w-full animate__animated animate__shakeY">
                 <button
                   type="button"
-                  className="xl:py-6 rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  onClick={() => setLocationPopupOpen(true)}
+                  className=" xl:py-[22px] rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
-                  <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+                  <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
                   Tokyo
                 </button>
               </div>
@@ -113,7 +122,7 @@ export default function Example() {
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "w-full rounded-md py-4 px-10 text-base font-normal leading-5",
+                      "w-full rounded-md py-3 px-10 text-base font-normal leading-5 cursor-pointer hover:animate-bounce",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
                         ? "bg-[#3A66C0]  text-white "
@@ -121,9 +130,39 @@ export default function Example() {
                     )
                   }
                 >
-                  {category}
+                  {category === "LIVE" ? (
+                    <>
+                      <div className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="red"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="red"
+                          className="w-6 h-6 pr-2.5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
+                          />
+                        </svg>
+
+                        {category}
+                      </div>
+                    </>
+                  ) : (
+                    category
+                  )}
                 </Tab>
               ))}
+              {isLocationPopupOpen && (
+                <LocationSelectionPopup
+                  onClose={() => setLocationPopupOpen(false)}
+                  onSelect={(locations: string[]) =>
+                    handleLocationSelect(locations[0])
+                  }
+                />
+              )}
             </div>
             <div>
               <Calendar />
@@ -134,11 +173,11 @@ export default function Example() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div className="col-span-3">
                   <Table />
-                  <div className="flex items-center justify-between border-t border-gray-950 bg-white px-4 py-3 sm:px-6">
+                  <div className="flex items-center justify-between border-t border-gray-950  px-4 py-3 sm:px-6 ">
                     <div className="flex flex-1 justify-between sm:hidden">
                       <a
                         href="#"
-                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="animate__bounce relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                       >
                         Previous
                       </a>
@@ -220,7 +259,7 @@ export default function Example() {
                     </div>
                   </div>
                 </div>
-               <EventMap/>
+                <EventMap />
               </div>
             </Tab.Panel>
           </Tab.Panels>

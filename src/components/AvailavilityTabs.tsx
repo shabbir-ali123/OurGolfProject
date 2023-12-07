@@ -11,12 +11,12 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
 
   const timeSlots = [
     "10:00 am - 11:00 am",
-    "12:00 am - 10:45 am",
-    "10:00 am - 10:45 am",
-    "10:00 am - 10:45 am",
-    "10:00 am - 10:45 am",
-    "10:00 am - 10:45 am",
-    "10:00 am - 10:45 am",
+    "12:00 pm - 01:00 pm",
+    "02:00 pm - 03:00 pm",
+    "04:00 pm - 05:00 pm",
+    "06:00 pm - 07:00 pm",
+    "08:00 pm - 09:00 pm",
+    "10:00 pm - 11:00 pm",
   ];
 
   const tabColors = [
@@ -37,14 +37,14 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   return (
     <div>
         <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
-        <div className="flex flex-wrap justify-start gap-2 mt-4">
+        <div className="flex flex-wrap justify-start  mt-4 gap-1">
         {timeSlots.map((time, index) => (
           <div
             key={index}
-            className={`center relative inline-block select-none whitespace-nowrap px-1 mt-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white`}
+            className={`mcenter relative inline-block select-none whitespace-nowrap px-0 mt-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white`}
           >
             <button
-              className={`rounded-full py-4 ${
+              className={`rounded-full py-4 hover:animate-bounce cursor-pointer  ${
                 selectedTab === index ? "bg-active" : tabColors[index]
               }`}
               onClick={() => handleTabClick(index)}
@@ -55,7 +55,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
         ))}
       </div>
       <div className="mt-8 ml-2">
-        <button className="bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 ">
+        <button className="bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 animate__animated animate__lightSpeedInRight cursor-pointer">
           <svg
             width="24"
             height="24"
@@ -68,33 +68,33 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
               fill="white"
             />
           </svg>
-          <span className="px-2 text-white font-bold text-xl">Book an Appointment</span>
+          <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl">Book an Appointment</span>
         </button>
       </div>
         </div>
      
       <div>
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end ">
             <p className="my-1">Not Available-</p>
-            <div className="h-4 w-16 bg-[#E8E8E8]">
+            <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]">
 
             </div>
         </div>
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end ">
             <p className="my-1">Waiting for teacher approval-</p>
-            <div className="h-4 w-16 bg-[#CFEEFF]">
+            <div className=" h-4 w-8 md:w-10 lg:w-16 bg-[#CFEEFF]">
 
             </div>
         </div>
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end ">
             <p className="my-1">Booked by you-</p>
-            <div className="h-4 w-16 bg-[#00A4FE]">
+            <div className="h-4 w-8 md:w-10 lg:w-16  bg-[#00A4FE]">
 
             </div>
         </div>
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end ">
             <p className="my-1">Available-</p>
-            <div className="h-4 w-16 border-solid border-[1px] border-[#838383]">
+            <div className="h-4 w-8  md:w-10 lg:w-16  border-solid border-[1px] border-[#838383]">
             
             </div>
         </div>

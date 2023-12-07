@@ -10,7 +10,7 @@ module.exports = {
         xs: "0rem",
         sm: "0rem",
         lg: "4rem",
-        xl: "5rem",
+        xl: "1rem",
         "2xl": "6rem",
       },
     },
