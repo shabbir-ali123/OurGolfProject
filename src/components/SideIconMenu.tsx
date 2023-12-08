@@ -84,7 +84,7 @@ const SideMenu: React.FC = () => {
           />
         </svg>
       </div>
-      <Link to="/" className="w-full ">
+      <Link to="/score-board" className="w-full ">
       <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
         <FontAwesomeIcon icon={faHome} style={iconStyles} />
         <span style={textStyles}>Home</span>

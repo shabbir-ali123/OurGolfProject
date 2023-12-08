@@ -1,16 +1,27 @@
-import React, { useRef } from "react";
+import React, { useRef, ChangeEvent, useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RecruitmentTabs from "../components/RecruitmentTabs";
-const Recruitment: React.FC = () => {
- 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+interface RecruitmentProps {
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  defaultChecked: boolean;
+  
+}
 
-  const handleFileInputChange = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+  const Recruitment: React.FC<RecruitmentProps> = ({  defaultChecked, onChange }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selfIncluded, setSelfIncluded] = useState(false);
+
+  // Handler function to update the state when the checkbox is clicked
+  const handleCheckboxChange = () => {
+    setSelfIncluded((prevValue) => !prevValue);
   };
+  // const handleFileInputChange = () => {
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.click();
+  //   }
+  // };
+ 
   return (
     <div
       className="lg:max-w-6xl mx-auto px-2 py-8  "
@@ -30,7 +41,9 @@ const Recruitment: React.FC = () => {
               className="text-center appearance-none block w-[50px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-Event-Name"
               type="number"
+              name="capacity"
               placeholder="5"
+              onChange={onChange}
             />
           </div>
           <div className=" flex gap-2 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
@@ -41,7 +54,8 @@ const Recruitment: React.FC = () => {
               Include you in the numbers of players
             </label>
             <label className="relative flex items-center mb-8 cursor-pointer md:mb-5 lg:mb-5">
-              <input type="checkbox" value="" className="sr-only peer" />
+              <input type="checkbox" value="" className="sr-only peer" name="selfIncluded"    checked={selfIncluded}
+      onChange={handleCheckboxChange} />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             </label>
           </div>
@@ -55,12 +69,16 @@ const Recruitment: React.FC = () => {
             <input
               type="date"
               id="date"
+              name="eventStartDate"
+              onChange={onChange} 
               className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
             />
 
             <input
               type="time"
               id="time"
+              name="eventStartTime"
+              onChange={onChange} 
               placeholder="Select Time:"
               className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
             />
@@ -75,12 +93,16 @@ const Recruitment: React.FC = () => {
             <input
               type="date"
               id="date"
+              name="eventEndDate"
+              onChange={onChange} 
               className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
             />
 
             <input
               type="time"
               id="time"
+              name="eventEndTime"
+              onChange={onChange} 
               placeholder="Select Time:"
               className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
             />
@@ -119,6 +141,8 @@ const Recruitment: React.FC = () => {
             <input
               className="text-center appearance-none block w-[80px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-Event-Name"
+              name="teamSize"
+              onChange={onChange} 
               type="number"
               placeholder="15"
             />

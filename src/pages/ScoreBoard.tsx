@@ -10,18 +10,40 @@ import ScoringTable from '../components/ScoringTable';
 const ScoreBoard: FunctionComponent = () => {
     return (
         <div className='font-poppins'>
-            <div className='flex flex-col'>
+            <div className='flex flex-col mx-[50px]'>
                 <ChampionShipName />
+                <Slider />
+                <div className='mt-[400px]'>
                 <LeaderBoardSection />
+                </div>
+                
                 {/* indiviual player  score */}
                 <IndiviualPlayerScore />
                 {/* Drive Context  and Near Pin Contest */}
                 <TeamPerformance title='Drive Context (Hole 4)' />
                 <TeamPerformance title='Near Pin Contest (Hole 9)' />
+                <div className='mt-20 mx-[60px]'>
+                <div className='flex gap-4'>
+                <img
+                    className='w-[57px] h-[103px]'
+                    alt=''
+                    src='/img/rectangle-1248@2x.png'
+                />
+                <b className='relative left-[-24px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]'>
+                    Scoring Table
+                </b>
+                <img
+                    className='w-[57px] h-[103px] object-cover'
+                    alt=''
+                    src='/img/flag.png'
+                />
+            </div>
                 <ScoringTable/>
+                </div>
+                
 
             </div>
-            {/* <Slider /> */}
+            
 
             {/* <LeaderBoardScoringTab /> */}
         </div>

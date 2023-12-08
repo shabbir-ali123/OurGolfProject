@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import ScoreBoard from "./pages/ScoreBoard";
 import OngoingIndiviualScore from "./pages/OngoingIndiviualScore";
-import OngoingTeamScore from "./pages/OngoingTeamScore";
+
 // import OngoingEvent from "./pages/LiveScoringTable";
 import StudentPage from "./pages/StudentPage"
 import EventMainPage from "./pages/EventMainPage";
@@ -17,6 +17,8 @@ import ActivtiesPage from "./pages/ActivtiesPage";
 import TeacherPage from "./pages/TeacherPage";
 import CreateEvent from "./pages/CreateEvent"
 import SideIconMenu from "./components/SideIconMenu";
+import RegisterPage from "./pages/RegisterPage"
+import LoginPage from "./pages/LoginPage"
 import 'animate.css';
 function App() {
   const action = useNavigationType();
@@ -77,6 +79,14 @@ function App() {
             title = "";
             metaDescription = "";
             break;
+            case "/register-page":
+            title = "";
+            metaDescription = "";
+            break;
+            case "/login-page":
+            title = "";
+            metaDescription = "";
+            break;
     }
 
     if (title) {
@@ -98,18 +108,20 @@ function App() {
       <Header />
       {isDesktopScreen && <SideIconMenu />}
       <Routes>
-        <Route path="/" element={<ScoreBoard />} index />
+        <Route path="/" element={<RegisterPage/>} index />
         <Route
           path="/ongoing-indiviual-score"
           element={<OngoingIndiviualScore />}
         />
         <Route path="/student-page" element={<StudentPage  />} />
-        <Route path="/ongoing-team-score" element={<OngoingTeamScore />} />
         <Route path="/event-main-page" element={<EventMainPage />} />
         <Route path="/activties-page" element={<ActivtiesPage />} />
         <Route path="/teacher-page" element={<TeacherPage />} />
         <Route path="/student-page" element={<StudentPage />} />
         <Route path="/create-event" element={<CreateEvent/>} />
+        <Route path="/score-board" element={<ScoreBoard/>} />
+        <Route path="/login-page" element={<LoginPage/>} />
+        <Route path="/register-page" element={<RegisterPage/>} />
       </Routes>
     </div>
   );

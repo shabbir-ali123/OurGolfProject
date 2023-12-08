@@ -3,10 +3,10 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
-import { motion } from "framer-motion"
+
 
 const navigation = [
-  { name: "Home", to: "/", active: false },
+  { name: "Home", to: "/score-board", active: false },
   { name: "Posts", to: "#", active: false },
   { name: "Events", to: "/event-main-page", active: false },
   { name: "Find a teacher", to: "/student-page", active: false },
@@ -30,7 +30,7 @@ export default function Example() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1 ">
-          <Link to="/" className="-m-1.5 p-1">
+          <Link to="/score-board" className="-m-1.5 p-1">
             <span className="sr-only">Your Company</span>
             <img className="h-16 w-auto animate-pulse" src="./img/logo.png" alt="" />
           </Link>

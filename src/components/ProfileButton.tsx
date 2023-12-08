@@ -72,7 +72,7 @@ export default function ProfileButton() {
                     <Link to="/profile">Profile</Link>
                   </li>
                   </Link>
-                  <Link to="/signout">
+                  <Link to="/register-page">
                   <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -89,11 +89,31 @@ export default function ProfileButton() {
                       />
                     </svg>
 
-                    <Link to="/signout">Sign Out</Link>
+                    <Link to="/register-page">Sign Up</Link>
                   </li>
                   
                   </Link>
-                 
+                  <Link to="/login-page">
+                  <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                      />
+                    </svg>
+
+                    <Link to="/login-page">Login</Link>
+                  </li>
+                  
+                  </Link>
                 </ul>
               </div>
             )}

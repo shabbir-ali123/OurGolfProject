@@ -20,7 +20,7 @@ const ScoringTable: FunctionComponent = () => {
      
 
     return (
-        <div className='mt-20 mx-5 md:mx-[20px]'>
+        <div className=' mx-5'>
             <div className='px-3 overflow-x-auto'>
                 <table className='w-full  border-spacing-y-5 '>
                     <thead className='text-left text-whitesmoke-100'>

@@ -1,9 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, ChangeEvent } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion,useScroll } from "framer-motion";
-const BasicInfo: React.FC = () => {
-   
+import { motion } from "framer-motion";
+
+interface BasicInfoProps {
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+const BasicInfo: React.FC<BasicInfoProps> = ({ onChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileInputChange = () => {
@@ -11,6 +15,7 @@ const BasicInfo: React.FC = () => {
       fileInputRef.current.click();
     }
   };
+
   return (
     <motion.div
       className="lg:max-w-6xl mx-auto  px-2 "
@@ -18,7 +23,7 @@ const BasicInfo: React.FC = () => {
     >
       <h2 className="text-[#0f1e56] text-4xl animate-bounce">Basic Information</h2>
       <div className=" bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl mt-4 border-solid border-2 border-[#51ff85]">
-        <form className="grid grid-cols-9 mx-auto lg:gap-x-16  px-4 py-8  ">
+        <div className="grid grid-cols-9 mx-auto lg:gap-x-16  px-4 py-8  ">
           <div className="col-span-8 lg:col-span-4 py-2  md:col-span-5   md:mr-0 md:mb-3 ">
             <label
               className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2 an"
@@ -30,7 +35,10 @@ const BasicInfo: React.FC = () => {
               className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
               id="grid-Event-Name"
               type="text"
+              name="eventName"
               placeholder="Event Name"
+              onChange={onChange}
+
             />
           </div>
           <div className="col-span-8  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
@@ -44,7 +52,9 @@ const BasicInfo: React.FC = () => {
               className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
               id="grid-first-name"
               type="text"
+              name="eventVideoUrl"
               placeholder="Short Video Url"
+              onChange={onChange}
             />
           </div>
           <div className="col-span-8  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
@@ -57,8 +67,10 @@ const BasicInfo: React.FC = () => {
             <input
               className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
               id="grid-first-name"
+              name="eventDetails"
               type="text"
               placeholder="Event Details"
+              onChange={onChange}
             />
             <div className="relative w-full col-span-8  lg:col-span-4  md:col-span-5  md:mr-0 md:mb-2">
               <div className="z-[1] absolute grid  place-items-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm rounded-l-sm text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 top-[32px] right-[-42px] ">
@@ -68,6 +80,7 @@ const BasicInfo: React.FC = () => {
               </div>
               <label
                 className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                
                 htmlFor="grid-short-video"
               >
                 Place
@@ -75,8 +88,10 @@ const BasicInfo: React.FC = () => {
               <input
                 className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  shadow-xl"
                 id="grid-first-name"
+                name="place"
                 type="text"
                 placeholder="Enter Place"
+                onChange={onChange}
               />
             </div>
           </div>
@@ -98,10 +113,12 @@ const BasicInfo: React.FC = () => {
                 }}
               />
               <div className="flex items-center ">
-                <input
+              <input
                   className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
                   type="text"
+                  name="imageUrl"
                   onClick={handleFileInputChange}
+                  onChange={onChange}
                   readOnly
                 />
                 <span
@@ -113,7 +130,7 @@ const BasicInfo: React.FC = () => {
               </div>
             </div>
           </div>
-        </form>
+        </div>
 
         <div className="col-span-12 mx-4 sm:mx-16 relative md:col-span-8 lg:col-span-8 ">
           {/* Google Map */}

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion,useScroll } from "framer-motion";
 type Tab = "bank" | "paypal";
 
 const PaymentTabs = () => {
@@ -22,10 +21,7 @@ const PaymentTabs = () => {
     <div className="lg:max-w-6xl mx-auto p-2 ">
       <div className=" p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl mt-4 border-solid border-2 border-[#51ff85]">
         <div className="mx-4 flex gap-2 ">
-          <motion.button
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.8 }}
-          style={{ x: 0 }}
+          <button
             className={` ${
               activeTab === "bank"
                 ? "bg-blue-500 text-white cursor-pointer animate-bounce border-none"
@@ -34,11 +30,9 @@ const PaymentTabs = () => {
             onClick={() => handleTabClick("bank")}
           >
             Bank Details
-          </motion.button>
-          <motion.button
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.8 }}
-          style={{ x: 6 }}
+          </button>
+          <button
+          
             className={`${
               activeTab === "paypal"
                 ? "bg-blue-500 text-white cursor-pointer animate-bounce"
@@ -47,7 +41,7 @@ const PaymentTabs = () => {
             onClick={() => handleTabClick("paypal")}
           >
             PayPal
-          </motion.button>
+          </button>
         </div>
 
         {activeTab === "bank" && (
@@ -180,7 +174,7 @@ const PaymentTabs = () => {
           Next
         </button>
         <button
-          type="button"
+          type="submit"
           className="cursor-pointer text-white bg-[#FE2E00] hover:bg-blue-800  focus:outline-none  focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700  dark:focus:ring-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
         >
           Clear

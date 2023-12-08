@@ -51,7 +51,7 @@ const StudentList: React.FC<StudentListProps> = ({ openModal }) => {
   return (
     <>
       <div className="mt-6 cursor-pointer animate__animated animate__fadeInLeft">
-        <div className="flex justify-between items-center shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-4 relative  hover:animate-bounce  ">
+        <div className="flex justify-between items-center shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-4 relative    ">
           <div>
             <div className="flex items-center animate__animated animate__bounce">
               <img
