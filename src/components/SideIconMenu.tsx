@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   faHome,
   faGlobe,
@@ -13,10 +13,21 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const SideMenu: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [token, setToken] = useState('');
+  const history = useNavigate();
+  useEffect(() => {
+    // Check if a token exists in localStorage
+    const storedToken = localStorage.getItem('token');
 
+    // If a token exists, set it in the component state
+    if (storedToken) {
+      setToken(storedToken);
+
+       }
+  }); 
   const menuStyles: React.CSSProperties = {
     zIndex:"9999",
     height: "100vh",
@@ -29,7 +40,7 @@ const SideMenu: React.FC = () => {
     position: "fixed",
     left: 0,
     top: 0,
-    padding: "40px 0px",
+    padding: "0px 0px",
     transition: "width 0.3s ease",
   };
   const mediaQueryStyles: React.CSSProperties = {
@@ -60,6 +71,8 @@ const SideMenu: React.FC = () => {
   };
 
   return (
+    <>
+    {token ?
     <div
       style={{
         ...menuStyles,
@@ -128,6 +141,8 @@ const SideMenu: React.FC = () => {
         <span style={textStyles}>Logout</span>
       </div>
     </div>
+    : "" }
+    </>
   );
 };
 

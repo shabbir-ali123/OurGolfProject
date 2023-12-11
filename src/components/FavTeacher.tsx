@@ -14,7 +14,7 @@ const FavoriteTeachers: React.FC = () => {
   ];
 
   return (
-    <div className="">
+    <div className="pt-8">
       <div className="flex items-center justify-between">
         <h3 className="text-black font-sans font-bold text-xl ">
           Favorite Teachers

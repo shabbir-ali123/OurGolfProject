@@ -104,7 +104,7 @@ export default function Example() {
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className=" w-full animate__animated animate__fadeInLeft">
         <Tab.Group>
-          <Tab.List className="flex flex-wrap justify-between space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
+          <Tab.List className=" flex lg:col-span-6 xl:max-w-[74%]  justify-between space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
             <div className="flex flex-wrap lg:flex-nowrap gap-4 py-2">
               <div className="md:mx-20 xl:relative w-full animate__animated animate__shakeY">
                 <button
@@ -132,7 +132,7 @@ export default function Example() {
                 >
                   {category === "LIVE" ? (
                     <>
-                      <div className="flex items-center">
+                      <div className="flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="red"
@@ -163,10 +163,13 @@ export default function Example() {
                   }
                 />
               )}
+               <div className="flex justify-end ml-0 lg:ml-2  xl:ml-20">
+               <Calendar />
+               </div>
+              
+            
             </div>
-            <div>
-              <Calendar />
-            </div>
+           
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel key="ALL">

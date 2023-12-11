@@ -69,7 +69,7 @@ const people = [
   },
 ];
 
-export default function Example() {
+export default function Table() {
   return (
     <div className="animate__animated animate__fadeInLeft">
       <div className="mt-2 flow-root">

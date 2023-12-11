@@ -1,7 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// import useRedirect from "../utils/Redirect"
 export default function ProfileButton() {
+  var [token, setToken] = useState('');
+  useEffect(() => {
+    // Check if a token exists in localStorage
+    const storedToken = localStorage.getItem('token');
+
+    if(storedToken){
+      setToken(storedToken);
+    }else{
+      token="false";
+    }
+    console.log(token,"ssss");
+  }); 
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDotClick = () => {
@@ -12,19 +25,25 @@ export default function ProfileButton() {
     <div className="hidden lg:flex lg:flex-1 lg:justify-end ">
       <div className="relative block flex-shrink-0">
         <div className="flex items-center">
-          <div>
+          <div className="flex justify-center items-center ">
             <img
             onClick={handleDotClick}
-              className="inline-block h-12 w-12 rounded-full cursor-pointer"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              className="inline-block h-6 w-6 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
+              src="/img/profile-page.png"
               alt=""
             />
           </div>
+          {token ?
           <div className="ml-3">
             <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
               Esther Howard
             </p>
           </div>
+         : <div className="ml-3">
+         <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
+          Hello! Please Login
+         </p>
+       </div> }
           <div className="relative">
             <button
               onClick={handleDotClick}
@@ -49,7 +68,7 @@ export default function ProfileButton() {
             {dropdownOpen && (
               <div className="fixed right-[100px] mt-2 bg-white rounded-md shadow-lg w-[200px] z-[9999]">
                 <ul className="text-center py-1">
-                <Link to="/profile">
+                {token ? <Link to="/profile">
                   <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
                     
                     <svg
@@ -72,6 +91,8 @@ export default function ProfileButton() {
                     <Link to="/profile">Profile</Link>
                   </li>
                   </Link>
+:""}
+                  {token ? "":
                   <Link to="/register-page">
                   <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <svg
@@ -93,7 +114,30 @@ export default function ProfileButton() {
                   </li>
                   
                   </Link>
-                  <Link to="/login-page">
+}
+                  {token ?
+                 <Link to="/logout">
+                 <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
+                   <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="1.5"
+                     stroke="currentColor"
+                     className="w-4 h-4"
+                   >
+                     <path
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                       d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                     />
+                   </svg>
+
+                   <Link to="/logout">Sign Out</Link>
+                 </li>
+                 
+                 </Link>
+                  : <Link to="/login-page">
                   <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -110,10 +154,10 @@ export default function ProfileButton() {
                       />
                     </svg>
 
-                    <Link to="/login-page">Login</Link>
+                    <Link to="/login-page">Sign In</Link>
                   </li>
                   
-                  </Link>
+                  </Link>}
                 </ul>
               </div>
             )}

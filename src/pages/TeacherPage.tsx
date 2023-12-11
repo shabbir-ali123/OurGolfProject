@@ -34,7 +34,7 @@ const TeacherProfile: React.FC = () => {
         setShowModal(false);
       };
   return (
-    <div className="grid grid-cols-12 gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
+    <div className="grid grid-cols-11  gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
      
       {/* Left Column */}
       <div className='col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft'>
@@ -85,7 +85,7 @@ const TeacherProfile: React.FC = () => {
       </div>
  
       {/* Right Column */}
-      <div className="col-span-12 xl:col-span-5 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight ">
+      <div className="col-span-12 xl:col-span-4 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight ">
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={setSelectedTab}

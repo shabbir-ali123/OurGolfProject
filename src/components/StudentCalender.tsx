@@ -8,11 +8,11 @@ const CalendarSection: React.FC = () => {
     color: "black",
   };
   return (
-    <div>
+    <div className="mx-0 lg:mx-16 xl:mx-20">
        <Link to="/activties-page ">
-       <div className="flex justify-center border-solid border-2 border-[#51ff85] rounded-md cursor-pointer hover:animate-bounce">
+       <div className="flex justify-center  bg-[#51ff85] rounded-md cursor-pointer hover:animate-bounce">
      
-      <div className="flex items-center gap-6 ">
+      <div className="flex items-center gap-2 ">
         <div>
           <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
         </div>

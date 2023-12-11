@@ -56,7 +56,9 @@ const CreateEvent: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const handleScoringTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -71,10 +73,9 @@ const CreateEvent: React.FC = () => {
       console.log("API Response:", response.data);
 
       if (response.status === 201) {
-        // Adjust the status code based on your API response
-        // Handle success (e.g., redirect, show success message)
+       
       } else {
-        // Handle other status codes (e.g., show error message)
+        
         setError("Error Occurred");
       }
     } catch (error) {
@@ -83,7 +84,7 @@ const CreateEvent: React.FC = () => {
     }
   };
   const handleCheckboxChange = (isChecked: any) => {
-    // Do something with the new state of the checkbox
+    
     console.log('Checkbox is checked:', isChecked);
   };
   return (
@@ -95,10 +96,10 @@ const CreateEvent: React.FC = () => {
        
           <BasicInfo onChange={handleChange}  />
         
-        <Recruitment  onChange={handleCheckboxChange}  defaultChecked={true} />
+        <Recruitment  onChange={handleChange}   />
 
         <ItemInstruction  />
-        <ScoringCategory />
+        <ScoringCategory onChange={handleScoringTypeChange} />
         <PaymentDetails />
       </form>
     </div>

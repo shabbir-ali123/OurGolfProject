@@ -105,6 +105,22 @@ const PaymentTabs = () => {
                   placeholder="Account Holder Name"
                 />
               </div>
+              <div className="col-span-8 lg:col-span-4 py-2  md:col-span-4  md:mr-0 md:mb-0 ">
+                <label
+                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-event-name"
+                >
+                  Participation fee (approximate per person)
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  id="grid-Event-Name"
+                  type="number"
+                  pattern="[0-9]*"
+                  title="Please enter a valid number"
+                  placeholder="$ Enter Amount"
+                />
+              </div>
             </form>
           </div>
         )}
@@ -169,7 +185,7 @@ const PaymentTabs = () => {
         </button>
         <button
           type="button"
-          className="hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Next
         </button>

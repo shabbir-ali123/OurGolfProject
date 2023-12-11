@@ -28,7 +28,7 @@ export default function Register(): JSX.Element {
 
       if(response.status === 200){
         localStorage.setItem('token', response.data.token)
-        router('/score-board')
+        router('/event-main-page')
       }
       setError(null);
     } catch (error) {
