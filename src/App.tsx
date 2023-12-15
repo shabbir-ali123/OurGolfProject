@@ -129,7 +129,6 @@ function App() {
   });
   const locations = useLocation();
 
-  const isEventPage = location.pathname.startsWith("/events");
  
 
 
@@ -139,7 +138,7 @@ function App() {
       {isDesktopScreen &&  <SideIconMenu />}
       <Routes>
         <Route path="/"
-                  element={token ? <ScoreBoard /> : <LoginPage />} index/>
+                  element={token ? <EventMainPage /> : <LoginPage />} index/>
         <Route
           path="/ongoing-indiviual-score"
           

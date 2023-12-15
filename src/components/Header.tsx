@@ -17,10 +17,10 @@ const Header: React.FC = () => {
   const [token, setToken] = useState('');
   const history = useNavigate();
   useEffect(() => {
-    // Check if a token exists in localStorage
+   
     const storedToken = localStorage.getItem('token');
 
-    // If a token exists, set it in the component state
+   
     if (storedToken) {
       setToken(storedToken);
 
@@ -29,11 +29,22 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const location = useLocation();
-
-  // Update the active property based on the current route
-  navigation.forEach((item) => {
-    item.active = item.to === location.pathname;
+  
+   navigation.forEach((item) => {
+    if (item.to === "/event-main-page" || item.to === "/create-event") {
+     
+      item.active = location.pathname.startsWith("/event") || location.pathname.startsWith("/create-event");
+    } else if (item.to === "/student-page" || item.to === "/teacher-page") {
+   
+      item.active = location.pathname.startsWith("/student-page") || location.pathname.startsWith("/teacher-page");
+    } else {
+      item.active = item.to === location.pathname;
+    }
   });
+
+  // // Debugging information
+  // console.log("Current location:", location.pathname);
+  // console.log("Navigation items:", navigation);
 
   return (
   <div>

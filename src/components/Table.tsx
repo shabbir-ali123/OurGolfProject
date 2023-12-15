@@ -194,7 +194,7 @@ export default function Table() {
                       <td className="whitespace-nowrap px-3 py-0 text-sm">
                         {person.notes}
                       </td>
-                      <td className="flex gap-1 whitespace-nowrap px-3 py-0 text-sm ">
+                      <td className="flex  gap-1 whitespace-nowrap px-3 py-0 text-sm ">
                         <div className="flex  gap-1 flex-col items-center">
                           <div className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md ">
                             <HandThumbUpIcon className="h-3 w-3 text-white" />
@@ -222,7 +222,7 @@ export default function Table() {
                         </div>
                         
                       </td>
-                      <div className="flex justify-center my-1">
+                      <div className="flex justify-start items-center my-1 ml-4">
                             <button className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
                               View
                             </button>

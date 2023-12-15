@@ -50,7 +50,6 @@ const EventMainPage: FunctionComponent = () => {
               EVENTS IN
             </h1>
             <Clip  title="Tokyo" />
-            <Clip title="Hokkaido" />
           </div>
         </div>
         <div>
@@ -68,9 +67,6 @@ const EventMainPage: FunctionComponent = () => {
         
         </div>
         
-       
-    
-     
       <Tabs />
       
       {isDesktop && (

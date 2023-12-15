@@ -61,7 +61,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange }) => {
           </div>
           <div className="col-span-8  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-3">
             <label
-              className="flex items-center gap-2 captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="flex items-center gap-2 capitalize tracking-wide text-gray-700 text-xs font-bold mb-2 relative"
               htmlFor="grid-short-video"
             >
               Event Details
@@ -82,17 +82,17 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange }) => {
               </svg>
               {/* Info Box */}
               {isHovered && (
-                <div
-                  className="absolute bg-white border rounded p-4"
-                  id="info-box"
-                >
-                  {/* Add your info content here */}
-                  Additional Information
-                </div>
+             <div
+             className="absolute bg-white border rounded-md px-1 z-[10] shadow-lg"
+             style={{ top: '-34px', right: '135px', opacity: isHovered ? 1 : 0, transition: 'opacity 0.3s ease-in-out' }}
+             id="info-box"
+           >
+             <p className="text-sm text-[#17B3A6]">Additional Information</p>
+           </div>
               )}
             </label>
             <input
-              className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
+              className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform hover:animate-bounce shadow-xl"
               id="grid-first-name"
               name="eventDetails"
               type="text"
@@ -138,6 +138,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange }) => {
                   console.log(e.target.files);
                 }}
               />
+
               <div className="flex items-center ">
                 <input
                   className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
