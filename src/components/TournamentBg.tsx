@@ -28,11 +28,7 @@ const TournmentBg: React.FC = () => {
           </h2>
         </motion.div>
       </motion.div>
-      <div className="flex justify-center mt-2">
-        <button className="bg-[#52FF86] hover:bg-blue-700 text-[#ffffff]  py-4 px-5 rounded text-3xl font-bold cursor-pointer hover:animate-bounce">
-          Create Event
-        </button>
-      </div>
+      
     </div>
   );
 };

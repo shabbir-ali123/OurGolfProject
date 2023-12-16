@@ -82,8 +82,6 @@ const CreateEvent: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("Form Submitted with data:", formData);
-
     e.preventDefault();
 
     try {
@@ -97,6 +95,7 @@ const CreateEvent: React.FC = () => {
       console.log("API Response:", response.data);
 
       if (response.status === 201) {
+        // Handle success
       } else {
         setError("Error Occurred");
       }
@@ -105,6 +104,7 @@ const CreateEvent: React.FC = () => {
       console.error("Error:", error);
     }
   };
+
   const handleCheckboxChange = (isChecked: any) => {
     console.log("Checkbox is checked:", isChecked);
   };
@@ -131,13 +131,25 @@ const CreateEvent: React.FC = () => {
     console.log("Recruitment Details Change", formDataUpdate, eventType);
   };
 
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result as string;
+        setFormData({ ...formData, imageUrl: dataUrl });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div>
       <div className=" animate__animated animate__lightSpeedInRight">
         <TournamentBg />
       </div>
       <form onSubmit={handleSubmit}>
-        <BasicInfo onChange={handleChange} />
+        <BasicInfo onChange={handleChange} setFormData={setFormData} />
 
         <Recuitments onChange={handleRecruitmentTabsChange} />
 
@@ -172,6 +184,11 @@ const CreateEvent: React.FC = () => {
                 <button className="cursor-pointer text-white bg-[#FE2E00] hover:bg-blue-800  focus:outline-none  focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700  dark:focus:ring-blue-800 hover:scale-105 transform transition duration-300 ease-in-out">
                   Clear
                 </button>
+                  
+                  <button className="glow-on-hover  text-white bg-[#52FF86] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Create Event
+                  </button>
+                
               </div>
             </div>
           </div>

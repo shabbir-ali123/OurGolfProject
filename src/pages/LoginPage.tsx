@@ -33,7 +33,8 @@ const Login: React.FC = () => {
       // Handle the response accordingly
       console.log("API Response:", response);
       if(response.status === 200){
-        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('token', response.data.jwtToken
+        )
         router('/event-main-page')
       }
       setError(null);

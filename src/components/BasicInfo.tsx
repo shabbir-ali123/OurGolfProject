@@ -5,9 +5,33 @@ import { motion } from "framer-motion";
 
 interface BasicInfoProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const BasicInfo: React.FC<BasicInfoProps> = ({ onChange }) => {
+const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const imagesArray: string[] = [];
+  
+      for (let i = 0; i < Math.min(files.length, 5); i++) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const dataUrl = reader.result as string;
+          imagesArray.push(dataUrl);
+  
+          if (imagesArray.length === Math.min(files.length, 5)) {
+            setFormData((prevFormData: any) => ({
+              ...prevFormData,
+              imageUrls: imagesArray,
+            }));
+          }
+        };
+        reader.readAsDataURL(files[i]);
+      }
+    }
+  };
+
   const [isHovered, setIsHovered] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -82,13 +106,20 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange }) => {
               </svg>
               {/* Info Box */}
               {isHovered && (
-             <div
-             className="absolute bg-white border rounded-md px-1 z-[10] shadow-lg"
-             style={{ top: '-34px', right: '135px', opacity: isHovered ? 1 : 0, transition: 'opacity 0.3s ease-in-out' }}
-             id="info-box"
-           >
-             <p className="text-sm text-[#17B3A6]">Additional Information</p>
-           </div>
+                <div
+                  className="absolute bg-white border rounded-md px-1 z-[10] shadow-lg"
+                  style={{
+                    top: "-34px",
+                    right: "135px",
+                    opacity: isHovered ? 1 : 0,
+                    transition: "opacity 0.3s ease-in-out",
+                  }}
+                  id="info-box"
+                >
+                  <p className="text-sm text-[#17B3A6]">
+                    Additional Information
+                  </p>
+                </div>
               )}
             </label>
             <input
@@ -126,26 +157,29 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange }) => {
               className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-short-video"
             >
-              Upload Images
+              Upload Images <span>(max 5 images)</span>
             </label>
             <div className="relative ">
-              <input
+              {/* <input
                 className="hidden h-10"
                 id="file-input"
                 type="file"
+                name="imageUrl"
                 ref={fileInputRef}
                 onChange={(e) => {
                   console.log(e.target.files);
                 }}
-              />
+              /> */}
 
               <div className="flex items-center ">
                 <input
-                  className="appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
-                  type="text"
+                  className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
+                  type="file"
                   name="imageUrl"
                   onClick={handleFileInputChange}
-                  onChange={onChange}
+                  onChange={handleImageChange}
+                  multiple
+                  accept="image/*"
                   readOnly
                 />
                 <span
