@@ -6,70 +6,20 @@ import {
   ShareIcon,
 } from "@heroicons/react/24/outline";
 
-const people = [
-  {
-    organizer: "GolfMasters",
-    time: "12:00 PM",
-    date: "Nov 13, SUN",
-    event: "ZOZO CHAMPIONSHIP",
-    notes: "It's a organizer's note. Keep in mind",
-    type: "null",
-    location: "Yokohama Country Club",
-    imageUrl: "/img/ellipse-2311@2x.png",
-  },
-  {
-    organizer: "Fairway Fun",
-    time: "12:00 PM",
-    date: "Nov 13, SUN",
-    event: "ZOZO CHAMPIONSHIP",
-    notes: "It's a organizer's note. Keep in mind",
-    type: "full",
-    location: "Yokohama Country Club",
-    imageUrl: "/img/ellipse-23081@2x.png",
-  },
-  {
-    organizer: "GreenLinks",
-    time: "12:00 PM",
-    date: "Nov 13, SUN",
-    event: "ZOZO CHAMPIONSHIP",
-    notes: "It's a organizer's note. Keep in mind",
-    type: "null",
-    location: "Yokohama Country Club",
-    imageUrl: "/img/ellipse-23082@2x.png",
-  },
-  {
-    organizer: "GolfPro",
-    time: "12:00 PM",
-    date: "Nov 13, SUN",
-    event: "ZOZO CHAMPIONSHIP",
-    notes: "It's a organizer's note. Keep in mind",
-    type: "full",
-    location: "Yokohama Country Club",
-    imageUrl: "/img/ellipse-23083@2x.png",
-  },
-  {
-    organizer: "SwingFest",
-    time: "12:00 PM",
-    date: "Nov 13, SUN",
-    event: "ZOZO CHAMPIONSHIP",
-    notes: "It's a organizer's note. Keep in mind",
-    type: "null",
-    location: "Yokohama Country Club",
-    imageUrl: "/img/ellipse-23084@2x.png",
-  },
-  {
-    organizer: "GolfGather",
-    time: "12:00 PM",
-    date: "Nov 13, SUN",
-    event: "ZOZO CHAMPIONSHIP",
-    notes: "It's a organizer's note. Keep in mind",
-    type: "full",
-    location: "Yokohama Country Club",
-    imageUrl: "/img/ellipse-23085@2x.png",
-  },
-];
+interface TableProps {
+  events: Array<{
+    organizer: string;
+    time: string;
+    date: string;
+    event: string;
+    notes: string;
+    type: string;
+    location: string;
+    imageUrl: string;
+  }>;
+}
 
-export default function Table() {
+const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   return (
     <div className="animate__animated animate__fadeInLeft">
       <div className="mt-2 flow-root">
@@ -123,11 +73,11 @@ export default function Table() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white ">
-                  {people.map((person, index) => (
+                {events.map((event, index) => (
                     <tr
-                      key={person.time}
+                    key={index}
                       className={`rounded-sm ${
-                        person.type === "full"
+                        event.type === "full"
                           ? "bg-[#3A66C0] text-white shadow-[-3.9px_3.9px_3.12px_#0052fb]  "
                           : "bg-[#D3DAFF] text-black "
                       }`}
@@ -140,7 +90,7 @@ export default function Table() {
                       <td className="flex items-center  mt-[0px] ">
                         <div
                           className={` -rotate-90 px-4 py-2    text-white  text-sm my-6 ml-[-19px] flex  items-center ${
-                            person.type !== "full"
+                            event.type !== "full"
                               ? "bg-[#CF4E4E]"
                               : "opacity-0"
                           }`}
@@ -149,39 +99,39 @@ export default function Table() {
                         </div>
                         <div className={`flex items-center gap-x-4`}>
                           <img
-                            src={person.imageUrl}
+                            src={event.imageUrl}
                             alt=""
                             className="h-8 w-8   rounded-full bg-gray-800 "
                           />
                           <div className="truncate text-sm font-medium leading-6  ">
-                            {person.organizer}
+                            {event.organizer}
                           </div>
                         </div>
                       </td>
                       <td className="whitespace-nowrap px-3 py-0 text-sm">
-                        {person.time}
+                        {event.time}
                       </td>
                       <td className="whitespace-nowrap px-3 py-0  text-sm">
-                        {person.date}
+                        {event.date}
                       </td>
                       <td className="flex justify-between items-center text-center ml-2 whitespace-pre-wrap xl:text-left text-sm  font-semibold ">
                         <div className="flex flex-col">
-                          {person.event}
+                          {event.event}
                           <span className="flex items-center gap-1 font-normal ">
                             <MapPinIcon
                               className={`-mr-0.5 h-5 w-5 ${
-                                person.type !== "full" && "text-[#CF4E4E]"
+                                event.type !== "full" && "text-[#CF4E4E]"
                               }`}
                               aria-hidden="true"
                             />
 
-                            {person.location}
+                            {event.location}
                           </span>
                         </div>
 
                         <span
                           className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2    ${
-                            person.type === "full"
+                            event.type === "full"
                               ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce "
                               : "bg-[#A1A1A1]  py-0 mt-[-10px]"
                           }`}
@@ -192,7 +142,7 @@ export default function Table() {
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-3 py-0 text-sm">
-                        {person.notes}
+                        {event.notes}
                       </td>
                       <td className="flex  gap-1 whitespace-nowrap px-3 py-0 text-sm ">
                         <div className="flex  gap-1 flex-col items-center">
@@ -238,3 +188,5 @@ export default function Table() {
     </div>
   );
 }
+
+export default Table;

@@ -3,15 +3,41 @@ import SearchEventContainer from "../components/SearchMainEventFilter";
 import SideIconMenu from "../components/SideIconMenu";
 import { Clip } from "../components/Clip";
 import Tabs from "../components/Tabs";
+import { API_ENDPOINTS } from "../appConfig";
+import axios from "axios";
 import {
  
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 const EventMainPage: FunctionComponent = () => {
+  const [events, setEvents] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
-
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error("User not authenticated");
+          return;
+        }
+  
+        const response = await axios.get(API_ENDPOINTS.GETALLEVENT, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        setEvents(response.data.events);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+  
+    // Call the fetchEvents function when the component mounts
+    fetchEvents();
+  }, []);
   const handleImageClick = () => {
     setIsMenuVisible(!isMenuVisible);
   };
@@ -67,7 +93,7 @@ const EventMainPage: FunctionComponent = () => {
         
         </div>
         
-      <Tabs />
+      <Tabs events={events} />
       
       {isDesktop && (
         <SideIconMenu/>

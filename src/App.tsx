@@ -21,7 +21,8 @@ import SideIconMenu from "./components/SideIconMenu";
 import RegisterPage from "./pages/RegisterPage"
 import LoginPage from "./pages/LoginPage"
 import Logout from "./pages/Logout"
-
+import EditTeamPage from "./pages/EditTeamPage";
+import PaymentForm from "./pages/PaymentForm"
 import 'animate.css';
 import PrivateRoute from "./utils/PrivateRoute";
 function App() {
@@ -100,6 +101,14 @@ function App() {
               title = "";
               metaDescription = "";
               break;
+              case "/edit-team-page":
+              title = "";
+              metaDescription = "";
+              break;
+              case "/pay-now":
+              title = "";
+              metaDescription = "";
+              break;
 
     }
 
@@ -154,6 +163,8 @@ function App() {
         <Route path="/login-page"  element={<LoginPage  />} />
         <Route path="/register-page" element={<RegisterPage/>} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/edit-team-page" element={<EditTeamPage    />} />
+        <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
 
       </Routes>
     </div>

@@ -4,15 +4,11 @@ import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const auth = true;
-  const router = useNavigate()
+  const router = useNavigate();
   const [formData, setFormData] = useState({
-    
     email: "",
     password: "",
-    
   });
-  console.log(router)
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,26 +18,21 @@ const Login: React.FC = () => {
       [name]: value,
     }));
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      // Make a POST request using the Login endpoint
       const response = await axios.post(API_ENDPOINTS.LOGIN, formData);
 
-    
-      // Handle the response accordingly
-      console.log("API Response:", response);
-      if(response.status === 200){
-        localStorage.setItem('token', response.data.jwtToken
-        )
-        router('/event-main-page')
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.jwtToken);
+        router('/event-main-page');
       }
+
       setError(null);
     } catch (error) {
-      
-      setError((error as any)?.response?.data?.message || "We are not able to Login ");
-
+      setError((error as any)?.response?.data?.message || "We are not able to Login");
     }
   };
   return (

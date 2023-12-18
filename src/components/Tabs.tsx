@@ -14,8 +14,20 @@ import 'animate.css';
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
+interface TabsProps {
+  events: Array<{
+    organizer: string;
+    time: string;
+    date: string;
+    event: string;
+    notes: string;
+    type: string;
+    location: string;
+    imageUrl: string;
+  }>;
+}
 
-export default function Example() {
+export default function Tabs({ events }: TabsProps) {
   let [categories] = useState({
     ALL: [
       {
@@ -175,7 +187,7 @@ export default function Example() {
             <Tab.Panel key="ALL">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div className="col-span-3">
-                  <Table />
+                  <Table events={events} />
                   <div className="flex items-center justify-between border-t border-gray-950  px-4 py-3 sm:px-6 ">
                     <div className="flex flex-1 justify-between sm:hidden">
                       <a

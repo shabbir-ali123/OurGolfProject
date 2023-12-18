@@ -69,23 +69,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             </td>
                             <td className='pl-4 py-4 whitespace-nowrap'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17
@@ -100,23 +100,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             </td>
                             <td className='pl-4 py-4 whitespace-nowrap'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17
@@ -131,23 +131,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             </td>
                             <td className='pl-4 py-4 whitespace-nowrap'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17
@@ -162,23 +162,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             </td>
                             <td className='pl-4 py-4 whitespace-nowrap'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 '>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4'>
                                 {' '}
-                                <Player />
+                                <Player showNumber={true} />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17
