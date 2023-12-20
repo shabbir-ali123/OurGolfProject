@@ -1,11 +1,27 @@
 import ChampionShipName from "../components/ChampionShipName";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import Player from "../components/Player";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState } from "react";
+import { Fragment } from "react";
 const EditTeamPage: FunctionComponent = () => {
-  const [open, setOpen] = useState(true);
+  const shouldOpenDialog =
+    localStorage.getItem("showDialog") === "true";
 
+  const [open, setOpen] = useState(shouldOpenDialog);
+
+  useEffect(() => {
+    // Save the state of the dialog to localStorage
+    localStorage.setItem("showEditTeamDialog", open.toString());
+  }, [open]);
+  const shouldOpenEditDialog =
+    localStorage.getItem("showEditTeamDialog") === "true";
+
+  const [opens, setEditOpen] = useState(shouldOpenEditDialog);
+
+  useEffect(() => {
+    // Save the state of the dialog to localStorage
+    localStorage.setItem("showEditTeamDialog", opens.toString());
+  }, [open]);
   const cancelButtonRef = useRef(null);
   return (
     <div className="h-[100vh]   text-left text-lg text-white font-poppins mt-20 [background:linear-gradient(180deg,_#edfffd,_#f2fffa)]  ">
@@ -84,6 +100,7 @@ const EditTeamPage: FunctionComponent = () => {
               <td className="pl-4 py-4 tracking-[1.45px] leading-[9.22px] ">
                 <div className="flex gap-4">
                   <svg
+                    onClick={() => setEditOpen(true)}
                     width="20"
                     height="20"
                     className="cursor-pointer"
@@ -392,7 +409,7 @@ const EditTeamPage: FunctionComponent = () => {
             </tr>
           </tbody>
         </table>
-       
+
         <div className="flex justify-end ">
           <button className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-4 px-4 rounded cursor-pointer">
             Update Team
@@ -429,42 +446,354 @@ const EditTeamPage: FunctionComponent = () => {
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                   <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                      <div className="sm:flex sm:items-start">
-                        <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"></div>
-                        <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                          <Dialog.Title
-                            as="h3"
-                            className="text-base font-semibold leading-6 text-gray-900"
+                    <div className="bg-[#17B3A6] px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                      <div className="flex justify-center">
+                        <div className="w-20 h-20 bg-white rounded-full flex justify-center items-center">
+                          <svg
+                            width="40"
+                            height="54"
+                            viewBox="0 0 40 54"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            Delete Team
-                          </Dialog.Title>
+                            <path
+                              d="M40 19.5565L37.2164 24.3897L3.45163 4.83325L6.23521 0L14.6973 4.88912L18.483 3.85542L30.5358 10.8399L31.5658 14.6674L40 19.5565ZM0 47.7458V14.2204H14.1127L33.4029 25.3955V47.7458C33.4029 49.2277 32.8164 50.6489 31.7723 51.6968C30.7283 52.7446 29.3123 53.3333 27.8358 53.3333H5.56715C4.09065 53.3333 2.67462 52.7446 1.63058 51.6968C0.586537 50.6489 0 49.2277 0 47.7458Z"
+                              fill="#FF292C"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <div className="mt-3 text-center sm:ml-4 sm:mt-0 ">
                           <div className="mt-2">
-                            <p className="text-sm text-gray-500">
-                              Are you sure you want to deactivate your account?
-                              All of your data will be permanently removed. This
-                              action cannot be undone.
+                            <p className="text-white font-medium text-3xl text-center">
+                              Are you sure you want to delete the team?
                             </p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <div className="bg-[#17B3A6] px-4 py-3 sm:flex justify-center sm:flex-row-reverse sm:px-6">
                       <button
                         type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                        className="cursor-pointer inline-flex w-full justify-center rounded-full bg-[#FF292C] px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                         onClick={() => setOpen(false)}
                       >
                         Delete
                       </button>
                       <button
                         type="button"
-                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                        className="cursor-pointer mt-3 inline-flex w-full justify-center rounded-full bg-[#00FF92] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         onClick={() => setOpen(false)}
                         ref={cancelButtonRef}
                       >
                         Cancel
                       </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition.Root>
+        <Transition.Root show={opens} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative z-[9999]"
+            initialFocus={cancelButtonRef}
+            onClose={setEditOpen}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                  enterTo="opacity-100 translate-y-0 sm:scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                  leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                >
+                  <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div className="bg-[#17B3A6] px-4 pb-4 pt-5 ">
+                      <form className="px-8">
+                        <div className="relative w-full">
+                          <label
+                            htmlFor="team"
+                            className="text-white font-helvetica text-2xl font-semibold inline "
+                          >
+                            Team Name
+                          </label>
+
+                          <div className="relative flex items-center w-full">
+                            <img
+                              src="/img/ellipse-23087@2x.png"
+                              alt="Team Logo"
+                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                            />
+
+                            <input
+                              type="text"
+                              name="Player!"
+                              id="teamname"
+                              placeholder="Player 1"
+                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-4"
+                            />
+
+                            <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                className="h-3 w-3 cursor-pointer"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                          <label
+                            htmlFor="team"
+                            className="text-white font-helvetica  font-semibold text-center  "
+                          >
+                            Player 1
+                          </label>
+
+                          <div className="relative flex items-center w-full">
+                            <img
+                              src="/img/ellipse-13@2x.png"
+                              alt="Team Logo"
+                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                            />
+
+                            <input
+                              type="text"
+                              name="teamname"
+                              id="teamname"
+                              placeholder="Fore Friend"
+                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                            />
+
+                            <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                className="h-3 w-3 cursor-pointer"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                          <label
+                            htmlFor="team"
+                            className="text-white font-helvetica  font-semibold text-center "
+                          >
+                            Player 2
+                          </label>
+
+                          <div className="relative flex items-center w-full">
+                            <img
+                              src="/img/ellipse-131@2x.png"
+                              alt="Team Logo"
+                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                            />
+
+                            <input
+                              type="text"
+                              name="teamname"
+                              id="teamname"
+                              placeholder="Fore Friend"
+                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                            />
+
+                            <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                className="h-3 w-3 cursor-pointer"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                          <label
+                            htmlFor="team"
+                            className="text-white font-helvetica  font-semibold text-center "
+                          >
+                            Player 3
+                          </label>
+
+                          <div className="relative flex items-center w-full">
+                            <img
+                              src="/img/ellipse-132@2x.png"
+                              alt="Team Logo"
+                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                            />
+
+                            <input
+                              type="text"
+                              name="teamname"
+                              id="teamname"
+                              placeholder="Fore Friend"
+                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                            />
+
+                            <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                className="h-3 w-3 cursor-pointer"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                          <label
+                            htmlFor="team"
+                            className="text-white font-helvetica  font-semibold text-center "
+                          >
+                            Player 4
+                          </label>
+
+                          <div className="relative flex items-center w-full">
+                            <img
+                              src="/img/ellipse-133@2x.png"
+                              alt="Team Logo"
+                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                            />
+
+                            <input
+                              type="text"
+                              name="teamname"
+                              id="teamname"
+                              placeholder="Fore Friend"
+                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                            />
+
+                            <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                className="h-3 w-3 cursor-pointer"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                          <label
+                            htmlFor="team"
+                            className="text-white font-helvetica  font-semibold text-center "
+                          >
+                            Player 5
+                          </label>
+
+                          <div className="relative flex items-center w-full">
+                            <img
+                              src="/img/ellipse-134@2x.png"
+                              alt="Team Logo"
+                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                            />
+
+                            <input
+                              type="text"
+                              name="teamname"
+                              id="teamname"
+                              placeholder="Fore Friend"
+                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                            />
+
+                            <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                className="h-3 w-3 cursor-pointer"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-[#17B3A6]  py-3 flex justify-end gap-0">
+                          <button
+                            type="button"
+                            className="cursor-pointer mt-3 inline-flex w-full justify-center rounded-full bg-[#00FF92] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                            onClick={() => setEditOpen(false)}
+                            ref={cancelButtonRef}
+                          >
+                            Confirm
+                          </button>
+                          <button
+                            type="button"
+                            className="cursor-pointer inline-flex w-full  rounded-full bg-[#FF292C] px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-2 sm:w-auto"
+                            onClick={() => setEditOpen(false)}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
