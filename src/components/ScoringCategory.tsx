@@ -328,7 +328,7 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
             type="number"
             name="driverContest"
             placeholder="3"
-            
+            min="0"
             onChange={onInputChange}
           />
           <p className="text-[#ff0000] ml-3">Please select whole number</p>
@@ -346,6 +346,7 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
             type="number"
             name="nearPinContest"
             placeholder="7"
+            min="0"
             
             onChange={onInputChange}
           />

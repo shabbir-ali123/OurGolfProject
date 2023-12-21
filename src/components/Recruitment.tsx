@@ -1,7 +1,4 @@
-// export default Recruitment;
-import React, { useRef, useState,ChangeEvent } from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useRef, useState, ChangeEvent, useEffect } from "react";
 
 export type Tab = "individual" | "team";
 
@@ -12,16 +9,28 @@ interface RecuitmentsProps {
 const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<Tab>("individual");
-  const [formData, setFormData] = useState<Record<string, any>>({}); // Explicitly define the type
+  const [formData, setFormData] = useState<Record<string, any>>({});
+  
+  useEffect(() => {
+    // Set the default tab to "individual" when the component mounts
+    handleTabClick("individual");
+  }, []); // Empty dependency array ensures that this effect runs only once, similar to componentDidMount
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
+
+    // Pass the updated tab information through the onChange prop
+    onChange(formData, tab);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log({value})
+    // Update formData using the previous state
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    onChange({ [name]: value }, activeTab); // Call the onChange prop with the updated data
+
+    // Call the onChange prop with the updated data and activeTab
+    onChange({ ...formData, [name]: value }, activeTab);
   };
 
 
@@ -43,7 +52,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             id="grid-Event-Name"
             type="number"
             name="capacity"
-            placeholder=""
+            min="0"
             onChange={handleInputChange}
             />
         </div>
@@ -151,7 +160,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             } px-4 py-2 border rounded-full`}
             onClick={() => handleTabClick("individual")}
           >
-            individual Details
+            individual
           </button>
 
           <button
@@ -165,6 +174,32 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             team
           </button>
         </div>
+        {activeTab === "individual" && (
+          <div>
+           
+          </div>
+        )}
+
+        {activeTab === "team" && (
+          <div>
+          <div className="col-span-8 lg:col-span-7 py-2  md:col-span-5   md:mr-0 md:mb-0 mt-4 ml-4 ">
+                <label
+                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-event-name"
+                >
+                  Team Size
+                </label>
+                <input
+                  className="appearance-none block w-[80px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  id="grid-Event-Name"
+                  type="number"
+                  name="teamSize"
+                  onChange={handleInputChange}
+                  min="0"
+                />
+              </div>
+          </div>
+        )}
             </div>
           </div>
         </div>

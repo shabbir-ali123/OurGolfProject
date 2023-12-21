@@ -15,7 +15,7 @@ const CreateEvent: React.FC = () => {
   const [formData, setFormData] = useState<any>({
     eventType: "",
     eventName: "",
-    imageUrl: "",
+    imageUrl: ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
     eventDetails: "",
     eventVideoUrl: "",
     categories: "",
@@ -41,7 +41,7 @@ const CreateEvent: React.FC = () => {
     branchNumber: "",
     accountHolderName: "",
     paypalId: "",
-    teamSize: "",
+    teamSize: 0,
     participationFee: "",
     isEventPublished: 0,
     hideParticipantName: 0,

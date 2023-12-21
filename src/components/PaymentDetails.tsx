@@ -1,4 +1,4 @@
-import React, { useRef, useState,ChangeEvent } from "react";
+import React, { useRef, useState,ChangeEvent ,useEffect} from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -12,17 +12,25 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<Click>("bank");
   const [formData, setFormData] = useState<Record<string, any>>({}); // Explicitly define the type
-
+  useEffect(() => {
+    // Set the default payment type to "bank" when the component mounts
+    handleTabClick("bank");
+  }, []); 
   const handleTabClick = (tab: Click) => {
     setActiveTab(tab);
+    onChange(formData, tab);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    
+    // Update formData using the previous state
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    onChange({ [name]: value }, activeTab); // Call the onChange prop with the updated data
 
+    // Call the onChange prop with the updated data and activeTab
+    onChange({ ...formData, [name]: value }, activeTab);
   };
+
 
   // const handleSubmit = () => {
   //   // Pass the formData and paymentType to the parent component
@@ -141,6 +149,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   name="participationFee"
                   onChange={handleInputChange}
                   placeholder="$ Enter Amount"
+                  min="0"
                 />
               </div>
             </form>
@@ -162,10 +171,11 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
                   id="grid-Event-Name"
-                  type="text"
+                  type="number"
                   name="paypalId"
                   onChange={handleInputChange}
                   placeholder="Paypal ID"
+                  min="0"
                 />
               </div>
               <div className="col-span-8 lg:col-span-7 py-2  md:col-span-5   md:mr-0 md:mb-0 ">
@@ -177,13 +187,14 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-Event-Name"
+                  id="participationFee"
                   type="number"
                   pattern="[0-9]*"
                   name="participationFee"
                   onChange={handleInputChange}
                   title="Please enter a valid number"
                   placeholder="$ Enter Amount"
+                  min="0"
                 />
               </div>
               <div className=" flex gap-2 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
@@ -194,7 +205,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   Hide participant name
                 </label>
                 <label className="relative flex items-center mb-8 cursor-pointer md:mb-5 lg:mb-5">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input type="checkbox" value="" className="sr-only peer"onChange={handleInputChange} name="hideParticipantName" />
                   <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 </label>
               </div>

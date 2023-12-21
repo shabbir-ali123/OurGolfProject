@@ -20,6 +20,11 @@ interface TableProps {
 }
 
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
+  if (!Array.isArray(events)) {
+    console.error("Events is not an array:", events);
+    // You can provide a fallback or return null, depending on your use case
+    return null;
+  }
   return (
     <div className="animate__animated animate__fadeInLeft">
       <div className="mt-2 flow-root">
@@ -188,5 +193,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     </div>
   );
 }
-
+Table.defaultProps = {
+  events: [],
+};
 export default Table;

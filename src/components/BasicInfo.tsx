@@ -23,7 +23,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           if (imagesArray.length === Math.min(files.length, 5)) {
             setFormData((prevFormData: any) => ({
               ...prevFormData,
-              imageUrls: imagesArray,
+              imageUrl: imagesArray,
             }));
           }
         };
