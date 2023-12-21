@@ -180,7 +180,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                   multiple
                   accept="image/*"
                   readOnly
-                  ref={fileInputRef}
                 />
                 <span
                   className="absolute top-[65px] left-[50%] transform -translate-x-1/2 pr-3 flex items-center text-gray-700 cursor-pointer"

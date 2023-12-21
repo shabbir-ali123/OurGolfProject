@@ -10,7 +10,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<Tab>("individual");
   const [formData, setFormData] = useState<Record<string, any>>({});
-  
+
   useEffect(() => {
     // Set the default tab to "individual" when the component mounts
     handleTabClick("individual");
@@ -33,13 +33,32 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
     const numericValue = isCheckbox ? checked : parseInt(value, 10);
   
     // List of fields that should remain as strings
-    const stringFields = ["eventStartTime","eventEndTime", "eventStartDate","eventEndDate","eventDeadlineDate","eventDeadlineTime"];
+    const stringFields = [
+      "eventStartDate",
+      "eventStartTime",
+      "eventEndDate",
+      "eventEndTime",
+      "eventDeadlineDate",
+      "eventDeadlineTime",
+    ];
   
-    // Update formData using the previous state
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: stringFields.includes(name) ? value : numericValue,
-    }));
+    // Handle time format with AM/PM
+    if (name === "eventStartTime" || name === "eventEndTime" || name === "eventDeadlineTime") {
+      const [hours, minutes] = value.split(":");
+      const twelveHourFormat = parseInt(hours, 10) > 12 ? parseInt(hours, 10) - 12 : parseInt(hours, 10);
+      const ampm = parseInt(hours, 10) >= 12 ? "PM" : "AM";
+  
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: `${twelveHourFormat}:${minutes} ${ampm}`,
+      }));
+    } else {
+      // Update formData using the previous state
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: stringFields.includes(name) ? value : numericValue,
+      }));
+    }
   
     // Call the onChange prop with the updated data and activeTab
     onChange(
@@ -50,9 +69,6 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
       activeTab
     );
   };
-
-
-  
 
   return (
     <div className="lg:max-w-6xl mx-auto px- py-8  ">
@@ -72,7 +88,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             name="capacity"
             min="0"
             onChange={handleInputChange}
-            />
+          />
         </div>
         <div className=" flex gap-2 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
           <label
@@ -84,11 +100,10 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
           <label className="relative flex items-center mb-8 cursor-pointer md:mb-5 lg:mb-5">
             <input
               type="checkbox"
-              
               className="sr-only peer"
               name="selfIncluded"
               onChange={handleInputChange}
-              />
+            />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
         </div>
@@ -170,62 +185,56 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             <div className="">
               <h2>Match Type</h2>
               <div className="mx-4 flex gap-2">
-          <button
-            className={`${
-              activeTab === "individual"
-                ? "bg-blue-500 text-white cursor-pointer animate-bounce border-none"
-                : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
-            } px-4 py-2 border rounded-full`}
-            onClick={() => handleTabClick("individual")}
-          >
-            individual
-          </button>
-
-          <button
-            className={`${
-              activeTab === "team"
-                ? "bg-blue-500 text-white cursor-pointer animate-bounce"
-                : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 over:scale-105 transform transition duration-300 ease-in-out"
-            } px-4 py-2   rounded-full`}
-            onClick={() => handleTabClick("team")}
-          >
-            team
-          </button>
-        </div>
-        {activeTab === "individual" && (
-          <div>
-           
-          </div>
-        )}
-
-        {activeTab === "team" && (
-          <div>
-          <div className="col-span-8 lg:col-span-7 py-2  md:col-span-5   md:mr-0 md:mb-0 mt-4 ml-4 ">
-                <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-event-name"
+                <button
+                  className={`${
+                    activeTab === "individual"
+                      ? "bg-blue-500 text-white cursor-pointer animate-bounce border-none"
+                      : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
+                  } px-4 py-2 border rounded-full`}
+                  onClick={() => handleTabClick("individual")}
                 >
-                  Team Size
-                </label>
-                <input
-                  className="appearance-none block w-[80px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-Event-Name"
-                  type="number"
-                  name="teamSize"
-                  onChange={handleInputChange}
-                  min="0"
-                />
+                  individual
+                </button>
+
+                <button
+                  className={`${
+                    activeTab === "team"
+                      ? "bg-blue-500 text-white cursor-pointer animate-bounce"
+                      : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 over:scale-105 transform transition duration-300 ease-in-out"
+                  } px-4 py-2   rounded-full`}
+                  onClick={() => handleTabClick("team")}
+                >
+                  team
+                </button>
               </div>
-          </div>
-        )}
+              {activeTab === "individual" && <div></div>}
+
+              {activeTab === "team" && (
+                <div>
+                  <div className="col-span-8 lg:col-span-7 py-2  md:col-span-5   md:mr-0 md:mb-0 mt-4 ml-4 ">
+                    <label
+                      className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-event-name"
+                    >
+                      Team Size
+                    </label>
+                    <input
+                      className="appearance-none block w-[80px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none focus:bg-white"
+                      id="grid-Event-Name"
+                      type="number"
+                      name="teamSize"
+                      onChange={handleInputChange}
+                      min="0"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
     </div>
-    
   );
 };
-
 
 export default Recuitments;

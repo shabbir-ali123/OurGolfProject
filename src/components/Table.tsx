@@ -78,13 +78,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white ">
-                {events.map((event, index) => (
+                  {events.map((event, index) => (
                     <tr
-                    key={index}
+                      key={index}
                       className={`rounded-sm ${
-                        event.type === "full"
-                          ? "bg-[#3A66C0] text-white shadow-[-3.9px_3.9px_3.12px_#0052fb]  "
-                          : "bg-[#D3DAFF] text-black "
+                        index % 2 === 0
+                          ? "bg-[#3A66C0] text-white shadow-[-3.9px_3.9px_3.12px_#0052fb]"
+                          : "bg-[#D3DAFF] text-black"
                       }`}
                       style={{
                         width: "100%",
@@ -95,9 +95,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       <td className="flex items-center  mt-[0px] ">
                         <div
                           className={` -rotate-90 px-4 py-2    text-white  text-sm my-6 ml-[-19px] flex  items-center ${
-                            event.type !== "full"
-                              ? "bg-[#CF4E4E]"
-                              : "opacity-0"
+                            event.type !== "full" ? "bg-[#CF4E4E]" : "opacity-0"
                           }`}
                         >
                           FULL
@@ -138,7 +136,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2    ${
                             event.type === "full"
                               ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce "
-                              : "bg-[#A1A1A1]  py-0 mt-[-10px]"
+                              : "bg-[#A1A1A1]  py-0 mt-[-10px]  animate__animated animate__heartBeat  hover:animate-bounce"
                           }`}
                         >
                           <p className="rotate-45 sm:text-lg xl:text-xl ">
@@ -173,15 +171,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
                             <ShareIcon className="h-3 w-3 text-white" />
                           </div>
-                          
                         </div>
-                        
                       </td>
                       <div className="flex justify-start items-center my-1 ml-4">
-                            <button className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
-                              View
-                            </button>
-                          </div>
+                        <button className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
+                          View
+                        </button>
+                      </div>
                     </tr>
                   ))}
                 </tbody>
@@ -192,7 +188,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       </div>
     </div>
   );
-}
+};
 Table.defaultProps = {
   events: [],
 };

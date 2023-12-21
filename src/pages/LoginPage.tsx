@@ -27,6 +27,8 @@ const Login: React.FC = () => {
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data.jwtToken);
+        localStorage.setItem("userid", response.data.jwtToken);
+        console.log(response.data ,"hello")
         router("/event-main-page");
       }
 
