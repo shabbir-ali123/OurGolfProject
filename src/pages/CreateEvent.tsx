@@ -10,12 +10,54 @@ import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { Any } from "react-spring";
 import { stringify } from "querystring";
 
+
+
+interface CreateEventType{
+  id?: number;
+    eventType?: string;
+    eventName?: string;
+    imageUrl?: string[];
+    video?: string
+    eventDetails?: string;
+    eventVideoUrl?: string;
+    categories?: string;
+    place?: string;
+    placeCoordinates?: { lat: string; lng: string };
+    capacity?:number;
+    selfIncluded?: boolean;
+    eventStartDate?: string;
+    eventStartTime?: string;
+    eventEndDate?: string;
+    eventEndTime?: string;
+    recruitmentStartDate?: string;
+    recruitmentStartTime?: string;
+    eventDeadlineDate?: string;
+    eventDeadlineTime?: string;
+    matchType?: string;
+    paymentType?: string;
+    bankName?: string;
+    branchName?: string;
+    branchNumber?: number;
+    accountHolderName?: string;
+    accountNumber?: number;
+    paypalId?: string;
+    teamSize?: number;
+    participationFee?: number;
+    isEventPublished?: boolean;
+    hideParticipantName?: boolean;
+    isRequiresApproval?: boolean;
+    scoringType?: string;
+    selectedHoles?: string[];
+    shotsPerHoles?: string[];
+    driverContest?: number;
+    nearPinContest?: number;
+}
 const CreateEvent: React.FC = () => {
   const [value, setValue] = useState("");
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
     eventName: "",
-    imageUrl: ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+    imageUrl: [],
     eventDetails: "",
     eventVideoUrl: "",
     categories: "",
@@ -24,40 +66,42 @@ const CreateEvent: React.FC = () => {
       lat: "",
       lng: "",
     },
-    capacity: "",
-    selfIncluded: 0,
+    capacity: 0,
+    selfIncluded: false,
     eventStartDate: "",
     eventStartTime: "",
     eventEndDate: "",
     eventEndTime: "",
-    recruitementStartDate: "",
-    recruitementStartTime: "",
+    recruitmentStartDate: "",
+    recruitmentStartTime: "",
     eventDeadlineDate: "",
     eventDeadlineTime: "",
     matchType: "",
     paymentType: "",
     bankName: "",
     branchName: "",
-    branchNumber: "",
+    branchNumber: 0,
     accountHolderName: "",
     paypalId: "",
     teamSize: 0,
-    participationFee: "",
-    isEventPublished: 0,
-    hideParticipantName: 0,
-    isRequiresApproval: 0,
+    participationFee: 0,
+    isEventPublished: false,
+    hideParticipantName: false,
+    isRequiresApproval: false,
     scoringType: "",
     selectedHoles: [],
     shotsPerHoles: [],
-    driverContest: "",
-    nearPinContest: "",
+    driverContest: 0,
+    nearPinContest: 0,
+  
+    
   });
   const [error, setError] = useState<string | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log({ e });
     const { name, value, checked } = e.target;
     if (name === "selfIncluded") {
-      setFormData({ ...formData, [name]: checked ? 1 : 0 });
+      setFormData({ ...formData, [name]: checked  });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -69,7 +113,7 @@ const CreateEvent: React.FC = () => {
     const { name, id, checked } = event.target;
     const updatedScoringType = checked ? name : "";
     if (scoringType === "holes") {
-      let holes: any[] = formData.selectedHoles;
+      let holes: string[] = formData.selectedHoles|| [];
       if (holes.includes(id)) {
         holes = holes.filter((i) => i === id);
       } else {
@@ -137,7 +181,7 @@ const CreateEvent: React.FC = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const dataUrl = reader.result as string;
-        setFormData({ ...formData, imageUrl: dataUrl });
+        setFormData({ ...formData, imageUrl: [dataUrl] });
       };
       reader.readAsDataURL(file);
     }
@@ -157,7 +201,7 @@ const CreateEvent: React.FC = () => {
         <ScoringCategory
           onChange={handleScoringTypeChange}
           onInputChange={handleChange}
-          selectedHoles={formData.selectedHoles}
+          selectedHoles={formData.selectedHoles || []}
         />
 
         <PaymentDetails onChange={handlePaymentDetailsChange} />

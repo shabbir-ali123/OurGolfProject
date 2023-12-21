@@ -16,13 +16,13 @@ function classNames(...classes: any) {
 }
 interface TabsProps {
   events: Array<{
-    organizer: string;
-    time: string;
-    date: string;
-    event: string;
-    notes: string;
+    accountHolderName: string;
+    eventStartTime: string;
+    eventStartDate: string;
+    eventName: string;
+    eventDetails: string;
     type: string;
-    location: string;
+    place: string;
     imageUrl: string;
   }>;
 }

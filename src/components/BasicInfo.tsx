@@ -13,14 +13,14 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const imagesArray: string[] = [];
-  
-      for (let i = 0; i < Math.min(files.length, 5); i++) {
+
+      for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
         reader.onloadend = () => {
           const dataUrl = reader.result as string;
           imagesArray.push(dataUrl);
-  
-          if (imagesArray.length === Math.min(files.length, 5)) {
+
+          if (imagesArray.length === files.length) {
             setFormData((prevFormData: any) => ({
               ...prevFormData,
               imageUrl: imagesArray,
@@ -40,7 +40,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
       fileInputRef.current.click();
     }
   };
-
   return (
     <motion.div
       className="lg:max-w-6xl mx-auto  px-2 "
@@ -181,6 +180,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                   multiple
                   accept="image/*"
                   readOnly
+                  ref={fileInputRef}
                 />
                 <span
                   className="absolute top-[65px] left-[50%] transform -translate-x-1/2 pr-3 flex items-center text-gray-700 cursor-pointer"

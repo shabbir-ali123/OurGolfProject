@@ -24,13 +24,31 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    console.log({value})
+    const { name, value, type, checked } = e.target;
+  
+    // Determine the input type
+    const isCheckbox = type === "checkbox";
+  
+    // Convert the value to a number if it's not a checkbox
+    const numericValue = isCheckbox ? checked : parseInt(value, 10);
+  
+    // List of fields that should remain as strings
+    const stringFields = ["eventStartTime","eventEndTime", "eventStartDate","eventEndDate","eventDeadlineDate","eventDeadlineTime"];
+  
     // Update formData using the previous state
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: stringFields.includes(name) ? value : numericValue,
+    }));
+  
     // Call the onChange prop with the updated data and activeTab
-    onChange({ ...formData, [name]: value }, activeTab);
+    onChange(
+      {
+        ...formData,
+        [name]: stringFields.includes(name) ? value : numericValue,
+      },
+      activeTab
+    );
   };
 
 

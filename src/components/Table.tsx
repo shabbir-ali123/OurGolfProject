@@ -8,13 +8,13 @@ import {
 
 interface TableProps {
   events: Array<{
-    organizer: string;
-    time: string;
-    date: string;
-    event: string;
-    notes: string;
+    accountHolderName: string;
+    eventStartTime: string;
+    eventStartDate: string;
+    eventName: string;
+    eventDetails: string;
     type: string;
-    location: string;
+    place: string;
     imageUrl: string;
   }>;
 }
@@ -109,19 +109,19 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             className="h-8 w-8   rounded-full bg-gray-800 "
                           />
                           <div className="truncate text-sm font-medium leading-6  ">
-                            {event.organizer}
+                            {event.accountHolderName}
                           </div>
                         </div>
                       </td>
                       <td className="whitespace-nowrap px-3 py-0 text-sm">
-                        {event.time}
+                        {event.eventStartTime}
                       </td>
                       <td className="whitespace-nowrap px-3 py-0  text-sm">
-                        {event.date}
+                        {event.eventStartDate}
                       </td>
                       <td className="flex justify-between items-center text-center ml-2 whitespace-pre-wrap xl:text-left text-sm  font-semibold ">
                         <div className="flex flex-col">
-                          {event.event}
+                          {event.eventName}
                           <span className="flex items-center gap-1 font-normal ">
                             <MapPinIcon
                               className={`-mr-0.5 h-5 w-5 ${
@@ -130,7 +130,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               aria-hidden="true"
                             />
 
-                            {event.location}
+                            {event.place}
                           </span>
                         </div>
 
@@ -147,7 +147,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-3 py-0 text-sm">
-                        {event.notes}
+                        {event.eventDetails}
                       </td>
                       <td className="flex  gap-1 whitespace-nowrap px-3 py-0 text-sm ">
                         <div className="flex  gap-1 flex-col items-center">

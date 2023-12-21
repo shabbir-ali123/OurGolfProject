@@ -22,22 +22,22 @@ interface FormData {
     field1: boolean;
     field2: boolean;
     selectedHoles: string[];
-    driverContest: string;
-    nearPinContest: string;
+    driverContest: number; // Change to number
+    nearPinContest: number; // Change to number
   };
   [Tab.Double]: {
     field1: boolean;
     field2: boolean;
     selectedHoles: string[];
-    driverContest: string;
-    nearPinContest: string;
+    driverContest: number; // Change to number
+    nearPinContest: number; // Change to number
   };
   [Tab.Triple]: {
     field1: boolean;
     field2: boolean;
     selectedHoles: string[];
-    driverContest: string;
-    nearPinContest: string;
+    driverContest: number; // Change to number
+    nearPinContest: number; // Change to number
   };
 }
 
@@ -55,22 +55,22 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       field1: true,
       field2: false,
       selectedHoles: [],
-      driverContest: "",
-      nearPinContest: "",
+      driverContest: 0, // Initialize as number
+      nearPinContest: 0, // Initialize as number
     },
     [Tab.Double]: {
       field1: false,
       field2: false,
       selectedHoles: [],
-      driverContest: "",
-      nearPinContest: "",
+      driverContest: 0, // Initialize as number
+      nearPinContest: 0, // Initialize as number
     },
     [Tab.Triple]: {
       field1: true,
       field2: false,
       selectedHoles: [],
-      driverContest: "",
-      nearPinContest: "",
+      driverContest: 0, // Initialize as number
+      nearPinContest: 0, // Initialize as number
     },
   });
   React.useEffect(() => {
@@ -112,7 +112,10 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       ...prevFormData,
       [scoringType]: {
         ...prevFormData[scoringType],
-        [event.target.name]: event.target.value,
+        [event.target.name]:
+          event.target.name === "driverContest" || event.target.name === "nearPinContest"
+            ? Number(event.target.value) 
+            : event.target.checked,
       },
     }));
   } else {
@@ -157,15 +160,22 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 
   const scoringType = selectedScoringType;
 
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    [scoringType]: {
-      ...prevFormData[scoringType],
-      [event.target.name]: event.target.value,
-    },
-  }));
+  // Check if the input field name is either "driverContest" or "nearPinContest"
+  if (event.target.name === "driverContest" || event.target.name === "nearPinContest") {
+    // Call the onInputChange function instead of onChange
+    onInputChange(event);
+  } else {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [scoringType]: {
+        ...prevFormData[scoringType],
+        [event.target.name]: event.target.value,
+      },
+    }));
 
-  onChange(scoringType, event);
+    // Invoke the parent onChange with scoringType and event
+    onChange(scoringType, event);
+  }
 };
   return (
     <div className="lg:max-w-6xl mx-auto px-2 py-10">
