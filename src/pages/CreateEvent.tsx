@@ -9,6 +9,8 @@ import axios from "axios";
 import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { Any } from "react-spring";
 import { stringify } from "querystring";
+import { ToastProvider } from "../utils/ToastProvider";
+import { useToast } from '../utils/ToastProvider';
 
 
 
@@ -52,7 +54,10 @@ interface CreateEventType{
     driverContest?: number;
     nearPinContest?: number;
 }
+
 const CreateEvent: React.FC = () => {
+  // const { showToast } = useToast();
+  // showToast("","")
   const [value, setValue] = useState("");
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
@@ -124,11 +129,17 @@ const CreateEvent: React.FC = () => {
       setFormData({ ...formData, scoringType: updatedScoringType });
     }
   };
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) {
+      return;
+    }
+    setSubmitting(true); // Set submitting to true
 
     try {
+      
       const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formData, {
         headers: {
           "Content-Type": "application/json",
@@ -140,12 +151,15 @@ const CreateEvent: React.FC = () => {
 
       if (response.status === 201) {
         // Handle success
+
       } else {
         setError("Error Occurred");
       }
     } catch (error) {
       setError((error as any)?.response?.data?.message || "Error Occurred");
       console.error("Error:", error);
+    }finally {
+      setSubmitting(false); // Reset submitting to false, allowing future submissions
     }
   };
 
@@ -188,11 +202,14 @@ const CreateEvent: React.FC = () => {
   };
 
   return (
+    <ToastProvider iconColor="white" textColor="white">
+      
     <div>
+
       <div className=" animate__animated animate__lightSpeedInRight">
         <TournamentBg />
       </div>
-      <form onSubmit={handleSubmit}>
+      <form method="post" id="foirm">
         <BasicInfo onChange={handleChange} setFormData={setFormData} />
 
         <Recuitments onChange={handleRecruitmentTabsChange} />
@@ -208,9 +225,6 @@ const CreateEvent: React.FC = () => {
         <div className="lg:max-w-6xl mx-auto p-2 ">
           <div className=" ">
             <div className="mx-4 flex gap-2">
-              {/* <button type="submit" onClick={handleSubmit}>
-                Submit
-              </button> */}
               <div className="py-6">
                 <button
                   type="button"
@@ -229,9 +243,7 @@ const CreateEvent: React.FC = () => {
                   Clear
                 </button>
                   
-                  <button className="glow-on-hover  text-white bg-[#52FF86] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Create Event
-                  </button>
+            
                 
               </div>
             </div>
@@ -239,7 +251,10 @@ const CreateEvent: React.FC = () => {
         </div>
       </form>
     </div>
+    </ToastProvider>
+
   );
 };
 
 export default CreateEvent;
+

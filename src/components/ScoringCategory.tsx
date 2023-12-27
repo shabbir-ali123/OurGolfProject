@@ -5,9 +5,7 @@ interface ScoringTypeProps {
     scoringType: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
-  onInputChange: (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectedHoles: string[];
 }
 
@@ -74,17 +72,19 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     },
   });
   React.useEffect(() => {
-    // Set the initial scoringType to "Peria"
+
     handleTabClick(Tab.Single);
   }, []);
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
     setSelectedScoringType(tab);
 
+    console.log(selectedScoringType.includes(tab));
+    console.log
     // Update checkbox state directly
     const updatedEvent = {
       target: {
-        checked: true,
+        checked: !selectedScoringType.includes(tab),
         name: tab,
       },
     } as React.ChangeEvent<HTMLInputElement>;
@@ -93,90 +93,97 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   };
 
   const handleScoringTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
-  if (!event || !event.target) {
-    return;
-  }
+    if (!event || !event.target) {
+      return;
+    }
 
-  const isChecked = event.target.checked;
-  const scoringType = event.target.name as Tab;
+    const isChecked = event.target.checked;
+    const scoringType = event.target.name as Tab;
 
-  if (isChecked) {
-    setSelectedScoringType(scoringType);
-  } else {
-    setSelectedScoringType(Tab.Single);
-  }
+    if (isChecked) {
+      setSelectedScoringType(scoringType);
+    } else {
+      setSelectedScoringType(Tab.Single);
+    }
 
-  // Handle changes for driverContest and nearPinContest separately
-  if (event.target.name === "driverContest" || event.target.name === "nearPinContest") {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [scoringType]: {
-        ...prevFormData[scoringType],
-        [event.target.name]:
-          event.target.name === "driverContest" || event.target.name === "nearPinContest"
-            ? Number(event.target.value) 
-            : event.target.checked,
-      },
-    }));
-  } else {
-    // For other inputs, update the formData accordingly
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [scoringType]: {
-        ...prevFormData[scoringType],
-        [event.target.name]: event.target.checked,
-      },
-    }));
-  }
-
-  // Invoke the parent onChange with scoringType and event
-  onChange(scoringType, event);
-};
-const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-  if (!event.target) {
-    return;
-  }
-
-  const isChecked = event.target.checked;
-  const scoringType = event.target.name as Tab;
-
-  setSelectedScoringType(isChecked ? scoringType : Tab.Single);
-
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    [scoringType]: {
-      ...prevFormData[scoringType],
-      [event.target.name]: isChecked,
-    },
-  }));
-
-  onChange(scoringType, event);
-};
-
-const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-  if (!event.target) {
-    return;
-  }
-
-  const scoringType = selectedScoringType;
-
-  // Check if the input field name is either "driverContest" or "nearPinContest"
-  if (event.target.name === "driverContest" || event.target.name === "nearPinContest") {
-    // Call the onInputChange function instead of onChange
-    onInputChange(event);
-  } else {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [scoringType]: {
-        ...prevFormData[scoringType],
-        [event.target.name]: event.target.value,
-      },
-    }));
+    // Handle changes for driverContest and nearPinContest separately
+    if (
+      event.target.name === "driverContest" ||
+      event.target.name === "nearPinContest"
+    ) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [scoringType]: {
+          ...prevFormData[scoringType],
+          [event.target.name]:
+            event.target.name === "driverContest" ||
+            event.target.name === "nearPinContest"
+              ? Number(event.target.value)
+              : event.target.checked,
+        },
+      }));
+    } else {
+      // For other inputs, update the formData accordingly
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [scoringType]: {
+          ...prevFormData[scoringType],
+          [event.target.name]: event.target.checked,
+        },
+      }));
+    }
 
     // Invoke the parent onChange with scoringType and event
     onChange(scoringType, event);
-  }
-};
+  };
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target) {
+      return;
+    }
+
+    const isChecked = event.target.checked;
+    const scoringType = event.target.name as Tab;
+
+    setSelectedScoringType(isChecked ? scoringType : Tab.Single);
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [scoringType]: {
+        ...prevFormData[scoringType],
+        [event.target.name]: isChecked,
+      },
+    }));
+
+    onChange(scoringType, event);
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target) {
+      return;
+    }
+
+    const scoringType = selectedScoringType;
+
+    // Check if the input field name is either "driverContest" or "nearPinContest"
+    if (
+      event.target.name === "driverContest" ||
+      event.target.name === "nearPinContest"
+    ) {
+      // Call the onInputChange function instead of onChange
+      onInputChange(event);
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [scoringType]: {
+          ...prevFormData[scoringType],
+          [event.target.name]: event.target.value,
+        },
+      }));
+
+      // Invoke the parent onChange with scoringType and event
+      onChange(scoringType, event);
+    }
+  };
   return (
     <div className="lg:max-w-6xl mx-auto px-2 py-10">
       <h2 className="text-[#0f1e56] text-4xl">Scoring Category</h2>
@@ -195,6 +202,7 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
             />
             <button
               onClick={() => handleTabClick(Tab.Single)}
+              type="button"
               className={
                 activeTab === Tab.Single
                   ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
@@ -214,6 +222,7 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
             />
             <button
               onClick={() => handleTabClick(Tab.Double)}
+              type="button"
               className={
                 activeTab === Tab.Double
                   ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
@@ -233,6 +242,7 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
             />
             <button
               onClick={() => handleTabClick(Tab.Triple)}
+              type="button"
               className={
                 activeTab === Tab.Triple
                   ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
@@ -254,12 +264,14 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
                   <div className="flex items-center" key={index + 1}>
                     <input
                       type="checkbox"
-                      checked={selectedHoles.includes(String(index + 1))}
+                      checked={
+                        index < 9 || selectedHoles.includes(String(index + 1))
+                      }
                       onChange={(e) => onChange("holes", e)}
                       id={String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
-                    <label htmlFor={`checkbox${index + 1}`}>
+                    <label htmlFor={String(index + 1)}>
                       Hole{" "}
                       <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
                         {index + 1}
@@ -281,9 +293,13 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
                   <div className="flex items-center" key={index + 1}>
                     <input
                       type="checkbox"
-                      checked={selectedHoles.includes(String(index + 1))}
+                      checked={
+                        !(index < 12)
+                          ? selectedHoles.includes(String(index + 1))
+                          : true
+                      }
                       onChange={(e) => onChange("holes", e)}
-                      id={String(index + 1)}
+                      id={"double" + String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
                     <label htmlFor={`checkbox${index + 1}`}>
@@ -307,7 +323,11 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
                   <div className="flex items-center" key={index + 1}>
                     <input
                       type="checkbox"
-                      checked={selectedHoles.includes(String(index + 1))}
+                      checked={
+                        !(index < 6)
+                          ? selectedHoles.includes(String(index + 1))
+                          : true
+                      }
                       onChange={(e) => onChange("holes", e)}
                       id={String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
@@ -341,7 +361,7 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
             min="0"
             onChange={onInputChange}
           />
-          <p className="text-[#ff0000] ml-3">Please select whole number</p>
+          <p className="text-[#ff0000] ml-3">Please select hole number</p>
         </div>
         <div className="flex items-center space-x-4 col-span-12 lg:col-span-2 py-2 md:col-span-2 md:mr-0 md:mb-3">
           <label
@@ -357,7 +377,6 @@ const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
             name="nearPinContest"
             placeholder="7"
             min="0"
-            
             onChange={onInputChange}
           />
           <p className="text-[#ff0000]">Please select whole number</p>

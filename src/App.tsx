@@ -147,14 +147,14 @@ function App() {
       {isDesktopScreen &&  <SideIconMenu />}
       <Routes>
         <Route path="/"
-                  element={token ? <EventMainPage /> : <LoginPage />} index/>
+                  element={<EventMainPage/>} index/>
         <Route
           path="/ongoing-indiviual-score"
           
-          element={<OngoingIndiviualScore />}
+          element={token? <OngoingIndiviualScore/> :<LoginPage />}
         />
         <Route path="/student-page" element={token? <StudentPage  />:<LoginPage />} />
-        <Route path="/event-main-page" element={token? <EventMainPage /> :<LoginPage />} />
+        <Route path="/event-main-page" element={<EventMainPage/>} />
         <Route path="/activties-page" element={token? <ActivtiesPage /> :<LoginPage />} />
         <Route path="/teacher-page" element={token? <TeacherPage />:<LoginPage />} />
         <Route path="/student-page" element={token? <StudentPage />:<LoginPage />} />

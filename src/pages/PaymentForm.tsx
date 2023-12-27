@@ -13,16 +13,16 @@ export interface PaymentFormValues {
 
 export const PaymentForm: React.FC<PaymentFormProps> = () => {
   // Handle the form submission
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const values: PaymentFormValues = {
-      joiningFee: Number(formData.get("joiningFee")),
-      accountHolderName: formData.get("accountHolderName") as string,
-      paypalId: formData.get("paypalId") as string,
-      accountNumber: formData.get("accountNumber") as string,
-    };
-  };
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   const values: PaymentFormValues = {
+  //     joiningFee: Number(formData.get("joiningFee")),
+  //     accountHolderName: formData.get("accountHolderName") as string,
+  //     paypalId: formData.get("paypalId") as string,
+  //     accountNumber: formData.get("accountNumber") as string,
+  //   };
+  // };
 
   return (
     <div className=" ">

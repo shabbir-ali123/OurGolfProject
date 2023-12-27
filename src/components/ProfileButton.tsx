@@ -1,26 +1,77 @@
-import React, { useEffect, useState } from "react";
+
+  
+  import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_ENDPOINTS } from '../appConfig';
+import axios from "axios";
+interface UserData {
+  nickName: string;
+  email: string;
+  // Other properties of user data...
+}
 // import useRedirect from "../utils/Redirect"zzz
 export default function ProfileButton() {
-  var [token, setToken] = useState('');
+  const [token, setToken] = useState('');
+  const [user, setUser] = useState<UserData | null>(null);
+
+
+
+  useEffect(() => {
+    const userId = localStorage.getItem('id');
+    getUser(userId)
+      .then((userData) => {
+        // Handle the user data
+        console.log('User data:', userData.user);
+        setUser(userData.user); // Set the user data in state
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error:', error);
+      });
+  }, []);
+
+  console.log(user?.email, "wemadsfs");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleDotClick = () => {
+    setDropdownOpen(true);
+  
+    // Set a timeout to close the dropdown after 3000 milliseconds (adjust the time as needed)
+    const timeoutId = setTimeout(() => {
+      setDropdownOpen(false);
+    }, 5000); // 3000 milliseconds = 3 seconds
+  
+    // Cleanup function to clear the timeout if the component unmounts
+    return () => clearTimeout(timeoutId);
+  };
+  
   useEffect(() => {
     // Check if a token exists in localStorage
     const storedToken = localStorage.getItem('token');
 
-    if(storedToken){
+    if (storedToken) {
       setToken(storedToken);
-    }else{
-      token="false";
+    } 
+  }, []);
+
+  const getUser = async (userId: any) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(response.data.user.nickName, "zzinda")
+      // Assuming your API returns data in the response.data property
+      return response.data;
+    } catch (error) {
+      // Handle errors here
+      console.error('Error fetching user:', error);
+      throw error; // You might want to handle this error in your component
     }
-    console.log(token,"ssss");
-  }); 
-
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleDotClick = () => {
-    setDropdownOpen(!dropdownOpen);
   };
-
   return (
     <div className="hidden lg:flex lg:flex-1 lg:justify-end ">
       <div className="relative block flex-shrink-0">
@@ -33,17 +84,22 @@ export default function ProfileButton() {
               alt=""
             />
           </div>
-          {token ?
-          <div className="ml-3">
-            <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
-              Esther Howard
-            </p>
-          </div>
-         : <div className="ml-3">
-         <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
-          Hello! Please Login
-         </p>
-       </div> }
+          {token && user ? (
+            <div className="ml-3">
+              <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
+                {
+                  user.nickName  ?  user.nickName : user.email 
+                }
+               
+              </p>
+            </div>
+          ) : (
+            <div className="ml-3">
+              <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
+                Hello! Please Login
+              </p>
+            </div>
+          )}
           <div className="relative">
             <button
               onClick={handleDotClick}

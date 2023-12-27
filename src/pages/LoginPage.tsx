@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
 
 const Login: React.FC = () => {
   const router = useNavigate();
@@ -10,6 +11,7 @@ const Login: React.FC = () => {
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,13 +25,18 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       const response = await axios.post(API_ENDPOINTS.LOGIN, formData);
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data.jwtToken);
-        localStorage.setItem("userid", response.data.jwtToken);
-        console.log(response.data ,"hello")
+        localStorage.setItem("id", response.data.id);
+        console.log(response.data, "hello");
         router("/event-main-page");
+        window.location.reload();
+
       }
 
       setError(null);
@@ -37,16 +44,24 @@ const Login: React.FC = () => {
       setError(
         (error as any)?.response?.data?.message || "We are not able to Login"
       );
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
+      {loading && (
+              <div className="flex items-center justify-center h-screen">
+                <BeatLoader color="#51ff85" size={15} />
+              </div>
+            )}
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 animate__animated animate__fadeInLeft">
         <div className="w-full bg-white rounded-lg shadow-xl dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Login to your account
             </h1>
+            
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {error && (
                 <div className="text-red-500 text-sm mt-2">

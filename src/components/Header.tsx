@@ -42,9 +42,7 @@ const Header: React.FC = () => {
     }
   });
 
-  // // Debugging information
-  // console.log("Current location:", location.pathname);
-  // console.log("Navigation items:", navigation);
+  
 
   return (
   <div>
@@ -55,7 +53,7 @@ const Header: React.FC = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1 ">
-          <Link to="/score-board" className="-m-1.5 p-1">
+          <Link to="/event-main-page" className="-m-1.5 p-1">
             <span className="sr-only">Your Company</span>
             <img className="h-16 w-auto animate-pulse" src="./img/logo.png" alt="" />
           </Link>
@@ -136,7 +134,7 @@ const Header: React.FC = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1 ">
-          <Link to="/score-board" className="-m-1.5 p-1">
+          <Link to="/event-main-page" className="-m-1.5 p-1">
             <span className="sr-only">Your Company</span>
             <img className="h-16 w-auto animate-pulse" src="./img/logo.png" alt="" />
           </Link>

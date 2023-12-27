@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import StudentTabs from '../components/StudentTabs';
+import StudentTabs from '../components/StudentTabs'; 
 import TeacherList from '../components/TeacherList';
 import StudentEventBoxes from '../components/StudentEventBoxes';
 import StudentCalendar from '../components/StudentCalender';

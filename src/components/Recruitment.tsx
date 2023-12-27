@@ -10,11 +10,14 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<Tab>("individual");
   const [formData, setFormData] = useState<Record<string, any>>({});
-
+  const prevFormData = useRef<Record<string, any>>({});
   useEffect(() => {
     // Set the default tab to "individual" when the component mounts
     handleTabClick("individual");
   }, []); // Empty dependency array ensures that this effect runs only once, similar to componentDidMount
+  useEffect(() => {
+    prevFormData.current = formData;
+  }, [formData]);
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
@@ -60,16 +63,12 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
       }));
     }
   
-    // Call the onChange prop with the updated data and activeTab
-    onChange(
-      {
-        ...formData,
-        [name]: stringFields.includes(name) ? value : numericValue,
-      },
-      activeTab
-    );
+    // Only call onChange if there are actual changes
+    if (formData[name] !== prevFormData.current[name]) {
+      onChange(formData, activeTab);
+    }
   };
-
+  
   return (
     <div className="lg:max-w-6xl mx-auto px- py-8  ">
       <h2 className="text-[#0f1e56] text-4xl">Recruitment Details</h2>
@@ -191,6 +190,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
                       ? "bg-blue-500 text-white cursor-pointer animate-bounce border-none"
                       : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
                   } px-4 py-2 border rounded-full`}
+                  type="button"
                   onClick={() => handleTabClick("individual")}
                 >
                   individual
@@ -202,6 +202,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
                       ? "bg-blue-500 text-white cursor-pointer animate-bounce"
                       : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 over:scale-105 transform transition duration-300 ease-in-out"
                   } px-4 py-2   rounded-full`}
+                  type="button"
                   onClick={() => handleTabClick("team")}
                 >
                   team

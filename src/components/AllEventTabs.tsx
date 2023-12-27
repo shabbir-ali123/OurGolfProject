@@ -56,7 +56,6 @@ const AllEventTabs: FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <Calendar/>
     </div>
   );
 };

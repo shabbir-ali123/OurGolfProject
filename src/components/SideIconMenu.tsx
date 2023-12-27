@@ -118,7 +118,6 @@ const SideMenu: React.FC = () => {
     fontSize: "24px",
     color: "white",
     marginBottom: "5px",
-  
   };
 
   const textStyles: React.CSSProperties = {
@@ -166,8 +165,6 @@ const SideMenu: React.FC = () => {
     color: "black",
   };
 
-  
-
   return (
     <>
       {token ? (
@@ -199,7 +196,6 @@ const SideMenu: React.FC = () => {
             <div
               style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
             >
-              
               <FontAwesomeIcon icon={faHome} style={iconStyles} />
               <span style={textStyles}>Home</span>
             </div>
@@ -247,7 +243,7 @@ const SideMenu: React.FC = () => {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="py-4 px-2" style={dropdownListStyles}>
                   <div
                     className="shadow-md "
@@ -268,9 +264,7 @@ const SideMenu: React.FC = () => {
             </div>
           ) : (
             // Show only the heart icon when the menu is not open
-            <div
-              className="flex justify-center items-center border-b-2 border-solid border-white w-full py-2 my-4"
-            >
+            <div className="flex justify-center items-center border-b-2 border-solid border-white w-full py-2 my-4">
               <FontAwesomeIcon icon={faHeart} style={iconStyles} />
             </div>
           )}
@@ -300,7 +294,84 @@ const SideMenu: React.FC = () => {
           </div>
         </div>
       ) : (
-        ""
+        <div
+          style={{
+            ...menuStyles,
+            ...(window.innerWidth <= 768 && { width: "40px" }),
+          }}
+          onMouseEnter={handleMenuMouseEnter}
+          onMouseLeave={handleMenuMouseLeave}
+        >
+          <div className="absolute top-[8px] ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="white"
+              className="w-12 h-12 border border-[#51ff85] p-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </div>
+          <Link to="/score-board" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faHome} style={iconStyles} />
+              <span style={textStyles}>Home</span>
+            </div>
+          </Link>
+
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faBell} style={iconStyles} />
+            <span style={textStyles}>Notifications</span>
+          </div>
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
+            <span style={textStyles}>Posts</span>
+          </div>
+          {isMenuOpen ? ( // Show heart icon only when the menu is open
+            <div style={dropdownStyles} ref={dropdownRef}>
+              <div
+                style={{
+                  ...menuItemStyles,
+                  ...dropdownButtonStyles,
+                  ...(isMenuOpen && menuItemStyles),
+                }}
+                onClick={handleDropdownClick}
+              >
+                <Link to="/event-main-page" className="-m-1.5 p-1">
+                  <div className="flex items-center gap-2">
+                    <FontAwesomeIcon icon={faHeart} style={iconStyles} />
+                    {isMenuOpen && (
+                      <div className="flex gap-2 items-center">
+                        <span style={textStyles}> {selectedItem}</span>
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              </div>
+            </div>
+          ) : (
+            // Show only the heart icon when the menu is not open
+            <div className="flex justify-center items-center border-b-2 border-solid border-white w-full py-2 my-4">
+              <FontAwesomeIcon icon={faHeart} style={iconStyles} />
+            </div>
+          )}
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faSearch} style={iconStyles} />
+            <span style={textStyles}>Find a teacher</span>
+          </div>
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
+            <span style={textStyles}>Sign Up</span>
+          </div>
+        </div>
       )}
     </>
   );

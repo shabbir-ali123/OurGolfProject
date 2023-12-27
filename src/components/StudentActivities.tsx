@@ -8,7 +8,7 @@ const StudentActivities = () => {
       {/* Left Column */}
       <div className="col-span-12 lg:col-span-4 mx-16 animate__animated animate__fadeInLeft">
         <StudentCalSec/>
-      </div>
+      </div> 
 
       {/* Middle Column */}
       <div className="col-span-12 lg:col-span-8 py-4 px-12 box-border  animate__animated animate__fadeInRight">
