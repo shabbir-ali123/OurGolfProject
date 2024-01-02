@@ -64,7 +64,7 @@ const Login: React.FC = () => {
             
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {error && (
-                <div className="text-red-500 text-sm mt-2">
+                <div className="text-[#F80202] text-sm mt-2">
                   {/* Display the error message */}
                   {error}
                 </div>
@@ -113,7 +113,7 @@ const Login: React.FC = () => {
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border-solid border-[#0038FF] rounded bg-blue-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required
+                      
                     />
                   </div>
                   <div className="ml-3 text-sm">

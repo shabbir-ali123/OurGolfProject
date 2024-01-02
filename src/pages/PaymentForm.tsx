@@ -12,18 +12,6 @@ export interface PaymentFormValues {
 }
 
 export const PaymentForm: React.FC<PaymentFormProps> = () => {
-  // Handle the form submission
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(event.currentTarget);
-  //   const values: PaymentFormValues = {
-  //     joiningFee: Number(formData.get("joiningFee")),
-  //     accountHolderName: formData.get("accountHolderName") as string,
-  //     paypalId: formData.get("paypalId") as string,
-  //     accountNumber: formData.get("accountNumber") as string,
-  //   };
-  // };
-
   return (
     <div className=" ">
       <ChampionShipName />
@@ -110,7 +98,6 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
           </div>
           <div className="flex items-center justify-center py-4 ml-10">
             <div className="grid grid-cols-10 gap-6 ">
-              {/* Image */}
               <div className="col-span-3 relative">
                 <div
                   style={{
@@ -128,67 +115,37 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                 </div>
               </div>
 
-              {/* Form */}
               <div
                 className="col-span-6 bg-[#17B3A6] shadow-lg "
                 style={{ boxShadow: "9px 9px 4px #00c5b5" }}
               >
                 <form className="p-6">
                   <p className="text-white font-poppins-medium text-2xl">
-                    Personal Information
+                    Payment Information
                   </p>
                   <div className="relative w-full">
                     <label
                       htmlFor="team"
-                      className="text-white font-poppins font-medium text-xl capitalize "
+                      className="text-white font-poppins font-medium text-xl capitalize"
                     >
-                      joining Fee
+                      account number
                     </label>
 
-                    <div className="relative flex items-center w-full my-3 capitalize ">
+                    <div className="relative flex items-center w-full my-3">
                       <svg
-                        width="24"
-                        height="23"
-                        viewBox="0 0 24 23"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="  absolute left-2 top-1/2 transform -translate-y-1/2"
-                      >
-                        <path
-                          d="M16 15C16 13.895 12.866 13 9 13M16 15C16 16.105 12.866 17 9 17C5.134 17 2 16.105 2 15M16 15V19.937C16 21.076 12.866 22 9 22C5.134 22 2 21.077 2 19.937V15M16 15C19.824 15 23 14.013 23 13V3M9 13C5.134 13 2 13.895 2 15M9 13C4.582 13 1 12.013 1 11V6M9 4C4.582 4 1 4.895 1 6M1 6C1 7.105 4.582 8 9 8C9 9.013 12.253 10 16.077 10C19.9 10 23 9.013 23 8M23 3C23 1.895 19.9 1 16.077 1C12.253 1 9.154 1.895 9.154 3M23 3C23 4.105 19.9 5 16.077 5C12.254 5 9.154 4.105 9.154 3M9.154 3V13.166"
-                          stroke="#17B3A6"
-                          stroke-width="2"
-                        />
-                      </svg>
-
-                      <input
-                        type="text"
-                        name="Player"
-                        id="teamname"
-                        value="¥200"
-                        className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
-                      />
-                    </div>
-                  </div>
-                  <div className="relative w-full capitalize ">
-                    <label
-                      htmlFor="team"
-                      className="text-white font-poppins font-medium text-xl"
-                    >
-                      account holder name
-                    </label>
-
-                    <div className="relative flex items-center w-full my-3  ">
-                      <svg
-                        width="24"
+                        width="28"
                         height="24"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 28 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                         className="  absolute left-2 top-1/2 transform -translate-y-1/2"
                       >
                         <path
-                          d="M12 0C13.5913 0 15.1174 0.632141 16.2426 1.75736C17.3679 2.88258 18 4.4087 18 6C18 7.5913 17.3679 9.11742 16.2426 10.2426C15.1174 11.3679 13.5913 12 12 12C10.4087 12 8.88258 11.3679 7.75736 10.2426C6.63214 9.11742 6 7.5913 6 6C6 4.4087 6.63214 2.88258 7.75736 1.75736C8.88258 0.632141 10.4087 0 12 0ZM12 15C18.63 15 24 17.685 24 21V24H0V21C0 17.685 5.37 15 12 15Z"
+                          d="M6 10H17V12H6V10ZM6 15H19V17H6V15Z"
+                          fill="#17B3A6"
+                        />
+                        <path
+                          d="M26 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V22C0 22.5304 0.210714 23.0391 0.585786 23.4142C0.960859 23.7893 1.46957 24 2 24H26C26.5304 24 27.0391 23.7893 27.4142 23.4142C27.7893 23.0391 28 22.5304 28 22V2C28 1.46957 27.7893 0.960859 27.4142 0.585786C27.0391 0.210714 26.5304 0 26 0ZM26 2V4H2V2H26ZM2 22V6H26V22H2Z"
                           fill="#17B3A6"
                         />
                       </svg>
@@ -197,11 +154,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         type="text"
                         name="Player"
                         id="teamname"
-                        value="siraj udin"
+                        placeholder="71234569084"
                         className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
                       />
                     </div>
                   </div>
+
                   <div className="relative w-full">
                     <label
                       htmlFor="team"
@@ -244,29 +202,25 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                       />
                     </div>
                   </div>
-                  <div className="relative w-full">
+                  <div className="relative w-full capitalize ">
                     <label
                       htmlFor="team"
-                      className="text-white font-poppins font-medium text-xl capitalize"
+                      className="text-white font-poppins font-medium text-xl"
                     >
-                      account number
+                      account holder name
                     </label>
 
-                    <div className="relative flex items-center w-full my-3">
+                    <div className="relative flex items-center w-full my-3  ">
                       <svg
-                        width="28"
+                        width="24"
                         height="24"
-                        viewBox="0 0 28 24"
+                        viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                         className="  absolute left-2 top-1/2 transform -translate-y-1/2"
                       >
                         <path
-                          d="M6 10H17V12H6V10ZM6 15H19V17H6V15Z"
-                          fill="#17B3A6"
-                        />
-                        <path
-                          d="M26 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V22C0 22.5304 0.210714 23.0391 0.585786 23.4142C0.960859 23.7893 1.46957 24 2 24H26C26.5304 24 27.0391 23.7893 27.4142 23.4142C27.7893 23.0391 28 22.5304 28 22V2C28 1.46957 27.7893 0.960859 27.4142 0.585786C27.0391 0.210714 26.5304 0 26 0ZM26 2V4H2V2H26ZM2 22V6H26V22H2Z"
+                          d="M12 0C13.5913 0 15.1174 0.632141 16.2426 1.75736C17.3679 2.88258 18 4.4087 18 6C18 7.5913 17.3679 9.11742 16.2426 10.2426C15.1174 11.3679 13.5913 12 12 12C10.4087 12 8.88258 11.3679 7.75736 10.2426C6.63214 9.11742 6 7.5913 6 6C6 4.4087 6.63214 2.88258 7.75736 1.75736C8.88258 0.632141 10.4087 0 12 0ZM12 15C18.63 15 24 17.685 24 21V24H0V21C0 17.685 5.37 15 12 15Z"
                           fill="#17B3A6"
                         />
                       </svg>
@@ -275,43 +229,84 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         type="text"
                         name="Player"
                         id="teamname"
-                        placeholder="71234569084"
+                        value="siraj udin"
                         className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
                       />
                     </div>
                   </div>
+                  <div className="relative w-full">
+                    <label
+                      htmlFor="team"
+                      className="text-white font-poppins font-medium text-xl capitalize "
+                    >
+                      joining Fee
+                    </label>
+
+                    <div className="relative flex items-center w-full my-3 capitalize ">
+                      <svg
+                        width="24"
+                        height="23"
+                        viewBox="0 0 24 23"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="  absolute left-2 top-1/2 transform -translate-y-1/2"
+                      >
+                        <path
+                          d="M16 15C16 13.895 12.866 13 9 13M16 15C16 16.105 12.866 17 9 17C5.134 17 2 16.105 2 15M16 15V19.937C16 21.076 12.866 22 9 22C5.134 22 2 21.077 2 19.937V15M16 15C19.824 15 23 14.013 23 13V3M9 13C5.134 13 2 13.895 2 15M9 13C4.582 13 1 12.013 1 11V6M9 4C4.582 4 1 4.895 1 6M1 6C1 7.105 4.582 8 9 8C9 9.013 12.253 10 16.077 10C19.9 10 23 9.013 23 8M23 3C23 1.895 19.9 1 16.077 1C12.253 1 9.154 1.895 9.154 3M23 3C23 4.105 19.9 5 16.077 5C12.254 5 9.154 4.105 9.154 3M9.154 3V13.166"
+                          stroke="#17B3A6"
+                          stroke-width="2"
+                        />
+                      </svg>
+
+                      <input
+                        type="text"
+                        name="Player"
+                        id="teamname"
+                        value="¥200"
+                        className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
+                      />
+                    </div>
+                  </div>
+
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full mt-4">
+                    Submit
+                  </button>
                 </form>
                 <div className="flex items-center justify-end">
                   <h3 className="text-white">Contact with Host</h3>
                   <div>
                     <div className="cursor-pointer">
-                    <img src="/img/line.png" alt="" width="70px" height="70px" />
+                      <img
+                        src="/img/line.png"
+                        alt=""
+                        width="70px"
+                        height="70px"
+                      />
                     </div>
-                   <div className="ml-1 cursor-pointer">
-                   <svg
-                      width="60"
-                      height="60"
-                      viewBox="0 0 38 38"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="19"
-                        cy="19"
-                        r="18.5"
-                        fill="#17B3A6"
-                        stroke="white"
-                      />
-                      <path
-                        d="M15.1025 15.8333H22.8974M15.1025 19.7308H20.9487M24.8461 10.9615C25.6213 10.9615 26.3648 11.2695 26.913 11.8177C27.4612 12.3659 27.7692 13.1094 27.7692 13.8846V21.6795C27.7692 22.4547 27.4612 23.1982 26.913 23.7464C26.3648 24.2946 25.6213 24.6026 24.8461 24.6026H19.9743L15.1025 27.5257V24.6026H13.1538C12.3785 24.6026 11.635 24.2946 11.0869 23.7464C10.5387 23.1982 10.2307 22.4547 10.2307 21.6795V13.8846C10.2307 13.1094 10.5387 12.3659 11.0869 11.8177C11.635 11.2695 12.3785 10.9615 13.1538 10.9615H24.8461Z"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                   </div>
-                    
+                    <div className="ml-1 cursor-pointer">
+                      <svg
+                        width="60"
+                        height="60"
+                        viewBox="0 0 38 38"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="19"
+                          cy="19"
+                          r="18.5"
+                          fill="#17B3A6"
+                          stroke="white"
+                        />
+                        <path
+                          d="M15.1025 15.8333H22.8974M15.1025 19.7308H20.9487M24.8461 10.9615C25.6213 10.9615 26.3648 11.2695 26.913 11.8177C27.4612 12.3659 27.7692 13.1094 27.7692 13.8846V21.6795C27.7692 22.4547 27.4612 23.1982 26.913 23.7464C26.3648 24.2946 25.6213 24.6026 24.8461 24.6026H19.9743L15.1025 27.5257V24.6026H13.1538C12.3785 24.6026 11.635 24.2946 11.0869 23.7464C10.5387 23.1982 10.2307 22.4547 10.2307 21.6795V13.8846C10.2307 13.1094 10.5387 12.3659 11.0869 11.8177C11.635 11.2695 12.3785 10.9615 13.1538 10.9615H24.8461Z"
+                          stroke="white"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>

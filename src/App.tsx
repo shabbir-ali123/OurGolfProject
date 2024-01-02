@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import ScoreBoard from "./pages/ScoreBoard";
 import OngoingIndiviualScore from "./pages/OngoingIndiviualScore";
-
+import { ToastProvider } from './utils/ToastProvider';
 // import OngoingEvent from "./pages/LiveScoringTable";
 import StudentPage from "./pages/StudentPage"
 import EventMainPage from "./pages/EventMainPage";
@@ -25,6 +25,7 @@ import EditTeamPage from "./pages/EditTeamPage";
 import PaymentForm from "./pages/PaymentForm"
 import 'animate.css';
 import PrivateRoute from "./utils/PrivateRoute";
+import BookMarkedEvents from "./pages/BookMarkedEvents"
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -109,6 +110,11 @@ function App() {
               title = "";
               metaDescription = "";
               break;
+              case "/booked-mark":
+                title = "";
+                metaDescription = "";
+                break;
+  
 
     }
 
@@ -142,6 +148,7 @@ function App() {
 
 
   return (
+    <ToastProvider iconColor="white" textColor="white">
     <div className="bg-[white]  transition-colors duration-2000 animate-color-change">
       <Header />
       {isDesktopScreen &&  <SideIconMenu />}
@@ -165,9 +172,11 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/edit-team-page" element={<EditTeamPage    />} />
         <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
+        <Route path="/booked-mark" element={<BookMarkedEvents   />} />
 
       </Routes>
     </div>
+    </ToastProvider>
   );
 
 }

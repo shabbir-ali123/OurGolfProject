@@ -20,9 +20,8 @@ export default function ProfileButton() {
     const userId = localStorage.getItem('id');
     getUser(userId)
       .then((userData) => {
-        // Handle the user data
         console.log('User data:', userData.user);
-        setUser(userData.user); // Set the user data in state
+        setUser(userData.user);
       })
       .catch((error) => {
         // Handle errors
@@ -35,13 +34,11 @@ export default function ProfileButton() {
 
   const handleDotClick = () => {
     setDropdownOpen(true);
-  
-    // Set a timeout to close the dropdown after 3000 milliseconds (adjust the time as needed)
+
     const timeoutId = setTimeout(() => {
       setDropdownOpen(false);
-    }, 5000); // 3000 milliseconds = 3 seconds
+    }, 5000); 
   
-    // Cleanup function to clear the timeout if the component unmounts
     return () => clearTimeout(timeoutId);
   };
   

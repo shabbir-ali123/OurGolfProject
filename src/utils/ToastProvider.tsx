@@ -35,11 +35,11 @@ export const ToastProvider: React.FC<ToastContextProps> = ({ children,iconColor,
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className={`fixed top-0 right-0 p-4 space-y-4 `}>
+      <div className={`fixed top-0 right-0 p-2 space-y-4 `}>
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`text-${textColor} bg-[${toast.bgColor}] p-2 rounded shadow-md`}
+            className={`text-${textColor} bg-${toast.bgColor} p-2 rounded shadow-md`}
             onClick={() => hideToast(toast.id)}
           >
             <p>

@@ -31,16 +31,14 @@ const Header: React.FC = () => {
   const location = useLocation();
   
    navigation.forEach((item) => {
-    if (item.to === "/event-main-page" || item.to === "/create-event") {
-     
-      item.active = location.pathname.startsWith("/event") || location.pathname.startsWith("/create-event");
-    } else if (item.to === "/student-page" || item.to === "/teacher-page") {
-   
-      item.active = location.pathname.startsWith("/student-page") || location.pathname.startsWith("/teacher-page");
-    } else {
-      item.active = item.to === location.pathname;
-    }
-  });
+  if (item.to === "/event-main-page" || item.to === "/create-event") {
+    item.active = location.pathname.startsWith("/event") || location.pathname.startsWith("/create-event") || location.pathname === "/";
+  } else if (item.to === "/student-page" || item.to === "/teacher-page") {
+    item.active = location.pathname.startsWith("/student-page") || location.pathname.startsWith("/teacher-page");
+  } else {
+    item.active = item.to === location.pathname;
+  }
+});
 
   
 

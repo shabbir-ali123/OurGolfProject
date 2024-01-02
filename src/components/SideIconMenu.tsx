@@ -209,7 +209,7 @@ const SideMenu: React.FC = () => {
             <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
             <span style={textStyles}>Posts</span>
           </div>
-          {isMenuOpen ? ( // Show heart icon only when the menu is open
+          {isMenuOpen ? ( 
             <div style={dropdownStyles} ref={dropdownRef}>
               <div
                 style={{
@@ -219,7 +219,7 @@ const SideMenu: React.FC = () => {
                 }}
                 onClick={handleDropdownClick}
               >
-                <div className="flex items-center gap-2">
+                <div className="text-center mt-[-4px]">
                   <FontAwesomeIcon icon={faHeart} style={iconStyles} />
                   {isMenuOpen && (
                     <div className="flex gap-2 items-center">
@@ -246,31 +246,41 @@ const SideMenu: React.FC = () => {
 
                 <div className="py-4 px-2" style={dropdownListStyles}>
                   <div
-                    className="shadow-md "
+                    className="shadow-md text-start"
                     style={dropdownItemStyles}
                     onClick={() => handleDropdownItemSelect("Created Events")}
                   >
                     Created Events
                   </div>
                   <div
-                    className="shadow-md "
+                    className="shadow-md text-start"
                     style={dropdownItemStyles}
                     onClick={() => handleDropdownItemSelect("Joined Events")}
                   >
                     Joined Events
                   </div>
+                  <Link to="/booked-mark">
+                  <div
+                    className="shadow-md text-start"
+                    style={dropdownItemStyles}
+                    onClick={() => handleDropdownItemSelect("BookMarked Events")}
+                  >
+                    BookMarked Events
+                  </div>
+                  </Link>
+                
                 </div>
               </div>
             </div>
           ) : (
             // Show only the heart icon when the menu is not open
-            <div className="flex justify-center items-center border-b-2 border-solid border-white w-full py-2 my-4">
+            <div className="flex justify-center items-center border-b-2 border-solid border-white w-full py-2 mt-[-10px]">
               <FontAwesomeIcon icon={faHeart} style={iconStyles} />
             </div>
           )}
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faSearch} style={iconStyles} />
-            <span style={textStyles}>Find a teacher</span>
+            <FontAwesomeIcon className="absolute top-[400px]" icon={faSearch} style={iconStyles} />
+            <span className="mt-[10px]" style={textStyles}>Find a teacher</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
@@ -335,7 +345,7 @@ const SideMenu: React.FC = () => {
             <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
             <span style={textStyles}>Posts</span>
           </div>
-          {isMenuOpen ? ( // Show heart icon only when the menu is open
+          {isMenuOpen ? ( 
             <div style={dropdownStyles} ref={dropdownRef}>
               <div
                 style={{
@@ -345,31 +355,78 @@ const SideMenu: React.FC = () => {
                 }}
                 onClick={handleDropdownClick}
               >
-                <Link to="/event-main-page" className="-m-1.5 p-1">
-                  <div className="flex items-center gap-2">
-                    <FontAwesomeIcon icon={faHeart} style={iconStyles} />
-                    {isMenuOpen && (
-                      <div className="flex gap-2 items-center">
-                        <span style={textStyles}> {selectedItem}</span>
-                      </div>
-                    )}
+                <div className="text-center mt-[-4px]">
+                  <FontAwesomeIcon icon={faHeart} style={iconStyles} />
+                  {isMenuOpen && (
+                    <div className="flex gap-2 items-center">
+                      <span style={textStyles}> {selectedItem}</span>
+                      <svg
+                        width="15"
+                        height="9"
+                        viewBox="0 0 15 9"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+
+                <div className="py-4 px-2" style={dropdownListStyles}>
+                  <div
+                    className="shadow-md "
+                    style={dropdownItemStyles}
+                    onClick={() => handleDropdownItemSelect("Created Events")}
+                  >
+                    Created Events
                   </div>
-                </Link>
+                  <div
+                    className="shadow-md "
+                    style={dropdownItemStyles}
+                    onClick={() => handleDropdownItemSelect("Joined Events")}
+                  >
+                    Joined Events
+                  </div>
+                </div>
               </div>
             </div>
           ) : (
             // Show only the heart icon when the menu is not open
-            <div className="flex justify-center items-center border-b-2 border-solid border-white w-full py-2 my-4">
+            <div className="flex justify-center items-center border-b-2 border-solid border-white w-full py-2 mt-[-10px]">
               <FontAwesomeIcon icon={faHeart} style={iconStyles} />
             </div>
           )}
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faSearch} style={iconStyles} />
-            <span style={textStyles}>Find a teacher</span>
+            <FontAwesomeIcon className="absolute top-[400px]" icon={faSearch} style={iconStyles} />
+            <span className="mt-[10px]" style={textStyles}>Find a teacher</span>
+          </div>
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
+            <span style={textStyles}>Calendar</span>
+          </div>
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faUser} style={iconStyles} />
+            <span style={textStyles}>Profile</span>
+          </div>
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
+            <span style={textStyles}>Message</span>
+          </div>
+          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
+            <FontAwesomeIcon icon={faCog} style={iconStyles} />
+            <span style={textStyles}>Setting</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
-            <span style={textStyles}>Sign Up</span>
+            <span style={textStyles}>Logout</span>
           </div>
         </div>
       )}

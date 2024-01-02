@@ -102,6 +102,7 @@ const CreateEvent: React.FC = () => {
     
   });
   const [error, setError] = useState<string | null>(null);
+  const { showToast } = useToast();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log({ e });
     const { name, value, checked } = e.target;
@@ -150,16 +151,18 @@ const CreateEvent: React.FC = () => {
       console.log("API Response:", response.data);
 
       if (response.status === 201) {
-        // Handle success
+        showToast("Event created successfully", "green");
 
       } else {
         setError("Error Occurred");
+        showToast("Error occurred while creating the event", "[#FF0000]");
       }
     } catch (error) {
       setError((error as any)?.response?.data?.message || "Error Occurred");
+      showToast("Error occurred while creating the event", "[#FF0000]");
       console.error("Error:", error);
     }finally {
-      setSubmitting(false); // Reset submitting to false, allowing future submissions
+      setSubmitting(false); 
     }
   };
 
@@ -203,7 +206,6 @@ const CreateEvent: React.FC = () => {
 
   return (
     <ToastProvider iconColor="white" textColor="white">
-      
     <div>
 
       <div className=" animate__animated animate__lightSpeedInRight">

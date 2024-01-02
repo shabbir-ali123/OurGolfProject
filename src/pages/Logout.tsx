@@ -14,6 +14,7 @@ const Logout: React.FC = () => {
     new Promise((resolve) => setTimeout(resolve, 2000));
 
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
     router('/login-page')    
 
     window.location.reload();

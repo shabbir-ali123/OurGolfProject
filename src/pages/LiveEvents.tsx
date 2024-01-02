@@ -13,7 +13,14 @@ import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
 import { fetchEvents } from "../utils/fetchEvents";
 import Table from "../components/Table";
+
 interface Event {
+  id: string;
+  creator:{
+    nickName:any
+  },
+  isFavorite: Boolean;
+
   accountHolderName: string;
   eventStartTime: string;
   eventStartDate: string;
@@ -22,60 +29,111 @@ interface Event {
   type: string;
   place: string;
   imageUrl: string;
+  likes: Array<{
+    counter: number;
+    userId: string;
+    id: number;
+  }>;
 }
 
 const LiveEvents: React.FC = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [likes, setLikes] = useState<Record<string, number>>({});
   const pageSize = 6;
   const [currentPage, setCurrentPage] = useState(1);
+  const [localEvents, setLocalEvents] = useState<Event[]>([]);
 
-  const itemsPerPage = 6; // Show 4 items per page
+  const itemsPerPage = 6;
+  const currentDate = new Date();
+
+  useEffect(() => {
+    const todayEvents = events.filter((event: Event) => {
+      return (
+        new Date(event.eventStartDate).setHours(0, 0, 0, 0) ===
+        currentDate.setHours(0, 0, 0, 0)
+      );
+    });
+    console.log("Today's Events:", todayEvents);
+
+    const indexOfLastEvent = currentPage * itemsPerPage;
+    const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
+    const newLocalEvents = todayEvents.slice(
+      indexOfFirstEvent,
+      indexOfLastEvent
+    );
+
+    setLocalEvents(newLocalEvents);
+  }, [events, currentPage]);
+
+  // Filter events to show only today's events
+  const todayEvents = events.filter((event: Event) => {
+    return event.eventStartDate === formatDate(currentDate);
+  });
+
+  // Pagination logic
   const indexOfLastEvent = currentPage * itemsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
-  const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+  const currentEvents = todayEvents.slice(indexOfFirstEvent, indexOfLastEvent);
   const isPreviousDisabled = currentPage === 1;
 
-  // Example: Disable "Next" button on the last page
   const isNextDisabled =
-    indexOfLastEvent >= events.length ||
-    currentPage === Math.ceil(events.length / itemsPerPage);
-  const totalPages = Math.ceil(events.length / itemsPerPage);
+    indexOfLastEvent >= todayEvents.length ||
+    currentPage === Math.ceil(todayEvents.length / itemsPerPage);
+  const totalPages = Math.ceil(todayEvents.length / itemsPerPage);
+
   // Function to handle page changes
   const handlePageChange = (pageNumber: number) => {
-    const totalPages = Math.ceil(events.length / itemsPerPage);
+    const totalPages = Math.ceil(todayEvents.length / itemsPerPage);
     // Ensure the new page number is within the valid range
     const newPage = Math.max(1, Math.min(pageNumber, totalPages));
     setCurrentPage(newPage);
   };
 
-  // const fetchLiveEvents = async (page: any) => {
-  //   try {
-  //     const currentDate = new Date();
-  //     const token = localStorage.getItem("token");
+  const handleLike = async (event: Event) => {
+    try {
+      const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
+      const likes = event?.likes || [];
+      const userEvent = likes.find((like: any) => like.userId === loggedInUser);
+      const newCounter = userEvent?.counter === 1 ? 0 : 1;
 
-  //     if (!token) {
-  //       console.error("User not authenticated");
-  //       return;
-  //     }
+      const response = await axios.post(
+        API_ENDPOINTS.ADDLIKE,
+        { eventId: event.id, Count: newCounter, userId: loggedInUser },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-  //     const response = await axios.get(API_ENDPOINTS.GETALLEVENT, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       params: {
-  //         pageSize,
-  //         page,
-  //         eventStartDate: formatDate(currentDate),
-  //       },
-  //     });
-
-  //     setLiveEvents(response.data.events);
-  //   } catch (error) {
-  //     console.error("Error fetching events:", error);
-  //   }
-  // };
-  const currentDate = new Date();
-  const dd = "2023-27-12";
+      // Update the likes in the state
+      setEvents((prevEvents) =>
+        prevEvents.map((e) =>
+          e.id === event.id
+            ? {
+                ...e,
+                likes: userEvent
+                  ? likes.map((like: any) =>
+                      like.userId === loggedInUser
+                        ? { ...like, counter: newCounter }
+                        : like
+                    )
+                  : [
+                      ...likes,
+                      {
+                        counter: newCounter,
+                        userId: loggedInUser,
+                        id: Math.floor(Math.random() * 10),
+                      },
+                    ],
+              }
+            : e
+        )
+      );
+    } catch (error) {
+      console.error("Error updating like:", error);
+    }
+  };
 
   useEffect(() => {
     fetchEvents(currentDate, "", setEvents);
@@ -83,20 +141,22 @@ const LiveEvents: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <div className="col-span-3 ">
-        <Table events={currentEvents} />
+      <div className="col-span-3">
+        <Table events={localEvents} handleLike={handleLike} />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={(page: any) => setCurrentPage(page)}
           pageSize={pageSize}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
         />
       </div>
-     
       <div>
         <EventMap />
       </div>
     </div>
   );
 };
+
 export default LiveEvents;

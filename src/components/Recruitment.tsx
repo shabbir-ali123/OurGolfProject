@@ -11,6 +11,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
   const [activeTab, setActiveTab] = useState<Tab>("individual");
   const [formData, setFormData] = useState<Record<string, any>>({});
   const prevFormData = useRef<Record<string, any>>({});
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     // Set the default tab to "individual" when the component mounts
     handleTabClick("individual");
@@ -28,7 +29,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-  
+    const currentDate = new Date().toISOString().split("T")[0];
     // Determine the input type
     const isCheckbox = type === "checkbox";
   
@@ -44,7 +45,26 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
       "eventDeadlineDate",
       "eventDeadlineTime",
     ];
-  
+    if (name === "eventStartDate") {
+      // Validate that the Start Date is equal to or greater than the current date
+      const isValidStartDate = value >= currentDate;
+      if (!isValidStartDate) {
+        setError("Start Date should be equal to or greater than the current date.");
+        return;
+      }
+    }
+
+    if (name === "eventEndDate") {
+      // Validate that the End Date is not less than the Start Date
+      const startDate = formData["eventStartDate"];
+      const isValidEndDate = startDate && value >= startDate;
+      if (!isValidEndDate) {
+        setError("End Date should be equal to or greater than the Start Date.");
+        return;
+      }
+    }
+    setError(null);
+
     // Handle time format with AM/PM
     if (name === "eventStartTime" || name === "eventEndTime" || name === "eventDeadlineTime") {
       const [hours, minutes] = value.split(":");
@@ -63,7 +83,6 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
       }));
     }
   
-    // Only call onChange if there are actual changes
     if (formData[name] !== prevFormData.current[name]) {
       onChange(formData, activeTab);
     }
@@ -105,7 +124,9 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
+
         </div>
+        {error && <p className="text-[red]">{error}</p>}
         <div className="flex items-center space-x-4 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
           <label
             htmlFor="date"
@@ -113,6 +134,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
           >
             Start Date and Time
           </label>
+          
           <input
             type="date"
             id="date"

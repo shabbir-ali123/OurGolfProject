@@ -15,12 +15,18 @@ import { formatDate } from "../utils/getStartedDate";
 import LiveEvents from "../pages/LiveEvents";
 import PastEvents from "../pages/PastEvents";
 import UpcomingEvents from "../pages/UpcomingEvents";
+import { fetchEvents } from "../utils/fetchEvents";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 interface Event {
   id: string;
+  creator:{
+    nickName:any
+  },
+  isFavorite: Boolean;
+
   accountHolderName: string;
   eventStartTime: string;
   eventStartDate: string;
@@ -39,25 +45,28 @@ interface TabsProps {
 
 const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [localEvents, setLocalEvents] = useState<any>([]);
   const itemsPerPage = 6;
   const indexOfLastEvent = currentPage * itemsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
-  const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+  const currentEvents = localEvents.slice(indexOfFirstEvent, indexOfLastEvent);
   const isPreviousDisabled = currentPage === 1;
+  useEffect(() => {
+    const indexOfLastEvent = currentPage * itemsPerPage;
+    const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
+    const newLocalEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+    setLocalEvents(newLocalEvents);
+  }, [events, currentPage]);
 
-  // Example: Disable "Next" button on the last page
-  const isNextDisabled =
-    indexOfLastEvent >= events.length ||
-    currentPage === Math.ceil(events.length / itemsPerPage);
+  const isNextDisabled = indexOfLastEvent >= events.length;
   const totalPages = Math.ceil(events.length / itemsPerPage);
-  // Function to handle page changes
+
   const handlePageChange = (pageNumber: number) => {
     const totalPages = Math.ceil(events.length / itemsPerPage);
 
-    // Ensure the new page number is within the valid range
     const newPage = Math.max(1, Math.min(pageNumber, totalPages));
 
-    // Update the active page
+ 
     setCurrentPage(newPage);
   };
 
@@ -79,12 +88,16 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
     ]);
   };
 
-  // Updated function to handle the button click and open the LocationSelectionPopup
+  
   const handleLocationButtonClick = () => {
     setLocationPopupOpen(true);
   };
-  const [liveevents, setLiveEvent] = useState([]);
-
+ // Define the handleLike function
+ const handleLike = (eventId: string) => {
+  // Implement your like logic here
+  console.log(`Liked event with ID: ${eventId}`);
+};
+  
   const handleSvgClick: React.MouseEventHandler<SVGSVGElement> = (
     liveevents
   ) => {};
@@ -146,25 +159,24 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
                 </Tab>
               ))}
 
-             
               <div className="flex justify-end ml-0 lg:ml-2  xl:ml-20">
                 <Calendar setEvents={setEvents} />
               </div>
             </div>
           </Tab.List>
           {isLocationPopupOpen && (
-                <LocationSelectionPopup
-                  isOpen={isLocationPopupOpen}
-                  onClose={() => setLocationPopupOpen(false)}
-                />
-              )}
+            <LocationSelectionPopup
+              isOpen={isLocationPopupOpen}
+              onClose={() => setLocationPopupOpen(false)}
+            />
+          )}
           <Tab.Panels>
             <Tab.Panel key="ALL">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div className="col-span-3">
-                  <Table events={currentEvents} />
+                  <Table events={localEvents} handleLike={handleLike}  />
                   <div className="flex items-center justify-between border-t border-gray-950 px-4 py-3 sm:px-6 ">
-                    <div className="hidden sm:flex sm:flex-1 sm:items-center justify-center my-6">
+                    <div className="z-[-1] hidden sm:flex sm:flex-1 sm:items-center justify-center my-6">
                       <div>
                         <nav
                           className="isolate inline-flex -space-x-px rounded-md shadow-sm"
@@ -231,13 +243,13 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
               </div>
             </Tab.Panel>
             <Tab.Panel key="LIVE">
-              <LiveEvents />
+              <LiveEvents  />
             </Tab.Panel>
             <Tab.Panel key="PAST">
-              <PastEvents />
+              <PastEvents   />
             </Tab.Panel>
             <Tab.Panel key="UPCOMING">
-              <UpcomingEvents />
+            <UpcomingEvents events={events} setEvents={setEvents} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
