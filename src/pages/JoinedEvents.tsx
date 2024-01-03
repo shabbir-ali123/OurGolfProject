@@ -26,13 +26,13 @@ interface Event {
   }>;
 }
 
-const BookMarkedEvents: React.FC = () => {
+const JoinedEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [pageSize] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const fetchFavoriteEvents = async () => {
+    const fetchJoinedEvents = async () => {
       try {
         const token = localStorage.getItem("token");
 
@@ -41,7 +41,7 @@ const BookMarkedEvents: React.FC = () => {
           return;
         }
 
-        const response = await axios.get(API_ENDPOINTS.GETFAVEVENTS, {
+        const response = await axios.get(API_ENDPOINTS.JOINEDEVENTS, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -51,13 +51,13 @@ const BookMarkedEvents: React.FC = () => {
           },
         });
 
-        setEvents(response.data.events);
+        setEvents(response.data.events || []); 
       } catch (error) {
-        console.error("Error fetching favorite events:", error);
+        console.error("Error fetching joined events:", error);
       }
     };
 
-    fetchFavoriteEvents();
+    fetchJoinedEvents();
   }, []);
 
   const itemsPerPage = 6;
@@ -68,17 +68,15 @@ const BookMarkedEvents: React.FC = () => {
   const isNextDisabled = indexOfLastEvent >= events.length;
   const totalPages = Math.ceil(events.length / itemsPerPage);
 
-  
   const handlePageChange = (pageNumber: number) => {
     const totalPages = Math.ceil(events.length / itemsPerPage);
-  
+
     const newPage = Math.max(1, Math.min(pageNumber, totalPages));
     setCurrentPage(newPage);
   };
 
- 
   const handleLike = async (event: Event) => {
-
+    // Handle like logic if needed
   };
 
   return (
@@ -101,4 +99,4 @@ const BookMarkedEvents: React.FC = () => {
   );
 };
 
-export default BookMarkedEvents;
+export default JoinedEvents;

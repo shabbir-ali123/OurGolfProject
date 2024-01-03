@@ -252,6 +252,7 @@ const SideMenu: React.FC = () => {
                   >
                     Created Events
                   </div>
+                  <Link to="/joined-events">
                   <div
                     className="shadow-md text-start"
                     style={dropdownItemStyles}
@@ -259,6 +260,7 @@ const SideMenu: React.FC = () => {
                   >
                     Joined Events
                   </div>
+                  </Link>
                   <Link to="/booked-mark">
                   <div
                     className="shadow-md text-start"
@@ -279,7 +281,7 @@ const SideMenu: React.FC = () => {
             </div>
           )}
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon className="absolute top-[400px]" icon={faSearch} style={iconStyles} />
+            <FontAwesomeIcon className="absolute top-[380px]" icon={faSearch} style={iconStyles} />
             <span className="mt-[10px]" style={textStyles}>Find a teacher</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
