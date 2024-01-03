@@ -10,6 +10,7 @@ interface Event {
   creator: {
     nickName: any;
   };
+  comments:[];
   isFavorite: boolean;
   accountHolderName: string;
   eventStartTime: string;

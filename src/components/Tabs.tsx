@@ -26,7 +26,7 @@ interface Event {
     nickName:any
   },
   isFavorite: Boolean;
-
+  comments:[];
   accountHolderName: string;
   eventStartTime: string;
   eventStartDate: string;
