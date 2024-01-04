@@ -15,16 +15,23 @@ const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   return `${startHour}:00 to ${endHour}:00`;
 });
 
+const findHourIndex = (time: string): number => {
+  return hoursOfDay.findIndex((hour) => hour.startsWith(time));
+};
+
 const initialAvailability: Availability = {};
 
 const Calendar: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
-  const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null); // Declare setSelectedWeekStart here
+  const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [availability, setAvailability] =
     useState<Availability>(initialAvailability);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [click, setClick] = useState(false);
+  const [active, setActive] = useState();
+  const [activeStates, setActiveStates] = useState<number[]>(
+    Array.from({ length: hoursOfDay.length }, () => -1)
+  );
   const [buttonActiveStates, setButtonActiveStates] = useState<boolean[]>(
     Array.from({ length: hoursOfDay.length }, () => false)
   );
@@ -33,7 +40,7 @@ const Calendar: React.FC = () => {
     // Scroll to the 8:00 time slot on initial render
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer && selectedWeekStart) {
-      const hourIndex = hoursOfDay.findIndex((hour) => hour.startsWith("08:"));
+      const hourIndex = findHourIndex("08:00"); // Adjust the time as needed
       const hourElement = scrollContainer.querySelector(
         `.time-slot:nth-child(${hourIndex + 1})`
       ) as HTMLElement;
@@ -50,39 +57,59 @@ const Calendar: React.FC = () => {
     return "";
   };
 
-  const toggleAvailability = (day: string, hourIndex: number): void => {
-    if (!selectedWeekStart) {
-      return;
-    }
+  const toggleAvailability = (
+    day: string,
+    time: string,
+    index: number
+  ): void => {
+    // Move the declaration of hourIndex above its usage
+    const hourIndex = findHourIndex(time);
+  
+    setActiveStates((prev) => {
+      const newActiveStates = [...prev];
+      newActiveStates[hourIndex] = index;
+      return newActiveStates;
+    });
+  
     setAvailability((prev) => {
-      const dateKey = selectedWeekStart.toLocaleDateString();
+      const dateKey = selectedWeekStart!.toLocaleDateString();
       const dateAvailability = { ...(prev[dateKey] || {}) };
       const dayAvailability = [...(dateAvailability[day] || [])];
-      dayAvailability[hourIndex] = !dayAvailability[hourIndex];
-      dateAvailability[day] = dayAvailability;
+  
+      // Create a new array to avoid mutating the original state
+      const newDayAvailability = [...dayAvailability];
+      newDayAvailability[hourIndex] = !newDayAvailability[hourIndex];
+  
+      // Update the state with the modified availability
+      dateAvailability[day] = newDayAvailability;
       prev[dateKey] = dateAvailability;
       return { ...prev };
     });
-
+  
     setButtonActiveStates((prev) => {
       const newButtonActiveStates = [...prev];
+  
+      // Toggle the state based on the current state
       newButtonActiveStates[hourIndex] = !newButtonActiveStates[hourIndex];
       return newButtonActiveStates;
     });
-
+  
     const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${
       selectedWeekStart?.toLocaleDateString() || ""
     }`;
-
+  
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
       if (index !== -1) {
+        // Remove the time slot if already selected
         return prev.filter((slot) => slot !== timeSlot);
       } else {
+        // Add the time slot if not selected
         return [...prev, timeSlot];
       }
     });
   };
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,7 +119,14 @@ const Calendar: React.FC = () => {
   const handleTabClick = (date: Date) => {
     setSelectedWeekStart(date);
   };
-
+  const handleTimeSlotClick = (
+    dateKey: string,
+    hour: string,
+    hourIndex: number
+  ) => {
+    toggleAvailability(dateKey, hour, hourIndex);
+  };
+  console.log(active, "active");
   return (
     <div className="container mx-auto my-4">
       <h2 className="text-xl font-semibold mb-4">Weekly Availability</h2>
@@ -142,7 +176,7 @@ const Calendar: React.FC = () => {
           className="grid grid-cols-8 gap-4 text-center overflow-auto"
           style={{ maxHeight: "50vh" }}
         >
-          {hoursOfDay.map((hour, hourIndex, array) => (
+          {hoursOfDay.map((hour, hourIndex) => (
             <React.Fragment key={hour}>
               <div className="col-span-1 time-slot">{hour}</div>
               {selectedWeekStart &&
@@ -151,23 +185,17 @@ const Calendar: React.FC = () => {
                     selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
                   );
                   const dateKey = date.toLocaleDateString();
-
-                
+                  const isActive = activeStates[hourIndex] === i;
 
                   return (
                     <button
                       key={dateKey + hour}
                       className={`col-span-1 time-slot ${
-                        dateKey === selectedTab?.toLocaleDateString()
-                          ? "bg-green"
-                          : "bg-red"
-                      } ${buttonActiveStates[hourIndex] ? "bg-black" : ""}`}
-                      id={hour}
-                      onClick={() => toggleAvailability(dateKey, hourIndex)}
+                        isActive ? "bg-black" : "bg-red"
+                      }`}
+                      onClick={() => handleTimeSlotClick(dateKey, hour, i)}
                     >
-                      {buttonActiveStates[hourIndex]
-                        ? `Selected: ${hour}`
-                        : hour}
+                      {isActive ? `Selected: ${hour}` : hour}
                     </button>
                   );
                 })}
