@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 const TournmentBg: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <div>
       <motion.div
@@ -11,7 +13,7 @@ const TournmentBg: React.FC = () => {
           stiffness: 260,
           damping: 20,
         }}
-        className="col-span-8 w-full mx-auto max-w-6xl flex items-center justify-center rounded-3xl mt-4 py-6"
+        className="flex items-center justify-center w-full max-w-6xl col-span-8 py-6 mx-auto mt-4 rounded-3xl"
         style={{
           backgroundImage: "url(/img/tournament.png)",
           backgroundSize: "cover",
@@ -24,7 +26,7 @@ const TournmentBg: React.FC = () => {
           style={{ x: 10 }}
         >
           <h2 className="text-white text-xl font-bold font-sans lg:text-[64px] animate-bounce">
-            Tournament
+            {t('TOURNAMENT')}
           </h2>
         </motion.div>
       </motion.div>

@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 interface MenuStyles {
   zIndex: string;
   height: string;
@@ -32,6 +33,7 @@ interface MenuItemStyles {
   // Add more properties as needed
 }
 const SideMenu: React.FC = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Events");
@@ -197,17 +199,17 @@ const SideMenu: React.FC = () => {
               style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
             >
               <FontAwesomeIcon icon={faHome} style={iconStyles} />
-              <span style={textStyles}>Home</span>
+              <span style={textStyles}>{t('HOME')}</span>
             </div>
           </Link>
 
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faBell} style={iconStyles} />
-            <span style={textStyles}>Notifications</span>
+            <span style={textStyles}>{t('NOTIFICATIONS')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
-            <span style={textStyles}>Posts</span>
+            <span style={textStyles}>{t('POSTS')}</span>
           </div>
           {isMenuOpen ? ( 
             <div style={dropdownStyles} ref={dropdownRef}>
@@ -222,7 +224,7 @@ const SideMenu: React.FC = () => {
                 <div className="text-center mt-[-4px]">
                   <FontAwesomeIcon icon={faHeart} style={iconStyles} />
                   {isMenuOpen && (
-                    <div className="flex gap-2 items-center">
+                    <div className="flex items-center gap-2">
                       <span style={textStyles}> {selectedItem}</span>
                       <svg
                         width="15"
@@ -244,20 +246,20 @@ const SideMenu: React.FC = () => {
                   )}
                 </div>
 
-                <div className="py-4 px-2" style={dropdownListStyles}>
+                <div className="px-2 py-4" style={dropdownListStyles}>
                   <div
                     className="shadow-md text-start"
                     style={dropdownItemStyles}
                     onClick={() => handleDropdownItemSelect("Created Events")}
                   >
-                    Created Events
+                    {t('CREATED_EVENTS')}
                   </div>
                   <div
                     className="shadow-md text-start"
                     style={dropdownItemStyles}
                     onClick={() => handleDropdownItemSelect("Joined Events")}
                   >
-                    Joined Events
+                    {t('JOINED_EVENTS')}
                   </div>
                   <Link to="/booked-mark">
                   <div
@@ -265,7 +267,7 @@ const SideMenu: React.FC = () => {
                     style={dropdownItemStyles}
                     onClick={() => handleDropdownItemSelect("BookMarked Events")}
                   >
-                    BookMarked Events
+                    {t('BOOKMARKED_EVENTS')}
                   </div>
                   </Link>
                 
@@ -280,27 +282,27 @@ const SideMenu: React.FC = () => {
           )}
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon className="absolute top-[400px]" icon={faSearch} style={iconStyles} />
-            <span className="mt-[10px]" style={textStyles}>Find a teacher</span>
+            <span className="mt-[10px]" style={textStyles}>{t('FIND_TEACHER')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
-            <span style={textStyles}>Calendar</span>
+            <span style={textStyles}>{t('CALENDER')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faUser} style={iconStyles} />
-            <span style={textStyles}>Profile</span>
+            <span style={textStyles}>{t('PROFILE')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
-            <span style={textStyles}>Message</span>
+            <span style={textStyles}>{t('MESSAGE')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faCog} style={iconStyles} />
-            <span style={textStyles}>Setting</span>
+            <span style={textStyles}>{t('SETTING')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
-            <span style={textStyles}>Logout</span>
+            <span style={textStyles}>{t('LOGOUT')}</span>
           </div>
         </div>
       ) : (
@@ -333,17 +335,17 @@ const SideMenu: React.FC = () => {
               style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
             >
               <FontAwesomeIcon icon={faHome} style={iconStyles} />
-              <span style={textStyles}>Home</span>
+              <span style={textStyles}>{t('HOME')}</span>
             </div>
           </Link>
 
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faBell} style={iconStyles} />
-            <span style={textStyles}>Notifications</span>
+            <span style={textStyles}>{t('NOTIFICATIONS')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
-            <span style={textStyles}>Posts</span>
+            <span style={textStyles}>{t('POSTS')}</span>
           </div>
           {isMenuOpen ? ( 
             <div style={dropdownStyles} ref={dropdownRef}>
@@ -358,7 +360,7 @@ const SideMenu: React.FC = () => {
                 <div className="text-center mt-[-4px]">
                   <FontAwesomeIcon icon={faHeart} style={iconStyles} />
                   {isMenuOpen && (
-                    <div className="flex gap-2 items-center">
+                    <div className="flex items-center gap-2">
                       <span style={textStyles}> {selectedItem}</span>
                       <svg
                         width="15"
@@ -380,20 +382,20 @@ const SideMenu: React.FC = () => {
                   )}
                 </div>
 
-                <div className="py-4 px-2" style={dropdownListStyles}>
+                <div className="px-2 py-4" style={dropdownListStyles}>
                   <div
                     className="shadow-md "
                     style={dropdownItemStyles}
                     onClick={() => handleDropdownItemSelect("Created Events")}
                   >
-                    Created Events
+                    {t('CREATED_EVENTS')}
                   </div>
                   <div
                     className="shadow-md "
                     style={dropdownItemStyles}
                     onClick={() => handleDropdownItemSelect("Joined Events")}
                   >
-                    Joined Events
+                    {t('JOINED_EVENTS')}
                   </div>
                 </div>
               </div>
@@ -406,27 +408,27 @@ const SideMenu: React.FC = () => {
           )}
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon className="absolute top-[400px]" icon={faSearch} style={iconStyles} />
-            <span className="mt-[10px]" style={textStyles}>Find a teacher</span>
+            <span className="mt-[10px]" style={textStyles}>{t('FIND_TEACHER')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
-            <span style={textStyles}>Calendar</span>
+            <span style={textStyles}>{t('CALENDER')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faUser} style={iconStyles} />
-            <span style={textStyles}>Profile</span>
+            <span style={textStyles}>{t('PROFILE')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
-            <span style={textStyles}>Message</span>
+            <span style={textStyles}>{t('MESSAGE')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faCog} style={iconStyles} />
-            <span style={textStyles}>Setting</span>
+            <span style={textStyles}>{t('SETTING')}</span>
           </div>
           <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
             <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
-            <span style={textStyles}>Logout</span>
+            <span style={textStyles}>{t('LOGOUT')}</span>
           </div>
         </div>
       )}

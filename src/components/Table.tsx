@@ -13,6 +13,7 @@ import { formatDate } from "../utils/getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
 import { faHome, faGlobe, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
 interface UserData {
   nickName: string;
   email: string;
@@ -42,6 +43,7 @@ interface TableProps {
 }
 
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
+  const { t } = useTranslation(); 
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
@@ -174,8 +176,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   return (
     <div className="animate__animated animate__fadeInLeft">
-      <div className="mt-2 flow-root">
-        <div className=" -my-2 overflow-x-auto">
+      <div className="flow-root mt-2">
+        <div className="-my-2 overflow-x-auto ">
           <div className="inline-block min-w-full py-0 align-middle ">
             <div className="overflow-hidden sm:rounded-lg">
               <table
@@ -186,45 +188,45 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                   <tr>
                     <th
                       scope="col"
-                      className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
+                      className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
                     >
-                      Organizer
+                      {t('ORGANIZER')}
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
+                      className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      Time
+                      {t('TIME')}
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
+                      className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      Date
+                      {t('DATE')}
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
+                      className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      Event Name
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
-                    >
-                      Short Notes
+                      {t('EVENTS_NAME')}
                     </th>
 
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibol"
+                      className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      Actions
+                      {t('SHORT_NOTES')}
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-sm text-left font-semibol"
+                    >
+                      {t('ACTIONS')}
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 bg-white ">
+                <tbody className="bg-white divide-y divide-gray-200 ">
                   {localEvents.map((event: any, index: number) => {
                     const likes = event.likes || [];
                     const isFavorite = event.isFavorite || false;
@@ -264,20 +266,20 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   : event.imageUrl
                               }
                               alt=""
-                              className="h-12 w-12  rounded-full bg-gray-800 "
+                              className="w-12 h-12 bg-gray-800 rounded-full "
                             />
-                            <div className="truncate font-medium leading-6 text-lg  ">
+                            <div className="text-lg font-medium leading-6 truncate ">
                             {event.creator && event.creator.nickName ? event.creator.nickName : 'N/A'}
                             </div>
                           </div>
                         </td>
-                        <td className="whitespace-nowrap px-3 py-0 text-lg">
+                        <td className="px-3 py-0 text-lg whitespace-nowrap">
                           {event.eventStartTime}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-0  text-lg">
+                        <td className="px-3 py-0 text-lg whitespace-nowrap">
                           {event.eventStartDate}
                         </td>
-                        <td className="flex justify-between items-center text-center ml-2 whitespace-pre-wrap xl:text-left text-sm  font-semibold ">
+                        <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left ">
                           <div className="flex flex-col ">
                             {event.eventName}
                             <span className="flex items-center gap-1 font-normal ">
@@ -313,18 +315,18 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </Link>
                           </span>
                         </td>
-                        <td className="whitespace-nowrap px-3 py-0 text-sm">
+                        <td className="px-3 py-0 text-sm whitespace-nowrap">
                           {event.eventDetails}
                         </td>
-                        <td className="flex  gap-1 whitespace-nowrap px-3 py-0 text-sm ">
-                          <div className="flex  gap-1 flex-col items-center">
+                        <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
+                          <div className="flex flex-col items-center gap-1">
                             <div
                               className={`flex bg-${
                                 liked ? "green" : "[#17B3A6]"
                               } cursor-pointer p-1 rounded-md`}
                               onClick={() => handleLike(event)}
                             >
-                              <HandThumbUpIcon className="h-3 w-3 text-white" />
+                              <HandThumbUpIcon className="w-3 h-3 text-white" />
                             </div>
                             <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
                               <div className="text-[10px] text-white ">
@@ -336,18 +338,18 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </div>
                             </div>
                           </div>
-                          <div className="flex  gap-1 flex-col items-center">
+                          <div className="flex flex-col items-center gap-1">
                             <div
                               onClick={() => handleComment(event.id)}
                               className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md"
                             >
-                              <ChatBubbleBottomCenterIcon className="h-3 w-3 text-white" />
+                              <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white" />
                             </div>
                             <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
                               <div className="text-[10px] text-white">20</div>
                             </div>
                           </div>
-                          <div className="flex  gap-1 flex-col items-center">
+                          <div className="flex flex-col items-center gap-1">
                             <div
                               className={`flex bg-${
                                 isFavorite ? "[#006800]" : "[#17B3A6]"
@@ -361,11 +363,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </div>
 
                             <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
-                              <ShareIcon className="h-3 w-3 text-white" />
+                              <ShareIcon className="w-3 h-3 text-white" />
                             </div>
                           </div>
                         </td>
-                        <div className="flex justify-start items-center my-1 ml-4">
+                        <div className="flex items-center justify-start my-1 ml-4">
                           <button className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
                             View
                           </button>

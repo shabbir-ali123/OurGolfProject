@@ -1,11 +1,9 @@
 import { FunctionComponent, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Calendar from "./Calender"
+import { useTranslation } from "react-i18next";
 const AllEventTabs: FunctionComponent = () => {
-  const navigate = useNavigate();
-  const onRectangle6Click = useCallback(() => {
-    // Please sync "Event Main Page" to the project
-  }, []);
+  const { t } = useTranslation();
 
   return (
     <div className="absolute top-[423px] left-[103px] w-[1273px] h-[73px] text-left text-lg text-lightseagreen-200 font-poppins">
@@ -17,7 +15,7 @@ const AllEventTabs: FunctionComponent = () => {
               <div className="absolute top-[0px] left-[0px] w-[68px] h-[63px] text-white">
                 <div className="absolute top-[0px] left-[0px] rounded bg-royalblue w-[68px] h-[63px]" />
                 <div className="absolute top-[21px] left-[24px] leading-[20px]">
-                <Link className="no-underline text-white" to="/event-main-page">All</Link>
+                <Link className="text-white no-underline" to="/event-main-page">All</Link>
                 </div>
               </div>
               <div className="absolute top-[0px] left-[78px] w-28 h-[63px]">
@@ -46,7 +44,7 @@ const AllEventTabs: FunctionComponent = () => {
           <div className="absolute top-[0px] left-[0px] rounded-tl-10xs rounded-tr-none rounded-br-none rounded-bl-10xs bg-lightseagreen-200 shadow-[0px_0px_7px_rgba(0,_0,_0,_0.25)] w-[119px] h-[73px]" />
           <div className="absolute top-[26px] left-[21px] w-[76.1px] h-5">
             <div className="absolute top-[0px] left-[23.1px] leading-[20px]">
-              Tokyo
+              {t('TOKYO')}
             </div>
             <img
               className="absolute h-[97.5%] w-[21.68%] top-[1.5%] right-[79.24%] bottom-[1%] left-[-0.92%] max-w-full overflow-hidden max-h-full"

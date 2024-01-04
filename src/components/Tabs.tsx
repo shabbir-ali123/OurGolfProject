@@ -9,13 +9,10 @@ import Calendar from "../components/Calender";
 import EventMap from "../components/EventMap";
 import LocationSelectionPopup from "../components/LocationSelectionPopup";
 import Table from "../components/Table";
-import axios from "axios";
-import { API_ENDPOINTS } from "../appConfig";
-import { formatDate } from "../utils/getStartedDate";
 import LiveEvents from "../pages/LiveEvents";
 import PastEvents from "../pages/PastEvents";
 import UpcomingEvents from "../pages/UpcomingEvents";
-import { fetchEvents } from "../utils/fetchEvents";
+import { useTranslation } from "react-i18next";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -44,6 +41,7 @@ interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const itemsPerPage = 6;
@@ -63,19 +61,10 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
 
   const handlePageChange = (pageNumber: number) => {
     const totalPages = Math.ceil(events.length / itemsPerPage);
-
-    const newPage = Math.max(1, Math.min(pageNumber, totalPages));
-
- 
+    const newPage = Math.max(1, Math.min(pageNumber, totalPages)); 
     setCurrentPage(newPage);
   };
 
-  const [categories] = useState({
-    ALL: [],
-    LIVE: [],
-    PAST: [],
-    UPCOMING: [],
-  });
 
   const [isLocationPopupOpen, setLocationPopupOpen] = useState(false);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
@@ -88,6 +77,12 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
     ]);
   };
 
+  const categories ={
+    ALL: [],
+    LIVE: [],
+    PAST: [],
+    UPCOMING: [],
+  };
   
   const handleLocationButtonClick = () => {
     setLocationPopupOpen(true);
@@ -110,15 +105,15 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
       <div className="w-full animate__animated animate__fadeInLeft">
         <Tab.Group>
           <Tab.List className="flex w-full lg:col-span-6 xl:max-w-[74%] justify-between space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
-            <div className="flex flex-wrap lg:flex-nowrap gap-4 py-2">
-              <div className="md:mx-20 xl:relative w-full animate__animated animate__shakeY">
+            <div className="flex flex-wrap gap-4 py-2 lg:flex-nowrap">
+              <div className="w-full md:mx-20 xl:relative animate__animated animate__shakeY">
                 <button
                   type="button"
                   onClick={() => setLocationPopupOpen(true)}
                   className="xl:py-[22px] rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
-                  Tokyo
+                  {t('TOKYO')}
                 </button>
               </div>
 
@@ -151,15 +146,15 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
                           d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                         />
                       </svg>
-                      {category}
+                      {t(category)}
                     </div>
                   ) : (
-                    category
+                    t(category)
                   )}
                 </Tab>
               ))}
 
-              <div className="flex justify-end ml-0 lg:ml-2  xl:ml-20">
+              <div className="flex justify-end ml-0 lg:ml-2 xl:ml-20">
                 <Calendar setEvents={setEvents} />
               </div>
             </div>
@@ -172,14 +167,14 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
           )}
           <Tab.Panels>
             <Tab.Panel key="ALL">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <div className="col-span-3">
                   <Table events={localEvents} handleLike={handleLike}  />
-                  <div className="flex items-center justify-between border-t border-gray-950 px-4 py-3 sm:px-6 ">
+                  <div className="flex items-center justify-between px-4 py-3 border-t border-gray-950 sm:px-6 ">
                     <div className="z-[-1] hidden sm:flex sm:flex-1 sm:items-center justify-center my-6">
                       <div>
                         <nav
-                          className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+                          className="inline-flex -space-x-px rounded-md shadow-sm isolate"
                           aria-label="Pagination"
                         >
                           <button
@@ -193,9 +188,9 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
                                 : "hover:bg-gray-50 bg-blue-400 text-white"
                             }`}
                           >
-                            <span className="sr-only">Previous</span>
+                            <span className="sr-only">{t('PREV')}</span>
                             <ChevronLeftIcon
-                              className="h-5 w-5 cursor-pointer"
+                              className="w-5 h-5 cursor-pointer"
                               aria-hidden="true"
                             />
                           </button>
@@ -228,9 +223,9 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
                                 : "hover:bg-gray-50 bg-blue-400 text-white"
                             }`}
                           >
-                            <span className="sr-only cursor-pointer">Next</span>
+                            <span className="cursor-pointer sr-only">Next</span>
                             <ChevronRightIcon
-                              className="h-5 w-5 cursor-pointer"
+                              className="w-5 h-5 cursor-pointer"
                               aria-hidden="true"
                             />
                           </button>

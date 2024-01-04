@@ -1,17 +1,12 @@
-import {
-  BarsArrowUpIcon,
-  FunnelIcon,
-  MagnifyingGlassCircleIcon,
-  MagnifyingGlassIcon,
-  ServerStackIcon,
-  UsersIcon,
-} from "@heroicons/react/24/outline";
+import {FunnelIcon} from "@heroicons/react/24/outline";
 import { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 const SearchMainEventFilter: FunctionComponent = () => {
+  const { t } = useTranslation();
   return (
-    <div className="py-1 mt-2 flex w-full animate__animated animate__rotateInDownLeft">
-      <div className="relative flex flex-grow  items-stretch focus-within:z-10">
+    <div className="flex w-full py-1 mt-2 animate__animated animate__rotateInDownLeft">
+      <div className="relative flex items-stretch flex-grow focus-within:z-10">
         <input
           type="email"
           name="email"
@@ -25,7 +20,7 @@ const SearchMainEventFilter: FunctionComponent = () => {
         className="inline-flex items-center gap-x-1.5 text-white bg-[#17B3A6] rounded-r-md px-4 cursor-pointer"
       >
         <FunnelIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-        Filter
+        {t('FILTER')}
       </button>
     </div>
   );

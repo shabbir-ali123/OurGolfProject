@@ -10,7 +10,9 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
+import { useTranslation } from "react-i18next";
 const EventMainPage: FunctionComponent = () => {
+  const {t} = useTranslation();
   const [events, setEvents] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
@@ -47,7 +49,7 @@ const EventMainPage: FunctionComponent = () => {
 
     <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">
       <SearchEventContainer />
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="flex flex-wrap items-end gap-3">
           <div className="animate__animated animate__rotateIn">
             <img
@@ -58,7 +60,7 @@ const EventMainPage: FunctionComponent = () => {
           </div>
           <div className="flex flex-wrap items-center gap-4 my-2 xl:m-0">
             <h1 className="text-[#193A8B] text-[3xl] font-semibold animate__animated animate__rubberBand animate__repeat-3">
-              EVENTS IN
+              {t('EVENT')}
             </h1>
             <Clip title="Tokyo" />
           </div>
@@ -73,7 +75,7 @@ const EventMainPage: FunctionComponent = () => {
                 className="-mr-0.5 h-5 w-5"
                 aria-hidden="true"
               />
-              Create Event
+              {t('CREATE_EVENTS')}
             </button>
           </Link>
         </div>
