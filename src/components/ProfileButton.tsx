@@ -4,18 +4,26 @@
 import { Link, useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from '../appConfig';
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 interface UserData {
   nickName: string;
   email: string;
   // Other properties of user data...
 }
 // import useRedirect from "../utils/Redirect"zzz
+
+
 export default function ProfileButton() {
+  const {t, i18n} = useTranslation();
   const [token, setToken] = useState('');
   const [user, setUser] = useState<UserData | null>(null);
 
+  const languages = {
+    en: {displayName: 'English'},
+    ja: {displayName: 'Japan'},
+  }
 
-
+  console.log(i18n.resolvedLanguage, 'lang')
   useEffect(() => {
     const userId = localStorage.getItem('id');
     getUser(userId)
@@ -42,6 +50,9 @@ export default function ProfileButton() {
     return () => clearTimeout(timeoutId);
   };
   
+  const handleChangeLanguage = (lang: string) => { 
+    i18n.changeLanguage(lang);
+  }
   useEffect(() => {
     // Check if a token exists in localStorage
     const storedToken = localStorage.getItem('token');
@@ -71,9 +82,9 @@ export default function ProfileButton() {
   };
   return (
     <div className="hidden lg:flex lg:flex-1 lg:justify-end ">
-      <div className="relative block flex-shrink-0">
+      <div className="relative flex-shrink-0 block">
         <div className="flex items-center">
-          <div className="flex justify-center items-center ">
+          <div className="flex items-center justify-center ">
             <img
             onClick={handleDotClick}
               className="inline-block h-6 w-6 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
@@ -83,24 +94,59 @@ export default function ProfileButton() {
           </div>
           {token && user ? (
             <div className="ml-3">
-              <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
+              <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
                 {
                   user.nickName  ?  user.nickName : user.email 
                 }
                
               </p>
+              <button
+                    onClick={() => handleChangeLanguage('en')}
+                    // style={{
+                    //     fontWeight: i18n.resolvedLanguage === languages.en ? "bold" : "normal",
+                    // }}
+                >
+                    {languages.en.displayName}
+                </button>
+                <button
+                    onClick={() => handleChangeLanguage('ja')}
+                    // style={{
+                    //     fontWeight: i18n.resolvedLanguage === languages.ja ? "bold" : "normal",
+                    // }}
+                >
+                    {languages.ja.displayName}
+                </button>
             </div>
           ) : (
             <div className="ml-3">
-              <p className="text-base font-medium text-white group-hover:text-gray-900 m-0">
-                Hello! Please Login
+              <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
+                {/* Hello! Please Login */}
+                {t('HELLO')}
               </p>
+              <div>
+                <button
+                    onClick={() => handleChangeLanguage('en')}
+                    // style={{
+                    //     fontWeight: i18n.resolvedLanguage === languages.en ? "bold" : "normal",
+                    // }}
+                >
+                    {languages.en.displayName}
+                </button>
+                <button
+                    onClick={() => handleChangeLanguage('ja')}
+                    // style={{
+                    //     fontWeight: i18n.resolvedLanguage === languages.ja ? "bold" : "normal",
+                    // }}
+                >
+                    {languages.ja.displayName}
+                </button>
+            </div>
             </div>
           )}
           <div className="relative">
             <button
               onClick={handleDotClick}
-              className="relative px-1 focus:outline-none bg-transparent"
+              className="relative px-1 bg-transparent focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,9 +166,9 @@ export default function ProfileButton() {
             {/* Dropdown */}
             {dropdownOpen && (
               <div className="fixed right-[100px] mt-2 bg-white rounded-md shadow-lg w-[200px] z-[9999]">
-                <ul className="text-center py-1">
+                <ul className="py-1 text-center">
                 {token ? <Link to="/profile">
-                  <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -141,13 +187,13 @@ export default function ProfileButton() {
                     
                     
 
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/profile">{t('PROFILE')}</Link>
                   </li>
                   </Link>
 :""}
                   {token ? "":
                   <Link to="/register-page">
-                  <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -163,14 +209,14 @@ export default function ProfileButton() {
                       />
                     </svg>
 
-                    <Link to="/register-page">Sign Up</Link>
+                    <Link to="/register-page">{t('SIGN_UP')}</Link>
                   </li>
                   
                   </Link>
 }
                   {token ?
                  <Link to="/logout">
-                 <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
+                 <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
                    <svg
                      xmlns="http://www.w3.org/2000/svg"
                      fill="none"
@@ -186,12 +232,12 @@ export default function ProfileButton() {
                      />
                    </svg>
 
-                   <Link to="/logout">Sign Out</Link>
+                   <Link to="/logout">{t('SIGN_OUT')}</Link>
                  </li>
                  
                  </Link>
                   : <Link to="/login-page">
-                  <li className="px-2 flex items-center justify-start gap-2  py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -207,7 +253,7 @@ export default function ProfileButton() {
                       />
                     </svg>
 
-                    <Link to="/login-page">Sign In</Link>
+                    <Link to="/login-page">{t('SIGN_IN')}</Link>
                   </li>
                   
                   </Link>}

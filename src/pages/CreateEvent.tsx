@@ -7,10 +7,9 @@ import ScoringCategory from "../components/ScoringCategory";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import PaymentDetails, { Click } from "../components/PaymentDetails";
-import { Any } from "react-spring";
-import { stringify } from "querystring";
 import { ToastProvider } from "../utils/ToastProvider";
 import { useToast } from '../utils/ToastProvider';
+import { useTranslation } from "react-i18next";
 
 
 
@@ -56,8 +55,7 @@ interface CreateEventType{
 }
 
 const CreateEvent: React.FC = () => {
-  // const { showToast } = useToast();
-  // showToast("","")
+  const { t } = useTranslation();
   const [value, setValue] = useState("");
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
@@ -224,29 +222,26 @@ const CreateEvent: React.FC = () => {
         />
 
         <PaymentDetails onChange={handlePaymentDetailsChange} />
-        <div className="lg:max-w-6xl mx-auto p-2 ">
-          <div className=" ">
-            <div className="mx-4 flex gap-2">
+        <div className="p-2 mx-auto lg:max-w-6xl ">
+          <div className="">
+            <div className="flex gap-2 mx-4">
               <div className="py-6">
                 <button
                   type="button"
                   className=" glow-on-hover  text-white bg-[#52FF86] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Preview
+                  {t('PREV')}
                 </button>
                 <button
                   type="submit"
                   onClick={handleSubmit}
                   className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Next
+                  {t('NEXT')}
                 </button>
                 <button className="cursor-pointer text-white bg-[#FE2E00] hover:bg-blue-800  focus:outline-none  focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700  dark:focus:ring-blue-800 hover:scale-105 transform transition duration-300 ease-in-out">
-                  Clear
-                </button>
-                  
-            
-                
+                {t('CLEAR')}
+                </button>   
               </div>
             </div>
           </div>

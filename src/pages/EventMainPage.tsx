@@ -9,8 +9,10 @@ import axios from "axios";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchEvents } from "../utils/fetchEvents";
-import { ToastProvider } from "../utils/ToastProvider";
+import { ToastProvider } from '../utils/ToastProvider';
+import { useTranslation } from "react-i18next";
 const EventMainPage: FunctionComponent = () => {
+  const {t} = useTranslation();
   const [events, setEvents] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
@@ -63,7 +65,7 @@ const EventMainPage: FunctionComponent = () => {
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">
         <SearchEventContainer />
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="flex flex-wrap items-end gap-3">
             <div className="animate__animated animate__rotateIn">
               <img
@@ -89,7 +91,7 @@ const EventMainPage: FunctionComponent = () => {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      className="h-4 w-4"
+                      className="w-4 h-4"
                     >
                       <path
                         strokeLinecap="round"
