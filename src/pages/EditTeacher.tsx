@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import InputWithIcon from "../components/InputWithIcon";
+import TeacherAvail from "../components/TeacherAvail"
 import {
   EnvelopeOpenIcon,
   ShareIcon,
@@ -10,6 +11,32 @@ import {
 } from "@heroicons/react/24/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfileAvatar from "../components/ProfileAvatar";
+const teacherAvailability = [
+  {
+    week: "1st week of September 2020",
+    days: [
+      {
+        day: "Wednesday",
+        date: "2020-09-02",
+        timeSlots: [
+          { start: "9:00", end: "10:00" },
+          { start: "10:00", end: "11:00" },
+          { start: "11:00", end: "12:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        date: "2020-09-03",
+        timeSlots: [
+          { start: "9:00", end: "10:00" },
+          { start: "11:00", end: "12:00" },
+        ],
+      },
+      // ... more days
+    ],
+  },
+  // ... more weeks
+];
 const EditTeacher: React.FC = () => {
   return (
     <div>
@@ -27,6 +54,7 @@ const EditTeacher: React.FC = () => {
         
       <div className="py-16">
         <form className="grid grid-cols-2 text-start gap-4">
+      
           <InputWithIcon
             pname=""
             icon={<UserIcon />}
@@ -74,7 +102,11 @@ const EditTeacher: React.FC = () => {
           />
         </form>
       </div>
+      <div>
+      <TeacherAvail />
+    </div>
     </section>
+    
     </div>
   );
 };

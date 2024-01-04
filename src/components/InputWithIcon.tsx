@@ -35,7 +35,7 @@
             htmlFor="grid-event-name"
             >
              <span
-          className="p-1 rounded-full border-solid border-4 border-gray-600 inline-block"
+          className="p-1 rounded-full border-solid border-2 border-[#4B4B4B] inline-block text-[#52FF86] "
           style={{ width: iconWidth, height: iconHeight }}
         >
           {icon}

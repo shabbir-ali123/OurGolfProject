@@ -100,3 +100,7 @@ a {
 .filehidden::file-selector-button {
   display: none;
 }
+.selected-tab {
+  background-color: #your-selected-color;
+  color: #your-text-color;
+}
