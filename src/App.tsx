@@ -26,6 +26,8 @@ import PaymentForm from "./pages/PaymentForm"
 import 'animate.css';
 import PrivateRoute from "./utils/PrivateRoute";
 import BookMarkedEvents from "./pages/BookMarkedEvents"
+import JoinedEvents from "./pages/JoinedEvents"
+import EditTeacher from "./pages/EditTeacher"
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -114,7 +116,14 @@ function App() {
                 title = "";
                 metaDescription = "";
                 break;
-  
+                case "/joined-events":
+                  title = "";
+                  metaDescription = "";
+                  break;
+                  case "/edit-teacher":
+                    title = "";
+                    metaDescription = "";
+                    break;
 
     }
 
@@ -135,10 +144,7 @@ function App() {
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    // Check if a token exists in localStorage
     const storedToken = localStorage.getItem('token');
-
-    // If a token exists, set it in the component state
     if (storedToken) {
       setToken(storedToken);    }
   });
@@ -173,6 +179,8 @@ function App() {
         <Route path="/edit-team-page" element={<EditTeamPage    />} />
         <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
         <Route path="/booked-mark" element={<BookMarkedEvents   />} />
+        <Route path="/joined-events" element={<JoinedEvents   />} />
+        <Route path="/edit-teacher" element={<EditTeacher   />} />
 
       </Routes>
     </div>

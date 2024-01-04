@@ -8,10 +8,11 @@ export const API_ENDPOINTS = {
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
   GET_USER:`${API_BASE_URL}/${API_VERSION}/user/`,
   GETALLEVENT:`${API_BASE_URL}/${API_VERSION}/getAllEvents`,
-  PUBLICEVENTS:`${API_BASE_URL}/${API_VERSION}/publicEvents`,
+  PUBLICEVENTS:`${API_BASE_URL}/${API_VERSION}/get-public-events`,
   ADDCOMMENT:`${API_BASE_URL}/${API_VERSION}/add-comment`,
   ADDLIKE:`${API_BASE_URL}/${API_VERSION}/add-like`,
   MARKASFAVORITE:`${API_BASE_URL}/${API_VERSION}/is-favourite-event/`,
   GETFAVEVENTS: `${API_BASE_URL}/${API_VERSION}/get-favourite-events`,
   GETSINGLEEVENT: `${API_BASE_URL}/${API_VERSION}/get-event-by-id`,
+  JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
 };

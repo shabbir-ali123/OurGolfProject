@@ -26,6 +26,7 @@ interface TableProps {
     creator: {
       nickName: any;
     };
+    comments:[];
     accountHolderName: string;
     eventStartTime: string;
     eventStartDate: string;
@@ -173,6 +174,42 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   useEffect(() => {
     setLocalEvents(events);
   }, [events]);
+  // const getCommentsCount = async (eventId: string) => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const response = await axios.get(
+  //       `${API_ENDPOINTS.GET_COMMENTS_COUNT}${eventId}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+
+  //     return response.data.count;
+  //   } catch (error) {
+  //     console.error("Error fetching comments count:", error);
+  //     throw error;
+  //   }
+  // };
+
+  // const fetchCommentsCount = async () => {
+  //   const updatedEvents = await Promise.all(
+  //     localEvents.map(async (event: any) => {
+  //       const commentsCount = await getCommentsCount(event.id);
+  //       return {
+  //         ...event,
+  //         commentsCount,
+  //       };
+  //     })
+  //   );
+
+  //   setLocalEvents(updatedEvents);
+  // };
+
+  // useEffect(() => {
+  //   fetchCommentsCount();
+  // }, []);
 
   return (
     <div className="animate__animated animate__fadeInLeft">
@@ -269,7 +306,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               className="w-12 h-12 bg-gray-800 rounded-full "
                             />
                             <div className="text-lg font-medium leading-6 truncate ">
-                            {event.creator && event.creator.nickName ? event.creator.nickName : 'N/A'}
+                            {event.organizer && event.organizer.nickName ? event.organizer.nickName : 'N/A'}
                             </div>
                           </div>
                         </td>
@@ -346,7 +383,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white" />
                             </div>
                             <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
-                              <div className="text-[10px] text-white">20</div>
+                              <div className="text-[10px] text-white">{event.comments.counter}</div>
                             </div>
                           </div>
                           <div className="flex flex-col items-center gap-1">

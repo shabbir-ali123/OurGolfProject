@@ -254,6 +254,7 @@ const SideMenu: React.FC = () => {
                   >
                     {t('CREATED_EVENTS')}
                   </div>
+                  <Link to="/joined-events">
                   <div
                     className="shadow-md text-start"
                     style={dropdownItemStyles}
@@ -261,6 +262,7 @@ const SideMenu: React.FC = () => {
                   >
                     {t('JOINED_EVENTS')}
                   </div>
+                  </Link>
                   <Link to="/booked-mark">
                   <div
                     className="shadow-md text-start"
