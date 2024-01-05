@@ -99,34 +99,16 @@ const Calendar: React.FC = () => {
     hour: string,
     hourIndex: number
   ) => {
+    console.log(hour, dateKey, hourIndex ,"handleclick")
     toggleAvailability(dateKey, hour, hourIndex);
   };
-
+  const handleWeekSelected = (date: Date) => {
+    setSelectedWeekStart(date);
+  };
   return (
     <div className="  my-4">
-      <h2 className="mb-4 text-xl font-semibold">Weekly Availability</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Select Week Starting Date: </label>
-          <DatePicker
-            selected={selectedWeekStart}
-            onChange={(date) => handleTabClick(date!)}
-            dateFormat="MM/dd/yyyy"
-            showWeekNumbers
-            startDate={selectedWeekStart}
-            endDate={
-              selectedWeekStart
-                ? new Date(
-                    selectedWeekStart.getTime() + 6 * 24 * 60 * 60 * 1000
-                  )
-                : null
-            }
-            selectsStart
-          />
-        </div>
-
-        {/* Include the CalendarSlider component */}
-        <CalendarSlider />
+      <CalendarSlider onWeekSelected={handleWeekSelected} />
 
         <div className="grid grid-cols-8 gap-4 text-center py-2">
           <div className="col-span-1 font-bold ">Time</div>

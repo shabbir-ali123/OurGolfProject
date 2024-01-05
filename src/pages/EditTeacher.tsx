@@ -75,7 +75,7 @@ const EditTeacher: React.FC = () => {
       ></textarea>
       </div>
   
-      <div className="py-16">
+      <div className="py-6">
         <form className="grid grid-cols-2 text-start gap-4">
       
           <InputWithIcon
