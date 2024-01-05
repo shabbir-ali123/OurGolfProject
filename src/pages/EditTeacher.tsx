@@ -38,6 +38,17 @@ const teacherAvailability = [
   // ... more weeks
 ];
 const EditTeacher: React.FC = () => {
+  const [aboutMe, setAboutMe] = useState<string>('');
+
+  const handleAboutMeChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setAboutMe(event.target.value);
+  };
+
+  const handleSave = () => {
+  
+    console.log('About Me:', aboutMe);
+    
+  };
   return (
     <div>
          <ProfileAvatar
@@ -50,8 +61,20 @@ const EditTeacher: React.FC = () => {
             colSpanLg={2}
           />
    
-    <section className="h-screen text-center max-w-6xl mx-auto ">
-        
+    <section className="h-full text-center max-w-6xl mx-auto ">
+      <div className="text-start w-full py-6">
+      <label className="text-lg font-bold" htmlFor="aboutMe">About Me:</label>
+      <textarea
+        id="aboutMe"
+        name="aboutMe"
+        value={aboutMe}
+        onChange={handleAboutMeChange}
+        rows={4}
+       className="w-full border border-[#51ff85]"
+        placeholder="Tell us about yourself..."
+      ></textarea>
+      </div>
+  
       <div className="py-16">
         <form className="grid grid-cols-2 text-start gap-4">
       

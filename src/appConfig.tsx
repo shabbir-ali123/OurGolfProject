@@ -1,5 +1,5 @@
-// apiConfig.js
-const API_BASE_URL = "http://3.23.206.168:5000";
+
+const API_BASE_URL = "http://localhost:5000";
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -15,4 +15,9 @@ export const API_ENDPOINTS = {
   GETFAVEVENTS: `${API_BASE_URL}/${API_VERSION}/get-favourite-events`,
   GETSINGLEEVENT: `${API_BASE_URL}/${API_VERSION}/get-event-by-id`,
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
+  BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
+  GETALLTEACHERS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers`,
+  GETTEACHERBYID: `${API_BASE_URL}/${API_VERSION}/get-teacher-by-id/:id`,
+  UPDATEPROFILE: `${API_BASE_URL}/${API_VERSION}/update-profile`,
+
 };

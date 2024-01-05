@@ -56,7 +56,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
           </Link>
 
           <Link
-            to="/teacher-page"
+            to="/edit-teacher"
             className="list-none no-underline text-black"
           >
             <button

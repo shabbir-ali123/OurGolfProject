@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import CalendarSlider from "./CalendarSlider"; // Import the CalendarSlider component
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -65,31 +66,25 @@ const Calendar: React.FC = () => {
       return newActiveStates;
     });
 
-  
     setButtonActiveStates((prev) => {
       const newButtonActiveStates = [...prev];
-  
-      // Toggle the state based on the current state
       newButtonActiveStates[hourIndex] = !newButtonActiveStates[hourIndex];
       return newButtonActiveStates;
     });
-  
+
     const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${
       selectedWeekStart?.toLocaleDateString() || ""
     }`;
-  
+
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
       if (index !== -1) {
-        // Remove the time slot if already selected
         return prev.filter((slot) => slot !== timeSlot);
       } else {
-        // Add the time slot if not selected
         return [...prev, timeSlot];
       }
     });
   };
-  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,6 +93,7 @@ const Calendar: React.FC = () => {
   const handleTabClick = (date: Date) => {
     setSelectedWeekStart(date);
   };
+
   const handleTimeSlotClick = (
     dateKey: string,
     hour: string,
@@ -105,8 +101,9 @@ const Calendar: React.FC = () => {
   ) => {
     toggleAvailability(dateKey, hour, hourIndex);
   };
+
   return (
-    <div className="container mx-auto my-4">
+    <div className="  my-4">
       <h2 className="mb-4 text-xl font-semibold">Weekly Availability</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -127,8 +124,12 @@ const Calendar: React.FC = () => {
             selectsStart
           />
         </div>
-        <div className="grid grid-cols-8 gap-4 text-center">
-          <div className="col-span-1 font-bold">Time</div>
+
+        {/* Include the CalendarSlider component */}
+        <CalendarSlider />
+
+        <div className="grid grid-cols-8 gap-4 text-center py-2">
+          <div className="col-span-1 font-bold ">Time</div>
           {selectedWeekStart &&
             Array.from({ length: 7 }, (_, i) => {
               const date = new Date(
@@ -137,7 +138,7 @@ const Calendar: React.FC = () => {
               return (
                 <div
                   key={date.toLocaleDateString()}
-                  className={`col-span-1 font-bold ${
+                  className={`col-span-1 font-bold  ${
                     date.getTime() === selectedTab?.getTime()
                       ? "selected-tab"
                       : ""
@@ -168,12 +169,12 @@ const Calendar: React.FC = () => {
                   return (
                     <button
                       key={dateKey + hour}
-                      className={`col-span-1 time-slot ${
-                        isActive ? "bg-black" : "bg-red"
+                      className={`col-span-1 rounded-md py-2 time-slot ${
+                        isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
                       }`}
                       onClick={() => handleTimeSlotClick(dateKey, hour, dayIndex)}
                     >
-                      {isActive ? `Selected: ${hour}` : hour}
+                      {isActive ? `${hour}` : hour}
                     </button>
                   );
                 })}
@@ -182,9 +183,9 @@ const Calendar: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="px-4 py-2 mt-4 text-white bg-blue-500 rounded"
+          className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
         >
-          Submit
+          Update
         </button>
       </form>
     </div>
