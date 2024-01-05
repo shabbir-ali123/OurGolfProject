@@ -2,12 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-type Availability = {
-  [date: string]: {
-    [day: string]: boolean[];
-  };
-};
-
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
   const endHour = ((i + 1) % 24).toString().padStart(2, "0");
@@ -19,19 +13,17 @@ const findHourIndex = (time: string): number => {
   return hoursOfDay.findIndex((hour) => hour.startsWith(time));
 };
 
-const initialAvailability: Availability = {};
+const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
+  Array(7).fill(false)
+);
 
 const Calendar: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
-  const [availability, setAvailability] =
-    useState<Availability>(initialAvailability);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState();
-  const [activeStates, setActiveStates] = useState<number[]>(
-    Array.from({ length: hoursOfDay.length }, () => -1)
-  );
+  const [activeStates, setActiveStates] = useState<boolean[][]>(initialActiveStates);
+
   const [buttonActiveStates, setButtonActiveStates] = useState<boolean[]>(
     Array.from({ length: hoursOfDay.length }, () => false)
   );
@@ -60,31 +52,19 @@ const Calendar: React.FC = () => {
   const toggleAvailability = (
     day: string,
     time: string,
-    index: number
+    dayIndex: number
   ): void => {
-    // Move the declaration of hourIndex above its usage
     const hourIndex = findHourIndex(time);
-  
+
     setActiveStates((prev) => {
-      const newActiveStates = [...prev];
-      newActiveStates[hourIndex] = index;
+      const newActiveStates = prev.map((dayStates, index) =>
+        index === hourIndex
+          ? dayStates.map((isActive, i) => (i === dayIndex ? !isActive : isActive))
+          : [...dayStates]
+      );
       return newActiveStates;
     });
-  
-    setAvailability((prev) => {
-      const dateKey = selectedWeekStart!.toLocaleDateString();
-      const dateAvailability = { ...(prev[dateKey] || {}) };
-      const dayAvailability = [...(dateAvailability[day] || [])];
-  
-      // Create a new array to avoid mutating the original state
-      const newDayAvailability = [...dayAvailability];
-      newDayAvailability[hourIndex] = !newDayAvailability[hourIndex];
-  
-      // Update the state with the modified availability
-      dateAvailability[day] = newDayAvailability;
-      prev[dateKey] = dateAvailability;
-      return { ...prev };
-    });
+
   
     setButtonActiveStates((prev) => {
       const newButtonActiveStates = [...prev];
@@ -113,7 +93,6 @@ const Calendar: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(selectedTimeSlots);
   };
 
   const handleTabClick = (date: Date) => {
@@ -126,10 +105,9 @@ const Calendar: React.FC = () => {
   ) => {
     toggleAvailability(dateKey, hour, hourIndex);
   };
-  console.log(active, "active");
   return (
     <div className="container mx-auto my-4">
-      <h2 className="text-xl font-semibold mb-4">Weekly Availability</h2>
+      <h2 className="mb-4 text-xl font-semibold">Weekly Availability</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Select Week Starting Date: </label>
@@ -173,19 +151,19 @@ const Calendar: React.FC = () => {
         </div>
         <div
           ref={scrollContainerRef}
-          className="grid grid-cols-8 gap-4 text-center overflow-auto"
+          className="grid grid-cols-8 gap-4 overflow-auto text-center"
           style={{ maxHeight: "50vh" }}
         >
           {hoursOfDay.map((hour, hourIndex) => (
             <React.Fragment key={hour}>
               <div className="col-span-1 time-slot">{hour}</div>
               {selectedWeekStart &&
-                Array.from({ length: 7 }, (_, i) => {
+                Array.from({ length: 7 }, (_, dayIndex) => {
                   const date = new Date(
-                    selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
+                    selectedWeekStart.getTime() + dayIndex * 24 * 60 * 60 * 1000
                   );
                   const dateKey = date.toLocaleDateString();
-                  const isActive = activeStates[hourIndex] === i;
+                  const isActive = activeStates[hourIndex][dayIndex];
 
                   return (
                     <button
@@ -193,7 +171,7 @@ const Calendar: React.FC = () => {
                       className={`col-span-1 time-slot ${
                         isActive ? "bg-black" : "bg-red"
                       }`}
-                      onClick={() => handleTimeSlotClick(dateKey, hour, i)}
+                      onClick={() => handleTimeSlotClick(dateKey, hour, dayIndex)}
                     >
                       {isActive ? `Selected: ${hour}` : hour}
                     </button>
@@ -204,7 +182,7 @@ const Calendar: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 py-2 px-4 bg-blue-500 text-white rounded"
+          className="px-4 py-2 mt-4 text-white bg-blue-500 rounded"
         >
           Submit
         </button>
