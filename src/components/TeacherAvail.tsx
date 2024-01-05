@@ -19,7 +19,7 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 );
 
 interface CalendarProps {
-  onTeachAvailDataChange: (data: any) => void;
+  onTeachAvailDataChange: (e: any, data: any) => void;
 }
 
 const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
@@ -27,7 +27,8 @@ const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [activeStates, setActiveStates] = useState<boolean[][]>(initialActiveStates);
+  const [activeStates, setActiveStates] =
+    useState<boolean[][]>(initialActiveStates);
 
   const [buttonActiveStates, setButtonActiveStates] = useState<boolean[]>(
     Array.from({ length: hoursOfDay.length }, () => false)
@@ -64,9 +65,12 @@ const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
     setActiveStates((prev) => {
       const newActiveStates = prev.map((dayStates, index) =>
         index === hourIndex
-          ? dayStates.map((isActive, i) => (i === dayIndex ? !isActive : isActive))
+          ? dayStates.map((isActive, i) =>
+              i === dayIndex ? !isActive : isActive
+            )
           : [...dayStates]
       );
+      console.log(day, time, hourIndex, "handleclick");
       return newActiveStates;
     });
 
@@ -106,7 +110,7 @@ const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
       selectedTimeSlots: selectedTimeSlots,
       activeStates: filteredActiveStates
     };
-    onTeachAvailDataChange(teachAvailFormData);
+    onTeachAvailDataChange(e, teachAvailFormData);
   };
 
   const handleTabClick = (date: Date) => {
@@ -118,15 +122,24 @@ const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
     hour: string,
     hourIndex: number
   ) => {
+    const date = new Date(dateKey);
+
+    const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
+
+    const dateParts = dateFormatter.formatToParts(date);
+
+    const dayName = dateParts.find((part) => part.type === "weekday")?.value;
+
     toggleAvailability(dateKey, hour, hourIndex);
   };
+
   const handleWeekSelected = (date: Date) => {
     setSelectedWeekStart(date);
   };
   return (
     <div className="my-4 ">
       <form onSubmit={handleSubmit}>
-      <CalendarSlider onWeekSelected={handleWeekSelected} />
+        <CalendarSlider onWeekSelected={handleWeekSelected} />
 
         <div className="grid grid-cols-8 gap-4 py-2 text-center">
           <div className="col-span-1 font-bold ">Time</div>
@@ -169,10 +182,13 @@ const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
                   return (
                     <button
                       key={dateKey + hour}
+                      type="button"
                       className={`col-span-1 rounded-md py-2 time-slot ${
                         isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
                       }`}
-                      onClick={() => handleTimeSlotClick(dateKey, hour, dayIndex)}
+                      onClick={() =>
+                        handleTimeSlotClick(dateKey, hour, dayIndex)
+                      }
                     >
                       {isActive ? `${hour}` : hour}
                     </button>
@@ -181,12 +197,7 @@ const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
             </React.Fragment>
           ))}
         </div>
-        <button
-          type="submit"
-          className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
-        >
-          Update
-        </button>
+        
       </form>
     </div>
   );

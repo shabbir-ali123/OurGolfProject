@@ -8,6 +8,7 @@ import {
 import InputWithIcon from "../components/InputWithIcon";
 import TeacherAvail from "../components/TeacherAvail";
 import ProfileAvatar from "../components/ProfileAvatar";
+import { ShareIcon } from "@heroicons/react/20/solid";
 
 const EditTeacher: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,8 @@ const EditTeacher: React.FC = () => {
   });
   const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
 
-  const handleTeachAvailDataChange = (newData: any) => { // Callback function
+  const handleTeachAvailDataChange = (e:any, newData: any) => { // Callback function
+    e.stopPropagation();
     setTeachAvailData(newData);
   };
 
@@ -40,34 +42,36 @@ const EditTeacher: React.FC = () => {
   };
 
   return (
-    <div>
-      <ProfileAvatar
-        pname="firstName"
-        icon={<UserIcon />}
-        label="First Name"
-        value={formData.firstName}
-        onChange={handleChange}
-        placeholder="Enter first name"
-        colSpanSm={6}
-        colSpanMd={4}
-        colSpanLg={2}
-      />
-
-      <section className="h-full max-w-6xl mx-auto text-center ">
-        <div className="w-full py-6 text-start">
-          <label className="text-lg font-bold" htmlFor="aboutMe">About Me:</label>
-          <textarea
-            id="aboutMe"
-            name="aboutMe"
-            value={formData.aboutMe}
+    <div className="py-8">
+         <ProfileAvatar
+            pname=""
+            icon={<ShareIcon />}
+            label="First Name"
+            value={formData.firstName}
             onChange={handleChange}
-            rows={4}
-            className="w-full border border-[#51ff85]"
-            placeholder="Tell us about yourself..."
-          ></textarea>
-        </div>
-
-        <form className="grid grid-cols-2 gap-4 text-start" onSubmit={(e) => handleFormSubmit(e)}>
+            placeholder="Enter first name"
+            colSpanSm={6}
+            colSpanMd={4}
+            colSpanLg={2}
+          />
+   
+    <section className="h-full max-w-6xl mx-auto mt-6 text-center">
+      <div className="w-full py-6 text-start">
+      <label className="text-lg font-bold" htmlFor="aboutMe">About Me:</label>
+      <textarea
+        id="aboutMe"
+        name="aboutMe"
+        value={formData.aboutMe}
+        onChange={handleChange}
+        rows={4}
+       className="w-full border border-[#51ff85]"
+        placeholder="Tell us about yourself..."
+      ></textarea>
+      </div>
+  
+      <div className="py-6">
+        <form onSubmit={handleFormSubmit}>
+          <div className="grid grid-cols-2 gap-4 text-start">
           <InputWithIcon
             pname="firstName"
             icon={<UserIcon />}
@@ -123,10 +127,19 @@ const EditTeacher: React.FC = () => {
             colSpanMd={4}
             colSpanLg={2}
           />
-          <button type="submit">Submit</button>
-        </form>
-
+           
+        </div>
         <TeacherAvail onTeachAvailDataChange={handleTeachAvailDataChange}/>
+
+        <button
+          type="submit"
+          className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
+        >
+          Update
+        </button>
+        </form>
+      </div>
+       
       </section>
     </div>
   );

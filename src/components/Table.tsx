@@ -270,7 +270,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               className="w-12 h-12 bg-gray-800 rounded-full "
                             />
                             <div className="text-lg font-medium leading-6 truncate ">
-                            {event.organizer && event.organizer.nickName ? event.organizer.nickName : 'N/A'}
+                            {event.creator && event.creator.nickName ? event.creator.nickName : 'N/A'}
                             </div>
                           </div>
                         </td>
