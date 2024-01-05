@@ -23,7 +23,7 @@ const CustomNextArrow: React.FC = ({ onClick }: any) => (
   >
     <FontAwesomeIcon
       icon={faArrowRight}
-      style={{ background: "red", padding: "10px", borderRadius: "50%" }}
+      style={{ background: "#51ff85", padding: "10px", borderRadius: "50%" }}
     />
   </div>
 );
@@ -36,7 +36,7 @@ const CustomPrevArrow: React.FC = ({ onClick }: any) => (
   >
     <FontAwesomeIcon
       icon={faArrowLeft}
-      style={{ background: "red", padding: "10px", borderRadius: "50%" }}
+      style={{ background: "#51ff85", padding: "10px", borderRadius: "50%" }}
     />
   </div>
 );
@@ -48,7 +48,9 @@ const getStartOfWeek = (date: Date): Date => {
 
 const getEndOfWeek = (date: Date): Date => {
   const endOfWeek = new Date(date);
-  endOfWeek.setDate(date.getDate() - date.getDay() + 7);
+
+  endOfWeek.setDate(date.getDate() + 6);
+  console.log(date.getDate() ,"getEndWeek",date.getDay() )
   return endOfWeek;
 };
 
@@ -112,7 +114,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
     infinite: false,
     speed: 500,
     slidesToShow: 7,
-    slidesToScroll: 7,
+    slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 768,

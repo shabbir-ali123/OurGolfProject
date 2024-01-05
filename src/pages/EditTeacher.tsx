@@ -50,7 +50,7 @@ const EditTeacher: React.FC = () => {
     
   };
   return (
-    <div>
+    <div className="py-8">
          <ProfileAvatar
             pname=""
             icon={<ShareIcon />}
@@ -61,7 +61,7 @@ const EditTeacher: React.FC = () => {
             colSpanLg={2}
           />
    
-    <section className="h-full text-center max-w-6xl mx-auto ">
+    <section className="h-full text-center max-w-6xl mx-auto mt-6">
       <div className="text-start w-full py-6">
       <label className="text-lg font-bold" htmlFor="aboutMe">About Me:</label>
       <textarea

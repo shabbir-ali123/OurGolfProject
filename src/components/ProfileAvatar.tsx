@@ -27,7 +27,7 @@ pname
 return (
     <div>
    <div className="relative bg-gradient-to-r from-blue-400 to-red-800  h-20 mt-10">
-    <div className="absolute left-60 bottom-[-60] top-0 border-10 border-solid-green " >
+    <div className="absolute left-60 bottom-[-60] top-[-36px] border-10 border-solid-green " >
         <img src="/img/profile1.png" width="150px" height="150px" alt=""  />
     </div>
    </div>
