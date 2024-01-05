@@ -12,6 +12,8 @@
     "CREATED_EVENTS": "Created Events",
     "JOINED_EVENTS": "Joined Events",
     "BOOKMARKED_EVENTS": "Bookmarked Events",
+    "EVENTS_IN": "Events In",
+    "SEARCH_EVENT": "Search Event",
     "FIND_TEACHER": "Find a Teacher",
     "CALENDER": "Calender",
     "PROFILE": "Profile",
@@ -24,7 +26,7 @@
     "ALL": "ALL",
     "LIVE": "LIVE",
     "PAST": "PAST",
-    "UPCOMING": "PAST",
+    "UPCOMING": "UPCOMING",
     "TOKYO": "TOKYO",
     "ORGANIZER": "Organizer",
     "TIME": "Time",
@@ -41,5 +43,7 @@
     "PLACE": "Place",
     "ADDITIONAL_INFORMATION": "Additional Information",
     "SEARCH": "Search",
-    "ENTER_PLACE": "Enter Place"
+    "ENTER_PLACE": "Enter Place",
+    "START_DATE": "Start Date",
+    "END_DATE": "End Date"
 }

@@ -12,6 +12,8 @@
     "CREATED_EVENTS": "作成されたイベント",
     "JOINED_EVENTS": "参加したイベント",
     "BOOKMARKED_EVENTS": "ブックマークされたイベント",
+    "EVENTS_IN": "のイベント",
+    "SEARCH_EVENT": "検索イベント",
     "FIND_TEACHER": "先生を探す",
     "CALENDER": "カレンダー",
     "PROFILE": "プロフィール",
@@ -41,5 +43,7 @@
     "PLACE": "場所",
     "ADDITIONAL_INFORMATION": "追加情報",
     "SEARCH": "検索",
-    "ENTER_PLACE": "場所に入る"
+    "ENTER_PLACE": "場所に入る",
+    "START_DATE": "開始日",
+    "END_DATE": "終了日"
 }

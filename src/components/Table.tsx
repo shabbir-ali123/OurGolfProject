@@ -174,43 +174,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   useEffect(() => {
     setLocalEvents(events);
   }, [events]);
-  // const getCommentsCount = async (eventId: string) => {
-  //   try {
-  //     const token = localStorage.getItem("token");
-  //     const response = await axios.get(
-  //       `${API_ENDPOINTS.GET_COMMENTS_COUNT}${eventId}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     return response.data.count;
-  //   } catch (error) {
-  //     console.error("Error fetching comments count:", error);
-  //     throw error;
-  //   }
-  // };
-
-  // const fetchCommentsCount = async () => {
-  //   const updatedEvents = await Promise.all(
-  //     localEvents.map(async (event: any) => {
-  //       const commentsCount = await getCommentsCount(event.id);
-  //       return {
-  //         ...event,
-  //         commentsCount,
-  //       };
-  //     })
-  //   );
-
-  //   setLocalEvents(updatedEvents);
-  // };
-
-  // useEffect(() => {
-  //   fetchCommentsCount();
-  // }, []);
-
+ 
   return (
     <div className="animate__animated animate__fadeInLeft">
       <div className="flow-root mt-2">

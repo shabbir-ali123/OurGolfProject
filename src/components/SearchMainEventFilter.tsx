@@ -12,7 +12,7 @@ const SearchMainEventFilter: FunctionComponent = () => {
           name="email"
           id="email"
           className="block w-full rounded-l-md border outline-none py-2 pl-4 ring-1 ring-inset ring-[#17B3A6]"
-          placeholder="Search Event"
+          placeholder={t('SEARCH_EVENT')}
         />
       </div>
       <button

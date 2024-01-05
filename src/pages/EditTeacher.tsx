@@ -1,136 +1,128 @@
 import React, { useState } from "react";
-import { API_ENDPOINTS } from "../appConfig";
-import InputWithIcon from "../components/InputWithIcon";
-import TeacherAvail from "../components/TeacherAvail"
 import {
   EnvelopeOpenIcon,
-  ShareIcon,
   UserIcon,
   PhoneIcon,
   MapPinIcon
 } from "@heroicons/react/24/solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import InputWithIcon from "../components/InputWithIcon";
+import TeacherAvail from "../components/TeacherAvail";
 import ProfileAvatar from "../components/ProfileAvatar";
-const teacherAvailability = [
-  {
-    week: "1st week of September 2020",
-    days: [
-      {
-        day: "Wednesday",
-        date: "2020-09-02",
-        timeSlots: [
-          { start: "9:00", end: "10:00" },
-          { start: "10:00", end: "11:00" },
-          { start: "11:00", end: "12:00" },
-        ],
-      },
-      {
-        day: "Thursday",
-        date: "2020-09-03",
-        timeSlots: [
-          { start: "9:00", end: "10:00" },
-          { start: "11:00", end: "12:00" },
-        ],
-      },
-      // ... more days
-    ],
-  },
-  // ... more weeks
-];
+
 const EditTeacher: React.FC = () => {
-  const [aboutMe, setAboutMe] = useState<string>('');
+  const [formData, setFormData] = useState({
+    aboutMe: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobile: '',
+    location: ''
+  });
 
-  const handleAboutMeChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setAboutMe(event.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: value
+    }));
   };
 
-  const handleSave = () => {
-  
-    console.log('About Me:', aboutMe);
-    
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form Data:', formData);
   };
+
   return (
     <div>
-         <ProfileAvatar
-            pname=""
-            icon={<ShareIcon />}
-            label="First Name"
-            placeholder="Enter first name"
-            colSpanSm={6}
-            colSpanMd={4}
-            colSpanLg={2}
-          />
-   
-    <section className="h-full text-center max-w-6xl mx-auto ">
-      <div className="text-start w-full py-6">
-      <label className="text-lg font-bold" htmlFor="aboutMe">About Me:</label>
-      <textarea
-        id="aboutMe"
-        name="aboutMe"
-        value={aboutMe}
-        onChange={handleAboutMeChange}
-        rows={4}
-       className="w-full border border-[#51ff85]"
-        placeholder="Tell us about yourself..."
-      ></textarea>
-      </div>
-  
-      <div className="py-16">
-        <form className="grid grid-cols-2 text-start gap-4">
-      
+      <ProfileAvatar
+        pname="firstName"
+        icon={<UserIcon />}
+        label="First Name"
+        value={formData.firstName}
+        onChange={handleChange}
+        placeholder="Enter first name"
+        colSpanSm={6}
+        colSpanMd={4}
+        colSpanLg={2}
+      />
+
+      <section className="h-full max-w-6xl mx-auto text-center ">
+        <div className="w-full py-6 text-start">
+          <label className="text-lg font-bold" htmlFor="aboutMe">About Me:</label>
+          <textarea
+            id="aboutMe"
+            name="aboutMe"
+            value={formData.aboutMe}
+            onChange={handleChange}
+            rows={4}
+            className="w-full border border-[#51ff85]"
+            placeholder="Tell us about yourself..."
+          ></textarea>
+        </div>
+
+        <form className="grid grid-cols-2 gap-4 text-start" onSubmit={(e) => handleFormSubmit(e)}>
           <InputWithIcon
-            pname=""
+            pname="firstName"
             icon={<UserIcon />}
             label="First Name"
+            value={formData.firstName}
+            onChange={handleChange}
             placeholder="Enter first name"
             colSpanSm={6}
             colSpanMd={4}
             colSpanLg={2}
           />
           <InputWithIcon
-            pname=""
+            pname="lastName"
             icon={<UserIcon />}
             label="Last Name"
+            value={formData.lastName}
+            onChange={handleChange}
             placeholder="Enter last name"
             colSpanSm={6}
             colSpanMd={4}
             colSpanLg={2}
           />
           <InputWithIcon
-            pname=""
+            pname="email"
             icon={<EnvelopeOpenIcon />}
             label="Email"
-            placeholder="Enter Email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter email"
             colSpanSm={6}
             colSpanMd={4}
             colSpanLg={2}
           />
           <InputWithIcon
-            pname=""
+            pname="mobile"
             icon={<PhoneIcon />}
             label="Mobile"
-            placeholder="Enter Mobile"
+            value={formData.mobile}
+            onChange={handleChange}
+            placeholder="Enter mobile"
             colSpanSm={6}
             colSpanMd={4}
             colSpanLg={2}
           />
           <InputWithIcon
-            pname=""
+            pname="location"
             icon={<MapPinIcon />}
             label="Location"
-            placeholder="Location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="Enter location"
             colSpanSm={6}
             colSpanMd={4}
             colSpanLg={2}
           />
+          <button type="submit">Submit</button>
         </form>
-      </div>
-      <div>
-      <TeacherAvail />
-    </div>
-    </section>
-    
+
+        <TeacherAvail />
+      </section>
     </div>
   );
 };
+
 export default EditTeacher;

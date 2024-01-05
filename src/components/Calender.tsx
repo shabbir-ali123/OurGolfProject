@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { formatDate } from "../utils/getStartedDate";
-import { API_ENDPOINTS } from "../appConfig";
 import { fetchEvents } from "../utils/fetchEvents";
+import { useTranslation } from "react-i18next";
 
 
 interface CalendarProps {
@@ -12,6 +10,7 @@ interface CalendarProps {
 }
 
 const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
+  const { t } = useTranslation();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
@@ -40,7 +39,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
         <DatePicker
           selected={startDate}
           onChange={handleStartDateChange}
-          placeholderText="Start Date"
+          placeholderText={t('START_DATE')}
           className="py-3.5 rounded-md border-none"
         />
       </div>
@@ -59,7 +58,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
         <DatePicker
           selected={endDate}
           onChange={handleEndDateChange}
-          placeholderText="End Date"
+          placeholderText={t('END_DATE')}
           className="py-3.5  rounded-md border-none"
         />
       </div>

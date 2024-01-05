@@ -3,11 +3,8 @@ import SearchEventContainer from "../components/SearchMainEventFilter";
 import SideIconMenu from "../components/SideIconMenu";
 import { Clip } from "../components/Clip";
 import Tabs from "../components/Tabs";
-import { API_ENDPOINTS } from "../appConfig";
-import { formatDate } from "../utils/getStartedDate";
-import axios from "axios";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
@@ -76,7 +73,7 @@ const EventMainPage: FunctionComponent = () => {
             </div>
             <div className="flex flex-wrap items-center gap-4 my-2 xl:m-0">
               <h1 className="text-[#193A8B] text-[3xl] font-semibold animate__animated animate__rubberBand animate__repeat-3">
-                EVENTS IN
+              {t('EVENTS_IN')}
               </h1>
               {selectedLocations.map((location, index) => (
                 <div key={index} className="flex ">
@@ -115,7 +112,7 @@ const EventMainPage: FunctionComponent = () => {
                   className="-mr-0.5 h-5 w-5"
                   aria-hidden="true"
                 />
-                Create Event
+                {t('CREATE_EVENTS')}
               </button>
             </Link>
           </div>

@@ -86,8 +86,9 @@ const Calendar: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent,) => {
     e.preventDefault();
+    // handleFormSubmit();
   };
 
   const handleTabClick = (date: Date) => {
@@ -103,9 +104,9 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div className="  my-4">
+    <div className="my-4 ">
       <h2 className="mb-4 text-xl font-semibold">Weekly Availability</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <div>
           <label>Select Week Starting Date: </label>
           <DatePicker
@@ -128,7 +129,7 @@ const Calendar: React.FC = () => {
         {/* Include the CalendarSlider component */}
         <CalendarSlider />
 
-        <div className="grid grid-cols-8 gap-4 text-center py-2">
+        <div className="grid grid-cols-8 gap-4 py-2 text-center">
           <div className="col-span-1 font-bold ">Time</div>
           {selectedWeekStart &&
             Array.from({ length: 7 }, (_, i) => {
