@@ -18,6 +18,12 @@ const EditTeacher: React.FC = () => {
     mobile: '',
     location: ''
   });
+  const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
+
+  const handleTeachAvailDataChange = (newData: any) => { // Callback function
+    setTeachAvailData(newData);
+  };
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -30,6 +36,7 @@ const EditTeacher: React.FC = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form Data:', formData);
+    console.log('Teach Availability Data:', teachAvailData);
   };
 
   return (
@@ -119,7 +126,7 @@ const EditTeacher: React.FC = () => {
           <button type="submit">Submit</button>
         </form>
 
-        <TeacherAvail />
+        <TeacherAvail onTeachAvailDataChange={handleTeachAvailDataChange}/>
       </section>
     </div>
   );

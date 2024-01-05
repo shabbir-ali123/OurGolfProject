@@ -18,7 +18,11 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
   Array(7).fill(false)
 );
 
-const Calendar: React.FC = () => {
+interface CalendarProps {
+  onTeachAvailDataChange: (data: any) => void;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ onTeachAvailDataChange }) => {
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
@@ -86,9 +90,23 @@ const Calendar: React.FC = () => {
     });
   };
 
-  const handleFormSubmit = (e: React.FormEvent,) => {
+  const handleSubmit = (e: React.FormEvent,) => {
     e.preventDefault();
-    // handleFormSubmit();
+
+    const filteredActiveStates = activeStates
+    .map((dayStates, hourIndex) =>
+      dayStates
+        .map((isActive, dayIndex) => isActive ? `${hoursOfDay[hourIndex]} on Day ${dayIndex + 1}` : null)
+        .filter(Boolean) // Remove null values
+    )
+    .filter(dayStates => dayStates.length > 0);
+    
+    const teachAvailFormData = {
+      selectedWeekStart: selectedWeekStart ? selectedWeekStart.toISOString() : null,
+      selectedTimeSlots: selectedTimeSlots,
+      activeStates: filteredActiveStates
+    };
+    onTeachAvailDataChange(teachAvailFormData);
   };
 
   const handleTabClick = (date: Date) => {
@@ -102,32 +120,13 @@ const Calendar: React.FC = () => {
   ) => {
     toggleAvailability(dateKey, hour, hourIndex);
   };
-
+  const handleWeekSelected = (date: Date) => {
+    setSelectedWeekStart(date);
+  };
   return (
     <div className="my-4 ">
-      <h2 className="mb-4 text-xl font-semibold">Weekly Availability</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label>Select Week Starting Date: </label>
-          <DatePicker
-            selected={selectedWeekStart}
-            onChange={(date) => handleTabClick(date!)}
-            dateFormat="MM/dd/yyyy"
-            showWeekNumbers
-            startDate={selectedWeekStart}
-            endDate={
-              selectedWeekStart
-                ? new Date(
-                    selectedWeekStart.getTime() + 6 * 24 * 60 * 60 * 1000
-                  )
-                : null
-            }
-            selectsStart
-          />
-        </div>
-
-        {/* Include the CalendarSlider component */}
-        <CalendarSlider />
+      <form onSubmit={handleSubmit}>
+      <CalendarSlider onWeekSelected={handleWeekSelected} />
 
         <div className="grid grid-cols-8 gap-4 py-2 text-center">
           <div className="col-span-1 font-bold ">Time</div>
