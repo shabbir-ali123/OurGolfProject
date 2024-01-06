@@ -135,7 +135,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
 
   return (
     <div className="border-solid border-2 border-[#51ff85] p-2 my-4">
-      <h2 className="mb-4 text-xl font-semibold">Yearly Availability</h2>
+      <h2 className="mb-4 text-xl font-semibold">Weekly Availability</h2>
       <Slider
         {...settings}
         beforeChange={(oldIndex: any, newIndex: any) =>

@@ -29,12 +29,24 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 
 const EditTeacher: React.FC = () => {
   const [formData, setFormData] = useState({
-    aboutMe: "",
+    aboutMyself: "",
     firstName: "",
     lastName: "",
-    email: "",
-    mobile: "",
+    // email: "",
+    phoneNumber: "",
     location: "",
+    schedules: [
+      {
+        startDate: "2023-03-01",
+        endDate: "2023-03-07",
+        shifts: [
+          {
+            startTime: "09:00",
+            endTime: "12:00"
+          }
+        ]
+      }
+    ],
   });
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
   const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
@@ -169,13 +181,39 @@ const EditTeacher: React.FC = () => {
     hour: string,
     hourIndex: number
   ) => {
+
+
+
+
+
     const date = new Date(dateKey);
     const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
     const dateParts = dateFormatter.formatToParts(date);
     const dayName = dateParts.find((part) => part.type === "weekday")?.value;
     toggleAvailability(dateKey, hour, hourIndex);
+    console.log(dateKey, hour, hourIndex, "new");
+  const newShift = {
+      startTime: hour,
+      endTime: "12:00", // You can adjust the end time as needed
+    };
+
+    const newSchedule = {
+      startDate: selectedWeekStart?.toISOString() || "",
+      endDate: selectedWeekStart?.toISOString() || "",
+      shifts: [newShift],
+    };
+
+    setFormData((prevFormData) => {
+      const newSchedules = [...prevFormData.schedules, newSchedule];
+      return {
+        ...prevFormData,
+        schedules: newSchedules,
+      };
+    });
+
   };
 
+  
   return (
     <div className="py-8">
       <ProfileAvatar
@@ -198,7 +236,7 @@ const EditTeacher: React.FC = () => {
           <textarea
             id="aboutMe"
             name="aboutMe"
-            value={formData.aboutMe}
+            value={formData.aboutMyself}
             onChange={handleChange}
             rows={4}
             className="w-full border border-[#51ff85]"
@@ -235,7 +273,7 @@ const EditTeacher: React.FC = () => {
                 pname="email"
                 icon={<EnvelopeOpenIcon />}
                 label="Email"
-                value={formData.email}
+                // value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter email"
                 colSpanSm={6}
@@ -243,10 +281,10 @@ const EditTeacher: React.FC = () => {
                 colSpanLg={2}
               />
               <InputWithIcon
-                pname="mobile"
+                pname="phoneNumber"
                 icon={<PhoneIcon />}
                 label="Mobile"
-                value={formData.mobile}
+                value={formData.phoneNumber}
                 onChange={handleChange}
                 placeholder="Enter mobile"
                 colSpanSm={6}

@@ -8,6 +8,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import DropDown from "./DropDown";
 import AvailabilityTabs from "./AvailavilityTabs";
+interface TeacherConDetailProps {
+  teacherDetails: {
+    location: string;
+    phoneNumber: string;
+    // ... other properties
+  };
+}
 export const TeacherConDetail = () => {
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);

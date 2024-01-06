@@ -1,52 +1,105 @@
+import React, { useState, useEffect } from "react";
+import StudentTabs from "../components/StudentTabs";
+import TeacherList from "../components/TeacherList";
+import StudentEventBoxes from "../components/StudentEventBoxes";
+import StudentCalendar from "../components/StudentCalender";
+import FavTeachers from "../components/FavTeacher";
+import SearchAndFiltersEducator from "../components/SearchAndFilter";
+import TeacherConDetail from "../components/TeacherConDetail";
+import ReschedulePop from "../components/ReschedulePop";
+import axios from "axios";  
+import { API_ENDPOINTS } from "../appConfig";
+interface TeacherDetialsProp{
+  count?: number;
+  teachers?: [];
+  aboutMyself?: string;
+  createdAt?: string[];
+  firstName?: string
+  id?: string;
+  lastName?: string;
+  location?: string;
+  phoneNumber?: string;
+  schedules?: []
+  updatedAt: string;
+  userId: string;  
+}
 
-import React, { useState } from 'react';
-import StudentTabs from '../components/StudentTabs'; 
-import TeacherList from '../components/TeacherList';
-import StudentEventBoxes from '../components/StudentEventBoxes';
-import StudentCalendar from '../components/StudentCalender';
-import FavTeachers from '../components/FavTeacher';
-import SearchAndFiltersEducator from '../components/SearchAndFilter';
-import TeacherConDetail from '../components/TeacherConDetail';
-import ReschedulePop from '../components/ReschedulePop';
+
 
 const StudentProfile: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<'student' | 'teacher'>('student');
+  const [selectedTab, setSelectedTab] = useState<"student" | "teacher">(
+    "student"
+  );
   const [showModal, setShowModal] = useState(false);
-    const handleSelectTab = (tab: 'student' | 'teacher') => {
-        setSelectedTab(tab);
-      };
-      const openModal = () => {
-        setShowModal(true);
-      };
+  const [teachers, setTeachers] = useState<any[]>([]);
+  const handleSelectTab = (tab: "student" | "teacher") => {
+    setSelectedTab(tab);
+  };
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  const handleSelectTime = (selectedTime: string) => {
+    console.log(`Selected Time: ${selectedTime}`);
+  };
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(API_ENDPOINTS.GETALLTEACHERS, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          params:{
+           
+              page: 1,
+              pageSize: 10,
+
+        
+          }
+        });
     
-      const closeModal = () => {
-        setShowModal(false);
-      };
-      const handleSelectTime = (selectedTime: string) => {
-     
-        console.log(`Selected Time: ${selectedTime}`);
-      };
-  
-      const handleBookAppointment = () => {
-        // Implement your logic for booking an appointment here
-        console.log('Booking appointment logic');
-      };
-      const handleCloseModal = () => {
-        // Close the modal by updating the state
-        setShowModal(false);
-      };
+        console.log('Response Status:', response.status);
+        console.log('Response Headers:', response.headers);
+        console.log('Response Data:', response.data);
+    
+        if ('error' in response.data) {
+          console.error('API Error:', response.data.error);
+          return;
+        }
+    
+        setTeachers(response.data);
+      } catch (error: any) {
+        console.error('Error fetching teachers:', error.message);
+        console.log('Detailed Error:', error);
+      }
+    };
+    
+
+    fetchTeachers(); 
+
+  }, []);
+  const handleBookAppointment = () => {
+    console.log("Booking appointment logic");
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
-    <div  className="grid grid-cols-11 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8 ">
-      
+    <div className="grid grid-cols-11 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8 ">
       {/* Left Column */}
-      <div className='col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft '>
+      <div className="col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft ">
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={handleSelectTab}
           showTabs={true}
-          description=''
-          profilePic='/img/profile1.png'
-          name='John Miler'
+          description=""
+          profilePic="/img/profile1.png"
+          name="John Miler"
         />
         <StudentEventBoxes />
         <StudentCalendar />
@@ -54,13 +107,16 @@ const StudentProfile: React.FC = () => {
       </div>
 
       {/* Middle Column */}
-      <div className='col-span-12 md:col-span-12 lg:col-span-3  xl:col-span-3 p-4 lg:overflow-y-auto scrollbar lg:max-h-screen '>
+      <div className="col-span-12 md:col-span-12 lg:col-span-3  xl:col-span-3 p-4 lg:overflow-y-auto scrollbar lg:max-h-screen ">
         <SearchAndFiltersEducator />
-       
-        {Array.from({ length: 6 }, (_, index) => (
-          <TeacherList key={index} openModal={openModal} handleBookAppointment={handleBookAppointment} />
-        ))}
+
         
+          <TeacherList
+            openModal={openModal}
+            handleBookAppointment={handleBookAppointment}
+          />
+
+
         <style>{`
         
         @media screen and (min-width: 1300px) {
@@ -84,10 +140,9 @@ const StudentProfile: React.FC = () => {
                     background-color: transparent;
                 }
             `}</style>
-        
       </div>
 
-      {/* Right Column */}
+     
       <div className=" col-span-12 xl:col-span-4 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight ">
         <StudentTabs
           selectedTab={selectedTab}
@@ -102,7 +157,10 @@ const StudentProfile: React.FC = () => {
       {showModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center ">
           <div className="bg-white p-8 max-w-md mx-auto rounded-lg animate__animated animate__fadeInLeft">
-          <ReschedulePop onSelectTime={handleSelectTime} onClose={handleCloseModal} />  
+            <ReschedulePop
+              onSelectTime={handleSelectTime}
+              onClose={handleCloseModal}
+            />
           </div>
         </div>
       )}

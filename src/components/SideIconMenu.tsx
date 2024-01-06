@@ -57,12 +57,12 @@ const SideMenu: React.FC = () => {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        // Click occurred outside the dropdown, close it
+        
         setIsDropdownOpen(false);
       }
     };
 
-    // Attach the event listener to the document
+   
     document.addEventListener("mousedown", handleClickOutside);
 
     // Clean up the event listener when the component is unmounted
@@ -135,7 +135,7 @@ const SideMenu: React.FC = () => {
 
     left: "20",
     top: "0",
-    // display: isMenuOpen ? "block" : "vlo",
+
   };
 
   const dropdownButtonStyles: React.CSSProperties = {
@@ -153,7 +153,7 @@ const SideMenu: React.FC = () => {
     width: "100%",
     border: "1px solid white",
     borderRadius: "5px",
-    zIndex: 1000, // Ensure this value is higher than other elements
+    zIndex: 1000, 
   };
 
   const dropdownItemStyles: React.CSSProperties = {
