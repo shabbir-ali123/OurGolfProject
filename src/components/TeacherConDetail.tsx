@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import DropDown from "./DropDown";
 import AvailabilityTabs from "./AvailavilityTabs";
+import { useTranslation } from "react-i18next";
 interface TeacherConDetailProps {
   teacherDetails: {
     location: string;
@@ -16,6 +17,7 @@ interface TeacherConDetailProps {
   };
 }
 export const TeacherConDetail = () => {
+  const { t } = useTranslation();
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);
   };
@@ -29,7 +31,7 @@ export const TeacherConDetail = () => {
               className=" text-[#51ff85] animate-bounce "
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">Location</h3>
+          <h3 className="font-sans text-xs font-bold text-black">{t('LOCATION')}</h3>
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
@@ -46,7 +48,7 @@ export const TeacherConDetail = () => {
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">Mobile No</h3>
+          <h3 className="font-sans text-xs font-bold text-black">{t('MOBILE')}</h3>
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
@@ -62,7 +64,7 @@ export const TeacherConDetail = () => {
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">Email</h3>
+          <h3 className="font-sans text-xs font-bold text-black">{t('EMAIL')}</h3>
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
@@ -78,8 +80,8 @@ export const TeacherConDetail = () => {
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">
-            Availability
+          <h3 className="font-sans text-xs font-bold text-black">
+            {t('AVAILIBILTY')}
           </h3>
         </div>
         <div className="div">

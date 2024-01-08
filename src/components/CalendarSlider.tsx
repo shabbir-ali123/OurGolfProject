@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 interface AvailabilityData {
   date: Date;
@@ -55,6 +56,8 @@ const getEndOfWeek = (date: Date): Date => {
 };
 
 const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
+  const { t } = useTranslation();
+
   const [selectedWeekIndex, setSelectedWeekIndex] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [weeks, setWeeks] = useState<AvailabilityData[]>([]);
@@ -135,7 +138,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
 
   return (
     <div className="border-solid border-2 border-[#51ff85] p-2 my-4">
-      <h2 className="mb-4 text-xl font-semibold">Weekly Availability</h2>
+      <h2 className="mb-4 text-xl font-semibold">{t('WEEKLY_AVAILIBILTY')}</h2>
       <Slider
         {...settings}
         beforeChange={(oldIndex: any, newIndex: any) =>
@@ -150,7 +153,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
             }`}
             onClick={() => handleDayClick(index)}
           >
-            <p>{day.dayName}</p>
+            <p>{t(day.dayName.toLocaleUpperCase())}</p>
             <p>{day.date.toLocaleDateString()}</p>
           </div>
         ))}

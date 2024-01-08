@@ -3,18 +3,20 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
+import { useTranslation } from "react-i18next";
 
 const navigation = [
   { name: "Home", to: "/score-board", active: false },
   { name: "Posts", to: "#", active: false },
   { name: "Events", to: "/event-main-page", active: false },
-  { name: "Find a teacher", to: "/student-page", active: false },
+  { name: "Find_teacher", to: "/student-page", active: false },
   
 ];
 
 const Header: React.FC = () => {
   const [token, setToken] = useState('');
   const history = useNavigate();
+  const { t } = useTranslation();
   useEffect(() => {
    
     const storedToken = localStorage.getItem('token');
@@ -75,7 +77,7 @@ const Header: React.FC = () => {
             }`}
             style={item.active ? { borderBottom: "3px solid #51ff85", color:"#51ff85", fontWeight:"900" ,borderRadius:'2px'  } : {}}
           >
-            {item.name}
+            {t(item.name.toLocaleUpperCase())}
           </Link>
         ))}
         </div>

@@ -2,8 +2,10 @@ import { FunctionComponent } from 'react';
 import LeaderBoardHeader from '../components/LeaderBoardHeader';
 import LeaderBoardFirstRow from '../components/LeaderBoardRow';
 import Team from '../utils/Team';
+import { useTranslation } from 'react-i18next';
 
 const LeaderBoardSection: FunctionComponent = () => {
+    const { t } = useTranslation();
     const teamData = [
         new Team(
             1,
@@ -82,11 +84,11 @@ const LeaderBoardSection: FunctionComponent = () => {
                 </div>
             </div>
               {/* loading More Button */}
-            <div className='text-center m-auto mt-10'>
+            <div className='m-auto mt-10 text-center'>
                 <div
                     className='flex items-center justify-center rounded-[40px] text-lg bg-white shadow-[4px_4px_16px_#268d61] w-[171px] h-[59px] leading-[20px] font-medium'
                     style={{ cursor: 'pointer' }}
-                >{`Load More `}</div>
+                >{t('LOAD_MORE')}</div>
             </div>
         </>
     );

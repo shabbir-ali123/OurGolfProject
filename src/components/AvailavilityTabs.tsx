@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface AvailabilityTabsProps {
   onSelectTime: (selectedTime: string) => void;
@@ -7,6 +8,7 @@ interface AvailabilityTabsProps {
 const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   onSelectTime,
 }) => {
+  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
 
   const timeSlots = [
@@ -37,7 +39,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   return (
     <div>
         <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
-        <div className="flex flex-wrap justify-start  mt-4 gap-1">
+        <div className="flex flex-wrap justify-start gap-1 mt-4">
         {timeSlots.map((time, index) => (
           <div
             key={index}
@@ -68,32 +70,32 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
               fill="white"
             />
           </svg>
-          <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl">Book an Appointment</span>
+          <span className="text-xl font-bold text-white sm:font-semi-bold md:px-2">{t('BOOK_APPOINTMENT')}</span>
         </button>
       </div>
         </div>
      
       <div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">Not Available-</p>
+            <p className="my-1">{t('NOT_AVAILABLE')}-</p>
             <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]">
 
             </div>
         </div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">Waiting for teacher approval-</p>
+            <p className="my-1">{t('APPROVAL_WAITING')}-</p>
             <div className=" h-4 w-8 md:w-10 lg:w-16 bg-[#CFEEFF]">
 
             </div>
         </div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">Booked by you-</p>
+            <p className="my-1">{t('BOOKED_BY_YOU')}-</p>
             <div className="h-4 w-8 md:w-10 lg:w-16  bg-[#00A4FE]">
 
             </div>
         </div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">Available-</p>
+            <p className="my-1">{t('AVAILABLE')}-</p>
             <div className="h-4 w-8  md:w-10 lg:w-16  border-solid border-[1px] border-[#838383]">
             
             </div>
