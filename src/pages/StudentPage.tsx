@@ -22,6 +22,7 @@ interface Teacher {
   schedules?: [];
   updatedAt: string;
   userId: string;
+
 }
 
 
@@ -141,14 +142,7 @@ const StudentProfile: React.FC = () => {
 
      
      <div className="col-span-12 xl:col-span-4 p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight">
-  {/* <StudentTabs
-    selectedTab={selectedTab}
-    onSelectTab={setSelectedTab}
-    showTabs={false}
-    description={selectedTeacher ? selectedTeacher.aboutMyself : 'Description not available'}
-    profilePic="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-    name={selectedTeacher ? selectedTeacher.firstName : 'Name not available'}
-  /> */}
+  
   {selectedTeacher && <TeacherConDetail teacherDetails={selectedTeacher} />}
 </div>
       {showModal && (

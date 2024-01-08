@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { SchedulesTabsProps } from "../utils/types";
 import { useTranslation } from "react-i18next";
-
+import axios from "axios";
+import { API_ENDPOINTS } from "../appConfig";
+import { id } from "date-fns/locale";
 interface AvailabilityTabsProps {
   onSelectTime: (selectedTime: string) => void;
   schedules?: SchedulesTabsProps[];
-
+  
 }
-
 
 const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   onSelectTime,
-  schedules,
-
+  schedules = [],
+  
 }) => {
   const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
   const [availability, setAvailability] = useState<string[]>([]);
-  const convertTo12Hour = (time:any) => {
-    let [hours, minutes] = time.split(':');
-    hours = parseInt(hours, 10);
-    const suffix = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12 || 12; 
-    return `${hours}:${minutes} ${suffix}`;
+  const convertTo12Hour = (time:string) => {
+    
+    return time;
   };
- 
+
   const tabColors = [
     "rounded-full bg-transparent text-[#51ff85] border-solid border-[2px] border-[#51ff85] py-4",
     "bg-[#E8E8E8]  rounded-full text-white py-4",
@@ -38,7 +36,9 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     const slots: string[] = []; // Explicitly type the slots array
     schedules?.forEach((schedule) => {
       schedule.shifts.forEach((shift) => {
-        const formattedSlot = `${convertTo12Hour(shift.startTime)} - ${convertTo12Hour(shift.endTime)}`;
+        const formattedSlot = `${convertTo12Hour(
+          shift.startTime
+        )} - ${convertTo12Hour(shift.endTime)}`;
         if (!slots.includes(formattedSlot)) {
           slots.push(formattedSlot);
         }
@@ -46,21 +46,27 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     });
     return slots;
   };
+  
   const [timeSlots, setTimeSlots] = useState<string[]>(generateTimeSlots());
+  const [selectedTime, setSelectedTime] = useState<string[]>([]);
+  const [isBooked, setBooked] = useState<string[]>([]);
+
   useEffect(() => {
-    setTimeSlots(generateTimeSlots());
+    if (schedules) {
+      setTimeSlots(generateTimeSlots());
+    }
   }, [schedules]);
 
   const processSchedules = () => {
     let availabilityStatus = timeSlots.map(() => "Not Available");
 
-    schedules?.forEach(schedule => {
-      schedule.shifts.forEach(shift => {
-        const startTime = convertTo12Hour(shift.startTime);
-        const endTime = convertTo12Hour(shift.endTime);
+    schedules?.forEach((schedule) => {
+      schedule.shifts.forEach((shift) => {
+        const startTime = shift.startTime;
+        const endTime = shift.endTime;
         const timeRange = `${startTime} - ${endTime}`;
 
-        console.log(`Converted Time Range: ${timeRange}`); 
+        console.log(`Converted Time Range: ${timeRange}`);
 
         const index = timeSlots.indexOf(timeRange);
         if (index !== -1) {
@@ -69,7 +75,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
       });
     });
 
-    console.log(availabilityStatus); 
+    console.log(availabilityStatus);
     setAvailability(availabilityStatus);
   };
 
@@ -77,31 +83,98 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     setTimeSlots(generateTimeSlots());
   }, [schedules]);
 
- 
-
-  const handleTabClick = (index: number) => {
+  const handleTabClick = (index: number, time: string) => {
+    if (selectedTime.includes(time)) {
+      setSelectedTime(selectedTime.filter((selected) => selected !== time));
+    } else {
+      setSelectedTime([...selectedTime, time]);
+    }
     setSelectedTab(index);
     onSelectTime(timeSlots[index]);
   };
+  const bookAppointment = async (
+    scheduleId: any,
+    day: any,
+    startTime: any,
+    endTime: any,
+    isBooked: false
+  ) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        API_ENDPOINTS.BOOKAPPOINTMENT,
+        {
+          scheduleId,
+          day,
+          startTime,
+          endTime,
+          isBooked,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Appointment booked successfully", response.data);
+    } catch (error) {
+      console.error("Error booking appointment", error);
+      // Handle errors
+    }
+  };
+  const handleBookAppointmentClick = () => {
+    console.log(selectedTime);
+    // const scheduleId = 1;
+    // const day = "monday";
+    // const startTime = "";
+    // const endTime = "";
+    const isBooked = false;
+    // const bookedBy: null;
+    // const createdAt: "2024-01-08T19:20:35.000Z";
+    const day= null;
+    const endsTime= "17:00";
+    // const id: 3;
+    // const  isBooked: false;
+    const startsTime= "16:00";
+    // const status: null;
+    // const updatedAt: "2024-01-08T19:20:35.000Z";
+    selectedTime.forEach((time, index) => {
+      const [startTime, endTime] = time.split(" - ");
+      const startTimeWithoutSpaces = startTime.replace(/\s/g, ''); // Removes all spaces
+      const endTimeWithoutSpaces = endTime.replace(/\s/g, ''); // Removes all spaces
+      const scheduleId = schedules[index]?.id;
+      bookAppointment(scheduleId, day, startTimeWithoutSpaces, endTimeWithoutSpaces, isBooked);
+    });
+   
+  };
+
+
   return (
     <div>
-        <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
+      <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
         <div className="flex flex-wrap justify-start gap-1 mt-4">
-        {timeSlots.map((time, index) => (
-          <div key={index} className="...your classes">
-            <button
-              className={`...your classes ${
-                selectedTab === index ? "bg-active" : tabColors[index]
-              }`}
-              onClick={() => handleTabClick(index)}
-            >
-              {time} - {availability[index]}
-            </button>
-          </div>
-        ))}
+          {timeSlots.map((time, index) => (
+            
+            <div key={index} className="...your classes">
+              <button
+                className={`...your classes ${
+                  selectedTime.includes(time) ? "bg-active" : tabColors[index]
+                }`}
+                onClick={() => handleTabClick(index, time)}
+              
+
+              >
+                {time} - {availability[index]}
+               
+              </button>
+            </div>
+          ))}
         </div>
         <div className="mt-8 ml-2">
-          <button className="bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 animate__animated animate__lightSpeedInRight cursor-pointer">
+          <button
+            onClick={handleBookAppointmentClick}
+            className="bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 animate__animated animate__lightSpeedInRight cursor-pointer"
+          >
             <svg
               width="24"
               height="24"
@@ -115,7 +188,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
               />
             </svg>
             <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl">
-            {t('BOOK_APPOINTMENT')}
+              {t("BOOK_APPOINTMENT")}
             </span>
           </button>
         </div>
@@ -123,28 +196,20 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
 
       <div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">{t('NOT_AVAILABLE')}-</p>
-            <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]">
-
-            </div>
+          <p className="my-1">{t("NOT_AVAILABLE")}-</p>
+          <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]"></div>
         </div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">{t('APPROVAL_WAITING')}-</p>
-            <div className=" h-4 w-8 md:w-10 lg:w-16 bg-[#CFEEFF]">
-
-            </div>
+          <p className="my-1">{t("APPROVAL_WAITING")}-</p>
+          <div className=" h-4 w-8 md:w-10 lg:w-16 bg-[#CFEEFF]"></div>
         </div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">{t('BOOKED_BY_YOU')}-</p>
-            <div className="h-4 w-8 md:w-10 lg:w-16  bg-[#00A4FE]">
-
-            </div>
+          <p className="my-1">{t("BOOKED_BY_YOU")}-</p>
+          <div className="h-4 w-8 md:w-10 lg:w-16  bg-[#00A4FE]"></div>
         </div>
         <div className="flex items-center justify-end ">
-            <p className="my-1">{t('AVAILABLE')}-</p>
-            <div className="h-4 w-8  md:w-10 lg:w-16  border-solid border-[1px] border-[#838383]">
-            
-            </div>
+          <p className="my-1">{t("AVAILABLE")}-</p>
+          <div className="h-4 w-8  md:w-10 lg:w-16  border-solid border-[1px] border-[#838383]"></div>
         </div>
       </div>
     </div>

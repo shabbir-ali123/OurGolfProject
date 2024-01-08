@@ -19,6 +19,7 @@ export interface Shifts {
     createdAt: string;
     startTime: string;
     endTime: string;
+    isBooked:any;
   }
   
   // Define the 'SchedulesTabsProps' interface
