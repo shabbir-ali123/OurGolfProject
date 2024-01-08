@@ -3,11 +3,9 @@ import { SchedulesTabsProps } from "../utils/types";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
-import { id } from "date-fns/locale";
 interface AvailabilityTabsProps {
   onSelectTime: (selectedTime: string) => void;
   schedules?: SchedulesTabsProps[];
-  
 }
 
 const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
@@ -33,55 +31,30 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     "bg-transparent text-[#838383] py-4 border-solid border-[2px] border-[#838383] rounded-full",
     "bg-transparent text-[#838383] py-4 border-solid border-[2px] border-[#838383] rounded-full",
   ];
-  const generateTimeSlots = (): string[] => {
-    const slots: string[] = []; // Explicitly type the slots array
+  const generateTimeSlots = () => {
+    const slots: string[] = [];
+    const isBooked: boolean[] = [];
     schedules?.forEach((schedule) => {
       schedule.shifts.forEach((shift) => {
-        const formattedSlot = `${convertTo12Hour(
-          shift.startTime
-        )} - ${convertTo12Hour(shift.endTime)}`;
+        const formattedSlot = `${convertTo12Hour(shift.startTime)} - ${convertTo12Hour(shift.endTime)}`;
         if (!slots.includes(formattedSlot)) {
           slots.push(formattedSlot);
+          isBooked.push(shift.isBooked);
         }
       });
     });
-    return slots;
+    return { slots, isBooked };
   };
-  
-  const [timeSlots, setTimeSlots] = useState<string[]>(generateTimeSlots());
+  const initialTimeSlots = generateTimeSlots();
+  console.log(initialTimeSlots.isBooked, 's')
+  const [timeSlots, setTimeSlots] = useState<string[]>(initialTimeSlots.slots);
   const [selectedTime, setSelectedTime] = useState<string[]>([]);
-  const [isBooked, setBooked] = useState<string[]>([]);
+  const [bookedSlots, setBookedSlots] = useState<boolean[]>(initialTimeSlots.isBooked);
 
   useEffect(() => {
-    if (schedules) {
-      setTimeSlots(generateTimeSlots());
-    }
-  }, [schedules]);
-
-  const processSchedules = () => {
-    let availabilityStatus = timeSlots.map(() => "Not Available");
-
-    schedules?.forEach((schedule) => {
-      schedule.shifts.forEach((shift) => {
-        const startTime = shift.startTime;
-        const endTime = shift.endTime;
-        const timeRange = `${startTime} - ${endTime}`;
-
-        console.log(`Converted Time Range: ${timeRange}`);
-
-        const index = timeSlots.indexOf(timeRange);
-        if (index !== -1) {
-          availabilityStatus[index] = "Available";
-        }
-      });
-    });
-
-    console.log(availabilityStatus);
-    setAvailability(availabilityStatus);
-  };
-
-  useEffect(() => {
-    setTimeSlots(generateTimeSlots());
+    const { slots, isBooked } = initialTimeSlots;
+    setTimeSlots(slots);
+    setBookedSlots(isBooked);
   }, [schedules]);
 
   const handleTabClick = (index: number, time: string) => {
@@ -124,21 +97,8 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     }
   };
   const handleBookAppointmentClick = () => {
-    console.log(selectedTime);
-    // const scheduleId = 1;
-    // const day = "monday";
-    // const startTime = "";
-    // const endTime = "";
     const isBooked = false;
-    // const bookedBy: null;
-    // const createdAt: "2024-01-08T19:20:35.000Z";
     const day= null;
-    const endsTime= "17:00";
-    // const id: 3;
-    // const  isBooked: false;
-    const startsTime= "16:00";
-    // const status: null;
-    // const updatedAt: "2024-01-08T19:20:35.000Z";
     selectedTime.forEach((time, index) => {
       const [startTime, endTime] = time.split(" - ");
       const startTimeWithoutSpaces = startTime.replace(/\s/g, ''); // Removes all spaces
@@ -154,22 +114,23 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     <div>
       <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
         <div className="flex flex-wrap justify-start gap-1 mt-4">
-          {timeSlots.map((time, index) => (
-            
-            <div key={index} className="...your classes">
-              <button
-                className={`...your classes ${
-                  selectedTime.includes(time) ? "bg-active" : tabColors[index]
-                }`}
-                onClick={() => handleTabClick(index, time)}
-              
+          {timeSlots.map((time, index) => {
+            return (
+              <div key={index} className="...your classes">
+                <button
+                  className={`...your classes ${
+                    selectedTime.includes(time) ? "bg-active" : tabColors[index]
+                  }`}
+                  onClick={() => handleTabClick(index, time)}
+                  disabled={bookedSlots[index]}
 
-              >
-                {time} - {availability[index]}
-               
-              </button>
-            </div>
-          ))}
+                >
+                  {time} - {availability[index]}
+                
+                </button>
+              </div>
+              )
+            })}
         </div>
         <div className="mt-8 ml-2">
           <button
