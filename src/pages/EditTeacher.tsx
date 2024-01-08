@@ -11,6 +11,7 @@ import { ShareIcon } from "@heroicons/react/20/solid";
 import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
+import { useTranslation } from "react-i18next";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -28,6 +29,7 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 );
 
 const EditTeacher: React.FC = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     aboutMyself: "",
     firstName: "",
@@ -151,7 +153,7 @@ const EditTeacher: React.FC = () => {
   const handleWeekSelected = (date: Date) => {
     setSelectedWeekStart(date);
   };
-
+  
   const handleTabClick = (date: Date) => {
     setSelectedWeekStart(date);
   };
@@ -229,7 +231,7 @@ const EditTeacher: React.FC = () => {
         ...prevFormData,
         schedules: newSchedules,
       };
-    });
+    }); 
 
   };
 
@@ -239,10 +241,10 @@ const EditTeacher: React.FC = () => {
       <ProfileAvatar
         pname=""
         icon={<ShareIcon />}
-        label="First Name"
+        label={t('FIRST_NAME')}
         value={formData.firstName}
         onChange={handleChange}
-        placeholder="Enter first name"
+        placeholder={t('FIRST_NAME')}
         colSpanSm={6}
         colSpanMd={4}
         colSpanLg={2}
@@ -250,8 +252,8 @@ const EditTeacher: React.FC = () => {
 
       <section className="h-full max-w-6xl mx-auto mt-6 text-center">
         <div className="w-full py-6 text-start">
-          <label className="text-lg font-bold" htmlFor="aboutMyself">
-            About Me:
+          <label className="text-lg font-bold" htmlFor="aboutMe">
+            {t('ABOUT')}
           </label>
           <textarea
             id="aboutMyself"
@@ -260,7 +262,7 @@ const EditTeacher: React.FC = () => {
             onChange={handleChange}
             rows={4}
             className="w-full border border-[#51ff85]"
-            placeholder="Tell us about yourself..."
+            placeholder={t('BIO')}
           ></textarea>
         </div>
 
@@ -270,10 +272,10 @@ const EditTeacher: React.FC = () => {
               <InputWithIcon
                 pname="firstName"
                 icon={<UserIcon />}
-                label="First Name"
+                label={t('FIRST_NAME')}
                 value={formData.firstName}
                 onChange={handleChange}
-                placeholder="Enter first name"
+                placeholder={t('ENTER_FIRST_NAME')}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -281,10 +283,10 @@ const EditTeacher: React.FC = () => {
               <InputWithIcon
                 pname="lastName"
                 icon={<UserIcon />}
-                label="Last Name"
+                label={t('LAST_NAME')}
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder="Enter last name"
+                placeholder={t('ENTER_LAST_NAME')}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -292,10 +294,10 @@ const EditTeacher: React.FC = () => {
               <InputWithIcon
                 pname="email"
                 icon={<EnvelopeOpenIcon />}
-                label="Email"
+                label={t('EMAIL')}
                 // value={formData.email}
                 onChange={handleChange}
-                placeholder="Enter email"
+                placeholder={t('ENTER_EMAIL')}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -303,10 +305,10 @@ const EditTeacher: React.FC = () => {
               <InputWithIcon
                 pname="phoneNumber"
                 icon={<PhoneIcon />}
-                label="Mobile"
+                label={t('MOBILE')}
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                placeholder="Enter mobile"
+                placeholder={t('ENTER_MOBILE')}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -314,10 +316,10 @@ const EditTeacher: React.FC = () => {
               <InputWithIcon
                 pname="location"
                 icon={<MapPinIcon />}
-                label="Location"
+                label={t('LOCATION')}
                 value={formData.location}
                 onChange={handleChange}
-                placeholder="Enter location"
+                placeholder={t('ENTER_LOCATION')}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -326,7 +328,7 @@ const EditTeacher: React.FC = () => {
             <div className="my-4 ">
               <CalendarSlider onWeekSelected={handleWeekSelected} />
               <div className="grid grid-cols-8 gap-4 py-2 text-center">
-                <div className="col-span-1 font-bold ">Time</div>
+                <div className="col-span-1 font-bold ">{t('TIME')}</div>
                 {selectedWeekStart &&
                   Array.from({ length: 7 }, (_, i) => {
                     const date = new Date(
@@ -342,7 +344,7 @@ const EditTeacher: React.FC = () => {
                         }`}
                         onClick={() => handleTabClick(date)}
                       >
-                        {getDayName(date)}
+                        {t(getDayName(date).toLocaleUpperCase())}
                       </div>
                     );
                   })}
@@ -389,7 +391,7 @@ const EditTeacher: React.FC = () => {
               type="submit"
               className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
             >
-              Update
+              {t('UPDATE')}
             </button>
           </form>
         </div>

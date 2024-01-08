@@ -2,7 +2,9 @@ import React from "react";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 const CalendarSection: React.FC = () => {
+  const { t } = useTranslation();
   const iconStyles: React.CSSProperties = {
     fontSize: "16px",
     color: "black",
@@ -16,8 +18,8 @@ const CalendarSection: React.FC = () => {
         <div>
           <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
         </div>
-        <h4 className="text-black font-sans text-base font-medium">
-          Check Calendar
+        <h4 className="font-sans text-base font-medium text-black">
+          {t('CHECK_CALENDER')}
         </h4>
       </div>
       

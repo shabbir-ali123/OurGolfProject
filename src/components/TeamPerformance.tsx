@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import Player from './Player';
+import { useTranslation } from 'react-i18next';
 
 interface TeamPerformanceProps {
     title: string;
@@ -8,6 +9,7 @@ interface TeamPerformanceProps {
 const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
     title,
 }) => {
+    const { t } = useTranslation();
     return (
         <div className='mt-20 mx-5 md:mx-[80px]'>
             <div className='flex overflow-hidden'>
@@ -26,12 +28,12 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                 />
             </div>
             <div className='text-13xl font-semibold  text-seagreen-100 [text-shadow:0px_6px_4px_rgba(0,_0,_0,_0.25)]'>
-                Team Performance
+                {t('TEAM_PERFOMANCE')}
             </div>
 
             <div className='px-3 overflow-x-auto'>
-                <table className='w-full  border-spacing-y-5 '>
-                    <thead className=' text-left text-whitesmoke-100'>
+                <table className='w-full border-spacing-y-5 '>
+                    <thead className='text-left text-whitesmoke-100'>
                         <tr className='shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl '>
                             <th className='pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium '>
                                 Team Name
@@ -67,23 +69,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>
-                            <td className='pl-4 py-4 whitespace-nowrap'>
+                            <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4'>
+                            <td className='py-4 pl-4'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
@@ -98,23 +100,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>
-                            <td className='pl-4 py-4 whitespace-nowrap'>
+                            <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4'>
+                            <td className='py-4 pl-4'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
@@ -129,23 +131,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>
-                            <td className='pl-4 py-4 whitespace-nowrap'>
+                            <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4'>
+                            <td className='py-4 pl-4'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
@@ -160,23 +162,23 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>
-                            <td className='pl-4 py-4 whitespace-nowrap'>
+                            <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4 '>
+                            <td className='py-4 pl-4 '>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>
-                            <td className='pl-4 py-4'>
+                            <td className='py-4 pl-4'>
                                 {' '}
                                 <Player showNumber={true} />
                             </td>

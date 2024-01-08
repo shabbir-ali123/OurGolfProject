@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 interface StudentTabsProps {
   selectedTab: "student" | "teacher";
@@ -17,10 +18,11 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
   name,
   description,
 }) => {
+  const { t } = useTranslation();
   return (
     <div>
       <div className="lg:flex lg:flex-1 lg:justify-center">
-        <div className=" block flex-shrink-0">
+        <div className="flex-shrink-0 block ">
           <div className="text-center">
             <div  className="animate__heartBeat">
               <img
@@ -30,10 +32,10 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
               />
             </div>
             <div className="py-3">
-              <p className="text-black font-sans font-bold text-base group-hover:text-gray-900 m-0">
+              <p className="m-0 font-sans text-base font-bold text-black group-hover:text-gray-900">
                 {name}
               </p>
-              <p className="text-gray-700 font-sans text-xs font-normal">
+              <p className="font-sans text-xs font-normal text-gray-700">
                 {description}
               </p>
             </div>
@@ -42,7 +44,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
       </div>
       {showTabs && (
         <div className="flex justify-center">
-          <Link to="/student-page" className="list-none no-underline">
+          <Link to="/student-page" className="no-underline list-none">
             <button
               className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce ${
                 selectedTab === "student"
@@ -51,13 +53,13 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
               }`}
               onClick={() => onSelectTab("student")}
             >
-              Student
+              {t('STUDENT')}
             </button>
           </Link>
 
           <Link
             to="/edit-teacher"
-            className="list-none no-underline text-black"
+            className="text-black no-underline list-none"
           >
             <button
               className={`px-4 py-1 rounded-r-md cursor-pointer hover:animate-bounce ${
@@ -67,7 +69,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
               }`}
               onClick={() => onSelectTab("teacher")}
             >
-              Teacher
+              {t('TEACHER')}
             </button>
           </Link>
         </div>

@@ -1,8 +1,10 @@
 import { FunctionComponent } from "react";
 import IndiviualPlayerTableHeader from "./IndiviualPlayerTableHeader";
 import IndiviualPlayerTableRow from "./IndiviualPlayerTableRow";
+import { useTranslation } from "react-i18next";
 
 const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
+  const { t } = useTranslation();
   return (
     <div className="mt-20 mx-5 md:mx-[80px] my-20">
       <div className="my-20">
@@ -20,16 +22,15 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
             />
           </div>
           <div className="text-21xl text-darkslateblue-300 uppercase font-semibold [text-shadow:0px_7px_4px_#b8e4fd]">
-            Indiviual Player Score
+            {t('INDIVIUAL_SCORE')}
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row  gap-8 relative">
+      <div className="relative flex flex-col gap-8 lg:flex-row">
         <div className="basis-1/2">
           <div className="flex  items-center justify-center basis-1/2 h-[80px] bg-[#0AA3BC]">
-            <div className="text-13xl text-white font-medium">
-              {" "}
-              Drive Context (Hole 4)
+            <div className="font-medium text-white text-13xl">
+              {t('DRIVE_CONTEXT')}
             </div>
           </div>
           <IndiviualPlayerTableHeader />
@@ -40,8 +41,8 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
 
         <div className="basis-1/2">
           <div className=" flex items-center justify-center h-[80px] bg-[#0AA3BC]">
-            <div className="text-13xl text-white font-medium">
-              Near Pin Contest (Hole 9)
+            <div className="font-medium text-white text-13xl">
+            {t('NEAR_CONTEXT')}
             </div>
           </div>
           <IndiviualPlayerTableHeader />

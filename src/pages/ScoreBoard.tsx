@@ -6,8 +6,10 @@ import LeaderBoardScoringTab from '../components/LeaderBoardScoringTable';
 import IndiviualPlayerScore from '../components/LeaderBoardPlayerScore';
 import TeamPerformance from '../components/TeamPerformance';
 import ScoringTable from '../components/ScoringTable';
+import { useTranslation } from 'react-i18next';
 
 const ScoreBoard: FunctionComponent = () => {
+    const { t } = useTranslation();
     return (
         <div className='font-poppins'>
             <div className='flex flex-col mx-[50px]'>
@@ -20,8 +22,8 @@ const ScoreBoard: FunctionComponent = () => {
                 {/* indiviual player  score */}
                 <IndiviualPlayerScore />
                 {/* Drive Context  and Near Pin Contest */}
-                <TeamPerformance title='Drive Context (Hole 4)' />
-                <TeamPerformance title='Near Pin Contest (Hole 9)' />
+                <TeamPerformance title={t('DRIVE_CONTEXT')} />
+                <TeamPerformance title={t('NEAR_CONTEXT')} />
                 <div className='mt-20 mx-[60px]'>
                 <div className='flex gap-4'>
                 <img
@@ -30,7 +32,7 @@ const ScoreBoard: FunctionComponent = () => {
                     src='/img/rectangle-1248@2x.png'
                 />
                 <b className='relative left-[-24px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]'>
-                    Scoring Table
+                    {t('SCORING_TABLE')}
                 </b>
                 <img
                     className='w-[57px] h-[103px] object-cover'

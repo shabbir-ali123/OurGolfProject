@@ -9,8 +9,11 @@ import {
 import DropDown from "./DropDown";
 import AvailabilityTabs from "./AvailavilityTabs";
 import { TeacherDetailsProp } from "../utils/types";
+import { useTranslation } from "react-i18next";
 
 export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> = ({ teacherDetails }) => {
+  const { t } = useTranslation();
+
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);
   };
@@ -27,10 +30,10 @@ export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> 
               />
             </div>
             <div className="py-3">
-              <p className="text-black font-sans font-bold text-base group-hover:text-gray-900 m-0">
+              <p className="m-0 font-sans text-base font-bold text-black group-hover:text-gray-900">
                 {teacherDetails.firstName} {teacherDetails.lastName}
               </p>
-              <p className="text-gray-700 font-sans text-xs font-normal">
+              <p className="font-sans text-xs font-normal text-gray-700">
                 {teacherDetails.aboutMyself}
               </p>
             </div>
@@ -42,7 +45,7 @@ export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> 
               className=" text-[#51ff85] animate-bounce "
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">Location</h3>
+          <h3 className="font-sans text-xs font-bold text-black">{t('LOCATION')}</h3>
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
@@ -59,7 +62,7 @@ export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> 
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">Mobile No</h3>
+          <h3 className="font-sans text-xs font-bold text-black">{t('MOBILE')}</h3>
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
@@ -75,7 +78,7 @@ export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> 
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">Email</h3>
+          <h3 className="font-sans text-xs font-bold text-black">{t('EMAIL')}</h3>
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
@@ -91,8 +94,8 @@ export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> 
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="text-black font-bold text-xs font-sans">
-            Availability
+          <h3 className="font-sans text-xs font-bold text-black">
+            {t('AVAILIBILTY')}
           </h3>
         </div>
         <div className="div">
