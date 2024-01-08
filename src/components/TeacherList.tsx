@@ -46,7 +46,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
           },
           params: {
             page: 1,
-            pageSize: 10,
+            pageSize: 20,
           },
         });
 

@@ -37,12 +37,12 @@ const EditTeacher: React.FC = () => {
     location: "",
     schedules: [
       {
-        startDate: "2023-03-01",
-        endDate: "2023-03-07",
+        startDate: "",
+        endDate: "",
         shifts: [
           {
-            startTime: "09:00",
-            endTime: "12:00"
+            startTime: "",
+            endTime: ""
           }
         ]
       }
@@ -102,8 +102,28 @@ const EditTeacher: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const schedulesData = selectedTimeSlots.map((timeSlot) => {
+      const [timeRange, , date] = timeSlot.split(' on ');
+      const [startTime, endTime] = timeRange.split(' to ');
+      const day = new Date(date).getDay(); 
+  
+      return {
+        startDate: selectedWeekStart?.toISOString(),
+        endDate: selectedWeekStart?.toISOString(), 
+        shifts: [{
+          day, 
+          startTime,
+          endTime,
+        }],
+      };
+    });
+  
+    const payload = {
+      ...formData,
+      schedules: schedulesData,
+    };
     try {
-      const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, formData, {
+      const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -194,7 +214,7 @@ const EditTeacher: React.FC = () => {
     console.log(dateKey, hour, hourIndex, "new");
   const newShift = {
       startTime: hour,
-      endTime: "12:00", // You can adjust the end time as needed
+      endTime: "", // You can adjust the end time as needed
     };
 
     const newSchedule = {
@@ -230,12 +250,12 @@ const EditTeacher: React.FC = () => {
 
       <section className="h-full max-w-6xl mx-auto mt-6 text-center">
         <div className="w-full py-6 text-start">
-          <label className="text-lg font-bold" htmlFor="aboutMe">
+          <label className="text-lg font-bold" htmlFor="aboutMyself">
             About Me:
           </label>
           <textarea
-            id="aboutMe"
-            name="aboutMe"
+            id="aboutMyself"
+            name="aboutMyself"
             value={formData.aboutMyself}
             onChange={handleChange}
             rows={4}

@@ -19,5 +19,8 @@ export const API_ENDPOINTS = {
   GETALLTEACHERS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers`,
   GETTEACHERBYID: `${API_BASE_URL}/${API_VERSION}/get-teacher-by-id`,
   UPDATEPROFILE: `${API_BASE_URL}/${API_VERSION}/update-profile`,
+  BOOKAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/book-appointment`,
+  GETTEACHERBOOKEDAPPOINTMENTS: `${API_BASE_URL}/${API_VERSION}/get-teacher-booked-appointments`,
+  GETUSERBOOKEDAPPOINTMENTS: `${API_BASE_URL}/${API_VERSION}/get-user-booked-appointments`,
   
 };

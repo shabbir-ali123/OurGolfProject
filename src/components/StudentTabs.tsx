@@ -5,8 +5,8 @@ interface StudentTabsProps {
   onSelectTab: (tab: "student" | "teacher") => void;
   showTabs?: boolean;
   profilePic: string;
-  name: string; // Now required
-  description: string; // Now required
+  name: string; 
+  description: string; 
 }
 
 const StudentTabs: React.FC<StudentTabsProps> = ({

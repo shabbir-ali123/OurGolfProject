@@ -37,8 +37,14 @@ const StudentProfile: React.FC = () => {
     setSelectedTab(tab);
   };
   const openModal = () => {
-    setShowModal(true);
+    if (selectedTeacher && selectedTeacher.schedules) {
+      // Assuming schedules is an array of strings representing time slots
+      setShowModal(true);
+    } else {
+      console.log("No schedules available for selected teacher");
+    }
   };
+  
 
   const closeModal = () => {
     setShowModal(false);
@@ -57,13 +63,13 @@ const StudentProfile: React.FC = () => {
           },
           params: {
             page: 1,
-            pageSize: 10,
+            pageSize: 20,
           }
         });
   
         if (response.data && response.data.teachers && response.data.teachers.length > 0) {
-          setTeachers(response.data.teachers); // Assuming teachers are in response.data.teachers
-          setSelectedTeacher(response.data.teachers[0]); // Set the first teacher
+          setTeachers(response.data.teachers); 
+          setSelectedTeacher(response.data.teachers[0]); 
         } else {
           console.log('No teachers found');
         }
@@ -74,7 +80,6 @@ const StudentProfile: React.FC = () => {
   
     fetchTeachers(); 
   }, []);
-  
   
   const handleBookAppointment = () => {
     console.log("Booking appointment logic");
@@ -87,8 +92,7 @@ const StudentProfile: React.FC = () => {
 };
   return (
     <div className="grid grid-cols-11 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8 ">
-      {/* Left Column */}
-      <div className="col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft ">
+          <div className="col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft ">
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={handleSelectTab}

@@ -8,24 +8,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import DropDown from "./DropDown";
 import AvailabilityTabs from "./AvailavilityTabs";
-interface TeacherDetailsProp {
-  count?: number;
-  teachers?: [];
-  aboutMyself?: string;
-  createdAt?: string | string[];
-  firstName?: string;
-  id?: string;
-  lastName?: string;
-  location?: string;
-  phoneNumber?: string;
-  schedules?: [];
-  updatedAt: string;
-  userId: string;
-}
+import { TeacherDetailsProp } from "../utils/types";
+
 export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> = ({ teacherDetails }) => {
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);
   };
+
   return (
     <div className="box">
       <div className="grid my-0">
@@ -110,7 +99,7 @@ export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> 
           <DropDown />
         </div>
       </div>
-      <AvailabilityTabs onSelectTime={handleSelectTime} />
+      <AvailabilityTabs onSelectTime={handleSelectTime} schedules={teacherDetails.schedules} />
     </div>
   );
 };
