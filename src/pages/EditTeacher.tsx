@@ -44,6 +44,7 @@ document.body.dir = i18n.dir();
         endDate: "",
         shifts: [
           {
+            day:"", 
             startTime: "",
             endTime: ""
           }
@@ -109,7 +110,7 @@ document.body.dir = i18n.dir();
       const [timeRange, , date] = timeSlot.split(' on ');
       const [startTime, endTime] = timeRange.split(' to ');
       const day = new Date(date).getDay(); 
-  
+  console.log(timeSlot,"form")
       return {
         startDate: selectedWeekStart?.toISOString(),
         endDate: selectedWeekStart?.toISOString(), 
@@ -204,37 +205,35 @@ document.body.dir = i18n.dir();
     hour: string,
     hourIndex: number
   ) => {
-
-
-
-
-
     const date = new Date(dateKey);
     const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
     const dateParts = dateFormatter.formatToParts(date);
-    const dayName = dateParts.find((part) => part.type === "weekday")?.value;
-    toggleAvailability(dateKey, hour, hourIndex);
-    console.log(dateKey, hour, hourIndex, "new");
-  const newShift = {
+    const dayName = dateParts.find((part) => part.type === "weekday")?.value || ""; // Provide a default value ("") if dayName is undefined
+    toggleAvailability(dayName, hour, hourIndex);
+    console.log(dayName, "date key", hour, "hour", hourIndex, "new");
+  
+    const newShift = {
+      day: dayName, // Use dayName here (it now has a default value)
       startTime: hour,
       endTime: "", // You can adjust the end time as needed
     };
-
+  
     const newSchedule = {
       startDate: selectedWeekStart?.toISOString() || "",
       endDate: selectedWeekStart?.toISOString() || "",
       shifts: [newShift],
     };
-
+  
     setFormData((prevFormData) => {
       const newSchedules = [...prevFormData.schedules, newSchedule];
       return {
         ...prevFormData,
         schedules: newSchedules,
       };
-    }); 
-
+    });
   };
+  
+  
 
   
   return (

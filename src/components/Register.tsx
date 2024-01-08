@@ -131,6 +131,7 @@ export default function Register(): JSX.Element {
                   onChange={handleChange}
                 />
               </div>
+             
 
               <button
                 type="submit"
