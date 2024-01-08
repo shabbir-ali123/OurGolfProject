@@ -28,6 +28,8 @@ import PrivateRoute from "./utils/PrivateRoute";
 import BookMarkedEvents from "./pages/BookMarkedEvents"
 import JoinedEvents from "./pages/JoinedEvents"
 import EditTeacher from "./pages/EditTeacher"
+import BookedTeachers from "./pages/BookedTeachers";
+import SingleTeacherBooked from "./pages/SingleTeacherBooked";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -181,6 +183,7 @@ function App() {
         <Route path="/booked-mark" element={<BookMarkedEvents   />} />
         <Route path="/joined-events" element={<JoinedEvents   />} />
         <Route path="/edit-teacher" element={<EditTeacher   />} />
+        <Route path="/booked-teacher" element={<BookedTeachers   />} />
 
       </Routes>
     </div>
