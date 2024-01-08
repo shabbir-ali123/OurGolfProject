@@ -188,13 +188,8 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
                 fill="white"
               />
             </svg>
-<<<<<<< HEAD
-            <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl">
-              {t("BOOK_APPOINTMENT")}
-=======
             <span className="text-xl font-bold text-white sm:font-semi-bold md:px-2">
             {t('BOOK_APPOINTMENT')}
->>>>>>> 5304fc3937a554990659676c211b487a9ef1ea18
             </span>
           </button>
         </div>
