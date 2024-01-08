@@ -9,7 +9,8 @@ interface TeamPerformanceProps {
 const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
     title,
 }) => {
-    const { t } = useTranslation();
+    const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
     return (
         <div className='mt-20 mx-5 md:mx-[80px]'>
             <div className='flex overflow-hidden'>
@@ -36,31 +37,31 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
                     <thead className='text-left text-whitesmoke-100'>
                         <tr className='shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl '>
                             <th className='pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium '>
-                                Team Name
+                            {t('TEAM_NAME')}
                             </th>
                             <th className='pl-4 py-3  leading-[10.25px] font-medium'>
-                                Player1
+                            {t('PLAYER')}1
                             </th>
                             <th className='pl-4 py-3  leading-[10.25px] font-medium'>
-                                Player2
+                            {t('PLAYER')}2
                             </th>
                             <th className='pl-4 py-3  leading-[10.25px] font-medium'>
-                                Player3
+                            {t('PLAYER')}3
                             </th>
                             <th className='pl-4 py-3  leading-[10.25px] font-medium'>
-                                Player4
+                            {t('PLAYER')}4
                             </th>
                             <th className='pl-4 py-3  leading-[10.25px] font-medium'>
-                                Player5
+                            {t('PLAYER')}5
                             </th>
                             <th className='pl-4 py-3  leading-[10.25px] font-medium'>
-                                Total
+                            {t('TOTAL')}
                             </th>
                             <th
                                 className='pl-4 py-3 rounded-s-[3px]  leading-[10.25px] font-medium'
                                 dir='rtl'
                             >
-                                Position
+                                {t('POSITION')}
                             </th>
                         </tr>
                     </thead>

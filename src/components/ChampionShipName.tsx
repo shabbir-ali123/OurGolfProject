@@ -2,7 +2,8 @@ import { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
 const ChampionShipName: FunctionComponent = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   return (
     <div className="flex justify-center mt-5 md:mt-20 mx-5 md:mx-[130px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] text-left text-3xl text-white font-body-b2">
       <div className="w-full md:w-[1038px] flex flex-wrap md:flex-row items-center justify-center md:justify-center gap-4 md:gap-[20px] lg:gap-[182px]">

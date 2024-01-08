@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ScoringTypeProps {
   onChange: (
@@ -44,6 +45,8 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   onInputChange,
   selectedHoles,
 }) => {
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [selectedScoringType, setSelectedScoringType] = useState<Tab>(
     Tab.Single
   );
@@ -185,11 +188,11 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     }
   };
   return (
-    <div className="lg:max-w-6xl mx-auto px-2 py-10">
-      <h2 className="text-[#0f1e56] text-4xl">Scoring Category</h2>
+    <div className="px-2 py-10 mx-auto lg:max-w-6xl">
+      <h2 className="text-[#0f1e56] text-4xl">{t('SCORING_CATEGORY')}</h2>
       <div className="px-6 py-6 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl mt-4 border-solid border-2 border-[#51ff85]">
         <h4>
-          01 <span className="ml-4">Scoring type</span>
+          01 <span className="ml-4">{t('SCORING_TYPE')}</span>
         </h4>
         <div className="flex gap-10">
           <div>
@@ -209,7 +212,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   : "bg-transparent py-2 px-4 cursor-pointer"
               }
             >
-              Peria
+              {t('PERIA')}
             </button>
           </div>
           <div>
@@ -229,7 +232,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   : "bg-transparent py-2 px-4 cursor-pointer"
               }
             >
-              Double Peria
+              {t('DOUBLE_PERIA')}
             </button>
           </div>
           <div>
@@ -249,7 +252,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   : "bg-transparent py-2 px-4 cursor-pointer"
               }
             >
-              Triple Peria
+              {t('TRIPLE_PERIA')}
             </button>
           </div>
         </div>
@@ -257,9 +260,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         {/* Render your form based on the activeTab */}
         {selectedScoringType === Tab.Single && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-            <div className="col-span-12 lg:col-span-12 py-2  md:col-span-5   md:mr-0 md:mb-3">
+            <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
               <h4>Please select 9 holes</h4>
-              <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center" key={index + 1}>
                     <input
@@ -272,7 +275,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
                     <label htmlFor={String(index + 1)}>
-                      Hole{" "}
+                    {t('HOLE')}
                       <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
                         {index + 1}
                       </span>
@@ -286,9 +289,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 
         {selectedScoringType === Tab.Double && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-            <div className="col-span-12 lg:col-span-12 py-2  md:col-span-5   md:mr-0 md:mb-3">
+            <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
               <h4>Please select 12 holes</h4>
-              <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center" key={index + 1}>
                     <input
@@ -303,7 +306,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
                     <label htmlFor={`checkbox${index + 1}`}>
-                      Hole{" "}
+                    {t('HOLE')}
                       <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
                         {index + 1}
                       </span>
@@ -316,9 +319,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         )}
         {selectedScoringType === Tab.Triple && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-            <div className="col-span-12 lg:col-span-12 py-2  md:col-span-5   md:mr-0 md:mb-3">
-              <h4>Please select 6 holes</h4>
-              <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">
+            <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+              <h4>{t('SELECT_HOLE')}</h4>
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center" key={index + 1}>
                     <input
@@ -333,7 +336,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
                     <label htmlFor={`checkbox${index + 1}`}>
-                      Hole{" "}
+                    {t('HOLE')}
                       <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
                         {index + 1}
                       </span>
@@ -344,13 +347,13 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </div>
           </div>
         )}
-        <div className="flex items-center  col-span-12 lg:col-span-6 py-2 md:col-span-5 md:mr-0 md:mb-3">
+        <div className="flex items-center col-span-12 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block capitalize tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize"
           >
             02
-            <span className="ml-4">Driver contest</span>
+            <span className="ml-4">{t('DRIVER_CONTEST')}</span>
           </label>
           <input
             className="text-center appearance-none block w-[50px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none focus:bg-white"
@@ -361,14 +364,14 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             min="0"
             onChange={onInputChange}
           />
-          <p className="text-[#ff0000] ml-3">Please select hole number</p>
+          <p className="text-[#ff0000] ml-3">{t('NUMBER_SELECT')}</p>
         </div>
-        <div className="flex items-center space-x-4 col-span-12 lg:col-span-2 py-2 md:col-span-2 md:mr-0 md:mb-3">
+        <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block capitalize tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize"
           >
-            03 <span className="ml-4">Near pin contest </span>
+            03 <span className="ml-4">{t('PIN_CONTEST')}</span>
           </label>
           <input
             className="text-center appearance-none block w-[50px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -379,7 +382,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             min="0"
             onChange={onInputChange}
           />
-          <p className="text-[#ff0000]">Please select whole number</p>
+          <p className="text-[#ff0000]">{t('NUMBER_SELECT')}</p>
         </div>
       </div>
     </div>

@@ -9,7 +9,8 @@ import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
 const EventMainPage: FunctionComponent = () => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [events, setEvents] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);

@@ -3,7 +3,10 @@ import { FunctionComponent, useEffect, useRef, useState } from "react";
 import Player from "../components/Player";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 const EditTeamPage: FunctionComponent = () => {
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const shouldOpenDialog =
     localStorage.getItem("showDialog") === "true";
 
@@ -27,40 +30,40 @@ const EditTeamPage: FunctionComponent = () => {
     <div className="h-[100vh]   text-left text-lg text-white font-poppins mt-20 [background:linear-gradient(180deg,_#edfffd,_#f2fffa)]  ">
       <ChampionShipName />
 
-      <div className="px-3 mx-40 py-8 ">
+      <div className="px-3 py-8 mx-40 ">
         <div>
           <img src="/img/golfplyr.png" alt="" width="40px" />
           <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
             Edit Teams
           </b>
         </div>
-        <table className="w-full  border-spacing-y-5 ">
-          <thead className=" text-left text-whitesmoke-100">
+        <table className="w-full border-spacing-y-5 ">
+          <thead className="text-left text-whitesmoke-100">
             <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
               <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
                 Team Name
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                Player1
+              {t('PLAYER')}1
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                Player2
+              {t('PLAYER')}2
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                Player3
+              {t('PLAYER')}3
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                Player4
+              {t('PLAYER')}4
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                Player5
+              {t('PLAYER')}5
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                Actions
+                {t('ACTIONS')}
               </th>
             </tr>
           </thead>
-          <tbody className=" text-left text-black">
+          <tbody className="text-left text-black ">
             <tr className="bg-[#ffc1c5] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
               <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                 <div
@@ -77,23 +80,23 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
                 </div>
               </td>
-              <td className="pl-4 py-4 whitespace-nowrap">
+              <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4">
+              <td className="py-4 pl-4">
                 {" "}
                 <Player showNumber={false} />
               </td>
@@ -147,23 +150,23 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
                 </div>
               </td>
-              <td className="pl-4 py-4 whitespace-nowrap">
+              <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4">
+              <td className="py-4 pl-4">
                 {" "}
                 <Player showNumber={false} />
               </td>
@@ -216,23 +219,23 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
                 </div>
               </td>
-              <td className="pl-4 py-4 whitespace-nowrap">
+              <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4">
+              <td className="py-4 pl-4">
                 {" "}
                 <Player showNumber={false} />
               </td>
@@ -285,23 +288,23 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
                 </div>
               </td>
-              <td className="pl-4 py-4 whitespace-nowrap">
+              <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4">
+              <td className="py-4 pl-4">
                 {" "}
                 <Player showNumber={false} />
               </td>
@@ -354,23 +357,23 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
                 </div>
               </td>
-              <td className="pl-4 py-4 whitespace-nowrap">
+              <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4 ">
+              <td className="py-4 pl-4 ">
                 {" "}
                 <Player showNumber={false} />
               </td>
-              <td className="pl-4 py-4">
+              <td className="py-4 pl-4">
                 {" "}
                 <Player showNumber={false} />
               </td>
@@ -411,7 +414,7 @@ const EditTeamPage: FunctionComponent = () => {
         </table>
 
         <div className="flex justify-end ">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-4 px-4 rounded cursor-pointer">
+          <button className="px-4 py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
             Update Team
           </button>
         </div>
@@ -431,11 +434,11 @@ const EditTeamPage: FunctionComponent = () => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
             </Transition.Child>
 
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div className="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
@@ -445,10 +448,10 @@ const EditTeamPage: FunctionComponent = () => {
                   leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                  <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <Dialog.Panel className="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
                     <div className="bg-[#17B3A6] px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                       <div className="flex justify-center">
-                        <div className="w-20 h-20 bg-white rounded-full flex justify-center items-center">
+                        <div className="flex items-center justify-center w-20 h-20 bg-white rounded-full">
                           <svg
                             width="40"
                             height="54"
@@ -466,7 +469,7 @@ const EditTeamPage: FunctionComponent = () => {
                       <div className="flex items-center justify-center">
                         <div className="mt-3 text-center sm:ml-4 sm:mt-0 ">
                           <div className="mt-2">
-                            <p className="text-white font-medium text-3xl text-center">
+                            <p className="text-3xl font-medium text-center text-white">
                               Are you sure you want to delete the team?
                             </p>
                           </div>
@@ -512,11 +515,11 @@ const EditTeamPage: FunctionComponent = () => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
             </Transition.Child>
 
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div className="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
@@ -526,13 +529,13 @@ const EditTeamPage: FunctionComponent = () => {
                   leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                  <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <Dialog.Panel className="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
                     <div className="bg-[#17B3A6] px-4 pb-4 pt-5 ">
                       <form className="px-8">
                         <div className="relative w-full">
                           <label
                             htmlFor="team"
-                            className="text-white font-helvetica text-2xl font-semibold inline "
+                            className="inline text-2xl font-semibold text-white font-helvetica "
                           >
                             Team Name
                           </label>
@@ -541,7 +544,7 @@ const EditTeamPage: FunctionComponent = () => {
                             <img
                               src="/img/ellipse-23087@2x.png"
                               alt="Team Logo"
-                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                              className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
                             />
 
                             <input
@@ -549,7 +552,7 @@ const EditTeamPage: FunctionComponent = () => {
                               name="Player!"
                               id="teamname"
                               placeholder="Player 1"
-                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-4"
+                              className="w-full py-4 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                             />
 
                             <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -558,7 +561,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                className="h-3 w-3 cursor-pointer"
+                                className="w-3 h-3 cursor-pointer"
                               >
                                 <path
                                   stroke-linecap="round"
@@ -570,19 +573,19 @@ const EditTeamPage: FunctionComponent = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                        <div className="relative flex items-center justify-start w-full gap-2 mt-3">
                           <label
                             htmlFor="team"
-                            className="text-white font-helvetica  font-semibold text-center  "
+                            className="font-semibold text-center text-white font-helvetica "
                           >
-                            Player 1
+                            {t('PLAYER')} 1
                           </label>
 
                           <div className="relative flex items-center w-full">
                             <img
                               src="/img/ellipse-13@2x.png"
                               alt="Team Logo"
-                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                              className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
                             />
 
                             <input
@@ -590,7 +593,7 @@ const EditTeamPage: FunctionComponent = () => {
                               name="teamname"
                               id="teamname"
                               placeholder="Fore Friend"
-                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                              className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                             />
 
                             <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -599,7 +602,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                className="h-3 w-3 cursor-pointer"
+                                className="w-3 h-3 cursor-pointer"
                               >
                                 <path
                                   stroke-linecap="round"
@@ -611,19 +614,19 @@ const EditTeamPage: FunctionComponent = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                        <div className="relative flex items-center justify-start w-full gap-2 mt-3">
                           <label
                             htmlFor="team"
-                            className="text-white font-helvetica  font-semibold text-center "
+                            className="font-semibold text-center text-white font-helvetica "
                           >
-                            Player 2
+                            {t('PLAYER')} 2
                           </label>
 
                           <div className="relative flex items-center w-full">
                             <img
                               src="/img/ellipse-131@2x.png"
                               alt="Team Logo"
-                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                              className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
                             />
 
                             <input
@@ -631,7 +634,7 @@ const EditTeamPage: FunctionComponent = () => {
                               name="teamname"
                               id="teamname"
                               placeholder="Fore Friend"
-                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                              className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                             />
 
                             <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -640,7 +643,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                className="h-3 w-3 cursor-pointer"
+                                className="w-3 h-3 cursor-pointer"
                               >
                                 <path
                                   stroke-linecap="round"
@@ -652,19 +655,19 @@ const EditTeamPage: FunctionComponent = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                        <div className="relative flex items-center justify-start w-full gap-2 mt-3">
                           <label
                             htmlFor="team"
-                            className="text-white font-helvetica  font-semibold text-center "
+                            className="font-semibold text-center text-white font-helvetica "
                           >
-                            Player 3
+                            {t('PLAYER')} 3
                           </label>
 
                           <div className="relative flex items-center w-full">
                             <img
                               src="/img/ellipse-132@2x.png"
                               alt="Team Logo"
-                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                              className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
                             />
 
                             <input
@@ -672,7 +675,7 @@ const EditTeamPage: FunctionComponent = () => {
                               name="teamname"
                               id="teamname"
                               placeholder="Fore Friend"
-                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                              className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                             />
 
                             <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -681,7 +684,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                className="h-3 w-3 cursor-pointer"
+                                className="w-3 h-3 cursor-pointer"
                               >
                                 <path
                                   stroke-linecap="round"
@@ -693,19 +696,19 @@ const EditTeamPage: FunctionComponent = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                        <div className="relative flex items-center justify-start w-full gap-2 mt-3">
                           <label
                             htmlFor="team"
-                            className="text-white font-helvetica  font-semibold text-center "
+                            className="font-semibold text-center text-white font-helvetica "
                           >
-                            Player 4
+                            {t('PLAYER')} 4
                           </label>
 
                           <div className="relative flex items-center w-full">
                             <img
                               src="/img/ellipse-133@2x.png"
                               alt="Team Logo"
-                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                              className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
                             />
 
                             <input
@@ -713,7 +716,7 @@ const EditTeamPage: FunctionComponent = () => {
                               name="teamname"
                               id="teamname"
                               placeholder="Fore Friend"
-                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                              className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                             />
 
                             <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -722,7 +725,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                className="h-3 w-3 cursor-pointer"
+                                className="w-3 h-3 cursor-pointer"
                               >
                                 <path
                                   stroke-linecap="round"
@@ -734,19 +737,19 @@ const EditTeamPage: FunctionComponent = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="relative flex items-center justify-start gap-2 w-full mt-3">
+                        <div className="relative flex items-center justify-start w-full gap-2 mt-3">
                           <label
                             htmlFor="team"
-                            className="text-white font-helvetica  font-semibold text-center "
+                            className="font-semibold text-center text-white font-helvetica "
                           >
-                            Player 5
+                            {t('PLAYER')} 5
                           </label>
 
                           <div className="relative flex items-center w-full">
                             <img
                               src="/img/ellipse-134@2x.png"
                               alt="Team Logo"
-                              className="h-10 w-10 rounded-full absolute left-2 top-1/2 transform -translate-y-1/2"
+                              className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
                             />
 
                             <input
@@ -754,7 +757,7 @@ const EditTeamPage: FunctionComponent = () => {
                               name="teamname"
                               id="teamname"
                               placeholder="Fore Friend"
-                              className="w-full pl-14 bg-gray-50 border-none text-gray-900 sm:text-sm rounded-md py-3"
+                              className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                             />
 
                             <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -763,7 +766,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                className="h-3 w-3 cursor-pointer"
+                                className="w-3 h-3 cursor-pointer"
                               >
                                 <path
                                   stroke-linecap="round"

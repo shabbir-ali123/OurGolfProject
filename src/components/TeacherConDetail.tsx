@@ -12,7 +12,8 @@ import { TeacherDetailsProp } from "../utils/types";
 import { useTranslation } from "react-i18next";
 
 export const TeacherConDetail: React.FC<{ teacherDetails: TeacherDetailsProp }> = ({ teacherDetails }) => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
 
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);

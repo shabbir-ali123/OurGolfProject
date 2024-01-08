@@ -33,7 +33,8 @@ interface MenuItemStyles {
   // Add more properties as needed
 }
 const SideMenu: React.FC = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Events");
@@ -211,29 +212,7 @@ const SideMenu: React.FC = () => {
             <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
             <span style={textStyles}>{t("POSTS")}</span>
           </div>
-          {/* <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faHeart} style={iconStyles} />
-            <span className="" style={textStyles} onClick={handleDropdownClick}>
-              {t("EVENTS")}{" "}
-              <svg
-                width="15"
-                height="9"
-                viewBox="0 0 15 9"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
-                  fill="white"
-                />
-                <path
-                  d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
-                  fill="white"
-                />
-              </svg>
-            </span>
-          </div> */}
-          
+
           
             <div style={dropdownStyles} ref={dropdownRef}>
               <div
@@ -249,7 +228,7 @@ const SideMenu: React.FC = () => {
                   
                   {isMenuOpen && (
                     <div className="flex items-center gap-2">
-                      <span style={textStyles}> {selectedItem}</span>
+                      <span style={textStyles}> {t(selectedItem.toLocaleUpperCase())}</span>
                       <svg
                         width="15"
                         height="9"

@@ -4,7 +4,8 @@ import IndiviualPlayerTableRow from "./IndiviualPlayerTableRow";
 import { useTranslation } from "react-i18next";
 
 const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   return (
     <div className="mt-20 mx-5 md:mx-[80px] my-20">
       <div className="my-20">

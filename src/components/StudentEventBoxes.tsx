@@ -3,7 +3,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const EventBoxes: React.FC = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   return (
     
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 mx-auto my-4 gap-1 md:gap-2 lg:gap-2 z-[9999]">

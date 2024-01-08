@@ -1,6 +1,9 @@
 import { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 const FullScoreCard: FunctionComponent = () => {
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   return (
     <div className="w-[480px] h-[348.2px] text-left text-[14.82px] text-black font-body-b2 [transform:_rotate(0deg)] [transform-origin:0_0]">
       <div className="absolute top-[80px] left-[-1px] w-[480px] h-[348.2px]">
@@ -207,7 +210,7 @@ const FullScoreCard: FunctionComponent = () => {
           <div className="absolute top-[183.1px] left-[275.3px] w-[105.9px] h-[38px] text-xl text-white">
             <div className="absolute top-[0px] left-[0px] w-[105.9px] h-[38px]">
               <div className="absolute top-[16.4px] left-[0px] tracking-[-0.15px] leading-[16.67px] uppercase font-semibold [transform:_rotate(-5deg)] [transform-origin:0_0]">
-                Total
+                {t('TOTAL')}
               </div>
               <div className="absolute top-[1.9px] left-[67.9px] w-[36.2px] h-[36.2px] [transform:_rotate(-3deg)] [transform-origin:0_0] text-5xl">
                 <div className="absolute top-[0px] left-[0px] w-[36.2px] h-[36.2px] [transform:_rotate(-3deg)] [transform-origin:0_0]">

@@ -18,7 +18,8 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
   name,
   description,
 }) => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   return (
     <div>
       <div className="lg:flex lg:flex-1 lg:justify-center">

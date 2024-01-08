@@ -44,7 +44,8 @@ interface TableProps {
 }
 
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
-  const { t } = useTranslation(); 
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);

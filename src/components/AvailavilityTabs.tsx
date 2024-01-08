@@ -14,7 +14,8 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   schedules,
 
 }) => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
   const [availability, setAvailability] = useState<string[]>([]);
   const convertTo12Hour = (time:any) => {
@@ -114,7 +115,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
                 fill="white"
               />
             </svg>
-            <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl">
+            <span className="text-xl font-bold text-white sm:font-semi-bold md:px-2">
             {t('BOOK_APPOINTMENT')}
             </span>
           </button>

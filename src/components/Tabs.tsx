@@ -41,7 +41,8 @@ interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const itemsPerPage = 6;

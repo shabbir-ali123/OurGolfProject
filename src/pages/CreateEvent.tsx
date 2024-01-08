@@ -55,7 +55,8 @@ interface CreateEventType{
 }
 
 const CreateEvent: React.FC = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [value, setValue] = useState("");
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
