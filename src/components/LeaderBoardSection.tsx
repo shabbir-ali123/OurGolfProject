@@ -5,7 +5,8 @@ import Team from '../utils/Team';
 import { useTranslation } from 'react-i18next';
 
 const LeaderBoardSection: FunctionComponent = () => {
-    const { t } = useTranslation();
+    const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
     const teamData = [
         new Team(
             1,

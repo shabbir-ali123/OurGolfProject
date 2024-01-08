@@ -1,6 +1,9 @@
 import { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 const LeaderBoardScoringTable: FunctionComponent = () => {
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   return (
     <div className="absolute top-[4546px] left-[220px] w-[1302px] h-[787px] text-left text-lg text-gray1-100 font-poppins">
       <div className="absolute top-[227px] left-[0px] w-[1302px] h-[560px]">
@@ -482,7 +485,7 @@ const LeaderBoardScoringTable: FunctionComponent = () => {
                   <div className="absolute top-[0px] left-[calc(50%_-_650px)] rounded-md bg-green shadow-[0px_4px_12px_#193a8b] w-[1300px] h-[63px]" />
                   <div className="absolute top-[22px] left-[8px] w-[1283px] h-5">
                     <b className="absolute top-[0px] left-[0px] text-sm leading-[20px]">
-                      Hole #
+                      {t('HOLE')} #
                     </b>
                     <div className="absolute top-[0px] left-[117px] leading-[20px]">
                       1
@@ -543,7 +546,7 @@ const LeaderBoardScoringTable: FunctionComponent = () => {
                       In
                     </div>
                     <div className="absolute top-[0px] left-[1061px] leading-[20px] font-medium">
-                      Total
+                      {t('TOTAL')}
                     </div>
                     <div className="absolute top-[0px] left-[1151px] leading-[20px] font-medium">
                       Rate

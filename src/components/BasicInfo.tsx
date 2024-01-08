@@ -10,7 +10,8 @@ interface BasicInfoProps {
 }
 
 const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
@@ -183,9 +184,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               className="relative block mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize"
               htmlFor="grid-short-video"
             >
-              Upload Images
-              <span>
-                (max 5 images)
+              {t('UPLOAD_IMAGES')}
                 <svg
                   width="20"
                   height="20"
@@ -199,7 +198,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                     fill="black"
                   />
                 </svg>
-              </span>
               <div className="opacity-0 hidden absolute bg-white text-gray-800 border border-[#51ff85] rounded p-2 mt-2 transition-opacity duration-300 ease-in-out">
                 <p>First Image Will Use For Event Image</p>
               </div>
@@ -244,18 +242,18 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               className="bg-[#51ff85] mx-2 text-white py-3 px-4 mb-2 md:mb-0 md:mr-2 rounded-md"
               onClick={() => {}}
             >
-              Map
+              {t('MAP')}
             </button>
             <input
               type="text"
               className="w-3/4 md:w-1/2 p-2 rounded-md focus:outline-none border-[#52FF86]"
-              placeholder="Search location"
+              placeholder={t('SEARCH_LOCATION')}
             />
             <button
               className="px-4 py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
               onClick={() => {}}
             >
-              Select
+              {t('SELECT')}
             </button>
           </div>
         </div>

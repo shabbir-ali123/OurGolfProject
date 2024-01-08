@@ -2,7 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const FavoriteTeachers: React.FC = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   const imageUrls = [
     "/img/ellipse-111@2x.png",
     "/img/ellipse-13@2x.png",

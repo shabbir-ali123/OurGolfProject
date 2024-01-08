@@ -9,7 +9,8 @@ import ScoringTable from '../components/ScoringTable';
 import { useTranslation } from 'react-i18next';
 
 const ScoreBoard: FunctionComponent = () => {
-    const { t } = useTranslation();
+    const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
     return (
         <div className='font-poppins'>
             <div className='flex flex-col mx-[50px]'>

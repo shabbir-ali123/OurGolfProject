@@ -3,7 +3,8 @@ import StateDefault from './StateDefault';
 import { useTranslation } from 'react-i18next';
 
 const LeaderBoardHeader: FunctionComponent = () => {
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
+    document.body.dir = i18n.dir();
     return (
         <>
             <div className='flex gap-[8px]'>

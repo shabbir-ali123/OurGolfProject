@@ -1,4 +1,5 @@
 import React, { useRef, useState, ChangeEvent, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export type Click = "bank" | "paypal";
 
@@ -7,6 +8,8 @@ interface PaymentDetailsProps {
 }
 
 const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [activeTab, setActiveTab] = useState<Click>("bank");
   const [formData, setFormData] = useState({
     bank: {
@@ -40,21 +43,21 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
     onChange(formData[activeTab], activeTab);
   }, [formData, activeTab]);
   return (
-    <div className="lg:max-w-6xl mx-auto p-2 ">
+    <div className="p-2 mx-auto lg:max-w-6xl ">
       <div className=" p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl mt-4 border-solid border-2 border-[#51ff85]">
        
 
     
           <div>
             {/* Bank Details Content */}
-            <h2 className="text-[#52FF86] mt-8 mx-4">Bank Details</h2>
-            <div className="grid grid-cols-9 mx-auto lg:gap-x-16  px-4 py-0  ">
-              <div className="col-span-8 lg:col-span-4 py-2  md:col-span-5   md:mr-0 md:mb-0 ">
+            <h2 className="text-[#52FF86] mt-8 mx-4"> {t('BRANCH_DETAILS')}</h2>
+            <div className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 ">
+              <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0 ">
                 <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                   htmlFor="grid-event-name"
                 >
-                  Bank Name
+                  {t('BANK_NAME')}
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white hover:animate-bounce"
@@ -62,15 +65,15 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   type="text"
                   name="bankName"
                   onChange={handleInputChange}
-                  placeholder="Bank Name"
+                  placeholder={t('BANK_NAME')}
                 />
               </div>
-              <div className="col-span-8  lg:col-span-4 py-2 md:col-span-5  md:mr-0 md:mb-0">
+              <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
                 <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                   htmlFor="grid-short-video"
                 >
-                  Branch
+                  {t('BRANCH')}
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
@@ -78,15 +81,15 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   type="text"
                   name="branchName"
                   onChange={handleInputChange}
-                  placeholder="Branch Name"
+                  placeholder={t('BRANCH')}
                 />
               </div>
-              <div className="col-span-8  lg:col-span-4 py-1 md:col-span-5  md:mr-0 md:mb-1">
+              <div className="col-span-8 py-1 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-1">
                 <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                   htmlFor="grid-short-video"
                 >
-                  Account Number
+                 {t('ACCOUNT_NUMBER')}
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
@@ -94,15 +97,15 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   type="text"
                   name="branchNumber"
                   onChange={handleInputChange}
-                  placeholder="Account Number"
+                  placeholder={t('ACCOUNT_NUMBER')}
                 />
               </div>
-              <div className="col-span-8  lg:col-span-4 py-1 md:col-span-5  md:mr-0 md:mb-1">
+              <div className="col-span-8 py-1 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-1">
                 <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                   htmlFor="grid-short-video"
                 >
-                  Account Holder Name
+                  {t('ACCOUNT_HOLDER_NAME')}
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
@@ -110,7 +113,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   type="text"
                   name="accountHolderName"
                   onChange={handleInputChange}
-                  placeholder="Account Holder Name"
+                  placeholder={t('ACCOUNT_HOLDER_NAME')}
                 />
               </div>
               
@@ -121,14 +124,14 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
       
           <div>
             {/* Bank Details Content */}
-            <h2 className="text-[#52FF86] mt-8 mx-4">Paypal Details</h2>
-            <div className="grid grid-cols-9 mx-auto lg:gap-x-16  px-4 py-0  ">
-              <div className="col-span-8 lg:col-span-7 py-2  md:col-span-5   md:mr-0 md:mb-0 ">
+            <h2 className="text-[#52FF86] mt-8 mx-4">{t('PAYPAL_DETAILS')}</h2>
+            <div className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 ">
+              <div className="col-span-8 py-2 lg:col-span-7 md:col-span-5 md:mr-0 md:mb-0 ">
                 <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                   htmlFor="grid-event-name"
                 >
-                  Paypal ID
+                  {t('PAYPA_ID')}
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
@@ -136,16 +139,16 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   type="number"
                   name="paypalId"
                   onChange={handleInputChange}
-                  placeholder="Paypal ID"
+                  placeholder={t('PAYPA_ID')}
                   min="0"
                 />
               </div>
-              <div className="col-span-4 lg:col-span-4 py-2  md:col-span-5   md:mr-0 md:mb-0 ">
+              <div className="col-span-4 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0 ">
                 <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                   htmlFor="grid-event-name"
                 >
-                  Participation fee (approximate per person)
+                  {t('PARTICIPATION_FEE')}
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
@@ -159,12 +162,12 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   min="0"
                 />
               </div>
-              <div className=" flex gap-2 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
+              <div className="flex col-span-12 gap-2 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
                 <label
-                  className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                   htmlFor="grid-short-video"
                 >
-                  Hide participant name
+                  {t('HIDE_NAME')}
                 </label>
                 <label className="relative flex items-center mb-8 cursor-pointer md:mb-5 lg:mb-5">
                   <input type="checkbox" value="" className="sr-only peer"onChange={handleInputChange} name="hideParticipantName" />

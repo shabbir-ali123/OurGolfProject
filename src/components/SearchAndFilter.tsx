@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const SearchAndFiltersEducator: React.FC = () => {
-    const { t } = useTranslation();
+    const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
     const [search, setSearch] = useState(['Rating']);
      const searchHandler = (value: string) => {
         if (search.includes(value)) {

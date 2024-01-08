@@ -1,4 +1,5 @@
 import React, { useRef, useState, ChangeEvent, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export type Tab = "individual" | "team";
 
@@ -7,6 +8,8 @@ interface RecuitmentsProps {
 }
 
 const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<Tab>("individual");
   const [formData, setFormData] = useState<Record<string, any>>({});
@@ -89,15 +92,15 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
   };
   
   return (
-    <div className="lg:max-w-6xl mx-auto px- py-8  ">
-      <h2 className="text-[#0f1e56] text-4xl">Recruitment Details</h2>
+    <div className="py-8 mx-auto lg:max-w-6xl px- ">
+      <h2 className="text-[#0f1e56] text-4xl">{t('RECRUITMENT_DETAILS')}</h2>
       <div className=" bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl px-8 py-4 mt-4 border-solid border-2 border-[#51ff85]">
-        <div className="flex items-center gap-2 col-span-5 lg:col-span-6 py-1  md:col-span-5   md:mr-0 md:mb-3 ">
+        <div className="flex items-center col-span-5 gap-2 py-1 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3 ">
           <label
-            className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
             htmlFor="grid-event-name"
           >
-            Number of Players
+            {t('NO_OF_PLAYERS')}
           </label>
           <input
             className="text-center appearance-none block w-[50px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -108,12 +111,12 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             onChange={handleInputChange}
           />
         </div>
-        <div className=" flex gap-2 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
+        <div className="flex col-span-12 gap-2 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
-            className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
             htmlFor="grid-short-video"
           >
-            Include you in the numbers of players
+            {t('INCLUDE_PLAYER')}
           </label>
           <label className="relative flex items-center mb-8 cursor-pointer md:mb-5 lg:mb-5">
             <input
@@ -127,12 +130,12 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
 
         </div>
         {error && <p className="text-[red]">{error}</p>}
-        <div className="flex items-center space-x-4 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
+        <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
           >
-            Start Date and Time
+            {t('START_TIME')}
           </label>
           
           <input
@@ -152,12 +155,12 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="flex items-center space-x-4 col-span-12  lg:col-span-6 py-2 md:col-span-5  md:mr-0 md:mb-3">
+        <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
           >
-            End Date and Time
+            {t('END_TIME')}
           </label>
           <input
             type="date"
@@ -176,12 +179,12 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="flex items-center space-x-4 col-span-12 lg:col-span-6 py-2 md:col-span-5 md:mr-0 md:mb-3">
+        <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block capitalize tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize"
           >
-            Application Deadline
+            {t('APPLICATION_DEADLINE')}
           </label>
           <input
             type="date"
@@ -201,11 +204,11 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="flex items-center space-x-4 col-span-12 lg:col-span-6 py-2 md:col-span-5 md:mr-0 md:mb-3">
-          <div className=" ">
+        <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
+          <div className="">
             <div className="">
-              <h2>Match Type</h2>
-              <div className="mx-4 flex gap-2">
+              <h2>{t('MATCH_TYPE')}</h2>
+              <div className="flex gap-2 mx-4">
                 <button
                   className={`${
                     activeTab === "individual"
@@ -215,7 +218,7 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
                   type="button"
                   onClick={() => handleTabClick("individual")}
                 >
-                  individual
+                  {t('INDIVIDUAL')}
                 </button>
 
                 <button
@@ -227,19 +230,19 @@ const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
                   type="button"
                   onClick={() => handleTabClick("team")}
                 >
-                  team
+                  {t('TEAM')}
                 </button>
               </div>
               {activeTab === "individual" && <div></div>}
 
               {activeTab === "team" && (
                 <div>
-                  <div className="col-span-8 lg:col-span-7 py-2  md:col-span-5   md:mr-0 md:mb-0 mt-4 ml-4 ">
+                  <div className="col-span-8 py-2 mt-4 ml-4 lg:col-span-7 md:col-span-5 md:mr-0 md:mb-0 ">
                     <label
-                      className="block captilize tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
                       htmlFor="grid-event-name"
                     >
-                      Team Size
+                      {t('TEAM_SIZE')}
                     </label>
                     <input
                       className="appearance-none block w-[80px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none focus:bg-white"

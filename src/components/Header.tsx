@@ -16,7 +16,8 @@ const navigation = [
 const Header: React.FC = () => {
   const [token, setToken] = useState('');
   const history = useNavigate();
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   useEffect(() => {
    
     const storedToken = localStorage.getItem('token');

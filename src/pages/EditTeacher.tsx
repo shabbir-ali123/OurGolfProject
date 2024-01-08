@@ -29,7 +29,8 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 );
 
 const EditTeacher: React.FC = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [formData, setFormData] = useState({
     aboutMyself: "",
     firstName: "",

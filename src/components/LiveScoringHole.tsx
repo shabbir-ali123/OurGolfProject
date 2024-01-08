@@ -1,6 +1,9 @@
 import { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 const LiveScoringHole: FunctionComponent = () => {
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   return (
     <div className="absolute top-[0px] left-[0px] w-[1302px] h-[154px] text-left text-lg text-white font-poppins">
       <div className="absolute top-[0px] left-[0px] w-[1302px] h-[154px]">
@@ -32,7 +35,7 @@ const LiveScoringHole: FunctionComponent = () => {
                 <div className="absolute top-[0px] left-[calc(50%_-_650px)] rounded-md bg-green shadow-[0px_4px_12px_#193a8b] w-[1300px] h-[63px]" />
                 <div className="absolute top-[21px] left-[31px] w-[1122px] h-[111px]">
                   <b className="absolute top-[0px] left-[0px] text-5xl leading-[20px]">
-                    Hole #
+                  {t('HOLE')} #
                   </b>
                   <div className="absolute top-[1px] left-[169px] w-[299px] h-[110px]">
                     <div className="absolute top-[0px] left-[0px] w-3 h-[110px]">
@@ -179,7 +182,7 @@ const LiveScoringHole: FunctionComponent = () => {
                     </div>
                   </div>
                   <div className="absolute top-[1px] left-[934px] leading-[20px] font-medium">
-                    Total
+                    {t('TOTAL')}
                   </div>
                   <div className="absolute top-[1px] left-[1008px] leading-[20px] font-medium">
                     Rate

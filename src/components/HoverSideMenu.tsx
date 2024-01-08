@@ -1,8 +1,11 @@
 import { FunctionComponent,useState } from "react";
+import { useTranslation } from "react-i18next";
 interface HoverSideMenuProps {
     onItemClick: () => void;
   }
 const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) => {
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   return (
     <div className="w-[231px] h-[1246px] text-center text-xl text-white font-poppins">
       <div className="absolute top-[0px] left-[0px] w-[270px] h-[1246px]">
@@ -16,7 +19,7 @@ const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) =
               alt=""
               src="/img/vector.png"
             />
-            <div className="absolute top-[1px] left-[42px]">Home</div>
+            <div className="absolute top-[1px] left-[42px]">{t('HOME')}</div>
           </div>
           <div className="absolute h-[3.72%] w-[84.41%] top-[20.8%] right-[15.59%] bottom-[85.47%] left-[0%]">
             <img
@@ -24,7 +27,7 @@ const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) =
               alt=""
               src="/img/Notification.png"
             />
-            <div className="absolute top-[0px] left-[42px]">Notification</div>
+            <div className="absolute top-[0px] left-[42px]">{t('NOTIFICATIONS')}</div>
           </div>
           <div className="absolute h-[3.72%] w-[51.08%] top-[31.48%] right-[48.92%] bottom-[74.8%] left-[0%]">
             <img
@@ -32,7 +35,7 @@ const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) =
               alt=""
               src="/img/Post.png"
             />
-            <div className="absolute top-[0px] left-[42px]">Posts</div>
+            <div className="absolute top-[0px] left-[42px]">{t('POSTS')}</div>
           </div>
           <div className="absolute h-[3.72%] w-full top-[70.83%] right-[0%] bottom-[53.45%] left-[0%]">
             <img
@@ -40,7 +43,7 @@ const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) =
               alt=""
               src="/img/FindTeacher.png"
             />
-            <div className="absolute top-[0px] left-[42px]">Find a teacher</div>
+            <div className="absolute top-[0px] left-[42px]">{t('FIND_TEACHER')}</div>
           </div>
           <div className="absolute h-[3.72%] w-[60.22%] top-[115.54%] right-[39.78%] bottom-[10.74%] left-[0%]">
             <img
@@ -48,7 +51,7 @@ const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) =
               alt=""
               src="/img/setting.png"
             />
-            <div className="absolute top-[0px] left-[42px]">Setting</div>
+            <div className="absolute top-[0px] left-[42px]">{t('SETTING')}</div>
           </div>
           <div className="absolute h-[3.79%] w-[62.37%] top-[130.21%] right-[37.63%] bottom-[0%] left-[0%]">
             <img
@@ -56,11 +59,11 @@ const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) =
               alt=""
               src="/img/logout.png"
             />
-            <div className="absolute top-[0px] left-[42px]">Log out</div>
+            <div className="absolute top-[0px] left-[42px]">{t('LOGOUT')}</div>
           </div>
           <div className="absolute top-[300px] left-[0px] w-[103px] h-[30px]">
             <div className="absolute top-[0px] left-[42px] w-[61px] h-[30px]">
-              <div className="absolute top-[0px] left-[0px]">Profile</div>
+              <div className="absolute top-[0px] left-[0px]">{t('PROFILE')}</div>
             </div>
             <img
               className="absolute h-[24px] w-[24px] top-[6.67%] right-[76.7%] bottom-[13.33%] left-[0%] max-w-full overflow-hidden max-h-full"
@@ -73,7 +76,7 @@ const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) =
           <div className="absolute top-[0px] left-[0px] w-[222px] h-[60px]">
             <div className="absolute top-[0px] left-[0px] rounded-10xs bg-white w-[222px] h-[60px]" />
             <div className="absolute top-[15px] left-[18px] w-[107px] h-[30px]">
-              <div className="absolute top-[0px] left-[42px]">Events</div>
+              <div className="absolute top-[0px] left-[42px]">{t('EVENT')}</div>
               <img
                 className="absolute h-4/5 w-[22.43%] top-[3.33%] right-[77.57%] bottom-[16.67%] left-[0%] max-w-full overflow-hidden max-h-full"
                 alt=""

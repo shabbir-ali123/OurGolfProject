@@ -2,7 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 const TournmentBg: React.FC = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   return (
     <div>
       <motion.div

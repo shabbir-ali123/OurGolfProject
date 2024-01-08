@@ -1,27 +1,22 @@
 import React, { useRef } from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const ItemInstruction: React.FC = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+import { useTranslation } from "react-i18next";
 
-  const handleFileInputChange = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
+const ItemInstruction: React.FC = () => {
+const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
+
   return (
-    <div className="lg:max-w-6xl mx-auto px-2 ">
+    <div className="px-2 mx-auto lg:max-w-6xl ">
       <h2 className="text-[#0f1e56] text-4xl">
-        Items to be entered by participants
+        {t('PARTICIPANTS_ITEMS')}
       </h2>
       <div className="py-6 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl mt-4 border-solid border-2 border-[#51ff85]">
         <p className="px-16">
-          You can set items that must be entered by participents when applying. <br />
-          Only the organizer can check the entered information.
+        {t('INSTRUCTION')}
         </p>
-        <div className="lg:flex gap-16">
-          <div className=" col-span-8 gap-24 mx-16 lg:col-span-4 py-2 md:col-span-5 md:mr-0 md:mb-3">
-            <div className="flex items-center gap-2 col-span-3 py-4">
+        <div className="gap-16 lg:flex">
+          <div className="col-span-8 gap-24 py-2 mx-16 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
+            <div className="flex items-center col-span-3 gap-2 py-4">
               <svg
                 width="25"
                 height="25"
@@ -37,11 +32,11 @@ const ItemInstruction: React.FC = () => {
                 />
               </svg>
               <div>
-                <h4 className="m-0 py-1">Full Name</h4>
-                <p className="m-0">Example: Taro Sato</p>
+                <h4 className="py-1 m-0">{t('FULL_NAME')}</h4>
+                <p className="m-0">{t('NAME_EXAMPLE')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 col-span-3">
+            <div className="flex items-center col-span-3 gap-2">
               <svg
                 width="25"
                 height="25"
@@ -57,13 +52,13 @@ const ItemInstruction: React.FC = () => {
                 />
               </svg>
               <div>
-                <h4 className="m-0 py-1">Email</h4>
-                <p className="m-0">Make sure info@golf.com is enabled</p>
+                <h4 className="py-1 m-0">{t('EMAIL')}</h4>
+                <p className="m-0">{t('EMAIL_EXAMPLE')}</p>
               </div>
             </div>
           </div>
-          <div className=" col-span-8 gap-24 mx-16 lg:col-span-4 py-2 md:col-span-5 md:mr-0 md:mb-3">
-            <div className="flex items-center gap-2 col-span-3 py-4">
+          <div className="col-span-8 gap-24 py-2 mx-16 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
+            <div className="flex items-center col-span-3 gap-2 py-4">
               <svg
                 width="25"
                 height="25"
@@ -79,11 +74,11 @@ const ItemInstruction: React.FC = () => {
                 />
               </svg>
               <div>
-                <h4 className="m-0 py-1">Telephone</h4>
-                <p className="m-0">half-width digits.</p>
+                <h4 className="py-1 m-0">{t('TELEPHONE')}</h4>
+                <p className="m-0">{t('TELEPHONE_EXAMPLE')}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 col-span-3">
+            <div className="flex items-center col-span-3 gap-2">
               <svg
                 width="25"
                 height="25"
@@ -99,8 +94,8 @@ const ItemInstruction: React.FC = () => {
                 />
               </svg>
               <div>
-                <h4 className="m-0 py-1">handicapscore</h4>
-                <p className="m-0">Handicap score before the match</p>
+                <h4 className="py-1 m-0">{t('HANDICAP_SCORE')}</h4>
+                <p className="m-0">{t('HANDICAP_EXAMPLE')}</p>
               </div>
             </div>
           </div>

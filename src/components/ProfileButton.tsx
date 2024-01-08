@@ -15,6 +15,7 @@ interface UserData {
 
 export default function ProfileButton() {
   const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const [token, setToken] = useState('');
   const [user, setUser] = useState<UserData | null>(null);
 

@@ -56,7 +56,8 @@ const getEndOfWeek = (date: Date): Date => {
 };
 
 const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
 
   const [selectedWeekIndex, setSelectedWeekIndex] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);

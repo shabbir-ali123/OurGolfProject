@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 const CalendarSection: React.FC = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
   const iconStyles: React.CSSProperties = {
     fontSize: "16px",
     color: "black",

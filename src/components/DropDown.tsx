@@ -9,7 +9,8 @@ function classNames(...classes: (string | boolean | undefined | null)[]): string
   }
 
 export default function Example() {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir(); 
   const [selectedOption, setSelectedOption] = useState('29-10-2023');
 
   return (

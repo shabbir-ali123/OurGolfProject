@@ -10,7 +10,8 @@ interface CalendarProps {
 }
 
 const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 

@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import ScoringTableRow from './ScoringTableRow';
+import { useTranslation } from 'react-i18next';
 
 const ScoringTableColumn = (props: {
     title: string;
@@ -17,16 +18,17 @@ const ScoringTableColumn = (props: {
 };
 
 const ScoringTable: FunctionComponent = () => {
-     
+    const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
 
     return (
-        <div className=' mx-5'>
+        <div className='mx-5 '>
             <div className='px-3 overflow-x-auto'>
-                <table className='w-full  border-spacing-y-5 '>
+                <table className='w-full border-spacing-y-5 '>
                     <thead className='text-left text-whitesmoke-100'>
                         <tr className=' bg-green shadow-[0px_4px_12px_#193a8b] h-[63px] min-w-[182px]'>
                             <ScoringTableColumn
-                                title='Hole#'
+                                title={t('HOLE')}
                                 className='rounded-s-[3px] font-bold text-[24px] text-center'
                             />
 
@@ -54,19 +56,19 @@ const ScoringTable: FunctionComponent = () => {
                                 className='bg-black text-[18px] font-medium text-center min-w-[24px]'
                             />
                             <ScoringTableColumn
-                                title='Total'
+                                title={t('TOTAL')}
                                 className=' text-[18px] font-medium text-center'
                             />
                             <ScoringTableColumn
-                                title='Rate'
+                                title={t('RATE')}
                                 className=' text-[18px] font-medium text-center'
                             />
                             <ScoringTableColumn
-                                title='Slope'
+                                title={t('SLOPE')}
                                 className='text-[18px] font-medium text-center'
                             />
                             <ScoringTableColumn
-                                title='Result'
+                                title={t('RESULT')}
                                 className='text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]'
                                 dir='rtl'
                             />
@@ -82,9 +84,9 @@ const ScoringTable: FunctionComponent = () => {
                                         boxShadow: ' 0px 0px 5px 0px #CF24EB',
                                     }}
                                 >
-                                    Teams
+                                    {t('TEAMS')}
                                 </div>
-                                <div className='pl-3 text-lg first-line:leading-5 font-semibold'>
+                                <div className='pl-3 text-lg font-semibold first-line:leading-5'>
                                     Par
                                 </div>
                             </td>
@@ -123,7 +125,7 @@ const ScoringTable: FunctionComponent = () => {
                                 className='text-[18px] font-medium text-center '
                             />
                             <ScoringTableColumn
-                                title='Position'
+                                title={t('POSITION')}
                                 className='text-[18px] font-medium text-center rounded-s-[3px] '
                                 dir='rtl'
                             />

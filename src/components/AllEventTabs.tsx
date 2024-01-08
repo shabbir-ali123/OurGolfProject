@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Calendar from "./Calender"
 import { useTranslation } from "react-i18next";
 const AllEventTabs: FunctionComponent = () => {
-  const { t } = useTranslation();
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
 
   return (
     <div className="absolute top-[423px] left-[103px] w-[1273px] h-[73px] text-left text-lg text-lightseagreen-200 font-poppins">
