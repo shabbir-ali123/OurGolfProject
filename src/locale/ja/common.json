@@ -72,7 +72,6 @@
     "PENDING": "保留中",
     "LESSON": "レッスン",
     "CHECK_CALENDER": "カレンダーをチェックする",
-    "BOOK_APPOINTMENT": "予約を取る",
     "AVAILABLE": "利用可能",
     "NOT_AVAILABLE": "利用不可",
     "BOOKED_BY_YOU": "あなたが予約しました",
@@ -149,6 +148,6 @@
     "PAYPAL_DETAILS": "ペイパルの詳細",
     "PAYPA_ID": "ペイパルID",    
     "PARTICIPATION_FEE": "参加費（お一人様の目安）",
-    "HIDE_NAME": "参加者名を非表示にする"   
+    "HIDE_NAME": "参加者名を非表示にする"
 
 }

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import DropDown from "../components/DropDown";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 interface ReschedulePopProps {
   onSelectTime: (selectedTime: string) => void;
   onClose: () => void;
 }
 
 const ReschedulePop: React.FC<ReschedulePopProps> = ({ onSelectTime, onClose }) => {
- 
+  const {t, i18n} = useTranslation();
+  document.body.dir = i18n.dir();
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
 
   const timeSlots = [
@@ -42,7 +44,7 @@ const ReschedulePop: React.FC<ReschedulePopProps> = ({ onSelectTime, onClose }) 
       <div className="">
         <div className="flex justify-end cursor-pointer "onClick={handleBookAppointment}>
           <span className="border-solid border-[2px] border-[#52FF86] rounded-full px-2 p-2 flex justify-center items-center">
-          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+          <XMarkIcon className="w-6 h-6" aria-hidden="true" />
           </span>
         
         </div>
@@ -81,8 +83,8 @@ const ReschedulePop: React.FC<ReschedulePopProps> = ({ onSelectTime, onClose }) 
                 fill="white"
               />
             </svg>
-            <span className="sm:font-semi-bold  md:px-2 text-white font-bold text-xl ">
-              Book an Appointment
+            <span className="text-xl font-bold text-white sm:font-semi-bold md:px-2 ">
+             {t('BOOK_APPOINTMENT')}
             </span>
           </button>
         </div>
