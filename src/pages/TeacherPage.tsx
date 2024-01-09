@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StudentTabs from '../components/StudentTabs';
 import StudentList from '../components/StudentList';
 import StudentEventBoxes from '../components/StudentEventBoxes';
@@ -7,9 +7,66 @@ import TeacherCalSec from "../components/TeacherCalSec";
 import SearchAndFiltersStudent from '../components/SearchStudent';
 import StudentConDetail from '../components/StudentConDetail';
 import ReschedulePop from '../components/ReschedulePop';
+import axios from 'axios';
+import { API_ENDPOINTS } from '../appConfig';
+
+interface Teacher {
+  count?: number;
+  teachers?: [];
+  aboutMyself?: string;
+  createdAt?: string | string[];
+  firstName?: string;
+  id?: string;
+  lastName?: string;
+  location?: string;
+  phoneNumber?: string;
+  schedules?: [];
+  updatedAt: string;
+  userId: string;
+  bookShifts: [];
+  nickName: string
+}
+
+
 const TeacherProfile: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<'teacher' | 'student'>('teacher');
     const [showModal, setShowModal] = useState(false);
+    const [selectedTeacher, setSelectedTeacher] = useState<any>([]);
+
+    useEffect(() => {
+        const fetchTeachers = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get(API_ENDPOINTS.GETTEACHERBOOKEDAPPOINTMENTS, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    params: {
+                        page: 1,
+                        pageSize: 20,
+                        userId: 2
+                    }
+                });
+
+                if (response.data && response.data.bookedAppointments) {
+                    // Ensure that bookedAppointments is an array
+                    const teachers = Array.isArray(response.data.bookedAppointments)
+                        ? response.data.bookedAppointments
+                        : [response.data.bookedAppointments];
+
+                    setSelectedTeacher(teachers);
+                } else {
+                    console.log('No teachers found');
+                }
+            } catch (error: any) {
+                console.error('Error fetching teachers:', error.message);
+            }
+        };
+
+        fetchTeachers();
+    }, []);
+
     const handleSelectTab = (tab: 'teacher' | 'student') => {
         setSelectedTab(tab);
       };
@@ -27,6 +84,8 @@ const TeacherProfile: React.FC = () => {
       const handleCloseModal = () => {
         setShowModal(false);
       };
+
+      console.log(selectedTeacher, 'sd')
   return (
     <div className="grid grid-cols-11 gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
      
@@ -47,11 +106,15 @@ const TeacherProfile: React.FC = () => {
       {/* Middle Column */}
       <div className='col-span-12 px-4 md:col-span-12 lg:col-span-12 xl:col-span-3 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen animate__animated animate__fadeInLeft'>
         <SearchAndFiltersStudent />
-       
-        {Array.from({ length: 4 }, (_, index) => (
-          <StudentList key={index} openModal={openModal} handleBookAppointment={handleBookAppointment} />
-        ))}
-        
+
+        {
+          selectedTeacher.map((item: any, index: any) => {
+            console.log(item, 'item')
+            return (
+              <StudentList key={index} email={item.bookedShifts.email} userName={item.bookedShifts.nickName} openModal={openModal} handleBookAppointment={handleBookAppointment} />
+            )
+          })  
+        }
         <style>{`
         
         @media screen and (min-width: 768px) {
