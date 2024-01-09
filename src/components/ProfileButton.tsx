@@ -97,13 +97,14 @@ export default function ProfileButton() {
               </p>
               <button
                 onClick={() => handleChangeLanguage("en")}
+                className={i18n.resolvedLanguage === "en" ? "actives" : ""}
                 // style={{
                 //     fontWeight: i18n.resolvedLanguage === languages.en ? "bold" : "normal",
                 // }}
               >
                 {languages.en.displayName}
               </button>
-              <button onClick={() => handleChangeLanguage("ja")}>
+              <button onClick={() => handleChangeLanguage("ja")} className={i18n.resolvedLanguage === "ja" ? "actives" : ""}>
                 {languages.ja.displayName}
               </button>
             </div>
@@ -115,14 +116,14 @@ export default function ProfileButton() {
               <div>
                 <button
                   onClick={() => handleChangeLanguage("en")}
-                  // style={{
-                  //     fontWeight: i18n.resolvedLanguage === languages.en ? "bold" : "normal",
-                  // }}
+                  
+              
                 >
                   {languages.en.displayName}
                 </button>
                 <button
                   onClick={() => handleChangeLanguage("ja")}
+                 
                   // style={{
                   //     fontWeight: i18n.resolvedLanguage === languages.ja ? "bold" : "normal",
                   // }}

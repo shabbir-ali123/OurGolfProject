@@ -104,3 +104,8 @@ a {
   background-color: #your-selected-color;
   color: #your-text-color;
 }
+.actives {
+  color: black;
+  background:#51ff85; /* Change the color to your desired color */
+  font-weight: bold; /* Add other styles as needed */
+}

@@ -9,11 +9,12 @@ interface StudentTabsProps {
   name: string; 
   description: string; 
 }
+const teacher_id = localStorage.getItem("teacher_id");
 
 const StudentTabs: React.FC<StudentTabsProps> = ({
   selectedTab,
   onSelectTab,
-  showTabs = true,
+  showTabs =false,
   profilePic,
   name,
   description,
@@ -22,6 +23,7 @@ const StudentTabs: React.FC<StudentTabsProps> = ({
 document.body.dir = i18n.dir();
   return (
     <div>
+    
       <div className="lg:flex lg:flex-1 lg:justify-center">
         <div className="flex-shrink-0 block ">
           <div className="text-center">
@@ -44,9 +46,10 @@ document.body.dir = i18n.dir();
         </div>
       </div>
      
-        <div className="flex justify-center">
-      
-         <Link to="/teacher-page" className="no-underline list-none">
+      <div className="flex justify-center">
+  {showTabs && (
+    <>
+      <Link to="/teacher-page" className="no-underline list-none">
         <button
           className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce ${
             selectedTab === "teacher"
@@ -57,22 +60,24 @@ document.body.dir = i18n.dir();
         >
           {t('Teacher')}
         </button>
-      </Link> 
-       <Link to="/student-page" className="no-underline list-none">
-            <button
-              className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce ${
-                selectedTab === "student"
-                  ? "bg-[#52FF86] text-white"
-                  : "border-solid border-2 border-[#51ff85] hover:animate-bounce"
-              }`}
-              onClick={() => onSelectTab("student")}
-            >
-              {t('STUDENT')}
-            </button>
-          </Link>
-          
-            </div>
-    
+      </Link>
+      <Link to="/student-page" className="no-underline list-none">
+        <button
+          className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce ${
+            selectedTab === "student"
+              ? "bg-[#52FF86] text-white"
+              : "border-solid border-2 border-[#51ff85] hover:animate-bounce"
+          }`}
+          onClick={() => onSelectTab("student")}
+        >
+          {t('STUDENT')}
+        </button>
+      </Link>
+    </>
+  )}
+</div>
+
+           
     </div>
   );
 };
