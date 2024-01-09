@@ -30,6 +30,9 @@ const FavoriteTeachers: React.FC = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          params:{
+            userId:1
+          }
         });
         console.log(response, 'sdfd')
 

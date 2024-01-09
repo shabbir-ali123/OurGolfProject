@@ -28,3 +28,26 @@ export const fetchEvents = async (startDate:any, endDate:any, setEvents:any) => 
     throw error; 
   }
 };
+
+export const fetchUser = async (setUser:any) => {
+  try {
+    const token = localStorage.getItem("token");
+    const id = localStorage.getItem("id");
+
+    const headers:any= {}
+    if (token) {
+      console.error("User not authenticated");
+      headers["Authorization"]=  `Bearer ${token}`
+
+    }
+    const response = await axios.get(token ? API_ENDPOINTS.GET_USER+ id : API_ENDPOINTS.PUBLICEVENTS, {
+      headers,
+      
+    });
+    setUser(response.data.user);
+    console.log(response.data.events); 
+
+  } catch (error) {
+    throw error; 
+  }
+};

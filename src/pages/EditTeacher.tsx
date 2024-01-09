@@ -242,8 +242,11 @@ document.body.dir = i18n.dir();
         pname=""
         icon={<ShareIcon />}
         label={t('FIRST_NAME')}
-        value={formData.firstName}
-        onChange={handleChange}
+        imageUrl="https://example.com/api/profile-image/john"
+        onChangeImage={(file) => {
+          // Handle the new image file here, e.g., upload it to the server
+          console.log("Selected file:", file);
+        }}
         placeholder={t('FIRST_NAME')}
         colSpanSm={6}
         colSpanMd={4}
