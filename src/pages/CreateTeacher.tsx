@@ -12,7 +12,6 @@ import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
-import { fetchTeacherByID } from "../utils/fetchEvents";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -138,9 +137,8 @@ document.body.dir = i18n.dir();
       console.log("API Response:", response.data);
 
       if (response.status === 201) {
-        alert("Event created successfullygreen");
+        console.log("Event created successfullygreen");
         localStorage.setItem("teacher_id", response.data.teacher.id);
-
       } else {
         alert("Error Occurred");
         alert("Error occurred while creating the event#FF0000]");
@@ -150,9 +148,8 @@ document.body.dir = i18n.dir();
       alert("Error occurred while creating the event #FF0000]");
       console.error("Error:", error);
     } finally {
-      console.log;
+      console.log('done')
     }
-    console.log("Form Data:", formData, teachAvailData);
   };
 
   const handleWeekSelected = (date: Date) => {
