@@ -29,19 +29,31 @@ const Header: React.FC = () => {
        }
   });  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const teacher_id = localStorage.getItem("teacher_id");
+
   const location = useLocation();
   
-   navigation.forEach((item) => {
-  if (item.to === "/event-main-page" || item.to === "/create-event") {
-    item.active = location.pathname.startsWith("/event") || location.pathname.startsWith("/create-event") || location.pathname === "/";
-  } else if (item.to === "/student-page" || item.to === "/teacher-page") {
-    item.active = location.pathname.startsWith("/student-page") || location.pathname.startsWith("/teacher-page");
-  } else {
-    item.active = item.to === location.pathname;
+  navigation.forEach((item) => {
+    if (item.to === "/event-main-page" || item.to === "/create-event") {
+      item.active = location.pathname.startsWith("/event") || location.pathname.startsWith("/create-event") || location.pathname === "/";
+    } else if (item.to === "/student-page" || item.to === "/teacher-page") {
+      item.active = location.pathname.startsWith("/student-page") || location.pathname.startsWith("/teacher-page");
+    } else {
+      item.active = item.to === location.pathname;
+    }
+  });
+  const findTeacherItem = navigation.find((item) => item.name === "Find_teacher");
+  if (findTeacherItem) {
+    if (findTeacherItem.active) {
+      // Check if teacher_id is available
+      if (teacher_id) {
+        findTeacherItem.to = "/teacher-page";
+      } else {
+        findTeacherItem.to = "/student-page";
+      }
+    }
   }
-});
-
+  
   
 
   return (

@@ -27,11 +27,11 @@ import 'animate.css';
 import PrivateRoute from "./utils/PrivateRoute";
 import BookMarkedEvents from "./pages/BookMarkedEvents"
 import JoinedEvents from "./pages/JoinedEvents"
-import EditTeacher from "./pages/EditTeacher"
+import CreateTeacher from "./pages/CreateTeacher"
 import BookedTeachers from "./pages/BookedTeachers";
-import ProfilePage from "./pages/ProfilePage";
 import SingleTeacherBooked from "./pages/SingleTeacherBooked";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
+import EditTeacher from "./pages/EditTeacher";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -124,11 +124,11 @@ function App() {
                   title = "";
                   metaDescription = "";
                   break;
-                  case "/edit-teacher":
+                  case "/create-teacher":
                     title = "";
                     metaDescription = "";
                     break;
-                    case "/profile-page":
+                    case "/edit-teacher":
                     title = "";
                     metaDescription = "";
                     break;
@@ -192,9 +192,9 @@ function App() {
         <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
         <Route path="/booked-mark" element={<BookMarkedEvents   />} />
         <Route path="/joined-events" element={<JoinedEvents   />} />
-        <Route path="/edit-teacher" element={<EditTeacher   />} />
+        <Route path="/create-teacher" element={<CreateTeacher   />} />
         <Route path="/booked-teacher" element={<BookedTeachers   />} />
-        <Route path="/profile-page" element={<ProfilePage   />} />
+        <Route path="/edit-teacher" element={<EditTeacher   />} />
         <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
 
       </Routes>
