@@ -28,10 +28,6 @@ import PrivateRoute from "./utils/PrivateRoute";
 import BookMarkedEvents from "./pages/BookMarkedEvents"
 import JoinedEvents from "./pages/JoinedEvents"
 import EditTeacher from "./pages/EditTeacher"
-import BookedTeachers from "./pages/BookedTeachers";
-import ProfilePage from "./pages/ProfilePage";
-import SingleTeacherBooked from "./pages/SingleTeacherBooked";
-import TeacherProfilePage from "./pages/TeacherProfilePage";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -128,14 +124,6 @@ function App() {
                     title = "";
                     metaDescription = "";
                     break;
-                    case "/profile-page":
-                    title = "";
-                    metaDescription = "";
-                    break;
-                    case "/teacher-profile-page":
-                    title = "";
-                    metaDescription = "";
-                    break;
 
     }
 
@@ -193,9 +181,6 @@ function App() {
         <Route path="/booked-mark" element={<BookMarkedEvents   />} />
         <Route path="/joined-events" element={<JoinedEvents   />} />
         <Route path="/edit-teacher" element={<EditTeacher   />} />
-        <Route path="/booked-teacher" element={<BookedTeachers   />} />
-        <Route path="/profile-page" element={<ProfilePage   />} />
-        <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
 
       </Routes>
     </div>
