@@ -1,28 +1,25 @@
 import React, { useState } from "react";
 import StudentListButton from "./StudentListButton";
 import {
-  faMapMarkerAlt,
   faPhoneAlt,
   faEnvelope,
-  faWifi,
-  faEnvelopeOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReschedulePop from "../components/ReschedulePop";
 interface StudentListProps {
   openModal: () => void;
   handleBookAppointment?: () => void;
+  userName?: string
+  email?: string
 }
-const StudentList: React.FC<StudentListProps> = ({ openModal }) => {
+const StudentList: React.FC<StudentListProps> = ({ openModal, userName, email }) => {
   const [showModal, setShowModal] = useState(false);
   const handleSelectTime = (selectedTime: string) => {
-    // Handle selected time logic
     console.log(`Selected Time: ${selectedTime}`);
   };
   const handleBookAppointment = () => {
-    setShowModal(false)
+    setShowModal(false);
     handleSelectTime("Default Appointment Time");
-    // Additional logic for booking an appointment
   };
   const buttons = [
     {
@@ -61,16 +58,16 @@ const StudentList: React.FC<StudentListProps> = ({ openModal }) => {
               />
               <div className="ml-3">
                 <p className="text-xs font-bold tracking-wide text-[#52FF86]  m-0 ">
-                  Vivek Kumar
+                  {userName}
                 </p>
                 <p className="text-[9.13px] font-normal text-[#838383] m-0">
                   Bogotá,Colombia
                 </p>
               </div>
             </div>
-            <div className="mt-4 p-2 ml-3">
-              <ul className="list-none m-0 p-0 ">
-                <li className="flex items-center mb-2  ">
+            <div className="p-2 mt-4 ml-3">
+              <ul className="p-0 m-0 list-none ">
+                <li className="flex items-center mb-2 ">
                   <FontAwesomeIcon
                     icon={faPhoneAlt}
                     className="w-4 h-4 rotate-90 animate__animated animate__heartBeat animate__repeat-3 "
@@ -80,9 +77,9 @@ const StudentList: React.FC<StudentListProps> = ({ openModal }) => {
                   </span>
                 </li>
                 <li className="flex items-center mb-2">
-                  <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4  " />
+                  <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4 " />
                   <span className="ml-6 font-normal text-[9.96px] leading-3 ">
-                    sheetalviven@gmail.com
+                    {email}
                   </span>
                 </li>
               </ul>
@@ -104,9 +101,12 @@ const StudentList: React.FC<StudentListProps> = ({ openModal }) => {
         </div>
       </div>
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 max-w-md mx-auto rounded-lg">
-           <ReschedulePop onSelectTime={handleSelectTime} onClose={handleBookAppointment} />
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
+          <div className="max-w-md p-8 mx-auto bg-white rounded-lg">
+            <ReschedulePop
+              onSelectTime={handleSelectTime}
+              onClose={handleBookAppointment}
+            />
           </div>
         </div>
       )}

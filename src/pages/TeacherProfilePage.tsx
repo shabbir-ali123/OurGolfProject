@@ -59,20 +59,6 @@ const TeacherProfile: React.FC = () => {
   return (
     <div className="py-8">
       <form onSubmit={(e) => e.preventDefault()}>
-        {/* <ProfileAvatar
-          pname=""
-          icon={<ShareIcon />}
-          label={t("FIRST_NAME")}
-          imageUrl={user.imageUrl || "/img/zozo.png"}
-          onChangeImage={(file) => {
-            console.log("Selected file:", file);
-          }}
-          placeholder={t("FIRST_NAME")}
-          colSpanSm={6}
-          colSpanMd={4}
-          colSpanLg={2}
-        /> */}
-
         <section className="h-full max-w-6xl mx-auto mt-6 text-center">
           <div className="w-full py-6 text-start">
             <label className="text-lg font-bold" htmlFor="aboutMe">
