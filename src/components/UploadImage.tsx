@@ -12,28 +12,27 @@ const FileUpload: React.FC = () => {
   };
 
   const onUpload = async () => {
-    // Handle file upload logic here
     if (selectedFile) {
       console.log('File uploaded:', selectedFile.name, selectedFile.size, selectedFile.type);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
+    <div className="max-w-md p-6 mx-auto mt-10 bg-white rounded-md shadow-md">
       <div className="mb-4">
-        <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">
+        <label htmlFor="file" className="block mb-2 text-sm font-bold text-gray-700">
           Select File
         </label>
         <input
           type="file"
           id="file"
           onChange={onFileChange}
-          className="w-full py-2 px-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
         />
       </div>
       <button
         onClick={onUpload}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
       >
         Upload
       </button>

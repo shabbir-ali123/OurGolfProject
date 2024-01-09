@@ -16,25 +16,19 @@ const TeacherProfile: React.FC = () => {
       const openModal = () => {
         setShowModal(true);
       };
-    
-      const closeModal = () => {
-        setShowModal(false);
-      };
       const handleSelectTime = (selectedTime: string) => {
      
         console.log(`Selected Time: ${selectedTime}`);
       };
   
       const handleBookAppointment = () => {
-        // Implement your logic for booking an appointment here
         console.log('Booking appointment logic');
       };
       const handleCloseModal = () => {
-        // Close the modal by updating the state
         setShowModal(false);
       };
   return (
-    <div className="grid grid-cols-11  gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
+    <div className="grid grid-cols-11 gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
      
       {/* Left Column */}
       <div className='col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft'>
@@ -51,7 +45,7 @@ const TeacherProfile: React.FC = () => {
       </div>
 
       {/* Middle Column */}
-      <div className='col-span-12 md:col-span-12 lg:col-span-12  xl:col-span-3 px-4 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen animate__animated animate__fadeInLeft'>
+      <div className='col-span-12 px-4 md:col-span-12 lg:col-span-12 xl:col-span-3 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen animate__animated animate__fadeInLeft'>
         <SearchAndFiltersStudent />
        
         {Array.from({ length: 4 }, (_, index) => (
@@ -97,8 +91,8 @@ const TeacherProfile: React.FC = () => {
         <StudentConDetail />
       </div>
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center ">
-          <div className="bg-white p-8 max-w-md mx-auto rounded-lg animate__animated animate__lightSpeedInRight">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 ">
+          <div className="max-w-md p-8 mx-auto bg-white rounded-lg animate__animated animate__lightSpeedInRight">
            <ReschedulePop onSelectTime={handleSelectTime} onClose={handleCloseModal} />
           </div>
         </div>

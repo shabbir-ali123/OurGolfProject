@@ -180,8 +180,8 @@ export default function Example() {
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full">
         <Tab.Group>
-          <Tab.List className="flex  justify-center items-center">
-            <div className="flex lg:flex-nowrap gap-6 py-2">
+          <Tab.List className="flex items-center justify-center">
+            <div className="flex gap-6 py-2 lg:flex-nowrap">
               {Object.keys(categories).map((category, index) => (
                 <Tab
                   key={category}
@@ -195,7 +195,7 @@ export default function Example() {
                     }`
                   }
                 >
-                  <div className="text-center md:flex items-center justify-center  ">
+                  <div className="items-center justify-center text-center md:flex ">
                     <div
                       className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[24px] md:font-bold md:w-16  md:h-16 text-[#52FF86] animate-bounce`}
                     >
