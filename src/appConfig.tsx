@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
   LOGIN: `${API_BASE_URL}/${API_VERSION}/login`,
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
   GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
+  UPDATEUSER: `${API_BASE_URL}/${API_VERSION}/update-profile`,
   GETALLEVENT: `${API_BASE_URL}/${API_VERSION}/getAllEvents`,
   PUBLICEVENTS: `${API_BASE_URL}/${API_VERSION}/get-public-events`,
   ADDCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-comment`,
