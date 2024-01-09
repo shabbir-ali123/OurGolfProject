@@ -33,10 +33,10 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.jwtToken);
         localStorage.setItem("id", response.data.id);
+        localStorage.setItem("teacher_id", response.data.teacherId)
         console.log(response.data, "hello");
         router("/event-main-page");
         window.location.reload();
-
       }
 
       setError(null);

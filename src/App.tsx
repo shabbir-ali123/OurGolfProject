@@ -27,7 +27,11 @@ import 'animate.css';
 import PrivateRoute from "./utils/PrivateRoute";
 import BookMarkedEvents from "./pages/BookMarkedEvents"
 import JoinedEvents from "./pages/JoinedEvents"
-import EditTeacher from "./pages/EditTeacher"
+import CreateTeacher from "./pages/CreateTeacher"
+// import BookedTeachers from "./pages/BookedTeachers";
+// import SingleTeacherBooked from "./pages/SingleTeacherBooked";
+import TeacherProfilePage from "./pages/TeacherProfilePage";
+import EditTeacher from "./pages/EditTeacher";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -35,6 +39,7 @@ function App() {
   const pathname = location.pathname;
   const [isDesktopScreen, setIsDesktopScreen] = useState(window.innerWidth > 768);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isTeacher, setIsTeacher] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -120,7 +125,15 @@ function App() {
                   title = "";
                   metaDescription = "";
                   break;
-                  case "/edit-teacher":
+                  case "/create-teacher":
+                    title = "";
+                    metaDescription = "";
+                    break;
+                    case "/edit-teacher":
+                    title = "";
+                    metaDescription = "";
+                    break;
+                    case "/teacher-profile-page":
                     title = "";
                     metaDescription = "";
                     break;
@@ -150,8 +163,13 @@ function App() {
   });
   const locations = useLocation();
 
- 
+  useEffect(() => {
+    const tch = localStorage.getItem('teacher_id')
+    const checkTeacher = tch && tch !== 'null' ? true : false;
+    setIsTeacher(checkTeacher)
+    console.log(checkTeacher, 'sdsd')
 
+  })  
 
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -169,7 +187,7 @@ function App() {
         <Route path="/student-page" element={token? <StudentPage  />:<LoginPage />} />
         <Route path="/event-main-page" element={<EventMainPage/>} />
         <Route path="/activties-page" element={token? <ActivtiesPage /> :<LoginPage />} />
-        <Route path="/teacher-page" element={token? <TeacherPage />:<LoginPage />} />
+        <Route path="/teacher-page" element={token ? isTeacher ? <TeacherPage /> : <CreateTeacher/> :<LoginPage/> } />
         <Route path="/student-page" element={token? <StudentPage />:<LoginPage />} />
         <Route path="/create-event"  element={token? <CreateEvent/>:<LoginPage />} />
         <Route path="/score-board" element={token? <ScoreBoard/>:<LoginPage />} />
@@ -180,7 +198,10 @@ function App() {
         <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
         <Route path="/booked-mark" element={<BookMarkedEvents   />} />
         <Route path="/joined-events" element={<JoinedEvents   />} />
+        <Route path="/create-teacher" element={<CreateTeacher   />} />
+        {/* <Route path="/booked-teacher" element={<BookedTeachers   />} /> */}
         <Route path="/edit-teacher" element={<EditTeacher   />} />
+        <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
 
       </Routes>
     </div>

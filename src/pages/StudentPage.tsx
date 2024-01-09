@@ -97,7 +97,6 @@ const StudentProfile: React.FC = () => {
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={handleSelectTab}
-          showTabs={true}
           description=""
           profilePic="/img/profile1.png"
           name="John Miler"

@@ -15,6 +15,7 @@ const Logout: React.FC = () => {
 
     localStorage.removeItem('token');
     localStorage.removeItem('id');
+    localStorage.removeItem('teacher_id');
     router('/login-page')    
 
     window.location.reload();

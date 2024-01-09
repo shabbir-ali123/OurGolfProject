@@ -51,3 +51,27 @@ export const fetchUser = async (setUser:any) => {
     throw error; 
   }
 };
+
+export const fetchTeacherByID = async (setUser:any) => {
+  try {
+    const token = localStorage.getItem("token");
+    const id = localStorage.getItem("id");
+    const teacher_id = localStorage.getItem("teacher_id");
+
+    const headers:any= {}
+    if (token) {
+      console.error("User not authenticated");
+      headers["Authorization"]=  `Bearer ${token}`
+
+    }
+    const response = await axios.get(token ? API_ENDPOINTS.GETTEACHERBYID + teacher_id : API_ENDPOINTS.PUBLICEVENTS, {
+      headers,
+      
+    });
+    setUser(response.data.teacher);
+    console.log(response.data.events); 
+
+  } catch (error) {
+    throw error; 
+  }
+};
