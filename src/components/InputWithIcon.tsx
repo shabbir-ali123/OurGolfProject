@@ -41,7 +41,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
             style={{ width: iconWidth, height: iconHeight }}
           >
             {icon}
-          </span>{" "}
+          </span>
           {label}
         </label>
         <input

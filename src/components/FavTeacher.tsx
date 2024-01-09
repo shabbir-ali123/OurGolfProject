@@ -1,9 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import axios from "axios"; // Import axios for API requests
+import { API_ENDPOINTS } from "../appConfig";
+interface Teacher {
+  count?: number;
+  teachers?: [];
+  aboutMyself?: string;
+  createdAt?: string | string[];
+  firstName?: string;
+  id?: string;
+  lastName?: string;
+  location?: string;
+  phoneNumber?: string;
+  schedules?: [];
+  updatedAt: string;
+  userId: string;
 
+}
 const FavoriteTeachers: React.FC = () => {
   const {t, i18n} = useTranslation();
   document.body.dir = i18n.dir();
+  const [favoriteTeachers, setFavoriteTeachers] = useState<Teacher[]>([]);
+  useEffect(() => {
+    const fetchFavoriteTeachers = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(API_ENDPOINTS.GETFAVORITETEACHER, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response, 'sdfd')
+
+        // if (response.data && response.data.teachers) {
+        //   setFavoriteTeachers(response.data.teachers);
+        // } else {
+        //   console.log("No favorite teachers found");
+        // }
+      } catch (error: any) {
+        console.error("Error fetching favorite teachers:", error.message);
+      }
+    };
+
+    fetchFavoriteTeachers();
+  }, []);
   const imageUrls = [
     "/img/ellipse-111@2x.png",
     "/img/ellipse-13@2x.png",
@@ -30,16 +71,11 @@ const FavoriteTeachers: React.FC = () => {
         </button>
       </div>
       <div className="relative flex flex-wrap justify-between gap-3 mx-auto my-4 auto-rows-max md:grid-flow-col lg:grid-flow-col xl:grid-flow-col">
-        {Array.from({ length: 9 }).map((_, index) => (
+      {favoriteTeachers.map((teacher: Teacher, index: number) => (
           <div key={index} className="relative">
             <div className="relative text-center">
               <div className="relative inline-block border-green-500 border-solid border-6">
-                <img
-                  className="absolute w-16 h-16 -mt-4 rounded-full"
-                  style={{ marginLeft: `-${index * 1}rem` }} // Adjust the unit as needed
-                  src={imageUrls[index % imageUrls.length]}
-                  alt=""
-                />
+               <h2>{teacher.id}</h2>
               </div>
             </div>
           </div>

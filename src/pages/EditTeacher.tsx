@@ -35,7 +35,7 @@ document.body.dir = i18n.dir();
     aboutMyself: "",
     firstName: "",
     lastName: "",
-    // email: "",
+    // Your Hourly Rate: "",
     phoneNumber: "",
     location: "",
     schedules: [
@@ -292,12 +292,11 @@ document.body.dir = i18n.dir();
                 colSpanLg={2}
               />
               <InputWithIcon
-                pname="email"
+                pname="hourlyRate"
                 icon={<EnvelopeOpenIcon />}
-                label={t('EMAIL')}
-                // value={formData.email}
+                label={t('Hourly')}
                 onChange={handleChange}
-                placeholder={t('ENTER_EMAIL')}
+                placeholder={t('ENTER_RATE')}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}

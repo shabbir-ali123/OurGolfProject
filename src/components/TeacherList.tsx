@@ -24,6 +24,8 @@ interface Teacher {
   schedules?: [];
   updatedAt: string;
   userId: string;
+  hourlyRate?: string;
+  isFavorite: boolean;
 }
 
 const TeacherList: React.FC<TeacherListProps> = ({
@@ -35,6 +37,55 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const addTeacherToFavorites = async (teacher: Teacher) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        API_ENDPOINTS.FAVORITETEACHER,
+        { teacherId: teacher.id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // You can handle the response if needed
+      console.log("Teacher added to favorites:", response.data);
+
+      // You may want to update your UI to reflect that the teacher is now a favorite
+    } catch (error) {
+      // Handle any errors here
+      console.error("Error adding teacher to favorites:", error);
+    }
+  };
+  const buttons = [
+    {
+      color: "bg-[#0038FF]",
+      title: "Book an Appointment",
+      icon: "/img/appointment.svg",
+      onClick: () => {
+        openModal();
+        if (handleBookAppointment) {
+          handleBookAppointment();
+        }
+      },
+    },
+    {
+      color: "bg-[#FF0000]",
+      title: "Like",
+      icon: "/img/like.svg",
+     
+    },
+
+    {
+      color: "bg-[#52FF86]",
+      title: "View Details",
+      icon: "/img/details.svg",
+      textColor: "#FF0000",
+    },
+  ];
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -79,41 +130,23 @@ const TeacherList: React.FC<TeacherListProps> = ({
     setShowModal(false);
     handleSelectTime("Default Appointment Time");
   };
-
+  const handleButtonAction = (btn: any, teacher: Teacher) => {
+    if (btn.title === "Like") {
+      addTeacherToFavorites(teacher);
+    } else if (btn.title === "Book an Appointment") {
+      openModal();
+      handleBookAppointment();
+    }
+  };
   const showTeacher = async (id: string) => {
     const teacherDetails = await getTeacherById(id);
 
     if (teacherDetails) {
-      console.log('Teacher details:', teacherDetails);
+      console.log("Teacher details:", teacherDetails);
     } else {
-      console.log('Failed to fetch teacher details.');
+      console.log("Failed to fetch teacher details.");
     }
   };
-
-  const buttons = [
-    {
-      color: "bg-[#0038FF]",
-      title: "Book an Appointment",
-      icon: "/img/appointment.svg",
-      onClick: () => {
-        openModal();
-        if (handleBookAppointment) {
-          handleBookAppointment();
-        }
-      },
-    },
-    {
-      color: "bg-[#FF0000]",
-      title: "Like",
-      icon: "/img/like.svg",
-    },
-    {
-      color: "bg-[#52FF86]",
-      title: "View Details",
-      icon: "/img/details.svg",
-      textColor: "#FF0000",
-    },
-  ];
 
   return (
     <>
@@ -180,20 +213,20 @@ const TeacherList: React.FC<TeacherListProps> = ({
               <div className="absolute top-[-2px] right-[-2px] flex  animate-pulse ">
                 <img className="w-16 " src="/img/teacher_rate.png" alt="" />
                 <span className="font-bold text-base tracking-wide absolute flex items-center justify-center w-full h-full ">
-                  ¥30
+                  ¥{teacher.hourlyRate}
                   <sub className="font-normal text-[5px] tracking-wide ">
                     Per/Hr
                   </sub>
                 </span>
               </div>
               <div className="gap-2">
-                {buttons.map((btn, index) => (
+                {buttons.map((btn: any, index: number) => (
                   <TeacherListButton
                     key={index}
                     color={btn.color}
                     title={btn.title}
                     icon={btn.icon}
-                    onClick={btn.onClick}
+                    onClick={() => handleButtonAction(btn, teacher)} // Pass the teacher as a parameter here
                     textColor={btn.textColor}
                   />
                 ))}
