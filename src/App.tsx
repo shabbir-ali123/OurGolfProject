@@ -32,6 +32,7 @@ import CreateTeacher from "./pages/CreateTeacher"
 // import SingleTeacherBooked from "./pages/SingleTeacherBooked";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
 import EditTeacher from "./pages/EditTeacher";
+import PostPage from "./pages/PostPage";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -137,6 +138,11 @@ function App() {
                     title = "";
                     metaDescription = "";
                     break;
+                    case "/post-page":
+                      title = "";
+                      metaDescription = "";
+                      break;
+  
 
     }
 
@@ -199,10 +205,10 @@ function App() {
         <Route path="/booked-mark" element={<BookMarkedEvents   />} />
         <Route path="/joined-events" element={<JoinedEvents   />} />
         <Route path="/create-teacher" element={<CreateTeacher   />} />
-        {/* <Route path="/booked-teacher" element={<BookedTeachers   />} /> */}
+     
         <Route path="/edit-teacher" element={<EditTeacher   />} />
         <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
-
+        <Route path="/post-page" element={<PostPage   />} />
       </Routes>
     </div>
     </ToastProvider>

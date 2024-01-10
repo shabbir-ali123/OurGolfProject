@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 const navigation = [
   { name: "Home", to: "/score-board", active: false },
-  { name: "Posts", to: "#", active: false },
+  { name: "Posts", to: "/post-page", active: false },
   { name: "Events", to: "/event-main-page", active: false },
   { name: "Find_teacher", to: "/student-page", active: false },
   
