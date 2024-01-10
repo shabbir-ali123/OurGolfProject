@@ -32,5 +32,12 @@ export interface SchedulesTabsProps {
   teacherId: number;
   updatedAt: string;
 }
-
+export type Post = {
+  id: string;
+  imageUrl: string;
+  text: string;
+  tags: string[];
+  commentsCount: number;
+  likesCount: number;
+};
 
