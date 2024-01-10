@@ -96,12 +96,12 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   };
   const handleBookAppointmentClick = () => {
     const isBooked = false;
-    const day= 'sunday';
     selectedTime.forEach((time, index) => {
       const [startTime, endTime] = time.split(" - ");
       const startTimeWithoutSpaces = startTime.replace(/\s/g, ''); 
       const endTimeWithoutSpaces = endTime.replace(/\s/g, ''); 
       const scheduleId = schedules[index]?.id;
+      const day = schedules.map((item: any) => item.shifts.map((time: any) => time.day));
       bookAppointment(scheduleId, day, startTimeWithoutSpaces, endTimeWithoutSpaces, isBooked);
     });
   };
