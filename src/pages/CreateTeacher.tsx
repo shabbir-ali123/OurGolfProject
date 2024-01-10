@@ -44,7 +44,7 @@ document.body.dir = i18n.dir();
         endDate: "",
         shifts: [
           {
-            day:"sunday", //to be fixed later 
+            day:"", 
             startTime: "",
             endTime: ""
           }
