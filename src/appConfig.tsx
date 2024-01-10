@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://3.23.206.168:5000";
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -25,5 +25,5 @@ export const API_ENDPOINTS = {
   GETUSERBOOKEDAPPOINTMENTS: `${API_BASE_URL}/${API_VERSION}/get-user-booked-appointments`,
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
-  ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, //ds
+  ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
 };
