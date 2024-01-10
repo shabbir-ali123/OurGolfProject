@@ -138,7 +138,6 @@ const TeacherList: React.FC<TeacherListProps> = ({
           handleBookAppointment();
         }
         break;
-      // Add other cases if needed
     }
   };
   const showTeacher = async (id: string) => {
