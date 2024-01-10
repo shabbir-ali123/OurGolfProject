@@ -20,10 +20,7 @@ export const fetchEvents = async (startDate:any, endDate:any, setEvents:any) => 
         eventEndDate: endDate ? formatDate(endDate) : "",
       },
     });
-
-    console.log(response.data.events); 
     setEvents(response.data.events);
-
   } catch (error) {
     throw error; 
   }

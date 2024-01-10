@@ -4,7 +4,7 @@ import IndiviualPlayerTableRow from "./IndiviualPlayerTableRow";
 import { useTranslation } from "react-i18next";
 
 const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   return (
     <div className="mt-20 mx-5 md:mx-[80px] my-20">
@@ -23,7 +23,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
             />
           </div>
           <div className="text-21xl text-darkslateblue-300 uppercase font-semibold [text-shadow:0px_7px_4px_#b8e4fd]">
-            {t('INDIVIUAL_SCORE')}
+            {t("INDIVIUAL_SCORE")}
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
         <div className="basis-1/2">
           <div className="flex  items-center justify-center basis-1/2 h-[80px] bg-[#0AA3BC]">
             <div className="font-medium text-white text-13xl">
-              {t('DRIVE_CONTEXT')}
+              {t("DRIVE_CONTEXT")}
             </div>
           </div>
           <IndiviualPlayerTableHeader />
@@ -43,7 +43,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
         <div className="basis-1/2">
           <div className=" flex items-center justify-center h-[80px] bg-[#0AA3BC]">
             <div className="font-medium text-white text-13xl">
-            {t('NEAR_CONTEXT')}
+              {t("NEAR_CONTEXT")}
             </div>
           </div>
           <IndiviualPlayerTableHeader />

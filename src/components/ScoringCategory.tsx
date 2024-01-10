@@ -82,9 +82,6 @@ document.body.dir = i18n.dir();
     setActiveTab(tab);
     setSelectedScoringType(tab);
 
-    console.log(selectedScoringType.includes(tab));
-    console.log
-    // Update checkbox state directly
     const updatedEvent = {
       target: {
         checked: !selectedScoringType.includes(tab),

@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
-import Toast from "./ToastMessage";
 import { useToast } from "../utils/ToastProvider";
 import { fetchEvents } from "../utils/fetchEvents";
 interface CommentModelProps {
@@ -83,8 +82,6 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
         },
       });
 
-      console.log("API Response:", response.data);
-
       if (response.status === 201) {
         showToast(response.data.message, "green");
 
@@ -121,13 +118,13 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
       <div
         id="popup-modal"
         tabIndex={-1}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-2xl mx-auto bg-white rounded-lg shadow-lg dark:bg-gray-700 p-4"
+        className="fixed z-50 w-full max-w-2xl p-4 mx-auto transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg top-1/2 left-1/2 dark:bg-gray-700"
       >
-        <div className="flex justify-between items-center mx-4">
+        <div className="flex items-center justify-between mx-4">
           <h2 className="mx-4">Add Your Comment</h2>
           <button
             type="button"
-            className="cursor-pointer text-white bg-blue-500 p-2 shadow-lg hover:bg-gray-200 hover:text-gray-900 rounded-full w-10 h-10 flex justify-center items-center "
+            className="flex items-center justify-center w-10 h-10 p-2 text-white bg-blue-500 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 hover:text-gray-900 "
             data-modal-hide="popup-modal"
             onClick={closeModal}
           >
@@ -150,8 +147,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           </button>
         </div>
 
-        <div className="relative p-4 max-h-full overflow-y-auto">
-          <form method="post" className="mx-4  ">
+        <div className="relative max-h-full p-4 overflow-y-auto">
+          <form method="post" className="mx-4 ">
             <input type="hidden" name="userId" />
             <input type="hidden" name="eventId" />
 
@@ -163,7 +160,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
               onChange={(e) =>
                 setFormData({ ...formData, content: e.target.value })
               }
-              className="w-full h-16 p-2 border border-gray-200 rounded-lg mb-4 focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
+              className="w-full h-16 p-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
             ></textarea>
             <div className="flex justify-start">
               <button
@@ -185,14 +182,14 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                 if (comment.eventId === eventId) {
                   return (
                     <div key={comment.id} className="py-4">
-                  <div className="flex justify-between items-center">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <img
                         className="w-10 h-10"
                         src="/img/ellipse-11@2x.png"
                         alt=""
                       />
-                      <h4 className="inline-flex items-center mr-2 text-sm text-gray-900 dark:text-white font-semibold">
+                      <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 dark:text-white">
                         {comment.userId}
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -202,7 +199,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                     <button
                       id="dropdownComment1Button"
                       data-dropdown-toggle="dropdownComment1"
-                      className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                      className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg dark:text-gray-400 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                       type="button"
                     >
                       <svg
@@ -218,7 +215,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                     </button>
                     <div
                       id="dropdownComment1"
-                      className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+                      className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-36 dark:bg-gray-700 dark:divide-gray-600"
                     >
                       <ul
                         className="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -227,7 +224,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                         <li>
                           <a
                             href="#"
-                            className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Edit
                           </a>
@@ -235,7 +232,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                         <li>
                           <a
                             href="#"
-                            className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Remove
                           </a>
@@ -243,7 +240,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                         <li>
                           <a
                             href="#"
-                            className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Report
                           </a>
@@ -253,13 +250,13 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                   </div>
 
                   <div>
-                    <p className="m-0 p-0 text-gray-500 dark:text-gray-400">
+                    <p className="p-0 m-0 text-gray-500 dark:text-gray-400">
                       {comment.content}
                     </p>
                     <div className="flex items-center mt-4 space-x-4">
                       <button
                         type="button"
-                        className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
+                        className="flex items-center text-sm font-medium text-gray-500 hover:underline dark:text-gray-400"
                       >
                         <svg
                           className="mr-1.5 w-3.5 h-3.5"
@@ -287,7 +284,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
               })}
 
               {event.comments.length > commentsToShow && (
-                <div className="text-center mt-4">
+                <div className="mt-4 text-center">
                   <button
                     className="text-blue-500 hover:underline"
                     onClick={loadMoreComments}

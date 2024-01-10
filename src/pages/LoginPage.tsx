@@ -34,7 +34,6 @@ const Login: React.FC = () => {
         localStorage.setItem("token", response.data.jwtToken);
         localStorage.setItem("id", response.data.id);
         localStorage.setItem("teacher_id", response.data.teacherId)
-        console.log(response.data, "hello");
         router("/event-main-page");
         window.location.reload();
       }

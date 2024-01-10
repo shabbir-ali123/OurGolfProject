@@ -44,7 +44,7 @@ document.body.dir = i18n.dir();
         endDate: "",
         shifts: [
           {
-            day:"", 
+            day:"sunday", //to be fixed later 
             startTime: "",
             endTime: ""
           }
@@ -109,8 +109,8 @@ document.body.dir = i18n.dir();
     const schedulesData = selectedTimeSlots.map((timeSlot) => {
       const [timeRange, , date] = timeSlot.split(' on ');
       const [startTime, endTime] = timeRange.split(' to ');
-      const day = new Date(date).getDay(); 
-  console.log(timeSlot,"form")
+      const day = timeSlot.split('on ')[1].split(' -')[0].trim();
+
       return {
         startDate: selectedWeekStart?.toISOString(),
         endDate: selectedWeekStart?.toISOString(), 
@@ -134,10 +134,7 @@ document.body.dir = i18n.dir();
         },
       });
 
-      console.log("API Response:", response.data);
-
       if (response.status === 201) {
-        console.log("Event created successfullygreen");
         localStorage.setItem("teacher_id", response.data.teacher.id);
       } else {
         alert("Error Occurred");
@@ -182,7 +179,6 @@ document.body.dir = i18n.dir();
             )
           : [...dayStates]
       );
-      console.log(day, time, hourIndex, "handleclick");
       return newActiveStates;
     });
 
@@ -210,10 +206,9 @@ document.body.dir = i18n.dir();
     const dateParts = dateFormatter.formatToParts(date);
     const dayName = dateParts.find((part) => part.type === "weekday")?.value || ""; // Provide a default value ("") if dayName is undefined
     toggleAvailability(dayName, hour, hourIndex);
-    console.log(dayName, "date key", hour, "hour", hourIndex, "new");
   
     const newShift = {
-      day: dayName, // Use dayName here (it now has a default value)
+      day: 'sunday', // Use dayName here (it now has a default value)
       startTime: hour,
       endTime: "", // You can adjust the end time as needed
     };
@@ -244,7 +239,6 @@ document.body.dir = i18n.dir();
         label={t('FIRST_NAME')}
         imageUrl="https://example.com/api/profile-image/john"
         onChangeImage={(file) => {
-          // Handle the new image file here, e.g., upload it to the server
           console.log("Selected file:", file);
         }}
         placeholder={t('FIRST_NAME')}

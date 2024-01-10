@@ -159,7 +159,6 @@ function App() {
       }
     }
   }, [pathname]);
-  const history = useNavigate();
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -167,13 +166,11 @@ function App() {
     if (storedToken) {
       setToken(storedToken);    }
   });
-  const locations = useLocation();
 
   useEffect(() => {
     const tch = localStorage.getItem('teacher_id')
     const checkTeacher = tch && tch !== 'null' ? true : false;
     setIsTeacher(checkTeacher)
-    console.log(checkTeacher, 'sdsd')
 
   })  
 

@@ -21,21 +21,17 @@ export default function ProfileButton() {
     ja: { displayName: "Japan" },
   };
 
-  console.log(i18n.resolvedLanguage, "lang");
   useEffect(() => {
     const userId = localStorage.getItem("id");
     getUser(userId)
       .then((userData) => {
-        console.log("User data:", userData.user);
         setUser(userData.user);
       })
       .catch((error) => {
-        // Handle errors
         console.error("Error:", error);
       });
   }, []);
 
-  console.log(user?.email, "wemadsfs");
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDotClick = () => {
@@ -69,13 +65,10 @@ export default function ProfileButton() {
         },
       });
 
-      console.log(response.data.user.nickName, "zzinda");
-      // Assuming your API returns data in the response.data property
       return response.data;
     } catch (error) {
-      // Handle errors here
       console.error("Error fetching user:", error);
-      throw error; // You might want to handle this error in your component
+      throw error; 
     }
   };
   return (

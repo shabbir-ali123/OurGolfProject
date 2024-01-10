@@ -25,5 +25,5 @@ export const API_ENDPOINTS = {
   GETUSERBOOKEDAPPOINTMENTS: `${API_BASE_URL}/${API_VERSION}/get-user-booked-appointments`,
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
-  ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}//accept-appointment`,
+  ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, //ds
 };

@@ -11,17 +11,14 @@ export const getTeacherById = async (teacherId:any) => {
       },
     });
 
-    console.log('Teacher Details:', response.data);
 
     if ('error' in response.data) {
-      console.error('API Error:', response.data.error);
       return null;
     }
 
     return response.data;
   } catch (error) {
     console.error('Error fetching teacher details:');
-    console.log('Detailed Error:', error);
     return null;
   }
 };
