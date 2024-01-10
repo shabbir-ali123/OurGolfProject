@@ -37,7 +37,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const addTeacherToFavorites = async (teacher: Teacher) => {
+  const toggleFavoriteStatus = async (teacher: Teacher) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -50,14 +50,15 @@ const TeacherList: React.FC<TeacherListProps> = ({
           },
         }
       );
-
-      // You can handle the response if needed
-      console.log("Teacher added to favorites:", response.data);
-
-      // You may want to update your UI to reflect that the teacher is now a favorite
+  
+      console.log("Teacher favorite status toggled:", response.data);
+      setTeachers(prevTeachers =>
+        prevTeachers.map(t =>
+          t.id === teacher.id ? { ...t, isFavorite: !t.isFavorite } : t
+        )
+      );
     } catch (error) {
-      // Handle any errors here
-      console.error("Error adding teacher to favorites:", error);
+      console.error("Error toggling favorite status:", error);
     }
   };
   const buttons = [
@@ -130,12 +131,18 @@ const TeacherList: React.FC<TeacherListProps> = ({
     setShowModal(false);
     handleSelectTime("Default Appointment Time");
   };
-  const handleButtonAction = (btn: any, teacher: Teacher) => {
-    if (btn.title === "Like") {
-      addTeacherToFavorites(teacher);
-    } else if (btn.title === "Book an Appointment") {
-      openModal();
-      handleBookAppointment();
+  const handleButtonAction = (btnTitle: string, teacher: Teacher) => {
+    switch (btnTitle) {
+      case "Like":
+        toggleFavoriteStatus(teacher);
+        break;
+      case "Book an Appointment":
+        openModal();
+        if (handleBookAppointment) {
+          handleBookAppointment();
+        }
+        break;
+      // Add other cases if needed
     }
   };
   const showTeacher = async (id: string) => {
@@ -147,7 +154,12 @@ const TeacherList: React.FC<TeacherListProps> = ({
       console.log("Failed to fetch teacher details.");
     }
   };
-
+  const getButtonStyle = (btnTitle: string, isFavorite: boolean) => {
+    if (btnTitle === "Like") {
+      return isFavorite ? "bg-yellow-400" : "bg-[#FF0000]";
+    }
+    // Add other conditions if needed
+  };
   return (
     <>
       {teachers.length === 0 ? (
@@ -220,17 +232,31 @@ const TeacherList: React.FC<TeacherListProps> = ({
                 </span>
               </div>
               <div className="gap-2">
-                {buttons.map((btn: any, index: number) => (
-                  <TeacherListButton
-                    key={index}
-                    color={btn.color}
-                    title={btn.title}
-                    icon={btn.icon}
-                    onClick={() => handleButtonAction(btn, teacher)} // Pass the teacher as a parameter here
-                    textColor={btn.textColor}
-                  />
-                ))}
-              </div>
+              <TeacherListButton
+                color="bg-[#0038FF]"
+                title="Book an Appointment"
+                icon="/img/appointment.svg"
+                onClick={() => {
+                  openModal();
+                  if (handleBookAppointment) {
+                    handleBookAppointment();
+                  }
+                }}
+              />
+              <TeacherListButton
+                color={teacher.isFavorite ? "bg-black" : "bg-[#FF0000]"}
+                title="Like"
+                icon="/img/like.svg"
+                onClick={() => handleButtonAction("Like", teacher)}
+              />
+              <TeacherListButton
+                color="bg-[#52FF86]"
+                title="View Details"
+                icon="/img/details.svg"
+                textColor="#FF0000"
+                onClick={() => handleButtonAction("View Details", teacher)}
+              />
+            </div>
             </div>
           </div>
         ))

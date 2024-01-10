@@ -8,7 +8,7 @@ const PostPage: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   return (
-    <div className="font-poppins max-w-6xl mx-auto h-[100vh] flex justify-center mt-10">
+    <div className="font-poppins max-w-6xl mx-auto h-full flex justify-center mt-10">
       <div>
         <PostHeader />
         <PostProfile />

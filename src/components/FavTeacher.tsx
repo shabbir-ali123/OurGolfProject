@@ -78,7 +78,7 @@ const FavoriteTeachers: React.FC = () => {
     <div key={index} className="teacher-card">
      
       <p>{teacher.teacherId}</p>
-      <p>{teacher.teacherId}</p>
+     
      
 
      
