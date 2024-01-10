@@ -53,7 +53,6 @@ const LiveEvents: React.FC = () => {
         currentDate.setHours(0, 0, 0, 0)
       );
     });
-    console.log("Today's Events:", todayEvents);
 
     const indexOfLastEvent = currentPage * itemsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
@@ -140,7 +139,7 @@ const LiveEvents: React.FC = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">
         <Table events={localEvents} handleLike={handleLike} />
         <Pagination

@@ -1,6 +1,5 @@
 import { FunctionComponent, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Calendar from "./Calender"
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const AllEventTabs: FunctionComponent = () => {
   const {t, i18n} = useTranslation();

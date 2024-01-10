@@ -46,7 +46,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     return { slots, isBooked };
   };
   const initialTimeSlots = generateTimeSlots();
-  console.log(initialTimeSlots.isBooked, 's')
   const [timeSlots, setTimeSlots] = useState<string[]>(initialTimeSlots.slots);
   const [selectedTime, setSelectedTime] = useState<string[]>([]);
   const [bookedSlots, setBookedSlots] = useState<boolean[]>(initialTimeSlots.isBooked);
@@ -93,20 +92,18 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
       console.log("Appointment booked successfully", response.data);
     } catch (error) {
       console.error("Error booking appointment", error);
-      // Handle errors
     }
   };
   const handleBookAppointmentClick = () => {
     const isBooked = false;
-    const day= null;
+    const day= 'sunday';
     selectedTime.forEach((time, index) => {
       const [startTime, endTime] = time.split(" - ");
-      const startTimeWithoutSpaces = startTime.replace(/\s/g, ''); // Removes all spaces
-      const endTimeWithoutSpaces = endTime.replace(/\s/g, ''); // Removes all spaces
+      const startTimeWithoutSpaces = startTime.replace(/\s/g, ''); 
+      const endTimeWithoutSpaces = endTime.replace(/\s/g, ''); 
       const scheduleId = schedules[index]?.id;
       bookAppointment(scheduleId, day, startTimeWithoutSpaces, endTimeWithoutSpaces, isBooked);
     });
-   
   };
 
 

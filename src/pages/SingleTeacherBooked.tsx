@@ -51,9 +51,6 @@ const SingleTeacherBooked: React.FC<SingleTeacherBookedProps> = ({
             pageSize: 20,
           },
         });
-
-        console.log(response.data.bookedAppointments, "asdasd"); // Log the data to check its structure
-
         setTeachers(response.data.bookedAppointments);
         setLoading(false);
       } catch (error: any) {
@@ -108,7 +105,6 @@ const SingleTeacherBooked: React.FC<SingleTeacherBookedProps> = ({
     },
   ];
 
-  console.log({teachers})
   return (
     <>
 

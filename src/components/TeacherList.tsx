@@ -51,12 +51,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
         }
       );
 
-      // You can handle the response if needed
-      console.log("Teacher added to favorites:", response.data);
-
-      // You may want to update your UI to reflect that the teacher is now a favorite
     } catch (error) {
-      // Handle any errors here
       console.error("Error adding teacher to favorites:", error);
     }
   };
@@ -100,8 +95,6 @@ const TeacherList: React.FC<TeacherListProps> = ({
             pageSize: 20,
           },
         });
-
-        console.log(response.data.teachers, "asdasd"); // Log the data to check its structure
 
         setTeachers(response.data.teachers);
         setLoading(false);
@@ -176,8 +169,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
                     </p>
                   </div>
                 </div>
-                <div className="mt-2 p-2 ml-3">
-                  <ul className="list-none m-0 p-0">
+                <div className="p-2 mt-2 ml-3">
+                  <ul className="p-0 m-0 list-none">
                     <li className="flex items-center mb-2">
                       <img
                         className="w-[22.39px] h-[12.45px]  "
@@ -188,7 +181,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
                         4.5(1300 ratings)
                       </span>
                     </li>
-                    <li className="flex items-center mb-2  animate__animated animate__fadeInRight">
+                    <li className="flex items-center mb-2 animate__animated animate__fadeInRight">
                       <FontAwesomeIcon
                         icon={faPhoneAlt}
                         className="w-4 h-4 rotate-90 animate__animated animate__heartBeat animate__repeat-3"
@@ -212,7 +205,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
 
               <div className="absolute top-[-2px] right-[-2px] flex  animate-pulse ">
                 <img className="w-16 " src="/img/teacher_rate.png" alt="" />
-                <span className="font-bold text-base tracking-wide absolute flex items-center justify-center w-full h-full ">
+                <span className="absolute flex items-center justify-center w-full h-full text-base font-bold tracking-wide ">
                   ¥{teacher.hourlyRate}
                   <sub className="font-normal text-[5px] tracking-wide ">
                     Per/Hr
@@ -236,8 +229,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
         ))
       )}
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 max-w-md mx-auto rounded-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
+          <div className="max-w-md p-8 mx-auto bg-white rounded-lg">
             <ReschedulePop
               onSelectTime={handleSelectTime}
               onClose={handleBookAppointment}

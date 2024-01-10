@@ -171,7 +171,6 @@ function App() {
     const tch = localStorage.getItem('teacher_id')
     const checkTeacher = tch && tch !== 'null' ? true : false;
     setIsTeacher(checkTeacher)
-    console.log(checkTeacher, 'sdsd')
 
   })  
 

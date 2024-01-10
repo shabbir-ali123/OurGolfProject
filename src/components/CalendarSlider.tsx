@@ -51,7 +51,6 @@ const getEndOfWeek = (date: Date): Date => {
   const endOfWeek = new Date(date);
 
   endOfWeek.setDate(date.getDate() + 6);
-  console.log(date.getDate() ,"getEndWeek",date.getDay() )
   return endOfWeek;
 };
 
@@ -92,7 +91,6 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
 
   const handleDayClick = (dayIndex: number) => {
     const selectedDate = new Date(weeks[selectedWeekIndex].date);
-    console.log(selectedDate.getDate() ,'    ' , dayIndex);
     selectedDate.setDate( dayIndex +1);
   
     // Calculate start and end of the selected week

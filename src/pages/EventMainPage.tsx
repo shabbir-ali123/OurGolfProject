@@ -10,7 +10,7 @@ import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
 const EventMainPage: FunctionComponent = () => {
   const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+  document.body.dir = i18n.dir();
   const [events, setEvents] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
@@ -58,7 +58,6 @@ document.body.dir = i18n.dir();
       prevSelectedLocations.filter((location) => location !== locationToRemove)
     );
   };
-  console.log(selectedLocations, "babu");
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">

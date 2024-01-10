@@ -10,10 +10,6 @@ interface Category {
 }
 
 export default function Example() {
-  const customGradientStyle = {
-    background:
-      "linear-gradient(180deg, rgb(9.7, 232.69, 76.72) 0%, rgb(0, 165.75, 49.82) 100%)",
-  };
   const [categories] = useState({
     PreviousActivities: [
       {

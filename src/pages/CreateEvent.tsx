@@ -147,8 +147,6 @@ document.body.dir = i18n.dir();
         },
       });
 
-      console.log("API Response:", response.data);
-
       if (response.status === 201) {
         showToast("Event created successfully", "green");
 
@@ -179,7 +177,6 @@ document.body.dir = i18n.dir();
       ...formDataUpdate,
       paymentType,
     }));
-    console.log("Payment Details Change", formDataUpdate, paymentType);
   };
   const handleRecruitmentTabsChange = (formDataUpdate: any, eventType: Tab) => {
     // Update your state or perform other actions based on the received data
@@ -188,7 +185,6 @@ document.body.dir = i18n.dir();
       ...formDataUpdate,
       eventType,
     }));
-    console.log("Recruitment Details Change", formDataUpdate, eventType);
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {

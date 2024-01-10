@@ -11,20 +11,31 @@ interface StudentListProps {
   handleBookAppointment?: () => void;
   userName?: string;
   email?: string;
+  scheduleId?: number,
+  day?: string,
+  startTime?: string,
+  endTime?: string,
+  status?: string
 }
 const StudentList: React.FC<StudentListProps> = ({
   openModal,
   userName,
   email,
+  scheduleId,
+  day,
+  startTime,
+  endTime,
+  status
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [bookAppointment, setBookAppointment] = useState({
-    scheduleId: "",
-    day: "",
-    startTime: "",
-    endTime: "",
-    status: ""
-  })
+    scheduleId: 1,
+    day: 'sunday',
+    startTime: "14:00",
+    endTime: "15:00",
+    status: "active",
+  });
+  console.log(scheduleId, 'hunzaiiiii')
   const handleSelectTime = (selectedTime: string) => {
     console.log(`Selected Time: ${selectedTime}`);
   };
@@ -43,21 +54,29 @@ const StudentList: React.FC<StudentListProps> = ({
   const handleAcceptClick = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
+      const userId = localStorage.getItem('id')
+      const response = await axios.post(API_ENDPOINTS.ACCEPTAPPOINTMENT, {scheduleId, day, startTime, endTime, status}, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
 
-      const response = await axios.post(API_ENDPOINTS.BOOKAPPOINTMENT, bookAppointment);
-
-      if (response.status === 200) {
-        console.log(response.data)
+        params: {
+          userId: userId
+        }
+      });
+      if(response.status === 200) {
+        alert('Accepted Successfully')
       }
     } catch (error) {
       alert(
         (error as any)?.response?.data?.message || "We are not able to Login"
       );
     } finally {
-      console.log('okays')
+      console.log("okays");
     }
   };
-  
+
   return (
     <>
       <div className="mt-6 cursor-pointer animate__animated animate__fadeInLeft">
@@ -104,26 +123,16 @@ const StudentList: React.FC<StudentListProps> = ({
               className={`bg-[#0038FF] text-[#ffffff] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
               onClick={handleAcceptClick}
             >
-              <img className="mr-1" src={'acceptIcon'} alt="" />
+              <img className="mr-1" src={"acceptIcon"} alt="" />
               <span>Accept</span>
             </button>{" "}
             <button
               className={`bg-[#FF0000] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
               onClick={handleRejectClick}
             >
-              <img className="mr-1" src={'rejectIcon'} alt="" />
+              <img className="mr-1" src={"rejectIcon"} alt="" />
               <span>Reject</span>
             </button>
-            {/* {buttons.map((btn, index) => (
-              <StudentListButton
-                key={index}
-                color={btn.color}
-                title={btn.title}
-                icon={btn.icon}
-                onClick={btn.onClick}
-                textColor={btn.textColor}
-              />
-            ))} */}
           </div>
         </div>
       </div>

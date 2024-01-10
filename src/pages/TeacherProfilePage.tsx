@@ -1,18 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import {
-  EnvelopeOpenIcon,
   UserIcon,
   PhoneIcon,
   MapPinIcon,
-  ShareIcon,
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/InputWithIcon";
-import ProfileAvatar from "../components/ProfileAvatar";
-import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
-import { fetchUser } from "../utils/fetchEvents";
 
 const TeacherProfile: React.FC = () => {
   const { t, i18n } = useTranslation();

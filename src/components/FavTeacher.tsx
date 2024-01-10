@@ -35,12 +35,11 @@ const FavoriteTeachers: React.FC = () => {
           },
         });
         console.log(response.data, "babuuu");
-        if(response.status === 200){
+        if (response.status === 200) {
           setFavoriteTeachers(response.data.favoriteTeachers);
-        }else{
+        } else {
           return "get error";
         }
-      
       } catch (error: any) {
         console.error("Error fetching favorite teachers:", error.message);
       }
@@ -74,16 +73,12 @@ const FavoriteTeachers: React.FC = () => {
         </button>
       </div>
       <div className="relative flex flex-wrap justify-between gap-3 mx-auto my-4 auto-rows-max md:grid-flow-col lg:grid-flow-col xl:grid-flow-col">
-      {favoriteTeachers.map((teacher, index) => (
-    <div key={index} className="teacher-card">
-     
-      <p>{teacher.teacherId}</p>
-      <p>{teacher.teacherId}</p>
-     
-
-     
-    </div>
-  ))}
+        {favoriteTeachers.map((teacher, index) => (
+          <div key={index} className="teacher-card">
+            <p>{teacher.teacherId}</p>
+            <p>{teacher.teacherId}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
