@@ -16,7 +16,6 @@ const TeacherProfile: React.FC = () => {
     aboutMyself: "",
     firstName: "",
     lastName: "",
-    // Your Hourly Rate: "",
     phoneNumber: "",
     location: "",
    
@@ -36,7 +35,7 @@ const TeacherProfile: React.FC = () => {
 
       const response = await axios.put(
         `${API_ENDPOINTS.UPDATEUSER}`,
-        formData, // Send the updated user data in the request body
+        formData, 
         {
           headers,
           params:{

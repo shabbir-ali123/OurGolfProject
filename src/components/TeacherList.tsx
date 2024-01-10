@@ -153,7 +153,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
     if (btnTitle === "Like") {
       return isFavorite ? "bg-yellow-400" : "bg-[#FF0000]";
     }
-    // Add other conditions if needed
+  
   };
   return (
     <>
