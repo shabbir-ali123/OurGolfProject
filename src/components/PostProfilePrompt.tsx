@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaceSmileIcon,
   PhotoIcon,
   VideoCameraIcon
 } from "@heroicons/react/24/solid";
+import PostModal from "../components/PostModel"
 const ProfilePrompt: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
+    <>
     <div className="bg-white p-4 my-4 rounded-lg border-2 border-solid border-[#51ff85]">
       <div className="flex items-center space-x-4 p-4">
         <img
@@ -17,6 +23,7 @@ const ProfilePrompt: React.FC = () => {
           type="text"
           placeholder="What's on your mind, Vinayaka?"
           className="flex-1 border-2 border-solid border-[#51ff85] rounded-full py-2 px-4 focus:outline-none focus:border-green-300"
+          onFocus={openModal}
         />
       </div>
 
@@ -44,6 +51,11 @@ const ProfilePrompt: React.FC = () => {
         </button>
       </div>
     </div>
+    {isModalOpen && (
+        <PostModal closeModal={closeModal} />
+      )}
+    </>
+    
   );
 };
 

@@ -179,7 +179,7 @@ const SideMenu: React.FC = () => {
               />
             </svg>
           </div>
-          <div className=" mt-24">
+          <div className="mt-24" style={{ width: isMenuOpen ? "100%" : "36px" }}>
             <Link to="/score-board" className="w-full ">
               <div
                 style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
@@ -350,7 +350,7 @@ const SideMenu: React.FC = () => {
               />
             </svg>
           </div>
-          <div className="mt-24q">
+          <div className="mt-24" style={{ width: isMenuOpen ? "100%" : "36px" }}>
             <Link to="/score-board" className="w-full ">
               <div
                 style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
