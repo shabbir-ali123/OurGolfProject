@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { faPhoneAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReschedulePop from "../components/ReschedulePop";
-import { getTeacherById } from "../utils/getTeacherById";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import TeacherListButton from "../components/TeacherListButton";
-import BookedTeachers from './BookedTeachers';
-import TeacherConDetail from "../components/TeacherConDetail";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 interface SingleTeacherBookedProps {
   openModal: () => void;
@@ -54,7 +53,7 @@ const SingleTeacherBooked: React.FC<SingleTeacherBookedProps> = ({
         setTeachers(response.data.bookedAppointments);
         setLoading(false);
       } catch (error: any) {
-        setError(error.message);
+        toast.error(error.message, toastProperties as ToastConfig);
         setLoading(false);
       }
     };

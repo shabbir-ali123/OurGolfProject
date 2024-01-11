@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_ENDPOINTS } from "../appConfig";
-import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 
 const Logout: React.FC = () => {

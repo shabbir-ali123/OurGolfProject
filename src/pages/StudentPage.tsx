@@ -9,6 +9,8 @@ import TeacherConDetail from "../components/TeacherConDetail";
 import ReschedulePop from "../components/ReschedulePop";
 import axios from "axios";  
 import { API_ENDPOINTS } from "../appConfig";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 interface Teacher {
   count?: number;
   teachers?: [];
@@ -71,11 +73,9 @@ const StudentProfile: React.FC = () => {
         if (response.data && response.data.teachers && response.data.teachers.length > 0) {
           setTeachers(response.data.teachers); 
           setSelectedTeacher(response.data.teachers[0]); 
-        } else {
-          console.log('No teachers found');
-        }
+        } 
       } catch (error: any) {
-        console.error('Error fetching teachers:', error.message);
+        toast.error(`Error Fetching Teachers ${error.message}`, toastProperties as ToastConfig);
       }
     };
   
@@ -107,8 +107,7 @@ const StudentProfile: React.FC = () => {
         <FavTeachers />
       </div>
 
-      {/* Middle Column */}
-      <div className="col-span-12 md:col-span-12 lg:col-span-3  xl:col-span-3 p-4 lg:overflow-y-auto scrollbar lg:max-h-screen ">
+      <div className="col-span-12 p-4 md:col-span-12 lg:col-span-3 xl:col-span-3 lg:overflow-y-auto scrollbar lg:max-h-screen ">
         <SearchAndFiltersEducator />
 
         
@@ -146,8 +145,8 @@ const StudentProfile: React.FC = () => {
   {selectedTeacher && <TeacherConDetail teacherDetails={selectedTeacher} />}
 </div>
       {showModal && (
-        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center ">
-          <div className="bg-white p-8 max-w-md mx-auto rounded-lg animate__animated animate__fadeInLeft">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 ">
+          <div className="max-w-md p-8 mx-auto bg-white rounded-lg animate__animated animate__fadeInLeft">
             <ReschedulePop
               onSelectTime={handleSelectTime}
               onClose={handleCloseModal}

@@ -102,11 +102,6 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
       month: 'numeric',
       day: 'numeric',
     };
-  
-    console.log("Selected Date:", selectedDate.toLocaleDateString("en-US", dateFormatOptions));
-    console.log("Start of Week:", startOfWeek.toLocaleDateString("en-US", dateFormatOptions));
-    console.log("End of Week:", endOfWeek.toLocaleDateString("en-US", dateFormatOptions));
-  
     setSelectedDay(dayIndex);
     onWeekSelected(startOfWeek);
   };

@@ -15,6 +15,8 @@ module.exports = {
       },
     },
     extend: {
+      opacity: ['disabled'],
+      border: ['disabled'],
       colors: {
         white: "#fff",
         red:"#ff0000",

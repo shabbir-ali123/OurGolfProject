@@ -5,6 +5,8 @@ import { formatDate } from "../utils/getStartedDate";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import EventMap from "../components/EventMap";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 interface Event {
   id: string;
@@ -111,7 +113,6 @@ const PastEvents: React.FC = (props: any) => {
         }
       );
 
-      // Update the pastEvents state
       setPastEvents((prevPastEvents) =>
         prevPastEvents.map((e) =>
           e.id === event.id
@@ -141,12 +142,12 @@ const PastEvents: React.FC = (props: any) => {
         [event.id]: newCounter,
       }));
     } catch (error) {
-      console.error("Error updating like:", error);
+      toast.error(`Error updating like: ${error}`, toastProperties as ToastConfig);
     }
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">
         <Table events={visibleEvents} handleLike={handleLike} />
         <Pagination

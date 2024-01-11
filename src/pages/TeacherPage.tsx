@@ -8,6 +8,8 @@ import StudentConDetail from "../components/StudentConDetail";
 import ReschedulePop from "../components/ReschedulePop";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 interface Teacher {
   count?: number;
   teachers?: [];
@@ -53,11 +55,9 @@ const TeacherProfile: React.FC = () => {
             ? response.data.bookedAppointments
             : [response.data.bookedAppointments];
           setSelectedTeacher(teachers);
-        } else {
-          console.log("No teachers found");
         }
       } catch (error: any) {
-        console.error("Error fetching teachers:", error.message);
+        toast.error(`Error Fetching Teachers ${error.message}`, toastProperties as ToastConfig);
       }
     };
     fetchTeachers();
@@ -79,7 +79,6 @@ const TeacherProfile: React.FC = () => {
   };
   return (
     <div className="grid grid-cols-11 gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
-      {/* Left Column */}
       <div className="col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft">
         <StudentTabs
           selectedTab={selectedTab}
@@ -92,7 +91,6 @@ const TeacherProfile: React.FC = () => {
         <StudentEventBoxes />
         <TeacherCalSec />
       </div>
-      {/* Middle Column */}
       <div className="col-span-12 px-4 md:col-span-12 lg:col-span-12 xl:col-span-3 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen animate__animated animate__fadeInLeft">
         <SearchAndFiltersStudent />
         {selectedTeacher.map((item: any, index: any) => {
@@ -130,7 +128,6 @@ const TeacherProfile: React.FC = () => {
                 }
             `}</style>
       </div>
-      {/* Right Column */}
       <div className="col-span-12 xl:col-span-4 p-4  bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight ">
         <StudentTabs
           selectedTab={selectedTab}

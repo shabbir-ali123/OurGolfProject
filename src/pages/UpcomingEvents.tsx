@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
-import { formatDate } from "../utils/getStartedDate";
 import Table from "../components/Table";
-import {
-  ChatBubbleBottomCenterIcon,
-  HandThumbUpIcon,
-  MapPinIcon,
-  PlusIcon,
-  ShareIcon,
-} from "@heroicons/react/24/outline";
 import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
 interface Event {
@@ -40,7 +32,6 @@ const UpcomingEvents:  React.FC<TabsProps> = ({ events, setEvents }: TabsProps) 
   
   const fetchUpcomingEvents = async (page: any) => {
     try {
-      const currentDate = new Date();
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -77,13 +68,11 @@ const UpcomingEvents:  React.FC<TabsProps> = ({ events, setEvents }: TabsProps) 
   const endIndex = Math.min(startIndex + pageSize, totalEvents);
 
   const visibleEvents = UpcomingEvents.slice(startIndex, endIndex);
-   // Define the handleLike function
  const handleLike = (eventId: string) => {
-  // Implement your like logic here
   console.log(`Liked event with ID: ${eventId}`);
 };
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">
         <div className="animate__animated animate__fadeInLeft">
         <Table events={visibleEvents} handleLike={handleLike}  />

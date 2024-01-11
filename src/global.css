@@ -100,10 +100,7 @@ a {
 .filehidden::file-selector-button {
   display: none;
 }
-.selected-tab {
-  background-color: #your-selected-color;
-  color: #your-text-color;
-}
+
 .actives {
   color: black;
   background:#51ff85; 
@@ -116,6 +113,11 @@ a {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 1);
+}
+button:disabled{
+  border: 1px solid grey;
+  color: grey;
+  border-radius: 20px;
 }
 
 

@@ -15,6 +15,7 @@ export interface TeacherDetailsProp {
 
 // Define the 'shifts' interface
 export interface Shifts {
+  scheduleId: number;
   bookedBy: null | string;
   day: string;
   createdAt: string;

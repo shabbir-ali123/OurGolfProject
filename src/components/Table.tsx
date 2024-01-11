@@ -133,7 +133,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       }
     } catch (error) {
       toast.error(
-        `Error updating likes: ${error}`,
+        `Error updating likes : ${error}`,
         toastProperties as ToastConfig
       );
     }

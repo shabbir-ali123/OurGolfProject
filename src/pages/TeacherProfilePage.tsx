@@ -8,6 +8,8 @@ import InputWithIcon from "../components/InputWithIcon";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 const TeacherProfile: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -25,13 +27,10 @@ const TeacherProfile: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const id = localStorage.getItem("id");
-
       const headers: any = {};
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
       }
-
-     
 
       const response = await axios.put(
         `${API_ENDPOINTS.UPDATEUSER}`,
@@ -46,7 +45,7 @@ const TeacherProfile: React.FC = () => {
 
       setFormData(formData); 
     } catch (error) {
-      console.error("Error updating user:", error);
+      toast.error(`Error Updating User ${error}`, toastProperties as ToastConfig);
     }
   };
 

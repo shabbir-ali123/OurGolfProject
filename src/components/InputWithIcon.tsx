@@ -25,7 +25,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   iconWidth = "24px",
   iconHeight = "24px",
   value,
-  onChange
+  onChange,
 }) => {
   return (
     <div>
