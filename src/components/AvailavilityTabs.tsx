@@ -16,7 +16,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   const {t, i18n} = useTranslation();
   document.body.dir = i18n.dir();
   const [selectedTab, setSelectedTab] = useState<number | null>(null);
-  const [availability, setAvailability] = useState<string[]>([]);
   const convertTo12Hour = (time:string) => {
     
     return time;
@@ -32,26 +31,27 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     "bg-transparent text-[#838383] py-4 border-solid border-[2px] border-[#838383] rounded-full",
   ];
   const generateTimeSlots = () => {
-    const slots: string[] = [];
+    const slots: any[] = [];
     const isBooked: boolean[] = [];
     schedules?.forEach((schedule) => {
       schedule.shifts.forEach((shift) => {
+        console.log(shift, "shifts")
         const formattedSlot = `${convertTo12Hour(shift.startTime)} - ${convertTo12Hour(shift.endTime)}`;
-        if (!slots.includes(formattedSlot)) {
           slots.push(formattedSlot);
           isBooked.push(shift.isBooked);
-        }
       });
     });
     return { slots, isBooked };
   };
   const initialTimeSlots = generateTimeSlots();
-  const [timeSlots, setTimeSlots] = useState<string[]>(initialTimeSlots.slots);
-  const [selectedTime, setSelectedTime] = useState<string[]>([]);
+  const [timeSlots, setTimeSlots] = useState<any[]>(initialTimeSlots.slots);
+  const [selectedTime, setSelectedTime] = useState<any[]>([]);
   const [bookedSlots, setBookedSlots] = useState<boolean[]>(initialTimeSlots.isBooked);
 
+  console.log(timeSlots);
   useEffect(() => {
     const { slots, isBooked } = initialTimeSlots;
+    console.log(slots, "slots");
     setTimeSlots(slots);
     setBookedSlots(isBooked);
   }, [schedules]);
@@ -101,7 +101,10 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
       const startTimeWithoutSpaces = startTime.replace(/\s/g, ''); 
       const endTimeWithoutSpaces = endTime.replace(/\s/g, ''); 
       const scheduleId = schedules[index]?.id;
-      const day = schedules.map((item: any) => item.shifts.map((time: any) => time.day));
+      const day =  schedules[index]?.shifts[index].day;
+
+      // const day = schedules.map((item: any) => item.shifts.map((time: any) => time.day));
+      console.log(day ,"myday" , startTimeWithoutSpaces, endTimeWithoutSpaces)
       bookAppointment(scheduleId, day, startTimeWithoutSpaces, endTimeWithoutSpaces, isBooked);
     });
   };
@@ -122,7 +125,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
                   disabled={bookedSlots[index]}
 
                 >
-                  {time} - {availability[index]}
+                  {time}
                 
                 </button>
               </div>

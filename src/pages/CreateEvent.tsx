@@ -201,7 +201,7 @@ document.body.dir = i18n.dir();
 
   return (
     <ToastProvider iconColor="white" textColor="white">
-    <div>
+    <div   >
 
       <div className=" animate__animated animate__lightSpeedInRight">
         <TournamentBg />

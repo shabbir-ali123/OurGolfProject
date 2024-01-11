@@ -22,8 +22,8 @@ interface MenuStyles {
 }
 
 const SideMenu: React.FC = () => {
-  const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Events");
@@ -46,12 +46,10 @@ document.body.dir = i18n.dir();
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        
         setIsDropdownOpen(false);
       }
     };
 
-   
     document.addEventListener("mousedown", handleClickOutside);
 
     // Clean up the event listener when the component is unmounted
@@ -92,11 +90,9 @@ document.body.dir = i18n.dir();
     top: 0,
     padding: "0px 0px",
     transition: "width 0.3s ease",
-    
   };
 
   const menuItemStyles: React.CSSProperties = {
-    
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -125,7 +121,6 @@ document.body.dir = i18n.dir();
     width: "100%",
     left: "20",
     top: "0",
-
   };
 
   const dropdownButtonStyles: React.CSSProperties = {
@@ -143,7 +138,7 @@ document.body.dir = i18n.dir();
     width: "100%",
     border: "1px solid white",
     borderRadius: "5px",
-    zIndex: 1000, 
+    zIndex: 1000,
   };
 
   const dropdownItemStyles: React.CSSProperties = {
@@ -168,7 +163,7 @@ document.body.dir = i18n.dir();
           onMouseEnter={handleMenuMouseEnter}
           onMouseLeave={handleMenuMouseLeave}
         >
-          <div className="absolute top-[0]  ">
+          <div className="absolute top-[0]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="white"
@@ -183,28 +178,33 @@ document.body.dir = i18n.dir();
                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
               />
             </svg>
-            
           </div>
-         <div className=" mt-24">
-         <Link to="/score-board" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faHome} style={iconStyles} />
-              <span style={textStyles}>{t("HOME")}</span>
-            </div>
-          </Link>
+          <div className=" mt-24">
+            <Link to="/score-board" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faHome} style={iconStyles} />
+                <span style={textStyles}>{t("HOME")}</span>
+              </div>
+            </Link>
+            <Link to="/notification" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faBell} style={iconStyles} />
+                <span style={textStyles}>{t("NOTIFICATIONS")}</span>
+              </div>
+            </Link>
+            <Link to="/post-page" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
+                <span style={textStyles}>{t("POSTS")}</span>
+              </div>
+            </Link>
 
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faBell} style={iconStyles} />
-            <span style={textStyles}>{t("NOTIFICATIONS")}</span>
-          </div>
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
-            <span style={textStyles}>{t("POSTS")}</span>
-          </div>
-
-          
             <div style={dropdownStyles} ref={dropdownRef}>
               <div
                 style={{
@@ -216,10 +216,12 @@ document.body.dir = i18n.dir();
               >
                 <FontAwesomeIcon icon={faHeart} style={iconStyles} />
                 <div className="text-center mt-[-4px]">
-                  
                   {isMenuOpen && (
                     <div className="flex items-center gap-2">
-                      <span style={textStyles}> {t(selectedItem.toLocaleUpperCase())}</span>
+                      <span style={textStyles}>
+                        {" "}
+                        {t(selectedItem.toLocaleUpperCase())}
+                      </span>
                       <svg
                         width="15"
                         height="9"
@@ -241,161 +243,199 @@ document.body.dir = i18n.dir();
                 </div>
 
                 <div className="px-2 py-4" style={dropdownListStyles}>
-            <div
-              className="shadow-md text-start"
-              style={dropdownItemStyles}
-              onClick={() => handleDropdownItemSelect("Created Events")}
-            >
-              {t("CREATED_EVENTS")}
+                  <div
+                    className="shadow-md text-start"
+                    style={dropdownItemStyles}
+                    onClick={() => handleDropdownItemSelect("Created Events")}
+                  >
+                    {t("CREATED_EVENTS")}
+                  </div>
+                  <Link to="/joined-events">
+                    <div
+                      className="shadow-md text-start"
+                      style={dropdownItemStyles}
+                      onClick={() => handleDropdownItemSelect("Joined Events")}
+                    >
+                      {t("JOINED_EVENTS")}
+                    </div>
+                  </Link>
+                  <Link to="/booked-mark">
+                    <div
+                      className="shadow-md text-start"
+                      style={dropdownItemStyles}
+                      onClick={() =>
+                        handleDropdownItemSelect("BookMarked Events")
+                      }
+                    >
+                      {t("BOOKMARKED_EVENTS")}
+                    </div>
+                  </Link>
+                </div>
+              </div>
             </div>
-            <Link to="/joined-events">
+            <Link to="/student-page" className="w-full ">
               <div
-                className="shadow-md text-start"
-                style={dropdownItemStyles}
-                onClick={() => handleDropdownItemSelect("Joined Events")}
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
               >
-                {t("JOINED_EVENTS")}
+                <FontAwesomeIcon icon={faSearch} style={iconStyles} />
+                <span className="" style={textStyles}>
+                  {t("FIND_TEACHER")}
+                </span>
               </div>
             </Link>
-            <Link to="/booked-mark">
+            <Link to="/calender" className="w-full ">
               <div
-                className="shadow-md text-start"
-                style={dropdownItemStyles}
-                onClick={() => handleDropdownItemSelect("BookMarked Events")}
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
               >
-                {t("BOOKMARKED_EVENTS")}
+                <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
+                <span style={textStyles}>{t("CALENDER")}</span>
+              </div>
+            </Link>
+            <Link to="/profile-page" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faUser} style={iconStyles} />
+                <span style={textStyles}>{t("PROFILE")}</span>
+              </div>
+            </Link>
+            <Link to="/message-page" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
+                <span style={textStyles}>{t("MESSAGE")}</span>
+              </div>
+            </Link>
+            <Link to="/setting-page" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faCog} style={iconStyles} />
+                <span style={textStyles}>{t("SETTING")}</span>
+              </div>
+            </Link>
+            <Link to="/logout" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
+                <span style={textStyles}>{t("LOGOUT")}</span>
               </div>
             </Link>
           </div>
-              </div>
-            </div>
-         
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faSearch} style={iconStyles} />
-            <span className="" style={textStyles}>
-              {t("FIND_TEACHER")}
-            </span>
-          </div>
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
-            <span style={textStyles}>{t("CALENDER")}</span>
-          </div>
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faUser} style={iconStyles} />
-            <span style={textStyles}>{t("PROFILE")}</span>
-          </div>
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
-            <span style={textStyles}>{t("MESSAGE")}</span>
-          </div>
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faCog} style={iconStyles} />
-            <span style={textStyles}>{t("SETTING")}</span>
-          </div>
-          <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-            <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
-            <span style={textStyles}>{t("LOGOUT")}</span>
-          </div>
-         </div>
         </div>
       ) : (
         <div
-        style={{
-          ...menuStyles,
-          ...(window.innerWidth <= 768 && { width: "40px" }),
-        }}
-        onMouseEnter={handleMenuMouseEnter}
-        onMouseLeave={handleMenuMouseLeave}
-      >
+          style={{
+            ...menuStyles,
+            ...(window.innerWidth <= 768 && { width: "40px" }),
+          }}
+          onMouseEnter={handleMenuMouseEnter}
+          onMouseLeave={handleMenuMouseLeave}
+        >
           <div className="absolute top-[0]  ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="white"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="white"
-            className="w-12 h-12 border border-[#51ff85] p-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-          
-        </div>
-        <div className="mt-24">
-        <Link to="/score-board" className="w-full ">
-          <div
-            style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-          >
-            <FontAwesomeIcon icon={faHome} style={iconStyles} />
-            <span style={textStyles}>{t("HOME")}</span>
-          </div>
-        </Link>
-
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faBell} style={iconStyles} />
-          <span style={textStyles}>{t("NOTIFICATIONS")}</span>
-        </div>
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
-          <span style={textStyles}>{t("POSTS")}</span>
-        </div>
-
-        
-          <div style={dropdownStyles} ref={dropdownRef}>
-            <div
-              style={{
-                ...menuItemStyles,
-                ...dropdownButtonStyles,
-                ...(isMenuOpen && menuItemStyles),
-              }}
-              onClick={handleDropdownClick}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="white"
+              className="w-12 h-12 border border-[#51ff85] p-2"
             >
-              <FontAwesomeIcon icon={faHeart} style={iconStyles} />
-              <div className="text-center mt-[-4px]">
-                
-                {isMenuOpen && (
-                  <div className="flex items-center gap-2">
-                    <span style={textStyles}> {t(selectedItem.toLocaleUpperCase())}</span>
-                  </div>
-                )}
-              </div>
-
-    
-                                  
-             </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
           </div>
-       
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faSearch} style={iconStyles} />
-          <span className="" style={textStyles}>
-            {t("FIND_TEACHER")}
-          </span>
+          <div className="mt-24q">
+            <Link to="/score-board" className="w-full ">
+              <div
+                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+              >
+                <FontAwesomeIcon icon={faHome} style={iconStyles} />
+                <span style={textStyles}>{t("HOME")}</span>
+              </div>
+            </Link>
+
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faBell} style={iconStyles} />
+              <span style={textStyles}>{t("NOTIFICATIONS")}</span>
+            </div>
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
+              <span style={textStyles}>{t("POSTS")}</span>
+            </div>
+
+            <div style={dropdownStyles} ref={dropdownRef}>
+              <div
+                style={{
+                  ...menuItemStyles,
+                  ...dropdownButtonStyles,
+                  ...(isMenuOpen && menuItemStyles),
+                }}
+                onClick={handleDropdownClick}
+              >
+                <FontAwesomeIcon icon={faHeart} style={iconStyles} />
+                <div className="text-center mt-[-4px]">
+                  {isMenuOpen && (
+                    <div className="flex items-center gap-2">
+                      <span style={textStyles}>
+                        {" "}
+                        {t(selectedItem.toLocaleUpperCase())}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faSearch} style={iconStyles} />
+              <span className="" style={textStyles}>
+                {t("FIND_TEACHER")}
+              </span>
+            </div>
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
+              <span style={textStyles}>{t("CALENDER")}</span>
+            </div>
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faUser} style={iconStyles} />
+              <span style={textStyles}>{t("PROFILE")}</span>
+            </div>
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
+              <span style={textStyles}>{t("MESSAGE")}</span>
+            </div>
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faCog} style={iconStyles} />
+              <span style={textStyles}>{t("SETTING")}</span>
+            </div>
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
+              <span style={textStyles}>{t("LOGOUT")}</span>
+            </div>
+          </div>
         </div>
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
-          <span style={textStyles}>{t("CALENDER")}</span>
-        </div>
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faUser} style={iconStyles} />
-          <span style={textStyles}>{t("PROFILE")}</span>
-        </div>
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
-          <span style={textStyles}>{t("MESSAGE")}</span>
-        </div>
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faCog} style={iconStyles} />
-          <span style={textStyles}>{t("SETTING")}</span>
-        </div>
-        <div style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}>
-          <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
-          <span style={textStyles}>{t("LOGOUT")}</span>
-        </div>
-        </div>
-      </div>
       )}
     </>
   );
