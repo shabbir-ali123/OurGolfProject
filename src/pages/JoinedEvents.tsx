@@ -4,6 +4,8 @@ import { API_ENDPOINTS } from "../appConfig";
 import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 interface Event {
   id: string;
@@ -36,9 +38,8 @@ const JoinedEvents: React.FC = () => {
     const fetchJoinedEvents = async () => {
       try {
         const token = localStorage.getItem("token");
-
         if (!token) {
-          console.error("User not authenticated");
+          toast.error("User not authenticated", toastProperties as ToastConfig);
           return;
         }
 
@@ -54,7 +55,10 @@ const JoinedEvents: React.FC = () => {
 
         setEvents(response.data.events || []); 
       } catch (error) {
-        console.error("Error fetching joined events:", error);
+        toast.error(
+        `Error fetching joined events : ${error}`,
+        toastProperties as ToastConfig
+      );
       }
     };
 
@@ -69,21 +73,11 @@ const JoinedEvents: React.FC = () => {
   const isNextDisabled = indexOfLastEvent >= events.length;
   const totalPages = Math.ceil(events.length / itemsPerPage);
 
-  const handlePageChange = (pageNumber: number) => {
-    const totalPages = Math.ceil(events.length / itemsPerPage);
-
-    const newPage = Math.max(1, Math.min(pageNumber, totalPages));
-    setCurrentPage(newPage);
-  };
-
-  const handleLike = async (event: Event) => {
-    // Handle like logic if needed
-  };
 
   return (
-    <div className="grid grid-cols-1 mx-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 mx-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3 ">
-        <Table events={localEvents} handleLike={handleLike} />
+        <Table events={localEvents} />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 const Login: React.FC = () => {
   const router = useNavigate();
@@ -33,16 +35,15 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.jwtToken);
         localStorage.setItem("id", response.data.id);
-        localStorage.setItem("teacher_id", response.data.teacherId)
+        localStorage.setItem("teacher_id", response.data.teacherId);
         router("/event-main-page");
         window.location.reload();
       }
-
       setError(null);
     } catch (error) {
-      setError(
-        (error as any)?.response?.data?.message || "We are not able to Login"
-      );
+      let apiError =
+        (error as any)?.response?.data?.message || "We are not able to Login";
+      toast.error(`${apiError}`, toastProperties as ToastConfig);
     } finally {
       setLoading(false);
     }
@@ -50,17 +51,17 @@ const Login: React.FC = () => {
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       {loading && (
-              <div className="flex items-center justify-center h-screen">
-                <BeatLoader color="#51ff85" size={15} />
-              </div>
-            )}
+        <div className="flex items-center justify-center h-screen">
+          <BeatLoader color="#51ff85" size={15} />
+        </div>
+      )}
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 animate__animated animate__fadeInLeft">
         <div className="w-full bg-white rounded-lg shadow-xl dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Login to your account
             </h1>
-            
+
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {error && (
                 <div className="text-[#F80202] text-sm mt-2">
@@ -112,7 +113,6 @@ const Login: React.FC = () => {
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border-solid border-[#0038FF] rounded bg-blue-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      
                     />
                   </div>
                   <div className="ml-3 text-sm">

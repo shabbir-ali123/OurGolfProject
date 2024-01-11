@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   ChatBubbleBottomCenterIcon,
   HandThumbUpIcon,
   MapPinIcon,
-  PlusIcon,
   ShareIcon,
 } from "@heroicons/react/24/outline";
 import CommentModel from "./CommentModel";
-import { formatDate } from "../utils/getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
-import { faHome, faGlobe, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 interface UserData {
   nickName: string;
   email: string;
@@ -26,7 +26,7 @@ interface TableProps {
     creator: {
       nickName: any;
     };
-    comments:[];
+    comments: [];
     accountHolderName: string;
     eventStartTime: string;
     eventStartDate: string;
@@ -39,27 +39,17 @@ interface TableProps {
     likes?: any[];
     Favorite?: any[];
   }>;
-  handleLike: (event: any) => void;
+  handleLike?: (event: any) => void;
   handleFavorite?: (eventId: string) => void;
 }
 
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
-  const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
-  const router = useNavigate();
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [localEvents, setLocalEvents] = useState<any>([]);
-  const handleTableRowClick = (eventStartDate: string) => {
-    const currentDate = new Date();
-
-    if (eventStartDate === formatDate(currentDate)) {
-      router("/ongoing-indiviual-score");
-    } else if (eventStartDate < formatDate(currentDate)) {
-      router("/score-board");
-    }
-  };
 
   const handleComment = (eventId: string) => {
     console.log(eventId, "handleevent");
@@ -142,7 +132,10 @@ document.body.dir = i18n.dir();
         );
       }
     } catch (error) {
-      console.error("Error updating like:", error);
+      toast.error(
+        `Error updating likes: ${error}`,
+        toastProperties as ToastConfig
+      );
     }
   };
   const getUser = async (userId: any) => {
@@ -153,11 +146,12 @@ document.body.dir = i18n.dir();
           Authorization: `Bearer ${token}`,
         },
       });
-
       return response.data;
     } catch (error) {
-      console.error("Error fetching user:", error);
-      throw error;
+      toast.error(
+        `Error fetching users: ${error}`,
+        toastProperties as ToastConfig
+      );
     }
   };
 
@@ -175,7 +169,7 @@ document.body.dir = i18n.dir();
   useEffect(() => {
     setLocalEvents(events);
   }, [events]);
- 
+
   return (
     <div className="animate__animated animate__fadeInLeft">
       <div className="flow-root mt-2">
@@ -192,39 +186,39 @@ document.body.dir = i18n.dir();
                       scope="col"
                       className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
                     >
-                      {t('ORGANIZER')}
+                      {t("ORGANIZER")}
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      {t('TIME')}
+                      {t("TIME")}
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      {t('DATE')}
+                      {t("DATE")}
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      {t('EVENTS_NAME')}
+                      {t("EVENTS_NAME")}
                     </th>
 
                     <th
                       scope="col"
                       className="px-3 py-2 text-sm font-semibold text-left"
                     >
-                      {t('SHORT_NOTES')}
+                      {t("SHORT_NOTES")}
                     </th>
 
                     <th
                       scope="col"
                       className="px-3 py-2 text-sm text-left font-semibol"
                     >
-                      {t('ACTIONS')}
+                      {t("ACTIONS")}
                     </th>
                   </tr>
                 </thead>
@@ -271,7 +265,9 @@ document.body.dir = i18n.dir();
                               className="w-12 h-12 bg-gray-800 rounded-full "
                             />
                             <div className="text-lg font-medium leading-6 truncate ">
-                            {event.creator && event.creator.nickName ? event.creator.nickName : 'N/A'}
+                              {event.creator && event.creator.nickName
+                                ? event.creator.nickName
+                                : "N/A"}
                             </div>
                           </div>
                         </td>
@@ -348,7 +344,9 @@ document.body.dir = i18n.dir();
                               <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white" />
                             </div>
                             <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
-                              <div className="text-[10px] text-white">{event.comments.counter}</div>
+                              <div className="text-[10px] text-white">
+                                {event.comments.counter}
+                              </div>
                             </div>
                           </div>
                           <div className="flex flex-col items-center gap-1">

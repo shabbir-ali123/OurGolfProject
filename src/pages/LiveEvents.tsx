@@ -38,7 +38,6 @@ interface Event {
 
 const LiveEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
-  const [likes, setLikes] = useState<Record<string, number>>({});
   const pageSize = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<Event[]>([]);
@@ -64,7 +63,6 @@ const LiveEvents: React.FC = () => {
     setLocalEvents(newLocalEvents);
   }, [events, currentPage]);
 
-  // Filter events to show only today's events
   const todayEvents = events.filter((event: Event) => {
     return event.eventStartDate === formatDate(currentDate);
   });

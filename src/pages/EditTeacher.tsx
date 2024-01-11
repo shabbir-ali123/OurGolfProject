@@ -1,37 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  EnvelopeOpenIcon,
   UserIcon,
   PhoneIcon,
   MapPinIcon,
-  ShareIcon,
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/InputWithIcon";
-import ProfileAvatar from "../components/ProfileAvatar";
-import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { fetchTeacherByID, fetchUser } from "../utils/fetchEvents";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 const EditTeacher: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const [getTeacher, setTeacher] =  useState<any>({});
-
-  // State to manage user data
-  // const [user, setUser] = useState<any>({});
+  const [getTeacher, setTeacher] = useState<any>({});
 
   useEffect(() => {
     fetchTeacherByID(setTeacher);
   }, []);
 
-  // Function to handle changes in input fields and update user data
   const handleChange = async (fieldName: string, newValue: string) => {
     try {
       const token = localStorage.getItem("token");
       const id = localStorage.getItem("id");
-
       const headers: any = {};
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
@@ -44,25 +37,27 @@ const EditTeacher: React.FC = () => {
 
       const response = await axios.put(
         `${API_ENDPOINTS.UPDATEUSER}`,
-        updatedUser, // Send the updated user data in the request body
+        updatedUser, 
         {
           headers,
-          params:{
-            userId: id
+          params: {
+            userId: id,
           },
         }
       );
 
-      setTeacher(updatedUser); // Update the user state with the updated data
+      setTeacher(updatedUser); 
     } catch (error) {
-      console.error("Error updating user:", error);
+      toast.error(
+        `Error updating user : ${error}`,
+        toastProperties as ToastConfig
+      );
     }
   };
 
   return (
     <div className="py-8">
       <form onSubmit={(e) => e.preventDefault()}>
-       
         <section className="h-full max-w-6xl mx-auto mt-6 text-center">
           <div className="w-full py-6 text-start">
             <label className="text-lg font-bold" htmlFor="aboutMe">
@@ -76,7 +71,7 @@ const EditTeacher: React.FC = () => {
               rows={4}
               className="w-full border border-[#51ff85]"
               placeholder={t("BIO")}
-            ></textarea>
+            />
           </div>
 
           <div className="py-6">
@@ -86,7 +81,9 @@ const EditTeacher: React.FC = () => {
                 icon={<UserIcon />}
                 label={t("FIRST_NAME")}
                 value={getTeacher.firstName || ""}
-                onChange={(value) => handleChange("firstName", value.target.value)}
+                onChange={(value) =>
+                  handleChange("firstName", value.target.value)
+                }
                 placeholder={t("ENTER_FIRST_NAME")}
                 colSpanSm={6}
                 colSpanMd={4}
@@ -97,19 +94,23 @@ const EditTeacher: React.FC = () => {
                 icon={<UserIcon />}
                 label={t("LAST_NAME")}
                 value={getTeacher.lastName || ""}
-                onChange={(value) => handleChange("lastName", value.target.value)}
+                onChange={(value) =>
+                  handleChange("lastName", value.target.value)
+                }
                 placeholder={t("ENTER_LAST_NAME")}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
               />
-           
+
               <InputWithIcon
                 pname="phoneNumber"
                 icon={<PhoneIcon />}
                 label={t("MOBILE")}
                 value={getTeacher.phoneNumber || ""}
-                onChange={(value) => handleChange("phoneNumber", value.target.value)}
+                onChange={(value) =>
+                  handleChange("phoneNumber", value.target.value)
+                }
                 placeholder={t("ENTER_MOBILE")}
                 colSpanSm={6}
                 colSpanMd={4}
@@ -120,14 +121,15 @@ const EditTeacher: React.FC = () => {
                 icon={<MapPinIcon />}
                 label={t("LOCATION")}
                 value={getTeacher.location || ""}
-                onChange={(value) => handleChange("location", value.target.value)}
+                onChange={(value) =>
+                  handleChange("location", value.target.value)
+                }
                 placeholder={t("ENTER_LOCATION")}
-                colSpanSm={6}   
+                colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
               />
             </div>
-
             <button
               type="submit"
               className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"

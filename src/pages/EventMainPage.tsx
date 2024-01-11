@@ -8,50 +8,27 @@ import { Link } from "react-router-dom";
 import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
+
 const EventMainPage: FunctionComponent = () => {
   const {t, i18n} = useTranslation();
   document.body.dir = i18n.dir();
   const [events, setEvents] = useState([]);
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<string[]>(['Tokyo']);
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchEvents("", "", setEvents);
   }, []);
 
-  const handleImageClick = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
-
-  const handleSetState = (events: any) => {
-    setEvents(events);
-  };
-
-  const handleMenuItemClick = () => {
-    setIsMenuVisible(false);
-  };
-
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 1280);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const handleLocationSelect = (locations: string | string[]) => {
-    const newLocations = Array.isArray(locations) ? locations : [locations];
-    setSelectedLocations((prevSelectedLocations) => [
-      ...prevSelectedLocations,
-      ...newLocations,
-    ]);
-  };
 
   const handleRemoveLocation = (locationToRemove: string) => {
     setSelectedLocations((prevSelectedLocations) =>
