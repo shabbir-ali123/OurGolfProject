@@ -33,12 +33,11 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   const generateTimeSlots = () => {
     const slots: any[] = [];
     const isBooked: boolean[] = [];
-    schedules?.forEach((schedule) => {
-      schedule.shifts.forEach((shift) => {
-        console.log(shift, "shifts")
+    schedules?.forEach((schedule, scheduleIndex) => {
+      schedule.shifts.forEach((shift, shiftIndex) => {
         const formattedSlot = `${convertTo12Hour(shift.startTime)} - ${convertTo12Hour(shift.endTime)}`;
-          slots.push(formattedSlot);
-          isBooked.push(shift.isBooked);
+        slots.push({ time: formattedSlot, id: `slot-${scheduleIndex}-${shiftIndex}` });
+        isBooked.push(shift.isBooked);
       });
     });
     return { slots, isBooked };
@@ -56,15 +55,16 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     setBookedSlots(isBooked);
   }, [schedules]);
 
-  const handleTabClick = (index: number, time: string) => {
-    if (selectedTime.includes(time)) {
-      setSelectedTime(selectedTime.filter((selected) => selected !== time));
+  const handleTabClick = (slotId: string, time: string) => {
+    const isSelected = selectedTime.some(item => item.id === slotId);
+    if (isSelected) {
+      setSelectedTime(selectedTime.filter((item) => item.id !== slotId));
     } else {
-      setSelectedTime([...selectedTime, time]);
+      setSelectedTime([...selectedTime, { time, id: slotId }]);
     }
-    setSelectedTab(index);
-    onSelectTime(timeSlots[index]);
+    onSelectTime(time);
   };
+  
   const bookAppointment = async (
     scheduleId: any,
     day: any,
@@ -114,28 +114,25 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     <div>
       <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
         <div className="flex flex-wrap justify-start gap-1 mt-4">
-          {timeSlots.map((time, index) => {
-            return (
-              <div key={index} className="...your classes">
-                <button
-                  className={`...your classes ${
-                    selectedTime.includes(time) ? "bg-active" : tabColors[index]
-                  }`}
-                  onClick={() => handleTabClick(index, time)}
-                  disabled={bookedSlots[index]}
-
-                >
-                  {time}
-                
-                </button>
-              </div>
-              )
-            })}
+        {timeSlots.map((slot, index) => {
+          const isSelected = selectedTime.some(item => item.id === slot.id);
+          return (
+            <div key={slot.id}>
+              <button
+                className={`${isSelected ? "bg-active" : tabColors[index]} ...other classes`}
+                onClick={() => handleTabClick(slot.id, slot.time)}
+                disabled={bookedSlots[index]}
+              >
+                {slot.time}
+              </button>
+            </div>
+          )
+        })}
         </div>
         <div className="mt-8 ml-2">
           <button
             onClick={handleBookAppointmentClick}
-            className="bg-[#0038FF] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 animate__animated animate__lightSpeedInRight cursor-pointer"
+            className="bg-[#1b1c21] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 animate__animated animate__lightSpeedInRight cursor-pointer"
           >
             <svg
               width="24"
