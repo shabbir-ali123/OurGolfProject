@@ -8,55 +8,53 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { ToastProvider } from "../utils/ToastProvider";
-import { useToast } from '../utils/ToastProvider';
+import { useToast } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
 
-
-
-interface CreateEventType{
+interface CreateEventType {
   id?: number;
-    eventType?: string;
-    eventName?: string;
-    imageUrl?: string[];
-    video?: string
-    eventDetails?: string;
-    eventVideoUrl?: string;
-    categories?: string;
-    place?: string;
-    placeCoordinates?: { lat: string; lng: string };
-    capacity?:number;
-    selfIncluded?: boolean;
-    eventStartDate?: string;
-    eventStartTime?: string;
-    eventEndDate?: string;
-    eventEndTime?: string;
-    recruitmentStartDate?: string;
-    recruitmentStartTime?: string;
-    eventDeadlineDate?: string;
-    eventDeadlineTime?: string;
-    matchType?: string;
-    paymentType?: string;
-    bankName?: string;
-    branchName?: string;
-    branchNumber?: number;
-    accountHolderName?: string;
-    accountNumber?: number;
-    paypalId?: string;
-    teamSize?: number;
-    participationFee?: number;
-    isEventPublished?: boolean;
-    hideParticipantName?: boolean;
-    isRequiresApproval?: boolean;
-    scoringType?: string;
-    selectedHoles?: string[];
-    shotsPerHoles?: string[];
-    driverContest?: number;
-    nearPinContest?: number;
+  eventType?: string;
+  eventName?: string;
+  imageUrl?: string[];
+  video?: string;
+  eventDetails?: string;
+  eventVideoUrl?: string;
+  categories?: string;
+  place?: string;
+  placeCoordinates?: { lat: string; lng: string };
+  capacity?: number;
+  selfIncluded?: boolean;
+  eventStartDate?: string;
+  eventStartTime?: string;
+  eventEndDate?: string;
+  eventEndTime?: string;
+  recruitmentStartDate?: string;
+  recruitmentStartTime?: string;
+  eventDeadlineDate?: string;
+  eventDeadlineTime?: string;
+  matchType?: string;
+  paymentType?: string;
+  bankName?: string;
+  branchName?: string;
+  branchNumber?: number;
+  accountHolderName?: string;
+  accountNumber?: number;
+  paypalId?: string;
+  teamSize?: number;
+  participationFee?: number;
+  isEventPublished?: boolean;
+  hideParticipantName?: boolean;
+  isRequiresApproval?: boolean;
+  scoringType?: string;
+  selectedHoles?: string[];
+  shotsPerHoles?: string[];
+  driverContest?: number;
+  nearPinContest?: number;
 }
 
 const CreateEvent: React.FC = () => {
-  const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [value, setValue] = useState("");
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
@@ -97,8 +95,6 @@ document.body.dir = i18n.dir();
     shotsPerHoles: [],
     driverContest: 0,
     nearPinContest: 0,
-  
-    
   });
   const [error, setError] = useState<string | null>(null);
   const { showToast } = useToast();
@@ -106,7 +102,7 @@ document.body.dir = i18n.dir();
     console.log({ e });
     const { name, value, checked } = e.target;
     if (name === "selfIncluded") {
-      setFormData({ ...formData, [name]: checked  });
+      setFormData({ ...formData, [name]: checked });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -118,7 +114,7 @@ document.body.dir = i18n.dir();
     const { name, id, checked } = event.target;
     const updatedScoringType = checked ? name : "";
     if (scoringType === "holes") {
-      let holes: string[] = formData.selectedHoles|| [];
+      let holes: string[] = formData.selectedHoles || [];
       if (holes.includes(id)) {
         holes = holes.filter((i) => i === id);
       } else {
@@ -139,7 +135,6 @@ document.body.dir = i18n.dir();
     setSubmitting(true); // Set submitting to true
 
     try {
-      
       const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formData, {
         headers: {
           "Content-Type": "application/json",
@@ -149,7 +144,6 @@ document.body.dir = i18n.dir();
 
       if (response.status === 201) {
         showToast("Event created successfully", "green");
-
       } else {
         setError("Error Occurred");
         showToast("Error occurred while creating the event", "[#FF0000]");
@@ -158,8 +152,8 @@ document.body.dir = i18n.dir();
       setError((error as any)?.response?.data?.message || "Error Occurred");
       showToast("Error occurred while creating the event", "[#FF0000]");
       console.error("Error:", error);
-    }finally {
-      setSubmitting(false); 
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -201,54 +195,58 @@ document.body.dir = i18n.dir();
 
   return (
     <ToastProvider iconColor="white" textColor="white">
-    <div   >
+      <div
+        style={{
+          backgroundImage: "url(/img/golfbgg.jpg)",
+          backgroundSize: "cover",
+          height: "auto",
+        }}
+        className="rounded-2x p-10"
+      >
+        <div className=" animate__animated animate__lightSpeedInRight">
+          <TournamentBg />
+        </div>
+        <form method="post" id="foirm">
+          <BasicInfo onChange={handleChange} setFormData={setFormData} />
 
-      <div className=" animate__animated animate__lightSpeedInRight">
-        <TournamentBg />
-      </div>
-      <form method="post" id="foirm">
-        <BasicInfo onChange={handleChange} setFormData={setFormData} />
+          <Recuitments onChange={handleRecruitmentTabsChange} />
 
-        <Recuitments onChange={handleRecruitmentTabsChange} />
+          <ItemInstruction />
+          <ScoringCategory
+            onChange={handleScoringTypeChange}
+            onInputChange={handleChange}
+            selectedHoles={formData.selectedHoles || []}
+          />
 
-        <ItemInstruction />
-        <ScoringCategory
-          onChange={handleScoringTypeChange}
-          onInputChange={handleChange}
-          selectedHoles={formData.selectedHoles || []}
-        />
-
-        <PaymentDetails onChange={handlePaymentDetailsChange} />
-        <div className="p-2 mx-auto lg:max-w-6xl ">
-          <div className="">
-            <div className="flex gap-2 mx-4">
-              <div className="py-6">
-                <button
-                  type="button"
-                  className=" glow-on-hover  text-white bg-[#52FF86] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  {t('PREV')}
-                </button>
-                <button
-                  type="submit"
-                  onClick={handleSubmit}
-                  className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  {t('NEXT')}
-                </button>
-                <button className="cursor-pointer text-white bg-[#FE2E00] hover:bg-blue-800  focus:outline-none  focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700  dark:focus:ring-blue-800 hover:scale-105 transform transition duration-300 ease-in-out">
-                {t('CLEAR')}
-                </button>   
+          <PaymentDetails onChange={handlePaymentDetailsChange} />
+          <div className="p-2  ">
+            <div className="">
+              <div className="flex justify-center gap-2 mx-4">
+                <div className="py-6">
+                  <button
+                    type="button"
+                    className=" glow-on-hover  text-white bg-[#52FF86] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    {t("PREV")}
+                  </button>
+                  <button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    {t("NEXT")}
+                  </button>
+                  <button className="cursor-pointer text-white bg-[#FE2E00] hover:bg-blue-800  focus:outline-none  focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700  dark:focus:ring-blue-800 hover:scale-105 transform transition duration-300 ease-in-out">
+                    {t("CLEAR")}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </ToastProvider>
-
   );
 };
 
 export default CreateEvent;
-

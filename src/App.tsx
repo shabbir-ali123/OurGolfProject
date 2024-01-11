@@ -176,7 +176,7 @@ function App() {
 
   return (
     <ToastProvider iconColor="white" textColor="white">
-    <div className="bg-[white]  transition-colors duration-2000 animate-color-change">
+    <div className="">
       <Header />
       {isDesktopScreen &&  <SideIconMenu />}
       <Routes>
