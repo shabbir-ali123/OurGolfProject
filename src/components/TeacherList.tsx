@@ -59,32 +59,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
       console.error("Error toggling favorite status:", error);
     }
   };
-  const buttons = [
-    {
-      color: "bg-[#0038FF]",
-      title: "Book an Appointment",
-      icon: "/img/appointment.svg",
-      onClick: () => {
-        openModal();
-        if (handleBookAppointment) {
-          handleBookAppointment();
-        }
-      },
-    },
-    {
-      color: "bg-[#FF0000]",
-      title: "Like",
-      icon: "/img/like.svg",
-     
-    },
-
-    {
-      color: "bg-[#52FF86]",
-      title: "View Details",
-      icon: "/img/details.svg",
-      textColor: "#FF0000",
-    },
-  ];
+  
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -140,21 +115,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
         break;
     }
   };
-  const showTeacher = async (id: string) => {
-    const teacherDetails = await getTeacherById(id);
-
-    if (teacherDetails) {
-      console.log("Teacher details:", teacherDetails);
-    } else {
-      console.log("Failed to fetch teacher details.");
-    }
-  };
-  const getButtonStyle = (btnTitle: string, isFavorite: boolean) => {
-    if (btnTitle === "Like") {
-      return isFavorite ? "bg-yellow-400" : "bg-[#FF0000]";
-    }
   
-  };
   return (
     <>
       {teachers.length === 0 ? (
