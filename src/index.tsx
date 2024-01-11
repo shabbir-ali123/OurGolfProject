@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import "./global.css";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./locale";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -14,6 +16,7 @@ root.render(
   <I18nextProvider i18n={i18n}>
     <BrowserRouter>
       <App />
+      <ToastContainer/>
     </BrowserRouter>
   </I18nextProvider>
 );

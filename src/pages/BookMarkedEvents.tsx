@@ -4,6 +4,8 @@ import { API_ENDPOINTS } from "../appConfig";
 import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 interface Event {
   id: string;
@@ -36,12 +38,10 @@ const BookMarkedEvents: React.FC = () => {
     const fetchFavoriteEvents = async () => {
       try {
         const token = localStorage.getItem("token");
-
         if (!token) {
           console.error("User not authenticated");
           return;
         }
-
         const response = await axios.get(API_ENDPOINTS.GETFAVEVENTS, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -51,10 +51,9 @@ const BookMarkedEvents: React.FC = () => {
             pageSize: 50000, 
           },
         });
-
         setEvents(response.data.events);
       } catch (error) {
-        console.error("Error fetching favorite events:", error);
+        toast.error(`'Error fetching favorite events: ${error}`, toastProperties as ToastConfig);
       }
     };
 
@@ -69,23 +68,11 @@ const BookMarkedEvents: React.FC = () => {
   const isNextDisabled = indexOfLastEvent >= events.length;
   const totalPages = Math.ceil(events.length / itemsPerPage);
 
-  
-  const handlePageChange = (pageNumber: number) => {
-    const totalPages = Math.ceil(events.length / itemsPerPage);
-  
-    const newPage = Math.max(1, Math.min(pageNumber, totalPages));
-    setCurrentPage(newPage);
-  };
-
- 
-  const handleLike = async (event: Event) => {
-
-  };
 
   return (
-    <div className="grid grid-cols-1 mx-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 mx-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3 ">
-        <Table events={localEvents} handleLike={handleLike} />
+        <Table events={localEvents}  />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

@@ -5,24 +5,19 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 const EditTeamPage: FunctionComponent = () => {
-  const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
-  const shouldOpenDialog =
-    localStorage.getItem("showDialog") === "true";
-
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
+  const shouldOpenDialog = localStorage.getItem("showDialog") === "true";
   const [open, setOpen] = useState(shouldOpenDialog);
 
   useEffect(() => {
-    // Save the state of the dialog to localStorage
     localStorage.setItem("showEditTeamDialog", open.toString());
   }, [open]);
   const shouldOpenEditDialog =
     localStorage.getItem("showEditTeamDialog") === "true";
-
   const [opens, setEditOpen] = useState(shouldOpenEditDialog);
 
   useEffect(() => {
-    // Save the state of the dialog to localStorage
     localStorage.setItem("showEditTeamDialog", opens.toString());
   }, [open]);
   const cancelButtonRef = useRef(null);
@@ -44,22 +39,22 @@ document.body.dir = i18n.dir();
                 Team Name
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-              {t('PLAYER')}1
+                {t("PLAYER")}1
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-              {t('PLAYER')}2
+                {t("PLAYER")}2
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-              {t('PLAYER')}3
+                {t("PLAYER")}3
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-              {t('PLAYER')}4
+                {t("PLAYER")}4
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-              {t('PLAYER')}5
+                {t("PLAYER")}5
               </th>
               <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                {t('ACTIONS')}
+                {t("ACTIONS")}
               </th>
             </tr>
           </thead>
@@ -578,7 +573,7 @@ document.body.dir = i18n.dir();
                             htmlFor="team"
                             className="font-semibold text-center text-white font-helvetica "
                           >
-                            {t('PLAYER')} 1
+                            {t("PLAYER")} 1
                           </label>
 
                           <div className="relative flex items-center w-full">
@@ -619,7 +614,7 @@ document.body.dir = i18n.dir();
                             htmlFor="team"
                             className="font-semibold text-center text-white font-helvetica "
                           >
-                            {t('PLAYER')} 2
+                            {t("PLAYER")} 2
                           </label>
 
                           <div className="relative flex items-center w-full">
@@ -660,7 +655,7 @@ document.body.dir = i18n.dir();
                             htmlFor="team"
                             className="font-semibold text-center text-white font-helvetica "
                           >
-                            {t('PLAYER')} 3
+                            {t("PLAYER")} 3
                           </label>
 
                           <div className="relative flex items-center w-full">
@@ -701,7 +696,7 @@ document.body.dir = i18n.dir();
                             htmlFor="team"
                             className="font-semibold text-center text-white font-helvetica "
                           >
-                            {t('PLAYER')} 4
+                            {t("PLAYER")} 4
                           </label>
 
                           <div className="relative flex items-center w-full">
@@ -742,7 +737,7 @@ document.body.dir = i18n.dir();
                             htmlFor="team"
                             className="font-semibold text-center text-white font-helvetica "
                           >
-                            {t('PLAYER')} 5
+                            {t("PLAYER")} 5
                           </label>
 
                           <div className="relative flex items-center w-full">

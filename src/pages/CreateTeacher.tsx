@@ -12,6 +12,9 @@ import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -136,17 +139,12 @@ document.body.dir = i18n.dir();
 
       if (response.status === 201) {
         localStorage.setItem("teacher_id", response.data.teacher.id);
-      } else {
-        alert("Error Occurred");
-        alert("Error occurred while creating the event#FF0000]");
+        toast.success('Teacher Created Successfully', toastProperties as ToastConfig)
       }
     } catch (error) {
-      alert((error as any)?.response?.data?.message || "Error Occurred");
-      alert("Error occurred while creating the event #FF0000]");
-      console.error("Error:", error);
-    } finally {
-      console.log('done')
-    }
+      const handleError = alert((error as any)?.response?.data?.message || "Error Occurred");
+      toast.error(`${handleError}`, toastProperties as ToastConfig)
+    } 
   };
 
   const handleWeekSelected = (date: Date) => {
@@ -204,13 +202,13 @@ document.body.dir = i18n.dir();
     const date = new Date(dateKey);
     const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
     const dateParts = dateFormatter.formatToParts(date);
-    const dayName = dateParts.find((part) => part.type === "weekday")?.value || ""; // Provide a default value ("") if dayName is undefined
+    const dayName = dateParts.find((part) => part.type === "weekday")?.value || ""; 
     toggleAvailability(dayName, hour, hourIndex);
   
     const newShift = {
-      day: 'sunday', // Use dayName here (it now has a default value)
+      day: 'sunday', 
       startTime: hour,
-      endTime: "", // You can adjust the end time as needed
+      endTime: "", 
     };
   
     const newSchedule = {
