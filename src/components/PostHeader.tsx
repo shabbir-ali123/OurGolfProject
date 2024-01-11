@@ -11,6 +11,8 @@ const PostHeader: React.FC = () => {
             <option>Party</option>
             <option>Before Match</option>
             <option>Match</option>
+            <option>After Match</option>
+            <option>Event</option>
           </select>
         </div>
       </div>

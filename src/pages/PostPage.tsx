@@ -14,7 +14,6 @@ const PostPage: FunctionComponent = () => {
         <PostProfile />
         <PostCard />
         <PostCard />
-        <PostCard />
       </div>
     </div>
   );
