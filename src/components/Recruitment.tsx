@@ -92,18 +92,19 @@ document.body.dir = i18n.dir();
   };
   
   return (
-    <div className="py-8 mx-auto lg:max-w-6xl px- ">
-      <h2 className="text-[#0f1e56] text-4xl">{t('RECRUITMENT_DETAILS')}</h2>
-      <div className=" bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-3xl px-8 py-4 mt-4 border-solid border-2 border-[#51ff85]">
+    <div className="py-8 mx-auto lg:max-w-6xl  ">
+      
+      <div className="bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50  p-4 mt-4">
+      <h2 className="text-white text-4xl">{t('RECRUITMENT_DETAILS')}</h2>
         <div className="flex items-center col-span-5 gap-2 py-1 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3 ">
           <label
-            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
+            className="block mb-2 text-xs font-bold tracking-wide text-white captilize"
             htmlFor="grid-event-name"
           >
             {t('NO_OF_PLAYERS')}
           </label>
           <input
-            className="text-center appearance-none block w-[50px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className=" appearance-none block w-[50px] bg-gray-200 text-[#51ff85] border border-[#51ff85] bg-transparent rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-Event-Name"
             type="number"
             name="capacity"
@@ -113,7 +114,7 @@ document.body.dir = i18n.dir();
         </div>
         <div className="flex col-span-12 gap-2 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
-            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
+            className="block mb-2 text-xs font-bold tracking-wide text-white captilize"
             htmlFor="grid-short-video"
           >
             {t('INCLUDE_PLAYER')}
@@ -125,7 +126,7 @@ document.body.dir = i18n.dir();
               name="selfIncluded"
               onChange={handleInputChange}
             />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <div className="w-11 h-5 border border-solid border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
 
         </div>
@@ -133,7 +134,7 @@ document.body.dir = i18n.dir();
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
+            className="block mb-2 text-xs font-bold tracking-wide text-white captilize"
           >
             {t('START_TIME')}
           </label>
@@ -158,7 +159,7 @@ document.body.dir = i18n.dir();
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
+            className="block mb-2 text-xs font-bold tracking-wide text-white captilize"
           >
             {t('END_TIME')}
           </label>
@@ -182,7 +183,7 @@ document.body.dir = i18n.dir();
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="date"
-            className="block mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize"
+            className="block mb-2 text-xs font-bold tracking-wide text-white capitalize"
           >
             {t('APPLICATION_DEADLINE')}
           </label>
@@ -207,13 +208,13 @@ document.body.dir = i18n.dir();
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <div className="">
             <div className="">
-              <h2>{t('MATCH_TYPE')}</h2>
+              <h2 className="text-white">{t('MATCH_TYPE')}</h2>
               <div className="flex gap-2 mx-4">
                 <button
                   className={`${
                     activeTab === "individual"
                       ? "bg-blue-500 text-white cursor-pointer animate-bounce border-none"
-                      : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
+                      : "text-white border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
                   } px-4 py-2 border rounded-full`}
                   type="button"
                   onClick={() => handleTabClick("individual")}
@@ -225,7 +226,7 @@ document.body.dir = i18n.dir();
                   className={`${
                     activeTab === "team"
                       ? "bg-blue-500 text-white cursor-pointer animate-bounce"
-                      : "text-[#0038FF] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 over:scale-105 transform transition duration-300 ease-in-out"
+                      : "text-white border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 over:scale-105 transform transition duration-300 ease-in-out"
                   } px-4 py-2   rounded-full`}
                   type="button"
                   onClick={() => handleTabClick("team")}
@@ -239,13 +240,13 @@ document.body.dir = i18n.dir();
                 <div>
                   <div className="col-span-8 py-2 mt-4 ml-4 lg:col-span-7 md:col-span-5 md:mr-0 md:mb-0 ">
                     <label
-                      className="block mb-2 text-xs font-bold tracking-wide text-gray-700 captilize"
+                      className="block mb-2 text-xs font-bold tracking-wide text-white captilize"
                       htmlFor="grid-event-name"
                     >
                       {t('TEAM_SIZE')}
                     </label>
                     <input
-                      className="appearance-none block w-[80px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[80px] bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none focus:bg-white"
                       id="grid-Event-Name"
                       type="number"
                       name="teamSize"

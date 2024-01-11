@@ -14,7 +14,7 @@ document.body.dir = i18n.dir();
           stiffness: 260,
           damping: 20,
         }}
-        className="flex items-center justify-center w-full max-w-6xl col-span-8 py-6 mx-auto mt-4 rounded-3xl"
+        className="flex items-center justify-center w-full max-w-6xl mx-auto col-span-8 py-6  mt-4 rounded-3xl"
         style={{
           backgroundImage: "url(/img/tournament.png)",
           backgroundSize: "cover",

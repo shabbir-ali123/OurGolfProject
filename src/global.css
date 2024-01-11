@@ -106,28 +106,17 @@ a {
 }
 .actives {
   color: black;
-  background:#51ff85; /* Change the color to your desired color */
-  font-weight: bold; /* Add other styles as needed */
+  background:#51ff85; 
+  font-weight: bold; 
 }
 .glass-effect {
-  background: rgba(255, 255, 255, 0.2); /* Adjust transparency as needed */
-  border-radius: 10px; /* Rounded corners like the example */
-  border: 1px solid rgba(255, 255, 255, 0.25); /* White border with some transparency */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  backdrop-filter: blur(10px); /* Blur effect on the background */
-  -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
-  overflow: hidden; /* Ensure the blur doesn't bleed outside the border */
-  padding: 20px; /* Optional: depends on your design */
+  background: rgba(255, 255, 255, 1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 1);
 }
-.glass-effect::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.2); /* Adjust transparency as needed */
-  border-radius: inherit; /* Inherit the border radius */
-  pointer-events: none; /* Allows interaction with elements below */
-}
+
+
 
