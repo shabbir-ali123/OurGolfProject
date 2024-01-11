@@ -18,10 +18,7 @@ const ScoreBoard: FunctionComponent = () => {
         <div className="mt-[400px]">
           <LeaderBoardSection />
         </div>
-
-        {/* indiviual player  score */}
         <IndiviualPlayerScore />
-        {/* Drive Context  and Near Pin Contest */}
         <TeamPerformance title={t("DRIVE_CONTEXT")} />
         <TeamPerformance title={t("NEAR_CONTEXT")} />
         <div className="mt-20 mx-[60px]">
@@ -43,6 +40,8 @@ const ScoreBoard: FunctionComponent = () => {
           <ScoringTable />
         </div>
       </div>
+
+      {/* <LeaderBoardScoringTab /> */}
     </div>
   );
 };
