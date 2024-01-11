@@ -6,6 +6,7 @@ import ReschedulePop from "../components/ReschedulePop";
 import { getTeacherById } from "../utils/getTeacherById";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
+import { useTranslation } from "react-i18next";
 
 interface TeacherListProps {
   openModal: () => void;
@@ -115,7 +116,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
         break;
     }
   };
-  
+
   return (
     <>
       {teachers.length === 0 ? (

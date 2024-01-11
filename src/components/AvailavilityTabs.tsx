@@ -70,23 +70,28 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     day: any,
     startTime: any,
     endTime: any,
-    isBooked: false
+    isBooked: boolean
   ) => {
     try {
       const token = localStorage.getItem("token");
+      const id = Number(localStorage.getItem("id"));
       const response = await axios.post(
         API_ENDPOINTS.BOOKAPPOINTMENT,
         {
+          
           scheduleId,
           day,
           startTime,
           endTime,
-          isBooked,
+          isBooked: true,
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params: {
+            userId: id,
+          }
         }
       );
       console.log("Appointment booked successfully", response.data);
@@ -97,12 +102,13 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   const handleBookAppointmentClick = () => {
     const isBooked = false;
     selectedTime.forEach((time, index) => {
-      const [startTime, endTime] = time.split(" - ");
+      console.log(time, 'timmeing')
+      const [startTime, endTime] = time?.time?.split(" - ");
       const startTimeWithoutSpaces = startTime.replace(/\s/g, ''); 
       const endTimeWithoutSpaces = endTime.replace(/\s/g, ''); 
       const scheduleId = schedules[index]?.id;
       const day =  schedules[index]?.shifts[index].day;
-
+      console.log(day, 'day')
       // const day = schedules.map((item: any) => item.shifts.map((time: any) => time.day));
       console.log(day ,"myday" , startTimeWithoutSpaces, endTimeWithoutSpaces)
       bookAppointment(scheduleId, day, startTimeWithoutSpaces, endTimeWithoutSpaces, isBooked);
