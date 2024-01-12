@@ -80,7 +80,7 @@ const SideMenu: React.FC = () => {
     zIndex: "9999",
     height: "100vh",
     width: isMenuOpen ? "200px" : "40px",
-    backgroundColor: "#17B3A6",
+    backgroundColor: "#1AA75D",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -170,7 +170,7 @@ const SideMenu: React.FC = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="white"
-              className="w-6 h-6 border border-[#51ff85] p-2"
+              className="w-10 h-10 border border-[#51ff85] p-2"
             >
               <path
                 strokeLinecap="round"

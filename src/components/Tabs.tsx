@@ -105,13 +105,13 @@ document.body.dir = i18n.dir();
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full animate__animated animate__fadeInLeft">
         <Tab.Group>
-          <Tab.List className="flex justify-between w-full lg:col-span-6   space-x-4 items-center px-2 rounded-md bg-[#A6FFF8]">
+          <Tab.List className="flex justify-between w-full lg:col-span-6   space-x-4 items-center px-2 rounded-md bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
             <div className="flex flex-wrap gap-4 py-2 lg:flex-nowrap">
               <div className="w-full md:mx-20 xl:relative animate__animated animate__shakeY">
                 <button
                   type="button"
                   onClick={() => setLocationPopupOpen(true)}
-                  className="xl:py-[22px] rounded-l-md sm:absolute left-[-88px] top-[-16px] py-4 inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className="xl:h-full rounded-l-md sm:absolute left-[-88px] top-[-7px] inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
                   {t('TOKYO')}
@@ -123,11 +123,11 @@ document.body.dir = i18n.dir();
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "w-full rounded-md py-3 px-10 text-base font-normal leading-5 cursor-pointer hover:animate-bounce",
+                      "w-full rounded-md py-1 px-10 text-base font-normal leading-5 cursor-pointer hover:animate-bounce",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
                         ? "bg-[#3A66C0]  text-white "
-                        : "text-[#17B3A6] bg-white hover:bg-[#3A66C0] hover:text-white"
+                        : "text-[#17B3A6] bg-white border border-solid-green-500 hover:bg-[#3A66C0] hover:text-white"
                     )
                   }
                 >

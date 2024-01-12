@@ -66,7 +66,7 @@ document.body.dir = i18n.dir();
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className='bg-lightsteelblue shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium'>
+                        <tr className='bg-[#fbfbfb] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium'>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>
@@ -97,7 +97,7 @@ document.body.dir = i18n.dir();
                                 1st
                             </td>
                         </tr>
-                        <tr className='shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightgreen-200  h-[69px]   font-medium'>
+                        <tr className='bg-[#fbfbfb] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[69px]   font-medium'>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>
@@ -128,7 +128,7 @@ document.body.dir = i18n.dir();
                                 1st
                             </td>
                         </tr>
-                        <tr className='shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-khaki-200  h-[69px]   font-medium'>
+                        <tr className='bg-[#fbfbfb] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium'>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>
@@ -159,7 +159,7 @@ document.body.dir = i18n.dir();
                                 1st
                             </td>
                         </tr>
-                        <tr className='shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightsteelblue  h-[69px]   font-medium'>
+                        <tr className='bg-[#fbfbfb] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium'>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px]'>
                                 Apple Mac
                             </td>

@@ -66,10 +66,10 @@ document.body.dir = i18n.dir();
     ];
     return (
         <>
-            <div className='mt-20 mx-5 md:mx-[80px] shadow-[0px_0px_5px_rgba(0,_0,_0,_0.25)]  p-[80px]'>
+            <div className='mt-20 mx-5 md:mx-[80px] bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  p-[80px]'>
                 <div>
                     <LeaderBoardHeader />
-                    <div className='mt-20'>
+                    <div className='mt-10'>
                         {teamData.map((data, index) => (
                             <div key={index}>
                                 <LeaderBoardFirstRow
@@ -85,11 +85,11 @@ document.body.dir = i18n.dir();
                 </div>
             </div>
               {/* loading More Button */}
-            <div className='m-auto mt-10 text-center'>
-                <div
+            <div className='flex items-center justify-center mt-10 text-center'>
+                <button
                     className='flex items-center justify-center rounded-[40px] text-lg bg-white shadow-[4px_4px_16px_#268d61] w-[171px] h-[59px] leading-[20px] font-medium'
                     style={{ cursor: 'pointer' }}
-                >{t('LOAD_MORE')}</div>
+                >{t('LOAD_MORE')}</button>
             </div>
         </>
     );

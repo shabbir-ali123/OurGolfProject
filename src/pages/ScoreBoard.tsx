@@ -41,7 +41,7 @@ const ScoreBoard: FunctionComponent = () => {
         </div>
       </div>
 
-      {/* <LeaderBoardScoringTab /> */}
+     
     </div>
   );
 };

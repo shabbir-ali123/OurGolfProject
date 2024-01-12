@@ -25,8 +25,8 @@ document.body.dir = i18n.dir();
         <div className='mx-5 '>
             <div className='px-3 overflow-x-auto'>
                 <table className='w-full border-spacing-y-5 '>
-                    <thead className='text-left text-whitesmoke-100'>
-                        <tr className=' bg-green shadow-[0px_4px_12px_#193a8b] h-[63px] min-w-[182px]'>
+                    <thead className='text-left text-white '>
+                        <tr className=' bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]'>
                             <ScoringTableColumn
                                 title={t('HOLE')}
                                 className='rounded-s-[3px] font-bold text-[24px] text-center'
@@ -36,7 +36,7 @@ document.body.dir = i18n.dir();
                                 <ScoringTableColumn
                                     key={index}
                                     title={`${index + 1}`}
-                                    className='text-[18px] font-medium text-center'
+                                    className='text-[18px] font-medium text-center '
                                 />
                             ))}
 
@@ -76,7 +76,7 @@ document.body.dir = i18n.dir();
                     </thead>
 
                     <tbody>
-                        <tr className='bg-[#17B3A6]  h-[69px] font-medium text-white'>
+                        <tr className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  h-[69px] font-medium text-black'>
                             <td className='whitespace-nowrap tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[13px]'>
                                 <div
                                     className='w-[135px] text-[24px] h-[69px] flex items-center justify-center font-normal leading-5 text-white bg-[#CF24EB]'
@@ -99,7 +99,7 @@ document.body.dir = i18n.dir();
                             ))}
                             <ScoringTableColumn
                                 title='39'
-                                className='bg-black text-[18px] font-medium text-center'
+                                className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  text-[18px] font-medium text-center text-black'
                             />
                             {Array.from({ length: 9 }, (_, index) => (
                                 <ScoringTableColumn
@@ -110,7 +110,7 @@ document.body.dir = i18n.dir();
                             ))}
                             <ScoringTableColumn
                                 title='37'
-                                className='bg-black text-[18px] font-medium text-center '
+                                className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  text-[18px] font-medium text-center text-black '
                             />
                             <ScoringTableColumn
                                 title='76'

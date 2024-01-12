@@ -114,11 +114,14 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
 
   return (
     <>
-      <div
+   
+    <td
+        colSpan={8}
         id="popup-modal"
         tabIndex={-1}
-        className="w-full p-2 mx-auto bg-white rounded-lg shadow-lg dark:bg-gray-700 mt-[-10px]"
+        className="p-2  bg-white rounded-lg shadow-lg dark:bg-gray-700 mt-[-10px]"
       >
+        <div className="col-span-12">
         <div className="flex items-center justify-between mx-4">
           <h2 className="mx-4">Add Your Comment</h2>
           <button
@@ -298,8 +301,12 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
             return null;
           })}
         </div>
-      </div>
+        </div>
+      
+      </td>
     </>
+     
+  
   );
 };
 

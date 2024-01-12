@@ -35,12 +35,12 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
   
   return (
     <div className="flex items-center gap-2 mb-4 xl:m-0">
-      <div className="flex items-center">
+      <div className="flex items-center ">
         <DatePicker
           selected={startDate}
           onChange={handleStartDateChange}
           placeholderText={t('START_DATE')}
-          className="py-3.5 rounded-md border-none"
+          className="py-3.5 rounded-md border border-solid-green-500"
         />
       </div>
       <div className="flex items-center">
@@ -54,12 +54,12 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
           {/* ... SVG path ... */}
         </svg>
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center  ">
         <DatePicker
           selected={endDate}
           onChange={handleEndDateChange}
           placeholderText={t('END_DATE')}
-          className="py-3.5  rounded-md border-none"
+          className="py-3.5  rounded-md border border-solid-green-500"
         />
       </div>
     </div>

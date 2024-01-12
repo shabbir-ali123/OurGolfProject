@@ -28,7 +28,7 @@ const LeaderBoardRow: FunctionComponent<PlayerScoreProps> = ({ data }) => {
   } = data;
   return (
     <div
-      className={`mt-10 rounded-md  shadow-[4px_6px_16px_#cf24eb] bg-[${rowBackgroundColor}] h-16 text-black font-poppins text-center`}
+      className={`mt-6 rounded-md  bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-24 text-black font-poppins text-center`}
     >
       <div className="flex items-center h-full gap-4 px-3 leading-[18px]">
         <div className="flex text-xl text-lightseagreen-100 leading-[20px] basis-1/6 ">
@@ -58,7 +58,7 @@ const LeaderBoardRow: FunctionComponent<PlayerScoreProps> = ({ data }) => {
         <div className="basis-1/3">
           <div className="relative w-[148px] h-[41px] text-white">
             <div
-              className="absolute top-[0px] left-[0px] rounded shadow-[0px_4px_19px_#cf24eb] w-[148px] h-[41px]"
+              className="absolute top-[0px] left-[0px] rounded  w-[148px] h-[41px] text-center "
               style={{
                 backgroundColor: teamBackgroundColor,
               }}
