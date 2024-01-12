@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
+
 interface UserData {
   nickName: string;
   email: string;
@@ -48,14 +49,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   document.body.dir = i18n.dir();
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
-  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [localEvents, setLocalEvents] = useState<any>([]);
 
   const handleComment = (eventId: string) => {
-    console.log(eventId, "handleevent");
-    setSelectedEventId(eventId);
-    setShowModal(true);
+    setSelectedEvent(eventId);
+    setShowModal(!showModal);
   };
+
   const handleFavoriteClick = async (eventId: string) => {
     try {
       const token = localStorage.getItem("token");
@@ -85,10 +86,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       console.error("Error marking as favorite:", error);
     }
   };
+
   const closeModal = () => {
-    setSelectedEventId(null);
+    setSelectedEvent(null);
     setShowModal(false);
   };
+
   const handleLike = async (event: any) => {
     try {
       const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
@@ -138,6 +141,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       );
     }
   };
+
   const getUser = async (userId: any) => {
     try {
       const token = localStorage.getItem("token");
@@ -170,6 +174,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     setLocalEvents(events);
   }, [events]);
 
+  const comments = events.map((event: any) => event.comments.length);
+
   return (
     <div className="animate__animated animate__fadeInLeft">
       <div className="flow-root mt-2">
@@ -177,49 +183,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           <div className="inline-block min-w-full py-0 align-middle ">
             <div className="overflow-hidden sm:rounded-lg">
               <table
-                className="min-w-full divide-y divide-gray-300"
+                className="relative min-w-full divide-y divide-gray-300 z-9"
                 style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
               >
                 <thead className="bg-[#006800] text-white ">
                   <tr>
-                    <th
-                      scope="col"
-                      className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
-                    >
-                      {t("ORGANIZER")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-sm font-semibold text-left"
-                    >
-                      {t("TIME")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-sm font-semibold text-left"
-                    >
-                      {t("DATE")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-sm font-semibold text-left"
-                    >
-                      {t("EVENTS_NAME")}
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-sm font-semibold text-left"
-                    >
-                      {t("SHORT_NOTES")}
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-sm text-left font-semibol"
-                    >
-                      {t("ACTIONS")}
-                    </th>
+                    {/* ... (previous code) */}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
@@ -230,157 +199,158 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       (like: any) =>
                         parseInt(`${like.userId}`) === parseInt(`${userId}`)
                     )?.counter;
+
                     return (
-                      <tr
-                        key={index}
-                        className={`rounded-sm ${
-                          index % 2 === 0
-                            ? "bg-[#3A66C0] text-white shadow-[-3.9px_3.9px_3.12px_#0052fb]"
-                            : "bg-[#D3DAFF] text-black"
-                        }`}
-                        style={{
-                          width: "100%",
-                          borderRadius: "4px",
-                          border: "none",
-                        }}
-                      >
-                        <td className="flex items-center  mt-[0px] ">
-                          <div
-                            className={` -rotate-90 px-4 py-2    text-white  text-sm my-6 ml-[-19px] flex  items-center ${
-                              event?.type !== "full"
-                                ? "bg-[#CF4E4E]"
-                                : "opacity-0"
-                            }`}
-                          >
-                            FULL
-                          </div>
-                          <div className={`flex items-center gap-x-4`}>
-                            <img
-                              src={
-                                Array.isArray(event.imageUrl)
-                                  ? event.imageUrl[0]
-                                  : event.imageUrl
-                              }
-                              alt=""
-                              className="w-12 h-12 bg-gray-800 rounded-full "
-                            />
-                            <div className="text-lg font-medium leading-6 truncate ">
-                              {event.creator && event.creator.nickName
-                                ? event.creator.nickName
-                                : "N/A"}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-3 py-0 text-lg whitespace-nowrap">
-                          {event.eventStartTime}
-                        </td>
-                        <td className="px-3 py-0 text-lg whitespace-nowrap">
-                          {event.eventStartDate}
-                        </td>
-                        <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left ">
-                          <div className="flex flex-col ">
-                            {event.eventName}
-                            <span className="flex items-center gap-1 font-normal ">
-                              <MapPinIcon
-                                className={`-mr-0.5 h-5 w-5 ${
-                                  event.type !== "full" && "text-[#33333]"
-                                }`}
-                                aria-hidden="true"
-                              />
-
-                              {event.place}
-                            </span>
-                          </div>
-
-                          <span
-                            className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2 cursor-pointer    ${
-                              event.type === "full"
-                                ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full "
-                                : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
-                            }`}
-                          >
-                            <Link
-                              to={user ? "/pay-now" : "/login-page"}
-                              className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0 sm:mx-2 cursor-pointer ${
-                                event.type === "full"
-                                  ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
-                                  : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
+                      <React.Fragment key={index}>
+                        <tr
+                          className={`rounded-sm ${
+                            index % 2 === 0
+                              ? "bg-[#3A66C0] text-white shadow-[-3.9px_3.9px_3.12px_#0052fb]"
+                              : "bg-[#D3DAFF] text-black"
+                          }`}
+                          style={{
+                            width: "100%",
+                            borderRadius: "4px",
+                            border: "none",
+                          }}
+                        >
+                          <td className="flex items-center mt-[0px]">
+                            <div
+                              className={` -rotate-90 px-4 py-2    text-white  text-sm my-6 ml-[-19px] flex  items-center ${
+                                event?.type !== "full"
+                                  ? "bg-[#CF4E4E]"
+                                  : "opacity-0"
                               }`}
                             >
-                              <p className="rotate-45 sm:text-lg xl:text-x">
-                                Join
-                              </p>
-                            </Link>
-                          </span>
-                        </td>
-                        <td className="px-3 py-0 text-sm whitespace-nowrap">
-                          {event.eventDetails}
-                        </td>
-                        <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
-                          <div className="flex flex-col items-center gap-1">
-                            <div
-                              className={`flex bg-${
-                                liked ? "green" : "[#17B3A6]"
-                              } cursor-pointer p-1 rounded-md`}
-                              onClick={() => handleLike(event)}
-                            >
-                              <HandThumbUpIcon className="w-3 h-3 text-white" />
+                              FULL
                             </div>
-                            <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
-                              <div className="text-[10px] text-white ">
-                                {
-                                  (event?.likes || []).filter(
-                                    (like: any) => like.counter
-                                  ).length
+                            <div className={`flex items-center gap-x-4`}>
+                              <img
+                                src={
+                                  Array.isArray(event.imageUrl)
+                                    ? event.imageUrl[0]
+                                    : event.imageUrl
                                 }
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex flex-col items-center gap-1">
-                            <div
-                              onClick={() => handleComment(event.id)}
-                              className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md"
-                            >
-                              <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white" />
-                            </div>
-                            <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
-                              <div className="text-[10px] text-white">
-                                {event.comments.counter}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex flex-col items-center gap-1">
-                            <div
-                              className={`flex bg-${
-                                isFavorite ? "[#006800]" : "[#17B3A6]"
-                              } cursor-pointer p-1 rounded-md`}
-                              onClick={() => handleFavoriteClick(event.id)}
-                            >
-                              <FontAwesomeIcon
-                                icon={faHeart}
-                                className={`h-3 w-3 text-white`}
+                                alt=""
+                                className="w-12 h-12 bg-gray-800 rounded-full "
                               />
+                              <div className="text-lg font-medium leading-6 truncate ">
+                                {event.creator && event.creator.nickName
+                                  ? event.creator.nickName
+                                  : "N/A"}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-3 py-0 text-lg whitespace-nowrap">
+                            {event.eventStartTime}
+                          </td>
+                          <td className="px-3 py-0 text-lg whitespace-nowrap">
+                            {event.eventStartDate}
+                          </td>
+                          <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left">
+                            <div className="flex flex-col ">
+                              {event.eventName}
+                              <span className="flex items-center gap-1 font-normal ">
+                                <MapPinIcon
+                                  className={`-mr-0.5 h-5 w-5 ${
+                                    event.type !== "full" && "text-[#33333]"
+                                  }`}
+                                  aria-hidden="true"
+                                />
+                                {event.place}
+                              </span>
                             </div>
 
-                            <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
-                              <ShareIcon className="w-3 h-3 text-white" />
+                            <span
+                              className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2 cursor-pointer    ${
+                                event.type === "full"
+                                  ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full "
+                                  : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
+                              }`}
+                            >
+                              <Link
+                                to={user ? "/pay-now" : "/login-page"}
+                                className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0 sm:mx-2 cursor-pointer ${
+                                  event.type === "full"
+                                    ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
+                                    : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
+                                }`}
+                              >
+                                <p className="rotate-45 sm:text-lg xl:text-x">
+                                  Join
+                                </p>
+                              </Link>
+                            </span>
+                          </td>
+                          <td className="px-3 py-0 text-sm whitespace-nowrap">
+                            {event.eventDetails}
+                          </td>
+                          <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
+                            <div className="flex flex-col items-center gap-1">
+                              <div
+                                className={`flex bg-${
+                                  liked ? "green" : "[#17B3A6]"
+                                } cursor-pointer p-1 rounded-md`}
+                                onClick={() => handleLike(event)}
+                              >
+                                <HandThumbUpIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
+                                <div className="text-[10px] text-white ">
+                                  {
+                                    (event?.likes || []).filter(
+                                      (like: any) => like.counter
+                                    ).length
+                                  }
+                                </div>
+                              </div>
                             </div>
+                            <div className="flex flex-col items-center gap-1">
+                              <div
+                                onClick={() => handleComment(event.id)}
+                                className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md"
+                              >
+                                <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
+                                <div className="text-[10px] text-white">
+                                  {comments}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col items-center gap-1">
+                              <div
+                                className={`flex bg-${
+                                  isFavorite ? "[#006800]" : "[#17B3A6]"
+                                } cursor-pointer p-1 rounded-md`}
+                                onClick={() => handleFavoriteClick(event.id)}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faHeart}
+                                  className={`h-3 w-3 text-white`}
+                                />
+                              </div>
+                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
+                                <ShareIcon className="w-3 h-3 text-white" />
+                              </div>
+                            </div>
+                          </td>
+                          <div className="flex items-center justify-start my-1 ml-4">
+                            <button
+                              className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                              onClick={() => handleComment(event)}
+                            >
+                              View
+                            </button>
                           </div>
-                        </td>
-                        <div className="flex items-center justify-start my-1 ml-4">
-                          <button className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
-                            View
-                          </button>
-                        </div>
-                        {showModal && (
-                          <tr>
-                            <CommentModel
-                              closeModal={closeModal}
-                              eventId={selectedEventId}
-                            />
-                          </tr>
+                        </tr>
+                        {selectedEvent === event.id && (
+                          <CommentModel
+                            closeModal={closeModal}
+                            eventId={selectedEvent}
+                          />
                         )}
-                      </tr>
+                      </React.Fragment>
                     );
                   })}
                 </tbody>
@@ -392,7 +362,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     </div>
   );
 };
+
 Table.defaultProps = {
   events: [],
 };
+
 export default Table;

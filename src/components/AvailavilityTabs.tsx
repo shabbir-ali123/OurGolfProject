@@ -44,13 +44,11 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     return { slots, isBooked };
   };
   const initialTimeSlots = generateTimeSlots();
-  const [timeSlots, setTimeSlots] = useState<any[]>(initialTimeSlots.slots);
   const [selectedTime, setSelectedTime] = useState<any[]>([]);
   const [bookedSlots, setBookedSlots] = useState<boolean[]>(initialTimeSlots.isBooked);
 
   useEffect(() => {
-    const { slots, isBooked } = initialTimeSlots;
-    setTimeSlots(slots);
+    const { isBooked } = initialTimeSlots;
     setBookedSlots(isBooked);
   }, [schedules]);
   const [selectedTimeDetails, setSelectedTimeDetails] = useState<TimeDetails[]>([]);
