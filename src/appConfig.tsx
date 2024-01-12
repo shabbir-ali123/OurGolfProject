@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://3.23.206.168:5000";
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
