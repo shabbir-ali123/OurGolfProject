@@ -25,7 +25,7 @@ interface Teacher {
   schedules?: [];
   updatedAt: string;
   userId: string;
-  hourlyRate?: string;
+  hourlyRate: string;
   isFavorite: boolean;
 }
 

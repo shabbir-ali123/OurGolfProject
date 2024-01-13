@@ -7,7 +7,7 @@ import FavTeachers from "../components/FavTeacher";
 import SearchAndFiltersEducator from "../components/SearchAndFilter";
 import TeacherConDetail from "../components/TeacherConDetail";
 import ReschedulePop from "../components/ReschedulePop";
-import axios from "axios";  
+import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
@@ -24,10 +24,8 @@ interface Teacher {
   schedules?: [];
   updatedAt: string;
   userId: string;
-
+  hourlyRate:string;
 }
-
-
 
 const StudentProfile: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<"student" | "teacher">(
@@ -47,7 +45,6 @@ const StudentProfile: React.FC = () => {
       console.log("No schedules available for selected teacher");
     }
   };
-  
 
   const closeModal = () => {
     setShowModal(false);
@@ -61,27 +58,34 @@ const StudentProfile: React.FC = () => {
         const token = localStorage.getItem("token");
         const response = await axios.get(API_ENDPOINTS.GETALLTEACHERS, {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
           params: {
             page: 1,
             pageSize: 20,
-          }
+          },
         });
-  
-        if (response.data && response.data.teachers && response.data.teachers.length > 0) {
-          setTeachers(response.data.teachers); 
-          setSelectedTeacher(response.data.teachers[0]); 
-        } 
+
+        if (
+          response.data &&
+          response.data.teachers &&
+          response.data.teachers.length > 0
+        ) {
+          setTeachers(response.data.teachers);
+          setSelectedTeacher(response.data.teachers[0]);
+        }
       } catch (error: any) {
-        toast.error(`Error Fetching Teachers ${error.message}`, toastProperties as ToastConfig);
+        toast.error(
+          `Error Fetching Teachers ${error.message}`,
+          toastProperties as ToastConfig
+        );
       }
     };
-  
-    fetchTeachers(); 
+
+    fetchTeachers();
   }, []);
-  
+
   const handleBookAppointment = () => {
     console.log("Booking appointment logic");
   };
@@ -89,11 +93,11 @@ const StudentProfile: React.FC = () => {
     setShowModal(false);
   };
   const showTeacherDetails = (teacher: Teacher) => {
-  setSelectedTeacher(teacher);
-};
+    setSelectedTeacher(teacher);
+  };
   return (
     <div className="grid grid-cols-11 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8 ">
-          <div className="col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft ">
+      <div className="col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft ">
         <StudentTabs
           selectedTab={selectedTab}
           onSelectTab={handleSelectTab}
@@ -110,9 +114,11 @@ const StudentProfile: React.FC = () => {
       <div className="col-span-12 p-4 md:col-span-12 lg:col-span-3 xl:col-span-3 lg:overflow-y-auto scrollbar lg:max-h-screen ">
         <SearchAndFiltersEducator />
 
-        
-        <TeacherList openModal={openModal} handleBookAppointment={handleBookAppointment} showTeacherDetails={showTeacherDetails} />
-
+        <TeacherList
+          openModal={openModal}
+          handleBookAppointment={handleBookAppointment}
+          showTeacherDetails={showTeacherDetails}
+        />
 
         <style>{`
         
@@ -139,11 +145,11 @@ const StudentProfile: React.FC = () => {
             `}</style>
       </div>
 
-     
-     <div className="col-span-12 xl:col-span-4 p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight">
-  
-  {selectedTeacher && <TeacherConDetail teacherDetails={selectedTeacher} />}
-</div>
+      <div className="col-span-12 xl:col-span-4 p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight">
+        {selectedTeacher && (
+          <TeacherConDetail teacherDetails={selectedTeacher} />
+        )}
+      </div>
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 ">
           <div className="max-w-md p-8 mx-auto bg-white rounded-lg animate__animated animate__fadeInLeft">

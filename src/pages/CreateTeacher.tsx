@@ -5,7 +5,7 @@ import {
   PhoneIcon,
   MapPinIcon,
 } from "@heroicons/react/24/solid";
-import InputWithIcon from "../components/InputWithIcon";
+import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { ShareIcon } from "@heroicons/react/20/solid";
 import CalendarSlider from "../components/CalendarSlider";

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import InputWithIcon, {CustomTextArea, FileInputComponents, TextAreaProp} from "./FormComponents"
+import { UserIcon } from "@heroicons/react/24/outline";
 interface PostModalProps {
   closeModal: () => void;
 }
@@ -27,28 +29,34 @@ const PostModal: React.FC<PostModalProps> = ({ closeModal }) => {
           <div className="mb-4">
             <h1 className="text-2xl font-bold">Write Post</h1>
           </div>
-          <div className="mb-4">
-            <label
-              className="block mb-2 text-sm font-medium text-gray-900"
-              htmlFor="postText"
-            >
-              Text
-            </label>
-            <textarea
-              id="postText"
-              rows={4}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="Write text..."
-            ></textarea>
-          </div>
-          <div className="mb-4">
-            <label
-              className="block mb-2 text-sm font-medium text-gray-900"
-              htmlFor="postMedia"
-            >
-              Add photos and video
-            </label>
-          </div>
+        <div style={{display: "block"}}>
+           
+        <CustomTextArea
+                pname="postText"
+                label="Text"
+                placeholder="Write text..."
+                colSpanSm={6}
+                colSpanMd={4}
+                colSpanLg={2}
+            />
+             <InputWithIcon
+                pname="firstName"
+                icon={<UserIcon />}
+                label=""
+                value=""
+                onChange={(value) =>{}}
+                placeholder="first Name"
+                colSpanSm={6}
+                colSpanMd={4}
+                colSpanLg={2}
+              />
+         
+         <FileInputComponents
+                pname="firstName"
+                icon={<UserIcon />}
+                label=""
+              />
+        </div>
           <div className="mb-4 relative">
             <label
               className="block mb-2 text-sm font-medium text-gray-900"
