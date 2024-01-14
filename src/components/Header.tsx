@@ -59,7 +59,7 @@ const Header: React.FC = () => {
   return (
     <div>
       {token ? (
-        <header className="bg-[#1AA75D] overflow-hidden ">
+        <header className="bg-[#054a51] overflow-hidden ">
           <nav
             className="flex items-center justify-between py-2 lg:px-32 "
             aria-label="Global"
@@ -148,7 +148,7 @@ const Header: React.FC = () => {
           </Dialog>
         </header>
       ) : (
-        <header className="bg-[#1AA75D] overflow-hidden ">
+        <header className="bg-[#054a51] overflow-hidden ">
           <nav
             className="flex items-center justify-between py-2 lg:px-32 "
             aria-label="Global"

@@ -26,4 +26,7 @@ export const API_ENDPOINTS = {
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
+  CREATEPOST: `${API_BASE_URL}/${API_VERSION}/create-post`, 
+  GETPOSTS: `${API_BASE_URL}/${API_VERSION}/get-posts`, 
+  GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/:id`, 
 };

@@ -1,95 +1,151 @@
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import InputWithIcon, {CustomTextArea, FileInputComponents, TextAreaProp} from "./FormComponents"
-import { UserIcon } from "@heroicons/react/24/outline";
-interface PostModalProps {
-  closeModal: () => void;
-}
+import { API_ENDPOINTS } from "../appConfig";
+import axios from "axios";
 
-const PostModal: React.FC<PostModalProps> = ({ closeModal }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+  const [postContent, setPostContent] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [tags, setTags] = useState("");
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
 
-  const handleInputClick = () => {
-    setIsModalOpen(true);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setSelectedFiles(event.target.files);
+    }
   };
 
+  const handlePost = async (event:any) => {
+    event.preventDefault();
+    const userToken = localStorage.getItem("token");
+    const userId = localStorage.getItem("id");
+
+    if (!userToken || !userId) {
+      alert("Authentication is required to create a post.");
+      return;
+    }
+
+    if (!selectedFiles || selectedFiles.length === 0) {
+      alert("Please select a file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    for (let i = 0; i < selectedFiles.length; i++) {
+      formData.append("mediaFiles", selectedFiles[i]);
+    }
+    formData.append("userId", userId);
+    formData.append("content", postContent);
+    formData.append("category", selectedCategory);
+    formData.append("tags", tags);
+    console.log(Array.from(formData.entries()));
+    try {
+      const response = await axios.post(API_ENDPOINTS.CREATEPOST, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      console.log(response.data);
+      closeModal();
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        // Error response from Axios request
+        console.error(
+          "Post creation error:",
+          error.response?.data || error.message
+        );
+        alert(
+          "Failed to create post. Please check the console for more information."
+        );
+      } else if (error instanceof Error) {
+        // Generic error
+        console.error("Post creation error:", error.message);
+        alert(
+          "Failed to create post. Please check the console for more information."
+        );
+      } else {
+        // Unknown error
+        console.error("Post creation error:", error);
+        alert(
+          "An unknown error occurred. Please check the console for more information."
+        );
+      }
+    }
+  };
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 backdrop-blur-sm flex justify-center items-center p-4">
-      <div className="w-full p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-        <div className="w-full">
-          <div className="flex justify-end">
-            <button onClick={closeModal} className="bg-transparent">
-              <XMarkIcon
-                className="w-5 h-5 cursor-pointer border-2 border-solid border-[#51ff85] rounded-full p-1 text-[#51ff85]"
-                aria-hidden="true"
-              />
-            </button>
-          </div>
+      <div className="w-full max-w-xl bg-white rounded-lg shadow-md mx-auto p-6">
+        <form >
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-bold">Write Post</h1>
+          <button onClick={closeModal} className="p-2">
+            <XMarkIcon className="w-6 h-6" aria-hidden="true" />
+          </button>
+        </div>
+        <textarea
+          className="w-full p-2 border rounded-lg mb-4"
+          placeholder="Write text..."
+          value={postContent}
+          onChange={(e) => setPostContent(e.target.value)}
+        ></textarea>
+        <label htmlFor="">Add photos and videos</label>
+        <div className="flex items-center justify-center mb-4 rounded-lg border-2 border-solid border-[#51ff85] w-[100px]">
+          <input
+            id="file-upload"
+            type="file"
+            className="hidden"
+            onChange={handleFileChange} // Add this line to use the handleFileChange function
+            multiple
+            accept="image/*,video/*"
+          />
+          <label
+            htmlFor="file-upload"
+            className="cursor-pointer p-2 border rounded-full flex justify-center items-center"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path d="M12 4v16m8-8H4"></path>
+            </svg>
+          </label>
+        </div>
+        <label htmlFor="">Add Category</label>
+        <select
+          className="w-full p-2 border rounded-lg mb-4"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="" disabled>
+            Select Category
+          </option>
 
-          <div className="mb-4">
-            <h1 className="text-2xl font-bold">Write Post</h1>
-          </div>
-        <div style={{display: "block"}}>
-           
-        <CustomTextArea
-                pname="postText"
-                label="Text"
-                placeholder="Write text..."
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-            />
-             <InputWithIcon
-                pname="firstName"
-                icon={<UserIcon />}
-                label=""
-                value=""
-                onChange={(value) =>{}}
-                placeholder="first Name"
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-         
-         <FileInputComponents
-                pname="firstName"
-                icon={<UserIcon />}
-                label=""
-              />
+          <option value="option1">Option 1</option>
+        </select>
+        <div>
+          <label htmlFor="">Add tags</label>
+          <input
+            className="w-full p-2 border rounded-lg mb-4"
+            placeholder="# Tags"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+          />
         </div>
-          <div className="mb-4 relative">
-            <label
-              className="block mb-2 text-sm font-medium text-gray-900"
-              htmlFor="postCategory"
-            >
-              Add Category
-            </label>
-            <select
-              id="postCategory"
-              className="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            >
-              <option value="" disabled selected>
-                Select
-              </option>
-             
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-           
-            </select>
-            {isModalOpen && (
-              <div className="absolute z-10 w-full bg-white rounded-md shadow-lg mt-1"></div>
-            )}
-          </div>
-          <div className="flex justify-center w-full">
-            <button
-              className=" text-white bg-[#52FF86] hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-              onClick={closeModal}
-            >
-              Post
-            </button>
-          </div>
-        </div>
+
+        <button
+          className="w-full bg-[#51ff85] hover:bg-[#51ff85] text-white font-bold py-2 px-4 rounded"
+          onClick={(event) => handlePost(event)}
+        >
+          Post
+        </button>
+        </form>
+        
       </div>
     </div>
   );

@@ -104,7 +104,7 @@ export default function ProfileButton() {
           ) : (
             <div className="ml-3">
               <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
-                <Link to="/login-page">Login</Link>
+                <Link to="/login-page" className="text-white">Login</Link>
               </p>
               <div>
                 <button

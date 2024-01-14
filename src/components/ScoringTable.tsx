@@ -79,7 +79,7 @@ document.body.dir = i18n.dir();
                         <tr className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  h-[69px] font-medium text-black'>
                             <td className='whitespace-nowrap tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[13px]'>
                                 <div
-                                    className='w-[135px] text-[24px] h-[69px] flex items-center justify-center font-normal leading-5 text-white bg-[#CF24EB]'
+                                    className='w-[135px] text-[24px] h-[69px] flex items-center justify-center font-normal leading-5 text-white bg-black'
                                     style={{
                                         boxShadow: ' 0px 0px 5px 0px #CF24EB',
                                     }}
@@ -133,26 +133,26 @@ document.body.dir = i18n.dir();
                         <ScoringTableRow
                             teamImageUrl='/img/ellipse-23085@2x.png'
                             teamName='Fore Friends'
-                            background='#B8E4FD'
-                            teamBG='#00BF9E'
+                            background='#A9A9A9'
+                            teamBG='#A9A9A9'
                         />
                         <ScoringTableRow
                             teamImageUrl='/img/ellipse-23086@2x.png'
-                            teamName='Birdie Brigadbasd'
+                            teamName=' Brigadbasd'
                             background='#FFD98C'
-                            teamBG='#00BF9E'
+                            teamBG='#808080'
                         />
                         <ScoringTableRow
                             teamImageUrl='/img/ellipse-23114@2x.png'
-                            teamName='Hole-in-Won'
+                            teamName='Hole-Won'
                             background='#CDD5FF'
-                            teamBG='#011F3B'
+                            teamBG='#D3D3D3'
                         />
                         <ScoringTableRow
                             teamImageUrl='/img/ellipse-23088@2x.png'
-                            teamName='Tee-rific Titan'
+                            teamName='Tee-rific'
                             background='#AFFFAF'
-                            teamBG='#1D3D86'
+                            teamBG='#E0E0E0'
                         />
                     </tbody>
                 </table>

@@ -10,19 +10,27 @@ const PostItem: React.FC = () => {
   return (
     <div className="bg-white p-4 my-4 rounded-lg border-2 border-solid border-[#51ff85] flex ">
       <img
-        className=" rounded-lg w-[300px] h-[200px]"
+        className=" rounded-lg w-[300px] h-[240px]"
         src="https://img.freepik.com/free-photo/golf-ball_1308-5010.jpg?size=626&ext=jpg&uid=R68032164&ga=GA1.1.1873485738.1704878396&semt=ais"
         alt="Post"
       />
       <div className="p-4">
-        <p className="text-gray-700 text-sm">
+        <div className="flex items-center gap-2">
+        <img
+        className=" rounded-full w-8 h-8"
+        src="https://img.freepik.com/free-photo/golf-ball_1308-5010.jpg?size=626&ext=jpg&uid=R68032164&ga=GA1.1.1873485738.1704878396&semt=ais"
+        alt="Post"
+      />
+      <p className="p-0">Shabbir</p>
+        </div>
+        <p className="text-gray-700 text-sm p-0">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.
         </p>
 
-        <div className="  mt-6">
+        <div className="  mt-2">
           <div className="flex space-x-2">
             <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
               #Golf

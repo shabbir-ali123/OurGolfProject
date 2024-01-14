@@ -80,7 +80,7 @@ const SideMenu: React.FC = () => {
     zIndex: "9999",
     height: "100vh",
     width: isMenuOpen ? "200px" : "40px",
-    backgroundColor: "#1AA75D",
+    backgroundColor: "#054a51",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

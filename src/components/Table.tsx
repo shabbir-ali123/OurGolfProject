@@ -191,12 +191,49 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                 className="relative min-w-full divide-y divide-gray-300 z-9"
                 style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
               >
-                <thead className="bg-[#006800] text-white ">
+                  <thead className="bg-[#006800] text-white ">
                   <tr>
-                    {/* ... (previous code) */}
+                    <th
+                      scope="col"
+                      className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
+                    >
+                      Organizer
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Time
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Date
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Event Name
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Short Notes
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibol"
+                    >
+                      Actions
+                    </th>
                   </tr>
                 </thead>
-                {/* <tbody className="bg-white divide-y divide-gray-200 "> */}
+               
                   {localEvents.map((event: any, index: number) => {
                     const likes = event.likes || [];
                     const isFavorite = event.isFavorite || false;

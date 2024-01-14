@@ -35,7 +35,7 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
         >
             <td className='whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] '>
                 <div
-                    className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
+                    className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black`}
                     style={{ backgroundColor: teamBG }}
                 >
                     {teamName}

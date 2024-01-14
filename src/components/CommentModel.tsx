@@ -16,8 +16,9 @@ interface AddComment {
 interface Comment {
   id: any;
   content: any;
-  userId: any; // Add the appropriate type for userId
-  createdAt: string; // Assuming createdAt is a string representing a date
+  userId: any;
+  nickName: string; // Add this field
+  createdAt: string;
   eventId: any;
 }
 interface Event {

@@ -81,8 +81,9 @@ document.body.dir = i18n.dir();
   const categories ={
     ALL: [],
     LIVE: [],
-    PAST: [],
     UPCOMING: [],
+    PAST: [],
+    
   };
   
   const handleLocationButtonClick = () => {
@@ -126,8 +127,8 @@ document.body.dir = i18n.dir();
                       "w-full rounded-md py-1 px-10 text-base font-normal leading-5 cursor-pointer hover:animate-bounce",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
-                        ? "bg-[#3A66C0]  text-white "
-                        : "text-[#17B3A6] bg-white border border-solid-green-500 hover:bg-[#3A66C0] hover:text-white"
+                        ? "bg-[#b1b1b1]  text-black "
+                        : "text-[#17B3A6] bg-white border border-solid-green-500 hover:bg-[#b1b1b1] hover:border-none hover:text-white"
                     )
                   }
                 >
@@ -246,12 +247,13 @@ document.body.dir = i18n.dir();
             <Tab.Panel key="LIVE">
               <LiveEvents  />
             </Tab.Panel>
-            <Tab.Panel key="PAST">
-              <PastEvents   />
-            </Tab.Panel>
             <Tab.Panel key="UPCOMING">
             <UpcomingEvents events={events} setEvents={setEvents} />
             </Tab.Panel>
+            <Tab.Panel key="PAST">
+              <PastEvents   />
+            </Tab.Panel>
+           
           </Tab.Panels>
         </Tab.Group>
       </div>
