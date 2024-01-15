@@ -2,19 +2,29 @@ import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-
+import PostCard from "./PostCard"
+interface CreatePostType {
+  userId: any,
+  category: any,
+  tags: any,
+  mediaFile: any
+}
 const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [postContent, setPostContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [tags, setTags] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setSelectedFiles(event.target.files);
     }
   };
-
+  const [formData, setFormData] = useState<CreatePostType>({
+   userId: "",
+   category: "",
+   tags: [],
+   mediaFile: ""
+  });
   const handlePost = async (event:any) => {
     event.preventDefault();
     const userToken = localStorage.getItem("token");
@@ -30,15 +40,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       return;
     }
 
-    const formData = new FormData();
-    for (let i = 0; i < selectedFiles.length; i++) {
-      formData.append("mediaFiles", selectedFiles[i]);
-    }
-    formData.append("userId", userId);
-    formData.append("content", postContent);
-    formData.append("category", selectedCategory);
-    formData.append("tags", tags);
-    console.log(Array.from(formData.entries()));
+    // console.log(Array.from(formData));
     try {
       const response = await axios.post(API_ENDPOINTS.CREATEPOST, formData, {
         headers: {
@@ -73,10 +75,19 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       }
     }
   };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log({ e });
+    const { name, value, checked } = e.target;
+    if (name === "selfIncluded") {
+      setFormData({ ...formData, });
+    } else {
+      setFormData({ ...formData,});
+    }
+  };
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 backdrop-blur-sm flex justify-center items-center p-4">
       <div className="w-full max-w-xl bg-white rounded-lg shadow-md mx-auto p-6">
-        <form >
+        <form className="px-2">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">Write Post</h1>
           <button onClick={closeModal} className="p-2">
@@ -84,7 +95,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           </button>
         </div>
         <textarea
-          className="w-full p-2 border rounded-lg mb-4"
+          className="w-full  border rounded-lg mb-4"
           placeholder="Write text..."
           value={postContent}
           onChange={(e) => setPostContent(e.target.value)}
@@ -139,7 +150,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         </div>
 
         <button
-          className="w-full bg-[#51ff85] hover:bg-[#51ff85] text-white font-bold py-2 px-4 rounded"
+          className="w-full bg-[#51ff85] hover:bg-[#51ff85] text-white font-bold py-2 rounded"
           onClick={(event) => handlePost(event)}
         >
           Post

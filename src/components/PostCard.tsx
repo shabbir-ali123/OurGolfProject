@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ShareIcon ,
     HandThumbUpIcon,
     EnvelopeIcon
 
 } from "@heroicons/react/24/solid";
+import { fetchPosts } from "../utils/fetchPosts";
+interface Post{
+  id: any
 
+}
 const PostItem: React.FC = () => {
+  const [post, setPosts] =  useState<Post[]>([]);
+
+  useEffect(() => {
+    fetchPosts(setPosts);
+  },[]);
     
   return (
     <div className="bg-white p-4 my-4 rounded-lg border-2 border-solid border-[#51ff85] flex ">
+      
+      {post.map((post: Post) => (
+       <div>{post.id}</div> 
+      ))}
       <img
         className=" rounded-lg w-[300px] h-[240px]"
         src="https://img.freepik.com/free-photo/golf-ball_1308-5010.jpg?size=626&ext=jpg&uid=R68032164&ga=GA1.1.1873485738.1704878396&semt=ais"
