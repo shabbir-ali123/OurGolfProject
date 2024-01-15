@@ -13,7 +13,7 @@ const PostPage: FunctionComponent = () => {
         <PostHeader />
         <PostProfile />
         <PostCard />
-        <PostCard />
+        
       </div>
     </div>
   );
