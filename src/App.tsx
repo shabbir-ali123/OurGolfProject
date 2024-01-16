@@ -10,7 +10,6 @@ import {
 import ScoreBoard from "./pages/ScoreBoard";
 import OngoingIndiviualScore from "./pages/OngoingIndiviualScore";
 import { ToastProvider } from './utils/ToastProvider';
-// import OngoingEvent from "./pages/LiveScoringTable";
 import StudentPage from "./pages/StudentPage"
 import EventMainPage from "./pages/EventMainPage";
 import Header from "./components/Header";
