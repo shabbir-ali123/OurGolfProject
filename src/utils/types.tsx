@@ -11,6 +11,8 @@ export interface TeacherDetailsProp {
   schedules?: SchedulesTabsProps[];
   updatedAt: string;
   userId: string;
+  hourlyRate?:string;
+  
 }
 
 // Define the 'shifts' interface

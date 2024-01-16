@@ -51,19 +51,19 @@ document.body.dir = i18n.dir();
     <>
       <Link to="/teacher-page" className="no-underline list-none">
         <button
-          className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce ${
+          className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce  ${
             selectedTab === "teacher"
               ? "bg-[#52FF86] text-white"
               : "border-solid border-2 border-[#51ff85] hover:animate-bounce"
           }`}
           onClick={() => onSelectTab("teacher")}
         >
-          {t('Teacher')}
+          {t('TEACHER')}
         </button>
       </Link>
       <Link to="/student-page" className="no-underline list-none">
         <button
-          className={`px-4 py-1 rounded-l-md cursor-pointer hover:animate-bounce ${
+          className={`px-4 py-1 rounded-r-md cursor-pointer hover:animate-bounce ${
             selectedTab === "student"
               ? "bg-[#52FF86] text-white"
               : "border-solid border-2 border-[#51ff85] hover:animate-bounce"

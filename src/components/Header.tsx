@@ -59,19 +59,14 @@ const Header: React.FC = () => {
   return (
     <div>
       {token ? (
-        <header className="bg-[#17B3A6] overflow-hidden ">
+        <header className="bg-[#054a51] overflow-hidden ">
           <nav
-            className="flex items-center justify-between p-0 lg:px-32 "
+            className="flex items-center justify-between py-2 lg:px-32 "
             aria-label="Global"
           >
             <div className="flex lg:flex-1 ">
               <Link to="/event-main-page" className="-m-1.5 p-1">
-                <span className="sr-only">Your Company</span>
-                <img
-                  className="w-auto h-16 animate-pulse"
-                  src="./img/logo.png"
-                  alt=""
-                />
+              
               </Link>
             </div>
             <div className="flex lg:hidden">
@@ -153,19 +148,14 @@ const Header: React.FC = () => {
           </Dialog>
         </header>
       ) : (
-        <header className="bg-[#17B3A6] overflow-hidden ">
+        <header className="bg-[#054a51] overflow-hidden ">
           <nav
-            className="flex items-center justify-between p-0 lg:px-32 "
+            className="flex items-center justify-between py-2 lg:px-32 "
             aria-label="Global"
           >
             <div className="flex lg:flex-1 ">
               <Link to="/event-main-page" className="-m-1.5 p-1">
-                <span className="sr-only">Your Company</span>
-                <img
-                  className="w-auto h-16 animate-pulse"
-                  src="./img/logo.png"
-                  alt=""
-                />
+               
               </Link>
             </div>
             <div className="flex lg:hidden">

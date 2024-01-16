@@ -9,7 +9,7 @@ interface Category {
   borderColor: string;
 }
 
-export default function Example() {
+export default function Activeties() {
   const [categories] = useState({
     PreviousActivities: [
       {
@@ -170,12 +170,13 @@ export default function Example() {
       },
     ],
   } as Record<string, Category[]>);
+  const defaultTabIndex = Object.keys(categories).indexOf('TodayActivities');
   const tabNumbers = [29, 34, 32];
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full">
-        <Tab.Group>
+        <Tab.Group defaultIndex={defaultTabIndex}>
           <Tab.List className="flex items-center justify-center">
             <div className="flex gap-6 py-2 lg:flex-nowrap">
               {Object.keys(categories).map((category, index) => (

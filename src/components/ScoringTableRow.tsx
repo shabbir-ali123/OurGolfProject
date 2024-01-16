@@ -30,12 +30,12 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
 }) => {
     return (
         <tr
-            className={`h-[69px] font-medium text-black shadow-[0px_0px_4px_#00000040]`}
-            style={{ backgroundColor: background }}
+            className={`h-[69px] font-medium text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]`}
+            
         >
             <td className='whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] '>
                 <div
-                    className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
+                    className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black`}
                     style={{ backgroundColor: teamBG }}
                 >
                     {teamName}
@@ -58,7 +58,7 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
             <td
                 className={`text-white leading-[20px] text-[18px] text-center font-medium  box-border`}
             >
-                <div className='bg-black h-[60px] flex items-center justify-center'>
+                <div className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  text-[18px] font-medium text-center text-black h-[60px] flex items-center justify-center'>
                     39
                 </div>
             </td>
@@ -75,7 +75,7 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
                 dir='rtl'
             >
                 <div className='  mx-auto rounded-md  w-20 h-[41px] border-solid border-[2px] border-[#585858] flex items-center justify-center'>
-                    39
+                    1st
                 </div>
             </td>
         </tr>

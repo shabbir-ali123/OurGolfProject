@@ -178,6 +178,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   return (
     <div className="animate__animated animate__fadeInLeft">
+       {localEvents.length === 0 ? (
+      <div className="text-center p-5">
+        <span className="text-lg font-medium">No events yet</span>
+      </div>
+    ) : (
       <div className="flow-root mt-2">
         <div className="-my-2 overflow-x-auto ">
           <div className="inline-block min-w-full py-0 align-middle ">
@@ -186,12 +191,49 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                 className="relative min-w-full divide-y divide-gray-300 z-9"
                 style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
               >
-                <thead className="bg-[#006800] text-white ">
+                  <thead className="bg-[#006800] text-white ">
                   <tr>
-                    {/* ... (previous code) */}
+                    <th
+                      scope="col"
+                      className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
+                    >
+                      Organizer
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Time
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Date
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Event Name
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibold"
+                    >
+                      Short Notes
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="px-3 py-2 text-left text-sm font-semibol"
+                    >
+                      Actions
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200 ">
+               
                   {localEvents.map((event: any, index: number) => {
                     const likes = event.likes || [];
                     const isFavorite = event.isFavorite || false;
@@ -203,20 +245,20 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className={`rounded-sm ${
+                          className={`rounded-lg ${
                             index % 2 === 0
-                              ? "bg-[#3A66C0] text-white shadow-[-3.9px_3.9px_3.12px_#0052fb]"
+                              ? "text-black  bg-[#D3DAFF] "
                               : "bg-[#D3DAFF] text-black"
                           }`}
                           style={{
                             width: "100%",
-                            borderRadius: "4px",
+                            borderRadius: "10px",
                             border: "none",
                           }}
                         >
                           <td className="flex items-center mt-[0px]">
                             <div
-                              className={` -rotate-90 px-4 py-2    text-white  text-sm my-6 ml-[-19px] flex  items-center ${
+                              className={` -rotate-90 px-4 py-2   text-white  text-sm my-6 ml-[-19px] flex  items-center ${
                                 event?.type !== "full"
                                   ? "bg-[#CF4E4E]"
                                   : "opacity-0"
@@ -344,21 +386,25 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </button>
                           </div>
                         </tr>
+                        
                         {selectedEvent === event.id && (
-                          <CommentModel
+                          <tr>
+<CommentModel
                             closeModal={closeModal}
                             eventId={selectedEvent}
                           />
+                            </tr>
                         )}
                       </React.Fragment>
                     );
                   })}
-                </tbody>
+                {/* </tbody> */}
               </table>
             </div>
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };

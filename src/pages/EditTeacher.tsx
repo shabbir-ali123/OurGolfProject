@@ -4,7 +4,7 @@ import {
   PhoneIcon,
   MapPinIcon,
 } from "@heroicons/react/24/solid";
-import InputWithIcon from "../components/InputWithIcon";
+import InputWithIcon from "../components/FormComponents";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";

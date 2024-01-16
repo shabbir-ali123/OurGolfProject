@@ -119,6 +119,8 @@ const StudentList: React.FC<StudentListProps> = ({
           </div>
 
           <div className="grid gap-2 animate__heartBeat">
+            <p className="bg-[#52FF86] rounded-full p-1 text-sm">{startTime}-{endTime}</p>
+            
             <button
               className={`bg-[#0038FF] text-[#ffffff] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
               onClick={handleAcceptClick}

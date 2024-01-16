@@ -50,7 +50,7 @@ document.body.dir = i18n.dir();
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
-          {teacherDetails.location || 'Location not available'}
+          {teacherDetails.location || 'available'}
           </p>
         </div>
       </div>
@@ -67,7 +67,7 @@ document.body.dir = i18n.dir();
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
-          {teacherDetails.phoneNumber || 'phone number is not available'}
+          {teacherDetails.phoneNumber || 'not available'}
           </p>
         </div>
       </div>
@@ -79,11 +79,11 @@ document.body.dir = i18n.dir();
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="font-sans text-xs font-bold text-black">{t('EMAIL')}</h3>
+          <h3 className="font-sans text-xs font-bold text-black">{t('HOURLY')}</h3>
         </div>
         <div className="div">
           <p className="text-gray-500 font-normal text-xs font-sans my-0 ml-[43px]">
-            iamwithyou@gmail.com
+          ¥{teacherDetails.hourlyRate || ' not available'}/Hr
           </p>
         </div>
       </div>

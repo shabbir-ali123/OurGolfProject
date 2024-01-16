@@ -20,7 +20,7 @@ const Player: React.FC<PlayerProps> = ({ showNumber }) => {
       </div>
 
       {showNumber && (
-        <div className='flex justify-center items-center rounded-[50%] bg-blueviolet w-[18px] h-[18px] tracking-[1.45px] leading-[9.22px] text-base text-white'>
+        <div className='flex justify-center items-center rounded-[50%] bg-[#A9A9A9] w-[18px] h-[18px] tracking-[1.45px] leading-[9.22px] text-base text-white'>
           3
         </div>
       )}

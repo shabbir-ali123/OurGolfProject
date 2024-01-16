@@ -32,6 +32,10 @@ const TeacherProfile: React.FC = () => {
   );
   const [showModal, setShowModal] = useState(false);
   const [selectedTeacher, setSelectedTeacher] = useState<any>([]);
+  const [upcomingLessons, setUpcomingLessons] = useState([]);
+  const [completedLessons, setCompletedLessons] = useState([]);
+  const [pendingLessons, setPendingLessons] = useState([]);
+  
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -57,11 +61,15 @@ const TeacherProfile: React.FC = () => {
           setSelectedTeacher(teachers);
         }
       } catch (error: any) {
-        toast.error(`Error Fetching Teachers ${error.message}`, toastProperties as ToastConfig);
+        toast.error(
+          `Error Fetching Teachers ${error.message}`,
+          toastProperties as ToastConfig
+        );
       }
     };
     fetchTeachers();
   }, []);
+ 
   const handleSelectTab = (tab: "teacher" | "student") => {
     setSelectedTab(tab);
   };

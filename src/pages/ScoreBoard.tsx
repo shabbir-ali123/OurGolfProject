@@ -19,8 +19,8 @@ const ScoreBoard: FunctionComponent = () => {
           <LeaderBoardSection />
         </div>
         <IndiviualPlayerScore />
-        <TeamPerformance title={t("DRIVE_CONTEXT")} />
-        <TeamPerformance title={t("NEAR_CONTEXT")} />
+        <TeamPerformance title={t("DRIVER_CONTEST")} />
+        <TeamPerformance title={t("PIN_CONTEST")} />
         <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">
             <img
@@ -41,7 +41,7 @@ const ScoreBoard: FunctionComponent = () => {
         </div>
       </div>
 
-      {/* <LeaderBoardScoringTab /> */}
+     
     </div>
   );
 };

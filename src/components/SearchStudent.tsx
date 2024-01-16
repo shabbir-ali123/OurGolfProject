@@ -1,6 +1,8 @@
 import { useState } from 'react';
-
+import { useTranslation } from "react-i18next";
 const SearchAndFiltersStudent: React.FC = () => {
+    const {t, i18n} = useTranslation();
+document.body.dir = i18n.dir();
     const [search, setSearch] = useState(['Rating']);
      const searchHandler = (value: string) => {
         if (search.includes(value)) {
@@ -15,7 +17,7 @@ const SearchAndFiltersStudent: React.FC = () => {
     return (
         <>
             <p className=' text-[21.59px] leading-[25.76px] tracking-wide font-bold'>
-                Find Your Activities
+            {t('FIND_YOUR_ACTIVTIES')}
             </p>
             <div className='flex flex-col items-center justify-between md:flex-row'>
                 <div className='relative w-full h-[44.08px] md:w-[204.64px] md:h-[24.08px] '>
@@ -32,13 +34,13 @@ const SearchAndFiltersStudent: React.FC = () => {
                 <div className='flex flex-row items-center'>
                     <p className='text-[12px] font-bold'>Filter By:</p>
 
-                    <div className='flex items-center justify-center gap-x-2'>
-                        {[ 'Location', 'Availability'].map(
+                    <div className='flex items-center justify-center gap-x-0'>
+                        {['Location', 'Availibilty',].map(
                             (title, index) => {
                                 return (
                                     <button
                                         key={index}
-                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs ${
+                                        className={`flex justify-center  p-2 ml-2 rounded-md font-normal text-xs cursor-pointer ${
                                             search.includes(title)
                                                 ? 'bg-[#A8FFC2]'
                                                 : 'bg-[#D9D9D966]'
@@ -47,7 +49,7 @@ const SearchAndFiltersStudent: React.FC = () => {
                                             searchHandler(title);
                                         }}
                                     >  
-                                        {title}
+                                        {t(title.toLocaleUpperCase())}
                                     </button>
                                 );
                             }

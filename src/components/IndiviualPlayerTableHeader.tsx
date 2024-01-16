@@ -19,7 +19,7 @@ const IndiviualPlayerTableHeader: FunctionComponent = () => {
       </div>
       <div className="basis-1/2 min-w-[111px] uppercase">{t("TEAM_NAME")}</div>
       <div className="text-center uppercase basis-1/3">{t("TOTAL_PAR")}</div>
-      <div className="text-center uppercase basis-1/3">{t("TOTAL_PAR")}</div>
+      <div className="text-center uppercase basis-1/3">{t("SCORED_PAR")}</div>
       <div className="text-center uppercase basis-1/3">{t("SCORE")}</div>
     </div>
   );
