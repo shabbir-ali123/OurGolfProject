@@ -9,11 +9,11 @@ export interface ToastConfig extends ToastOptions {
     draggable: boolean;
   }
   
-  export const toastProperties = {
-  position: "top-right",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
+export const toastProperties = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
 };
