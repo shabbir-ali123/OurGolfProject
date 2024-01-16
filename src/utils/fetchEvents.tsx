@@ -42,7 +42,6 @@ export const fetchUser = async (setUser:any) => {
       
     });
     setUser(response.data.user);
-    console.log(response.data.events); 
 
   } catch (error) {
     throw error; 

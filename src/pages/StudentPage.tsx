@@ -76,10 +76,8 @@ const StudentProfile: React.FC = () => {
           setSelectedTeacher(response.data.teachers[0]);
         }
       } catch (error: any) {
-        toast.error(
-          `Error Fetching Teachers ${error.message}`,
-          toastProperties as ToastConfig
-        );
+        toast.error(          `You are Not Login! Please Login`)        ;
+
       }
     };
 

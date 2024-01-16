@@ -153,7 +153,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       return response.data;
     } catch (error) {
       toast.error(
-        `Error fetching users: ${error}`,
+        `Please Login`,
         toastProperties as ToastConfig
       );
     }

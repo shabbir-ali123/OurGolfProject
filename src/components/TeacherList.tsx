@@ -132,8 +132,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
               <div>
                 <div className="flex items-center animate__animated animate__shakeX">
                   <img
-                    className="h-[55.25px] w-[55.25px] rounded-full border-solid border-4 border-[#51ff85] "
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    className="w-10 rounded-full border-solid border-4 border-[#51ff85] "
+                    src="/img/profile-page.png"
                     alt=""
                   />
                   <div className="ml-3">

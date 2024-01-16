@@ -45,7 +45,7 @@ const TeacherProfile: React.FC = () => {
 
       setFormData(formData); 
     } catch (error) {
-      toast.error(`Error Updating User ${error}`, toastProperties as ToastConfig);
+      toast.error(          `You are Not Login! Please Login`)        ;
     }
   };
 

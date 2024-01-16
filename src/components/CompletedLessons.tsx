@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import StudentTabs from "../components/StudentTabs";
-import StudentList from "../components/StudentList";
-import StudentEventBoxes from "../components/StudentEventBoxes";
-import TeacherCalSec from "../components/TeacherCalSec";
-import SearchAndFiltersStudent from "../components/SearchStudent";
-import StudentConDetail from "../components/StudentConDetail";
-import ReschedulePop from "../components/ReschedulePop";
+import StudentTabs from "./StudentTabs";
+import StudentList from "./StudentList";
+import StudentEventBoxes from "./StudentEventBoxes";
+import TeacherCalSec from "./TeacherCalSec";
+import SearchAndFiltersStudent from "./SearchStudent";
+import StudentConDetail from "./StudentConDetail";
+import ReschedulePop from "./ReschedulePop";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import RightTab from "../components/RightTabs";
+import RightTab from "./RightTabs";
 interface Teacher {
   count?: number;
   teachers?: [];
@@ -27,7 +27,7 @@ interface Teacher {
   bookShifts: [];
   nickName: string;
 }
-const TeacherProfile: React.FC = () => {
+const CompleteLessonsPage: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<"teacher" | "student">(
     "teacher"
   );
@@ -52,6 +52,7 @@ const TeacherProfile: React.FC = () => {
               page: 1,
               pageSize: 20,
               userId: 2,
+              status: "completed"
             },
           }
         );
@@ -147,4 +148,4 @@ const TeacherProfile: React.FC = () => {
     </div>
   );
 };
-export default TeacherProfile;
+export default CompleteLessonsPage;

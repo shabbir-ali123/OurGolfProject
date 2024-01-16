@@ -53,7 +53,7 @@ const BookMarkedEvents: React.FC = () => {
         });
         setEvents(response.data.events);
       } catch (error) {
-        toast.error(`'Error fetching favorite events: ${error}`, toastProperties as ToastConfig);
+        toast.error(          `You are Not Login! Please Login`)        ;
       }
     };
 

@@ -33,6 +33,9 @@ import CreateTeacher from "./pages/CreateTeacher"
 import TeacherProfilePage from "./pages/TeacherProfilePage";
 import EditTeacher from "./pages/EditTeacher";
 import PostPage from "./pages/PostPage";
+import CompleteLessonsPage from "./components/CompletedLessons";
+import UpcomingLessonsPage from "./components/UpcomingLesson";
+import PendingLessonsPage from "./components/PendingLesson";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -142,7 +145,18 @@ function App() {
                       title = "";
                       metaDescription = "";
                       break;
-  
+                      case "/completed-lesson":
+                        title = "";
+                        metaDescription = "";
+                        break;
+                        case "/upcomming-lesson":
+                          title = "";
+                          metaDescription = "";
+                          break;
+                          case "/pending-lesson":
+                            title = "";
+                            metaDescription = "";
+                            break;
 
     }
 
@@ -187,25 +201,28 @@ function App() {
           
           element={token? <OngoingIndiviualScore/> :<LoginPage />}
         />
-        <Route path="/student-page" element={token? <StudentPage  />:<LoginPage />} />
+      
         <Route path="/event-main-page" element={<EventMainPage/>} />
         <Route path="/activties-page" element={token? <ActivtiesPage /> :<LoginPage />} />
         <Route path="/teacher-page" element={token ? isTeacher ? <TeacherPage /> : <CreateTeacher/> :<LoginPage/> } />
-        <Route path="/student-page" element={token? <StudentPage />:<LoginPage />} />
+        <Route path="/student-page" element={ <StudentPage />} />
         <Route path="/create-event"  element={token? <CreateEvent/>:<LoginPage />} />
-        <Route path="/score-board" element={token? <ScoreBoard/>:<LoginPage />} />
+        <Route path="/score-board" element={<ScoreBoard/>} />
         <Route path="/login-page"  element={<LoginPage  />} />
         <Route path="/register-page" element={<RegisterPage/>} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/edit-team-page" element={<EditTeamPage    />} />
+        <Route path="/edit-team-page" element={token? <EditTeamPage /> :<LoginPage />}  />
         <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
-        <Route path="/booked-mark" element={<BookMarkedEvents   />} />
-        <Route path="/joined-events" element={<JoinedEvents   />} />
-        <Route path="/create-teacher" element={<CreateTeacher   />} />
+        <Route path="/booked-mark" element= {token? <BookMarkedEvents /> :<LoginPage />}  />
+        <Route path="/joined-events" element= {token? <JoinedEvents /> :<LoginPage />} />
+        <Route path="/create-teacher" element={token? <CreateTeacher /> :<LoginPage />} /> 
      
-        <Route path="/edit-teacher" element={<EditTeacher   />} />
+        <Route path="/edit-teacher" element={token? <EditTeacher /> :<LoginPage />} />
         <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
         <Route path="/post-page" element={<PostPage   />} />
+        <Route path="/completed-lesson" element={token? <CompleteLessonsPage /> :<LoginPage />} />
+        <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
+        <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
       </Routes>
     </div>
     </ToastProvider>

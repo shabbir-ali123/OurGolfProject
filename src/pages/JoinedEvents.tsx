@@ -39,7 +39,7 @@ const JoinedEvents: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          toast.error("User not authenticated", toastProperties as ToastConfig);
+          toast.error(          `You are Not Login! Please Login`)        ;
           return;
         }
 
