@@ -10,7 +10,8 @@ interface Post {
   id: any,
   tags: any,
   text: any,
-  posts:any
+  posts:any,
+  mediaFile:any,
 }
 const PostItem: React.FC = () => {
   const [post, setPosts] = useState<Post[]>([]);
@@ -24,11 +25,11 @@ const PostItem: React.FC = () => {
 
       {post.map((post: Post) => (
         <div className="flex my-4  p-4 rounded-lg border-2 border-solid border-[#51ff85]">
-          <img
-            className=" rounded-lg w-[150px] h-[auto]"
-            src="https://img.freepik.com/free-photo/golf-ball_1308-5010.jpg?size=626&ext=jpg&uid=R68032164&ga=GA1.1.1873485738.1704878396&semt=ais"
-            alt="Post"
-          />
+         <img
+              className="rounded-lg w-[150px] h-[auto]"
+              src={post.mediaFile[0]}
+              alt="Post"
+            />
           <div className="p-4">
             <div className="flex items-center gap-2">
               <img

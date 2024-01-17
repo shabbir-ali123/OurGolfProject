@@ -67,8 +67,7 @@ export default function ProfileButton() {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching user:", error);
-      throw error; 
+      throw "sdf"; 
     }
   };
   return (

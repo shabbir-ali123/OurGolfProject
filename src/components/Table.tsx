@@ -153,7 +153,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       return response.data;
     } catch (error) {
       toast.error(
-        `Please login again: ${error}`,
+        `Please Login`,
         toastProperties as ToastConfig
       );
     }

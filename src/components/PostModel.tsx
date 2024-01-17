@@ -2,31 +2,30 @@ import React, { useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-// Import PostCard if needed
-// import PostCard from "./PostCard";
 
 interface CreatePostType {
- text:any,
-  category: any;
-  tags: any;
-  mediaFiles?: string[];
-  userId: any;
+  text: string;
+  category: string;
+  tags: string;
+  userId: string | null;
+  mediaFiles: File[];
 }
 
 const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [postContent, setPostContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [tags, setTags] = useState("");
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const userId = localStorage.getItem("id");
 
   const [formData, setFormData] = useState<CreatePostType>({
     userId: userId,
-    text:postContent,
+    text: postContent,
     category: "",
     tags: "",
-    mediaFiles: []
+    mediaFiles: [],
   });
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileInputChange = () => {
@@ -34,89 +33,73 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       fileInputRef.current.click();
     }
   };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
     if (files && files.length > 0) {
-      const imagesArray: string[] = [];
-
-      if (files.length > 5) {
-       
-        for (let i = 0; i < 5; i++) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const dataUrl = reader.result as string;
-            imagesArray.push(dataUrl);
-
-            if (imagesArray.length === 5) {
-              setFormData((prevFormData: any) => ({
-                ...prevFormData,
-                mediaFiles: imagesArray,
-              }));
-            }
-          };
-          reader.readAsDataURL(files[i]);
-        }
-      } else {
-       
-        for (let i = 0; i < files.length; i++) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const dataUrl = reader.result as string;
-            imagesArray.push(dataUrl);
-
-            if (imagesArray.length === files.length) {
-              setFormData((prevFormData: any) => ({
-                ...prevFormData,
-                mediaFiles: imagesArray,
-              }));
-            }
-          };
-          reader.readAsDataURL(files[i]);
-        }
-      }
+      const filesArray: File[] = Array.from(files).slice(0, 5);
+      setFormData((prevFormData: CreatePostType) => ({
+        ...prevFormData,
+        mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
+      }));
     }
   };
-  const [submitting, setSubmitting] = useState(false);
-
 
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (submitting) {
+    if (!formData.userId || formData.mediaFiles.length === 0) {
+      // Handle error condition
       return;
     }
-    setSubmitting(true);
-
+  
     const userToken = localStorage.getItem("token");
-
+  
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("userId", formData.userId);
+      formDataToSend.append("text", formData.text);
+      formDataToSend.append("category", formData.category);
+      formDataToSend.append("tags", formData.tags);
+  
+      formData.mediaFiles.forEach((file, index) => {
+        formDataToSend.append("mediaFiles", file);
+      });
+  
       const response = await axios.post(
-        API_ENDPOINTS.CREATEPOST,
-        formData,  
+        API_ENDPOINTS.CREATEPOSTS,formDataToSend,
         {
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${userToken}`,
+            "Content-Type": "multipart/form-data", 
           },
         }
       );
+      if (response.status === 201) {
+       
+        window.location.reload();
+      }
       console.log(response.data);
       closeModal();
     } catch (error: unknown) {
-      // Handle error
-    } finally {
-      setSubmitting(false);
     }
   };
-
-
-  const handleInputChange = (e: any) => {
+  
+  const handleInputTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setSelectedCategory(value);
@@ -137,12 +120,12 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             </button>
           </div>
           <textarea
-            className="w-full  border rounded-lg mb-4"
+            className="w-full border rounded-lg mb-4"
             placeholder="Write text..."
             name="text"
             value={formData.text}
-            onChange={handleInputChange}
-            ></textarea>
+            onChange={handleInputTextChange}
+          ></textarea>
           <label htmlFor="">Add photos and videos</label>
           <div className="flex items-center justify-center mb-4 rounded-lg border-2 border-solid border-[#51ff85] w-[100px]">
             <input
@@ -151,13 +134,11 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               ref={fileInputRef}
               className="hidden"
               type="file"
+              multiple
               onChange={handleImageChange}
               accept="image/*,video/*"
             />
-            <label
-              htmlFor="file-upload"
-              className="cursor-pointer p-2 border rounded-full flex justify-center items-center"
-            >
+            <label className="cursor-pointer p-2 border rounded-full flex justify-center items-center">
               <button
                 onClick={handleFileInputChange}
                 className="cursor-pointer p-2 border rounded-full flex justify-center items-center"

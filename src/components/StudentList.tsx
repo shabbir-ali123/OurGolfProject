@@ -15,7 +15,6 @@ interface StudentListProps {
   day?: string,
   startTime?: string,
   endTime?: string,
-  status?: string
 }
 const StudentList: React.FC<StudentListProps> = ({
   openModal,
@@ -25,16 +24,10 @@ const StudentList: React.FC<StudentListProps> = ({
   day,
   startTime,
   endTime,
-  status
+  
 }) => {
   const [showModal, setShowModal] = useState(false);
-  const [bookAppointment, setBookAppointment] = useState({
-    scheduleId: 1,
-    day: 'sunday',
-    startTime: "14:00",
-    endTime: "15:00",
-    status: "active",
-  });
+
   console.log(scheduleId, 'hunzaiiiii')
   const handleSelectTime = (selectedTime: string) => {
     console.log(`Selected Time: ${selectedTime}`);
@@ -51,6 +44,7 @@ const StudentList: React.FC<StudentListProps> = ({
     }
   };
 
+ const status = "asdas"
   const handleAcceptClick = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
