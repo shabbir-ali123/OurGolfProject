@@ -114,9 +114,16 @@ document.body.dir = i18n.dir();
       const [startTime, endTime] = timeRange.split(' to ');
       const day = timeSlot.split('on ')[1].split(' -')[0].trim();
 
+      const endDates = new Date(selectedWeekStart!);
+      endDates.setDate(selectedWeekStart!.getDate() + 7); // Add 7 days to the selectedWeekStart
+
+      const newEndDate = endDates.toISOString();
+
+      console.log(selectedWeekStart!.toISOString(), "dateed", newEndDate);
+
       return {
-        startDate: selectedWeekStart?.toISOString(),
-        endDate: selectedWeekStart?.toISOString(), 
+        startDate: selectedWeekStart!.toISOString(),
+        endDate: newEndDate,
         shifts: [{
           day, 
           startTime,
@@ -129,6 +136,7 @@ document.body.dir = i18n.dir();
       ...formData,
       schedules: schedulesData,
     };
+    console.log(payload);
     try {
       const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
         headers: {
@@ -194,19 +202,23 @@ document.body.dir = i18n.dir();
     });
   };
 
-  const handleTimeSlotClick = (
-    dateKey: string,
-    hour: string,
-    hourIndex: number
-  ) => {
+  const handleTimeSlotClick = (dateKey: string, hour: string, hourIndex: number) => {
     const date = new Date(dateKey);
-    const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
-    const dateParts = dateFormatter.formatToParts(date);
-    const dayName = dateParts.find((part) => part.type === "weekday")?.value || ""; 
-    toggleAvailability(dayName, hour, hourIndex);
+    
+    // Validate the date object before formatting
+    if (!isNaN(date.getTime())) {
+      const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
+      const dateParts = dateFormatter.formatToParts(date);
+      const dayName = dateParts.find((part) => part.type === "weekday")?.value || ""; 
+      toggleAvailability(dayName, hour, hourIndex);
+    } else {
+      console.error('Invalid date:', date);
+      // Handle the invalid date case (e.g., show an error message to the user)
+      return; // Exit the function or handle it as required
+    }
   
     const newShift = {
-      day: 'sunday', 
+      day: 'sunday', // Note: This is hardcoded, you might want to use 'dayName' here
       startTime: hour,
       endTime: "", 
     };
@@ -225,6 +237,7 @@ document.body.dir = i18n.dir();
       };
     });
   };
+  
   
   
 
@@ -357,7 +370,7 @@ document.body.dir = i18n.dir();
                           selectedWeekStart.getTime() +
                             dayIndex * 24 * 60 * 60 * 1000
                         );
-                        const dateKey = date.toLocaleDateString();
+                        const dateKey = date.toISOString().split('T')[0];
                         const isActive = activeStates[hourIndex][dayIndex];
 
                         return (

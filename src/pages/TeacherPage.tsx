@@ -36,7 +36,7 @@ const TeacherProfile: React.FC = () => {
   const [upcomingLessons, setUpcomingLessons] = useState([]);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [pendingLessons, setPendingLessons] = useState([]);
-  
+  const [selectedStudentDetails, setSelectedStudentDetails] = useState<any | null>(null);
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -68,7 +68,9 @@ const TeacherProfile: React.FC = () => {
     };
     fetchTeachers();
   }, []);
- 
+  const handleStudentSelect = (studentInfo: any) => {
+    setSelectedStudentDetails(studentInfo);
+  };
   const handleSelectTab = (tab: "teacher" | "student") => {
     setSelectedTab(tab);
   };
@@ -92,16 +94,18 @@ const TeacherProfile: React.FC = () => {
         {selectedTeacher.map((item: any, index: any) => {
           return (
             <StudentList
-              key={index}
-              scheduleId={item.scheduleId}
-              day={item.day}
-              startTime={item.startTime}
-              endTime={item.endTime}
-              email={item.bookedShifts.email}
-              userName={item.bookedShifts.nickName}
-              openModal={openModal}
-              handleBookAppointment={handleBookAppointment}
-            />
+            key={index}
+            scheduleId={item.scheduleId}
+            day={item.day}
+            lessons=""
+            startTime={item.startTime}
+            endTime={item.endTime}
+            email={item.bookedShifts.email}
+            nickName={item.bookedShifts.nickName}
+            openModal={openModal}
+            handleBookAppointment={handleBookAppointment}
+            onSelectStudent={handleStudentSelect} 
+          />
           );
         })}
         <style>{`
@@ -132,7 +136,7 @@ const TeacherProfile: React.FC = () => {
           profilePic="/img/student.png"
           name="Vivek Kumar"
         />
-        <StudentConDetail />
+         <StudentConDetail studentInfo={selectedStudentDetails} />
       </div>
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 ">

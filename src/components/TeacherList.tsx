@@ -7,6 +7,7 @@ import { getTeacherById } from "../utils/getTeacherById";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
+import SearchAndFiltersEducator from "./SearchAndFilter";
 
 interface TeacherListProps {
   openModal: () => void;
@@ -37,7 +38,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [search, setsearch] = useState<string | null>(null);
   const toggleFavoriteStatus = async (teacher: Teacher) => {
     try {
       const token = localStorage.getItem("token");
@@ -73,6 +74,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
           params: {
             page: 1,
             pageSize: 20,
+            search: search
+            
           },
         });
 
@@ -85,7 +88,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
     };
 
     fetchTeachers();
-  }, []);
+  }, [search]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -119,6 +122,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
 
   return (
     <>
+     <SearchAndFiltersEducator setsearch={setsearch} />
       {teachers.length === 0 ? (
         <div>Loading...</div>
       ) : (

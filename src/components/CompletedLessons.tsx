@@ -36,40 +36,46 @@ const CompleteLessonsPage: React.FC = () => {
   const [upcomingLessons, setUpcomingLessons] = useState([]);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [pendingLessons, setPendingLessons] = useState([]);
+  const [selectedStudentDetails, setSelectedStudentDetails] = useState<any | null>(null);
   
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(
-          API_ENDPOINTS.GETTEACHERBOOKEDAPPOINTMENTS,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            params: {
-              page: 1,
-              pageSize: 20,
-              userId: 2,
-              status: "completed"
-            },
-          }
-        );
-        if (response.data && response.data.bookedAppointments) {
-          const teachers = Array.isArray(response.data.bookedAppointments)
-            ? response.data.bookedAppointments
-            : [response.data.bookedAppointments];
-          setSelectedTeacher(teachers);
-        }
+        const response = await axios.get(API_ENDPOINTS.GETTEACHERBOOKEDAPPOINTMENTS, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          params: {
+            page: 1,
+            pageSize: 20,
+            userId: 2,
+            status: "COMPLETED"
+          },
+        });
+  
+        // if (response.data && response.data.bookedAppointments) {
+        //   const teachers = Array.isArray(response.data.bookedAppointments)
+        //     ? response.data.bookedAppointments
+        //     : [response.data.bookedAppointments];
+  
+        //   // Filter pending lessons with a type annotation for 'lesson'
+        //   const completedLessons = teachers.filter((lesson: any) => lesson.status === "COMPLETED");
+  
+        //   setCompletedLessons(completedLessons);
+        // }
+        setCompletedLessons(response.data.bookedAppointments);
       } catch (error: any) {
-        toast.error(          `You are Not Login! Please Login`)        ;
-
+        toast.error("You are Not Login! Please Login");
       }
     };
+  
     fetchTeachers();
   }, []);
- 
+  const handleStudentSelect = (studentInfo: any) => {
+    setSelectedStudentDetails(studentInfo);
+  };
   const handleSelectTab = (tab: "teacher" | "student") => {
     setSelectedTab(tab);
   };
@@ -90,19 +96,21 @@ const CompleteLessonsPage: React.FC = () => {
       <RightTab />
       <div className="col-span-12 px-4 md:col-span-12 lg:col-span-12 xl:col-span-3 py-0- lg:overflow-y-auto scrollbar lg:max-h-screen animate__animated animate__fadeInLeft">
         <SearchAndFiltersStudent />
-        {selectedTeacher.map((item: any, index: any) => {
+        {completedLessons.map((item: any, index: any) => {
           return (
             <StudentList
-              key={index}
-              scheduleId={item.scheduleId}
-              day={item.day}
-              startTime={item.startTime}
-              endTime={item.endTime}
-              email={item.bookedShifts.email}
-              userName={item.bookedShifts.nickName}
-              openModal={openModal}
-              handleBookAppointment={handleBookAppointment}
-            />
+            key={index}
+            scheduleId={item.scheduleId}
+            day={item.day}
+            startTime={item.startTime}
+            endTime={item.endTime}
+            lessons="COMPLETED"
+            email={item.bookedShifts.email}
+            nickName={item.bookedShifts.nickName}
+            openModal={openModal}
+            handleBookAppointment={handleBookAppointment}
+            onSelectStudent={handleStudentSelect} // Pass this function to StudentList
+          />
           );
         })}
         <style>{`
@@ -133,7 +141,7 @@ const CompleteLessonsPage: React.FC = () => {
           profilePic="/img/student.png"
           name="Vivek Kumar"
         />
-        <StudentConDetail />
+       <StudentConDetail studentInfo={selectedStudentDetails} />
       </div>
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 ">
