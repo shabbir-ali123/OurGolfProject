@@ -61,21 +61,26 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
   const [selectedWeekIndex, setSelectedWeekIndex] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [weeks, setWeeks] = useState<AvailabilityData[]>([]);
-
   useEffect(() => {
     const fetchData = async () => {
-      const currentDate = new Date();
-      const next12Months = await Promise.all(
-        Array.from({ length: 12 }, async (_, index) => {
-          const monthStartDate = new Date(currentDate.getFullYear(), index, 1);
-          const monthDays = await fetchAvailabilityData(monthStartDate);
-          return monthDays;
+      const currentDate = new Date(); 
+      const startOfCurrentWeek = getStartOfWeek(currentDate); 
+  
+      const weeksData = await Promise.all(
+        Array.from({ length: 52 }, async (_, index) => { 
+          const weekStartDate = new Date(
+            startOfCurrentWeek.getFullYear(),
+            startOfCurrentWeek.getMonth(),
+            startOfCurrentWeek.getDate() + (index * 7) 
+          );
+          const weekDays = await fetchAvailabilityData(weekStartDate);
+          return weekDays;
         })
       ).then((data) => data.flat());
-
-      setWeeks(next12Months);
+  
+      setWeeks(weeksData);
     };
-
+  
     fetchData();
   }, []);
 
@@ -85,7 +90,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
   };
 
   useEffect(() => {
-    // Use the updated state in the effect
+    
     onWeekSelected(weeks[selectedWeekIndex]?.date);
   }, [selectedWeekIndex, weeks, onWeekSelected]);
 
@@ -161,24 +166,21 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
   );
 };
 
-const fetchAvailabilityData = async (
-  date: Date
-): Promise<AvailabilityData[]> => {
-  const lastDay = new Date(
-    date.getFullYear(),
-    date.getMonth() + 1,
-    0
-  ).getDate();
-  return Array.from({ length: lastDay }, (_, dayIndex) => {
-    const dayDate = new Date(date.getFullYear(), date.getMonth(), dayIndex + 1);
+const fetchAvailabilityData = async (startDate: Date): Promise<AvailabilityData[]> => {
+  console.log("Start Date:", startDate);
+
+  return Array.from({ length: 7 }, (_, dayIndex) => {
+    const dayDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + dayIndex);
+    console.log(`Day ${dayIndex}:`, dayDate);
+
     return {
       date: dayDate,
-      dayName: new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(
-        dayDate
-      ),
+      dayName: new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(dayDate),
       availability: Math.random() < 0.5,
     };
   });
 };
+
+
 
 export default CalendarSlider;

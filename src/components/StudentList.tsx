@@ -1,37 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { faPhoneAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReschedulePop from "../components/ReschedulePop";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
-// import acceptIcon from '/public/img/accept.svg'
-// import rejectIcon from '/public/img/reschedule.svg'
+
 interface StudentListProps {
   openModal: () => void;
   handleBookAppointment?: () => void;
-  userName?: string;
+  nickName?: string;
   email?: string;
-  scheduleId?: number,
-  day?: string,
-  startTime?: string,
-  endTime?: string,
+  scheduleId?: number;
+  day?: string;
+  startTime?: string;
+  endTime?: string;
+  lessons?: string;
+
+  onSelectStudent: (studentInfo: any) => void;
 }
+
 const StudentList: React.FC<StudentListProps> = ({
   openModal,
-  userName,
+  nickName,
   email,
   scheduleId,
   day,
   startTime,
   endTime,
-  
-}) => {
-  const [showModal, setShowModal] = useState(false);
+  onSelectStudent,
+  lessons
 
-  console.log(scheduleId, 'hunzaiiiii')
+}) => {
+  const studentInfo = {
+    scheduleId,
+    day,
+    startTime,
+    endTime,
+    email,
+    nickName,
+  };
+  const [showModal, setShowModal] = useState(false);
+  const [lessontype, setLessonType] =   useState<string | undefined>(undefined);
+  useEffect(()=>{
+    setLessonType(lessons);
+  })
+
   const handleSelectTime = (selectedTime: string) => {
     console.log(`Selected Time: ${selectedTime}`);
   };
+
   const handleBookAppointment = () => {
     setShowModal(false);
     handleSelectTime("Default Appointment Time");
@@ -44,23 +61,27 @@ const StudentList: React.FC<StudentListProps> = ({
     }
   };
 
- const status = "asdas"
+  const status = "BOOKED";
   const handleAcceptClick = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      const userId = localStorage.getItem('id')
-      const response = await axios.post(API_ENDPOINTS.ACCEPTAPPOINTMENT, {scheduleId, day, startTime, endTime, status}, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+      const userId = localStorage.getItem("id");
+      const response = await axios.post(
+        API_ENDPOINTS.ACCEPTAPPOINTMENT,
+        { scheduleId, day, startTime, endTime, status },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
 
-        params: {
-          userId: userId
+          params: {
+            userId: 4,
+          },
         }
-      });
-      if(response.status === 200) {
-        alert('Accepted Successfully')
+      );
+      if (response.status === 200) {
+        alert("Accepted Successfully");
       }
     } catch (error) {
       alert(
@@ -84,7 +105,7 @@ const StudentList: React.FC<StudentListProps> = ({
               />
               <div className="ml-3">
                 <p className="text-xs font-bold tracking-wide text-[#52FF86]  m-0 ">
-                  {userName}
+                  {nickName}
                 </p>
                 <p className="text-[9.13px] font-normal text-[#838383] m-0">
                   Bogotá,Colombia
@@ -112,25 +133,63 @@ const StudentList: React.FC<StudentListProps> = ({
             </div>
           </div>
 
-          <div className="grid gap-2 animate__heartBeat">
-            <p className="bg-[#52FF86] rounded-full p-1 text-sm">{startTime}-{endTime}</p>
-            
-            <button
-              className={`bg-[#0038FF] text-[#ffffff] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
-              onClick={handleAcceptClick}
-            >
-              <img className="mr-1" src={"acceptIcon"} alt="" />
-              <span>Accept</span>
-            </button>{" "}
-            <button
-              className={`bg-[#FF0000] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
-              onClick={handleRejectClick}
-            >
-              <img className="mr-1" src={"rejectIcon"} alt="" />
-              <span>Reject</span>
-            </button>
-          </div>
+          {lessontype === "PENDING" ? (
+        <div className="grid gap-2 animate__heartBeat">
+          <p className="bg-[#52FF86] rounded-full p-1 text-sm">
+            {startTime}-{endTime}
+          </p>
+   
+          <button
+            className={`bg-[#0038FF] text-[#ffffff] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
+            onClick={handleAcceptClick}
+          >
+            <span>Accept</span>
+          </button>
+
+          <button
+            className={`bg-[#FF0000] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
+            onClick={handleRejectClick}
+          >
+            <span>Reject</span>
+          </button>
         </div>
+      ) : lessontype === "BOOKED" ? (
+        <div className="grid gap-2 animate__heartBeat">
+          <p className="bg-[#52FF86] rounded-full p-1 text-sm">
+            {startTime}-{endTime}
+          </p>
+   
+          <button
+            className={`bg-[#0038FF] text-[#ffffff] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
+            onClick={handleAcceptClick}
+          >
+            <span>Completed</span>
+          </button>
+
+          <button
+            className={`bg-[#FF0000] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
+            onClick={handleRejectClick}
+          >
+            <span>Not Taken</span>
+          </button>
+        </div>
+      ) :  <div className="grid gap-2 animate__heartBeat">
+      <p className="bg-[#52FF86] rounded-full p-1 text-sm">
+        {startTime}-{endTime}
+      </p>
+
+      <button
+        className={`bg-[#0038FF] text-[#ffffff] font-bold text-[8.72px] leading-[10.57px] h-[24.49px] py-2 px-2 rounded-xl cursor-pointer flex justify-center items-center`}
+        onClick={handleAcceptClick}
+      >
+        <span>view</span>
+      </button>
+
+     
+    </div>}
+        </div>
+ 
+  
       </div>
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
@@ -145,4 +204,5 @@ const StudentList: React.FC<StudentListProps> = ({
     </>
   );
 };
+
 export default StudentList;

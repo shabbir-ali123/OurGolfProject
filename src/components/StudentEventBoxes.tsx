@@ -1,4 +1,4 @@
-// EventBoxes.tsx
+// StudentEventBoxes.tsx
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { fetchTeacherCounts } from "../utils/fetchTeacher";
@@ -10,7 +10,7 @@ interface TeacherCountProps {
 }
 
 
-const EventBoxes: React.FC = () => {
+const StudentEventBoxes: React.FC = () => {
   const router = useNavigate();
 
   const {t, i18n} = useTranslation();
@@ -37,8 +37,6 @@ const showTeacherDetails = (status: string) => {
   return (
     
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 mx-auto my-4 gap-1 md:gap-2 lg:gap-2 z-[9999]">
-   
-      
         <div 
         
         onClick={() => showTeacherDetails("completed")}
@@ -77,4 +75,4 @@ const showTeacherDetails = (status: string) => {
   );
 };
 
-export default EventBoxes;
+export default StudentEventBoxes;

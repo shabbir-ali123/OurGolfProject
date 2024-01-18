@@ -110,7 +110,7 @@ const StudentProfile: React.FC = () => {
       </div>
 
       <div className="col-span-12 p-4 md:col-span-12 lg:col-span-3 xl:col-span-3 lg:overflow-y-auto scrollbar lg:max-h-screen ">
-        <SearchAndFiltersEducator />
+       
 
         <TeacherList
           openModal={openModal}
