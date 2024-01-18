@@ -51,21 +51,21 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     [Tab.Single]: {
       field1: true,
       field2: false,
-      selectedHoles: [],
+      selectedHoles: Array.from({ length: 9 }, (_, i) => String(i + 1)),
       driverContest: 0, 
       nearPinContest: 0, 
     },
     [Tab.Double]: {
       field1: false,
       field2: false,
-      selectedHoles: [],
+      selectedHoles: Array.from({ length: 12 }, (_, i) => String(i + 1)),
       driverContest: 0, 
       nearPinContest: 0, 
     },
     [Tab.Triple]: {
       field1: true,
       field2: false,
-      selectedHoles: [],
+      selectedHoles: Array.from({ length: 6 }, (_, i) => String(i + 1)),
       driverContest: 0, 
       nearPinContest: 0, 
     },
@@ -129,9 +129,8 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-6xl">
-      
       <div className="p-4 mt-4 bg-gray-900 bg-opacity-50 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
-      <h2 className="text-4xl text-white">{t('SCORING_CATEGORY')}</h2>
+        <h2 className="text-4xl text-white">{t('SCORING_CATEGORY')}</h2>
         <h4 className="text-white">
           01 <span className="ml-4 text-white">{t('SCORING_TYPE')}</span>
         </h4>
@@ -197,7 +196,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </button>
           </div>
         </div>
-
+  
         {selectedScoringType === Tab.Single && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
@@ -210,12 +209,12 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       checked={
                         index < 9 || selectedHoles.includes(String(index + 1))
                       }
-                      onChange={(e) => onChange("holes", e)}
+                      onChange={(e) => handleHoleSelection(e, index)}
                       id={String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
                     <label htmlFor={String(index + 1)} className="text-white">
-                    {t('HOLE')}
+                      {t('HOLE')}
                       <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-white">
                         {index + 1}
                       </span>
@@ -226,7 +225,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </div>
           </div>
         )}
-
+  
         {selectedScoringType === Tab.Double && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
@@ -241,12 +240,12 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                           ? selectedHoles.includes(String(index + 1))
                           : true
                       }
-                      onChange={(e) => onChange("holes", e)}
+                      onChange={(e) => handleHoleSelection(e, index)}
                       id={"double" + String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
-                    <label htmlFor={`checkbox${index + 1}`} className="text-white">
-                    {t('HOLE')}
+                    <label htmlFor={`double${index + 1}`} className="text-white">
+                      {t('HOLE')}
                       <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-white">
                         {index + 1}
                       </span>
@@ -257,6 +256,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </div>
           </div>
         )}
+  
         {selectedScoringType === Tab.Triple && (
           <div className="grid grid-cols-9 mx-auto text-white lg:gap-x-16 ">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
@@ -271,12 +271,12 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                           ? selectedHoles.includes(String(index + 1))
                           : true
                       }
-                      onChange={(e) => onChange("holes", e)}
+                      onChange={(e) => handleHoleSelection(e, index)}
                       id={String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
-                    <label htmlFor={`checkbox${index + 1}`}>
-                    {t('HOLE')}
+                    <label htmlFor={`triple${index + 1}`}>
+                      {t('HOLE')}
                       <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
                         {index + 1}
                       </span>
@@ -287,9 +287,10 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </div>
           </div>
         )}
+  
         <div className="flex items-center col-span-12 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
-            htmlFor="date"
+            htmlFor="driverContest"
             className="block mb-2 text-xs font-bold tracking-wide text-white capitalize"
           >
             02
@@ -308,7 +309,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         </div>
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
           <label
-            htmlFor="date"
+            htmlFor="nearPinContest"
             className="block mb-2 text-xs font-bold tracking-wide text-white capitalize"
           >
             03 <span className="ml-4">{t('PIN_CONTEST')}</span>
@@ -327,7 +328,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       </div>
     </div>
   );
+  
 };
 
 export default ScoringCategory;
-
