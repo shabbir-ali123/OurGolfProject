@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { SchedulesTabsProps } from "../utils/types";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -8,17 +9,20 @@ import { ToastConfig, toastProperties } from "../constants/toast";
 interface AvailabilityTabsProps {
   onSelectTime: (selectedTime: string) => void;
   schedules?: SchedulesTabsProps[];
+  selectedDate?: string; // Add this line
 }
+
 
 const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   onSelectTime,
   schedules = [],
-  
+  selectedDate
+
 }) => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const convertTo12Hour = (time:string) => {
-    
+  const convertTo12Hour = (time: string) => {
+
     return time;
   };
   interface TimeDetails {
@@ -27,9 +31,10 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     endTime: any;
     day: any;
   }
+  const filteredSchedules = schedules.filter(schedule => schedule.date === selectedDate);
   const tabColors = [
     "rounded-full bg-transparent text-[#51ff85] border-solid border-[2px] border-[#51ff85] py-4",
-  
+
   ];
   const generateTimeSlots = () => {
     const slots: any[] = [];
@@ -53,7 +58,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   }, [schedules]);
   const [selectedTimeDetails, setSelectedTimeDetails] = useState<TimeDetails[]>([]);
 
-  const handleTabClick = (slotId: any, startTime: any,endTime:any, day: any ) => {
+  const handleTabClick = (slotId: any, startTime: any, endTime: any, day: any) => {
     const isSelected = selectedTime.some(item => item.id === slotId);
     const updatedDetails = selectedTimeDetails.filter(item => item.id !== slotId);
     setSelectedTimeDetails(updatedDetails);
@@ -73,14 +78,24 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     }
     onSelectTime(startTime);
   };
-  
+
+  const navigate = useNavigate();
+
   const handleBookAppointmentClick = () => {
-    const isBooked = false;
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      
+      navigate('/login-page');
+      return;
+    }
+
+    // Proceed with booking the appointment
     selectedTimeDetails.forEach(time => {
-            bookAppointment(time.id, time.day, time.startTime, time.endTime, isBooked);
+      bookAppointment(time.id, time.day, time.startTime, time.endTime, false);
     });
   };
-  
+
   const bookAppointment = async (
     scheduleId: any,
     day: any,
@@ -119,20 +134,20 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     <div>
       <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
         <div className="flex flex-wrap justify-start gap-1 mt-4">
-        {schedules.map((slot, index) => {
-          const isSelected = selectedTime.some(item => slot.shifts[0].scheduleId === item.id);
-          return (
-            <div key={slot.id}>
-              <button
-                className={`${isSelected ? "rounded-full bg-transparent text-[#02a4fe] border-solid border-[2px] border-[#02a4fe] py-4" : "rounded-full bg-transparent text-black border-solid border-[2px] border-black py-4"}`}
-                onClick={() => handleTabClick(slot.shifts[0].scheduleId, slot.shifts[0].startTime,slot.shifts[0].endTime,slot.shifts[0].day )}
-                disabled={bookedSlots[index]}
-              >
-                {slot.shifts[0].startTime} - {slot.shifts[0].endTime} 
-              </button>
-            </div>
-          )
-        })}
+          {schedules.map((slot, index) => {
+            const isSelected = selectedTime.some(item => slot.shifts[0].scheduleId === item.id);
+            return (
+              <div key={slot.id}>
+                <button
+                  className={`${isSelected ? "rounded-full bg-transparent text-[#02a4fe] border-solid border-[2px] border-[#02a4fe] py-4" : "rounded-full bg-transparent text-black border-solid border-[2px] border-black py-4"}`}
+                  onClick={() => handleTabClick(slot.shifts[0].scheduleId, slot.shifts[0].startTime, slot.shifts[0].endTime, slot.shifts[0].day)}
+                  disabled={bookedSlots[index]}
+                >
+                  {slot.shifts[0].startTime} - {slot.shifts[0].endTime}
+                </button>
+              </div>
+            )
+          })}
         </div>
         <div className="mt-8 ml-2">
           <button
@@ -152,7 +167,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
               />
             </svg>
             <span className="text-xl font-bold text-white sm:font-semi-bold md:px-2">
-            {t('BOOK_APPOINTMENT')}
+              {t('BOOK_APPOINTMENT')}
             </span>
           </button>
         </div>

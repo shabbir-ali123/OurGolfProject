@@ -39,6 +39,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setsearch] = useState<string | null>(null);
+  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const toggleFavoriteStatus = async (teacher: Teacher) => {
     try {
       const token = localStorage.getItem("token");
@@ -61,35 +62,49 @@ const TeacherList: React.FC<TeacherListProps> = ({
       console.error("Error toggling favorite status:", error);
     }
   };
-  
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(API_ENDPOINTS.GETALLTEACHERS, {
-          headers: {
+        let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
+        
+        if (token) {
+          endpoint = API_ENDPOINTS.GETALLTEACHERS;
+        }
+  
+        const response = await axios.get(endpoint, {
+          headers: token ? {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          } : {},
           params: {
             page: 1,
             pageSize: 20,
             search: search
-            
           },
         });
-
+  
         setTeachers(response.data.teachers);
+  
+        // Set the first teacher as the selected teacher by default
+        if (response.data.teachers && response.data.teachers.length > 0) {
+          setSelectedTeacher(response.data.teachers[0]);
+        }
+  
         setLoading(false);
-      } catch (error: any) {
-        setError(error.message);
+      } catch (error) {
+        console.error("Error fetching teachers:", error);
+        setError('error.message');
         setLoading(false);
       }
     };
-
+  
     fetchTeachers();
-  }, [search]);
-
+  }, [search]); // Dependency array includes 'search' to re-fetch when search changes
+  
+  
+  
+  
   if (loading) {
     return <div>Loading...</div>;
   }

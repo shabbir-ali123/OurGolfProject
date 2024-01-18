@@ -26,6 +26,7 @@ interface Teacher {
   userId: string;
   bookShifts: [];
   nickName: string;
+  bookBy: string;
 }
 const UpcomimgLessonsPage: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<"teacher" | "student">(
@@ -104,7 +105,9 @@ const UpcomimgLessonsPage: React.FC = () => {
             day={item.day}
             startTime={item.startTime}
             endTime={item.endTime}
+            studentId = {item.bookedBy}
             lessons="BOOKED"
+            newStatus="COMPLETED"
             email={item.bookedShifts.email}
             nickName={item.bookedShifts.nickName}
             openModal={openModal}

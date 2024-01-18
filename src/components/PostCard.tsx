@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from "react";
-import {
-  ShareIcon,
-  HandThumbUpIcon,
-  EnvelopeIcon
-
-} from "@heroicons/react/24/solid";
+import { useNavigate } from 'react-router-dom';
+import { ShareIcon, HandThumbUpIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { fetchPosts } from "../utils/fetchPosts";
+
 interface Post {
-  id: any,
-  tags: any,
-  text: any,
-  posts:any,
-  mediaFile:any,
+  id: string;
+  tags: string[];
+  text: string;
+  posts: any; // Ideally, replace 'any' with a specific type
+  mediaFile: string[];
 }
+
 const PostItem: React.FC = () => {
   const [post, setPosts] = useState<Post[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPosts(setPosts);
   }, []);
 
+  const isAuthenticated = () => {
+    return localStorage.getItem("token");
+  };
+
+  const handleInteraction = (event: React.MouseEvent<HTMLElement>) => {
+    if (!isAuthenticated()) {
+      navigate('/login-page');
+      return;
+    }
+  
+    const interactionType = event.currentTarget.getAttribute("data-interaction");
+    console.log("User interacted with:", interactionType);
+  };
   return (
     <div className="bg-white   ">
 
       {post.map((post: Post) => (
-        <div className="flex my-4  p-4 rounded-lg border-2 border-solid border-[#51ff85]">
-         <img
-              className="rounded-lg w-[150px] h-[auto]"
-              src={post.mediaFile[0]}
-              alt="Post"
-            />
+        <div key={post.id} className="flex my-4  p-4 rounded-lg border-2 border-solid border-[#51ff85]">
+          <img
+            className="rounded-lg w-[150px] h-[auto]"
+            src={post.mediaFile[0]}
+            alt="Post"
+          />
           <div className="p-4">
             <div className="flex items-center gap-2">
               <img
@@ -40,7 +52,7 @@ const PostItem: React.FC = () => {
               <p className="p-0">{post.posts.nickName}</p>
             </div>
             <p className="text-gray-700 text-sm p-0">
-            {post.text}
+              {post.text}
             </p>
 
             <div className="  mt-2">
@@ -53,19 +65,24 @@ const PostItem: React.FC = () => {
                 </span>
               </div>
               <div className="flex space-x-4 mt-6">
-                <span className="text-gray-600 text-sm flex items-center gap-2 cursor-pointer"> <EnvelopeIcon
+                <span className="text-gray-600 text-sm flex items-center gap-2 cursor-pointer"onClick={handleInteraction} data-interaction="comment" > <EnvelopeIcon
                   className="w-4 h-4 cursor-pointer text-[#00D1FF]"
                   aria-hidden="true"
+
                 />242 comments</span>
-                <span className="text-gray-600 text-sm flex items-center gap-2 cursor-pointer"> <HandThumbUpIcon
+                <span className="text-gray-600 text-sm flex items-center gap-2 cursor-pointer" onClick={handleInteraction} data-interaction="like"> <HandThumbUpIcon
                   className="w-4 h-4 cursor-pointer text-[#51ff85]"
                   aria-hidden="true"
+         
+                  data-interaction="like"
                 />93k likes</span>
-                <span className="text-gray-600 text-sm flex items-center gap-2 cursor-pointer">
+                <span className="text-gray-600 text-sm flex items-center gap-2 cursor-pointer" onClick={handleInteraction} data-interaction="share">
                   {" "}
                   <ShareIcon
                     className="w-4 h-4 cursor-pointer"
                     aria-hidden="true"
+              
+                    data-interaction="share"
                   />
                   Share
                 </span>

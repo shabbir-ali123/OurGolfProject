@@ -86,6 +86,7 @@ const TeacherProfile: React.FC = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
   return (
     <div className="grid grid-cols-11 gap-0 mx-0 md:px-16 lg:px-16 xl:px-8 ">
       <RightTab />
@@ -98,10 +99,12 @@ const TeacherProfile: React.FC = () => {
             scheduleId={item.scheduleId}
             day={item.day}
             lessons=""
+            newStatus=""
             startTime={item.startTime}
             endTime={item.endTime}
             email={item.bookedShifts.email}
             nickName={item.bookedShifts.nickName}
+            studentId={item.bookBy}
             openModal={openModal}
             handleBookAppointment={handleBookAppointment}
             onSelectStudent={handleStudentSelect} 

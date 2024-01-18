@@ -32,9 +32,6 @@
       "teacher"
     );
     const [showModal, setShowModal] = useState(false);
-    const [selectedTeacher, setSelectedTeacher] = useState<any>([]);
-    const [upcomingLessons, setUpcomingLessons] = useState([]);
-    const [completedLessons, setCompletedLessons] = useState([]);
     const [pendingLessons, setPendingLessons] = useState([]);
     const [selectedStudentDetails, setSelectedStudentDetails] = useState<any | null>(null);
     useEffect(() => {
@@ -54,17 +51,10 @@
             },
           });
 
-          // if (response.data && response.data.bookedAppointments) {
-          //   const teachers = Array.isArray(response.data.bookedAppointments)
-          //     ? response.data.bookedAppointments
-          //     : [response.data.bookedAppointments];
-
-          //   // Filter pending lessons with a type annotation for 'lesson'
-          //   const pendingLessons = teachers.filter((lesson: any) => lesson.status === "PENDING");
-
-          // }
           setPendingLessons(response.data.bookedAppointments);
-
+ if (response.data.bookedAppointments.length > 0) {
+            setSelectedStudentDetails(response.data.bookedAppointments[0]);
+          }
         } catch (error: any) {
           toast.error("You are Not Login! Please Login");
         }
@@ -102,9 +92,11 @@
                 key={item.index}
                 scheduleId={item.scheduleId}
                 day={item.day}
+                studentId={item.bookedBy}
                 startTime={item.startTime}
                 endTime={item.endTime}
                 lessons="PENDING"
+                newStatus="BOOKED"
                 email={item.bookedShifts.email}
                 nickName={item.bookedShifts.nickName}
                 openModal={openModal}

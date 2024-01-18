@@ -11,31 +11,13 @@ import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import RightTab from "./RightTabs";
-interface Teacher {
-  count?: number;
-  teachers?: [];
-  aboutMyself?: string;
-  createdAt?: string | string[];
-  firstName?: string;
-  id?: string;
-  lastName?: string;
-  location?: string;
-  phoneNumber?: string;
-  schedules?: [];
-  updatedAt: string;
-  userId: string;
-  bookShifts: [];
-  nickName: string;
-}
+
 const CompleteLessonsPage: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<"teacher" | "student">(
     "teacher"
   );
   const [showModal, setShowModal] = useState(false);
-  const [selectedTeacher, setSelectedTeacher] = useState<any>([]);
-  const [upcomingLessons, setUpcomingLessons] = useState([]);
   const [completedLessons, setCompletedLessons] = useState([]);
-  const [pendingLessons, setPendingLessons] = useState([]);
   const [selectedStudentDetails, setSelectedStudentDetails] = useState<any | null>(null);
   
   useEffect(() => {
@@ -55,16 +37,6 @@ const CompleteLessonsPage: React.FC = () => {
           },
         });
   
-        // if (response.data && response.data.bookedAppointments) {
-        //   const teachers = Array.isArray(response.data.bookedAppointments)
-        //     ? response.data.bookedAppointments
-        //     : [response.data.bookedAppointments];
-  
-        //   // Filter pending lessons with a type annotation for 'lesson'
-        //   const completedLessons = teachers.filter((lesson: any) => lesson.status === "COMPLETED");
-  
-        //   setCompletedLessons(completedLessons);
-        // }
         setCompletedLessons(response.data.bookedAppointments);
       } catch (error: any) {
         toast.error("You are Not Login! Please Login");
@@ -103,7 +75,9 @@ const CompleteLessonsPage: React.FC = () => {
             scheduleId={item.scheduleId}
             day={item.day}
             startTime={item.startTime}
+            studentId={item.bookBy}
             endTime={item.endTime}
+            newStatus=""
             lessons="COMPLETED"
             email={item.bookedShifts.email}
             nickName={item.bookedShifts.nickName}
