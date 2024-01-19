@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaceSmileIcon,
   PhotoIcon,
@@ -7,8 +8,18 @@ import {
 import PostModal from "../components/PostModel"
 const ProfilePrompt: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const openModal = () => {
+    // Check if the user is logged in
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsModalOpen(true);
+    } else {
+      // Redirect to login page
+      navigate('/login-page'); 
+    }
+  };
 
-  const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   return (
     <>

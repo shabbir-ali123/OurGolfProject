@@ -4,15 +4,18 @@ import { API_ENDPOINTS } from "../appConfig";
 export const fetchPosts = async (setPosts:any) => {
     try {
       const token = localStorage.getItem("token");
+      let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
       const headers:any= {}
       if (token) {
-        headers["Authorization"]=  `Bearer ${token}`
+        headers["Authorization"] = `Bearer ${token}`;
+        endpoint = API_ENDPOINTS.GETPOSTS;  // Use private endpoint if token exists
       }
-      const response = await axios.get(API_ENDPOINTS.GETPOSTS, {
+      const response = await axios.get(endpoint, {
         headers,
+        // Uncomment and adjust params as needed for pagination or filtering
         // params: {
         //   page: 1,
-        //   pageSize: 50000,
+        //   pageSize: 20,
         // },
       });
       console.log(response);

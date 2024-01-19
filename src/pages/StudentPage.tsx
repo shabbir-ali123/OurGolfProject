@@ -11,6 +11,8 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
+import { isAuthenticated } from "../utils/auth"; // Import your isAuthenticated function
+
 interface Teacher {
   count?: number;
   teachers?: [];
@@ -24,7 +26,7 @@ interface Teacher {
   schedules?: [];
   updatedAt: string;
   userId: string;
-  hourlyRate:string;
+  hourlyRate: string;
 }
 
 const StudentProfile: React.FC = () => {
@@ -39,7 +41,6 @@ const StudentProfile: React.FC = () => {
   };
   const openModal = () => {
     if (selectedTeacher && selectedTeacher.schedules) {
-      // Assuming schedules is an array of strings representing time slots
       setShowModal(true);
     } else {
       console.log("No schedules available for selected teacher");
@@ -58,7 +59,7 @@ const StudentProfile: React.FC = () => {
         const token = localStorage.getItem("token");
         const response = await axios.get(API_ENDPOINTS.GETALLTEACHERS, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token ? `Bearer ${token}` : "",
             "Content-Type": "application/json",
           },
           params: {
@@ -67,17 +68,28 @@ const StudentProfile: React.FC = () => {
           },
         });
 
-        if (
-          response.data &&
-          response.data.teachers &&
-          response.data.teachers.length > 0
-        ) {
-          setTeachers(response.data.teachers);
-          setSelectedTeacher(response.data.teachers[0]);
+        if (response.status === 401) {
+          // Handle unauthenticated user here
+          // For example, redirect to login page or show a message
+          if (!isAuthenticated()) {
+            // User is not authenticated, handle accordingly
+            console.log("User is not authenticated");
+            // You can redirect to the login page or show a message here
+          }
+          return;
         }
-      } catch (error: any) {
-        toast.error(          `You are Not Login! Please Login`)        ;
 
+        if (response.data && response.data.teachers) {
+          setTeachers(response.data.teachers);
+
+          // Set the first teacher as the selected teacher by default
+          if (response.data.teachers.length > 0) {
+            setSelectedTeacher(response.data.teachers[0]);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching teachers:", error);
+        toast.error("Error fetching teachers");
       }
     };
 
@@ -110,14 +122,11 @@ const StudentProfile: React.FC = () => {
       </div>
 
       <div className="col-span-12 p-4 md:col-span-12 lg:col-span-3 xl:col-span-3 lg:overflow-y-auto scrollbar lg:max-h-screen ">
-       
-
         <TeacherList
           openModal={openModal}
           handleBookAppointment={handleBookAppointment}
           showTeacherDetails={showTeacherDetails}
         />
-
         <style>{`
         
         @media screen and (min-width: 1300px) {
@@ -144,8 +153,10 @@ const StudentProfile: React.FC = () => {
       </div>
 
       <div className="col-span-12 xl:col-span-4 p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight">
-        {selectedTeacher && (
+        {selectedTeacher ? (
           <TeacherConDetail teacherDetails={selectedTeacher} />
+        ) : (
+          <div>Select Teacher To See Details</div>
         )}
       </div>
       {showModal && (

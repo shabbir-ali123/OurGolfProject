@@ -35,6 +35,7 @@ export interface SchedulesTabsProps {
   startDate: string;
   teacherId: number;
   updatedAt: string;
+  date: string; 
 }
 export type Post = {
   id: string;

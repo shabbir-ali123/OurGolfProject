@@ -15,8 +15,9 @@ interface StudentListProps {
   startTime?: string;
   endTime?: string;
   lessons?: string;
-
   onSelectStudent: (studentInfo: any) => void;
+  studentId: number;
+  newStatus: string;
 }
 
 const StudentList: React.FC<StudentListProps> = ({
@@ -27,18 +28,12 @@ const StudentList: React.FC<StudentListProps> = ({
   day,
   startTime,
   endTime,
-  onSelectStudent,
-  lessons
+  lessons,
+  studentId,
+  newStatus
 
 }) => {
-  const studentInfo = {
-    scheduleId,
-    day,
-    startTime,
-    endTime,
-    email,
-    nickName,
-  };
+ 
   const [showModal, setShowModal] = useState(false);
   const [lessontype, setLessonType] =   useState<string | undefined>(undefined);
   useEffect(()=>{
@@ -61,23 +56,21 @@ const StudentList: React.FC<StudentListProps> = ({
     }
   };
 
-  const status = "BOOKED";
+  const status = newStatus;
   const handleAcceptClick = async () => {
+    console.log(studentId, "sutdnet id");
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      const userId = localStorage.getItem("id");
       const response = await axios.post(
         API_ENDPOINTS.ACCEPTAPPOINTMENT,
-        { scheduleId, day, startTime, endTime, status },
+        { studentId, scheduleId, day, startTime, endTime, status },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
 
-          params: {
-            userId: 4,
-          },
+          
         }
       );
       if (response.status === 200) {
@@ -85,7 +78,7 @@ const StudentList: React.FC<StudentListProps> = ({
       }
     } catch (error) {
       alert(
-        (error as any)?.response?.data?.message || "We are not able to Login"
+        (error as any)?.response?.data?.message || "We are not able to Accept"
       );
     } finally {
       console.log("okays");
