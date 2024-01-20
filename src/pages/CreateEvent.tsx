@@ -97,7 +97,6 @@ const CreateEvent: React.FC = () => {
     driverContest: 0,
     nearPinContest: 0,
   });
-  const [error, setError] = useState<string | null>(null);
   const { showToast } = useToast();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log({ e });
@@ -162,11 +161,9 @@ const CreateEvent: React.FC = () => {
         localStorage.removeItem('score');
         localStorage.removeItem('selected');
       } else {
-        setError("Error Occurred");
         showToast("Error occurred while creating the event", "[#FF0000]");
       }
     } catch (error) {
-      setError((error as any)?.response?.data?.message || "Error Occurred");
       showToast("Error occurred while creating the event", "[#FF0000]");
       console.error("Error:", error);
     } finally {
@@ -174,15 +171,10 @@ const CreateEvent: React.FC = () => {
     }
   };
 
-  const handleCheckboxChange = (isChecked: any) => {
-    console.log("Checkbox is checked:", isChecked);
-  };
-
   const handlePaymentDetailsChange = (
     formDataUpdate: any,
     paymentType: Click
   ) => {
-    // Update your state or perform other actions based on the received data
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       ...formDataUpdate,
@@ -190,15 +182,12 @@ const CreateEvent: React.FC = () => {
     }));
   };
   const handleRecruitmentTabsChange = (formDataUpdate: any, eventType: Tab) => {
-    // Update your state or perform other actions based on the received data
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       ...formDataUpdate,
       eventType,
     }));
   };
-
-
 
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -208,7 +197,7 @@ const CreateEvent: React.FC = () => {
           backgroundSize: "cover",
           height: "auto",
         }}
-        className="rounded-2x p-10"
+        className="p-10 rounded-2x"
       >
         <div className=" animate__animated animate__lightSpeedInRight">
           <TournamentBg />
@@ -226,7 +215,7 @@ const CreateEvent: React.FC = () => {
           />
 
           <PaymentDetails onChange={handlePaymentDetailsChange} />
-          <div className="p-2  ">
+          <div className="p-2 ">
             <div className="">
               <div className="flex justify-center gap-2 mx-4">
                 <div className="py-6">
