@@ -6,7 +6,7 @@ import {
   HandThumbUpIcon,
   MapPinIcon,
   ShareIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import CommentModel from "./CommentModel";
 import { API_ENDPOINTS } from "../appConfig";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -174,7 +174,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     setLocalEvents(events);
   }, [events]);
 
-  const comments = events.map((event: any) => event.comments.length);
+
 
   return (
     <div className="animate__animated animate__fadeInLeft">
@@ -276,25 +276,25 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 alt=""
                                 className="w-12 h-12 bg-gray-800 rounded-full "
                               />
-                              <div className="text-lg font-medium leading-6 truncate ">
+                              <div className="text-lg font-medium leading-6 truncate tableText">
                                 {event.creator && event.creator.nickName
                                   ? event.creator.nickName
                                   : "N/A"}
                               </div>
                             </div>
                           </td>
-                          <td className="px-3 py-0 text-lg whitespace-nowrap">
+                          <td className="px-3 py-0 text-sm whitespace-nowrap">
                             {event.eventStartTime}
                           </td>
-                          <td className="px-3 py-0 text-lg whitespace-nowrap">
+                          <td className="px-3 py-0 text-sm whitespace-nowrap">
                             {event.eventStartDate}
                           </td>
                           <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left">
-                            <div className="flex flex-col ">
+                            <div className="flex flex-col capitalize font-bold text-2xl">
                               {event.eventName}
                               <span className="flex items-center gap-1 font-normal ">
                                 <MapPinIcon
-                                  className={`-mr-0.5 h-5 w-5 ${
+                                  className={`-mr-0.5 h-4 w-4 ${
                                     event.type !== "full" && "text-[#33333]"
                                   }`}
                                   aria-hidden="true"
@@ -356,7 +356,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </div>
                               <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
                                 <div className="text-[10px] text-white">
-                                  {comments}
+                                {event.comments.length}
                                 </div>
                               </div>
                             </div>

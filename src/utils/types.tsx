@@ -12,6 +12,7 @@ export interface TeacherDetailsProp {
   updatedAt: string;
   userId: string;
   hourlyRate?:string;
+  timeSlots?: string[];
   
 }
 

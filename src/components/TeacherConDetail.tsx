@@ -100,7 +100,7 @@ document.body.dir = i18n.dir();
           </h3>
         </div>
         <div className="div">
-          <DropDown />
+        <DropDown timeSlots={teacherDetails.timeSlots || []} />
         </div>
       </div>
       <AvailabilityTabs onSelectTime={handleSelectTime} schedules={teacherDetails.schedules} />

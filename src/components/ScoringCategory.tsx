@@ -121,10 +121,8 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   };
 
   useEffect(() => {
-    console.log({
-      selectedScoringType: selectedScoringType,
-      selectedHoles: formData[selectedScoringType].selectedHoles,
-    });
+    localStorage.setItem('score', selectedScoringType);
+    localStorage.setItem('selected', JSON.stringify(formData[selectedScoringType].selectedHoles))
   }, [selectedScoringType, formData]);
 
   return (
@@ -297,7 +295,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             <span className="ml-4">{t('DRIVER_CONTEST')}</span>
           </label>
           <input
-            className="text-center appearance-none block w-[50px] bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none focus:bg-white"
+            className="text-center appearance-none block w-[50px] bg-gray-200 text-white border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
             id="driverContest"
             type="number"
             name="driverContest"
@@ -305,7 +303,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             min="0"
             onChange={onInputChange}
           />
-          <p className="text-[#ff0000] ml-3">{t('NUMBER_SELECT')}</p>
+          
         </div>
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
           <label
@@ -315,7 +313,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             03 <span className="ml-4">{t('PIN_CONTEST')}</span>
           </label>
           <input
-            className="text-center appearance-none block w-[50px] bg-gray-200 text-white border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="text-center appearance-none block w-[50px] bg-gray-200 text-white border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none "
             id="nearPinContest"
             type="number"
             name="nearPinContest"
@@ -323,7 +321,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             min="0"
             onChange={onInputChange}
           />
-          <p className="text-[#ff0000]">{t('NUMBER_SELECT')}</p>
+          
         </div>
       </div>
     </div>

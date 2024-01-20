@@ -1,17 +1,24 @@
-import { Fragment, useState } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { t } from 'i18next';
+import { Fragment, useState, useEffect } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useTranslation } from 'react-i18next';
+interface DropDownProps {
+  timeSlots?: string[];  // Make timeSlots optional
+}
+function classNames(...classes:any) {
+  return classes.filter(Boolean).join(' ');
+}
 
-function classNames(...classes: (string | boolean | undefined | null)[]): string {
-    return classes.filter(Boolean).join(' ');
-  }
+export default function DropDown({ timeSlots }: DropDownProps) {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
+  const [selectedOption, setSelectedOption] = useState(timeSlots ? timeSlots[0] : '');
 
-export default function Example() {
-  const {t, i18n} = useTranslation();
-  document.body.dir = i18n.dir(); 
-  const [selectedOption, setSelectedOption] = useState('29-10-2023');
+  useEffect(() => {
+    if (timeSlots) {
+      setSelectedOption(timeSlots[0]);
+    }
+  }, [timeSlots]);
 
   return (
     <Menu as="div" className="relative inline-block text-left ">
@@ -35,78 +42,32 @@ export default function Example() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+       <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1 cursor-pointer">
-            <Menu.Item >
-              {({ active }) => (
-                <a
-                  
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900 ' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+            {timeSlots ? (
+              timeSlots.map((slot: any, index: any) => (
+                <Menu.Item key={index}>
+                  {({ active }) => (
+                    <a
+                      className={classNames(
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                        'block px-4 py-2 text-sm'
+                      )}
+                      onClick={() => setSelectedOption(slot)}
+                    >
+                      {slot}
+                    </a>
                   )}
-                  onClick={() => setSelectedOption('29-10-2023')}
-                >
-                  29-10-2023
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                  onClick={() => setSelectedOption('30-10-2023')}
-                >
-                 30-10-2023
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                  onClick={() => setSelectedOption('31-10-2023')}
-                >
-                 31-10-2023
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                  onClick={() => setSelectedOption('01-11-2023')}
-                >
-                 01-11-2023
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                  onClick={() => setSelectedOption('02-11-2023')}
-                >
-                 02-11-2023
-                </a>
-              )}
-            </Menu.Item>
+                </Menu.Item>
+              ))
+            ) : (
+             
+              <Menu.Item>
+                <div className="block px-4 py-2 text-sm text-gray-700">
+                  No available time slots
+                </div>
+              </Menu.Item>
+            )}
           </div>
         </Menu.Items>
       </Transition>

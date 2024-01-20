@@ -36,6 +36,7 @@ const StudentProfile: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [teachers, setTeachers] = useState<any[]>([]);
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
+  const isUserAuthenticated = isAuthenticated();
   const handleSelectTab = (tab: "student" | "teacher") => {
     setSelectedTab(tab);
   };
@@ -56,11 +57,10 @@ const StudentProfile: React.FC = () => {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         const response = await axios.get(API_ENDPOINTS.GETALLTEACHERS, {
           headers: {
-            Authorization: token ? `Bearer ${token}` : "",
-            "Content-Type": "application/json",
+            Authorization: token ? `Bearer ${token}` : '',
           },
           params: {
             page: 1,
@@ -68,34 +68,20 @@ const StudentProfile: React.FC = () => {
           },
         });
 
-        if (response.status === 401) {
-          // Handle unauthenticated user here
-          // For example, redirect to login page or show a message
-          if (!isAuthenticated()) {
-            // User is not authenticated, handle accordingly
-            console.log("User is not authenticated");
-            // You can redirect to the login page or show a message here
-          }
-          return;
-        }
-
         if (response.data && response.data.teachers) {
           setTeachers(response.data.teachers);
-
-          // Set the first teacher as the selected teacher by default
           if (response.data.teachers.length > 0) {
             setSelectedTeacher(response.data.teachers[0]);
           }
         }
       } catch (error) {
-        console.error("Error fetching teachers:", error);
-        toast.error("Error fetching teachers");
+        console.error('Error fetching teachers:', error);
+        toast.error('Error fetching teachers');
       }
     };
 
     fetchTeachers();
   }, []);
-
   const handleBookAppointment = () => {
     console.log("Booking appointment logic");
   };
@@ -105,60 +91,74 @@ const StudentProfile: React.FC = () => {
   const showTeacherDetails = (teacher: Teacher) => {
     setSelectedTeacher(teacher);
   };
+
   return (
     <div className="grid grid-cols-11 gap-0 mx-0 md:mx-16 lg:mx-16 xl:mx-8 ">
-      <div className="col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft ">
-        <StudentTabs
-          selectedTab={selectedTab}
-          onSelectTab={handleSelectTab}
-          showTabs={true}
-          description=""
-          profilePic="/img/profile1.png"
-          name="John Miler"
-        />
-        <StudentEventBoxes />
-        <StudentCalendar />
-        <FavTeachers />
-      </div>
+      {isUserAuthenticated && (
+        <div className="col-span-12 md:col-span-12 xl:col-span-4 p-4 h-auto bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInLeft">
+          <StudentTabs
+            selectedTab={selectedTab}
+            onSelectTab={handleSelectTab}
+            showTabs={true}
+            description=""
+            profilePic="/img/profile1.png"
+            name="John Miler"
+          />
+          <StudentEventBoxes />
+          <StudentCalendar />
+          <FavTeachers />
+        </div>
+      )}
 
-      <div className="col-span-12 p-4 md:col-span-12 lg:col-span-3 xl:col-span-3 lg:overflow-y-auto scrollbar lg:max-h-screen ">
-        <TeacherList
-          openModal={openModal}
-          handleBookAppointment={handleBookAppointment}
-          showTeacherDetails={showTeacherDetails}
-        />
-        <style>{`
-        
-        @media screen and (min-width: 1300px) {
-          .scrollbar {
-            scrollbar-width: thin;
-            scrollbar-color: #52FF86 transparent;
-           
-          }
-               
-                .scrollbar::-webkit-scrollbar {
-                    width: 4px;
-                    height:10px;
-                }
+      {!isUserAuthenticated ? (
+        <div className="col-span-12 p-4  mx-auto">
+          <TeacherList
+            openModal={openModal}
+            showTeacherDetails={showTeacherDetails}
+            isUserAuthenticated={isUserAuthenticated}
+          />
+        </div>
+      ) : (
+        <div className="col-span-12 p-4 md:col-span-12 lg:col-span-3 xl:col-span-3 lg:overflow-y-auto scrollbar lg:max-h-screen">
+          <TeacherList
+            openModal={openModal}
+            showTeacherDetails={showTeacherDetails}
+            isUserAuthenticated={isUserAuthenticated}
+          />
+          <style>
+            {`
+            @media screen and (min-width: 1300px) {
+              .scrollbar {
+                scrollbar-width: thin;
+                scrollbar-color: #52FF86 transparent;
+              }
+              .scrollbar::-webkit-scrollbar {
+                width: 4px;
+                height: 10px;
+              }
+              .scrollbar::-webkit-scrollbar-thumb {
+                background-color: #52FF86;
+                border-radius: 6px;
+              }
+              .scrollbar::-webkit-scrollbar-track {
+                background-color: transparent;
+              }
+            }
+            `}
+          </style>
+        </div>
+      )}
 
-                .scrollbar::-webkit-scrollbar-thumb {
-                    background-color: #52FF86;
-                    border-radius: 6px;
-                }
+      {isUserAuthenticated && (
+        <div className="col-span-12 xl:col-span-4 p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight">
+          {selectedTeacher ? (
+            <TeacherConDetail teacherDetails={selectedTeacher} />
+          ) : (
+            <div>Select Teacher To See Details</div>
+          )}
+        </div>
+      )}
 
-                .scrollbar::-webkit-scrollbar-track {
-                    background-color: transparent;
-                }
-            `}</style>
-      </div>
-
-      <div className="col-span-12 xl:col-span-4 p-4 bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent rounded-[107.61px] mt-2 mx-4 animate__animated animate__fadeInRight">
-        {selectedTeacher ? (
-          <TeacherConDetail teacherDetails={selectedTeacher} />
-        ) : (
-          <div>Select Teacher To See Details</div>
-        )}
-      </div>
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 ">
           <div className="max-w-md p-8 mx-auto bg-white rounded-lg animate__animated animate__fadeInLeft">

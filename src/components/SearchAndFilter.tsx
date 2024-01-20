@@ -1,50 +1,59 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { XMarkIcon } from "@heroicons/react/24/solid";
 interface SearchAndFiltersEducatorProps {
     setsearch?: (value: string | null) => void;
-}
+    setLocation?: (value: string | null) => void;
+    setAvailibilty?:(value: boolean | null) => void;
 
-const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ setsearch }) => {
+}    
+
+const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ setsearch , setLocation, setAvailibilty}) => {
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
 
-    const [search, setSearch] = useState(['Rating']);
+    const [search, setSearch] = useState(['']);
     const [showLocationInput, setShowLocationInput] = useState(false);
-    const [locationValue, setLocationValue] = useState('');
+    const [newAvailibilty, setNewAvailibilty] = useState(true);
 
     const searchHandler = (value: string) => {
+
+
         if (value === 'Location') {
-            setShowLocationInput(!showLocationInput);
-            if (!showLocationInput) {
-                setLocationValue('');
+            setShowLocationInput(true);
+            return;
+        }
+    
+        if (value === 'Availibilty') {
+            setAvailibilty!(newAvailibilty);
+            setNewAvailibilty(!newAvailibilty);
+        }
+        setSearch((prevSearch) => {
+            if (prevSearch.includes(value)) {
+
+                return prevSearch.filter((filter) => filter !== value);
+            } else {
+                return [...prevSearch, value];
             }
-            return;
-        }
-        if (search.includes(value)) {
-            let items = search.filter((data) => data !== value);
-            setSearch(items);
-            return;
-        }
-        let addSearchitem = [...search];
-        addSearchitem.push(value);
-        setSearch(addSearchitem);
+        });
+        
     };
 
+    
+
     const handleChange = (getsearch: string, type: string = 'search') => {
-        if (type === 'location') {
-            setLocationValue(getsearch);
-        }
         setsearch!(getsearch); // Update parent's state
     };
 
-    const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        handleChange(e.target.value, 'location'); // Update location in search
+    const handleLocationChange = (getLocation:any) => {
+        setShowLocationInput(true);
+        setLocation!(getLocation); // Update location in search
     };
 
     return (
         <>
-            <p className='text-[21.59px] leading-[25.76px] tracking-wide font-bold m-0'>
+        <div className='max-w-7xl mx-auto'>
+        <p className='text-[21.59px] leading-[25.76px] tracking-wide font-bold m-0'>
                 {t('FIND_TEACHER')}
             </p>
             <div className='relative pb-4 flex  items-center justify-between md:flex-row  mt-4'>
@@ -68,12 +77,14 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
                     <p className='text-[10px] font-normal'>{t('FILTER_BY')}:</p>
                     <div className='flex items-center justify-center gap-x-0'>
                         {['Rating', 'Location', 'Availibilty'].map((title, index) => (
+                          
                             <button
                                 key={index}
                                 className={`flex justify-center p-2 ml-2 rounded-md font-normal text-xs cursor-pointer ${search.includes(title) ? 'bg-[#A8FFC2]' : 'bg-[#D9D9D966]'
                                     } text-xs text-black shadow-sm`}
                                 onClick={() => searchHandler(title)}
                             >
+                                
                                 {t(title.toLocaleUpperCase())}
                             </button>
                         ))}
@@ -87,21 +98,21 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
                     <div className="flex items-center mt-2 relative ">
                         <input
                             type="text"
-                            value={locationValue}
-                            onChange={handleLocationChange}
+                            onChange={(e) => handleLocationChange(e.target.value)}
                             placeholder="Enter location"
                             className="p-2 rounded-md w-full my-2"
                         />
                         <button
                             onClick={() => {
                                 setShowLocationInput(false);
-                                handleChange('', 'location');
                             }}
                             className="ml-2 absolute right-0 bg-transparent cursor-pointer"><XMarkIcon className="w-4 h-4  round-full" aria-hidden="true" /></button>
                     </div>
                 </div>
 
             )}
+        </div>
+           
         </>
     );
 };

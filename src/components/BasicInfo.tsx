@@ -12,50 +12,60 @@ interface BasicInfoProps {
 const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+  // const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const files = event.target.files;
+
+  //   if (files && files.length > 0) {
+  //     const imagesArray: string[] = [];
+
+  //     if (files.length > 5) {
+  //       // If more than 5 images are selected, slice the array to only include the first 5
+  //       for (let i = 0; i < 5; i++) {
+  //         const reader = new FileReader();
+  //         reader.onloadend = () => {
+  //           const dataUrl = reader.result as string;
+  //           imagesArray.push(dataUrl);
+
+  //           if (imagesArray.length === 5) {
+  //             setFormData((prevFormData: any) => ({
+  //               ...prevFormData,
+  //               imageUrl: imagesArray,
+  //             }));
+  //           }
+  //         };
+  //         reader.readAsDataURL(files[i]);
+  //       }
+  //     } else {
+  //       // If 5 or fewer images are selected, proceed normally
+  //       for (let i = 0; i < files.length; i++) {
+  //         const reader = new FileReader();
+  //         reader.onloadend = () => {
+  //           const dataUrl = reader.result as string;
+  //           imagesArray.push(dataUrl);
+
+  //           if (imagesArray.length === files.length) {
+  //             setFormData((prevFormData: any) => ({
+  //               ...prevFormData,
+  //               imageUrl: imagesArray,
+  //             }));
+  //           }
+  //         };
+  //         reader.readAsDataURL(files[i]);
+  //       }
+  //     }
+  //   }
+  // };
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
     if (files && files.length > 0) {
-      const imagesArray: string[] = [];
-
-      if (files.length > 5) {
-        // If more than 5 images are selected, slice the array to only include the first 5
-        for (let i = 0; i < 5; i++) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const dataUrl = reader.result as string;
-            imagesArray.push(dataUrl);
-
-            if (imagesArray.length === 5) {
-              setFormData((prevFormData: any) => ({
-                ...prevFormData,
-                imageUrl: imagesArray,
-              }));
-            }
-          };
-          reader.readAsDataURL(files[i]);
-        }
-      } else {
-        // If 5 or fewer images are selected, proceed normally
-        for (let i = 0; i < files.length; i++) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const dataUrl = reader.result as string;
-            imagesArray.push(dataUrl);
-
-            if (imagesArray.length === files.length) {
-              setFormData((prevFormData: any) => ({
-                ...prevFormData,
-                imageUrl: imagesArray,
-              }));
-            }
-          };
-          reader.readAsDataURL(files[i]);
-        }
-      }
+      const filesArray: File[] = Array.from(files).slice(0, 5);
+      setFormData((prevFormData: any) => ({
+        ...prevFormData,
+        files: [...prevFormData.files, ...filesArray],
+      }));
     }
   };
-
   const [isHovered, setIsHovered] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -87,7 +97,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                 {t("EVENT_NAME")}
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-800  border-none  rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
+                className="appearance-none block w-full bg-white text-gray-800  border-none  rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus: transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
                 id="grid-Event-Name"
                 type="text"
                 name="eventName"
@@ -212,7 +222,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                   <input
                     className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
                     type="file"
-                    name="imageUrl"
+                    name="files"
                     onChange={handleImageChange}
                     onClick={handleFileInputChange}
                     required

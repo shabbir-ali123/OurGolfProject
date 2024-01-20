@@ -6,7 +6,7 @@
 @tailwind utilities;
 body {
   @apply leading-[normal] m-0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Robboto", sans-serif;
 }
 *,
 ::before,
@@ -120,5 +120,12 @@ button:disabled{
   border-radius: 20px;
 }
 
-
+.grid-cols-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-gap: 20px; /* Adjust the gap size */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Maximum width, adjust as needed */
+  margin: 0 auto; /* Center align */
+}
 

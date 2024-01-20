@@ -24,6 +24,7 @@ interface Teacher {
   schedules?: [];
   updatedAt: string;
   userId: string;
+  timeSlots?: string[];
 }
 
 const BookedTeachers: React.FC = () => {
@@ -67,7 +68,9 @@ const BookedTeachers: React.FC = () => {
           response.data.bookedAppointments &&
           response.data.bookedAppointments.length > 0
         ) {
-          setSelectedTeacher(response.data.bookedAppointments[0]);
+          const timeSlots = ["29-10-2023", "30-10-2023"]; 
+          setSelectedTeacher({ ...response.data.bookedAppointments[0], timeSlots });
+         
         }
       } catch (error: any) {
         toast.error(

@@ -15,7 +15,7 @@ interface CreateEventType {
   id?: number;
   eventType?: string;
   eventName?: string;
-  imageUrl?: string[];
+  files?: string[];
   video?: string;
   eventDetails?: string;
   eventVideoUrl?: string;
@@ -50,6 +50,7 @@ interface CreateEventType {
   shotsPerHoles?: string[];
   driverContest?: number;
   nearPinContest?: number;
+  
 }
 
 const CreateEvent: React.FC = () => {
@@ -59,7 +60,7 @@ const CreateEvent: React.FC = () => {
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
     eventName: "",
-    imageUrl: [],
+    files: [],
     eventDetails: "",
     eventVideoUrl: "",
     categories: "",
@@ -133,17 +134,33 @@ const CreateEvent: React.FC = () => {
       return;
     }
     setSubmitting(true); // Set submitting to true
+    const selectedScoringType = localStorage.getItem('score');
+    const selectedHoles = localStorage.getItem('selected') || '[]';
 
+    const numberArray = JSON.parse(selectedHoles).map((str: string) => parseInt(str, 10));
+
+    // const numberArray = selectedHoles.map((str:any) => parseInt(str, 10));
+
+    console.log(typeof(numberArray));
+    // Prepare formData
+    const updatedFormData = {
+      ...formData,
+      selectedScoringType: selectedScoringType,
+      selectedHoles: numberArray,
+      shotsPerHoles: numberArray
+    };
     try {
-      const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formData, {
+      const response = await axios.post(API_ENDPOINTS.CREATEEVENT, updatedFormData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       if (response.status === 201) {
         showToast("Event created successfully", "green");
+        localStorage.removeItem('score');
+        localStorage.removeItem('selected');
       } else {
         setError("Error Occurred");
         showToast("Error occurred while creating the event", "[#FF0000]");
@@ -181,17 +198,7 @@ const CreateEvent: React.FC = () => {
     }));
   };
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const dataUrl = reader.result as string;
-        setFormData({ ...formData, imageUrl: [dataUrl] });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+
 
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -206,7 +213,7 @@ const CreateEvent: React.FC = () => {
         <div className=" animate__animated animate__lightSpeedInRight">
           <TournamentBg />
         </div>
-        <form method="post" id="foirm">
+        <form method="post" id="foirm" encType="multipart/form-data">
           <BasicInfo onChange={handleChange} setFormData={setFormData} />
 
           <Recuitments onChange={handleRecruitmentTabsChange} />

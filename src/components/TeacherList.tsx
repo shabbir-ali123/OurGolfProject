@@ -8,12 +8,13 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import SearchAndFiltersEducator from "./SearchAndFilter";
-
+import { useNavigate } from "react-router-dom";
 interface TeacherListProps {
   openModal: () => void;
-  handleBookAppointment?: () => void;
   showTeacherDetails: (teacher: Teacher) => void;
+  isUserAuthenticated: boolean; // Add this line
 }
+
 
 interface Teacher {
   aboutMyself?: string;
@@ -33,12 +34,17 @@ interface Teacher {
 const TeacherList: React.FC<TeacherListProps> = ({
   openModal,
   showTeacherDetails,
+  isUserAuthenticated,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setsearch] = useState<string | null>(null);
+  const [locationInput, setLocation] = useState<string | null>(null);
+  const [availibilty, setAvailibilty] = useState<boolean | null>(null);
+
+  const navigate = useNavigate();
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const toggleFavoriteStatus = async (teacher: Teacher) => {
     try {
@@ -80,7 +86,9 @@ const TeacherList: React.FC<TeacherListProps> = ({
           params: {
             page: 1,
             pageSize: 20,
-            search: search
+            search: search,
+            location: locationInput,
+            availability:availibilty
           },
         });
   
@@ -100,7 +108,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
     };
   
     fetchTeachers();
-  }, [search]); // Dependency array includes 'search' to re-fetch when search changes
+  }, [search, locationInput, availibilty]); 
   
   
   
@@ -134,11 +142,22 @@ const TeacherList: React.FC<TeacherListProps> = ({
         break;
     }
   };
-
+  const gridStyle = !isUserAuthenticated
+  ? "grid grid-cols-4 gap-4" 
+  : "";
+ 
+  const handleCardClick = () => {
+    if (!isUserAuthenticated) {
+      navigate("/login-page"); 
+    } else {
+    
+    }
+  };
   return (
     <>
-     <SearchAndFiltersEducator setsearch={setsearch} />
-      {teachers.length === 0 ? (
+     <SearchAndFiltersEducator setsearch={setsearch} setLocation={setLocation} setAvailibilty={setAvailibilty}/>
+     <div className={gridStyle}>
+     {teachers.length === 0 ? (
         <div>Loading...</div>
       ) : (
         teachers.map((teacher: Teacher) => (
@@ -147,7 +166,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
             className="mt-2 cursor-pointer animate__animated animate__fadeInLeft"
             onClick={() => showTeacherDetails(teacher)}
           >
-            <div className="flex justify-between items-end shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-2 relative   ">
+            <div className="flex justify-between items-end shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-2 relative   "onClick={handleCardClick}>
               <div>
                 <div className="flex items-center animate__animated animate__shakeX">
                   <img
@@ -237,6 +256,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
           </div>
         ))
       )}
+     </div>
+    
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
           <div className="max-w-md p-8 mx-auto bg-white rounded-lg">

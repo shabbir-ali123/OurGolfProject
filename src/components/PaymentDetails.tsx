@@ -60,7 +60,7 @@ document.body.dir = i18n.dir();
                   {t('BANK_NAME')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white hover:animate-bounce"
+                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none  hover:animate-bounce"
                   id="grid-Event-Name"
                   type="text"
                   name="bankName"
@@ -76,7 +76,7 @@ document.body.dir = i18n.dir();
                   {t('BRANCH')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-first-name"
                   type="text"
                   name="branchName"
@@ -92,7 +92,7 @@ document.body.dir = i18n.dir();
                  {t('ACCOUNT_NUMBER')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-first-name"
                   type="text"
                   name="branchNumber"
@@ -108,7 +108,7 @@ document.body.dir = i18n.dir();
                   {t('ACCOUNT_HOLDER_NAME')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-first-name"
                   type="text"
                   name="accountHolderName"
@@ -134,7 +134,7 @@ document.body.dir = i18n.dir();
                   {t('PAYPA_ID')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-Event-Name"
                   type="number"
                   name="paypalId"
@@ -151,7 +151,7 @@ document.body.dir = i18n.dir();
                   {t('PARTICIPATION_FEE')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white"
+                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="participationFee"
                   type="number"
                   pattern="[0-9]*"
