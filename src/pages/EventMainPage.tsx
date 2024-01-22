@@ -23,26 +23,6 @@ const EventMainPage: FunctionComponent = () => {
   }, []);
 
   useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(API_ENDPOINTS.GETEVENTPLACES, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          
-        });
-        setSelectedLocations(response.data.events);
-      } catch (error: any) {
-        toast.error(`No Location Found`)        ;
-      }
-    };
-
-    fetchTeachers();
-  }, []);
-  
-  useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 1280);
     };

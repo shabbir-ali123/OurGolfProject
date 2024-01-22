@@ -20,3 +20,24 @@ export const fetchPosts = async (setPosts:any, category:any) => {
       throw error; 
     }
   };
+
+
+export const fetchSinglePosts = async (setSinglePosts:any, id:any) => {
+  console.log(id, 'idss')
+    try {
+      const token = localStorage.getItem("token");
+      let endpoint = API_ENDPOINTS.GETPOSTBYID + id;
+      const headers:any= {}
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+        endpoint = API_ENDPOINTS.GETPOSTBYID + id; 
+      }
+      const response = await axios.get(endpoint, {
+        headers,
+      });
+      console.log(response);
+      setSinglePosts(response.data.posts);
+    } catch (error) {
+      throw error; 
+    }
+  };

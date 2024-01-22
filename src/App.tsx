@@ -35,7 +35,12 @@ import PostPage from "./pages/PostPage";
 import CompleteLessonsPage from "./components/CompletedLessons";
 import UpcomingLessonsPage from "./components/UpcomingLesson";
 import PendingLessonsPage from "./components/PendingLesson";
+import ReadPost from "./pages/ReadPost";
+import { useParams } from 'react-router-dom';
+
 function App() {
+const params = useParams();
+
   const action = useNavigationType();
   const location = useLocation();
   const navigate = useNavigate();
@@ -186,7 +191,7 @@ function App() {
     setIsTeacher(checkTeacher)
 
   })  
-
+  console.log(params, 'pisad')
   return (
     <ToastProvider iconColor="white" textColor="white">
     <div className="">
@@ -222,6 +227,11 @@ function App() {
         <Route path="/completed-lesson" element={token? <CompleteLessonsPage /> :<LoginPage />} />
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
+        <Route
+          path="/read-post/:id"
+          element={token ? <ReadPost  /> : <LoginPage />}
+        />
+
       </Routes>
     </div>
     </ToastProvider>

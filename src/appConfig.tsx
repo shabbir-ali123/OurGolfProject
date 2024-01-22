@@ -40,7 +40,7 @@ export const API_ENDPOINTS = {
   CREATEPOSTS: `${API_BASE_URL}/${API_VERSION}/create-post`, 
   GETPOSTS: `${API_BASE_URL}/${API_VERSION}/get-posts`, 
   GETPUBLICPOSTS: `${API_BASE_URL}/${API_VERSION}/get-public-posts`, 
-  GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/:id`, 
+  GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/`, 
 
 
   //location
