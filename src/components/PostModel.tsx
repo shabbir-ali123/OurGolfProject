@@ -110,17 +110,17 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-50 backdrop-blur-sm flex justify-center items-center p-4">
-      <div className="w-full max-w-xl bg-white rounded-lg shadow-md mx-auto p-6">
+    <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+      <div className="w-full max-w-xl p-6 mx-auto bg-white rounded-lg shadow-md">
         <form className="px-2">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold">Write Post</h1>
             <button onClick={closeModal} className="p-2">
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
           <textarea
-            className="w-full border rounded-lg mb-4"
+            className="w-full mb-4 border rounded-lg"
             placeholder="Write text..."
             name="text"
             value={formData.text}
@@ -138,10 +138,10 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               onChange={handleImageChange}
               accept="image/*,video/*"
             />
-            <label className="cursor-pointer p-2 border rounded-full flex justify-center items-center">
+            <label className="flex items-center justify-center p-2 border rounded-full cursor-pointer">
               <button
                 onClick={handleFileInputChange}
-                className="cursor-pointer p-2 border rounded-full flex justify-center items-center"
+                className="flex items-center justify-center p-2 border rounded-full cursor-pointer"
               >
                 <svg
                   className="w-6 h-6"
@@ -159,7 +159,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           </div>
           <label htmlFor="">Add Category</label>
           <select
-            className="w-full p-2 border rounded-lg mb-4"
+            className="w-full p-2 mb-4 border rounded-lg"
             onChange={handleSelectChange}
             name="category"
           >
@@ -175,7 +175,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <div>
             <label htmlFor="">Add tags</label>
             <input
-              className="w-full p-2 border rounded-lg mb-4"
+              className="w-full p-2 mb-4 border rounded-lg"
               placeholder="# Tags"
               name="tags"
               onChange={handleInputChange}

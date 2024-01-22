@@ -36,7 +36,7 @@ export const fetchSinglePosts = async (setSinglePosts:any, id:any) => {
         headers,
       });
       console.log(response);
-      setSinglePosts(response.data.posts);
+      setSinglePosts(response.data.post);
     } catch (error) {
       throw error; 
     }
