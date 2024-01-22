@@ -23,7 +23,6 @@ export const fetchPosts = async (setPosts:any, category:any) => {
 
 
 export const fetchSinglePosts = async (setSinglePosts:any, id:any) => {
-  console.log(id, 'idss')
     try {
       const token = localStorage.getItem("token");
       let endpoint = API_ENDPOINTS.GETPOSTBYID + id;
@@ -41,3 +40,24 @@ export const fetchSinglePosts = async (setSinglePosts:any, id:any) => {
       throw error; 
     }
   };
+
+  export const addPostComment = async (formData: any) => {
+    try {
+      const response = await axios.post(API_ENDPOINTS.ADDPOSTCOMMENT, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+  
+      if (response.status === 201) {
+        return response.data;
+      } else {
+        throw new Error("Failed to add comment");
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  

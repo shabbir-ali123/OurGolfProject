@@ -53,7 +53,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
     content: string;
     createdAt: string;
   }>({
-    userId: 0, // Update the type to match your data
+    userId: 0, 
     content: "",
     createdAt: "",
   });
@@ -64,8 +64,6 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
     eventId: eventId,
     content: "",
   });
-
-  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,11 +92,9 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
 
         closeModal();
       } else {
-        setError("Error Occurred");
+        console.log("Error Occurred");
       }
     } catch (error) {
-      setError((error as any)?.response?.data?.message || "Error Occurred");
-      console.error("Error:", error);
       showToast("Getting error, please try again", "red");
     } finally {
       setSubmitting(false);

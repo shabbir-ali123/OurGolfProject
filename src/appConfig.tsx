@@ -41,10 +41,9 @@ export const API_ENDPOINTS = {
   GETPOSTS: `${API_BASE_URL}/${API_VERSION}/get-posts`, 
   GETPUBLICPOSTS: `${API_BASE_URL}/${API_VERSION}/get-public-posts`, 
   GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/`, 
-
-
+  ADDPOSTCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-post-comment`,
+  
   //location
-
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
   GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`
 };
