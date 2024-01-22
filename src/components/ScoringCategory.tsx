@@ -87,7 +87,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   });
 
   useEffect(() => {
-    handleTabClick(Tab.Single);
+    handleTabClick(Tab.Normal);
   }, []);
 
   const handleTabClick = (tab: Tab) => {
@@ -108,7 +108,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     if (isChecked) {
       setSelectedScoringType(scoringType);
     } else {
-      setSelectedScoringType(Tab.Single);
+      setSelectedScoringType(Tab.Normal);
     }
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -361,7 +361,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             id="driverContest"
             type="number"
             name="driverContest"
-            placeholder="3"
+            placeholder=""
             min="0"
             onChange={onInputChange}
           />

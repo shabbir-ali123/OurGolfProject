@@ -104,7 +104,7 @@ const SideMenu: React.FC = () => {
   };
 
   const iconStyles: React.CSSProperties = {
-    fontSize: "24px",
+    fontSize: "20px",
     color: "white",
     marginBottom: "5px",
   };
@@ -184,7 +184,7 @@ const SideMenu: React.FC = () => {
               <div
                 style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
               >
-                <FontAwesomeIcon icon={faHome} style={iconStyles} />
+                <FontAwesomeIcon  icon={faHome} style={iconStyles} />
                 <span style={textStyles}>{t("HOME")}</span>
               </div>
             </Link>

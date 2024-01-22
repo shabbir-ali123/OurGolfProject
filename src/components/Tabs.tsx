@@ -13,6 +13,7 @@ import LiveEvents from "../pages/LiveEvents";
 import PastEvents from "../pages/PastEvents";
 import UpcomingEvents from "../pages/UpcomingEvents";
 import { useTranslation } from "react-i18next";
+import AllEvents from "../pages/AllEvents";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -174,75 +175,7 @@ document.body.dir = i18n.dir();
           )}
           <Tab.Panels>
             <Tab.Panel key="ALL">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                <div className="col-span-3">
-                  <Table events={localEvents} handleLike={handleLike}  />
-                  <div className="flex items-center justify-between px-4 py-3 border-t border-gray-950 sm:px-6 ">
-                    <div className="z-[-1] hidden sm:flex sm:flex-1 sm:items-center justify-center my-6">
-                      <div>
-                        <nav
-                          className="inline-flex -space-x-px rounded-md shadow-sm isolate"
-                          aria-label="Pagination"
-                        >
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handlePageChange(currentPage - 1);
-                            }}
-                            className={`relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:text-blue-400 focus:z-20 focus:outline-offset-0 ${
-                              isPreviousDisabled
-                                ? "pointer-events-none opacity-50 "
-                                : "hover:bg-gray-50 bg-blue-400 text-white"
-                            }`}
-                          >
-                            <span className="sr-only">{t('PREV')}</span>
-                            <ChevronLeftIcon
-                              className="w-5 h-5 cursor-pointer"
-                              aria-hidden="true"
-                            />
-                          </button>
-                          {[...Array(endPage - startPage + 1)].map(
-                            (_, index) => (
-                              <button
-                                key={startPage + index}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handlePageChange(startPage + index);
-                                }}
-                                className={`relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold ${
-                                  startPage + index === currentPage
-                                    ? "bg-[#17B3A6] text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    : "text-[#D0D0D0] ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-                                }`}
-                              >
-                                {startPage + index}
-                              </button>
-                            )
-                          )}
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handlePageChange(currentPage + 1);
-                            }}
-                            className={` relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:text-blue-400 focus:z-20 focus:outline-offset-0 ${
-                              isNextDisabled
-                                ? "pointer-events-none opacity-50"
-                                : "hover:bg-gray-50 bg-blue-400 text-white"
-                            }`}
-                          >
-                            <span className="cursor-pointer sr-only">Next</span>
-                            <ChevronRightIcon
-                              className="w-5 h-5 cursor-pointer"
-                              aria-hidden="true"
-                            />
-                          </button>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <EventMap />
-              </div>
+            <AllEvents events={events} setEvents={setEvents}/>
             </Tab.Panel>
             <Tab.Panel key="LIVE">
               <LiveEvents  />
