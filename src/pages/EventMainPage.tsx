@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { API_ENDPOINTS } from "../appConfig";
 
 const EventMainPage: FunctionComponent = () => {
   const {t, i18n} = useTranslation();
@@ -15,11 +18,30 @@ const EventMainPage: FunctionComponent = () => {
   const [events, setEvents] = useState([]);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<string[]>(['Tokyo']);
-
   useEffect(() => {
     fetchEvents("", "", setEvents);
   }, []);
 
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(API_ENDPOINTS.GETEVENTPLACES, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          
+        });
+        setSelectedLocations(response.data.events);
+      } catch (error: any) {
+        toast.error(`No Location Found`)        ;
+      }
+    };
+
+    fetchTeachers();
+  }, []);
+  
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 1280);
@@ -35,6 +57,7 @@ const EventMainPage: FunctionComponent = () => {
       prevSelectedLocations.filter((location) => location !== locationToRemove)
     );
   };
+
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">
@@ -54,7 +77,7 @@ const EventMainPage: FunctionComponent = () => {
               </h1>
               {selectedLocations.map((location, index) => (
                 <div key={index} className="flex ">
-                  <Clip  title={location} />
+                  <Clip  place={location} />
                   <button
                     type="button"
                     onClick={() => handleRemoveLocation(location)}
