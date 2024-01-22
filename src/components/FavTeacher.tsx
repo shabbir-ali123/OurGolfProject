@@ -2,7 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios"; // Import axios for API requests
 import { API_ENDPOINTS } from "../appConfig";
+interface User {
+  imageUrl: string;
+  // ... other properties of User if necessary
+}
+interface TeacherDetails {
+  id: string;
+  firstName: string;
+  lastName: string;
+  User: User;
+  // ... other properties of TeacherDetails if necessary
+}
 interface Teacher {
+  imageUrl: string[];
   count?: number;
   teachers?: [];
   aboutMyself?: string;
@@ -15,12 +27,21 @@ interface Teacher {
   schedules?: [];
   updatedAt: string;
   userId: string;
-  teacherId?: string; // Add the teacherId property here if it exists in your data
+  teacherId?: string;
+}
+interface FavoriteTeacher {
+  id: string;
+  userId: string;
+  teacherId: string;
+  createdAt: string;
+  updatedAt: string;
+  // ... other properties of FavoriteTeacher if necessary
+  Teacher: TeacherDetails;
 }
 const FavoriteTeachers: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const [favoriteTeachers, setFavoriteTeachers] = useState<Teacher[]>([]);
+  const [favoriteTeachers, setFavoriteTeachers] = useState<FavoriteTeacher[]>([]);
   useEffect(() => {
     const fetchFavoriteTeachers = async () => {
       try {
@@ -75,10 +96,14 @@ const FavoriteTeachers: React.FC = () => {
       <div className="relative flex flex-wrap justify-between gap-3 mx-auto my-4 auto-rows-max md:grid-flow-col lg:grid-flow-col xl:grid-flow-col">
         {favoriteTeachers.map((teacher, index) => (
           <div key={index} className="teacher-card">
-            <p>{teacher.teacherId}</p>
-            <p>{teacher.teacherId}</p>
+            <img
+            className="rounded-full w-14 h-14"
+              src={teacher.Teacher?.User?.imageUrl ? teacher.Teacher.User.imageUrl : 'default_image_url'}
+              alt={`${teacher.Teacher?.firstName} ${teacher.Teacher?.lastName}`}
+            />
           </div>
         ))}
+
       </div>
     </div>
   );

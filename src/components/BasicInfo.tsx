@@ -12,60 +12,22 @@ interface BasicInfoProps {
 const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  // const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
 
-  //   if (files && files.length > 0) {
-  //     const imagesArray: string[] = [];
-
-  //     if (files.length > 5) {
-  //       // If more than 5 images are selected, slice the array to only include the first 5
-  //       for (let i = 0; i < 5; i++) {
-  //         const reader = new FileReader();
-  //         reader.onloadend = () => {
-  //           const dataUrl = reader.result as string;
-  //           imagesArray.push(dataUrl);
-
-  //           if (imagesArray.length === 5) {
-  //             setFormData((prevFormData: any) => ({
-  //               ...prevFormData,
-  //               imageUrl: imagesArray,
-  //             }));
-  //           }
-  //         };
-  //         reader.readAsDataURL(files[i]);
-  //       }
-  //     } else {
-  //       // If 5 or fewer images are selected, proceed normally
-  //       for (let i = 0; i < files.length; i++) {
-  //         const reader = new FileReader();
-  //         reader.onloadend = () => {
-  //           const dataUrl = reader.result as string;
-  //           imagesArray.push(dataUrl);
-
-  //           if (imagesArray.length === files.length) {
-  //             setFormData((prevFormData: any) => ({
-  //               ...prevFormData,
-  //               imageUrl: imagesArray,
-  //             }));
-  //           }
-  //         };
-  //         reader.readAsDataURL(files[i]);
-  //       }
-  //     }
-  //   }
-  // };
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-
-    if (files && files.length > 0) {
-      const filesArray: File[] = Array.from(files).slice(0, 5);
+  
+    if (files) {
+      const filesArray = Array.from(files).slice(0, 5);
+  
       setFormData((prevFormData: any) => ({
         ...prevFormData,
-        files: [...prevFormData.files, ...filesArray],
+        
+        files: filesArray.length === 1 ? filesArray[0] : [...prevFormData.files, ...filesArray],
       }));
     }
   };
+  
+  
   const [isHovered, setIsHovered] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
