@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 interface UserData {
   nickName: string;
   email: string;
+  imageUrl: string;
+
   // Other properties of user data...
 }
 
@@ -74,15 +76,17 @@ export default function ProfileButton() {
     <div className="hidden lg:flex lg:flex-1 lg:justify-end ">
       <div className="relative flex-shrink-0 block">
         <div className="flex items-center">
-          <div className="flex items-center justify-center ">
+          
+          {token && user ? (
+            <>
+             <div className="flex items-center justify-center ">
             <img
               onClick={handleDotClick}
               className="inline-block h-6 w-6 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
-              src="/img/profile-page.png"
+              src={user?.imageUrl}
               alt=""
             />
-          </div>
-          {token && user ? (
+            </div>
             <div className="ml-3">
               <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
                 {user.nickName ? user.nickName : user.email}
@@ -98,8 +102,20 @@ export default function ProfileButton() {
                 {languages.ja.displayName}
               </button>
             </div>
+            </>
+           
           ) : (
-            <div className="ml-3">
+            <>
+            
+            <div className="flex items-center justify-center ">
+            <img
+              onClick={handleDotClick}
+              className="inline-block h-6 w-6 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
+              src="/img/profile-page.png"
+              alt=""
+            />
+          </div>
+          <div className="ml-3">
               <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
                 <Link to="/login-page" className="text-white">Login</Link>
               </p>
@@ -116,6 +132,8 @@ export default function ProfileButton() {
               </button>
               </div>
             </div>
+            </>
+         
           )}
           <div className="relative">
             <button

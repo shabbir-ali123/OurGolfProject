@@ -75,9 +75,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prevs.map((e: any) =>
             e.id === eventId
               ? {
-                  ...e,
-                  isFavorite: !e.isFavorite,
-                }
+                ...e,
+                isFavorite: !e.isFavorite,
+              }
               : e
           )
         );
@@ -114,22 +114,22 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prev.map((e: any) =>
             e.id === event.id
               ? {
-                  ...e,
-                  likes: userEvent
-                    ? likes.map((like: any) =>
-                        like.userId === loggedInUser
-                          ? { ...like, counter: newCounter }
-                          : like
-                      )
-                    : [
-                        ...likes,
-                        {
-                          counter: newCounter,
-                          userId: loggedInUser,
-                          id: Math.floor(Math.random() * 10),
-                        },
-                      ],
-                }
+                ...e,
+                likes: userEvent
+                  ? likes.map((like: any) =>
+                    like.userId === loggedInUser
+                      ? { ...like, counter: newCounter }
+                      : like
+                  )
+                  : [
+                    ...likes,
+                    {
+                      counter: newCounter,
+                      userId: loggedInUser,
+                      id: Math.floor(Math.random() * 10),
+                    },
+                  ],
+              }
               : e
           )
         );
@@ -178,62 +178,62 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   return (
     <div className="animate__animated animate__fadeInLeft">
-       {localEvents.length === 0 ? (
-      <div className="text-center p-5">
-        <span className="text-lg font-medium">No events yet</span>
-      </div>
-    ) : (
-      <div className="flow-root mt-2">
-        <div className="-my-2 overflow-x-auto ">
-          <div className="inline-block min-w-full py-0 align-middle ">
-            <div className="overflow-hidden sm:rounded-lg">
-              <table
-                className="relative min-w-full divide-y divide-gray-300 z-9"
-                style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
-              >
+      {localEvents.length === 0 ? (
+        <div className="text-center p-5">
+          <span className="text-lg font-medium">No events yet</span>
+        </div>
+      ) : (
+        <div className="flow-root mt-2">
+          <div className="-my-2 overflow-x-auto ">
+            <div className="inline-block min-w-full py-0 align-middle ">
+              <div className="overflow-hidden sm:rounded-lg">
+                <table
+                  className="relative min-w-full divide-y divide-gray-300 z-9"
+                  style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
+                >
                   <thead className="bg-[#006800] text-white ">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
-                    >
-                      Organizer
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
-                    >
-                      Time
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
-                    >
-                      Date
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
-                    >
-                      Event Name
-                    </th>
+                    <tr>
+                      <th
+                        scope="col"
+                        className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
+                      >
+                        Organizer
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-2 text-left text-sm font-semibold"
+                      >
+                        Time
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-2 text-left text-sm font-semibold"
+                      >
+                        Date
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-2 text-left text-sm font-semibold"
+                      >
+                        Event Name
+                      </th>
 
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibold"
-                    >
-                      Short Notes
-                    </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-2 text-left text-sm font-semibold"
+                      >
+                        Short Notes
+                      </th>
 
-                    <th
-                      scope="col"
-                      className="px-3 py-2 text-left text-sm font-semibol"
-                    >
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-               
+                      <th
+                        scope="col"
+                        className="px-3 py-2 text-left text-sm font-semibol"
+                      >
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+
                   {localEvents.map((event: any, index: number) => {
                     const likes = event.likes || [];
                     const isFavorite = event.isFavorite || false;
@@ -245,11 +245,10 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className={`rounded-lg ${
-                            index % 2 === 0
+                          className={`rounded-lg  ${index % 2 === 0
                               ? "text-black  bg-[#D3DAFF] "
                               : "bg-[#D3DAFF] text-black"
-                          }`}
+                            }`}
                           style={{
                             width: "100%",
                             borderRadius: "10px",
@@ -257,7 +256,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           }}
                         >
                           <td className="flex items-center mt-[0px]">
-                            <div
+                            {/* <div
                               className={` -rotate-90 px-4 py-2   text-white  text-sm my-6 ml-[-19px] flex  items-center ${
                                 event?.type !== "full"
                                   ? "bg-[#CF4E4E]"
@@ -265,7 +264,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               }`}
                             >
                               FULL
-                            </div>
+                            </div> */}
                             <div className={`flex items-center gap-x-4`}>
                               <img
                                 src={
@@ -294,9 +293,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               {event.eventName}
                               <span className="flex items-center gap-1 font-normal ">
                                 <MapPinIcon
-                                  className={`-mr-0.5 h-4 w-4 ${
-                                    event.type !== "full" && "text-[#33333]"
-                                  }`}
+                                  className={`-mr-0.5 h-4 w-4 ${event.type !== "full" && "text-[#33333]"
+                                    }`}
                                   aria-hidden="true"
                                 />
                                 {event.place}
@@ -304,19 +302,17 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </div>
 
                             <span
-                              className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2 cursor-pointer    ${
-                                event.type === "full"
+                              className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2 cursor-pointer    ${event.type === "full"
                                   ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full "
                                   : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
-                              }`}
+                                }`}
                             >
                               <Link
                                 to={user ? "/pay-now" : "/login-page"}
-                                className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0 sm:mx-2 cursor-pointer ${
-                                  event.type === "full"
+                                className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0 sm:mx-2 cursor-pointer ${event.type === "full"
                                     ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
                                     : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
-                                }`}
+                                  }`}
                               >
                                 <p className="rotate-45 sm:text-lg xl:text-x">
                                   Join
@@ -330,9 +326,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
                             <div className="flex flex-col items-center gap-1">
                               <div
-                                className={`flex bg-${
-                                  liked ? "green" : "[#17B3A6]"
-                                } cursor-pointer p-1 rounded-md`}
+                                className={`flex bg-${liked ? "green" : "[#17B3A6]"
+                                  } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleLike(event)}
                               >
                                 <HandThumbUpIcon className="w-3 h-3 text-white" />
@@ -356,15 +351,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </div>
                               <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
                                 <div className="text-[10px] text-white">
-                                {event.comments.length}
+                                  {event.comments.length}
                                 </div>
                               </div>
                             </div>
                             <div className="flex flex-col items-center gap-1">
                               <div
-                                className={`flex bg-${
-                                  isFavorite ? "[#006800]" : "[#17B3A6]"
-                                } cursor-pointer p-1 rounded-md`}
+                                className={`flex bg-${isFavorite ? "[#006800]" : "[#17B3A6]"
+                                  } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleFavoriteClick(event.id)}
                               >
                                 <FontAwesomeIcon
@@ -386,24 +380,24 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </button>
                           </div>
                         </tr>
-                        
+
                         {selectedEvent === event.id && (
                           <tr>
-<CommentModel
-                            closeModal={closeModal}
-                            eventId={selectedEvent}
-                          />
-                            </tr>
+                            <CommentModel
+                              closeModal={closeModal}
+                              eventId={selectedEvent}
+                            />
+                          </tr>
                         )}
                       </React.Fragment>
                     );
                   })}
-                {/* </tbody> */}
-              </table>
+                  {/* </tbody> */}
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
     </div>
   );

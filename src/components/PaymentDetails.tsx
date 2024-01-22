@@ -1,4 +1,4 @@
-import React, { useRef, useState, ChangeEvent, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 export type Click = "bank" | "paypal";
@@ -8,8 +8,9 @@ interface PaymentDetailsProps {
 }
 
 const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
-  const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
+  const [showPaymentDetails, setShowPaymentDetails] = useState(false);
   const [activeTab, setActiveTab] = useState<Click>("bank");
   const [formData, setFormData] = useState({
     bank: {
@@ -26,7 +27,7 @@ document.body.dir = i18n.dir();
     },
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
 
     setFormData((prevData) => ({
@@ -39,15 +40,34 @@ document.body.dir = i18n.dir();
   };
 
   useEffect(() => {
-    console.log("After update", formData);
-    onChange(formData[activeTab], activeTab);
-  }, [formData, activeTab]);
+    if (showPaymentDetails) {
+      console.log("After update", formData);
+      onChange(formData[activeTab], activeTab);
+    }
+  }, [formData, activeTab, showPaymentDetails]);
   return (
     <div className="p-2 mx-auto lg:max-w-6xl ">
       <div className=" bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50  p-4 mt-4">
-       
-
-    
+          {/* Toggle Switch for showing Payment Details */}
+          <div className="mb-4">
+          <label className="flex items-center cursor-pointer">
+            <div className="relative">
+              <input 
+                type="checkbox" 
+                className="sr-only" 
+                onChange={() => setShowPaymentDetails(!showPaymentDetails)} 
+                checked={showPaymentDetails} 
+              />
+              <div className={`block bg-gray-600 w-14 h-8 rounded-full ${showPaymentDetails ? 'bg-[green]' : ''}`}></div>
+              <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${showPaymentDetails ? 'transform translate-x-6' : ''}`}></div>
+            </div>
+            <div className="ml-3 text-white font-medium">
+              {t('ADD_PAYMENT_DETAILS')}
+            </div>
+          </label>
+        </div>
+        {showPaymentDetails && (
+        <>
           <div>
             {/* Bank Details Content */}
             <h2 className="text-[#52FF86] mt-8 mx-4"> {t('BANK_DETAILS')}</h2>
@@ -177,7 +197,9 @@ document.body.dir = i18n.dir();
               </div>
             </div>
           </div>
-       
+        </>
+        
+          )}
       </div>
   
     </div>

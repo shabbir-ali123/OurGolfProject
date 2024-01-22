@@ -4,7 +4,6 @@
   import { fetchPosts } from "../utils/fetchPosts";
   interface PostCardProps {
     category: string;
-    // ... other props
   }
   interface Post {
     id: string;

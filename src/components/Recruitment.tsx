@@ -246,7 +246,7 @@ document.body.dir = i18n.dir();
                       {t('TEAM_SIZE')}
                     </label>
                     <input
-                      className="appearance-none block w-[80px] bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none focus:bg-white"
+                      className="appearance-none block w-[80px] bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
                       id="grid-Event-Name"
                       type="number"
                       name="teamSize"
