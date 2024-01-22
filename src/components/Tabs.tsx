@@ -48,7 +48,6 @@ document.body.dir = i18n.dir();
   const itemsPerPage = 6;
   const indexOfLastEvent = currentPage * itemsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
-  const currentEvents = localEvents.slice(indexOfFirstEvent, indexOfLastEvent);
   const isPreviousDisabled = currentPage === 1;
   useEffect(() => {
     const indexOfLastEvent = currentPage * itemsPerPage;
@@ -86,12 +85,7 @@ document.body.dir = i18n.dir();
     
   };
   
-  const handleLocationButtonClick = () => {
-    setLocationPopupOpen(true);
-  };
- // Define the handleLike function
  const handleLike = (eventId: string) => {
-  // Implement your like logic here
   console.log(`Liked event with ID: ${eventId}`);
 };
   
