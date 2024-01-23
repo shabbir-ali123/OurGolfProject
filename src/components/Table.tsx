@@ -179,7 +179,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   return (
     <div className="animate__animated animate__fadeInLeft">
       {localEvents.length === 0 ? (
-        <div className="text-center p-5">
+        <div className="p-5 text-center">
           <span className="text-lg font-medium">No events yet</span>
         </div>
       ) : (
@@ -195,39 +195,39 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     <tr>
                       <th
                         scope="col"
-                        className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6"
+                        className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
                       >
                         Organizer
                       </th>
                       <th
                         scope="col"
-                        className="px-3 py-2 text-left text-sm font-semibold"
+                        className="px-3 py-2 text-sm font-semibold text-left"
                       >
                         Time
                       </th>
                       <th
                         scope="col"
-                        className="px-3 py-2 text-left text-sm font-semibold"
+                        className="px-3 py-2 text-sm font-semibold text-left"
                       >
                         Date
                       </th>
                       <th
                         scope="col"
-                        className="px-3 py-2 text-left text-sm font-semibold"
+                        className="px-3 py-2 text-sm font-semibold text-left"
                       >
                         Event Name
                       </th>
 
                       <th
                         scope="col"
-                        className="px-3 py-2 text-left text-sm font-semibold"
+                        className="px-3 py-2 text-sm font-semibold text-left"
                       >
                         Short Notes
                       </th>
 
                       <th
                         scope="col"
-                        className="px-3 py-2 text-left text-sm font-semibol"
+                        className="px-3 py-2 text-sm text-left font-semibol"
                       >
                         Actions
                       </th>
@@ -289,7 +289,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             {event.eventStartDate}
                           </td>
                           <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left">
-                            <div className="flex flex-col capitalize font-bold text-2xl">
+                            <div className="flex flex-col text-2xl font-bold capitalize">
                               {event.eventName}
                               <span className="flex items-center gap-1 font-normal ">
                                 <MapPinIcon
@@ -392,7 +392,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       </React.Fragment>
                     );
                   })}
-                  {/* </tbody> */}
                 </table>
               </div>
             </div>
