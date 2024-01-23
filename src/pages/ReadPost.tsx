@@ -10,6 +10,7 @@ interface SinglePostProps {
   mediaFile?: any;
   text: string;
   PostComments: any;
+  PostLikes: any
 }
 
 const ReadPost: React.FC = () => {
@@ -60,7 +61,8 @@ const ReadPost: React.FC = () => {
         <div className="flex items-center justify-between mx-4">
           <h2 className="mx-4">Add Your Comment</h2>
         </div>
-
+        <button>like</button>
+        <div>{singlePost?.PostLikes?.length}</div>
         <div className="relative max-h-full p-4 overflow-y-auto">
           <form method="post" className="mx-4 ">
             <input type="hidden" name="userId" />

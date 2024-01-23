@@ -67,7 +67,6 @@ const LiveEvents: React.FC = () => {
     return event.eventStartDate === formatDate(currentDate);
   });
 
-  // Pagination logic
   const indexOfLastEvent = currentPage * itemsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
   const currentEvents = todayEvents.slice(indexOfFirstEvent, indexOfLastEvent);
@@ -77,14 +76,6 @@ const LiveEvents: React.FC = () => {
     indexOfLastEvent >= todayEvents.length ||
     currentPage === Math.ceil(todayEvents.length / itemsPerPage);
   const totalPages = Math.ceil(todayEvents.length / itemsPerPage);
-
-  // Function to handle page changes
-  const handlePageChange = (pageNumber: number) => {
-    const totalPages = Math.ceil(todayEvents.length / itemsPerPage);
-    // Ensure the new page number is within the valid range
-    const newPage = Math.max(1, Math.min(pageNumber, totalPages));
-    setCurrentPage(newPage);
-  };
 
   const handleLike = async (event: Event) => {
     try {
@@ -103,7 +94,6 @@ const LiveEvents: React.FC = () => {
         }
       );
 
-      // Update the likes in the state
       setEvents((prevEvents) =>
         prevEvents.map((e) =>
           e.id === event.id
