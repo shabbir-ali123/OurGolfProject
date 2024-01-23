@@ -154,9 +154,9 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   {t('PAYPA_ID')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+                  className="uppercase appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-Event-Name"
-                  type="number"
+                  type="text"
                   name="paypalId"
                   onChange={handleInputChange}
                   placeholder={t('PAYPA_ID')}

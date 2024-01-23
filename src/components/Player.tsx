@@ -3,19 +3,20 @@ import React from 'react';
 
 interface PlayerProps {
   showNumber: boolean;
+  name: string; 
 }
 
-const Player: React.FC<PlayerProps> = ({ showNumber }) => {
+const Player: React.FC<PlayerProps> = ({ showNumber, name }) => {
   return (
-    <div className='flex justify-between items-center w-[130px] '>
+    <div className='flex justify-between items-center w-[130px]'>
       <div className='flex items-center'>
         <img
-          className='rounded-[50%] w-9 h-[35.7px] object-cover '
+          className='rounded-[50%] w-9 h-[35.7px] object-cover'
           alt=''
           src='/img/ellipse-1310@2x.png'
         />
         <div className='pl-1 tracking-[1.45px] leading-[9.22px]'>
-          Arthur
+          {name} 
         </div>
       </div>
 
