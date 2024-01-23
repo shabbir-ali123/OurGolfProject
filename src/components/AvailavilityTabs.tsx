@@ -139,7 +139,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
             return (
               <div key={slot.id}>
                 <button
-                  className={`${isSelected ? "rounded-full bg-transparent text-white  bg-[#02a4fe] py-4" : "rounded-full  text-black  bg-[#b9fbb9] py-4"}`}
+                  className={`${isSelected ? "rounded-full text-white  bg-[#00A4FE] py-4" : "rounded-full  text-black  bg-[#b9fbb9] py-4"}`}
                   onClick={() => handleTabClick(slot.shifts[0].scheduleId, slot.shifts[0].startTime, slot.shifts[0].endTime, slot.shifts[0].day)}
                   disabled={bookedSlots[index]}
                 >

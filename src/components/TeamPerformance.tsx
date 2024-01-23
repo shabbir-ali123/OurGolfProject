@@ -72,23 +72,23 @@ document.body.dir = i18n.dir();
                             </td>
                             <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17
@@ -103,23 +103,23 @@ document.body.dir = i18n.dir();
                             </td>
                             <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17
@@ -134,23 +134,23 @@ document.body.dir = i18n.dir();
                             </td>
                             <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17
@@ -165,23 +165,23 @@ document.body.dir = i18n.dir();
                             </td>
                             <td className='py-4 pl-4 whitespace-nowrap'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4 '>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='py-4 pl-4'>
                                 {' '}
-                                <Player showNumber={true} />
+                                <Player showNumber={true} name='babu' />
                             </td>
                             <td className='pl-4 py-4 tracking-[1.45px] leading-[9.22px] '>
                                 17

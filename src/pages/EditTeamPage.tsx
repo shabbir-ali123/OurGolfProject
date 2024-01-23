@@ -77,23 +77,23 @@ const EditTeamPage: FunctionComponent = () => {
               </td>
               <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Ryan" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Leo" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Isaac" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Jacob" />
               </td>
               <td className="py-4 pl-4">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="David" />
               </td>
               <td className="pl-4 py-4 tracking-[1.45px] leading-[9.22px] ">
                 <div className="flex gap-4">
@@ -147,23 +147,23 @@ const EditTeamPage: FunctionComponent = () => {
               </td>
               <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Ethan" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Noah" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Liam" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Aiden" />
               </td>
               <td className="py-4 pl-4">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Gabriel" />
               </td>
               <td className="pl-4 py-4 tracking-[1.45px] leading-[9.22px] ">
                 <div className="flex gap-4">
@@ -216,23 +216,23 @@ const EditTeamPage: FunctionComponent = () => {
               </td>
               <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Lucas" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Oliver" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Samuel" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Daniel" />
               </td>
               <td className="py-4 pl-4">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Benjamin" />
               </td>
               <td className="pl-4 py-4 tracking-[1.45px] leading-[9.22px] ">
                 <div className="flex gap-4">
@@ -285,23 +285,23 @@ const EditTeamPage: FunctionComponent = () => {
               </td>
               <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="James" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Matthew" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Alexander" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Henry" />
               </td>
               <td className="py-4 pl-4">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Michael" />
               </td>
               <td className="pl-4 py-4 tracking-[1.45px] leading-[9.22px] ">
                 <div className="flex gap-4">
@@ -354,23 +354,23 @@ const EditTeamPage: FunctionComponent = () => {
               </td>
               <td className="py-4 pl-4 whitespace-nowrap">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Mason" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Jack" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Dylan" />
               </td>
               <td className="py-4 pl-4 ">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Max" />
               </td>
               <td className="py-4 pl-4">
                 {" "}
-                <Player showNumber={false} />
+                <Player showNumber={false} name="Ryan" />
               </td>
               <td className="pl-4 py-4 tracking-[1.45px] leading-[9.22px] ">
                 <div className="flex gap-4">
