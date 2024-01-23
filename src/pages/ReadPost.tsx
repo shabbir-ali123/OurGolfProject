@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { addPostComment, fetchSinglePosts } from "../utils/fetchPosts";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API_ENDPOINTS } from "../appConfig";
+import axios from "axios";
 
 interface SinglePostProps {
   posts: any;
@@ -16,17 +18,22 @@ interface SinglePostProps {
 const ReadPost: React.FC = () => {
   const params = useParams<{ id?: string }>();
   const postId = params.id;
-
-  const [formData, setFormData] = useState<any>({
-    content: "",
-    postId: postId,
-  });
-
-  const [singlePost, setSinglePost] = useState<SinglePostProps>();
+  const [formData, setFormData] = useState<any>({ content: "", postId: postId });
+  const [singlePost, setSinglePost] = useState<any>();
+  const [likeCount, setLikeCount] = useState<number>(0);
+  const [userHasLiked, setUserHasLiked] = useState<boolean>(false);
 
   useEffect(() => {
     fetchSinglePosts(setSinglePost, postId);
-  }, [postId]);
+  }, [postId])
+
+  useEffect(() => {
+    if (singlePost) {
+      setLikeCount(singlePost.PostLikes.length);
+      const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
+      setUserHasLiked(singlePost.PostLikes.some((like: any) => like.userId === loggedInUser));
+    }
+  }, [singlePost]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +42,37 @@ const ReadPost: React.FC = () => {
       toast.success("Comment added successfully");
       fetchSinglePosts(setSinglePost, postId); // Refresh comments
     } catch (error) {
-      toast.error("Getting error, please try again");
+      toast.error("Error adding comment, please try again");
+    }
+  };
+
+  const handleLike = async () => {
+    const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
+    if (!loggedInUser) {
+      toast.error("You must be logged in to like a post");
+      return;
+    }
+
+    try {
+      const newCounter = userHasLiked ? 0 : 1;
+
+      const response = await axios.post(
+        API_ENDPOINTS.ADDPOSTLIKE,
+        { postId: postId, Count: newCounter, userId: loggedInUser },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setLikeCount(prevCount => newCounter === 1 ? prevCount + 1 : prevCount - 1);
+        setUserHasLiked(!userHasLiked);
+        toast.success(`Post ${newCounter === 1 ? 'liked' : 'unliked'} successfully`);
+      }
+    } catch (error) {
+      toast.error(`Error updating likes: ${error}`);
     }
   };
 
@@ -61,8 +98,10 @@ const ReadPost: React.FC = () => {
         <div className="flex items-center justify-between mx-4">
           <h2 className="mx-4">Add Your Comment</h2>
         </div>
-        <button>like</button>
-        <div>{singlePost?.PostLikes?.length}</div>
+        <button onClick={handleLike}>
+        {userHasLiked ? 'Unlike' : 'Like'}
+      </button>
+      <div>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</div>
         <div className="relative max-h-full p-4 overflow-y-auto">
           <form method="post" className="mx-4 ">
             <input type="hidden" name="userId" />
