@@ -11,6 +11,8 @@
     text: string;
     posts: any; 
     mediaFile: string[];
+    PostComments: string[],
+    PostLikes: string[]
   }
 
   const PostCard: React.FC<PostCardProps> = ({ category }) => {
@@ -19,7 +21,7 @@
     useEffect(() => {
       fetchPosts(setPosts, category);
     }, [category]);
-
+    
     const isAuthenticated = () => {
       return localStorage.getItem("token");
     };
@@ -71,13 +73,13 @@
                     className="w-4 h-4 cursor-pointer text-[#00D1FF]"
                     aria-hidden="true"
 
-                  />242 comments</span>
+                  />{post.PostComments.length} comments</span>
                   <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" onClick={handleInteraction} data-interaction="like"> <HandThumbUpIcon
                     className="w-4 h-4 cursor-pointer text-[#51ff85]"
                     aria-hidden="true"
 
                     data-interaction="like"
-                  />93k likes</span>
+                  />{post.PostLikes.length} likes</span>
                   <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" onClick={handleInteraction} data-interaction="share">
                     {" "}
                     <ShareIcon
