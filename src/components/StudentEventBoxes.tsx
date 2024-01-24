@@ -1,4 +1,3 @@
-// StudentEventBoxes.tsx
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { fetchTeacherCounts } from "../utils/fetchTeacher";
@@ -22,10 +21,10 @@ const [teachercount, setTeacherCount] = useState<TeacherCountProps>({
 });
 
 useEffect(() => {
-const isTeacher = JSON.parse(localStorage.getItem('teacher_id') || '')
-  if (isTeacher !== null ) {
-    fetchTeacherCounts(setTeacherCount);
-  }
+  const isTeacher = JSON.parse(localStorage.getItem('teacher_id') || '')
+    if (isTeacher !== null ) {
+      fetchTeacherCounts(setTeacherCount);
+    }
 }, []);
 const showTeacherDetails = (status: string) => {
   if(status === "completed"){

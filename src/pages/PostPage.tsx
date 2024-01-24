@@ -3,7 +3,7 @@ import PostHeader from "../components/PostHeader";
 import PostProfile from "../components/PostProfilePrompt";
 import PostCard from "../components/PostCard";
 import { useTranslation } from "react-i18next";
-// import { fetchPosts } from "../utils/fetchPosts";
+
 const PostPage: FunctionComponent = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Party');
   const { t, i18n } = useTranslation();
