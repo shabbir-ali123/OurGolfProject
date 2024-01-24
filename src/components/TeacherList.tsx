@@ -179,8 +179,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
     ? "mb-2"
     : "mb-2 animate__animated animate__fadeInRight";
     const textFontSize = !isUserAuthenticated ? "text-lg" : "text-[9.96px]";
-    const buttonSize = !isUserAuthenticated ? "w-16 h-16" : "w-10 h-10"; // Increase button size
-    const imageWidth = !isUserAuthenticated ? "w-20 h-20" : "w-10 h-10"; // Increase image size
+    const buttonSize = !isUserAuthenticated ? "w-16 h-16" : "w-10 h-10"; 
+    const imageWidth = !isUserAuthenticated ? "w-20 h-20" : "w-10 h-10"; 
   return (
     <>
       <SearchAndFiltersEducator
@@ -199,8 +199,9 @@ const TeacherList: React.FC<TeacherListProps> = ({
               onClick={() => showTeacherDetails(teacher)}
             >
               <div
-                className={`shadow-[0px_0px_7.47179651260376px_0px_#00000029] rounded-[30px] p-2 relative ${cardContentStyle}`}
+                className={` rounded-[30px] p-2 relative ${cardContentStyle}`}
                 onClick={handleCardClick}
+                style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
               >
                 <div>
                   <div className="flex items-center animate__animated animate__shakeX">

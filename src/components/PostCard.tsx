@@ -34,11 +34,11 @@
     };
     
     return (
-      <div className="bg-white ">
+      <div className="bg-white flex flex-wrap gap-2 justify-center ">
 
         {posts.map((post: Post) => (
           <Link to={`/read-post/${post.id}`}>            
-          <div key={post.id} className="flex my-4  p-4 rounded-lg border-2 border-solid border-[#51ff85]">
+          <div key={post.id} className="flex my-4  p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
             <img
               className="rounded-lg w-[150px] h-[auto]"
               src={post.mediaFile[0]}
