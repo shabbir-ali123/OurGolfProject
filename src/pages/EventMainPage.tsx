@@ -92,7 +92,7 @@ const EventMainPage: FunctionComponent = () => {
                 {t('CREATE_EVENTS')}
               </button>
             </Link>
-          </div>
+           </div>
         </div>
 
         <Tabs events={events} setEvents={setEvents} />
