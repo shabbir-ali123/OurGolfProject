@@ -174,7 +174,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     setLocalEvents(events);
   }, [events]);
 
-
+  const handleJoinClick = (e: any) => {
+    localStorage.setItem('selectedEventId', e.id)
+  }
 
   return (
     <div className="animate__animated animate__fadeInLeft">
@@ -256,15 +258,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           }}
                         >
                           <td className="flex items-center mt-[0px]">
-                            {/* <div
-                              className={` -rotate-90 px-4 py-2   text-white  text-sm my-6 ml-[-19px] flex  items-center ${
-                                event?.type !== "full"
-                                  ? "bg-[#CF4E4E]"
-                                  : "opacity-0"
-                              }`}
-                            >
-                              FULL
-                            </div> */}
+                            
                             <div className={`flex items-center gap-x-4`}>
                               <img
                                 src={
@@ -313,6 +307,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
                                     : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
                                   }`}
+                                  onClick={() => handleJoinClick(event)}
                               >
                                 <p className="rotate-45 sm:text-lg xl:text-x">
                                   Join
