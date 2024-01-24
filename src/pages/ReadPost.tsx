@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-
+import { HandThumbUpIcon, HandThumbDownIcon } from '@heroicons/react/24/solid';
 interface SinglePostProps {
   posts: any;
   category: string;
@@ -77,33 +77,39 @@ const ReadPost: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl p-4 mx-auto">
+    <div className="max-w-5xl px-6 mx-auto my-4 py-4"  style={{ 
+      boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset" 
+    }}>
       <h1 className="mb-4 text-3xl font-bold">{singlePost?.posts.nickName}</h1>
-      <p className="mb-4 text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam.
-      </p>
       <img
-        className="object-cover w-full h-64 mb-4"
+        className="object-cover w-full h-[400px] mb-4 rounded-lg object-fit"
         src={singlePost?.mediaFile?.map((img: any) => img)}
         alt="Blog Post Image"
       />
-      <p className="mb-4 text-gray-600">
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur.
-      </p>
+    
+    <div className="flex items-center">
+        <button onClick={handleLike} className="flex items-center bg-transparent">
+          {userHasLiked ? (
+            <HandThumbUpIcon className="w-6 h-6 text-blue-500" />
+          ) : (
+            <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+          )}
+        </button>
+        <div className="ml-2">{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</div>
+      </div>
+      <div>
+      <h4>Description</h4>
       <p className="text-gray-600">{singlePost?.text}</p>
+      </div>
+     
+
       <div className="col-span-12">
-        <div className="flex items-center justify-between mx-4">
-          <h2 className="mx-4">Add Your Comment</h2>
+        <div className="flex items-center justify-between ">
+          <h4 className="">Add Your Comment</h4>
         </div>
-        <button onClick={handleLike}>
-        {userHasLiked ? 'Unlike' : 'Like'}
-      </button>
-      <div>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</div>
-        <div className="relative max-h-full p-4 overflow-y-auto">
-          <form method="post" className="mx-4 ">
+        
+        <div className="  ">
+          <form method="post" className=" ">
             <input type="hidden" name="userId" />
             <input type="hidden" name="eventId" />
 
@@ -115,7 +121,7 @@ const ReadPost: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, content: e.target.value })
               }
-              className="w-full h-16 p-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
+              className="w-full px-1 h-16 p-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
             ></textarea>
             <div className="flex justify-start">
               <button
