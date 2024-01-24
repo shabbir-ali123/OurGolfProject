@@ -7,8 +7,6 @@ interface UserData {
   nickName: string;
   email: string;
   imageUrl: string;
-
-  // Other properties of user data...
 }
 
 
@@ -16,7 +14,7 @@ export default function ProfileButton() {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [token, setToken] = useState("");
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<any>(null);
 
   const languages = {
     en: { displayName: "English" },
@@ -28,10 +26,12 @@ export default function ProfileButton() {
     getUser(userId)
       .then((userData) => {
         setUser(userData.user);
+        localStorage.setItem('user', JSON.stringify(userData.user)); 
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+
   }, []);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

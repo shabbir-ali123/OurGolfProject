@@ -10,7 +10,7 @@ interface ProfileAvatarProps {
   colSpanLg?: number;
   iconWidth?: string;
   iconHeight?: string;
-  imageUrl?: string;
+  imageUrl?: any;
   onChangeImage?: (file: File) => void; // Callback for image change
 }
 

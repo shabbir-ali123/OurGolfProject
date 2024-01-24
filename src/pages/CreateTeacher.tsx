@@ -12,7 +12,6 @@ import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 
@@ -205,7 +204,6 @@ document.body.dir = i18n.dir();
   const handleTimeSlotClick = (dateKey: string, hour: string, hourIndex: number) => {
     const date = new Date(dateKey);
     
-    // Validate the date object before formatting
     if (!isNaN(date.getTime())) {
       const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
       const dateParts = dateFormatter.formatToParts(date);
@@ -213,12 +211,11 @@ document.body.dir = i18n.dir();
       toggleAvailability(dayName, hour, hourIndex);
     } else {
       console.error('Invalid date:', date);
-      // Handle the invalid date case (e.g., show an error message to the user)
       return; // Exit the function or handle it as required
     }
   
     const newShift = {
-      day: 'sunday', // Note: This is hardcoded, you might want to use 'dayName' here
+      day: 'sunday', 
       startTime: hour,
       endTime: "", 
     };
@@ -238,17 +235,14 @@ document.body.dir = i18n.dir();
     });
   };
   
-  
-  
-
-  
+  const user = JSON.parse(localStorage.getItem('user') || "");
   return (
     <div className="py-8">
       <ProfileAvatar
         pname=""
         icon={<ShareIcon />}
         label={t('FIRST_NAME')}
-        imageUrl="https://example.com/api/profile-image/john"
+        imageUrl={user?.imageUrl}
         onChangeImage={(file) => {
           console.log("Selected file:", file);
         }}

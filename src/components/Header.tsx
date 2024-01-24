@@ -14,7 +14,6 @@ const navigation = [
 
 const Header: React.FC = () => {
   const [token, setToken] = useState("");
-  const history = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   useEffect(() => {
@@ -58,7 +57,6 @@ const Header: React.FC = () => {
 
   return (
     <div>
-
       <header className="bg-[#054a51] overflow-hidden ">
         <nav
           className="flex items-center justify-between py-2 lg:px-32 "

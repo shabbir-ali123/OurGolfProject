@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { formatDate } from "../utils/getStartedDate";
-import {
-  ChatBubbleBottomCenterIcon,
-  HandThumbUpIcon,
-  MapPinIcon,
-  PlusIcon,
-  ShareIcon,
-} from "@heroicons/react/24/outline";
 import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
 import { fetchEvents } from "../utils/fetchEvents";

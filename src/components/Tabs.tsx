@@ -17,7 +17,6 @@ import AllEvents from "../pages/AllEvents";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
-
 interface Event {
   id: string;
   creator:{
@@ -35,12 +34,10 @@ interface Event {
   imageUrl: string;
   count: any;
 }
-
 interface TabsProps {
   events: Event[];
   setEvents: any;
 }
-
 const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
@@ -56,20 +53,15 @@ document.body.dir = i18n.dir();
     const newLocalEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
     setLocalEvents(newLocalEvents);
   }, [events, currentPage]);
-
   const isNextDisabled = indexOfLastEvent >= events.length;
   const totalPages = Math.ceil(events.length / itemsPerPage);
-
   const handlePageChange = (pageNumber: number) => {
     const totalPages = Math.ceil(events.length / itemsPerPage);
-    const newPage = Math.max(1, Math.min(pageNumber, totalPages)); 
+    const newPage = Math.max(1, Math.min(pageNumber, totalPages));
     setCurrentPage(newPage);
   };
-
-
   const [isLocationPopupOpen, setLocationPopupOpen] = useState(false);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-
   const handleLocationSelect = (locations: string | string[]) => {
     const newLocations = Array.isArray(locations) ? locations : [locations];
     setSelectedLocations((prevSelectedLocations) => [
@@ -77,24 +69,19 @@ document.body.dir = i18n.dir();
       ...newLocations,
     ]);
   };
-
   const categories ={
     ALL: [],
     LIVE: [],
     UPCOMING: [],
     PAST: [],
-    
   };
-  
  const handleLike = (eventId: string) => {
   console.log(`Liked event with ID: ${eventId}`);
 };
-  
   const handleSvgClick: React.MouseEventHandler<SVGSVGElement> = (
     liveevents
   ) => {};
   const buttonsToShow = 3;
-
   const startPage = Math.max(1, currentPage - Math.floor(buttonsToShow / 2));
   const endPage = Math.min(totalPages, startPage + buttonsToShow - 1);
   return (
@@ -113,7 +100,6 @@ document.body.dir = i18n.dir();
                   {t('TOKYO')}
                 </button>
               </div>
-
               {Object.keys(categories).map((category) => (
                 <Tab
                   key={category}
@@ -122,8 +108,8 @@ document.body.dir = i18n.dir();
                       "w-full rounded-md py-1 px-10 text-base font-normal leading-5 cursor-pointer hover:animate-bounce",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
-                        ? "bg-[#b1b1b1]  text-black "
-                        : "text-[#17B3A6] bg-white border border-solid-green-500 hover:bg-[#b1b1b1] hover:border-none hover:text-white"
+                        ? "bg-[#B1B1B1]  text-black "
+                        : "text-[#17B3A6] bg-white border border-solid-green-500 hover:bg-[#B1B1B1] hover:border-none hover:text-white"
                     )
                   }
                 >
@@ -146,14 +132,12 @@ document.body.dir = i18n.dir();
                       <p className="w-full">
                       {t(category)}
                       </p>
-                      
                     </div>
                   ) : (
                     t(category)
                   )}
                 </Tab>
               ))}
-
               <div className="flex justify-end ml-0 lg:ml-2 ">
                 <Calendar setEvents={setEvents} />
               </div>
@@ -164,7 +148,6 @@ document.body.dir = i18n.dir();
           isOpen={isLocationPopupOpen}
           onClose={() => setLocationPopupOpen(false)}
           onLocationSelect={handleLocationSelect}
-          
         />
           )}
           <Tab.Panels>
@@ -180,7 +163,6 @@ document.body.dir = i18n.dir();
             <Tab.Panel key="PAST">
               <PastEvents   />
             </Tab.Panel>
-           
           </Tab.Panels>
         </Tab.Group>
       </div>
