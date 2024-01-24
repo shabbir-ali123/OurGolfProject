@@ -19,7 +19,7 @@ const ReadPost: React.FC = () => {
   const params = useParams<{ id?: string }>();
   const postId = params.id;
   const [formData, setFormData] = useState<any>({ content: "", postId: postId });
-  const [singlePost, setSinglePost] = useState<any>();
+  const [singlePost, setSinglePost] = useState<SinglePostProps>();
   const [likeCount, setLikeCount] = useState<number>(0);
   const [userHasLiked, setUserHasLiked] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const ReadPost: React.FC = () => {
     try {
       await addPostComment(formData);
       toast.success("Comment added successfully");
-      fetchSinglePosts(setSinglePost, postId); // Refresh comments
+      fetchSinglePosts(setSinglePost, postId); 
     } catch (error) {
       toast.error("Error adding comment, please try again");
     }
