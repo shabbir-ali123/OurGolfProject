@@ -138,7 +138,6 @@ const CreateEvent: React.FC = () => {
 
     const numberArray = JSON.parse(selectedHoles).map((str: string) => parseInt(str, 10));
 
-    // const numberArray = selectedHoles.map((str:any) => parseInt(str, 10));
 
     console.log(typeof(numberArray));
     // Prepare formData
@@ -189,6 +188,8 @@ const CreateEvent: React.FC = () => {
     }));
   };
 
+  const user = localStorage.getItem('user')
+  console.log(user, 'user')
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div

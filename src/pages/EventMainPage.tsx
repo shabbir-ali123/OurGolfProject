@@ -8,9 +8,6 @@ import { Link } from "react-router-dom";
 import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import axios from "axios";
-import { API_ENDPOINTS } from "../appConfig";
 
 const EventMainPage: FunctionComponent = () => {
   const {t, i18n} = useTranslation();
