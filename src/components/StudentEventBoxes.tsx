@@ -20,8 +20,12 @@ const [teachercount, setTeacherCount] = useState<TeacherCountProps>({
   upcomingAppointments: 0,
   pendingAppointments: 0,
 });
+
 useEffect(() => {
-  fetchTeacherCounts(setTeacherCount);
+const isTeacher = JSON.parse(localStorage.getItem('teacher_id') || '')
+  if (isTeacher !== null ) {
+    fetchTeacherCounts(setTeacherCount);
+  }
 }, []);
 const showTeacherDetails = (status: string) => {
   if(status === "completed"){
@@ -31,9 +35,7 @@ const showTeacherDetails = (status: string) => {
   }else{
     router("/pending-lesson");
   }
-  
 }
-
   return (
     
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 mx-auto my-4 gap-1 md:gap-2 lg:gap-2 z-[9999]">
