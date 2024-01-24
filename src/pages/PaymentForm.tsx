@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChampionShipName from "../components/ChampionShipName";
+import { fetchEvents } from "../utils/fetchEvents";
 interface PaymentFormProps {
   onSubmit: (values: PaymentFormValues) => void;
 }
@@ -12,20 +13,36 @@ export interface PaymentFormValues {
 }
 
 export const PaymentForm: React.FC<PaymentFormProps> = () => {
+  const [events, setEvents] = useState<any>([]); 
+  
+  const eventID = Number(localStorage.getItem('selectedEventId'));
+
+useEffect(() => {
+  const getEvents = async () => {
+    try {
+      await fetchEvents(null, null, setEvents); 
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    }
+  };
+  getEvents();
+}, []);
+const paymentDetails = events.find((item: any) => item.id === eventID);
+console.log(paymentDetails, 'pd')
   return (
-    <div className=" ">
+    <div className="">
       <ChampionShipName />
-      <div className="max-w-7xl mx-auto bg-gradient-to-b from-teal-50 to-teal-100 bg-opacity-100 border rounded-md p-4 my-6 ">
+      <div className="p-4 mx-auto my-6 bg-opacity-100 border rounded-md max-w-7xl bg-gradient-to-b from-teal-50 to-teal-100 ">
         <div>
           <div className="flex items-center">
             <img src="/img/golfplyr.png" alt="image" className="w-10 h-16" />
-            <h2 className="text-blue-800 font-poppins-semibold text-2xl font-semibold">
+            <h2 className="text-2xl font-semibold text-blue-800 font-poppins-semibold">
               instructions
             </h2>
           </div>
           <div>
             <ul>
-              <li className="flex gap-4 items-center text-gray-700 font-poppins-regular text-lg py-1">
+              <li className="flex items-center gap-4 py-1 text-lg text-gray-700 font-poppins-regular">
                 <span>
                   <svg
                     width="28"
@@ -42,7 +59,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                 </span>{" "}
                 Please submit your personal Information Below
               </li>
-              <li className="flex gap-4 items-center text-gray-700 font-poppins-regular text-lg py-1">
+              <li className="flex items-center gap-4 py-1 text-lg text-gray-700 font-poppins-regular">
                 <span>
                   <svg
                     width="28"
@@ -59,7 +76,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                 </span>{" "}
                 Please submit the fee in given payment details
               </li>
-              <li className="flex gap-4 items-center text-gray-700 font-poppins-regular text-lg py-1">
+              <li className="flex items-center gap-4 py-1 text-lg text-gray-700 font-poppins-regular">
                 <span>
                   <svg
                     width="28"
@@ -77,7 +94,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                 After submission of fee Contact with Event Host By clicking on
                 Message button
               </li>
-              <li className="flex gap-4 items-center text-gray-700 font-poppins-regular text-lg py-1">
+              <li className="flex items-center gap-4 py-1 text-lg text-gray-700 font-poppins-regular">
                 <span>
                   <svg
                     width="28"
@@ -98,7 +115,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
           </div>
           <div className="flex items-center justify-center py-4 ml-10">
             <div className="grid grid-cols-10 gap-6 ">
-              <div className="col-span-3 relative">
+              <div className="relative col-span-3">
                 <div
                   style={{
                     backgroundImage: 'url("/img/shortImage.png")',
@@ -107,9 +124,9 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                   }}
                   className="relative "
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-800 opacity-75"></div>
-                  <div className="flex justify-center items-center">
-                    <h2 className="text-white z-10 relative pt-10">Join Now</h2>
+                  <div className="absolute inset-0 opacity-75 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-800"></div>
+                  <div className="flex items-center justify-center">
+                    <h2 className="relative z-10 pt-10 text-white">Join Now</h2>
                   </div>
                   <img src="/img/shortImage.png" alt="" className="w-full" />
                 </div>
@@ -120,13 +137,13 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                 style={{ boxShadow: "9px 9px 4px #00c5b5" }}
               >
                 <form className="p-6">
-                  <p className="text-white font-poppins-medium text-2xl">
+                  <p className="text-2xl text-white font-poppins-medium">
                     Payment Information
                   </p>
                   <div className="relative w-full">
                     <label
                       htmlFor="team"
-                      className="text-white font-poppins font-medium text-xl capitalize"
+                      className="text-xl font-medium text-white capitalize font-poppins"
                     >
                       account number
                     </label>
@@ -138,7 +155,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         viewBox="0 0 28 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="  absolute left-2 top-1/2 transform -translate-y-1/2"
+                        className="absolute transform -translate-y-1/2 left-2 top-1/2"
                       >
                         <path
                           d="M6 10H17V12H6V10ZM6 15H19V17H6V15Z"
@@ -154,8 +171,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         type="text"
                         name="Player"
                         id="teamname"
-                        placeholder="71234569084"
-                        className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
+                        value={paymentDetails?.branchName}
+                        className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>
                   </div>
@@ -163,7 +180,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                   <div className="relative w-full">
                     <label
                       htmlFor="team"
-                      className="text-white font-poppins font-medium text-xl capitalize"
+                      className="text-xl font-medium text-white capitalize font-poppins"
                     >
                       paypal id
                     </label>
@@ -175,7 +192,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         viewBox="0 0 26 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="  absolute left-2 top-1/2 transform -translate-y-1/2"
+                        className="absolute transform -translate-y-1/2 left-2 top-1/2"
                       >
                         <path
                           d="M1 5C1 3.93913 1.42143 2.92172 2.17157 2.17157C2.92172 1.42143 3.93913 1 5 1H21C22.0609 1 23.0783 1.42143 23.8284 2.17157C24.5786 2.92172 25 3.93913 25 5V18.3333C25 19.3942 24.5786 20.4116 23.8284 21.1618C23.0783 21.9119 22.0609 22.3333 21 22.3333H5C3.93913 22.3333 2.92172 21.9119 2.17157 21.1618C1.42143 20.4116 1 19.3942 1 18.3333V5Z"
@@ -197,27 +214,27 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         type="text"
                         name="Player"
                         id="teamname"
-                        placeholder="1234567"
-                        className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
+                        value={paymentDetails?.accountHolderName}
+                        className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>
                   </div>
                   <div className="relative w-full capitalize ">
                     <label
                       htmlFor="team"
-                      className="text-white font-poppins font-medium text-xl"
+                      className="text-xl font-medium text-white font-poppins"
                     >
                       account holder name
                     </label>
 
-                    <div className="relative flex items-center w-full my-3  ">
+                    <div className="relative flex items-center w-full my-3 ">
                       <svg
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="  absolute left-2 top-1/2 transform -translate-y-1/2"
+                        className="absolute transform -translate-y-1/2 left-2 top-1/2"
                       >
                         <path
                           d="M12 0C13.5913 0 15.1174 0.632141 16.2426 1.75736C17.3679 2.88258 18 4.4087 18 6C18 7.5913 17.3679 9.11742 16.2426 10.2426C15.1174 11.3679 13.5913 12 12 12C10.4087 12 8.88258 11.3679 7.75736 10.2426C6.63214 9.11742 6 7.5913 6 6C6 4.4087 6.63214 2.88258 7.75736 1.75736C8.88258 0.632141 10.4087 0 12 0ZM12 15C18.63 15 24 17.685 24 21V24H0V21C0 17.685 5.37 15 12 15Z"
@@ -229,15 +246,15 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         type="text"
                         name="Player"
                         id="teamname"
-                        value="siraj udin"
-                        className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
+                        value={paymentDetails?.creator?.nickName}
+                        className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>
                   </div>
                   <div className="relative w-full">
                     <label
                       htmlFor="team"
-                      className="text-white font-poppins font-medium text-xl capitalize "
+                      className="text-xl font-medium text-white capitalize font-poppins "
                     >
                       joining Fee
                     </label>
@@ -249,7 +266,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         viewBox="0 0 24 23"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="  absolute left-2 top-1/2 transform -translate-y-1/2"
+                        className="absolute transform -translate-y-1/2 left-2 top-1/2"
                       >
                         <path
                           d="M16 15C16 13.895 12.866 13 9 13M16 15C16 16.105 12.866 17 9 17C5.134 17 2 16.105 2 15M16 15V19.937C16 21.076 12.866 22 9 22C5.134 22 2 21.077 2 19.937V15M16 15C19.824 15 23 14.013 23 13V3M9 13C5.134 13 2 13.895 2 15M9 13C4.582 13 1 12.013 1 11V6M9 4C4.582 4 1 4.895 1 6M1 6C1 7.105 4.582 8 9 8C9 9.013 12.253 10 16.077 10C19.9 10 23 9.013 23 8M23 3C23 1.895 19.9 1 16.077 1C12.253 1 9.154 1.895 9.154 3M23 3C23 4.105 19.9 5 16.077 5C12.254 5 9.154 4.105 9.154 3M9.154 3V13.166"
@@ -263,12 +280,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                         name="Player"
                         id="teamname"
                         value="¥200"
-                        className="w-full pl-14 bg-gray-50 border-none text-gray-600 font-poppins font-normal text-base rounded-md py-4"
+                        className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>
                   </div>
 
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full mt-4">
+                  <button className="px-8 py-4 mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
                     Submit
                   </button>
                 </form>
