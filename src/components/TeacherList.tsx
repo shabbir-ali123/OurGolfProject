@@ -190,7 +190,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
       />
       <div className={gridStyle}>
         {teachers.length === 0 ? (
-          <div>Loading...</div>
+          <div>no teacher found</div>
         ) : (
           teachers.map((teacher: Teacher) => (
             <div

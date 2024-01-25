@@ -11,6 +11,7 @@
     text: string;
     posts: any; 
     mediaFile: string[];
+    imageUrl: string[0];
     PostComments: string[],
     PostLikes: string[]
   }
@@ -36,13 +37,19 @@
     };
     
     return (
-      <div className="bg-white flex flex-wrap gap-2 justify-center ">
+      <div className="bg-white grid grid-cols-2 gap-4"
+      style={{
+        // display: 'grid',
+        // gridTemplateColumns: 'repeat(2, 1fr)',
+        // gap: '20px',
+        
+      }}>
 
         {posts.map((post: Post) => (
           <Link to={`/read-post/${post.id}`}>            
-          <div key={post.id} className="flex my-4  p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
+          <div key={post.id} className="flex   p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
             <img
-              className="rounded-lg w-[150px] h-[auto]"
+              className="rounded-lg  object-cover h-[auto] w-[180px]"
               src={post.mediaFile[0]}
               alt="Post"
             />
@@ -50,12 +57,12 @@
               <div className="flex items-center gap-2">
                 <img
                   className="w-8 h-8 rounded-full "
-                  src="https://img.freepik.com/free-photo/golf-ball_1308-5010.jpg?size=626&ext=jpg&uid=R68032164&ga=GA1.1.1873485738.1704878396&semt=ais"
+                  src={post.posts.imageUrl}
                   alt="Post"
                 />
                 <p className="p-0">{post.posts.nickName}</p>
               </div>
-              <p className="p-0 text-sm text-gray-700">
+              <p className="p-0 text-sm text-gray-700 	break-words w-80">
                 {post.text}
               </p>
 

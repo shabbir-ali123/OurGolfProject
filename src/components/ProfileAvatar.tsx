@@ -46,15 +46,16 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
     <div>
       <div className="relative h-20 mt-10 bg-gradient-to-r from-blue-400 to-red-800">
         <div
-          className="absolute left-60 bottom-[-60] top-[-36px] border-10 border-solid-green"
+          className="absolute left-60 bottom-[-60] top-[-36px] border-10 border-solid-green "
           onClick={handleImageClick}
         >
           <img
+          className="rounded-full"
             src={imageUrl}
             width="150px"
             height="150px"
             alt={pname}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer " }}
           />
           <input
             type="file"

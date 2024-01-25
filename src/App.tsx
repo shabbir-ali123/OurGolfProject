@@ -36,6 +36,7 @@ import CompleteLessonsPage from "./components/CompletedLessons";
 import UpcomingLessonsPage from "./components/UpcomingLesson";
 import PendingLessonsPage from "./components/PendingLesson";
 import ReadPost from "./pages/ReadPost";
+import CreatedEvents from "./pages/CreatedEvent";
 import { useParams } from 'react-router-dom';
 
 function App() {
@@ -161,6 +162,11 @@ const params = useParams();
                             title = "";
                             metaDescription = "";
                             break;
+                            case "/created-events":
+                              title = "";
+                              metaDescription = "";
+                              break;
+  
 
     }
 
@@ -227,6 +233,7 @@ const params = useParams();
         <Route path="/completed-lesson" element={token? <CompleteLessonsPage /> :<LoginPage />} />
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
+        <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
         <Route
           path="/read-post/:id"
           element={token ? <ReadPost  /> : <LoginPage />}

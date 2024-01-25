@@ -248,13 +248,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       <React.Fragment key={index}>
                         <tr
                           className={`rounded-lg  ${index % 2 === 0
-                              ? "text-black  bg-[#D3DAFF] "
+                              ? "text-black   "
                               : "bg-[#D3DAFF] text-black"
                             }`}
                           style={{
                             width: "100%",
                             borderRadius: "10px",
                             border: "none",
+                            boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
                           }}
                         >
                           <td className="flex items-center mt-[0px]">

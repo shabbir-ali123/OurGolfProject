@@ -167,7 +167,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             onChange={handleSelectChange}
             name="category"
           >
-            <option value="" disabled>
+            <option value="" >
               Select Category
             </option>
             <option value="Party">Party</option>
@@ -186,12 +186,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" >
-              Username
-            </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
-          </div>
+       
           <button
             className="w-full bg-[#51ff85] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
             onClick={(event) => handlePost(event)}

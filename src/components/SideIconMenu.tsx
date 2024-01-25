@@ -154,95 +154,96 @@ const SideMenu: React.FC = () => {
 
   return (
     <>
-     
-        <div
-          style={{
-            ...menuStyles,
-            ...(window.innerWidth <= 768 && { width: "40px" }),
-          }}
-          onMouseEnter={handleMenuMouseEnter}
-          onMouseLeave={handleMenuMouseLeave}
-        >
-          <div className="absolute top-[0]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="white"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="white"
-              className="w-10 h-10 border border-[#51ff85] p-2"
+
+      <div
+        style={{
+          ...menuStyles,
+          ...(window.innerWidth <= 768 && { width: "40px" }),
+        }}
+        onMouseEnter={handleMenuMouseEnter}
+        onMouseLeave={handleMenuMouseLeave}
+      >
+        <div className="absolute top-[0]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="white"
+            className="w-10 h-10 border border-[#51ff85] p-2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </div>
+        <div className="mt-24" style={{ width: isMenuOpen ? "100%" : "36px" }}>
+          <Link to="/score-board" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          </div>
-          <div className="mt-24" style={{ width: isMenuOpen ? "100%" : "36px" }}>
-            <Link to="/score-board" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon  icon={faHome} style={iconStyles} />
-                <span style={textStyles}>{t("HOME")}</span>
-              </div>
-            </Link>
-            <Link to="/notification" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faBell} style={iconStyles} />
-                <span style={textStyles}>{t("NOTIFICATIONS")}</span>
-              </div>
-            </Link>
-            <Link to="/post-page" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
-                <span style={textStyles}>{t("POSTS")}</span>
-              </div>
-            </Link>
+              <FontAwesomeIcon icon={faHome} style={iconStyles} />
+              <span style={textStyles}>{t("HOME")}</span>
+            </div>
+          </Link>
+          <Link to="/notification" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faBell} style={iconStyles} />
+              <span style={textStyles}>{t("NOTIFICATIONS")}</span>
+            </div>
+          </Link>
+          <Link to="/post-page" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
+              <span style={textStyles}>{t("POSTS")}</span>
+            </div>
+          </Link>
 
-            <div style={dropdownStyles} ref={dropdownRef}>
-              <div
-                style={{
-                  ...menuItemStyles,
-                  ...dropdownButtonStyles,
-                  ...(isMenuOpen && menuItemStyles),
-                }}
-                onClick={handleDropdownClick}
-              >
-                <FontAwesomeIcon icon={faHeart} style={iconStyles} />
-                <div className="text-center mt-[-4px]">
-                  {isMenuOpen && (
-                    <div className="flex items-center gap-2">
-                      <span style={textStyles}>
-                        {" "}
-                        {t(selectedItem.toLocaleUpperCase())}
-                      </span>
-                      <svg
-                        width="15"
-                        height="9"
-                        viewBox="0 0 15 9"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
-                          fill="white"
-                        />
-                        <path
-                          d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
-                          fill="white"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                </div>
+          <div style={dropdownStyles} ref={dropdownRef}>
+            <div
+              style={{
+                ...menuItemStyles,
+                ...dropdownButtonStyles,
+                ...(isMenuOpen && menuItemStyles),
+              }}
+              onClick={handleDropdownClick}
+            >
+              <FontAwesomeIcon icon={faHeart} style={iconStyles} />
+              <div className="text-center mt-[-4px]">
+                {isMenuOpen && (
+                  <div className="flex items-center gap-2">
+                    <span style={textStyles}>
+                      {" "}
+                      {t(selectedItem.toLocaleUpperCase())}
+                    </span>
+                    <svg
+                      width="15"
+                      height="9"
+                      viewBox="0 0 15 9"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
+                        fill="white"
+                      />
+                      <path
+                        d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
 
-                <div className="px-2 py-4" style={dropdownListStyles}>
+              <div className="px-2 py-4" style={dropdownListStyles}>
+                <Link to="/created-events">
                   <div
                     className="shadow-md text-start"
                     style={dropdownItemStyles}
@@ -250,82 +251,84 @@ const SideMenu: React.FC = () => {
                   >
                     {t("CREATED_EVENTS")}
                   </div>
-                  <Link to="/joined-events">
-                    <div
-                      className="shadow-md text-start"
-                      style={dropdownItemStyles}
-                      onClick={() => handleDropdownItemSelect("Joined Events")}
-                    >
-                      {t("JOINED_EVENTS")}
-                    </div>
-                  </Link>
-                  <Link to="/booked-mark">
-                    <div
-                      className="shadow-md text-start"
-                      style={dropdownItemStyles}
-                      onClick={() =>
-                        handleDropdownItemSelect("BookMarked Events")
-                      }
-                    >
-                      {t("BOOKMARKED_EVENTS")}
-                    </div>
-                  </Link>
-                </div>
+                </Link>
+
+                <Link to="/joined-events">
+                  <div
+                    className="shadow-md text-start"
+                    style={dropdownItemStyles}
+                    onClick={() => handleDropdownItemSelect("Joined Events")}
+                  >
+                    {t("JOINED_EVENTS")}
+                  </div>
+                </Link>
+                <Link to="/booked-mark">
+                  <div
+                    className="shadow-md text-start"
+                    style={dropdownItemStyles}
+                    onClick={() =>
+                      handleDropdownItemSelect("BookMarked Events")
+                    }
+                  >
+                    {t("BOOKMARKED_EVENTS")}
+                  </div>
+                </Link>
               </div>
             </div>
-            <Link to="/student-page" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faSearch} style={iconStyles} />
-                <span className="" style={textStyles}>
-                  {t("FIND_TEACHER")}
-                </span>
-              </div>
-            </Link>
-            <Link to="/calender" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
-                <span style={textStyles}>{t("CALENDER")}</span>
-              </div>
-            </Link>
-            <Link to="/profile-page" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faUser} style={iconStyles} />
-                <span style={textStyles}>{t("PROFILE")}</span>
-              </div>
-            </Link>
-            <Link to="/message-page" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
-                <span style={textStyles}>{t("MESSAGE")}</span>
-              </div>
-            </Link>
-            <Link to="/setting-page" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faCog} style={iconStyles} />
-                <span style={textStyles}>{t("SETTING")}</span>
-              </div>
-            </Link>
-            <Link to="/logout" className="w-full ">
-              <div
-                style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-              >
-                <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
-                <span style={textStyles}>{t("LOGOUT")}</span>
-              </div>
-            </Link>
           </div>
+          <Link to="/student-page" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faSearch} style={iconStyles} />
+              <span className="" style={textStyles}>
+                {t("FIND_TEACHER")}
+              </span>
+            </div>
+          </Link>
+          <Link to="/calender" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
+              <span style={textStyles}>{t("CALENDER")}</span>
+            </div>
+          </Link>
+          <Link to="/profile-page" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faUser} style={iconStyles} />
+              <span style={textStyles}>{t("PROFILE")}</span>
+            </div>
+          </Link>
+          <Link to="/message-page" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
+              <span style={textStyles}>{t("MESSAGE")}</span>
+            </div>
+          </Link>
+          <Link to="/setting-page" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faCog} style={iconStyles} />
+              <span style={textStyles}>{t("SETTING")}</span>
+            </div>
+          </Link>
+          <Link to="/logout" className="w-full ">
+            <div
+              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
+              <span style={textStyles}>{t("LOGOUT")}</span>
+            </div>
+          </Link>
         </div>
-      
+      </div>
+
     </>
   );
 };
