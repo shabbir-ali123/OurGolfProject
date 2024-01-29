@@ -122,18 +122,32 @@ button:disabled{
 
 .grid-cols-4 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  grid-gap: 20px; /* Adjust the gap size */
-  width: 100%; /* Full width */
-  max-width: 1200px; /* Maximum width, adjust as needed */
-  margin: 0 auto; /* Center align */
+  grid-template-columns: repeat(4, 1fr); 
+  grid-gap: 20px; 
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto; 
 }
 
 .custom-box-shadow {
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 }
-/* .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-} */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tableRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: right;
+}
+
+/* Optionally, you can also center the text within specific cells */
+.tableCol {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: right;
+}

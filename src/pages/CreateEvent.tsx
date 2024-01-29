@@ -36,7 +36,6 @@ interface CreateEventType {
   paymentType?: string;
   bankName?: string;
   branchName?: string;
-  branchNumber?: number;
   accountHolderName?: string;
   accountNumber?: number;
   paypalId?: string;
@@ -83,7 +82,7 @@ const CreateEvent: React.FC = () => {
     paymentType: "",
     bankName: "",
     branchName: "",
-    branchNumber: 0,
+    accountNumber: 0,
     accountHolderName: "",
     paypalId: "",
     teamSize: 0,
@@ -153,6 +152,7 @@ const CreateEvent: React.FC = () => {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        
       });
 
       if (response.status === 201) {

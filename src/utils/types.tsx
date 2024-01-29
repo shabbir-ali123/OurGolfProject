@@ -3,6 +3,7 @@ export interface TeacherDetailsProp {
   teachers?: [];
   aboutMyself?: string;
   createdAt?: string | string[];
+  imageUrl?: string;
   firstName?: string;
   id?: string;
   lastName?: string;

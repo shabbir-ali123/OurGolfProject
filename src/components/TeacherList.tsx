@@ -18,6 +18,7 @@ interface TeacherListProps {
 
 interface Teacher {
   aboutMyself?: string;
+  imageUrl?: string;
   createdAt?: string;
   firstName?: string;
   id?: string;
@@ -83,9 +84,9 @@ const TeacherList: React.FC<TeacherListProps> = ({
         const response = await axios.get(endpoint, {
           headers: token
             ? {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              }
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            }
             : {},
           params: {
             page: 1,
@@ -97,8 +98,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
         });
 
         setTeachers(response.data.teachers);
+console.log(response.data.teachers,"hello")
 
-      
         if (response.data.teachers && response.data.teachers.length > 0) {
           setSelectedTeacher(response.data.teachers[0]);
         }
@@ -106,17 +107,17 @@ const TeacherList: React.FC<TeacherListProps> = ({
         setLoading(false);
       } catch (error) {
         console.error("Error fetching teachers:", error);
-      
-        
+
+
         const errorMessage = (error as Error).message;
         setError(errorMessage);
-      
+
         if (error instanceof Error) {
           setError(error.message);
         } else {
           setError("An unknown error occurred.");
         }
-      
+
         setLoading(false);
       }
     };
@@ -178,9 +179,9 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const contactInfoStyle = !isUserAuthenticated
     ? "mb-2"
     : "mb-2 animate__animated animate__fadeInRight";
-    const textFontSize = !isUserAuthenticated ? "text-lg" : "text-[9.96px]";
-    const buttonSize = !isUserAuthenticated ? "w-16 h-16" : "w-10 h-10"; 
-    const imageWidth = !isUserAuthenticated ? "w-20 h-20" : "w-10 h-10"; 
+  const textFontSize = !isUserAuthenticated ? "text-lg" : "text-[9.96px]";
+  const buttonSize = !isUserAuthenticated ? "w-16 h-16" : "w-10 h-10";
+  const imageWidth = !isUserAuthenticated ? "w-20 h-20" : "w-10 h-10";
   return (
     <>
       <SearchAndFiltersEducator
@@ -206,10 +207,12 @@ const TeacherList: React.FC<TeacherListProps> = ({
                 <div>
                   <div className="flex items-center animate__animated animate__shakeX">
                     <img
-                      className="${imageWidth} w-10 rounded-full border-solid border-4 border-[#51ff85] "
-                      src="/img/profile-page.png"
+                      className={`${imageWidth} w-10 rounded-full border-solid border-4 border-[#51ff85]`}
+                      src={teacher?.imageUrl}
                       alt=""
+                     
                     />
+
                     <div className={`ml-2 ${textFontSize}`}>
                       <p className="text-xs font-bold tracking-wide text-[#52FF86]  m-0">
                         {teacher.firstName}
@@ -311,4 +314,3 @@ const TeacherList: React.FC<TeacherListProps> = ({
 };
 
 export default TeacherList;
- 

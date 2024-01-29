@@ -62,11 +62,11 @@
                 />
                 <p className="p-0">{post.posts.nickName}</p>
               </div>
-              <p className="p-0 text-sm text-gray-700 	break-words w-80">
+              <p className="p-0 text-sm text-gray-700 truncate break-words w-80	">
                 {post.text}
               </p>
 
-              <div className="mt-2 ">
+              <div className="mt-2">
                 <div className="flex space-x-2">
                   <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
                     {post.tags}

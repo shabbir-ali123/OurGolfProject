@@ -247,9 +247,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className={`rounded-lg  ${index % 2 === 0
-                              ? "text-black   "
-                              : "bg-[#D3DAFF] text-black"
+                          className={`rounded-lg    ${index % 2 === 0
+                            ? "text-black   "
+                            : "bg-[#D3DAFF] text-black"
                             }`}
                           style={{
                             width: "100%",
@@ -258,9 +258,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
                           }}
                         >
-                          <td className="flex items-center mt-[0px]">
-                            
-                            <div className={`flex items-center gap-x-4`}>
+                          <td className="flex items-center mt-0">
+                            <div className="flex items-center gap-x-4">
                               <img
                                 src={
                                   Array.isArray(event.imageUrl)
@@ -268,7 +267,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     : event.imageUrl
                                 }
                                 alt=""
-                                className="w-12 h-12 bg-gray-800 rounded-full "
+                                className="w-12 h-12 bg-gray-800 rounded-full"
                               />
                               <div className="text-lg font-medium leading-6 truncate tableText">
                                 {event.creator && event.creator.nickName
@@ -277,6 +276,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </div>
                             </div>
                           </td>
+
                           <td className="px-3 py-0 text-sm whitespace-nowrap">
                             {event.eventStartTime}
                           </td>
@@ -298,17 +298,17 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                             <span
                               className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2 cursor-pointer    ${event.type === "full"
-                                  ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full "
-                                  : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
+                                ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full "
+                                : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
                                 }`}
                             >
                               <Link
                                 to={user ? "/pay-now" : "/login-page"}
                                 className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0 sm:mx-2 cursor-pointer ${event.type === "full"
-                                    ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
-                                    : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
+                                  ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
+                                  : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
                                   }`}
-                                  onClick={() => handleJoinClick(event)}
+                                onClick={() => handleJoinClick(event)}
                               >
                                 <p className="rotate-45 sm:text-lg xl:text-x">
                                   Join

@@ -4,17 +4,41 @@ import Player from "../components/Player";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
+import { API_ENDPOINTS } from "../appConfig";
+interface Team {
+  name: string;
+}
 const EditTeamPage: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const shouldOpenDialog = localStorage.getItem("showDialog") === "true";
   const [open, setOpen] = useState(shouldOpenDialog);
-  const [teams, setTeams] = useState(["Team 1", "Team 2", "Team 3", "Team 4"]);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [playerList, setPlayerList] = useState([
     { name: "John Doe" },
     { name: "Jane Smith" },
     { name: "Mike Johnson" },
   ]);
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        
+        const response = await fetch(API_ENDPOINTS.GETALLTEAMS, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+       
+          },
+        });
+        const data = await response.json();
+        setTeams(data.teams);
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+  
+    fetchTeams();
+  }, []);
+  
   const [showPlayerList, setShowPlayerList] = useState(false);
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
@@ -87,13 +111,14 @@ const EditTeamPage: FunctionComponent = () => {
             </tr>
           </thead>
           <tbody className="text-left text-black ">
+          {teams.map((team, index) => (
             <tr className="bg-[#ffc1c5] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
               <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                 <div
                   className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
                   style={{ backgroundColor: "#00BF9E" }}
                 >
-                  <h4>Team 1</h4>
+                  <h4>{team.name}</h4>
                   <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
                     <img
                       className="w-full h-full object-cover rounded-[50%] "
@@ -125,158 +150,7 @@ const EditTeamPage: FunctionComponent = () => {
               </td>
 
             </tr>
-            <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-[#b8e4fc]  h-[69px]   font-medium">
-              <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
-                <div
-                  className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
-                  style={{ backgroundColor: "#011F3B" }}
-                >
-                  <h4>Team 2</h4>
-                  <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
-                    <img
-                      className="w-full h-full object-cover rounded-[50%] "
-                      alt=""
-                      src="/img/zozo.png"
-                    />
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 pl-4 whitespace-nowrap">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Ethan" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Noah" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Liam" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Aiden" />
-              </td>
-              <td className="py-4 pl-4">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Gabriel" />
-              </td>
-
-            </tr>
-            <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-[#AFFFAF]  h-[69px]   font-medium">
-              <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
-                <div
-                  className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
-                  style={{ backgroundColor: "#1E264E" }}
-                >
-                  <h4>Team 3</h4>
-                  <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
-                    <img
-                      className="w-full h-full object-cover rounded-[50%] "
-                      alt=""
-                      src="/img/zozo.png"
-                    />
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 pl-4 whitespace-nowrap">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Lucas" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Oliver" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Samuel" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Daniel" />
-              </td>
-              <td className="py-4 pl-4">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Benjamin" />
-              </td>
-
-            </tr>
-            <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-[#FFD98C]  h-[69px]   font-medium">
-              <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
-                <div
-                  className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
-                  style={{ backgroundColor: "#74B96A" }}
-                >
-                  <h4>Team 3</h4>
-                  <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
-                    <img
-                      className="w-full h-full object-cover rounded-[50%] "
-                      alt=""
-                      src="/img/zozo.png"
-                    />
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 pl-4 whitespace-nowrap">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="James" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Matthew" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Alexander" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Henry" />
-              </td>
-              <td className="py-4 pl-4">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Michael" />
-              </td>
-
-            </tr>
-            <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-[#CDD5FF]  h-[69px]   font-medium">
-              <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
-                <div
-                  className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
-                  style={{ backgroundColor: "#1D3D86" }}
-                >
-                  <h4>Team 4</h4>
-                  <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
-                    <img
-                      className="w-full h-full object-cover rounded-[50%] "
-                      alt=""
-                      src="/img/zozo.png"
-                    />
-                  </div>
-                </div>
-              </td>
-              <td className="py-4 pl-4 whitespace-nowrap">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Mason" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Jack" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Dylan" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Max" />
-              </td>
-              <td className="py-4 pl-4">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Ryan" />
-              </td>
-
-            </tr>
+           ))}
           </tbody>
         </table>
 
@@ -337,7 +211,7 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
             </div>
           </Dialog>
-        </Transition.Root>
+        </Transition.Root> 
 
 
         <Transition.Root show={open} as={Fragment}>
@@ -524,7 +398,7 @@ const EditTeamPage: FunctionComponent = () => {
                             >
                               <option value="" disabled selected>Select a Team</option>
                               {teams.map((team, index) => (
-                                <option key={index} value={team}>{team}</option>
+                                <option key={index} value={team.name}>{team.name}</option>
                               ))}
                             </select>
 
@@ -573,7 +447,7 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
             </div>
           </Dialog>
-        </Transition.Root>
+        </Transition.Root> 
       </div>
     </div>
   );

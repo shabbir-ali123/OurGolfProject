@@ -6,10 +6,11 @@ interface PaymentFormProps {
 }
 
 export interface PaymentFormValues {
-  joiningFee: number;
+  participationFee: number;
   accountHolderName: string;
   paypalId: string;
   accountNumber: string;
+  
 }
 
 export const PaymentForm: React.FC<PaymentFormProps> = () => {
@@ -171,7 +172,7 @@ console.log(paymentDetails, 'pd')
                         type="text"
                         name="Player"
                         id="teamname"
-                        value={paymentDetails?.branchName}
+                        value={paymentDetails?.accountNumber}
                         className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>
@@ -214,8 +215,8 @@ console.log(paymentDetails, 'pd')
                         type="text"
                         name="Player"
                         id="teamname"
-                        value={paymentDetails?.accountHolderName}
-                        className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
+                        value={paymentDetails?.paypalId}
+                        className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins uppercase"
                       />
                     </div>
                   </div>
@@ -279,7 +280,7 @@ console.log(paymentDetails, 'pd')
                         type="text"
                         name="Player"
                         id="teamname"
-                        value="¥200"
+                        value={paymentDetails?.participationFee}
                         className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>

@@ -16,7 +16,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
     bank: {
       bankName: "",
       branchName: "",
-      branchNumber: "",
+      accountNumber: "",
       accountHolderName: "",
       participationFee: 0,
     },
@@ -115,7 +115,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   className="appearance-none block w-full bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-first-name"
                   type="text"
-                  name="branchNumber"
+                  name="accountNumber"
                   onChange={handleInputChange}
                   placeholder={t('ACCOUNT_NUMBER')}
                 />

@@ -1,5 +1,5 @@
-
-const API_BASE_URL = "http://3.23.206.168:5000";
+// http://18.216.79.130:5000
+const API_BASE_URL = "http://18.216.79.130:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -16,7 +16,7 @@ export const API_ENDPOINTS = {
   ADDLIKE: `${API_BASE_URL}/${API_VERSION}/add-like`,
   MARKASFAVORITE: `${API_BASE_URL}/${API_VERSION}/is-favourite-event/`,
   GETFAVEVENTS: `${API_BASE_URL}/${API_VERSION}/get-favourite-events`,
-  GETSINGLEEVENT: `${API_BASE_URL}/${API_VERSION}/get-event-by-id`,
+  GETEVENTSBYID: `${API_BASE_URL}/${API_VERSION}/get-events-by-user-id`,
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
@@ -32,7 +32,8 @@ export const API_ENDPOINTS = {
   UPDATEAPPOINTMENTSTATUS: `${API_BASE_URL}/${API_VERSION}/update-appointment-status`,  
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
-  
+  // teams
+  GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
   // student
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
 
