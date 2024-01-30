@@ -190,7 +190,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
             <div className="inline-block min-w-full py-0 align-middle ">
               <div className="overflow-hidden sm:rounded-lg">
                 <table
-                  className="relative min-w-full divide-y divide-gray-300 z-9"
+                  className="relative min-w-full divide-y divide-gray-300 z-9 p-3"
                   style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
                 >
                   <thead className="bg-[#006800] text-white ">
@@ -247,28 +247,27 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className={`rounded-lg    ${index % 2 === 0
-                            ? "text-black   "
-                            : "bg-[#D3DAFF] text-black"
-                            }`}
+                          className={`rounded-lg`}
                           style={{
                             width: "100%",
                             borderRadius: "10px",
                             border: "none",
-                            boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
+                            boxShadow: "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px"
+                                                    
                           }}
                         >
-                          <td className="flex items-center mt-0">
-                            <div className="flex items-center gap-x-4">
+                          <td className="">
+                            <div className="flex items-center gap-x-4 mx-2">
                               <img
                                 src={
-                                  Array.isArray(event.imageUrl)
+                                  event.imageUrl[0]
                                     ? event.imageUrl[0]
-                                    : event.imageUrl
+                                    : "img/zozo.png"
                                 }
                                 alt=""
-                                className="w-12 h-12 bg-gray-800 rounded-full"
+                                className="w-12 h-12  rounded-full border border-indigo-600 border-solid "
                               />
+                             
                               <div className="text-lg font-medium leading-6 truncate tableText">
                                 {event.creator && event.creator.nickName
                                   ? event.creator.nickName

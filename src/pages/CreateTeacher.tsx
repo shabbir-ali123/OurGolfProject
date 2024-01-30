@@ -80,7 +80,7 @@ document.body.dir = i18n.dir();
       .map((dayStates, hourIndex) =>
         dayStates
           .map((isActive, dayIndex) =>
-            isActive ? `${hoursOfDay[hourIndex]} on Day ${dayIndex + 1}` : null
+            isActive ? `${hoursOfDay[hourIndex]} on Day ${dayIndex }` : null
           )
           .filter(Boolean)
       )
@@ -116,12 +116,14 @@ document.body.dir = i18n.dir();
       const endDates = new Date(selectedWeekStart!);
       endDates.setDate(selectedWeekStart!.getDate() + 7); // Add 7 days to the selectedWeekStart
 
-      const newEndDate = endDates.toISOString();
+      const newEndDate = endDates.toISOString().split('T')[0];
+      const formatedDate = new Date(selectedWeekStart!);
+      formatedDate.setMinutes(formatedDate.getMinutes() - formatedDate.getTimezoneOffset());
+      const formattedDate = formatedDate.toISOString().split('T')[0];
 
-      console.log(selectedWeekStart!.toISOString(), "dateed", newEndDate);
 
       return {
-        startDate: selectedWeekStart!.toISOString(),
+        startDate: formattedDate,
         endDate: newEndDate,
         shifts: [{
           day, 
@@ -135,7 +137,6 @@ document.body.dir = i18n.dir();
       ...formData,
       schedules: schedulesData,
     };
-    console.log(payload);
     try {
       const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
         headers: {
@@ -201,7 +202,7 @@ document.body.dir = i18n.dir();
     });
   };
 
-  const handleTimeSlotClick = (dateKey: string, hour: string, hourIndex: number) => {
+  const handleTimeSlotClick = (dateKey: any, hour: string, hourIndex: number) => {
     const date = new Date(dateKey);
     
     if (!isNaN(date.getTime())) {
@@ -364,7 +365,7 @@ document.body.dir = i18n.dir();
                           selectedWeekStart.getTime() +
                             dayIndex * 24 * 60 * 60 * 1000
                         );
-                        const dateKey = date.toISOString().split('T')[0];
+                        const dateKey = date.toISOString().split('T');
                         const isActive = activeStates[hourIndex][dayIndex];
 
                         return (

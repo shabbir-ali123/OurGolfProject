@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { addPostComment, fetchSinglePosts } from "../utils/fetchPosts";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-import { HandThumbUpIcon, HandThumbDownIcon } from '@heroicons/react/24/solid';
+import { HandThumbUpIcon, HandThumbDownIcon, ShareIcon } from '@heroicons/react/24/solid';
 interface SinglePostProps {
   posts: any;
   category: string;
@@ -151,15 +151,26 @@ const ReadPost: React.FC = () => {
       boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
     }}>
 
-      <div className="flex gap-2 items-center py-4">
-        <img
-          className="w-16 h-16 rounded-full "
-          src={singlePost?.posts.imageUrl}
-          alt="Post"
-        />
+      <div className="flex gap-2 items-center py-4 justify-between">
+        <div className="flex gap-2 items-center py-4">
+          <img
+            className="w-16 h-16 rounded-full "
+            src={singlePost?.posts.imageUrl}
+            alt="Post"
+          />
+          <div>
+            <h4 className="m-0 font-semibold text-lg uppercase">{singlePost?.posts.nickName}</h4>
+            <p className="m-0 p-0 text-xs">{timeAgo}</p>
+          </div>
+        </div>
+
         <div>
-          <h4 className="m-0 font-semibold text-lg uppercase">{singlePost?.posts.nickName}</h4>
-          <p className="m-0 p-0 text-xs">{timeAgo}</p>
+          <Link to="/post-page" className="-m-1.5 p-1">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+              Back
+            </button>
+          </Link>
+
         </div>
       </div>
 
@@ -294,8 +305,8 @@ const ReadPost: React.FC = () => {
 
       </div>
 
-
-      <div className="flex items-center gap-0">
+<div className="flex gap-2 items-center">
+<div className="flex items-center gap-0">
         <div className="flex items-center">
           <button onClick={handleLike} className="flex items-center bg-transparent">
             {userHasLiked ? (
@@ -310,7 +321,18 @@ const ReadPost: React.FC = () => {
           ).length
         } Likes</div>
 
+      <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"  data-interaction="share">
+        {" "}
+        <ShareIcon
+          className="w-4 h-4 cursor-pointer"
+          aria-hidden="true"
 
+          data-interaction="share"
+        />
+        Share
+      </span>
+</div>
+     
     </div>
   );
 };

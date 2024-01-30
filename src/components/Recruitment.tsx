@@ -68,7 +68,14 @@ document.body.dir = i18n.dir();
     }
     setError(null);
 
-    // Handle time format with AM/PM
+    if (name === "teamSize" || name === "capacity") {
+      // Validate that capacity is not less than teamSize
+      const teamSizeValue = parseInt(formData["teamSize"], 10);
+      if (!isNaN(teamSizeValue) && typeof numericValue === 'number' && numericValue < teamSizeValue) {
+        setError("Number of players cannot be less than Team Size.");
+        return;
+      }
+    }
     if (name === "eventStartTime" || name === "eventEndTime" || name === "eventDeadlineTime") {
       const [hours, minutes] = value.split(":");
       const twelveHourFormat = parseInt(hours, 10) > 12 ? parseInt(hours, 10) - 12 : parseInt(hours, 10);

@@ -79,8 +79,8 @@ const CreatedEvents: React.FC = () => {
         setSelectedEvent(event);
         setShowPopup(true);
     };
-    const handleEditTeam = () => {
-        navigate('/edit-team-page');
+    const handleEditTeam = (id: any) => {
+        navigate(`/edit-team-page?id=${id}`);
         setShowPopup(false);
     };
     const handleCancelEvent = () => {
@@ -129,10 +129,15 @@ const CreatedEvents: React.FC = () => {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className='mt-2'>
-
-                            {
-                                events.map(event => (
+                        <tbody className="mt-2">
+                            {events.length === 0 ? (
+                                <tr className='flex justify-center'>
+                                    <td  className="text-center py-4">
+                                        No event
+                                    </td>
+                                </tr>
+                            ) : (
+                                events.map((event) => (
                                     <tr key={event.id} className="bg-white" style={{
                                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
                                     }}>
@@ -143,32 +148,34 @@ const CreatedEvents: React.FC = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndTime}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndDate}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4] text-center">
-                                            <Cog6ToothIcon className="w-8 h-8 text-blue-500"onClick={() => handleCogIconClick(event)} />
+                                            <Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} />
                                         </td>
                                     </tr>
-                                ))
-                            }
+                              ))
+                              )}
                         </tbody>
                         {showPopup && selectedEvent && (
-                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-                    <div className="bg-white p-8 rounded-md">
-                        <h2 className="text-lg font-bold mb-4">Event Name <br /> {selectedEvent.eventName}</h2>
-                        <button
-                            className="px-4 py-2 bg-blue-500 text-white mr-2"
-                            onClick={handleEditTeam}
-                        >
-                            Edit Team
-                        </button>
-                        <button
-                            className="px-4 py-2 bg-[red] text-white"
-                            onClick={handleCancelEvent}
-                        >
-                            Cancel
-                        </button>
-                      
-                    </div>
-                </div>
-            )}
+                            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+                                <div className="bg-white p-8 rounded-md">
+                                    <h2 className="text-lg font-bold mb-4">Event Name <br /> {selectedEvent.eventName}</h2>
+                                    <button
+                                        className="px-4 py-2 bg-blue-500 text-white mr-2"
+                                        onClick={() => {
+                                            handleEditTeam(selectedEvent.id)
+                                        }}
+                                    >
+                                        Edit Team
+                                    </button>
+                                    <button
+                                        className="px-4 py-2 bg-[red] text-white"
+                                        onClick={handleCancelEvent}
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+                            </div>
+                        )}
                     </table>
                 </div>
                 <CreatedEventPagination

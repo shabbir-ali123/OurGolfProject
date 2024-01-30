@@ -5,10 +5,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
+import { useLocation } from "react-router-dom";
 interface Team {
   name: string;
 }
 const EditTeamPage: FunctionComponent = () => {
+  const location = useLocation();
+  const eventId = new URLSearchParams(location.search).get('id');
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const shouldOpenDialog = localStorage.getItem("showDialog") === "true";
@@ -23,7 +26,7 @@ const EditTeamPage: FunctionComponent = () => {
     const fetchTeams = async () => {
       try {
         
-        const response = await fetch(API_ENDPOINTS.GETALLTEAMS, {
+        const response = await fetch(API_ENDPOINTS.GETTEAMSBYEVENT + eventId, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
        

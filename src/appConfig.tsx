@@ -1,4 +1,5 @@
 // http://18.216.79.130:5000
+// http://localhost:3000
 const API_BASE_URL = "http://18.216.79.130:5000"
 const API_VERSION = "api";
 
@@ -34,6 +35,9 @@ export const API_ENDPOINTS = {
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
+  GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`, 
+  UPDATETEAMMEMBER: `${API_BASE_URL}/${API_VERSION}/update-team-member`, 
+  
   // student
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
 

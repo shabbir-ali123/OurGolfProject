@@ -5,12 +5,14 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useTranslation } from 'react-i18next';
 
 interface DropDownProps {
-  timeSlots?: string[] | null;
+  timeSlots?: any;
 }
 
 function DropDown({ timeSlots }: DropDownProps) {
+  console.log(timeSlots);
   const [selectedOption, setSelectedOption] = useState(timeSlots ? timeSlots[0] : '');
 
+  console.log(timeSlots, "sajid")
   useEffect(() => {
     if (timeSlots) {
       setSelectedOption(timeSlots[0]);
@@ -21,7 +23,7 @@ function DropDown({ timeSlots }: DropDownProps) {
     <Menu as={Fragment}>
       <div className="flex items-center gap-2">
         <label htmlFor="" className="font-sans font-bold text-black text-md">
-          Date
+          Day
         </label>
         <Menu.Button
           className="flex w-full justify-center items-center gap-x-1.5 rounded-full bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
@@ -46,7 +48,7 @@ function DropDown({ timeSlots }: DropDownProps) {
         <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1 cursor-pointer">
             {timeSlots ? (
-              timeSlots.map((slot, index) => (
+              timeSlots.map((slot: any, index: any) => (
                 <Menu.Item key={index}>
                   {({ active }) => (
                     <a
