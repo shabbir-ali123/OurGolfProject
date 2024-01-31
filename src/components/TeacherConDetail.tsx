@@ -24,9 +24,6 @@
     const day: (string | undefined)[] = (teacherDetails.schedules || []).flatMap(schedule => (
       schedule?.shifts.map(es => es.day)
     ));
-
-
-
     return (
       <div className="box">
         <div className="grid my-0">

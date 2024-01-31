@@ -12,7 +12,7 @@ const ProfilePrompt: React.FC = () => {
   const openModal = () => {
     // Check if the user is logged in
     const token = localStorage.getItem("token");
-    if (token) {
+    if (token && token !== "undefined" ) {
       setIsModalOpen(true);
     } else {
       // Redirect to login page
@@ -32,7 +32,7 @@ const ProfilePrompt: React.FC = () => {
         />
         <input
           type="text"
-          placeholder="What's on your mind, Vinayaka?"
+          placeholder="What's on your mind?"
           className="flex-1 border-2 border-solid border-[#51ff85] rounded-full py-2 px-4 focus:outline-none focus:border-green-300"
           onFocus={openModal}
         />

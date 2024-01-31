@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { HandThumbUpIcon, HandThumbDownIcon, ShareIcon } from '@heroicons/react/24/solid';
-interface SinglePostProps {
+export interface SinglePostProps {
   posts: any;
   category: string;
   tags: string;

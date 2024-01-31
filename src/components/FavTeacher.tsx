@@ -46,21 +46,24 @@ const FavoriteTeachers: React.FC = () => {
     const fetchFavoriteTeachers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(API_ENDPOINTS.GETFAVORITETEACHER, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          params: {
-            userId: 1,
-          },
-        });
-        console.log(response.data, "babuuu");
-        if (response.status === 200) {
-          setFavoriteTeachers(response.data.favoriteTeachers);
-        } else {
-          return "get error";
-        }
+     if(token && token !== "undefined"){
+      const userId= localStorage.getItem("id");
+      const response = await axios.get(API_ENDPOINTS.GETFAVORITETEACHER, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          userId: userId,
+        },
+      });
+      console.log(response.data, "babuuu");
+      if (response.status === 200) {
+        setFavoriteTeachers(response.data.favoriteTeachers);
+      } else {
+        return "get error";
+      }
+     }
       } catch (error: any) {
         console.error("Error fetching favorite teachers:", error.message);
       }

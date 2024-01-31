@@ -6,16 +6,19 @@ import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 interface Team {
   name: string;
+  imageUrl?: string;
 }
 const EditTeamPage: FunctionComponent = () => {
   const location = useLocation();
   const eventId = new URLSearchParams(location.search).get('id');
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const shouldOpenDialog = localStorage.getItem("showDialog") === "true";
-  const [open, setOpen] = useState(shouldOpenDialog);
+
+
+  const [open, setOpen] = useState(false);
   const [teams, setTeams] = useState<Team[]>([]);
   const [playerList, setPlayerList] = useState([
     { name: "John Doe" },
@@ -25,11 +28,11 @@ const EditTeamPage: FunctionComponent = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        
+
         const response = await fetch(API_ENDPOINTS.GETTEAMSBYEVENT + eventId, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-       
+
           },
         });
         const data = await response.json();
@@ -38,18 +41,38 @@ const EditTeamPage: FunctionComponent = () => {
         console.error("Error fetching teams:", error);
       }
     };
-  
+
     fetchTeams();
+  }, []);
+  const updateTeams = async () => {
+    try {
+
+      const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
+        { userId: 1, teamId: 6},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        });
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      console.log(response,"hello")
+    } catch (error) {
+      console.error("Error fetching teams:", error);
+    }
+  };
+
+  useEffect(() => {
+  
+    updateTeams();
   }, []);
   
   const [showPlayerList, setShowPlayerList] = useState(false);
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
   }, [open]);
-  const shouldOpenEditDialog =
-    localStorage.getItem("showEditTeamDialog") === "true";
-  const [opens, setEditOpen] = useState(shouldOpenEditDialog);
-
+  const [opens, setEditOpen] = useState(false);
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", opens.toString());
   }, [open]);
@@ -114,46 +137,54 @@ const EditTeamPage: FunctionComponent = () => {
             </tr>
           </thead>
           <tbody className="text-left text-black ">
-          {teams.map((team, index) => (
-            <tr className="bg-[#ffc1c5] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
-              <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
-                <div
-                  className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
-                  style={{ backgroundColor: "#00BF9E" }}
-                >
-                  <h4>{team.name}</h4>
-                  <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
-                    <img
-                      className="w-full h-full object-cover rounded-[50%] "
-                      alt=""
-                      src="/img/zozo.png"
-                    />
+            {teams.map((team, index) => (
+              <tr className="bg-[#ffc1c5] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
+                <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
+                  <div
+                    className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
+                    style={{ backgroundColor: "#00BF9E" }}
+                  >
+                    <h4>{team.name}</h4>
+                    <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
+                      {team.imageUrl ? (
+                        <img
+                          className="w-full h-full object-cover rounded-[50%]"
+                          alt=""
+                          src={team.imageUrl}
+                        />
+                      ) : (
+                        <img
+                          className="w-full h-full object-cover rounded-[50%]"
+                          alt="Default Image"
+                          src="/img/zozo.png" // Replace with your default image URL
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td className="py-4 pl-4 whitespace-nowrap">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Ryan" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Leo" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Isaac" />
-              </td>
-              <td className="py-4 pl-4 ">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Jacob" />
-              </td>
-              <td className="py-4 pl-4">
-                {" "}
-                <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="David" />
-              </td>
+                </td>
+                <td className="py-4 pl-4 whitespace-nowrap">
+                  {" "}
+                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Ryan" />
+                </td>
+                <td className="py-4 pl-4 ">
+                  {" "}
+                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Leo" />
+                </td>
+                <td className="py-4 pl-4 ">
+                  {" "}
+                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Isaac" />
+                </td>
+                <td className="py-4 pl-4 ">
+                  {" "}
+                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Jacob" />
+                </td>
+                <td className="py-4 pl-4">
+                  {" "}
+                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="David" />
+                </td>
 
-            </tr>
-           ))}
+              </tr>
+            ))}
           </tbody>
         </table>
 
@@ -214,7 +245,7 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
             </div>
           </Dialog>
-        </Transition.Root> 
+        </Transition.Root>
 
 
         <Transition.Root show={open} as={Fragment}>
@@ -330,7 +361,7 @@ const EditTeamPage: FunctionComponent = () => {
                 >
                   <Dialog.Panel className="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
                     <div className="bg-[#17B3A6] px-4 pb-4 pt-5 ">
-                      <form className="px-8">
+                      <form className="px-8" onSubmit={updateTeams}>
                         <div className="relative w-full">
                           <label
                             htmlFor="team"
@@ -428,7 +459,7 @@ const EditTeamPage: FunctionComponent = () => {
 
                         <div className="bg-[#17B3A6]  py-3 flex justify-end gap-0">
                           <button
-                            type="button"
+                            type="submit"
                             className="cursor-pointer mt-3 inline-flex w-full justify-center rounded-full bg-[#00FF92] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 sm:mt-0 sm:w-auto"
                             onClick={() => setEditOpen(false)}
                             ref={cancelButtonRef}
@@ -450,7 +481,7 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
             </div>
           </Dialog>
-        </Transition.Root> 
+        </Transition.Root>
       </div>
     </div>
   );

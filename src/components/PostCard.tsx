@@ -1,52 +1,54 @@
-  import React, { useEffect, useState } from "react";
-  import { Link, useNavigate } from 'react-router-dom';
-  import { ShareIcon, HandThumbUpIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
-  import { fetchPosts } from "../utils/fetchPosts";
-  interface PostCardProps {
-    category: string;
-  }
-  interface Post {
-    id: string;
-    tags: string[];
-    text: string;
-    posts: any; 
-    mediaFile: string[];
-    imageUrl: string[0];
-    PostComments: string[],
-    PostLikes: string[]
-  }
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { ShareIcon, HandThumbUpIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
+import { fetchPosts } from "../utils/fetchPosts";
+import { SinglePostProps } from "../pages/ReadPost";
+interface PostCardProps {
+  category: string;
+}
+interface Post {
+  id: string;
+  tags: string[];
+  text: string;
+  posts: any;
+  mediaFile: string[];
+  imageUrl: string[0];
+  PostComments: string[],
+  PostLikes: string[]
+}
 
-  const PostCard: React.FC<PostCardProps> = ({ category }) => {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const navigate = useNavigate();
-    useEffect(() => {
-      fetchPosts(setPosts, category);
-    }, [category]);
-    
-    const isAuthenticated = () => {
-      return localStorage.getItem("token");
-    };
+const PostCard: React.FC<PostCardProps> = ({ category }) => {
 
-    const handleInteraction = (event: React.MouseEvent<HTMLElement>) => {
-      if (!isAuthenticated()) {
-        navigate('/login-page');
-        return;
-      }
-      const interactionType = event.currentTarget.getAttribute("data-interaction");
-      console.log("User interacted with:", interactionType);
-    };
-    
-    return (
-      <div className="bg-white grid grid-cols-2 gap-4"
+  const [posts, setPosts] = useState<Post[]>([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetchPosts(setPosts, category);
+  }, [category]);
+
+  const isAuthenticated = () => {
+    return localStorage.getItem("token");
+  };
+
+  const handleInteraction = (event: React.MouseEvent<HTMLElement>) => {
+    if (!isAuthenticated()) {
+      navigate('/login-page');
+      return;
+    }
+    const interactionType = event.currentTarget.getAttribute("data-interaction");
+    console.log("User interacted with:", interactionType);
+  };
+
+  return (
+    <div className="bg-white grid grid-cols-2 gap-4"
       style={{
         // display: 'grid',
         // gridTemplateColumns: 'repeat(2, 1fr)',
         // gap: '20px',
-        
+
       }}>
 
-        {posts.map((post: Post) => (
-          <Link to={`/read-post/${post.id}`}>            
+      {posts.map((post: Post) => (
+        <Link to={`/read-post/${post.id}`}>
           <div key={post.id} className="flex   p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
             <img
               className="rounded-lg  object-cover h-[auto] w-[180px]"
@@ -81,12 +83,18 @@
                     aria-hidden="true"
 
                   />{post.PostComments.length} comments</span>
-                  <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" onClick={handleInteraction} data-interaction="like"> <HandThumbUpIcon
-                    className="w-4 h-4 cursor-pointer text-[#51ff85]"
+                  <div className="flex items-center gap-0">
+                    <div className="flex items-center">
+                    <HandThumbUpIcon
+                    className="w-4 h-4 cursor-pointer text-[#52ff86]"
                     aria-hidden="true"
 
-                    data-interaction="like"
-                  />{post.PostLikes.length} likes</span>
+                  />
+                    </div> {
+                      (post?.PostLikes || []).filter(
+                        (like: any) => like.counter
+                      ).length
+                    } Likes</div>
                   <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" onClick={handleInteraction} data-interaction="share">
                     {" "}
                     <ShareIcon
@@ -100,11 +108,11 @@
                 </div>
               </div>
             </div></div>
-            </Link>
-        ))}
+        </Link>
+      ))}
 
-      </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default PostCard;
+export default PostCard;

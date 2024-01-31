@@ -6,7 +6,7 @@ export const fetchPosts = async (setPosts:any, category:any) => {
       const token = localStorage.getItem("token");
       let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
       const headers:any= {}
-      if (token) {
+      if (token && token !== "undefined" ) {
         headers["Authorization"] = `Bearer ${token}`;
         endpoint = API_ENDPOINTS.GETPOSTS; 
       }

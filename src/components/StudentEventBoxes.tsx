@@ -21,11 +21,20 @@ const [teachercount, setTeacherCount] = useState<TeacherCountProps>({
 });
 
 useEffect(() => {
-  const isTeacher = JSON.parse(localStorage.getItem('teacher_id') || '')
-    if (isTeacher !== null ) {
-      fetchTeacherCounts(setTeacherCount);
+  const teacherIdString = localStorage.getItem('teacher_id');
+  if (teacherIdString) {
+    try {
+      const isTeacher = JSON.parse(teacherIdString);
+      if (isTeacher !== null ) {
+        fetchTeacherCounts(setTeacherCount);
+      }
+    } catch (e) {
+      console.error("Error parsing teacher_id from localStorage", e);
+      // Handle the error or set a default state
     }
+  }
 }, []);
+
 const showTeacherDetails = (status: string) => {
   if(status === "completed"){
     router("/completed-lesson");

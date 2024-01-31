@@ -48,7 +48,7 @@ export function CreatedEventPagination({
     } as any);
 
   return (
-    <div className="flex items-center justify-center py-4 gap-4">
+    <div className="flex items-center justify-center py-4 gap-4 ">
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full"
@@ -57,7 +57,7 @@ export function CreatedEventPagination({
       >
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
       </Button>
-      <div className="flex items-center gap-2">{getPageNumbers()}</div>
+      <div className="flex items-center gap-2 z-[-1]">{getPageNumbers()}</div>
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full"

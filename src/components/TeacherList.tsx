@@ -76,8 +76,8 @@ const TeacherList: React.FC<TeacherListProps> = ({
       try {
         const token = localStorage.getItem("token");
         let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
-
-        if (token) {
+console.log(token === "undefined"  ,"tokeen")
+        if (token && token !== "undefined") {
           endpoint = API_ENDPOINTS.GETALLTEACHERS;
         }
 

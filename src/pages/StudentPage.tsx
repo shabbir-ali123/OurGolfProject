@@ -44,9 +44,14 @@
     useEffect(() => {
       const fetchTeachers = async () => {
         try {
-          const token = localStorage.getItem('token');
-          const response = await axios.get(API_ENDPOINTS.GETALLTEACHERS, {
-            headers: {
+          const token = localStorage.getItem("token");
+        let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
+console.log(token === "undefined"  ,"tokeen")
+        if (token && token !== "undefined") {
+          endpoint = API_ENDPOINTS.GETALLTEACHERS;
+        }
+        const response = await axios.get(endpoint, {
+          headers: {
               Authorization: token ? `Bearer ${token}` : '',
             },
             params: {

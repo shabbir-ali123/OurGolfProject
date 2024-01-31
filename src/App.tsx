@@ -183,8 +183,8 @@ const params = useParams();
       }
     }
   }, [pathname]);
-  const [token, setToken] = useState('');
-
+  var [token, setToken] = useState<any>();
+console.log( token !== "undefined","checking")
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -197,6 +197,9 @@ const params = useParams();
     setIsTeacher(checkTeacher)
 
   })  
+  if( token === "undefined"){
+    token = false;
+  }
   console.log(params, 'pisad')
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -225,12 +228,12 @@ const params = useParams();
         <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
         <Route path="/booked-mark" element= {token? <BookMarkedEvents /> :<LoginPage />}  />
         <Route path="/joined-events" element= {token? <JoinedEvents /> :<LoginPage />} />
-        <Route path="/create-teacher" element={token? <CreateTeacher /> :<LoginPage />} /> 
+        <Route path="/create-teacher" element={token  || token !== "undefined" ? <CreateTeacher /> :<LoginPage />} /> 
      
         <Route path="/edit-teacher" element={token? <EditTeacher /> :<LoginPage />} />
         <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
         <Route path="/post-page" element={<PostPage   />} />
-        <Route path="/completed-lesson" element={token? <CompleteLessonsPage /> :<LoginPage />} />
+        <Route path="/completed-lesson" element={token || token === "undefined" ? <CompleteLessonsPage /> :<LoginPage />} />
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />

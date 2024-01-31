@@ -11,7 +11,7 @@ export const fetchEvents = async (startDate:any, endDate:any, setEvents:any) => 
       headers["Authorization"]=  `Bearer ${token}`
 
     }
-    const response = await axios.get(token ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
+    const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
       headers,
       params: {
         page: 1,

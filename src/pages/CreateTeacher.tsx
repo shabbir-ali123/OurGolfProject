@@ -7,14 +7,16 @@ import {
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
-import { ShareIcon } from "@heroicons/react/20/solid";
+import { ShareIcon, ArrowLeftIcon } from "@heroicons/react/20/solid";
 import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
   const endHour = ((i + 1) % 24).toString().padStart(2, "0");
@@ -31,8 +33,8 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 );
 
 const CreateTeacher: React.FC = () => {
-  const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [formData, setFormData] = useState({
     aboutMyself: "",
     firstName: "",
@@ -46,7 +48,7 @@ document.body.dir = i18n.dir();
         endDate: "",
         shifts: [
           {
-            day:"", 
+            day: "",
             startTime: "",
             endTime: ""
           }
@@ -65,7 +67,7 @@ document.body.dir = i18n.dir();
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer && selectedWeekStart) {
-      const hourIndex = findHourIndex("08:00"); 
+      const hourIndex = findHourIndex("08:00");
       const hourElement = scrollContainer.querySelector(
         `.time-slot:nth-child(${hourIndex + 1})`
       ) as HTMLElement;
@@ -80,7 +82,7 @@ document.body.dir = i18n.dir();
       .map((dayStates, hourIndex) =>
         dayStates
           .map((isActive, dayIndex) =>
-            isActive ? `${hoursOfDay[hourIndex]} on Day ${dayIndex }` : null
+            isActive ? `${hoursOfDay[hourIndex]} on Day ${dayIndex}` : null
           )
           .filter(Boolean)
       )
@@ -126,13 +128,13 @@ document.body.dir = i18n.dir();
         startDate: formattedDate,
         endDate: newEndDate,
         shifts: [{
-          day, 
+          day,
           startTime,
           endTime,
         }],
       };
     });
-  
+
     const payload = {
       ...formData,
       schedules: schedulesData,
@@ -152,13 +154,13 @@ document.body.dir = i18n.dir();
     } catch (error) {
       const handleError = alert((error as any)?.response?.data?.message || "Error Occurred");
       toast.error(`${handleError}`, toastProperties as ToastConfig)
-    } 
+    }
   };
 
   const handleWeekSelected = (date: Date) => {
     setSelectedWeekStart(date);
   };
-  
+
   const handleTabClick = (date: Date) => {
     setSelectedWeekStart(date);
   };
@@ -181,16 +183,15 @@ document.body.dir = i18n.dir();
       const newActiveStates = prev.map((dayStates, index) =>
         index === hourIndex
           ? dayStates.map((isActive, i) =>
-              i === dayIndex ? !isActive : isActive
-            )
+            i === dayIndex ? !isActive : isActive
+          )
           : [...dayStates]
       );
       return newActiveStates;
     });
 
-    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${
-      selectedWeekStart?.toLocaleDateString() || ""
-    }`;
+    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${selectedWeekStart?.toLocaleDateString() || ""
+      }`;
 
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
@@ -204,29 +205,29 @@ document.body.dir = i18n.dir();
 
   const handleTimeSlotClick = (dateKey: any, hour: string, hourIndex: number) => {
     const date = new Date(dateKey);
-    
+
     if (!isNaN(date.getTime())) {
       const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
       const dateParts = dateFormatter.formatToParts(date);
-      const dayName = dateParts.find((part) => part.type === "weekday")?.value || ""; 
+      const dayName = dateParts.find((part) => part.type === "weekday")?.value || "";
       toggleAvailability(dayName, hour, hourIndex);
     } else {
       console.error('Invalid date:', date);
       return; // Exit the function or handle it as required
     }
-  
+
     const newShift = {
-      day: 'sunday', 
+      day: 'sunday',
       startTime: hour,
-      endTime: "", 
+      endTime: "",
     };
-  
+
     const newSchedule = {
       startDate: selectedWeekStart?.toISOString() || "",
       endDate: selectedWeekStart?.toISOString() || "",
       shifts: [newShift],
     };
-  
+
     setFormData((prevFormData) => {
       const newSchedules = [...prevFormData.schedules, newSchedule];
       return {
@@ -235,10 +236,20 @@ document.body.dir = i18n.dir();
       };
     });
   };
-  
+
   const user = JSON.parse(localStorage.getItem('user') || "");
   return (
     <div className="py-8">
+      <div className="flex justify-start ml-16">
+        <Link to="/student-page" className="-m-1.5 p-1 cusor-pointer">
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          style={{ background: "#51ff85", padding: "10px", borderRadius: "50%" }}
+        />
+        </Link>
+       
+
+      </div>
       <ProfileAvatar
         pname=""
         icon={<ShareIcon />}
@@ -339,11 +350,10 @@ document.body.dir = i18n.dir();
                     return (
                       <div
                         key={date.toLocaleDateString()}
-                        className={`col-span-1 font-bold  ${
-                          date.getTime() === selectedTab?.getTime()
-                            ? "selected-tab"
-                            : ""
-                        }`}
+                        className={`col-span-1 font-bold  ${date.getTime() === selectedTab?.getTime()
+                          ? "selected-tab"
+                          : ""
+                          }`}
                         onClick={() => handleTabClick(date)}
                       >
                         {t(getDayName(date).toLocaleUpperCase())}
@@ -363,7 +373,7 @@ document.body.dir = i18n.dir();
                       Array.from({ length: 7 }, (_, dayIndex) => {
                         const date = new Date(
                           selectedWeekStart.getTime() +
-                            dayIndex * 24 * 60 * 60 * 1000
+                          dayIndex * 24 * 60 * 60 * 1000
                         );
                         const dateKey = date.toISOString().split('T');
                         const isActive = activeStates[hourIndex][dayIndex];
@@ -372,11 +382,10 @@ document.body.dir = i18n.dir();
                           <button
                             key={dateKey + hour}
                             type="button"
-                            className={`col-span-1 rounded-md py-2 time-slot ${
-                              isActive
-                                ? "bg-[#B2C3FD] shadow-lg"
-                                : "bg-[#F1F1F1]"
-                            }`}
+                            className={`col-span-1 rounded-md py-2 time-slot ${isActive
+                              ? "bg-[#B2C3FD] shadow-lg"
+                              : "bg-[#F1F1F1]"
+                              }`}
                             onClick={() =>
                               handleTimeSlotClick(dateKey, hour, dayIndex)
                             }

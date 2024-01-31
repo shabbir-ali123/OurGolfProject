@@ -61,6 +61,8 @@ export default function ProfileButton() {
   const getUser = async (userId: any) => {
     try {
       const token = localStorage.getItem("token");
+      if(token && token !== "undefined"){
+
       const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -68,6 +70,7 @@ export default function ProfileButton() {
       });
 
       return response.data;
+    }
     } catch (error) {
       throw "sdf"; 
     }
