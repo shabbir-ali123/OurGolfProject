@@ -1,7 +1,8 @@
 import React, { useRef, useState, ChangeEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
-export type Tab = "individual" | "team";
+export type Tab = "individual" | "team" | "message";
 
 interface RecuitmentsProps {
   onChange: (formData: Record<string, any>, eventType: Tab) => void;
@@ -23,7 +24,10 @@ document.body.dir = i18n.dir();
     prevFormData.current = formData;
   }, [formData]);
 
-  const handleTabClick = (tab: Tab) => {
+  const handleTabClick = (tab: Tab, message?:any) => {
+    if(tab === "team" && message){
+       toast.success("Team Size Add succusffull");
+    }
     setActiveTab(tab);
 
     // Pass the updated tab information through the onChange prop
@@ -70,7 +74,7 @@ document.body.dir = i18n.dir();
 
     if (name === "teamSize" || name === "capacity") {
       // Validate that capacity is not less than teamSize
-      const teamSizeValue = parseInt(formData["teamSize"], 10);
+      const teamSizeValue = parseInt(formData["teamSize"], 1);
       if (!isNaN(teamSizeValue) && typeof numericValue === 'number' && numericValue < teamSizeValue) {
         setError("Number of players cannot be less than Team Size.");
         return;
@@ -252,14 +256,23 @@ document.body.dir = i18n.dir();
                     >
                       {t('TEAM_SIZE')}
                     </label>
-                    <input
+                  <div className="flex gap-2">
+                  <input
                       className="appearance-none block w-[80px] bg-gray-200 text-white border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
-                      id="grid-Event-Name"
+                      id="teamSize"
                       type="number"
                       name="teamSize"
                       onChange={handleInputChange}
                       min="0"
                     />
+                      <button
+                  className="bg-blue-500 text-white cursor-pointer  border-none"
+                  type="button"
+                  onClick={() => {handleTabClick("team", "message")}}
+                >
+                  {t('Add')}
+                </button>
+                  </div>
                   </div>
                 </div>
               )}

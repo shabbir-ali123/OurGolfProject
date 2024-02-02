@@ -97,8 +97,10 @@ const CreateEvent: React.FC = () => {
     nearPinContest: 0,
   });
   const { showToast } = useToast();
+  console.log(formData, "shabbir");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log({ e });
+    console.log({ e }, "eevent");
     const { name, value, checked } = e.target;
     if (name === "selfIncluded") {
       setFormData({ ...formData, [name]: checked });

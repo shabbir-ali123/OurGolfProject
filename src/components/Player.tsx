@@ -33,7 +33,7 @@ const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover,
         </div>
       )}
       {enableHover && isHovered && (
-        <div className='flex gap-2'>
+        <div className='flex gap-2 z-[10]'>
           {onEdit &&
             <svg
               onClick={onEdit}

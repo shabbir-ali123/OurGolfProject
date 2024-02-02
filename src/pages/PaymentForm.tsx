@@ -69,12 +69,12 @@ const formSubmission = async ()=>{
     const userId = localStorage.getItem("id") ?? "";
 
     if (!token) {
-      toast.error(          `You are Not Login! Please Login`)        ;
+      toast.error(`You are Not Login! Please Login`)        ;
       return;
     }
     const formdata = new FormData();
     formdata.append("userId", userId);
-    
+   
     const response = await axios.post(API_ENDPOINTS.JOINEDEVENTS + eventID, formdata,{
       headers: {
         Authorization: `Bearer ${token}`,
@@ -82,7 +82,14 @@ const formSubmission = async ()=>{
      
     });
 
-    setEvents(response.data.events || []); 
+    if(response.status !== 200){
+      toast.error(response.data.error);
+      
+
+    }else{
+      setEvents(response.data.events || []); 
+      toast.success(response.data.message);
+    }
   } catch (error) {
     toast.error(
     `Error fetching joined events : ${error}`,

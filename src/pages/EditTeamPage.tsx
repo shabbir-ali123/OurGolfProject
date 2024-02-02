@@ -7,7 +7,9 @@ import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 interface Team {
+  id: string;
   name: string;
   imageUrl?: string;
   members: Members[];
@@ -15,6 +17,7 @@ interface Team {
 interface Members {
   imageUrl: string | undefined;
   nickName: string;
+  userId: string;
 }
 const EditTeamPage: FunctionComponent = () => {
   const location = useLocation();
@@ -33,13 +36,48 @@ const EditTeamPage: FunctionComponent = () => {
   const [open, setOpen] = useState(false);
   const [teams, setTeams] = useState<Team[]>([]);
   const [members, setMembers] = useState<Members[]>([]);
-
+  const [selectedPlayerNickname, setSelectedPlayerNickname] = useState('');
+  const [selectedTeamName, setSelectedTeamName] = useState('');
   const [currentTeamSize, setCurrentTeamSize] = useState('');
+  const [selectedTeamId, setSelectedTeamId] = useState('');
+  const [selectedUserId, setSelectedUserId] = useState('');
+
+
+  const selectTeam = (teamName: string) => {
+    setSelectedTeamName(teamName); // Step 2: Update state when a team is selected
+  };
   const [playerList, setPlayerList] = useState([
     { name: "John Doe" },
     { name: "Jane Smith" },
     { name: "Mike Johnson" },
   ]);
+  const updateTeams = async (event:any) => {
+    event.preventDefault();
+ 
+    const uId = selectedUserId.toString();
+    const formDataObj = {
+ 
+      userId: uId,
+      teamId: selectedTeamId,
+    };
+    try {
+      const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
+        JSON.stringify(formDataObj), // Convert the object to JSON string
+        {
+          headers: {
+            'Content-Type': 'application/json', // Set the content type to application/json
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        });
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      toast.success(response.data.message);
+      
+    } catch (error) {
+      console.error("Error fetching teams:", error);
+    }
+  };
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -58,32 +96,12 @@ const EditTeamPage: FunctionComponent = () => {
         console.error("Error fetching teams:", error);
       }
     };
-
     fetchTeams();
-  }, []);
-  const updateTeams = async () => {
-    try {
+  }, [teams]);
 
-      const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
-        { userId: 1, teamId: 6 },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          }
-        });
-      if (response.status !== 200) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      console.log(response, "hello")
-    } catch (error) {
-      console.error("Error fetching teams:", error);
-    }
-  };
+  
 
-  useEffect(() => {
-
-    updateTeams();
-  }, []);
+ 
 
   const [showPlayerList, setShowPlayerList] = useState(false);
   useEffect(() => {
@@ -103,9 +121,10 @@ const EditTeamPage: FunctionComponent = () => {
     }
   }, [teamSize]);
   return (
-    <div className="h-[100vh]   text-left text-lg text-white font-poppins mt-20 [background:linear-gradient(180deg,_#edfffd,_#f2fffa)]  ">
-      <div className="flex justify-center mt-5 md:mt-20 mx-5 md:mx-[130px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] text-left text-3xl text-white font-body-b2">
-        <div className="w-full md:w-[1038px] flex flex-wrap md:flex-row items-center justify-center md:justify-center gap-4 md:gap-[20px] lg:gap-[182px]">
+    <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10">
+ <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
+      <div className="flex justify-center   mx-5 md:mx-[130px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] text-left text-3xl text-white font-body-b2">
+        <div className="w-full md:w-[1238px] flex items-center justify-center md:justify-center gap-4 md:gap-[20px] lg:gap-[182px]">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
             <img
               className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
@@ -120,7 +139,7 @@ const EditTeamPage: FunctionComponent = () => {
                   {t('OFFICIAL')}
                 </div>
               </div>
-              <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[30px] font-semibold text-black">
+              <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[40px] font-semibold text-black">
                 {eventName || t('ZOZO_CHAMPIONSHIP')}
               </div>
               <div className="flex flex-row items-center justify-start gap-2 text-base md:text-xl text-darkslategray-300">
@@ -152,7 +171,7 @@ const EditTeamPage: FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto my-4">
+      <div className="w-full mx-auto my-4">
         <div className="flex justify-between items-center">
           <div>
             <img src="/img/golfplyr.png" alt="" width="40px" />
@@ -225,25 +244,33 @@ const EditTeamPage: FunctionComponent = () => {
                         <img
                           className="w-full h-full object-cover rounded-[50%]"
                           alt="Default Image"
-                          src="/img/zozo.png" // Replace with your default image URL
+                          src="/img/zozo.png"
                         />
                       )}
                     </div>
                   </div>
                 </td>
-                <td className="py-4 pl-4 whitespace-nowrap">
-                  {team.members.map((member, index) => (
-                    <Player
-                      key={index}
-                      showNumber={false} // Assuming you have logic for this
+               
+                  {team.members.map((member, memberIndex) => (
+               
+               <td className="py-4 pl-4 whitespace-nowrap">
+                <Player
+                      key={memberIndex}
+                      showNumber={false}
                       enableHover={true}
-                      onEdit={() => setEditOpen(true)}
+                      onEdit={() => {
+                        setSelectedPlayerNickname(member.nickName);
+                        setSelectedUserId(member.userId);
+                        setSelectedTeamName(team.name); // Set the selected team's name here
+                        setEditOpen(true); // Open the modal
+                      }}
                       onDelete={() => setOpen(true)}
                       name={member.nickName}
-                      imageUrl={member.imageUrl} // Ensure each member has an `imageUrl` property
+                      imageUrl={member.imageUrl}
                     />
-                  ))}
                 </td>
+
+                  ))}
 
 
               </tr>
@@ -444,13 +471,12 @@ const EditTeamPage: FunctionComponent = () => {
                               alt="Team Logo"
                               className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
                             />
-
                             <input
                               type="text"
-                              name="TeamName"
                               id="teamname"
-                              placeholder="Team 1"
                               className="w-full py-4 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
+                              value={selectedTeamName}
+                              onChange={(e) => setSelectedTeamName(e.target.value)}
                             />
 
                             <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -488,19 +514,30 @@ const EditTeamPage: FunctionComponent = () => {
 
                             <input
                               type="text"
-                              name="playerName"
                               id="playerName"
                               placeholder="Player 1"
                               className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
+                              value={selectedPlayerNickname} // Set the input value to the selected player's nickname
+                              onChange={(e) => setSelectedPlayerNickname(e.target.value)} // Optionally, handle changes to allow editing the nickname
+                            />
+                              <input
+                              type="hidden"
+                              name="userId"
+                              id="playerName"
+                              placeholder="Player 1"
+                              className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
+                              value={selectedUserId} // Set the input value to the selected player's nickname
+                              onChange={(e) => setSelectedUserId(e.target.value)} // Optionally, handle changes to allow editing the nickname
                             />
                             <select
-                              name="teamSelect"
+                              name="teamId"
                               id="teamSelect"
                               className="w-1/2 py-3 text-gray-900 border-none rounded-md bg-gray-50 sm:text-sm"
+                              onChange={(e) => setSelectedTeamId(e.target.value)} // Assuming you have setSelectedTeamId to handle this
                             >
                               <option value="" disabled selected>Select a Team</option>
-                              {teams.map((team, index) => (
-                                <option key={index} value={team.name}>{team.name}</option>
+                              {teams.map((team) => (
+                                <option key={team.id} value={team.id}>{team.name}</option>
                               ))}
                             </select>
 
@@ -529,8 +566,9 @@ const EditTeamPage: FunctionComponent = () => {
                           <button
                             type="submit"
                             className="cursor-pointer mt-3 inline-flex w-full justify-center rounded-full bg-[#00FF92] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                            onSubmit={updateTeams}
                             onClick={() => setEditOpen(false)}
-                            ref={cancelButtonRef}
+                                                        ref={cancelButtonRef}
                           >
                             Confirm
                           </button>
@@ -543,6 +581,8 @@ const EditTeamPage: FunctionComponent = () => {
                           </button>
                         </div>
                       </form>
+ 
+                     
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
@@ -552,6 +592,8 @@ const EditTeamPage: FunctionComponent = () => {
         </Transition.Root>
       </div>
     </div>
+    </div>
+   
   );
 };
 

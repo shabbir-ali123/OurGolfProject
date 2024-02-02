@@ -166,6 +166,10 @@ const params = useParams();
                               title = "";
                               metaDescription = "";
                               break;
+                              case "/edit-team":
+                                title = "";
+                                metaDescription = "";
+                                break;
   
 
     }
@@ -237,6 +241,7 @@ console.log( token !== "undefined","checking")
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
+
         <Route
           path="/read-post/:id"
           element={token ? <ReadPost  /> : <LoginPage />}

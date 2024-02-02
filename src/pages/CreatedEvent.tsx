@@ -3,7 +3,10 @@ import { Cog6ToothIcon } from '@heroicons/react/24/solid';
 import { CreatedEventPagination } from '../components/CreatedEventPagination';
 import { API_ENDPOINTS } from '../appConfig';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Any } from 'react-spring';
+import EditTeamPage from './EditTeamPage';
+
 interface Event {
     id: number;
     eventName: string;
@@ -21,6 +24,7 @@ interface Event {
 const tabs = ['live', 'upcoming', 'past'] as const;
 
 const CreatedEvents: React.FC = () => {
+
     const [events, setEvents] = useState<Event[]>([]);
     const [activeTab, setActiveTab] = useState<typeof tabs[number]>('live');
     const [loading, setLoading] = useState(true);
@@ -90,7 +94,9 @@ const CreatedEvents: React.FC = () => {
         navigate(`/edit-team-page?id=${id}&eventName=${encodeURIComponent(eventName)}&eventStartDate=${encodeURIComponent(eventStartDate)}&eventLocation=${encodeURIComponent(place)}&eventDetails=${encodeURIComponent(eventDetails)}&teamSize=${encodeURIComponent(teamSize)}&imageUrl=${encodeURIComponent(imageUrl)}`);
         setShowPopup(false);
       };
-      
+    const handleEditClick = (event:any) => {
+        setSelectedEvent(event);
+    };
     const handleCancelEvent = () => {
         setShowPopup(false);
     };
@@ -161,6 +167,7 @@ const CreatedEvents: React.FC = () => {
                                     </tr>
                               ))
                               )}
+                         
                         </tbody>
                         {showPopup && selectedEvent && (
                             <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
@@ -176,6 +183,7 @@ const CreatedEvents: React.FC = () => {
                                     >
                                         Edit Team
                                     </button>
+                                
                                     <button
                                         className="px-4 py-2 bg-[red] text-white"
                                         onClick={handleCancelEvent}
