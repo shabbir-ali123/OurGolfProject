@@ -43,7 +43,7 @@ const JoinedEvents: React.FC = () => {
           return;
         }
 
-        const response = await axios.get(API_ENDPOINTS.JOINEDEVENTS, {
+        const response = await axios.get(API_ENDPOINTS.GETJOINEDEVENTS, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

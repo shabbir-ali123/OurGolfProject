@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ChampionShipName from "../components/ChampionShipName";
 import { fetchEvents } from "../utils/fetchEvents";
+import { toast } from "react-toastify";
+import { ToastConfig, toastProperties } from "../constants/toast";
+import axios from "axios";
+import { API_ENDPOINTS } from "../appConfig";
 interface PaymentFormProps {
   onSubmit: (values: PaymentFormValues) => void;
 }
@@ -10,6 +14,7 @@ export interface PaymentFormValues {
   accountHolderName: string;
   paypalId: string;
   accountNumber: string;
+  id: string;
   
 }
 
@@ -25,11 +30,66 @@ useEffect(() => {
     } catch (error) {
       console.error("Error fetching events:", error);
     }
+    const JoinedEvents = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("id") ?? "";
+
+        if (!token) {
+          toast.error(          `You are Not Login! Please Login`)        ;
+          return;
+        }
+        const formdata = new FormData();
+        formdata.append("userId", userId);
+     
+        const response = await axios.post(API_ENDPOINTS.JOINEDEVENTS, formdata,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+         
+        });
+
+        setEvents(response.data.events || []); 
+      } catch (error) {
+        toast.error(
+        `Error fetching joined events : ${error}`,
+        toastProperties as ToastConfig
+      );
+      }
+    };
   };
   getEvents();
 }, []);
 const paymentDetails = events.find((item: any) => item.id === eventID);
-console.log(paymentDetails, 'pd')
+console.log(paymentDetails, 'pd');
+const formSubmission = async ()=>{
+
+  try {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("id") ?? "";
+
+    if (!token) {
+      toast.error(          `You are Not Login! Please Login`)        ;
+      return;
+    }
+    const formdata = new FormData();
+    formdata.append("userId", userId);
+    
+    const response = await axios.post(API_ENDPOINTS.JOINEDEVENTS + eventID, formdata,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+     
+    });
+
+    setEvents(response.data.events || []); 
+  } catch (error) {
+    toast.error(
+    `Error fetching joined events : ${error}`,
+    toastProperties as ToastConfig
+  );
+  }
+};
   return (
     <div className="">
       <ChampionShipName />
@@ -137,7 +197,7 @@ console.log(paymentDetails, 'pd')
                 className="col-span-6 bg-[#17B3A6] shadow-lg "
                 style={{ boxShadow: "9px 9px 4px #00c5b5" }}
               >
-                <form className="p-6">
+                <div  className="p-6">
                   <p className="text-2xl text-white font-poppins-medium">
                     Payment Information
                   </p>
@@ -247,7 +307,7 @@ console.log(paymentDetails, 'pd')
                         type="text"
                         name="Player"
                         id="teamname"
-                        value={paymentDetails?.creator?.nickName}
+                        value={paymentDetails?.accountHolderName}
                         className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>
@@ -286,10 +346,11 @@ console.log(paymentDetails, 'pd')
                     </div>
                   </div>
 
-                  <button className="px-8 py-4 mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
+                  <button onClick={formSubmission} className="px-8 py-4 mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
                     Submit
                   </button>
-                </form>
+                </div>
+                
                 <div className="flex items-center justify-end">
                   <h3 className="text-white">Contact with Host</h3>
                   <div>

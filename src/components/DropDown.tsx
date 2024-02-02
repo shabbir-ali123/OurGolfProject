@@ -46,7 +46,7 @@ function DropDown({ timeSlots }: DropDownProps) {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1 cursor-pointer">
+          <div className="py-1 cursor-pointer flex flex-col">
             {timeSlots ? (
               timeSlots.map((slot: any, index: any) => (
                 <Menu.Item key={index}>
@@ -54,8 +54,8 @@ function DropDown({ timeSlots }: DropDownProps) {
                     <a
                       className={
                         active
-                          ? 'bg-gray-100 text-gray-900'
-                          : 'text-gray-700'
+                          ? 'bg-gray-100 text-gray-900 p-2'
+                          : 'text-gray-700 p-2'
                       }
                       onClick={() => setSelectedOption(slot)}
                     >

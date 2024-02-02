@@ -125,6 +125,7 @@
     "INDIVIDUAL": "個人",
     "TEAM": "チーム",
     "TEAM_SIZE": "チームの規模",
+    "NO_LOCATION":"未新增位置",
     "PARTICIPANTS_ITEMS": "参加者が入力する項目",
     "INSTRUCTION": "応募時に参加者に入力していただく項目を設定できます。入力された内容は主催者のみが確認することができます。",
     "FULL_NAME": "フルネーム",

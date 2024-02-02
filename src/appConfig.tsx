@@ -18,7 +18,8 @@ export const API_ENDPOINTS = {
   MARKASFAVORITE: `${API_BASE_URL}/${API_VERSION}/is-favourite-event/`,
   GETFAVEVENTS: `${API_BASE_URL}/${API_VERSION}/get-favourite-events`,
   GETEVENTSBYID: `${API_BASE_URL}/${API_VERSION}/get-events-by-user-id`,
-  JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
+  GETJOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
+  JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/join-event/`,
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
   GETALLTEACHERS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers`,

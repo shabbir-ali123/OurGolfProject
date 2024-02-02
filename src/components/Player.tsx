@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 interface PlayerProps {
   showNumber: boolean;
   name: string;
+  imageUrl?: string;
   enableHover?: boolean;  // Optional prop to enable hover functionality
   onEdit?: () => void;    // Optional prop for edit action
   onDelete?: () => void;  // Optional prop for delete action
 }
 
-const Player: React.FC<PlayerProps> = ({ showNumber, name, enableHover, onEdit, onDelete }) => {
+const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover, onEdit, onDelete }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const defaultImageUrl = '/img/ellipse-1310@2x.png';
   return (
     <div className='flex justify-between items-center w-[130px]'
       onMouseEnter={() => enableHover && setIsHovered(true)}
@@ -18,7 +20,7 @@ const Player: React.FC<PlayerProps> = ({ showNumber, name, enableHover, onEdit, 
         <img
           className='rounded-[50%] w-9 h-[35.7px] object-cover'
           alt=''
-          src='/img/ellipse-1310@2x.png'
+          src={imageUrl || defaultImageUrl}
         />
         <div className='pl-1 tracking-[1.45px] leading-[9.22px]'>
           {name}

@@ -126,6 +126,7 @@
     "INDIVIDUAL": "Individual",
     "TEAM": "Team",
     "TEAM_SIZE": "Team Size",
+    "NO_LOCATION":"No location Added",
     "PARTICIPANTS_ITEMS": "Items to be entered by participants",
     "INSTRUCTION": "You can set items that must be entered by participents when applying. Only the organizer can check the entered information.",
     "FULL_NAME": "Full Name",

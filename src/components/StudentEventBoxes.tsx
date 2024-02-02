@@ -30,7 +30,6 @@ useEffect(() => {
       }
     } catch (e) {
       console.error("Error parsing teacher_id from localStorage", e);
-      // Handle the error or set a default state
     }
   }
 }, []);

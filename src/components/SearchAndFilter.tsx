@@ -20,7 +20,8 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
 
 
         if (value === 'Location') {
-            setShowLocationInput(true);
+            setShowLocationInput(newAvailibilty);
+            
             return;
         }
     
@@ -39,14 +40,13 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
         
     };
 
-    
-
+  
     const handleChange = (getsearch: string, type: string = 'search') => {
         setsearch!(getsearch); // Update parent's state
     };
 
     const handleLocationChange = (getLocation:any) => {
-        setShowLocationInput(true);
+        setShowLocationInput(newAvailibilty);
         setLocation!(getLocation); // Update location in search
     };
 
@@ -105,6 +105,7 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
                         <button
                             onClick={() => {
                                 setShowLocationInput(false);
+                                setLocation!("");
                             }}
                             className="ml-2 absolute right-0 bg-transparent cursor-pointer"><XMarkIcon className="w-4 h-4  round-full" aria-hidden="true" /></button>
                     </div>

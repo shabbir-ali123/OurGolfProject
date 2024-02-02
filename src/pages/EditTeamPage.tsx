@@ -1,4 +1,4 @@
-import ChampionShipName from "../components/ChampionShipName";
+
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import Player from "../components/Player";
 import { Dialog, Transition } from "@headlessui/react";
@@ -10,16 +10,31 @@ import axios from "axios";
 interface Team {
   name: string;
   imageUrl?: string;
+  members: Members[];
+}
+interface Members {
+  imageUrl: string | undefined;
+  nickName: string;
 }
 const EditTeamPage: FunctionComponent = () => {
   const location = useLocation();
   const eventId = new URLSearchParams(location.search).get('id');
+  const eventName = decodeURIComponent(new URLSearchParams(location.search).get('eventName') || '');
+  const eventStartDate = decodeURIComponent(new URLSearchParams(location.search).get('eventStartDate') || '');
+  const eventLocation = decodeURIComponent(new URLSearchParams(location.search).get('place') || '');
+  const eventDetails = decodeURIComponent(new URLSearchParams(location.search).get('eventDetails') || '');
+  const teamSize = new URLSearchParams(location.search).get('teamSize');
+  const imageUrl = decodeURIComponent(new URLSearchParams(location.search).get('imageUrl') || '');
+
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
 
   const [open, setOpen] = useState(false);
   const [teams, setTeams] = useState<Team[]>([]);
+  const [members, setMembers] = useState<Members[]>([]);
+
+  const [currentTeamSize, setCurrentTeamSize] = useState('');
   const [playerList, setPlayerList] = useState([
     { name: "John Doe" },
     { name: "Jane Smith" },
@@ -37,6 +52,8 @@ const EditTeamPage: FunctionComponent = () => {
         });
         const data = await response.json();
         setTeams(data.teams);
+        setMembers(data.teams.members);
+
       } catch (error) {
         console.error("Error fetching teams:", error);
       }
@@ -48,7 +65,7 @@ const EditTeamPage: FunctionComponent = () => {
     try {
 
       const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
-        { userId: 1, teamId: 6},
+        { userId: 1, teamId: 6 },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -57,17 +74,17 @@ const EditTeamPage: FunctionComponent = () => {
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      console.log(response,"hello")
+      console.log(response, "hello")
     } catch (error) {
       console.error("Error fetching teams:", error);
     }
   };
 
   useEffect(() => {
-  
+
     updateTeams();
   }, []);
-  
+
   const [showPlayerList, setShowPlayerList] = useState(false);
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
@@ -80,10 +97,61 @@ const EditTeamPage: FunctionComponent = () => {
   const handleOpenPlayerList = () => {
     setShowPlayerList(true);
   };
+  useEffect(() => {
+    if (teamSize) {
+      setCurrentTeamSize(teamSize);
+    }
+  }, [teamSize]);
   return (
     <div className="h-[100vh]   text-left text-lg text-white font-poppins mt-20 [background:linear-gradient(180deg,_#edfffd,_#f2fffa)]  ">
-      <ChampionShipName />
+      <div className="flex justify-center mt-5 md:mt-20 mx-5 md:mx-[130px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] text-left text-3xl text-white font-body-b2">
+        <div className="w-full md:w-[1038px] flex flex-wrap md:flex-row items-center justify-center md:justify-center gap-4 md:gap-[20px] lg:gap-[182px]">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
+            <img
+              className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
+              alt="Event"
+              src={imageUrl || "/img/zozo.png"}
+            />
 
+            <div className="flex flex-col items-start justify-center gap-4">
+              <div className="relative w-[115px] h-[29px]">
+                <div className="absolute top-[0px] left-[0px] rounded-8xs bg-seagreen-200 w-[115px] h-[29px]" />
+                <div className="absolute top-[6px] left-[9px] leading-[18px]">
+                  {t('OFFICIAL')}
+                </div>
+              </div>
+              <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[30px] font-semibold text-black">
+                {eventName || t('ZOZO_CHAMPIONSHIP')}
+              </div>
+              <div className="flex flex-row items-center justify-start gap-2 text-base md:text-xl text-darkslategray-300">
+                <img
+                  className="w-[22.5px] h-6"
+                  alt=""
+                  src="/img/group-1000008655.svg"
+                />
+                <div className="relative  leading-[18px]">
+                  {eventStartDate || 'Default Date'} {/* Fallback to a default date or handle absence of date as needed */}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-start flex-1 gap-4 md:flex-row md:text-5xl lg:text-darkgray-400">
+            <img
+              className="w-[23px] h-[27.9px]"
+              alt=""
+              src="/img/group-1000008649.svg"
+            />
+            <div className="flex flex-col items-start justify-center gap-4">
+              <div className="relative text-base md:text-xl leading-[18px]">
+                {eventLocation || t('NO_LOCATION')}
+              </div>
+              <div className="relative text-base md:text-xl  leading-[18px] text-lightseagreen-200">
+                {eventDetails || t('NO_LOCATION')}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="max-w-7xl mx-auto my-4">
         <div className="flex justify-between items-center">
           <div>
@@ -95,17 +163,18 @@ const EditTeamPage: FunctionComponent = () => {
           <div className="mt-10 flex gap-2">
             <div className="flex gap-2 items-center ">
               <label
-                className="block mb-2 text-xs font-normal tracking-wide text-black captilize"
-                htmlFor="grid-event-name"
+                className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
+                htmlFor="teamSize"
               >
-                {t('TEAM_SIZE')}
+                Team Size
               </label>
               <input
                 className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
-                id="grid-Event-Name"
+                id="teamSize"
                 type="number"
                 name="teamSize"
-
+                value={currentTeamSize}
+                onChange={(e) => setCurrentTeamSize(e.target.value)}
                 min="0"
               />
             </div>
@@ -138,7 +207,7 @@ const EditTeamPage: FunctionComponent = () => {
           </thead>
           <tbody className="text-left text-black ">
             {teams.map((team, index) => (
-              <tr className="bg-[#ffc1c5] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
+              <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
                 <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                   <div
                     className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
@@ -163,28 +232,27 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
                 </td>
                 <td className="py-4 pl-4 whitespace-nowrap">
-                  {" "}
-                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Ryan" />
+                  {team.members.map((member, index) => (
+                    <Player
+                      key={index}
+                      showNumber={false} // Assuming you have logic for this
+                      enableHover={true}
+                      onEdit={() => setEditOpen(true)}
+                      onDelete={() => setOpen(true)}
+                      name={member.nickName}
+                      imageUrl={member.imageUrl} // Ensure each member has an `imageUrl` property
+                    />
+                  ))}
                 </td>
-                <td className="py-4 pl-4 ">
-                  {" "}
-                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Leo" />
-                </td>
-                <td className="py-4 pl-4 ">
-                  {" "}
-                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Isaac" />
-                </td>
-                <td className="py-4 pl-4 ">
-                  {" "}
-                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="Jacob" />
-                </td>
-                <td className="py-4 pl-4">
-                  {" "}
-                  <Player showNumber={false} enableHover={true} onEdit={() => setEditOpen(true)} onDelete={() => setOpen(true)} name="David" />
-                </td>
+
 
               </tr>
             ))}
+
+
+
+
+
           </tbody>
         </table>
 

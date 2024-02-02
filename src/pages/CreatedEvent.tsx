@@ -8,10 +8,14 @@ interface Event {
     id: number;
     eventName: string;
     capacity: number;
+    imageUrl:[];
     eventStartTime: string;
     eventStartDate: string;
     eventEndTime: string;
     eventEndDate: string;
+    place: string;
+    eventDetails: string;
+    teamSize: string;
 }
 
 const tabs = ['live', 'upcoming', 'past'] as const;
@@ -79,10 +83,14 @@ const CreatedEvents: React.FC = () => {
         setSelectedEvent(event);
         setShowPopup(true);
     };
-    const handleEditTeam = (id: any) => {
-        navigate(`/edit-team-page?id=${id}`);
-        setShowPopup(false);
+    const handleCogIconClickDirectly = (event: Event) => {
+        navigate(`/edit-team-page?id=${event.id}&eventName=${encodeURIComponent(event.eventName)}`);
     };
+    const handleEditTeam = (id:any, eventName:any, eventStartDate:any, place:any, eventDetails:any, teamSize:any, imageUrl:any) => {
+        navigate(`/edit-team-page?id=${id}&eventName=${encodeURIComponent(eventName)}&eventStartDate=${encodeURIComponent(eventStartDate)}&eventLocation=${encodeURIComponent(place)}&eventDetails=${encodeURIComponent(eventDetails)}&teamSize=${encodeURIComponent(teamSize)}&imageUrl=${encodeURIComponent(imageUrl)}`);
+        setShowPopup(false);
+      };
+      
     const handleCancelEvent = () => {
         setShowPopup(false);
     };
@@ -161,7 +169,9 @@ const CreatedEvents: React.FC = () => {
                                     <button
                                         className="px-4 py-2 bg-blue-500 text-white mr-2"
                                         onClick={() => {
-                                            handleEditTeam(selectedEvent.id)
+                                            if (selectedEvent) handleEditTeam(selectedEvent.id, selectedEvent.eventName, selectedEvent.eventStartDate, selectedEvent.place, selectedEvent.eventDetails, selectedEvent.teamSize, selectedEvent.imageUrl);
+
+
                                         }}
                                     >
                                         Edit Team

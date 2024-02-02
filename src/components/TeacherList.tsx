@@ -76,7 +76,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
       try {
         const token = localStorage.getItem("token");
         let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
-console.log(token === "undefined"  ,"tokeen")
+        console.log(token === "undefined", "tokeen")
         if (token && token !== "undefined") {
           endpoint = API_ENDPOINTS.GETALLTEACHERS;
         }
@@ -98,7 +98,7 @@ console.log(token === "undefined"  ,"tokeen")
         });
 
         setTeachers(response.data.teachers);
-console.log(response.data.teachers,"hello")
+        console.log(response.data.teachers, "hello")
 
         if (response.data.teachers && response.data.teachers.length > 0) {
           setSelectedTeacher(response.data.teachers[0]);
@@ -210,7 +210,7 @@ console.log(response.data.teachers,"hello")
                       className={`${imageWidth} w-10 rounded-full border-solid border-4 border-[#51ff85]`}
                       src={teacher?.imageUrl}
                       alt=""
-                     
+
                     />
 
                     <div className={`ml-2 ${textFontSize}`}>
