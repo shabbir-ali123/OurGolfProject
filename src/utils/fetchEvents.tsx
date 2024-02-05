@@ -72,9 +72,10 @@ export const fetchTeacherByID = async (setUser:any) => {
   }
 };
 
-export const fetchSingleEvent = async (eventId:any, setEvent:any) => {
+export const fetchSingleEvent = async (eventId:any, setEvent:any, setCreatedBy?:any) => {
   try {
     const token = localStorage.getItem("token");
+    const id = localStorage.getItem("id");
     const headers:any= {}
     if (token) {
       console.error("User not authenticated");
@@ -85,6 +86,10 @@ export const fetchSingleEvent = async (eventId:any, setEvent:any) => {
       headers,
     });
     setEvent(response.data.event);
+    console.log(response.data.event.creatorId == id, "asdasd", id);
+    if(response.data.event.creatorId == id){
+      setCreatedBy(true);
+    }
   } catch (error) {
     throw error; 
   }

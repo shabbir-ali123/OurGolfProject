@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, Router, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   ChatBubbleBottomCenterIcon,
@@ -45,6 +45,7 @@ interface TableProps {
 }
 
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
+  const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [showModal, setShowModal] = useState(false);
@@ -247,13 +248,15 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className={`rounded-lg`}
+                          className={`rounded-lg cursor-pointer`}
+                          onClick={()=>router(
+                            `/edit-team/${event.id}`
+                          )}
                           style={{
                             width: "100%",
                             borderRadius: "10px",
                             border: "none",
                             boxShadow: "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px"
-                                                    
                           }}
                         >
                           <td className="">
@@ -302,7 +305,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 }`}
                             >
                               <Link
-                                to={user ? "/pay-now" : "/login-page"}
+                                to={user ? "/pay-now" : "/login-page" }
+                                target="_blank" 
+                                rel="noopener noreferrer"
                                 className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0 sm:mx-2 cursor-pointer ${event.type === "full"
                                   ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
                                   : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"

@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 interface PlayerProps {
   showNumber: boolean;
   name: string;
+  isCreator?: boolean;
   imageUrl?: string;
   enableHover?: boolean;  // Optional prop to enable hover functionality
   onEdit?: () => void;    // Optional prop for edit action
   onDelete?: () => void;  // Optional prop for delete action
 }
 
-const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover, onEdit, onDelete }) => {
+const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover, onEdit, onDelete, isCreator }) => {
   const [isHovered, setIsHovered] = useState(false);
   const defaultImageUrl = '/img/ellipse-1310@2x.png';
   return (
@@ -32,7 +33,7 @@ const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover,
           3
         </div>
       )}
-      {enableHover && isHovered && (
+      {enableHover && isHovered && isCreator && (
         <div className='flex gap-2 z-[10]'>
           {onEdit &&
             <svg

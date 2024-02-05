@@ -44,17 +44,10 @@ const EditTeamPage: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
   const teamId = params.id;
   const [singleEvent, setSingleEvent] = useState<SingleEvent>();
-
   
-  const location = useLocation();
-  const eventId = new URLSearchParams(location.search).get('id');
-  const eventName = decodeURIComponent(new URLSearchParams(location.search).get('eventName') || '');
-  const eventStartDate = decodeURIComponent(new URLSearchParams(location.search).get('eventStartDate') || '');
-  const eventLocation = decodeURIComponent(new URLSearchParams(location.search).get('place') || '');
-  const eventDetails = decodeURIComponent(new URLSearchParams(location.search).get('eventDetails') || '');
-  const teamSize = new URLSearchParams(location.search).get('teamSize');
-  const imageUrl = decodeURIComponent(new URLSearchParams(location.search).get('imageUrl') || '');
   const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
+  const [isCreated, setCreatedBy] = useState(false);
+
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -67,11 +60,10 @@ const EditTeamPage: FunctionComponent = () => {
   const [currentTeamSize, setCurrentTeamSize] = useState('');
   const [selectedTeamId, setSelectedTeamId] = useState('');
   const [selectedUserId, setSelectedUserId] = useState('');
+  const [showPlayerList, setShowPlayerList] = useState(false);
 
 
-  const selectTeam = (teamName: string) => {
-    setSelectedTeamName(teamName); // Step 2: Update state when a team is selected
-  };
+  
   const [playerList, setPlayerList] = useState([
     { name: "John Doe" },
     { name: "Jane Smith" },
@@ -82,9 +74,26 @@ const EditTeamPage: FunctionComponent = () => {
  
     const uId = selectedUserId.toString();
     const formDataObj = {
- 
       userId: uId,
       teamId: selectedTeamId,
+      id : 5,
+      eventId : 2,
+      name: "Team 4",
+      membersPerTeam: 1,
+      teamImage: null,
+      createdAt :  "2024-02-05T16:34:19.000Z",
+      updatedAt: "2024-02-05T16:34:19.000Z",
+      members: [
+        {
+          userId: 2,
+          teamId: 5, 
+          nickName: "Xavier Herring",
+          imageUrl: ""
+        }
+      ],
+      teamSize: 11,
+      capacity: ""
+      
     };
     try {
       const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
@@ -105,18 +114,20 @@ const EditTeamPage: FunctionComponent = () => {
       console.error("Error fetching teams:", error);
     }
   };
-  useEffect(() => {
-    if (teamSize) {
-      setCurrentTeamSize(teamSize);
-    }
-  }, [ teamSize, singleEvent]);
+
 
   useEffect(() => {
     const fetchAndUpdateTeams = async () => {
       await fetchTeams(setTeams, teamId);
-      setShouldRefetchTeams(false); // Reset trigger after fetching
+      setShouldRefetchTeams(false); 
+      await fetchSingleEvent(teamId, setSingleEvent, setCreatedBy);
+
+      setCurrentTeamSize(singleEvent?.teamSize);
+
+      console.log(singleEvent?.teamSize, "asdas");
     };
-    fetchSingleEvent(teamId, setSingleEvent);
+
+   
 
     fetchAndUpdateTeams();
   }, [shouldRefetchTeams]);
@@ -124,7 +135,6 @@ const EditTeamPage: FunctionComponent = () => {
 
  
 
-  const [showPlayerList, setShowPlayerList] = useState(false);
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
   }, [open]);
@@ -136,7 +146,6 @@ const EditTeamPage: FunctionComponent = () => {
   const handleOpenPlayerList = () => {
     setShowPlayerList(true);
   };
-
   return (
     <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10">
  <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
@@ -196,7 +205,7 @@ const EditTeamPage: FunctionComponent = () => {
               Edit Teams
             </b>
           </div>
-          <div className="mt-10 flex gap-2">
+          {isCreated && <div className="mt-10 flex gap-2">
             <div className="flex gap-2 items-center ">
               <label
                 className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
@@ -209,13 +218,14 @@ const EditTeamPage: FunctionComponent = () => {
                 id="teamSize"
                 type="number"
                 name="teamSize"
-                value={singleEvent?.teamSize}
+                value={currentTeamSize == undefined ? singleEvent?.teamSize : currentTeamSize }
                 onChange={(e) => setCurrentTeamSize(e.target.value)}
                 min="0"
               />
             </div>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded" onClick={handleOpenPlayerList}>Remove Players List</button>
           </div>
+          }
         </div>
         <table className="w-full border-spacing-y-5 ">
           <thead className="text-left text-whitesmoke-100">
@@ -272,6 +282,7 @@ const EditTeamPage: FunctionComponent = () => {
                
                <td className="py-4 pl-4 whitespace-nowrap">
                 <Player
+                isCreator={isCreated}
                       key={memberIndex}
                       showNumber={false}
                       enableHover={true}
@@ -299,12 +310,13 @@ const EditTeamPage: FunctionComponent = () => {
 
           </tbody>
         </table>
-
+        {isCreated &&
         <div className="flex justify-end ">
           <button className="px-4 py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
             Update Team
           </button>
         </div>
+}
         <Transition.Root show={showPlayerList} as={Fragment}>
           <Dialog as="div" className="relative z-[9999]" onClose={() => setShowPlayerList(false)}>
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
