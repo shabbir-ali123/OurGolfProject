@@ -5,7 +5,7 @@ import Pagination from "../components/Pagination";
 import EventMap from "../components/EventMap";
 import Table from "../components/Table";
 
-interface Event {
+ interface Event {
   id: string;
   creator: {
     nickName: any;

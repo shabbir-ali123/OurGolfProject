@@ -5,9 +5,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { fetchTeams } from "../utils/fetchTeams";
+import { fetchSingleEvent } from "../utils/fetchEvents";
 interface Team {
   id: string;
   name: string;
@@ -19,7 +21,31 @@ interface Members {
   nickName: string;
   userId: string;
 }
+interface SingleEvent {
+  id: string;
+  creator: {
+    nickName: any;
+  };
+  isFavorite: Boolean;
+  comments: [];
+  accountHolderName: string;
+  eventStartTime: string;
+  eventStartDate: string;
+  eventName: string;
+  eventDetails: string;
+  type: string;
+  place: string;
+  imageUrl: [0];
+  count: any;
+  teamSize: any;
+}
+
 const EditTeamPage: FunctionComponent = () => {
+  const params = useParams<{ id?: string }>();
+  const teamId = params.id;
+  const [singleEvent, setSingleEvent] = useState<SingleEvent>();
+
+  
   const location = useLocation();
   const eventId = new URLSearchParams(location.search).get('id');
   const eventName = decodeURIComponent(new URLSearchParams(location.search).get('eventName') || '');
@@ -28,6 +54,7 @@ const EditTeamPage: FunctionComponent = () => {
   const eventDetails = decodeURIComponent(new URLSearchParams(location.search).get('eventDetails') || '');
   const teamSize = new URLSearchParams(location.search).get('teamSize');
   const imageUrl = decodeURIComponent(new URLSearchParams(location.search).get('imageUrl') || '');
+  const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -35,7 +62,6 @@ const EditTeamPage: FunctionComponent = () => {
 
   const [open, setOpen] = useState(false);
   const [teams, setTeams] = useState<Team[]>([]);
-  const [members, setMembers] = useState<Members[]>([]);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState('');
   const [selectedTeamName, setSelectedTeamName] = useState('');
   const [currentTeamSize, setCurrentTeamSize] = useState('');
@@ -69,7 +95,8 @@ const EditTeamPage: FunctionComponent = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           }
         });
-      if (response.status !== 200) {
+        setShouldRefetchTeams(true); // Reset trigger after fetching
+        if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       toast.success(response.data.message);
@@ -79,27 +106,21 @@ const EditTeamPage: FunctionComponent = () => {
     }
   };
   useEffect(() => {
-    const fetchTeams = async () => {
-      try {
+    if (teamSize) {
+      setCurrentTeamSize(teamSize);
+    }
+  }, [ teamSize, singleEvent]);
 
-        const response = await fetch(API_ENDPOINTS.GETTEAMSBYEVENT + eventId, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-
-          },
-        });
-        const data = await response.json();
-        setTeams(data.teams);
-        setMembers(data.teams.members);
-
-      } catch (error) {
-        console.error("Error fetching teams:", error);
-      }
+  useEffect(() => {
+    const fetchAndUpdateTeams = async () => {
+      await fetchTeams(setTeams, teamId);
+      setShouldRefetchTeams(false); // Reset trigger after fetching
     };
-    fetchTeams();
-  }, [teams]);
+    fetchSingleEvent(teamId, setSingleEvent);
 
-  
+    fetchAndUpdateTeams();
+  }, [shouldRefetchTeams]);
+
 
  
 
@@ -115,11 +136,7 @@ const EditTeamPage: FunctionComponent = () => {
   const handleOpenPlayerList = () => {
     setShowPlayerList(true);
   };
-  useEffect(() => {
-    if (teamSize) {
-      setCurrentTeamSize(teamSize);
-    }
-  }, [teamSize]);
+
   return (
     <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10">
  <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
@@ -129,7 +146,7 @@ const EditTeamPage: FunctionComponent = () => {
             <img
               className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
               alt="Event"
-              src={imageUrl || "/img/zozo.png"}
+              src={singleEvent?.imageUrl[0] || "/img/zozo.png"}
             />
 
             <div className="flex flex-col items-start justify-center gap-4">
@@ -140,7 +157,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
               </div>
               <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[40px] font-semibold text-black">
-                {eventName || t('ZOZO_CHAMPIONSHIP')}
+                {singleEvent?.eventName }
               </div>
               <div className="flex flex-row items-center justify-start gap-2 text-base md:text-xl text-darkslategray-300">
                 <img
@@ -149,7 +166,7 @@ const EditTeamPage: FunctionComponent = () => {
                   src="/img/group-1000008655.svg"
                 />
                 <div className="relative  leading-[18px]">
-                  {eventStartDate || 'Default Date'} {/* Fallback to a default date or handle absence of date as needed */}
+                  {singleEvent?.eventStartDate || 'Default Date'} {/* Fallback to a default date or handle absence of date as needed */}
                 </div>
               </div>
             </div>
@@ -162,10 +179,10 @@ const EditTeamPage: FunctionComponent = () => {
             />
             <div className="flex flex-col items-start justify-center gap-4">
               <div className="relative text-base md:text-xl leading-[18px]">
-                {eventLocation || t('NO_LOCATION')}
+                {singleEvent?.place  || t('NO_LOCATION')}
               </div>
               <div className="relative text-base md:text-xl  leading-[18px] text-lightseagreen-200">
-                {eventDetails || t('NO_LOCATION')}
+                {singleEvent?.eventDetails || t('NO_LOCATION')}
               </div>
             </div>
           </div>
@@ -192,7 +209,7 @@ const EditTeamPage: FunctionComponent = () => {
                 id="teamSize"
                 type="number"
                 name="teamSize"
-                value={currentTeamSize}
+                value={singleEvent?.teamSize}
                 onChange={(e) => setCurrentTeamSize(e.target.value)}
                 min="0"
               />

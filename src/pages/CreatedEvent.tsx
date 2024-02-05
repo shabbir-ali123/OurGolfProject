@@ -162,7 +162,9 @@ const CreatedEvents: React.FC = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndTime}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndDate}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4] text-center">
-                                            <Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} />
+                                            {/* <Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} /> */}
+                                            <Link to={`/edit-team/${event.id}`}><Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} />
+                                        </Link>
                                         </td>
                                     </tr>
                               ))
@@ -173,6 +175,7 @@ const CreatedEvents: React.FC = () => {
                             <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
                                 <div className="bg-white p-8 rounded-md">
                                     <h2 className="text-lg font-bold mb-4">Event Name <br /> {selectedEvent.eventName}</h2>
+                                
                                     <button
                                         className="px-4 py-2 bg-blue-500 text-white mr-2"
                                         onClick={() => {

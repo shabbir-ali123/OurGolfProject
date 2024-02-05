@@ -1,6 +1,6 @@
 // http://18.216.79.130:5000
 // http://localhost:3000
-const API_BASE_URL = "http://18.216.79.130:5000"
+const API_BASE_URL = "http://localhost:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -20,6 +20,9 @@ export const API_ENDPOINTS = {
   GETEVENTSBYID: `${API_BASE_URL}/${API_VERSION}/get-events-by-user-id`,
   GETJOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/join-event/`,
+  GETEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-event-by-id/`,
+
+ 
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
   GETALLTEACHERS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers`,
@@ -34,6 +37,7 @@ export const API_ENDPOINTS = {
   UPDATEAPPOINTMENTSTATUS: `${API_BASE_URL}/${API_VERSION}/update-appointment-status`,  
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
+  
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
   GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`, 

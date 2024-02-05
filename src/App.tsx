@@ -228,7 +228,6 @@ console.log( token !== "undefined","checking")
         <Route path="/login-page"  element={<LoginPage  />} />
         <Route path="/register-page" element={<RegisterPage/>} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/edit-team-page" element={token? <EditTeamPage /> :<LoginPage />}  />
         <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
         <Route path="/booked-mark" element= {token? <BookMarkedEvents /> :<LoginPage />}  />
         <Route path="/joined-events" element= {token? <JoinedEvents /> :<LoginPage />} />
@@ -241,7 +240,10 @@ console.log( token !== "undefined","checking")
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
-
+        <Route
+          path="/edit-team/:id"
+          element={token ? <EditTeamPage  /> : <LoginPage />}
+        />
         <Route
           path="/read-post/:id"
           element={token ? <ReadPost  /> : <LoginPage />}
