@@ -196,7 +196,7 @@ console.log( token !== "undefined","checking")
   });
 
   useEffect(() => {
-    const tch = localStorage.getItem('teacher_id')
+    const tch = localStorage.getItem('teacher_id')  
     const checkTeacher = tch && tch !== 'null' ? true : false;
     setIsTeacher(checkTeacher)
 
@@ -204,7 +204,6 @@ console.log( token !== "undefined","checking")
   if( token === "undefined"){
     token = false;
   }
-  console.log(params, 'pisad')
   return (
     <ToastProvider iconColor="white" textColor="white">
     <div className="">

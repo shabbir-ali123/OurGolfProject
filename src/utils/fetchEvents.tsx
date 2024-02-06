@@ -86,7 +86,6 @@ export const fetchSingleEvent = async (eventId:any, setEvent:any, setCreatedBy?:
       headers,
     });
     setEvent(response.data.event);
-    console.log(response.data.event.creatorId == id, "asdasd", id);
     if(response.data.event.creatorId == id){
       setCreatedBy(true);
     }

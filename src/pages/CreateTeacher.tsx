@@ -42,7 +42,7 @@ const CreateTeacher: React.FC = () => {
     // Your Hourly Rate: "",
     phoneNumber: "",
     location: "",
-    schedules: [
+    onfitm: [
       {
         startDate: "",
         endDate: "",
@@ -110,7 +110,7 @@ const CreateTeacher: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const schedulesData = selectedTimeSlots.map((timeSlot) => {
+    const onfitmData = selectedTimeSlots.map((timeSlot) => {
       const [timeRange, , date] = timeSlot.split(' on ');
       const [startTime, endTime] = timeRange.split(' to ');
       const day = timeSlot.split('on ')[1].split(' -')[0].trim();
@@ -137,7 +137,7 @@ const CreateTeacher: React.FC = () => {
 
     const payload = {
       ...formData,
-      schedules: schedulesData,
+      onfitm: onfitmData,
     };
     try {
       const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
@@ -229,10 +229,10 @@ const CreateTeacher: React.FC = () => {
     };
 
     setFormData((prevFormData) => {
-      const newSchedules = [...prevFormData.schedules, newSchedule];
+      const newonfitm = [...prevFormData.onfitm, newSchedule];
       return {
         ...prevFormData,
-        schedules: newSchedules,
+        onfitm: newonfitm,
       };
     });
   };
