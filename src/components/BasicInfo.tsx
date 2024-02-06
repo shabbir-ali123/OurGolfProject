@@ -40,7 +40,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
 
   const [isHovered, setIsHovered] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const [isWithinJapan, setIsWithinJapan] = useState(true);
   const handleFileInputChange = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -49,12 +49,20 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   const [inputText, setInputText] = useState('');
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
   const handlePlaceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value.toLowerCase();
+    const text: string = event.target.value.trim().toLowerCase(); // Trim and convert to lowercase
     setInputText(text);
 
-    const cities: string[] | undefined = ListOfCity.dki?.map((city: any) => city.toLowerCase());
-    const filteredCities: string[] | undefined = cities?.filter((city: string) => city.includes(text));
-    setFilteredCities(filteredCities || []);
+    const japanCities: string[] | undefined = ListOfCity.dki?.map((city: any) => city.toLowerCase());
+    const filteredCities: string[] | undefined = japanCities?.filter((city: string) => city.includes(text));
+
+    // Update isWithinJapan state based on the entered location
+    setIsWithinJapan(filteredCities && filteredCities.length > 0);
+
+    if (filteredCities && filteredCities.length > 0) {
+      setFilteredCities(filteredCities);
+    } else {
+      setFilteredCities([]);
+    }
   };
 
   const handleCitySelection = (selectedCity: string) => {
@@ -67,6 +75,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
       },
     } as React.ChangeEvent<HTMLInputElement>);
   };
+
 
   return (
     <motion.div
@@ -200,6 +209,11 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                   ))}
                 </div>
               )}
+             
+              {!isWithinJapan && (
+                <p className="text-[#dc0000] bg-white text-center w-full">Please enter a location within Japan.</p>
+              )}
+
             </div>
           </div>
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
