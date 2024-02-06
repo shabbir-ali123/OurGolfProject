@@ -60,7 +60,7 @@ const EditTeamPage: FunctionComponent = () => {
   const [selectedTeamId, setSelectedTeamId] = useState('');
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
-  const [teamMembers, setTeamMembers] = useState<any>([])
+  const [teamMembers, setTeamMembers] = useState<Members[]>([])
   const [playerList, setPlayerList] = useState([
     { name: "John Doe" },
     { name: "Jane Smith" },
@@ -94,6 +94,7 @@ const EditTeamPage: FunctionComponent = () => {
   };
 
 
+  console.log(teams, "teams ");
 
   const updateTeams = async (event: any) => {
     event.preventDefault();
@@ -117,18 +118,11 @@ const EditTeamPage: FunctionComponent = () => {
   
     // Proceed with update if changes are detected
     const formDataObj = {
-      userId: uId,
-      teamId: selectedTeamId,
-      id: 5,
+      
       eventId: singleEvent?.id,
-      name: selectedTeamName,
-      membersPerTeam: 1,
-      teamImage: null,
-      createdAt: "2024-02-05T16:34:19.000Z",
-      updatedAt: "2024-02-05T16:34:19.000Z",
-      members: teamMembers,
       teamSize: currentTeamSize,
-      capacity: capacity
+      capacity: capacity,
+      teams
     };
   
     try {
