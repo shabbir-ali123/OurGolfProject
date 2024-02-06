@@ -82,14 +82,15 @@ export const fetchSingleEvent = async (eventId:any, setEvent:any, setCreatedBy?:
       headers["Authorization"]=  `Bearer ${token}`
 
     }
-    const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETEVENTBYID + eventId: API_ENDPOINTS.PUBLICEVENTS, {
+    const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETEVENTBYID + eventId : API_ENDPOINTS.GETPUBLICEVENTBYID + eventId, {
       headers,
+     
     });
     setEvent(response.data.event);
     if(response.data.event.creatorId == id){
       setCreatedBy(true);
     }
   } catch (error) {
-    throw error; 
+    return
   }
 };

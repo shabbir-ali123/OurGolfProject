@@ -96,7 +96,26 @@ const EditTeamPage: FunctionComponent = () => {
 
 
   const updateTeams = async (event: any) => {
+    event.preventDefault();
     const uId = selectedUserId.toString();
+  
+    // Assume you have initial values stored in state for comparison
+    const initialTeamSize = singleEvent?.teamSize;
+    const initialCapacity = singleEvent?.capacity;
+    const initialMembers = teamMembers; 
+  
+    // Check if there are changes
+    const hasCapacityChanged = capacity !== initialCapacity;
+    const hasTeamSizeChanged = currentTeamSize !== initialTeamSize;
+    const hasMembersChanged = JSON.stringify(teamMembers) !== JSON.stringify(initialMembers); 
+  
+    if (!hasCapacityChanged && !hasTeamSizeChanged && !hasMembersChanged) {
+     
+      toast.error("Please make changes before updating.");
+      return; 
+    }
+  
+    // Proceed with update if changes are detected
     const formDataObj = {
       userId: uId,
       teamId: selectedTeamId,
@@ -110,28 +129,27 @@ const EditTeamPage: FunctionComponent = () => {
       members: teamMembers,
       teamSize: currentTeamSize,
       capacity: capacity
-
     };
+  
     try {
       const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
-        JSON.stringify(formDataObj), 
-        {
+        JSON.stringify(formDataObj), {
           headers: {
             'Content-Type': 'application/json', 
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           }
         });
-      setShouldRefetchTeams(true); 
+      setShouldRefetchTeams(true);
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       toast.success(response.data.message);
-
     } catch (error) {
-      console.error("Error fetching teams:", error);
+      console.error("Error updating team:", error);
+      toast.error("Please make changes before updating.");
     }
   };
-
+  
   useEffect(() => {
     const fetchAndUpdateTeams = async () => {
       await fetchTeams(setTeams, teamId, setTeamMembers);

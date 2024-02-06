@@ -241,7 +241,7 @@ console.log( token !== "undefined","checking")
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
         <Route
           path="/edit-team/:id"
-          element={token ? <EditTeamPage  /> : <LoginPage />}
+          element={<EditTeamPage  /> }
         />
         <Route
           path="/read-post/:id"

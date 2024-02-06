@@ -179,6 +179,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     localStorage.setItem('selectedEventId', e.id)
   }
 
+  console.log({localEvents})
   return (
     <div className="animate__animated animate__fadeInLeft">
       {localEvents.length === 0 ? (
