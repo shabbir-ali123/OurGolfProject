@@ -4,7 +4,7 @@ import FullScore from "./FullScore";
 
 const Slider: FunctionComponent = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showFullScore, setShowFullScore] = useState(true);
+  const [showFullScore, setShowFullScore] = useState(false);
 
   const slidesData = [
     {
@@ -118,15 +118,18 @@ const Slider: FunctionComponent = () => {
                     </div>
                   </div>
                 </div>
-                <div className="relative group top-[50.9px] left-[278px] w-[231px] h-[124.9px] text-[7.89px] text-white font-body-b2">
-                  <div className="absolute top-[-70px] left-[-228.7px] rounded-3xs w-[493.4px] h-[387px] opacity-0 group-hover:opacity-100 transition duration-300 transform hover:scale-105 z-10">
-                    <FullScore />
-                  </div>
-                  <div className="absolute top-[0px] left-[0px] w-[230px] h-[124.9px]">
-                    <div className="absolute top-[0px] left-[0px] rounded-[2.96px] [background:linear-gradient(180deg,_#2168f8,_#3c5099_37.5%,_#404144)] w-[230px] h-[124.9px]" />
+                <div className="relative cursor-pointer group top-[50.9px] left-[278px] w-[231px] h-[124.9px] text-[7.89px] text-white font-body-b2 "  onMouseEnter={() => setShowFullScore(true)}
+                      onMouseLeave={() => setShowFullScore(false)}>
+                  {showFullScore && (
+                    <div className="absolute top-[-70px] left-[-228.7px] rounded-3xs w-[493.4px] h-[387px] opacity-100 transition duration-300 transform hover:scale-105 z-10">
+                      <FullScore />
+                    </div>
+                  )}
+                  <div className="absolute top-[0px] left-[0px] w-[230px] h-[124.9px]" >
+                    <div className="absolute top-[0px] left-[0px]  rounded-[2.96px] [background:linear-gradient(180deg,_#2168f8,_#3c5099_37.5%,_#404144)] w-[230px] h-[124.9px]"
+                    />
                     <img
-                      onMouseEnter={() => setShowFullScore(true)}
-                      onMouseLeave={() => setShowFullScore(false)}
+                      
                       className="absolute top-[0px] left-[0px] w-[98.9px] h-[124.9px] object-cover"
                       alt=""
                       src="/img/rectangle-531@2x.png"

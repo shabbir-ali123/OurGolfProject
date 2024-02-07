@@ -118,13 +118,13 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         <form className="px-2">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold">Write Post</h1>
-            <button onClick={closeModal} className="p-2">
+            <button onClick={closeModal} className="p-2 rounded-full cursor-pointer">
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
           <div>
             <textarea
-              className="w-full p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
+              className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder="Write text..."
               name="text"
               value={formData.text}
@@ -179,7 +179,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <div>
             <label htmlFor="">Add tags</label>
             <input
-              className="w-full p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
+              className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder="# Tags"
               name="tags"
               onChange={handleInputChange}
