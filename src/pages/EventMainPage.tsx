@@ -34,8 +34,8 @@ const EventMainPage: FunctionComponent = () => {
       prevSelectedLocations.filter((location) => location !== locationToRemove)
     );
   };
-
-  return (
+  
+  return (  
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">
         <SearchEventContainer />
@@ -95,7 +95,7 @@ const EventMainPage: FunctionComponent = () => {
            </div>
         </div>
 
-        <Tabs events={events} setEvents={setEvents} />
+        <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} />
 
         {isDesktop && <SideIconMenu />}
       </div>

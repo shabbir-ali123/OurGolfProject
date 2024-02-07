@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
 import Calendar from "../components/Calender";
-import EventMap from "../components/EventMap";
 import LocationSelectionPopup from "../components/LocationSelectionPopup";
-import Table from "../components/Table";
 import LiveEvents from "../pages/LiveEvents";
 import PastEvents from "../pages/PastEvents";
 import UpcomingEvents from "../pages/UpcomingEvents";
@@ -37,29 +33,23 @@ interface Event {
 interface TabsProps {
   events: Event[];
   setEvents: any;
+  selectedCities?: any
 }
-const Tabs: React.FC<TabsProps> = ({ events, setEvents }: TabsProps) => {
+const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities }: TabsProps) => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const itemsPerPage = 6;
-  const indexOfLastEvent = currentPage * itemsPerPage;
-  const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
-  const isPreviousDisabled = currentPage === 1;
+ 
   useEffect(() => {
     const indexOfLastEvent = currentPage * itemsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
     const newLocalEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
     setLocalEvents(newLocalEvents);
   }, [events, currentPage]);
-  const isNextDisabled = indexOfLastEvent >= events.length;
   const totalPages = Math.ceil(events.length / itemsPerPage);
-  const handlePageChange = (pageNumber: number) => {
-    const totalPages = Math.ceil(events.length / itemsPerPage);
-    const newPage = Math.max(1, Math.min(pageNumber, totalPages));
-    setCurrentPage(newPage);
-  };
+  
   const [isLocationPopupOpen, setLocationPopupOpen] = useState(false);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const handleLocationSelect = (locations: string | string[]) => {
@@ -75,15 +65,13 @@ document.body.dir = i18n.dir();
     UPCOMING: [],
     PAST: [],
   };
- const handleLike = (eventId: string) => {
-  console.log(`Liked event with ID: ${eventId}`);
-};
+ 
   const handleSvgClick: React.MouseEventHandler<SVGSVGElement> = (
     liveevents
   ) => {};
   const buttonsToShow = 3;
   const startPage = Math.max(1, currentPage - Math.floor(buttonsToShow / 2));
-  const endPage = Math.min(totalPages, startPage + buttonsToShow - 1);
+
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full animate__animated animate__fadeInLeft">
@@ -148,6 +136,7 @@ document.body.dir = i18n.dir();
           isOpen={isLocationPopupOpen}
           onClose={() => setLocationPopupOpen(false)}
           onLocationSelect={handleLocationSelect}
+          selectedCitiesData={selectedCities}
         />
           )}
           <Tab.Panels>

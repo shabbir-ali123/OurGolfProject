@@ -6,7 +6,7 @@ interface CreatedEventPaginationProps {
   currentPage: number;
   pageSize: number;
   totalEvents: number;
-  onPageChange: (newPage: number) => void;
+  onPageChange: (newPage: number) => void;  
 }
 
 export function CreatedEventPagination({
@@ -48,14 +48,14 @@ export function CreatedEventPagination({
     } as any);
 
   return (
-    <div className="flex items-center justify-center py-4 gap-4 ">
+    <div className="flex items-center justify-center gap-4 py-4 ">
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full"
         onClick={prev}
         disabled={currentPage === 1}
       >
-        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+        <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" /> Previous
       </Button>
       <div className="flex items-center gap-2 z-[-1]">{getPageNumbers()}</div>
       <Button
@@ -64,7 +64,7 @@ export function CreatedEventPagination({
         onClick={next}
         disabled={currentPage === totalPages}
       >
-        Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+        Next <ArrowRightIcon strokeWidth={2} className="w-4 h-4" />
       </Button>
     </div>
   );
