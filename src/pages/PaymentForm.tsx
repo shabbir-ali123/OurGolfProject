@@ -25,11 +25,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
 
 useEffect(() => {
   const getEvents = async () => {
-    try {
-      await fetchEvents(null, null, setEvents); 
-    } catch (error) {
-      console.error("Error fetching events:", error);
-    }
+   
     const JoinedEvents = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -283,7 +279,7 @@ const formSubmission = async ()=>{
                         name="Player"
                         id="teamname"
                         value={paymentDetails?.paypalId}
-                        className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins uppercase"
+                        className="w-full py-4 text-base font-normal text-gray-600 uppercase border-none rounded-md pl-14 bg-gray-50 font-poppins"
                       />
                     </div>
                   </div>

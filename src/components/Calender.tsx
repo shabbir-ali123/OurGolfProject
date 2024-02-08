@@ -26,12 +26,6 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     fetchEvents(startDate, date, setEvents);
   };
 
-  const handleResetDate = () => {
-    setStartDate(null);
-    setEndDate(null);
-    fetchEvents(null, null, null); // Reset dates and fetch events
-  };
-
   
   return (
     <div className="flex items-center gap-2 mb-4 xl:m-0">
@@ -54,7 +48,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
           {/* ... SVG path ... */}
         </svg>
       </div>
-      <div className="flex items-center  ">
+      <div className="flex items-center ">
         <DatePicker
           selected={endDate}
           onChange={handleEndDateChange}

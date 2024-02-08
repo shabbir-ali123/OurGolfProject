@@ -26,11 +26,13 @@ import Table from "../components/Table";
 interface AllEventsProps {
   events: Event[];
   setEvents: any;
+  status?: any;
 }
 
 const AllEvents: React.FC<AllEventsProps> = ({
-  events,
+  events, 
   setEvents,
+  status
 }: AllEventsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
@@ -68,7 +70,7 @@ const AllEvents: React.FC<AllEventsProps> = ({
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">
-        <Table events={currentEvents} handleLike={handleLike} />
+        <Table events={currentEvents} handleLike={handleLike} {...status} />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

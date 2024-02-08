@@ -16,7 +16,7 @@ const EventMainPage: FunctionComponent = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<string[]>(['Tokyo']);
   useEffect(() => {
-    fetchEvents("", "", setEvents);
+    fetchEvents("", "", setEvents, status);
   }, []);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const EventMainPage: FunctionComponent = () => {
            </div>
         </div>
 
-        <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} />
+        <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} status={status} />
 
         {isDesktop && <SideIconMenu />}
       </div>

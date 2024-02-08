@@ -2,14 +2,13 @@ import axios from "axios";
 import { formatDate } from "./getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
 
-export const fetchEvents = async (startDate:any, endDate:any, setEvents:any) => {
+export const fetchEvents = async (startDate:any, endDate:any, setEvents:any, status?:any) => {
   try {
     const token = localStorage.getItem("token");
     const headers:any= {}
     if (token) {
       console.error("User not authenticated");
       headers["Authorization"]=  `Bearer ${token}`
-
     }
     const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
       headers,
@@ -18,6 +17,7 @@ export const fetchEvents = async (startDate:any, endDate:any, setEvents:any) => 
         pageSize: 50000,
         eventStartDate: startDate ? formatDate(startDate) : "",
         eventEndDate: endDate ? formatDate(endDate) : "",
+        status: status
       },
     });
     setEvents(response.data.events);
@@ -35,11 +35,9 @@ export const fetchUser = async (setUser:any) => {
     if (token) {
       console.error("User not authenticated");
       headers["Authorization"]=  `Bearer ${token}`
-
     }
     const response = await axios.get(token ? API_ENDPOINTS.GET_USER+ id : API_ENDPOINTS.PUBLICEVENTS, {
       headers,
-      
     });
     setUser(response.data.user);
 
@@ -53,12 +51,10 @@ export const fetchTeacherByID = async (setUser:any) => {
     const token = localStorage.getItem("token");
     const id = localStorage.getItem("id");
     const teacher_id = localStorage.getItem("teacher_id");
-
     const headers:any= {}
     if (token) {
       console.error("User not authenticated");
       headers["Authorization"]=  `Bearer ${token}`
-
     }
     const response = await axios.get(token ? API_ENDPOINTS.GETTEACHERBYID + teacher_id : API_ENDPOINTS.PUBLICEVENTS, {
       headers,
