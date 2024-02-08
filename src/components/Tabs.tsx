@@ -71,7 +71,7 @@ document.body.dir = i18n.dir();
   ) => {};
   const buttonsToShow = 3;
   const startPage = Math.max(1, currentPage - Math.floor(buttonsToShow / 2));
-
+console.log(selectedLocations, "tabs");
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full animate__animated animate__fadeInLeft">
@@ -150,12 +150,12 @@ document.body.dir = i18n.dir();
             <UpcomingEvents events={events} setEvents={setEvents} />
             </Tab.Panel>
             <Tab.Panel key="PAST">
-              <PastEvents   />
+              <PastEvents  locationFilter={selectedLocations} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
       </div>
     </div>
-  );
+  );  
 };
 export default Tabs;

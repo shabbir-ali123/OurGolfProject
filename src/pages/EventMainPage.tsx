@@ -14,11 +14,12 @@ const EventMainPage: FunctionComponent = () => {
   document.body.dir = i18n.dir();
   const [events, setEvents] = useState([]);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
-  const [selectedLocations, setSelectedLocations] = useState<string[]>(['Tokyo']);
+  const [selectedLocations, setSelectedLocations] = useState<any[]>(['Tokyo']);
   useEffect(() => {
-    fetchEvents("", "", setEvents, status);
-  }, []);
+    fetchEvents("", "", setEvents, selectedLocations);
+  }, [selectedLocations]);
 
+  // console.log(selectedLocations);
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 1280);

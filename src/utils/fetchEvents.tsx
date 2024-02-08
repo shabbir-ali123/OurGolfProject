@@ -2,7 +2,7 @@ import axios from "axios";
 import { formatDate } from "./getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
 
-export const fetchEvents = async (startDate:any, endDate:any, setEvents:any, status?:any) => {
+export const fetchEvents = async (startDate:any, endDate:any, setEvents:any,  location?:any, status?:any) => {
   try {
     const token = localStorage.getItem("token");
     const headers:any= {}
@@ -17,7 +17,8 @@ export const fetchEvents = async (startDate:any, endDate:any, setEvents:any, sta
         pageSize: 50000,
         eventStartDate: startDate ? formatDate(startDate) : "",
         eventEndDate: endDate ? formatDate(endDate) : "",
-        status: status
+        status: status,
+        place: location
       },
     });
     setEvents(response.data.events);
