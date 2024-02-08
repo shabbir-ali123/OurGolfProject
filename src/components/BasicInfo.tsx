@@ -48,22 +48,36 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   };
   const [inputText, setInputText] = useState('');
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
+  const [isInputEdited, setIsInputEdited] = useState(false);
   const handlePlaceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const text: string = event.target.value.trim().toLowerCase(); // Trim and convert to lowercase
     setInputText(text);
+    setIsInputEdited(false); // Reset isInputEdited to false when the input text changes
 
     const japanCities: string[] | undefined = ListOfCity.dki?.map((city: any) => city.toLowerCase());
-    const filteredCities: string[] | undefined = japanCities?.filter((city: string) => city.includes(text));
+    let filteredCities: string[] | undefined = japanCities?.filter((city: string) => city.includes(text));
+
+    // Sort filtered cities alphabetically
+    filteredCities = filteredCities?.sort();
 
     // Update isWithinJapan state based on the entered location
     setIsWithinJapan(filteredCities && filteredCities.length > 0);
 
     if (filteredCities && filteredCities.length > 0) {
       setFilteredCities(filteredCities);
+
+      // Do not set input text to the first city if the user has edited the input
+      if (!isInputEdited) {
+        setInputText(filteredCities[0]);
+      }
     } else {
       setFilteredCities([]);
+      setInputText(''); // Reset inputText when filtered cities are empty
     }
   };
+
+
+
 
   const handleCitySelection = (selectedCity: string) => {
     setInputText(selectedCity);
@@ -185,13 +199,13 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               </div>
               <label
                 className="block mb-2 text-lg tracking-wide text-white captilize"
-                htmlFor="grid-short-video"
+                htmlFor="place"
               >
                 {t("PLACE")}
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-800 border-none rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform hover:animate-bounce"
-                id="grid-first-name"
+                className={`appearance-none block w-full bg-white text-gray-800 border-white rounded py-4 px-4 mb-3 leading-tight  focus:bg-white transition duration-300 ease-in-out transform hover:animate-bounce ${!isWithinJapan ? 'border-2 border-solid border-[#dc0000]' : ''} outline-none`}
+                id="place"
                 name="place"
                 type="text"
                 value={inputText}
@@ -199,6 +213,9 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                 required
                 onChange={handlePlaceInputChange}
               />
+
+
+
 
               {filteredCities.length > 0 && (
                 <div className="absolute z-10 bg-white border border-gray-300 mt-1 p-2 rounded w-full">
@@ -209,7 +226,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                   ))}
                 </div>
               )}
-             
+
               {!isWithinJapan && (
                 <p className="text-[#dc0000] bg-white text-center w-full">Please enter a location within Japan.</p>
               )}
@@ -287,3 +304,4 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   );
 };
 export default BasicInfo;
+

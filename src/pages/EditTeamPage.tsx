@@ -55,8 +55,8 @@ const EditTeamPage: FunctionComponent = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState('');
   const [selectedTeamName, setSelectedTeamName] = useState('');
-  const [currentTeamSize, setCurrentTeamSize] = useState('');
-  const [capacity, setCapacity] = useState('');
+  const [currentTeamSize, setCurrentTeamSize] = useState(singleEvent?.teamSize);
+  const [capacity, setCapacity] = useState(singleEvent?.capacity);
   const [selectedTeamId, setSelectedTeamId] = useState('');
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
@@ -66,6 +66,7 @@ const EditTeamPage: FunctionComponent = () => {
     { name: "Jane Smith" },
     { name: "Mike Johnson" },
   ]);
+  const teamCapacity = singleEvent?.capacity;
 
 
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +75,7 @@ const EditTeamPage: FunctionComponent = () => {
       
       let newState = [...prev].map((team: any) => {
         console.log({team})
-        if (team.id == selectedTeamId && team.members.length < 4) {
+        if (team.id == selectedTeamId && team.members.length < teamCapacity) {
           return {
             ...team,
             members: [...team.members, { nickName: selectedPlayerNickname, teamId: selectedTeamId, userId: selectedUserId }]
@@ -120,8 +121,8 @@ const EditTeamPage: FunctionComponent = () => {
     const formDataObj = {
       
       eventId: singleEvent?.id,
-      teamSize: currentTeamSize == undefined ? singleEvent?.teamSize : currentTeamSize,
-      capacity: capacity === '' ? singleEvent?.capacity : capacity,
+      teamSize: currentTeamSize == undefined ? singleEvent?.teamSize : Number(currentTeamSize),
+      capacity: capacity === '' ? singleEvent?.capacity : Number(capacity),
       teams
     };
   
@@ -149,7 +150,7 @@ const EditTeamPage: FunctionComponent = () => {
       await fetchTeams(setTeams, teamId, setTeamMembers);
       setShouldRefetchTeams(false);
       await fetchSingleEvent(teamId, setSingleEvent, setCreatedBy);
-      setCurrentTeamSize(singleEvent?.teamSize);
+      // setCurrentTeamSize(singleEvent?.teamSize);
     };
     fetchAndUpdateTeams();
   }, [shouldRefetchTeams]);
@@ -167,7 +168,17 @@ const EditTeamPage: FunctionComponent = () => {
   const handleOpenPlayerList = () => {
     setShowPlayerList(true);
   };
-
+  const generateTableHeaders = () => {
+    const headers = [];
+    for (let i = 1; i <= teamCapacity; i++) {
+      headers.push(
+        <th key={i} className="pl-4 py-3 leading-[10.25px] font-medium">
+          {t("PLAYER")}{i}
+        </th>
+      );
+    }
+    return headers;
+  };
   return (
     <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10">
       <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
@@ -240,7 +251,7 @@ const EditTeamPage: FunctionComponent = () => {
                   id="teamSize"
                   type="number"
                   name="teamSize"
-                  value={capacity === '' ? singleEvent?.capacity : capacity}
+                  value={capacity === undefined ? singleEvent?.capacity : capacity}
                   onChange={(e) => setCapacity(e.target.value)}
                   min="0"
                 />
@@ -272,21 +283,8 @@ const EditTeamPage: FunctionComponent = () => {
                 <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
                   Team Name
                 </th>
-                <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                  {t("PLAYER")}1
-                </th>
-                <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                  {t("PLAYER")}2
-                </th>
-                <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                  {t("PLAYER")}3
-                </th>
-                <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                  {t("PLAYER")}4
-                </th>
-                <th className="pl-4 py-3  leading-[10.25px] font-medium">
-                  {t("PLAYER")}5
-                </th>
+                
+                {generateTableHeaders()}
 
               </tr>
             </thead>

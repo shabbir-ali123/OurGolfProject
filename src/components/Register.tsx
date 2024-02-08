@@ -53,10 +53,6 @@ export default function Register(): JSX.Element {
       });
 
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("id", response.data.id);
-
-        
         navigate("/login-page");
       }
       setError(null);

@@ -19,7 +19,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
             <img
               className="absolute top-[0px] left-[22.5px] w-[58px] h-[108px] object-cover"
               alt=""
-              src="/img/rectangle-1250@2x.png"
+              src="/img/rectangle-1249@2x.png"
             />
           </div>
           <div className="text-21xl text-darkslateblue-300 uppercase font-semibold [text-shadow:0px_7px_4px_#b8e4fd]">
