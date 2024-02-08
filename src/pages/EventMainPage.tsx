@@ -95,7 +95,7 @@ const EventMainPage: FunctionComponent = () => {
            </div>
         </div>
 
-        <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} status={status} />
+        <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} />
 
         {isDesktop && <SideIconMenu />}
       </div>

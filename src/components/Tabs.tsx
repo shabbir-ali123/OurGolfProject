@@ -6,7 +6,7 @@ import {
 import Calendar from "../components/Calender";
 import LocationSelectionPopup from "../components/LocationSelectionPopup";
 import LiveEvents from "../pages/LiveEvents";
-// import PastEvents from "../pages/PastEvents";
+import PastEvents from "../pages/PastEvents";
 import UpcomingEvents from "../pages/UpcomingEvents";
 import { useTranslation } from "react-i18next";
 import AllEvents from "../pages/AllEvents";
@@ -33,10 +33,9 @@ interface Event {
 interface TabsProps {
   events: Event[];
   setEvents: any;
-  selectedCities?: any;
-  status: any;
+  selectedCities?: any
 }
-const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities ,status}: TabsProps) => {
+const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities }: TabsProps) => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,7 +72,6 @@ document.body.dir = i18n.dir();
   const buttonsToShow = 3;
   const startPage = Math.max(1, currentPage - Math.floor(buttonsToShow / 2));
 
-  console.log({status})
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full animate__animated animate__fadeInLeft">
@@ -152,8 +150,7 @@ document.body.dir = i18n.dir();
             <UpcomingEvents events={events} setEvents={setEvents} />
             </Tab.Panel>
             <Tab.Panel key="PAST">
-            <AllEvents events={events} setEvents={setEvents} />
-              {/* <PastEvents   /> */}
+              <PastEvents   />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
