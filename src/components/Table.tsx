@@ -250,9 +250,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       <React.Fragment key={index}>
                         <tr
                           className={`rounded-lg cursor-pointer`}
-                          onClick={()=>router(
-                            `/edit-team/${event.id}`
-                          )}
+                          // onClick={()=>router(
+                          //   `/edit-team/${event.id}`
+                          // )}
                           style={{
                             width: "100%",
                             borderRadius: "10px",

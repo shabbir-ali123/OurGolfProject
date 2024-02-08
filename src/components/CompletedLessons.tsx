@@ -37,14 +37,23 @@ const CompleteLessonsPage: React.FC = () => {
           },
         });
   
-        setCompletedLessons(response.data.bookedAppointments);
-      } catch (error: any) {
-        toast.error("You are Not Login! Please Login");
+        if (response.data.success) {
+          setCompletedLessons(response.data.bookedAppointments);
+        } else {
+          // If success is false, show error message
+          toast.error(response.data.error);
+        }
+      } catch (error) {
+        // Handle other types of errors
+        toast.error("An error occurred while fetching data.");
       }
     };
   
-    fetchTeachers();
-  }, []);
+    fetchTeachers(); // Call the function to trigger the fetch on component mount
+  
+    // Make sure to include any dependencies in the dependency array if needed
+  }, []); // Empty array means this effect runs only once on mount
+  
   const handleStudentSelect = (studentInfo: any) => {
     setSelectedStudentDetails(studentInfo);
   };

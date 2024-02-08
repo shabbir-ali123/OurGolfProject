@@ -28,11 +28,17 @@ interface Event {
   nickname?: string;
   email?: string;
 }
-interface PastEventsProps{
-  locationFilter:any
-};
+interface AllEventsProps {
+  events: Event[];
+  setEvents: any;
+  status?: any;
+}
 
-const PastEvents: React.FC<PastEventsProps> = ({locationFilter}) => {
+const PastEvents: React.FC<AllEventsProps> = ({
+    events, 
+    setEvents,
+    status
+  }: AllEventsProps) => {
   const [pastEvents, setPastEvents] = useState<Event[]>([]);
   const [likes, setLikes] = useState<Record<string, number>>({});
   const pageSize = 6;
@@ -71,10 +77,10 @@ const PastEvents: React.FC<PastEventsProps> = ({locationFilter}) => {
   // };
   // const currentDate = new Date();
   // const current = formatDate(currentDate);
-  console.log({locationFilter}, "asdsa");
-  useEffect(() => {
-    fetchEvents("","",setPastEvents,locationFilter,"past");
-  }, [currentPage, locationFilter]);
+  // console.log({locationFilter}, "asdsa");
+  // useEffect(() => {
+  //   fetchEvents("","",setPastEvents,locationFilter,"past");
+  // }, [currentPage, locationFilter]);
 
   const totalEvents = pastEvents.length;
   const totalPages = Math.ceil(totalEvents / pageSize);
@@ -88,7 +94,11 @@ const PastEvents: React.FC<PastEventsProps> = ({locationFilter}) => {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
+  useEffect(() => {
+    // Set localEvents to all events
+    setPastEvents(events);
+  }, [events, currentPage]);
+  
   const handleLike = async (event: Event) => {
     try {
       const loggedInUser = JSON.parse(localStorage.getItem("id") || "");

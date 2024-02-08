@@ -59,7 +59,7 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <div className="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true">
+        <div className="inline-block overflow-hidden overflow-y-scroll h-[600px] text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-[50rem] sm:w-full" role="dialog" aria-modal="true">
           <div className="fixed top-0 right-0 flex justify-end p-4">
             <span onClick={onClose} className="border-solid border-[2px] border-[#52FF86] rounded-full px-2 p-2 flex justify-center items-center">
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
@@ -68,7 +68,7 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
 
           <div className=" mt-10 pb-4 sm:p-6 sm:pb-4">
             {Object.entries(japanCities).map(([province, cities]) => (
-              <div key={province} onClick={() => toggleProvince(province)} className='border-2 border-solid my-4  peer w-full h-full  text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border  text-sm px-3 py-4 rounded-[4px] border-[#cdcdcd] focus:border-[#cdcdcd]'>
+              <div key={province} onClick={() => toggleProvince(province)} className='border-2 border-solid my-4  peer  h-full  text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border  text-sm px-3 py-4 rounded-[4px] border-[#cdcdcd] focus:border-[#cdcdcd]'>
                 <button className='bg-transparent' >{province}</button>
                 {expandedProvince === province && (
                   <div className="flex flex-wrap">

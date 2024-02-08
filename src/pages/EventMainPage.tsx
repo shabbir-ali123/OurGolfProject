@@ -15,9 +15,16 @@ const EventMainPage: FunctionComponent = () => {
   const [events, setEvents] = useState([]);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<any[]>(['Tokyo']);
+  const [currentTab, setCurrentTab] = useState<string>("ALL"); 
+  
+  const handleTabChange = (tab: string) => {
+    const lowerTab = tab?.toLowerCase();
+    setCurrentTab(lowerTab);
+  };
+
   useEffect(() => {
-    fetchEvents("", "", setEvents, selectedLocations);
-  }, [selectedLocations]);
+    fetchEvents("", "", setEvents, selectedLocations,currentTab);
+  }, [selectedLocations, currentTab]);
 
   // console.log(selectedLocations);
   useEffect(() => {
@@ -29,7 +36,7 @@ const EventMainPage: FunctionComponent = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+  
   const handleRemoveLocation = (locationToRemove: string) => {
     setSelectedLocations((prevSelectedLocations) =>
       prevSelectedLocations.filter((location) => location !== locationToRemove)
@@ -96,7 +103,7 @@ const EventMainPage: FunctionComponent = () => {
            </div>
         </div>
 
-        <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} />
+        <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} setCurrentTabs={handleTabChange} />
 
         {isDesktop && <SideIconMenu />}
       </div>

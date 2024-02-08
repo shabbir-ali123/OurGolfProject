@@ -30,35 +30,36 @@ const UpcomingEvents:  React.FC<TabsProps> = ({ events, setEvents }: TabsProps) 
   const pageSize = 5;
   const [currentPage, setCurrentPage] = useState(1);
   
-  const fetchUpcomingEvents = async (page: any) => {
-    try {
-      const token = localStorage.getItem("token");
+  // const fetchUpcomingEvents = async (page: any) => {
+  //   try {
+  //     const token = localStorage.getItem("token");
 
-      if (!token) {
-        console.error("User not authenticated");
-        return;
-      }
+  //     if (!token) {
+  //       console.error("User not authenticated");
+  //       return;
+  //     }
 
-      const response = await axios.get(API_ENDPOINTS.GETALLEVENT, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          page: 1,
-          pageSize: 50000,
-          status: "upcoming",
-        },
-      });
+  //     const response = await axios.get(API_ENDPOINTS.GETALLEVENT, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       params: {
+  //         page: 1,
+  //         pageSize: 50000,
+  //         status: "upcoming",
+          
+  //       },
+  //     });
 
-      setUpcomingEvents(response.data.events);
-    } catch (error) {
-      console.error("Error fetching events:", error);
-    }
-  };
+  //     setUpcomingEvents(response.data.events);
+  //   } catch (error) {
+  //     console.error("Error fetching events:", error);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchUpcomingEvents(currentPage);
-  }, [currentPage]);
+    setUpcomingEvents(events);
+  }, [events, currentPage]);
 
   const totalEvents = UpcomingEvents.length;
   const totalPages = Math.ceil(totalEvents / pageSize);
