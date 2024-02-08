@@ -5,7 +5,7 @@ interface JapanCities {
   [key: string]: string[];
 }
 
-const japanCities: JapanCities = {
+export const japanCities: JapanCities = {
   "Kanto": ["Tokyo", "Kanagawa", "Saitama", "Chiba", "Gunma", "Ibaraki", "Tochigi", "Yamanashi"],
   "Kinki": ["Osaka", "Kyoto", "Nara", "Shiga", "Wakayama"],
   "Hokkaido": ["Hokkaido"],
@@ -66,7 +66,7 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
             </span>
           </div>
 
-          <div className=" mt-10 pb-4 sm:p-6 sm:pb-4">
+          <div className="pb-4 mt-10 sm:p-6 sm:pb-4">
             {Object.entries(japanCities).map(([province, cities]) => (
               <div key={province} onClick={() => toggleProvince(province)} className='border-2 border-solid my-4  peer  h-full  text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border  text-sm px-3 py-4 rounded-[4px] border-[#cdcdcd] focus:border-[#cdcdcd]'>
                 <button className='bg-transparent' >{province}</button>

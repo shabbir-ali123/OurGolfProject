@@ -1,42 +1,100 @@
 import React, { useRef, ChangeEvent, useState } from "react";
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import ListOfCity from "../utils/ListofCities";
+import Select from "react-select";
+import { GroupBase, OptionsOrGroups } from "react-select";
 
 interface BasicInfoProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
+interface OptionType {
+  label: string;
+  value: string;
+}
+
+type GroupedOptionType = GroupBase<OptionType>;
+
+const JapanCities: GroupedOptionType[] = [
+  {
+    label: "Kanto",
+    options: [
+      { value: "Tokyo", label: "Tokyo" },
+      { value: "Kanagawa", label: "Kanagawa" },
+      { value: "Saitama", label: "Saitama" },
+      { value: "Chiba", label: "Chiba" },
+      { value: "Gunma", label: "Gunma" },
+      { value: "Ibaraki", label: "Ibaraki" },
+      { value: "Tochigi", label: "Tochigi" },
+      { value: "Yamanashi", label: "Yamanashi" },
+    ],
+  },
+  {
+    label: "Kinki",
+    options: [
+      { value: "Osaka", label: "Osaka" },
+      { value: "Kyoto", label: "Kyoto" },
+      { value: "Nara", label: "Nara" },
+      { value: "Shiga", label: "Shiga" },
+      { value: "Wakayama", label: "Wakayama" },
+    ],
+  },
+  {
+    label: "Hokkaido",
+    options: [
+      { value: "Hokkaido", label: "Hokkaido" },
+    ],
+  },
+  {
+    label: "Tohoku",
+    options: [
+      { value: "Tohoku", label: "Tohoku" },
+    ],
+  },
+  {
+    label: "Koushinetsu and Hokuriku",
+    options: [
+      { value: "Koushinetsu and Hokuriku", label: "Koushinetsu and Hokuriku" },
+    ],
+  },
+  {
+    label: "Tokai",
+    options: [
+      { value: "Tokai", label: "Tokai" },
+    ],
+  },
+  {
+    label: "Shikoku",
+    options: [
+      { value: "Shikoku", label: "Shikoku" },
+    ],
+  },
+  {
+    label: "Chubu",
+    options: [
+      { value: "Chubu", label: "Chubu" },
+    ],
+  },
+  {
+    label: "Kyushu",
+    options: [
+      { value: "Kyushu", label: "Kyushu" },
+    ],
+  },
+  {
+    label: "Okinawa",
+    options: [
+      { value: "Okinawa", label: "Okinawa" },
+    ],
+  },
+];
+
 const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-
-    if (files) {
-      const filesArray = Array.from(files).slice(0, 5);
-
-      setFormData((prevFormData: any) => ({
-        ...prevFormData,
-        files: filesArray.length === 1 ? filesArray[0] : [...prevFormData.files, ...filesArray],
-      }));
-    }
-  };
-
-  const handleRemoveImage = (index: number) => {
-    setFormData((prevFormData: any) => {
-      const updatedFiles = [...prevFormData.files];
-      updatedFiles.splice(index, 1);
-      return {
-        ...prevFormData,
-        files: updatedFiles,
-      };
-    });
-  };
 
   const [isHovered, setIsHovered] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,42 +104,26 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
       fileInputRef.current.click();
     }
   };
-  const [inputText, setInputText] = useState('');
-  const [filteredCities, setFilteredCities] = useState<string[]>([]);
-  const [isInputEdited, setIsInputEdited] = useState(false);
-  const handlePlaceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value.trim().toLowerCase(); // Trim and convert to lowercase
-    setInputText(text);
-    setIsInputEdited(false); // Reset isInputEdited to false when the input text changes
 
-    const japanCities: string[] | undefined = ListOfCity.dki?.map((city: any) => city.toLowerCase());
-    let filteredCities: string[] | undefined = japanCities?.filter((city: string) => city.includes(text));
-
-    // Sort filtered cities alphabetically
-    filteredCities = filteredCities?.sort();
-
-    // Update isWithinJapan state based on the entered location
-    setIsWithinJapan(filteredCities && filteredCities.length > 0);
-
-    if (filteredCities && filteredCities.length > 0) {
-      setFilteredCities(filteredCities);
-
-      // Do not set input text to the first city if the user has edited the input
-      if (!isInputEdited) {
-        setInputText(filteredCities[0]);
-      }
-    } else {
-      setFilteredCities([]);
-      setInputText(''); // Reset inputText when filtered cities are empty
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const filesArray = Array.from(files).slice(0, 5);
+      setFormData((prevFormData: any) => ({
+        ...prevFormData,
+        files:
+          filesArray.length === 1
+            ? filesArray[0]
+            : [...prevFormData.files, ...filesArray],
+      }));
     }
   };
 
-
-
+  const handleChange = (selectedOption: any) => {
+    handleCitySelection(selectedOption.value);
+  };
 
   const handleCitySelection = (selectedCity: string) => {
-    setInputText(selectedCity);
-    setFilteredCities([]);
     onChange({
       target: {
         name: "place",
@@ -90,31 +132,27 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
     } as React.ChangeEvent<HTMLInputElement>);
   };
 
-
   return (
     <motion.div
-      className="px-2 mx-auto lg:max-w-6xl  "
+      className="px-2 mx-auto lg:max-w-6xl "
       animate={{ x: [0, 100, 0] }}
     >
-
-
-      <div className=" bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50  p-4 mt-4 ">
+      <div className="p-4 mt-4 bg-gray-900 bg-opacity-50 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
         <div>
-          <h2 className="text-white text-4xl animate-bounce">
+          <h2 className="text-4xl text-white animate-bounce">
             {t("BASIC_INFORMATION")}
           </h2>
         </div>
-        <div className="grid grid-cols-9  py-8 mx-auto lg:gap-x-16 ">
-
+        <div className="grid grid-cols-9 py-8 mx-auto lg:gap-x-16 ">
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3 ">
             <label
-              className="block mb-2 text-lg  tracking-wide text-white captilize "
+              className="block mb-2 text-lg tracking-wide text-white captilize "
               htmlFor="grid-event-name"
             >
               {t("EVENT_NAME")}
             </label>
             <input
-              className="appearance-none block w-full bg-white text-gray-800  border-none  rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus: transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded shadow-xl appearance-none focus:outline-none focus: hover:animate-bounce"
               id="grid-Event-Name"
               type="text"
               name="eventName"
@@ -125,13 +163,13 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           </div>
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
-              className="block mb-2 text-lg  tracking-wide text-white captilize"
+              className="block mb-2 text-lg tracking-wide text-white captilize"
               htmlFor="grid-short-video"
             >
               {t("SHORT_VIDEO")}
             </label>
             <input
-              className=" shadow-inner block w-full bg-white text-gray-800 border-none  rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce "
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded shadow-inner focus:outline-none focus:bg-white hover:animate-bounce"
               id="grid-first-name"
               type="text"
               name="eventVideoUrl"
@@ -142,7 +180,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           </div>
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
-              className="relative flex items-center gap-2  mb-2 text-lg  tracking-wide text-white captilize  capitalize"
+              className="relative flex items-center gap-2 mb-2 text-lg tracking-wide text-white capitalize captilize"
               htmlFor="grid-short-video"
             >
               {t("EVENT_DETAILS")}
@@ -161,7 +199,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                   fill="white"
                 />
               </svg>
-              {/* Info Box */}
               {isHovered && (
                 <div
                   className="absolute bg-white border rounded-md px-1 z-[10] shadow-lg"
@@ -180,7 +217,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               )}
             </label>
             <input
-              className="appearance-none block w-full bg-white text-gray-800  border-none  rounded py-4 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform hover:animate-bounce"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded appearance-none focus:outline-none focus:bg-white hover:animate-bounce"
               id="grid-first-name"
               name="eventDetails"
               type="text"
@@ -189,65 +226,47 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               onChange={onChange}
             />
             <div className="relative w-full col-span-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
-              <div className="z-[1] absolute grid place-items-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm rounded-l-sm text-sm px-5 py-2 text-center me-2 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 top-[29px] right-[-42px]">
-                <button
-                  className="leading-tight duration-300 ease-in-out transform hover:animate-bounce bg-transparent text-white cursor-pointer py-2.5 px-4 rounded-sm"
-                  onClick={() => { }}
-                >
-                  {t("SEARCH")}
-                </button>
-              </div>
               <label
                 className="block mb-2 text-lg tracking-wide text-white captilize"
                 htmlFor="place"
               >
                 {t("PLACE")}
               </label>
-              <input
-                className={`appearance-none block w-full bg-white text-gray-800 border-white rounded py-4 px-4 mb-3 leading-tight  focus:bg-white transition duration-300 ease-in-out transform hover:animate-bounce ${!isWithinJapan ? 'border-2 border-solid border-[#dc0000]' : ''} outline-none`}
-                id="place"
+              <Select
                 name="place"
-                type="text"
-                value={inputText}
-                placeholder={t("ENTER_PLACE")}
-                required
-                onChange={handlePlaceInputChange}
+                options={
+                  JapanCities as OptionsOrGroups<
+                    OptionType,
+                    GroupBase<OptionType>
+                  >
+                }
+                onChange={handleChange}
+                className="text-base border border-gray-300 rounded shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                classNamePrefix="select"
               />
 
-
-
-
-              {filteredCities.length > 0 && (
-                <div className="absolute z-10 bg-white border border-gray-300 mt-1 p-2 rounded w-full">
-                  {filteredCities.map((city, index) => (
-                    <div key={index} className="cursor-pointer p-2 my-1  hover:bg-[#ebebeb]" onClick={() => handleCitySelection(city)}>
-                      {city}
-                    </div>
-                  ))}
-                </div>
-              )}
-
               {!isWithinJapan && (
-                <p className="text-[#dc0000] bg-white text-center w-full">Please enter a location within Japan.</p>
+                <p className="text-[#dc0000] bg-white text-center w-full">
+                  Please enter a location within Japan.
+                </p>
               )}
-
             </div>
           </div>
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
-              className="relative block mb-2 text-lg  tracking-wide text-white captilize"
+              className="relative block mb-2 text-lg tracking-wide text-white captilize"
               htmlFor="grid-short-video"
             >
               {t("UPLOAD_IMAGES")}
 
-              <div className="opacity-0 hidden absolute bg-white text-gray-800 border  rounded p-2 mt-2 transition-opacity duration-300 ease-in-out">
+              <div className="absolute hidden p-2 mt-2 text-gray-800 transition-opacity duration-300 ease-in-out bg-white border rounded opacity-0">
                 <p>First Image Will Use For Event Image</p>
               </div>
             </label>
             <div className="relative">
               <div className="flex items-center ">
                 <input
-                  className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform  hover:animate-bounce shadow-xl"
+                  className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform shadow-xl"
                   type="file"
                   name="files"
                   onChange={handleImageChange}
@@ -281,7 +300,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
             <button
               className="bg-[#51ff85] mx-2 text-white py-3 px-4 mb-2 md:mb-0 md:mr-2 rounded-md"
-              onClick={() => { }}
+              onClick={() => {}}
             >
               {t("MAP")}
             </button>
@@ -292,16 +311,14 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
             />
             <button
               className="px-4 py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
-              onClick={() => { }}
+              onClick={() => {}}
             >
               {t("SELECT")}
             </button>
           </div>
         </div>
       </div>
-
     </motion.div>
   );
 };
 export default BasicInfo;
-
