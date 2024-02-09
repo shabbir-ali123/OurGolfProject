@@ -242,7 +242,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                 }
                 onChange={handleChange}
                 className="w-full text-base border border-gray-300 rounded shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                classNamePrefix="select"
+                classNamePrefix=""
               />
 
               {!isWithinJapan && (

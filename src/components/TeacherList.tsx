@@ -9,6 +9,8 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import SearchAndFiltersEducator from "./SearchAndFilter";
 import { useNavigate } from "react-router-dom";
+import { fetchFavoriteTeachers, fetchTeachers, toggleFavoriteStatus } from "../utils/fetchTeacher";
+import { FavoriteTeacher } from "./FavTeacher";
 
 interface TeacherListProps {
   openModal: () => void;
@@ -44,86 +46,28 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const [search, setsearch] = useState<string | null>(null);
   const [locationInput, setLocation] = useState<string | null>(null);
   const [availibilty, setAvailibilty] = useState<boolean | null>(null);
+  const [isfavorite, setfavorite] = useState(false);
 
   const navigate = useNavigate();
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
+  const [favoriteTeachers, setFavoriteTeachers] = useState<FavoriteTeacher[]>([]);
 
-  const toggleFavoriteStatus = async (teacher: Teacher) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        API_ENDPOINTS.FAVORITETEACHER,
-        { teacherId: teacher.id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setTeachers((prevTeachers) =>
-        prevTeachers.map((t) =>
-          t.id === teacher.id ? { ...t, isFavorite: !t.isFavorite } : t
-        )
-      );
-    } catch (error) {
-      console.error("Error toggling favorite status:", error);
-    }
-  };
+
 
   useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
-        console.log(token === "undefined", "tokeen")
-        if (token && token !== "undefined") {
-          endpoint = API_ENDPOINTS.GETALLTEACHERS;
-        }
 
-        const response = await axios.get(endpoint, {
-          headers: token
-            ? {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            }
-            : {},
-          params: {
-            page: 1,
-            pageSize: 20,
-            search: search,
-            location: locationInput,
-            availability: availibilty,
-          },
-        });
-
-        setTeachers(response.data.teachers);
-        console.log(response.data.teachers, "hello")
-
-        if (response.data.teachers && response.data.teachers.length > 0) {
-          setSelectedTeacher(response.data.teachers[0]);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching teachers:", error);
-
-
-        const errorMessage = (error as Error).message;
-        setError(errorMessage);
-
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError("An unknown error occurred.");
-        }
-
-        setLoading(false);
-      }
-    };
-
-    fetchTeachers();
+    fetchFavoriteTeachers(setFavoriteTeachers);
+    fetchTeachers(search, locationInput, availibilty, setTeachers, setSelectedTeacher, setLoading);
   }, [search, locationInput, availibilty]);
+  const [favoriteTeacherIds, setFavoriteTeacherIds] = useState<string[]>([]);
+
+  // Fetch favorite teachers and update state
+  useEffect(() => {
+    fetchFavoriteTeachers((favoriteTeachers: any) => {
+      const favoriteIds = favoriteTeachers.map((teacher: any) => teacher.teacherId);
+      setFavoriteTeacherIds(favoriteIds);
+    });
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -145,7 +89,9 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const handleButtonAction = (btnTitle: string, teacher: Teacher) => {
     switch (btnTitle) {
       case "Like":
-        toggleFavoriteStatus(teacher);
+        // if (!favoriteTeacherIds.includes(teacher.id ?? '')) {
+          toggleFavoriteStatus(teacher, setTeachers);
+        // }
         break;
       case "Book an Appointment":
         openModal();
@@ -155,6 +101,13 @@ const TeacherList: React.FC<TeacherListProps> = ({
         break;
     }
   };
+
+
+
+  favoriteTeachers.map((teacher) => {
+    const favedTeacherId = teacher.teacherId;
+
+  })
 
   const gridStyle = !isUserAuthenticated
     ? "grid grid-cols-4 gap-4"
@@ -280,7 +233,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
                     }}
                   />
                   <TeacherListButton
-                    color={teacher.isFavorite ? "bg-black" : "bg-[#FF0000]"}
+                    color={favoriteTeacherIds.includes(teacher.id ?? '') ? "bg-black" : "bg-[#FF0000]"}
                     title="Like"
                     icon="/img/like.svg"
                     onClick={() => handleButtonAction("Like", teacher)}

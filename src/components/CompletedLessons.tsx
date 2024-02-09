@@ -40,19 +40,19 @@ const CompleteLessonsPage: React.FC = () => {
         if (response.data.success) {
           setCompletedLessons(response.data.bookedAppointments);
         } else {
-          // If success is false, show error message
+         
           toast.error(response.data.error);
         }
       } catch (error) {
-        // Handle other types of errors
+        
         toast.error("An error occurred while fetching data.");
       }
     };
   
-    fetchTeachers(); // Call the function to trigger the fetch on component mount
+    fetchTeachers(); 
   
-    // Make sure to include any dependencies in the dependency array if needed
-  }, []); // Empty array means this effect runs only once on mount
+  
+  }, []); 
   
   const handleStudentSelect = (studentInfo: any) => {
     setSelectedStudentDetails(studentInfo);
@@ -92,7 +92,7 @@ const CompleteLessonsPage: React.FC = () => {
             nickName={item.bookedShifts.nickName}
             openModal={openModal}
             handleBookAppointment={handleBookAppointment}
-            onSelectStudent={handleStudentSelect} // Pass this function to StudentList
+            onSelectStudent={handleStudentSelect} 
           />
           );
         })}

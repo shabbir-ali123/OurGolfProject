@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios"; // Import axios for API requests
 import { API_ENDPOINTS } from "../appConfig";
+import { fetchFavoriteTeachers } from "../utils/fetchTeacher";
 interface User {
   imageUrl: string;
   // ... other properties of User if necessary
@@ -10,7 +11,7 @@ interface TeacherDetails {
   id: string;
   firstName: string;
   lastName: string;
-  User: User;
+  teacher: User;
   // ... other properties of TeacherDetails if necessary
 }
 interface Teacher {
@@ -29,59 +30,40 @@ interface Teacher {
   userId: string;
   teacherId?: string;
 }
-interface FavoriteTeacher {
+export interface FavoriteTeacher {
   id: string;
   userId: string;
   teacherId: string;
   createdAt: string;
   updatedAt: string;
-  // ... other properties of FavoriteTeacher if necessary
   Teacher: TeacherDetails;
 }
 const FavoriteTeachers: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [favoriteTeachers, setFavoriteTeachers] = useState<FavoriteTeacher[]>([]);
-  useEffect(() => {
-    const fetchFavoriteTeachers = async () => {
-      try {
-        const token = localStorage.getItem("token");
-     if(token && token !== "undefined"){
-      const userId= localStorage.getItem("id");
-      const response = await axios.get(API_ENDPOINTS.GETFAVORITETEACHER, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        params: {
-          userId: userId,
-        },
-      });
-      console.log(response.data, "babuuu");
-      if (response.status === 200) {
-        setFavoriteTeachers(response.data.favoriteTeachers);
-      } else {
-        return "get error";
-      }
-     }
-      } catch (error: any) {
-        console.error("Error fetching favorite teachers:", error.message);
-      }
-    };
 
-    fetchFavoriteTeachers();
+
+  useEffect(() => {
+    fetchFavoriteTeachers((newFavoriteTeachers: FavoriteTeacher[]) => {
+      const teacherMap = new Map<string, FavoriteTeacher>();
+  
+      favoriteTeachers.forEach(teacher => {
+        teacherMap.set(teacher.teacherId, teacher);
+      });
+  
+      newFavoriteTeachers.forEach(newTeacher => {
+        teacherMap.set(newTeacher.teacherId, newTeacher);
+      });
+  
+      const mergedTeachers = Array.from(teacherMap.values());
+  
+      setFavoriteTeachers(mergedTeachers);
+    });
   }, []);
-  const imageUrls = [
-    "/img/ellipse-111@2x.png",
-    "/img/ellipse-13@2x.png",
-    "/img/ellipse-14@2x.png",
-    "/img/ellipse-134@2x.png",
-    "/img/ellipse-131@2x.png",
-    "/img/ellipse-132@2x.png",
-    "/img/ellipse-133@2x.png",
-    "/img/ellipse-137@2x.png",
-    "/img/ellipse-136@2x.png",
-  ];
+  
+  
+  console.log(favoriteTeachers, "asasd")
 
   return (
     <div className="pt-8">
@@ -96,14 +78,15 @@ const FavoriteTeachers: React.FC = () => {
           {t("VIEW_ALL")}
         </button>
       </div>
-      <div className="relative flex flex-wrap justify-between gap-3 mx-auto my-4 auto-rows-max md:grid-flow-col lg:grid-flow-col xl:grid-flow-col">
+      <div className="relative flex  flex-wrap gap-4 mx-auto my-4 auto-rows-max md:grid-flow-col lg:grid-flow-col xl:grid-flow-col">
         {favoriteTeachers.map((teacher, index) => (
-          <div key={index} className="teacher-card">
+          <div key={index} className="teacher-card text-center bg-white shadow-lg rounded-lg p-2 w-[164px]">
             <img
             className="rounded-full w-14 h-14"
-              src={teacher.Teacher?.User?.imageUrl ? teacher.Teacher.User.imageUrl : 'default_image_url'}
+              src={teacher.Teacher?.teacher?.imageUrl ? teacher.Teacher.teacher.imageUrl : 'default_image_url'}
               alt={`${teacher.Teacher?.firstName} ${teacher.Teacher?.lastName}`}
             />
+            <p>{`${teacher.Teacher?.firstName} ${teacher.Teacher?.lastName}`}</p>
           </div>
         ))}
 
