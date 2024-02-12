@@ -1,6 +1,6 @@
 // http://18.216.79.130:5000
-// http://localhost:3000
-const API_BASE_URL = "http://18.216.79.130:5000"
+// http://localhost:5000
+const API_BASE_URL = "http://localhost:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -21,7 +21,7 @@ export const API_ENDPOINTS = {
   GETJOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/join-event/`,
   GETEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-event-by-id/`,
-GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
+  GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
  
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
@@ -39,6 +39,7 @@ GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
   
   // teams
+  GETALLPUBLICTEAMS: `${API_BASE_URL}/${API_VERSION}/get-public-all-teams`, 
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
   GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`, 
   UPDATETEAMMEMBER: `${API_BASE_URL}/${API_VERSION}/update-team-member`, 

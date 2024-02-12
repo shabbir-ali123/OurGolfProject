@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 
-export const fetchTeams = async (setTeams: any,  eventId: any, setTeamMembers: any) => {
+export const fetchTeams = async (setTeams: any,  eventId: any, setTeamMembers: any, setTotalJoinedMembers:any) => {
     try {
 
         const response = await fetch(API_ENDPOINTS.GETTEAMSBYEVENT + eventId, {
@@ -13,6 +13,7 @@ export const fetchTeams = async (setTeams: any,  eventId: any, setTeamMembers: a
         });
         const data = await response.json();
         setTeams(data.teams);
+        setTotalJoinedMembers(data.totalJoinedMembers);
         setTeamMembers(data.teams.map((team: any) => team.members))
         // setMembers(data.teams.members);
 
