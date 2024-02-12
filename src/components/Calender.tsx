@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { fetchEvents } from "../utils/fetchEvents";
 import { useTranslation } from "react-i18next";
 
-
 interface CalendarProps {
   setEvents: any;
 }
@@ -45,7 +44,6 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* ... SVG path ... */}
         </svg>
       </div>
       <div className="flex items-center ">

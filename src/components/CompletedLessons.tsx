@@ -40,35 +40,31 @@ const CompleteLessonsPage: React.FC = () => {
         if (response.data.success) {
           setCompletedLessons(response.data.bookedAppointments);
         } else {
-         
           toast.error(response.data.error);
         }
       } catch (error) {
-        
         toast.error("An error occurred while fetching data.");
       }
     };
-  
     fetchTeachers(); 
-  
-  
   }, []); 
   
   const handleStudentSelect = (studentInfo: any) => {
     setSelectedStudentDetails(studentInfo);
   };
-  const handleSelectTab = (tab: "teacher" | "student") => {
-    setSelectedTab(tab);
-  };
+
   const openModal = () => {
     setShowModal(true);
   };
+  
   const handleSelectTime = (selectedTime: string) => {
     console.log(`Selected Time: ${selectedTime}`);
   };
+  
   const handleBookAppointment = () => {
     console.log("Booking appointment logic");
   };
+  
   const handleCloseModal = () => {
     setShowModal(false);
   };

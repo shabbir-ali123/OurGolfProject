@@ -6,8 +6,6 @@ type FairwayFunContainerType = {
   eventDate?: string;
   championshipName?: string;
   imageDimensionsText?: string;
-
-  /** Style props */
   propTop?: CSSProperties["top"];
   propWidth?: CSSProperties["width"];
 };

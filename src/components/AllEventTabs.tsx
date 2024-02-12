@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const AllEventTabs: FunctionComponent = () => {

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import ActivtiesBox from "../components/ActivtiesBox";
 
@@ -10,7 +9,7 @@ interface Category {
 }
 
 export default function Activeties() {
-  const [categories] = useState({
+  const categories = {
     PreviousActivities: [
       {
         imageUrl: "/img/zozo.png",
@@ -169,7 +168,7 @@ export default function Activeties() {
         borderColor: "#00A4FE",
       },
     ],
-  } as Record<string, Category[]>);
+  } as Record<string, Category[]>;
   const defaultTabIndex = Object.keys(categories).indexOf('TodayActivities');
   const tabNumbers = [29, 34, 32];
 

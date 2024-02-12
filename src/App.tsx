@@ -188,7 +188,6 @@ const params = useParams();
     }
   }, [pathname]);
   var [token, setToken] = useState<any>();
-console.log( token !== "undefined","checking")
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {

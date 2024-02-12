@@ -5,8 +5,6 @@ type EventFirstRowType = {
   golfMasters?: string;
   nov13SUN?: string;
   zOZOCHAMPIONSHIP?: string;
-
-  /** Style props */
   groupDivTop?: CSSProperties["top"];
   propWidth?: CSSProperties["width"];
 };
