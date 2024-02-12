@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
-import {
-  MapPinIcon,
-} from "@heroicons/react/24/outline";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import Calendar from "../components/Calender";
 import LocationSelectionPopup from "../components/LocationSelectionPopup";
 import LiveEvents from "../pages/LiveEvents";
@@ -17,11 +15,11 @@ function classNames(...classes: any) {
 
 interface Event {
   id: string;
-  creator:{
-    nickName:any
-  },
+  creator: {
+    nickName: any;
+  };
   isFavorite: Boolean;
-  comments:[];
+  comments: [];
   accountHolderName: string;
   eventStartTime: string;
   eventStartDate: string;
@@ -37,20 +35,21 @@ interface TabsProps {
   events: Event[];
   setEvents: any;
   selectedCities?: any;
-  setCurrentTabs: (tab: string) => void; 
-
+  setCurrentTabs: (tab: string) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities, setCurrentTabs }: TabsProps) => {
+const Tabs: React.FC<TabsProps> = ({
+  events,
+  setEvents,
+  selectedCities,
+  setCurrentTabs,
+}: TabsProps) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
- 
-  // const handleTabChange = (tab: string) => {
-  //   setCurrentTabs(currentTab);
-  // };
+
   const itemsPerPage = 6;
 
   useEffect(() => {
@@ -60,18 +59,16 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities, setCurre
     setLocalEvents(newLocalEvents);
   }, [events, currentPage]);
 
-  const totalPages = Math.ceil(events.length / itemsPerPage);
-
   const [isLocationPopupOpen, setLocationPopupOpen] = useState(false);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-
-  const categories ={
+  const [filterLocation, setFilterLocation] = useState<any>();
+  const categories = {
     ALL: [],
     LIVE: [],
     UPCOMING: [],
     PAST: [],
   };
- 
+
   const handleLocationSelect = (locations: string | string[]) => {
     const newLocations = Array.isArray(locations) ? locations : [locations];
     setSelectedLocations((prevSelectedLocations) => [
@@ -80,19 +77,15 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities, setCurre
     ]);
   };
 
-  const handleSvgClick: React.MouseEventHandler<SVGSVGElement> = (
-    liveevents
-  ) => {};
-
-  const buttonsToShow = 3;
-  const startPage = Math.max(1, currentPage - Math.floor(buttonsToShow / 2));
-
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab);
     setCurrentTabs(tab);
   };
 
-  console.log({currentTab})
+  const handleFilterLocation = (data: any) => {
+    setFilterLocation(data);
+  };
+
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full animate__animated animate__fadeInLeft">
@@ -106,7 +99,11 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities, setCurre
                   className="xl:h-full rounded-l-md sm:absolute left-[-88px] top-[-7px] inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
-                  {t('TOKYO')}
+                  {filterLocation && filterLocation.length
+                    ? filterLocation.length > 1
+                      ? `${filterLocation[0]} ...`
+                      : filterLocation[0]
+                    : "Tokyo"}
                 </button>
               </div>
               {Object.keys(categories).map((category) => (
@@ -132,7 +129,6 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities, setCurre
                         strokeWidth="1.5"
                         stroke="red"
                         className="w-6 h-6 pr-2.5"
-                        onClick={handleSvgClick}
                       >
                         <path
                           strokeLinecap="round"
@@ -157,6 +153,7 @@ const Tabs: React.FC<TabsProps> = ({ events, setEvents, selectedCities, setCurre
               onClose={() => setLocationPopupOpen(false)}
               onLocationSelect={handleLocationSelect}
               selectedCitiesData={selectedCities}
+              sendDataToParent={handleFilterLocation}
             />
           )}
           <Tab.Panels>
