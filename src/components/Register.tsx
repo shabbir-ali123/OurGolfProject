@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Register(): JSX.Element {
   const navigate = useNavigate(); // Use navigate instead of router
   const [formData, setFormData] = useState({
@@ -28,7 +28,6 @@ export default function Register(): JSX.Element {
   
       setFormData((prevFormData: any) => ({
         ...prevFormData,
-        
         image: filesArray.length === 1 ? filesArray[0] : [...prevFormData.files, ...filesArray],
       }));
     }
@@ -36,16 +35,12 @@ export default function Register(): JSX.Element {
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData.confirmPassword);
-
-    // Check if password and confirm password match
     if (formData.password !== formData.confirmPassword) {
       setError("Password and Confirm Password do not match");
       return;
     }
   
     try {
-      // Make a POST request using the REGISTER endpoint
       const response = await axios.post(API_ENDPOINTS.REGISTER, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -65,7 +60,7 @@ export default function Register(): JSX.Element {
   };
 
   return (
-    <section className="bg-gray-50 shadow-lg dark:bg-gray-900">
+    <section className="shadow-lg bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 animate__animated animate__fadeInLeft">
         <div className="w-full bg-white rounded-lg shadow-xl dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">

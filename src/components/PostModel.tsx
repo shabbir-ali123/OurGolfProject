@@ -14,8 +14,6 @@ interface CreatePostType {
 const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [postContent, setPostContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [tags, setTags] = useState("");
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const userId = localStorage.getItem("id");
 
   const [formData, setFormData] = useState<CreatePostType>({
@@ -27,12 +25,6 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileInputChange = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -49,7 +41,6 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!formData.userId || formData.mediaFiles.length === 0) {
-      // Handle error condition
       return;
     }
 
@@ -76,10 +67,8 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         }
       );
       if (response.status === 201) {
-
         window.location.reload();
       }
-      console.log(response.data);
       closeModal();
     } catch (error: unknown) {
     }
@@ -92,6 +81,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       [name]: value,
     }));
   };
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -129,7 +119,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               name="text"
               value={formData.text}
               onChange={handleInputTextChange}
-              rows={4} // Adjust the number of rows as needed
+              rows={4} 
             ></textarea>
           </div>
 

@@ -5,9 +5,9 @@ interface PlayerProps {
   name: string;
   isCreator?: boolean;
   imageUrl?: string;
-  enableHover?: boolean;  // Optional prop to enable hover functionality
-  onEdit?: () => void;    // Optional prop for edit action
-  onDelete?: () => void;  // Optional prop for delete action
+  enableHover?: boolean;  
+  onEdit?: () => void;    
+  onDelete?: () => void;  
 }
 
 const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover, onEdit, onDelete, isCreator }) => {
@@ -64,7 +64,6 @@ const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover,
               fill="#CC0025"
             />
           </svg>}
-
         </div>
       )}
     </div>

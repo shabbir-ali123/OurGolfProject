@@ -47,8 +47,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
   }, [formData, activeTab, showPaymentDetails]);
   return (
     <div className="p-2 mx-auto lg:max-w-6xl ">
-      <div className=" bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50  p-4 mt-4">
-          {/* Toggle Switch for showing Payment Details */}
+      <div className="p-4 mt-4 bg-gray-900 bg-opacity-50 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
           <div className="mb-4">
           <label className="flex items-center cursor-pointer">
             <div className="relative">
@@ -61,7 +60,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
               <div className={`block bg-gray-600 w-14 h-8 rounded-full ${showPaymentDetails ? 'bg-[green]' : ''}`}></div>
               <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${showPaymentDetails ? 'transform translate-x-6' : ''}`}></div>
             </div>
-            <div className="ml-3 text-white font-medium">
+            <div className="ml-3 font-medium text-white">
               {t('ADD_PAYMENT_DETAILS')}
             </div>
           </label>
@@ -69,7 +68,6 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
         {showPaymentDetails && (
         <>
           <div>
-            {/* Bank Details Content */}
             <h2 className="text-[#52FF86] mt-8 mx-4"> {t('BANK_DETAILS')}</h2>
             <div className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 ">
               <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0 ">
@@ -140,10 +138,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
             </div>
           </div>
        
-
-      
           <div>
-            {/* Bank Details Content */}
             <h2 className="text-[#52FF86] mt-8 mx-4">{t('PAYPAL_DETAILS')}</h2>
             <div className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 ">
               <div className="col-span-8 py-2 lg:col-span-7 md:col-span-5 md:mr-0 md:mb-0 ">
@@ -198,10 +193,8 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
             </div>
           </div>
         </>
-        
-          )}
+        )}
       </div>
-  
     </div>
   );
 };

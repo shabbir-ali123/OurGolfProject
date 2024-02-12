@@ -1,4 +1,3 @@
-// Pagination.jsx
 import React, { useEffect, useState } from "react";
 interface PaginationProps {
   currentPage: number;
@@ -20,10 +19,10 @@ const Pagination: React.FC<PaginationProps> = ({
     { length: totalPages },
     (_, index) => index + 1
   );
-  const [liveevents, setLiveEvents] = useState<Event[]>([]);
+
   return (
-    <div className=" flex items-center justify-center border-t border-gray-200 bg-transparent px-4 py-3 sm:px-6">
-      <div className=" hidden sm:flex sm:flex-1 sm:items-center sm:justify-center ">
+    <div className="flex items-center justify-center px-4 py-3 bg-transparent border-t border-gray-200 sm:px-6">
+      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center">
         <div >
           <nav
             className="z-[-1] isolate inline-flex -space-x-px rounded-md shadow-sm"
@@ -40,7 +39,7 @@ const Pagination: React.FC<PaginationProps> = ({
             >
               <span className="sr-only">Previous</span>
               <svg
-                className="h-5 w-5"
+                className="w-5 h-5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 aria-hidden="true"
@@ -80,7 +79,7 @@ const Pagination: React.FC<PaginationProps> = ({
             >
               <span className="sr-only">Next</span>
               <svg
-                className="h-5 w-5"
+                className="w-5 h-5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 aria-hidden="true"

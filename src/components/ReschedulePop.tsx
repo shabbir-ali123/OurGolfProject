@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import DropDown from "../components/DropDown";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 interface ReschedulePopProps {
   onSelectTime: (selectedTime: string) => void;
@@ -48,7 +47,6 @@ const ReschedulePop: React.FC<ReschedulePopProps> = ({ onSelectTime, onClose }) 
           </span>
         
         </div>
-        {/* <DropDown timeSlots={day} onDaySelect={handleSelectTime} /> */}
         <div className="flex flex-wrap justify-start  mt-4 gap-1 border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
           {timeSlots.map((time, index) => (
             <div

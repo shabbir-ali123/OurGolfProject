@@ -11,7 +11,7 @@ interface ProfileAvatarProps {
   iconWidth?: string;
   iconHeight?: string;
   imageUrl?: any;
-  onChangeImage?: (file: File) => void; // Callback for image change
+  onChangeImage?: (file: File) => void; 
 }
 
 const ProfileAvatar: React.FC<ProfileAvatarProps> = ({

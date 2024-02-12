@@ -1,17 +1,8 @@
-import React, { useRef, useState } from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef, useState } from "react";
 import ScoringTable from "../components/ScoringTable";
 type Tab = "bank" | "paypal";
 
 const ScoringTabs = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileInputChange = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
   const [activeTab, setActiveTab] = useState<Tab>("bank");
 
   const handleTabClick = (tab: Tab) => {
@@ -19,9 +10,9 @@ const ScoringTabs = () => {
   };
 
   return (
-    <div className=" p-2 ">
+    <div className="p-2 ">
       <div className="">
-        <div className="mx-8 flex gap-2 justify-between ">
+        <div className="flex justify-between gap-2 mx-8 ">
           <div className="flex gap-2">
             <button
               className={` ${

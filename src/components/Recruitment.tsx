@@ -11,15 +11,14 @@ interface RecuitmentsProps {
 const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<Tab>("individual");
   const [formData, setFormData] = useState<Record<string, any>>({});
   const prevFormData = useRef<Record<string, any>>({});
   const [error, setError] = useState<string | null>(null);
+  
   useEffect(() => {
-    // Set the default tab to "individual" when the component mounts
     handleTabClick("individual");
-  }, []); // Empty dependency array ensures that this effect runs only once, similar to componentDidMount
+  }, []); 
   useEffect(() => {
     prevFormData.current = formData;
   }, [formData]);
@@ -29,21 +28,14 @@ document.body.dir = i18n.dir();
        toast.success("Team Size Add succusffull");
     }
     setActiveTab(tab);
-
-    // Pass the updated tab information through the onChange prop
     onChange(formData, tab);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const currentDate = new Date().toISOString().split("T")[0];
-    // Determine the input type
     const isCheckbox = type === "checkbox";
-  
-    // Convert the value to a number if it's not a checkbox
     const numericValue = isCheckbox ? checked : parseInt(value, 10);
-  
-    // List of fields that should remain as strings
     const stringFields = [
       "eventStartDate",
       "eventStartTime",
@@ -53,7 +45,6 @@ document.body.dir = i18n.dir();
       "eventDeadlineTime",
     ];
     if (name === "eventStartDate") {
-      // Validate that the Start Date is equal to or greater than the current date
       const isValidStartDate = value >= currentDate;
       if (!isValidStartDate) {
         setError("Start Date should be equal to or greater than the current date.");
@@ -62,7 +53,6 @@ document.body.dir = i18n.dir();
     }
 
     if (name === "eventEndDate") {
-      // Validate that the End Date is not less than the Start Date
       const startDate = formData["eventStartDate"];
       const isValidEndDate = startDate && value >= startDate;
       if (!isValidEndDate) {
@@ -73,7 +63,6 @@ document.body.dir = i18n.dir();
     setError(null);
 
     if (name === "teamSize" || name === "capacity") {
-      // Validate that capacity is not less than teamSize
       const teamSizeValue = parseInt(formData["teamSize"], 1);
       if (!isNaN(teamSizeValue) && typeof numericValue === 'number' && numericValue < teamSizeValue) {
         setError("Number of players cannot be less than Team Size.");
@@ -90,7 +79,6 @@ document.body.dir = i18n.dir();
         [name]: `${twelveHourFormat}:${minutes} ${ampm}`,
       }));
     } else {
-      // Update formData using the previous state
       setFormData((prevData) => ({
         ...prevData,
         [name]: stringFields.includes(name) ? value : numericValue,
@@ -103,10 +91,9 @@ document.body.dir = i18n.dir();
   };
   
   return (
-    <div className="py-8 mx-auto lg:max-w-6xl  ">
-      
-      <div className="bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50  p-4 mt-4">
-      <h2 className="text-white text-4xl">{t('RECRUITMENT_DETAILS')}</h2>
+    <div className="py-8 mx-auto lg:max-w-6xl ">
+      <div className="p-4 mt-4 bg-gray-900 bg-opacity-50 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
+      <h2 className="text-4xl text-white">{t('RECRUITMENT_DETAILS')}</h2>
         <div className="flex items-center col-span-5 gap-2 py-1 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3 ">
           <label
             className="block mb-2 text-xs font-bold tracking-wide text-white captilize"
@@ -266,7 +253,7 @@ document.body.dir = i18n.dir();
                       min="0"
                     />
                       <button
-                  className="bg-blue-500 text-white cursor-pointer  border-none"
+                  className="text-white bg-blue-500 border-none cursor-pointer"
                   type="button"
                   onClick={() => {handleTabClick("team", "message")}}
                 >
