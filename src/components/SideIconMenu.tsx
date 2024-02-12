@@ -12,13 +12,12 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 interface MenuStyles {
   zIndex: string;
   height: string;
   width: string;
-  // Add more properties as needed
 }
 
 const SideMenu: React.FC = () => {
@@ -27,18 +26,7 @@ const SideMenu: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Events");
-  const [token, setToken] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Check if a token exists in localStorage
-    const storedToken = localStorage.getItem("token");
-
-    // If a token exists, set it in the component state
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,7 +40,6 @@ const SideMenu: React.FC = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Clean up the event listener when the component is unmounted
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };

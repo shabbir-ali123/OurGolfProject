@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const LiveScoringHole: FunctionComponent = () => {
   const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+  document.body.dir = i18n.dir();
   return (
     <div className="absolute top-[0px] left-[0px] w-[1302px] h-[154px] text-left text-lg text-white font-poppins">
       <div className="absolute top-[0px] left-[0px] w-[1302px] h-[154px]">

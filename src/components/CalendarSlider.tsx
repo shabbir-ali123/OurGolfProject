@@ -41,6 +41,7 @@ const CustomPrevArrow: React.FC = ({ onClick }: any) => (
     />
   </div>
 );
+
 const getStartOfWeek = (date: Date): Date => {
   const startOfWeek = new Date(date);
   startOfWeek.setDate(date.getDate() );
@@ -61,6 +62,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
   const [selectedWeekIndex, setSelectedWeekIndex] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [weeks, setWeeks] = useState<AvailabilityData[]>([]);
+  
   useEffect(() => {
     const fetchData = async () => {
       const currentDate = new Date(); 
@@ -77,10 +79,8 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
           return weekDays;
         })
       ).then((data) => data.flat());
-  
       setWeeks(weeksData);
     };
-  
     fetchData();
   }, []);
 
@@ -90,23 +90,14 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
   };
 
   useEffect(() => {
-    
     onWeekSelected(weeks[selectedWeekIndex]?.date);
   }, [selectedWeekIndex, weeks, onWeekSelected]);
 
   const handleDayClick = (dayIndex: number) => {
     const selectedDate = new Date(weeks[selectedWeekIndex].date);
     selectedDate.setDate( dayIndex +1);
-  
-    // Calculate start and end of the selected week
     const startOfWeek = getStartOfWeek(selectedDate);
-    const endOfWeek = getEndOfWeek(selectedDate);
   
-    const dateFormatOptions: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-    };
     setSelectedDay(dayIndex);
     onWeekSelected(startOfWeek);
   };

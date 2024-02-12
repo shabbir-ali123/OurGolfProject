@@ -12,7 +12,6 @@ function DropDown({ timeSlots }: DropDownProps) {
   console.log(timeSlots);
   const [selectedOption, setSelectedOption] = useState(timeSlots ? timeSlots[0] : '');
 
-  console.log(timeSlots, "sajid")
   useEffect(() => {
     if (timeSlots) {
       setSelectedOption(timeSlots[0]);
@@ -46,7 +45,7 @@ function DropDown({ timeSlots }: DropDownProps) {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1 cursor-pointer flex flex-col">
+          <div className="flex flex-col py-1 cursor-pointer">
             {timeSlots ? (
               timeSlots.map((slot: any, index: any) => (
                 <Menu.Item key={index}>

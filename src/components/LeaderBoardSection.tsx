@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const LeaderBoardSection: FunctionComponent = () => {
     const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+    document.body.dir = i18n.dir();
     const teamData = [
         new Team(
             1,
@@ -84,7 +84,6 @@ document.body.dir = i18n.dir();
                     </div>
                 </div>
             </div>
-              {/* loading More Button */}
             <div className='flex items-center justify-center mt-10 text-center'>
                 <button
                     className='flex items-center justify-center rounded-[40px] text-lg bg-white shadow-[4px_4px_16px_#268d61] w-[171px] h-[59px] leading-[20px] font-medium'

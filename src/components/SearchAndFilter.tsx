@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { XMarkIcon } from "@heroicons/react/24/solid";
 interface SearchAndFiltersEducatorProps {
@@ -18,10 +18,8 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
 
     const searchHandler = (value: string) => {
 
-
         if (value === 'Location') {
             setShowLocationInput(newAvailibilty);
-            
             return;
         }
     
@@ -31,7 +29,6 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
         }
         setSearch((prevSearch) => {
             if (prevSearch.includes(value)) {
-
                 return prevSearch.filter((filter) => filter !== value);
             } else {
                 return [...prevSearch, value];
@@ -42,22 +39,21 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
 
   
     const handleChange = (getsearch: string, type: string = 'search') => {
-        setsearch!(getsearch); // Update parent's state
+        setsearch!(getsearch); 
     };
 
     const handleLocationChange = (getLocation:any) => {
         setShowLocationInput(newAvailibilty);
-        setLocation!(getLocation); // Update location in search
+        setLocation!(getLocation); 
     };
 
     return (
         <>
-        <div className='max-w-7xl mx-auto'>
+        <div className='mx-auto max-w-7xl'>
         <p className='text-[21.59px] leading-[25.76px] tracking-wide font-bold m-0'>
                 {t('FIND_TEACHER')}
             </p>
-            <div className='relative pb-4 flex  items-center justify-between md:flex-row  mt-4'>
-                {/* Search Input */}
+            <div className='relative flex items-center justify-between pb-4 mt-4 md:flex-row'>
                 <div className='relative w-full h-[44.08px] md:w-[204.64px] md:h-[24.08px]'>
                     <input
                         type='text'
@@ -72,7 +68,6 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
                     />
                 </div>
 
-                {/* Filter Buttons */}
                 <div className='flex flex-row items-center'>
                     <p className='text-[10px] font-normal'>{t('FILTER_BY')}:</p>
                     <div className='flex items-center justify-center gap-x-0'>
@@ -92,25 +87,23 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
                 </div>
             </div>
 
-            {/* Location Input Field */}
             {showLocationInput && (
                 <div className='absolute top-[95px] w-[470px] '>
-                    <div className="flex items-center mt-2 relative ">
+                    <div className="relative flex items-center mt-2 ">
                         <input
                             type="text"
                             onChange={(e) => handleLocationChange(e.target.value)}
                             placeholder="Enter location"
-                            className="p-2 rounded-md w-full my-2"
+                            className="w-full p-2 my-2 rounded-md"
                         />
                         <button
                             onClick={() => {
                                 setShowLocationInput(false);
                                 setLocation!("");
                             }}
-                            className="ml-2 absolute right-0 bg-transparent cursor-pointer"><XMarkIcon className="w-4 h-4  round-full" aria-hidden="true" /></button>
+                            className="absolute right-0 ml-2 bg-transparent cursor-pointer"><XMarkIcon className="w-4 h-4 round-full" aria-hidden="true" /></button>
                     </div>
                 </div>
-
             )}
         </div>
            

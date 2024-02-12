@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
 import { useTranslation } from "react-i18next";
 
@@ -13,16 +13,9 @@ const navigation = [
 ];
 
 const Header: React.FC = () => {
-  const [token, setToken] = useState("");
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  });
+  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const teacher_id = localStorage.getItem("teacher_id");
 

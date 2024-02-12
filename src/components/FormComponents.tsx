@@ -70,7 +70,6 @@ export interface TextAreaProp {
   iconWidth?: string;
   iconHeight?: string;
   value?: string;
-  // onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CustomTextArea: React.FC<TextAreaProp> = ({
@@ -83,7 +82,6 @@ export const CustomTextArea: React.FC<TextAreaProp> = ({
   iconWidth = "24px",
   iconHeight = "24px",
   value,
-  // onChange,
 }) => {
   return (
     <div>
@@ -102,7 +100,6 @@ export const CustomTextArea: React.FC<TextAreaProp> = ({
           name={pname}
           placeholder={placeholder}
           value={value}
-          // onChange={onChange}
         />
       </div>
     </div>
@@ -110,22 +107,13 @@ export const CustomTextArea: React.FC<TextAreaProp> = ({
 };
 
 export interface FileInputProps {
-  icon: ReactNode;
   label: string;
   pname: string;
-  iconWidth?: string;
-  iconHeight?: string;
-
-  // onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const FileInputComponents: React.FC<FileInputProps> = ({
-  icon,
   label,
   pname,
-  iconWidth = "24px",
-  iconHeight = "24px",
-  // onChange,
 }) => {
   return (
     <div className="mb-4">

@@ -1,34 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import axios from "axios"; // Import axios for API requests
-import { API_ENDPOINTS } from "../appConfig";
 import { fetchFavoriteTeachers } from "../utils/fetchTeacher";
 interface User {
   imageUrl: string;
-  // ... other properties of User if necessary
 }
 interface TeacherDetails {
   id: string;
   firstName: string;
   lastName: string;
   teacher: User;
-  // ... other properties of TeacherDetails if necessary
-}
-interface Teacher {
-  imageUrl: string[];
-  count?: number;
-  teachers?: [];
-  aboutMyself?: string;
-  createdAt?: string | string[];
-  firstName?: string;
-  id?: string;
-  lastName?: string;
-  location?: string;
-  phoneNumber?: string;
-  schedules?: [];
-  updatedAt: string;
-  userId: string;
-  teacherId?: string;
 }
 export interface FavoriteTeacher {
   id: string;
@@ -42,7 +22,6 @@ const FavoriteTeachers: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [favoriteTeachers, setFavoriteTeachers] = useState<FavoriteTeacher[]>([]);
-
 
   useEffect(() => {
     fetchFavoriteTeachers((newFavoriteTeachers: FavoriteTeacher[]) => {
@@ -62,9 +41,6 @@ const FavoriteTeachers: React.FC = () => {
     });
   }, []);
   
-  
-  console.log(favoriteTeachers, "asasd")
-
   return (
     <div className="pt-8">
       <div className="flex items-center justify-between">
@@ -78,7 +54,7 @@ const FavoriteTeachers: React.FC = () => {
           {t("VIEW_ALL")}
         </button>
       </div>
-      <div className="relative flex  flex-wrap gap-4 mx-auto my-4 auto-rows-max md:grid-flow-col lg:grid-flow-col xl:grid-flow-col">
+      <div className="relative flex flex-wrap gap-4 mx-auto my-4 auto-rows-max md:grid-flow-col lg:grid-flow-col xl:grid-flow-col">
         {favoriteTeachers.map((teacher, index) => (
           <div key={index} className="teacher-card text-center bg-white shadow-lg rounded-lg p-2 w-[164px]">
             <img

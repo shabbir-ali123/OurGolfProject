@@ -51,7 +51,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
           <IndiviualPlayerTableRow />
           <IndiviualPlayerTableRow />
         </div>
-        {/* icon */}
+        
         <div className="right-0 absolute top-1/8 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[170.7px] h-[229.6px] hidden lg:block">
           <img
             className="absolute top-[78.4px] left-[0px] w-[170.7px] h-[151.2px]"

@@ -4,8 +4,6 @@ type IndividualPlayerScoreType = {
   personName?: string;
   profileImageId?: string;
   rating?: string;
-
-  /** Style props */
   propTop?: CSSProperties["top"];
   propBackgroundColor?: CSSProperties["backgroundColor"];
   propBackgroundColor1?: CSSProperties["backgroundColor"];

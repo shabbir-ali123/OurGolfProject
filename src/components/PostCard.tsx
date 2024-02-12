@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { ShareIcon, HandThumbUpIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { fetchPosts } from "../utils/fetchPosts";
-import { SinglePostProps } from "../pages/ReadPost";
 interface PostCardProps {
   category: string;
 }
@@ -21,6 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({ category }) => {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const navigate = useNavigate();
+ 
   useEffect(() => {
     fetchPosts(setPosts, category);
   }, [category]);
@@ -39,17 +39,10 @@ const PostCard: React.FC<PostCardProps> = ({ category }) => {
   };
 
   return (
-    <div className="bg-white grid grid-cols-2 gap-4"
-      style={{
-        // display: 'grid',
-        // gridTemplateColumns: 'repeat(2, 1fr)',
-        // gap: '20px',
-
-      }}>
-
+    <div className="grid grid-cols-2 gap-4 bg-white">
       {posts.map((post: Post) => (
         <Link to={`/read-post/${post.id}`}>
-          <div key={post.id} className="flex   p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
+          <div key={post.id} className="flex p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
             <img
               className="rounded-lg  object-cover h-[auto] w-[180px]"
               src={post.mediaFile[0]}
@@ -64,7 +57,7 @@ const PostCard: React.FC<PostCardProps> = ({ category }) => {
                 />
                 <p className="p-0">{post.posts.nickName}</p>
               </div>
-              <p className="p-0 text-sm text-gray-700 truncate break-words w-80	">
+              <p className="p-0 text-sm text-gray-700 break-words truncate w-80 ">
                 {post.text}
               </p>
 
@@ -96,11 +89,9 @@ const PostCard: React.FC<PostCardProps> = ({ category }) => {
                       ).length
                     } Likes</div>
                   <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" onClick={handleInteraction} data-interaction="share">
-                    {" "}
                     <ShareIcon
                       className="w-4 h-4 cursor-pointer"
                       aria-hidden="true"
-
                       data-interaction="share"
                     />
                     Share
@@ -110,7 +101,6 @@ const PostCard: React.FC<PostCardProps> = ({ category }) => {
             </div></div>
         </Link>
       ))}
-
     </div>
   );
 };
