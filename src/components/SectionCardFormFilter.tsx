@@ -3,8 +3,6 @@ import { FunctionComponent, useMemo, type CSSProperties } from "react";
 type SectionCardFormFilterType = {
   personName?: string;
   imageDimensions?: string;
-
-  /** Style props */
   propTop?: CSSProperties["top"];
   propBackgroundColor?: CSSProperties["backgroundColor"];
   propBackgroundColor1?: CSSProperties["backgroundColor"];

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { ShareIcon, HandThumbUpIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { fetchPosts } from "../utils/fetchPosts";
-import { SinglePostProps } from "../pages/ReadPost";
 interface PostCardProps {
   category: string;
 }
@@ -21,6 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({ category }) => {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const navigate = useNavigate();
+ 
   useEffect(() => {
     fetchPosts(setPosts, category);
   }, [category]);

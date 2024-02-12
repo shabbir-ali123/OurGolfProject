@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+
 export default function Register(): JSX.Element {
-  const navigate = useNavigate(); // Use navigate instead of router
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     nickName: "",
     email: "",
@@ -20,6 +21,7 @@ export default function Register(): JSX.Element {
       [name]: value,
     }));
   };
+  
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
    

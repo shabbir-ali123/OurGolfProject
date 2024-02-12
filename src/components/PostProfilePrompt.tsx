@@ -7,8 +7,10 @@ import {
 } from "@heroicons/react/24/solid";
 import PostModal from "../components/PostModel"
 const ProfilePrompt: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const openModal = () => {
     const token = localStorage.getItem("token");
     if (token && token !== "undefined" ) {

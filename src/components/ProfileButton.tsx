@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-interface UserData {
-  nickName: string;
-  email: string;
-  imageUrl: string;
-}
-
 
 export default function ProfileButton() {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const [token, setToken] = useState("");
-  const [user, setUser] = useState<any>(null);
-
   const languages = {
     en: { displayName: "English" },
     ja: { displayName: "Japan" },
   };
 
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState<any>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+ 
   useEffect(() => {
     const userId = localStorage.getItem("id");
     getUser(userId)
@@ -34,7 +36,6 @@ export default function ProfileButton() {
 
   }, []);
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDotClick = () => {
     setDropdownOpen(true);
@@ -49,14 +50,7 @@ export default function ProfileButton() {
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
   };
-  useEffect(() => {
-    
-    const storedToken = localStorage.getItem("token");
 
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
 
   const getUser = async (userId: any) => {
     try {
