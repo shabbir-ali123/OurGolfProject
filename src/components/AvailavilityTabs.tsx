@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { SchedulesTabsProps } from "../utils/types";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
+import axios, { all } from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
@@ -11,12 +11,14 @@ interface AvailabilityTabsProps {
   onSelectTime: (selectedTime: string) => void;
   schedules?: SchedulesTabsProps[];
   selectedDate?: string;
+  dayFilter: string;
 }
 
 const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   onSelectTime,
   schedules = [],
-  selectedDate
+  selectedDate,
+  dayFilter,
 }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -31,43 +33,65 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     endTime: any;
     day: any;
   }
-
-  const filteredSchedules = schedules.filter(schedule => schedule.date === selectedDate);
-  const tabColors = ["rounded-full bg-transparent text-[#51ff85] border-solid border-[2px] border-[#51ff85] py-4"];
+  console.log(dayFilter, "acv  ");
+  const tabColors = [
+    "rounded-full bg-transparent text-[#51ff85] border-solid border-[2px] border-[#51ff85] py-4",
+  ];
+  console.log(schedules, "acv  ");
 
   const generateTimeSlots = () => {
     const slots: any[] = [];
     const isBooked: boolean[] = [];
     schedules?.forEach((schedule, scheduleIndex) => {
       schedule.shifts.forEach((shift, shiftIndex) => {
-        const formattedSlot = `${convertTo12Hour(shift.startTime)} - ${convertTo12Hour(shift.endTime)}`;
-        slots.push({ time: formattedSlot, id: `slot-${scheduleIndex}-${shiftIndex}` });
+        const formattedSlot = `${convertTo12Hour(
+          shift.startTime
+        )} - ${convertTo12Hour(shift.endTime)}`;
+        slots.push({
+          time: formattedSlot,
+          id: `slot-${scheduleIndex}-${shiftIndex}`,
+        });
         isBooked.push(shift.isBooked);
       });
     });
     return { slots, isBooked };
   };
 
+  let filteredSchedules = schedules.filter((slot) =>
+    slot.shifts.some((shift) => shift.day === dayFilter)
+  );
   const initialTimeSlots = generateTimeSlots();
   const [selectedTime, setSelectedTime] = useState<any[]>([]);
-  const [bookedSlots, setBookedSlots] = useState<boolean[]>(initialTimeSlots.isBooked);
+  const [bookedSlots, setBookedSlots] = useState<boolean[]>(
+    initialTimeSlots.isBooked
+  );
 
   useEffect(() => {
     const { isBooked } = initialTimeSlots;
     setBookedSlots(isBooked);
+    filteredSchedules;
   }, [schedules]);
 
-  const [selectedTimeDetails, setSelectedTimeDetails] = useState<TimeDetails[]>([]);
+  const [selectedTimeDetails, setSelectedTimeDetails] = useState<TimeDetails[]>(
+    []
+  );
 
-  const handleTabClick = (slotId: any, startTime: any, endTime: any, day: any) => {
-    const isSelected = selectedTime.some(item => item.id === slotId);
-    const updatedDetails = selectedTimeDetails.filter(item => item.id !== slotId);
+  const handleTabClick = (
+    slotId: any,
+    startTime: any,
+    endTime: any,
+    day: any
+  ) => {
+    const isSelected = selectedTime.some((item) => item.id === slotId);
+    const updatedDetails = selectedTimeDetails.filter(
+      (item) => item.id !== slotId
+    );
     setSelectedTimeDetails(updatedDetails);
 
     if (isSelected) {
       setSelectedTime(selectedTime.filter((item) => item.id !== slotId));
     } else {
-      setSelectedTimeDetails(prevDetails => [
+      setSelectedTimeDetails((prevDetails) => [
         ...prevDetails,
         {
           id: slotId,
@@ -88,11 +112,11 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     const token = localStorage.getItem("token");
 
     if (!token) {
-      navigate('/login-page');
+      navigate("/login-page");
       return;
     }
 
-    selectedTimeDetails.forEach(time => {
+    selectedTimeDetails.forEach((time) => {
       bookAppointment(time.id, time.day, time.startTime, time.endTime, false);
     });
   };
@@ -122,34 +146,57 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
           },
           params: {
             userId: id,
-          }
+          },
         }
       );
-      toast.success("Appointment booked successfully", toastProperties as ToastConfig);
+      toast.success(
+        "Appointment booked successfully",
+        toastProperties as ToastConfig
+      );
     } catch (error) {
       toast.error("Error booking appointment", toastProperties as ToastConfig);
     }
   };
-
-
+  const allBookedSlots = dayFilter == 'All' ? initialTimeSlots.slots : filteredSchedules;
+  console.log(allBookedSlots)
+  const scheduleComponents = allBookedSlots.map((slot: any, index) => {
+    const isSelected = selectedTime.some(
+      (item) => slot.shifts[0].scheduleId === item.id
+    );
+    const isBooked = allBookedSlots === bookedSlots ? slot : bookedSlots[index];
+  
+    if (!slot.shifts || slot.shifts.length === 0) {
+      return null; 
+    }
+  
+    return (
+      <div key={slot.id}>
+        <button
+          className={`${
+            isSelected
+              ? "rounded-full text-white bg-[#00A4FE] py-4"
+              : "rounded-full text-black bg-[#b9fbb9] py-4"
+          } ${isBooked ? "bg-[#e8e8e8] text-white" : ""}`}
+          onClick={() =>
+            handleTabClick(
+              slot.shifts[0].scheduleId,
+              slot.shifts[0].startTime,
+              slot.shifts[0].endTime,
+              slot.shifts[0].day
+            )
+          }
+          disabled={isBooked}
+        >
+          {slot.shifts[0].startTime} - {slot.shifts[0].endTime}
+        </button>
+      </div>
+    );
+  });
   return (
     <div>
       <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
         <div className="flex flex-wrap justify-start gap-1 mt-4">
-        {schedules.map((slot, index) => {
-            const isSelected = selectedTime.some(item => slot.shifts[0].scheduleId === item.id);
-            return (
-              <div key={slot.id}>
-                <button
-                  className={`${isSelected ? "rounded-full text-white  bg-[#00A4FE] py-4" : "rounded-full  text-black  bg-[#b9fbb9] py-4"} ${bookedSlots[index] ? "bg-[#e8e8e8]  text-white" : ""}`}
-                  onClick={() => handleTabClick(slot.shifts[0].scheduleId, slot.shifts[0].startTime, slot.shifts[0].endTime, slot.shifts[0].day)}
-                  disabled={bookedSlots[index]}
-                >
-                  {slot.shifts[0].startTime} - {slot.shifts[0].endTime}
-                </button>
-              </div>
-            )
-          })}
+          {scheduleComponents}
         </div>
         <div className="mt-8 ml-2">
           <button
@@ -169,7 +216,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
               />
             </svg>
             <span className="text-xl font-bold text-white sm:font-semi-bold md:px-2">
-              {t('BOOK_APPOINTMENT')}
+              {t("BOOK_APPOINTMENT")}
             </span>
           </button>
         </div>

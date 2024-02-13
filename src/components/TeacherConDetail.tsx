@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import DropDown from "./DropDown";
 import AvailabilityTabs from "./AvailavilityTabs";
-import { TeacherDetailsProp, SchedulesTabsProps } from "../utils/types";
+import { TeacherDetailsProp } from "../utils/types";
 import { useTranslation } from "react-i18next";
 
 export const TeacherConDetail: React.FC<{
@@ -16,7 +16,11 @@ export const TeacherConDetail: React.FC<{
 }> = ({ teacherDetails }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-
+  
+  const [dayFilter, setDayFilter] = useState<any>('')
+  
+  console.log(dayFilter, 'DayFilto')
+  
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);
   };
@@ -24,12 +28,10 @@ export const TeacherConDetail: React.FC<{
   const day: (string | undefined)[] = (teacherDetails.schedules || []).flatMap(
     (schedule) => schedule?.shifts.map((es) => es.day)
   );
-  const uniqueDaysSet: Set<string | undefined> = new Set(day);
 
-  const uniqueDays: (string | undefined)[] = [];
-  uniqueDaysSet.forEach((day) => {
-    uniqueDays.push(day);
-  });
+  const uniqueDays: (string | undefined)[] = day.filter((d, index) => {
+    return d === undefined || day.indexOf(d) === index;
+});
 
   return (
     <div className="box">
@@ -121,13 +123,14 @@ export const TeacherConDetail: React.FC<{
           </h3>
         </div>
         <div className="div">
-          <DropDown timeSlots={uniqueDays} />
+          <DropDown timeSlots={uniqueDays} dayFilter={setDayFilter} />
         </div>
       </div>
 
       <AvailabilityTabs
         onSelectTime={handleSelectTime}
         schedules={teacherDetails.schedules}
+        dayFilter={dayFilter}
       />
     </div>
   );
