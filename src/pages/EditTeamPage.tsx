@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
@@ -45,6 +45,7 @@ interface SingleEvent {
 const EditTeamPage: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
   const teamId = params.id;
+  const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
@@ -52,7 +53,7 @@ const EditTeamPage: FunctionComponent = () => {
   const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
   const [isCreated, setCreatedBy] = useState(false);
   const [open, setOpen] = useState(false);
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [team, setTeams] = useState<Team[]>([]);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState('');
   const [selectedTeamName, setSelectedTeamName] = useState('');
   const [currentTeamSize, setCurrentTeamSize] = useState(singleEvent?.teamSize);
@@ -68,19 +69,19 @@ const EditTeamPage: FunctionComponent = () => {
   ]);
   const teamCapacity = singleEvent?.capacity;
 
-
+  const [totalJoinedMembers, setTotalJoinedMembers] = useState('');
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setTeams((prev: Team[]) => {
-      
+
       let newState = [...prev].map((team: any) => {
-        console.log({team})
+        console.log({ team })
         if (team.id == selectedTeamId && team.members.length < teamCapacity) {
           return {
             ...team,
             members: [...team.members, { nickName: selectedPlayerNickname, teamId: selectedTeamId, userId: selectedUserId }]
           }
-          
+
         }
         else {
           return {
@@ -95,45 +96,46 @@ const EditTeamPage: FunctionComponent = () => {
   };
 
 
-  console.log(teams, "teams ");
+  console.log(team, "teams ");
 
   const updateTeams = async (event: any) => {
     event.preventDefault();
     const uId = selectedUserId.toString();
-  
+
     // Assume you have initial values stored in state for comparison
     const initialTeamSize = singleEvent?.teamSize;
     const initialCapacity = singleEvent?.capacity;
-    const initialMembers = teamMembers; 
-  
+    const initialMembers = teamMembers;
+
     // Check if there are changes
     const hasCapacityChanged = capacity !== initialCapacity;
     const hasTeamSizeChanged = currentTeamSize !== initialTeamSize;
-    const hasMembersChanged = JSON.stringify(teamMembers) !== JSON.stringify(initialMembers); 
-  
+    const hasMembersChanged = JSON.stringify(teamMembers) !== JSON.stringify(initialMembers);
+
     if (!hasCapacityChanged && !hasTeamSizeChanged && !hasMembersChanged) {
-     
+
       toast.error("Please make changes before updating.");
-      return; 
+      return;
     }
-  
+    const teams = team;
+
     // Proceed with update if changes are detected
     const formDataObj = {
-      
+
       eventId: singleEvent?.id,
       teamSize: currentTeamSize == undefined ? singleEvent?.teamSize : Number(currentTeamSize),
-      capacity: capacity === '' ? singleEvent?.capacity : Number(capacity),
+      capacity: capacity === undefined ? totalCapacity: Number(capacity),
       teams
     };
-  
+
     try {
       const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
         JSON.stringify(formDataObj), {
-          headers: {
-            'Content-Type': 'application/json', 
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          }
-        });
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      });
       setShouldRefetchTeams(true);
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -144,10 +146,10 @@ const EditTeamPage: FunctionComponent = () => {
       toast.error("Please make changes before updating.");
     }
   };
-  
+
   useEffect(() => {
     const fetchAndUpdateTeams = async () => {
-      await fetchTeams(setTeams, teamId, setTeamMembers);
+      await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
       setShouldRefetchTeams(false);
       await fetchSingleEvent(teamId, setSingleEvent, setCreatedBy);
       // setCurrentTeamSize(singleEvent?.teamSize);
@@ -164,10 +166,11 @@ const EditTeamPage: FunctionComponent = () => {
   }, [open]);
 
   const cancelButtonRef = useRef(null);
-
+  const totalCapacity = singleEvent?.capacity * singleEvent?.teamSize;
   const handleOpenPlayerList = () => {
     setShowPlayerList(true);
   };
+
   const generateTableHeaders = () => {
     const headers = [];
     for (let i = 1; i <= teamCapacity; i++) {
@@ -182,8 +185,8 @@ const EditTeamPage: FunctionComponent = () => {
   return (
     <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10">
       <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
-        <div className="flex justify-center   mx-5 md:mx-[130px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] text-left text-3xl text-white font-body-b2">
-          <div className="w-full md:w-[1238px] flex items-center justify-center md:justify-center gap-4 md:gap-[20px] lg:gap-[182px]">
+        <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
+          <div className="flex justify-around w-full">
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
               <img
                 className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
@@ -213,7 +216,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-start flex-1 gap-4 md:flex-row md:text-5xl lg:text-darkgray-400">
+            <div className="flex items-center gap-2 md:text-5xl lg:text-darkgray-400">
               <img
                 className="w-[23px] h-[27.9px]"
                 alt=""
@@ -231,27 +234,30 @@ const EditTeamPage: FunctionComponent = () => {
           </div>
         </div>
         <div className="w-full mx-auto my-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <img src="/img/golfplyr.png" alt="" width="40px" />
-              <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                Edit Teams
-              </b>
+          <div className="flex justify-between items-end">
+
+            {isCreated ? <><div className="flex gap-2 ">
+              <div>
+                <img src="/img/golfplyr.png" alt="" width="40px" />
+                <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                  Edit Teams
+                </b>
+              </div>
             </div>
-            {isCreated && <div className="mt-10 flex gap-2">
+              <div className="flex gap-2 place-self-end">
               <div className="flex gap-2 items-center ">
                 <label
                   className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
                   htmlFor="teamSize"
                 >
-                 Capacity
+                  Capacity
                 </label>
                 <input
                   className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
                   id="teamSize"
                   type="number"
                   name="teamSize"
-                  value={capacity === undefined ? singleEvent?.capacity : capacity}
+                  value={capacity === undefined ? totalCapacity : capacity}
                   onChange={(e) => setCapacity(e.target.value)}
                   min="0"
                 />
@@ -274,7 +280,41 @@ const EditTeamPage: FunctionComponent = () => {
                 />
               </div>
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded" onClick={handleOpenPlayerList}>Remove Players List</button>
-            </div>
+              </div>
+            </> :
+              <>
+              <div className="flex gap-4 items-end">
+                <div>
+                <img src="/img/golfplyr.png" alt="" width="40px" />
+                <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                Team Members
+                </b>
+                <div className=" ">
+                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                    Team Size: <span className="text-[#17b3a6]">{singleEvent?.teamSize === 0 ? 1 : singleEvent?.teamSize}</span>
+                  </p>
+                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                    Capacity: <span className="text-[#17b3a6]">
+                    {singleEvent?.capacity * singleEvent?.capacity}
+                      </span> 
+                  </p>
+                  
+                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                    Joined Members: <span className="text-[#17b3a6]">{totalJoinedMembers}</span> 
+
+                  </p>
+
+               
+                </div>
+                </div>
+               
+              </div>
+                
+           
+                <button className="uppercase cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-normal px-4 py-4 rounded" onClick={() =>router(
+                            `/pay-now`
+                          )}>join now</button>
+              </>
             }
           </div>
           <table className="w-full border-spacing-y-5 ">
@@ -283,13 +323,13 @@ const EditTeamPage: FunctionComponent = () => {
                 <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
                   Team Name
                 </th>
-                
+
                 {generateTableHeaders()}
 
               </tr>
             </thead>
             <tbody className="text-left text-black ">
-              {teams.map((team, index) => (
+              {team.map((team, index) => (
                 <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
                   <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                     <div
@@ -314,7 +354,7 @@ const EditTeamPage: FunctionComponent = () => {
                       </div>
                     </div>
                   </td>
-                  {team.members.map((member, memberIndex) => (
+                  {team.members.map((member:any, memberIndex) => (
                     <td className="py-4 pl-4 whitespace-nowrap">
                       <Player
                         isCreator={isCreated}
@@ -324,13 +364,14 @@ const EditTeamPage: FunctionComponent = () => {
                         onEdit={() => {
                           setSelectedPlayerNickname(member.nickName);
                           setSelectedUserId(member.userId);
-                          setSelectedTeamName(team.name); // Set the selected team's name here
-                          setEditOpen(true); // Open the modal
+                          setSelectedTeamName(team.name); 
+                          setEditOpen(true); 
                         }}
                         onDelete={() => setOpen(true)}
                         name={member.nickName}
                         imageUrl={member.imageUrl}
                       />
+                  
                     </td>
                   ))}
                 </tr>
@@ -591,7 +632,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 onChange={(e) => setSelectedTeamId(e.target.value)} // Assuming you have setSelectedTeamId to handle this
                               >
                                 <option value="" disabled selected>Select a Team</option>
-                                {teams.map((team) => (
+                                {team.map((team) => (
                                   <option key={team.id} value={team.id}>{team.name}</option>
                                 ))}
                               </select>
