@@ -9,7 +9,6 @@ interface DropDownProps {
 }
 
 function DropDown({ timeSlots }: DropDownProps) {
-  console.log(timeSlots);
   const [selectedOption, setSelectedOption] = useState(timeSlots ? timeSlots[0] : '');
 
   useEffect(() => {

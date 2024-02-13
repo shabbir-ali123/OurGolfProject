@@ -51,17 +51,15 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const navigate = useNavigate();
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [favoriteTeachers, setFavoriteTeachers] = useState<FavoriteTeacher[]>([]);
+  const [favoriteTeacherIds, setFavoriteTeacherIds] = useState<string[]>([]);
 
 
 
   useEffect(() => {
-
     fetchFavoriteTeachers(setFavoriteTeachers);
     fetchTeachers(search, locationInput, availibilty, setTeachers, setSelectedTeacher, setLoading);
   }, [search, locationInput, availibilty]);
-  const [favoriteTeacherIds, setFavoriteTeacherIds] = useState<string[]>([]);
 
-  // Fetch favorite teachers and update state
   useEffect(() => {
     fetchFavoriteTeachers((favoriteTeachers: any) => {
       const favoriteIds = favoriteTeachers.map((teacher: any) => teacher.teacherId);
@@ -89,9 +87,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
   const handleButtonAction = (btnTitle: string, teacher: Teacher) => {
     switch (btnTitle) {
       case "Like":
-        // if (!favoriteTeacherIds.includes(teacher.id ?? '')) {
           toggleFavoriteStatus(teacher, setTeachers);
-        // }
         break;
       case "Book an Appointment":
         openModal();
@@ -117,7 +113,6 @@ const TeacherList: React.FC<TeacherListProps> = ({
     if (!isUserAuthenticated) {
       navigate("/login-page");
     } else {
-      // Handle the case when the user is authenticated
     }
   };
 
