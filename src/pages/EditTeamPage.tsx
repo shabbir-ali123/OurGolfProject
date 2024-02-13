@@ -1,4 +1,3 @@
-
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import Player from "../components/Player";
 import { Dialog, Transition } from "@headlessui/react";
@@ -10,6 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
 import { fetchSingleEvent } from "../utils/fetchEvents";
+import Slider from "react-slick";
 interface Team {
   id: string;
   name: string;
@@ -39,7 +39,7 @@ interface SingleEvent {
   imageUrl: [0];
   count: any;
   teamSize: any;
-  capacity: any
+  capacity: any;
 }
 
 const EditTeamPage: FunctionComponent = () => {
@@ -49,19 +49,27 @@ const EditTeamPage: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const [singleEvent, setSingleEvent] = useState<SingleEvent>();
   const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
   const [isCreated, setCreatedBy] = useState(false);
   const [open, setOpen] = useState(false);
   const [team, setTeams] = useState<Team[]>([]);
-  const [selectedPlayerNickname, setSelectedPlayerNickname] = useState('');
-  const [selectedTeamName, setSelectedTeamName] = useState('');
+  const [selectedPlayerNickname, setSelectedPlayerNickname] = useState("");
+  const [selectedTeamName, setSelectedTeamName] = useState("");
   const [currentTeamSize, setCurrentTeamSize] = useState(singleEvent?.teamSize);
   const [capacity, setCapacity] = useState(singleEvent?.capacity);
-  const [selectedTeamId, setSelectedTeamId] = useState('');
+  const [selectedTeamId, setSelectedTeamId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
-  const [teamMembers, setTeamMembers] = useState<Members[]>([])
+  const [teamMembers, setTeamMembers] = useState<Members[]>([]);
   const [playerList, setPlayerList] = useState([
     { name: "John Doe" },
     { name: "Jane Smith" },
@@ -69,32 +77,37 @@ const EditTeamPage: FunctionComponent = () => {
   ]);
   const teamCapacity = singleEvent?.capacity;
 
-  const [totalJoinedMembers, setTotalJoinedMembers] = useState('');
+  const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setTeams((prev: Team[]) => {
-
       let newState = [...prev].map((team: any) => {
-        console.log({ team })
+        console.log({ team });
         if (team.id == selectedTeamId && team.members.length < teamCapacity) {
           return {
             ...team,
-            members: [...team.members, { nickName: selectedPlayerNickname, teamId: selectedTeamId, userId: selectedUserId }]
-          }
-
-        }
-        else {
+            members: [
+              ...team.members,
+              {
+                nickName: selectedPlayerNickname,
+                teamId: selectedTeamId,
+                userId: selectedUserId,
+              },
+            ],
+          };
+        } else {
           return {
             ...team,
-            members: team.members.filter((member: any) => member.userId !== selectedUserId)
-          }
+            members: team.members.filter(
+              (member: any) => member.userId !== selectedUserId
+            ),
+          };
         }
       });
 
-      return [...newState]
-    })
+      return [...newState];
+    });
   };
-
 
   console.log(team, "teams ");
 
@@ -110,10 +123,10 @@ const EditTeamPage: FunctionComponent = () => {
     // Check if there are changes
     const hasCapacityChanged = capacity !== initialCapacity;
     const hasTeamSizeChanged = currentTeamSize !== initialTeamSize;
-    const hasMembersChanged = JSON.stringify(teamMembers) !== JSON.stringify(initialMembers);
+    const hasMembersChanged =
+      JSON.stringify(teamMembers) !== JSON.stringify(initialMembers);
 
     if (!hasCapacityChanged && !hasTeamSizeChanged && !hasMembersChanged) {
-
       toast.error("Please make changes before updating.");
       return;
     }
@@ -121,21 +134,26 @@ const EditTeamPage: FunctionComponent = () => {
 
     // Proceed with update if changes are detected
     const formDataObj = {
-
       eventId: singleEvent?.id,
-      teamSize: currentTeamSize == undefined ? singleEvent?.teamSize : Number(currentTeamSize),
-      capacity: capacity === undefined ? totalCapacity: Number(capacity),
-      teams
+      teamSize:
+        currentTeamSize == undefined
+          ? singleEvent?.teamSize
+          : Number(currentTeamSize),
+      capacity: capacity === undefined ? totalCapacity : Number(capacity),
+      teams,
     };
 
     try {
-      const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
-        JSON.stringify(formDataObj), {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await axios.put(
+        API_ENDPOINTS.UPDATETEAMMEMBER,
+        JSON.stringify(formDataObj),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-      });
+      );
       setShouldRefetchTeams(true);
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -152,7 +170,6 @@ const EditTeamPage: FunctionComponent = () => {
       await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
       setShouldRefetchTeams(false);
       await fetchSingleEvent(teamId, setSingleEvent, setCreatedBy);
-      // setCurrentTeamSize(singleEvent?.teamSize);
     };
     fetchAndUpdateTeams();
   }, [shouldRefetchTeams]);
@@ -176,12 +193,15 @@ const EditTeamPage: FunctionComponent = () => {
     for (let i = 1; i <= teamCapacity; i++) {
       headers.push(
         <th key={i} className="pl-4 py-3 leading-[10.25px] font-medium">
-          {t("PLAYER")}{i}
+          {t("PLAYER")}
+          {i}
         </th>
       );
     }
     return headers;
   };
+
+  let images = singleEvent?.imageUrl.map((item) => item);
   return (
     <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10">
       <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
@@ -198,7 +218,7 @@ const EditTeamPage: FunctionComponent = () => {
                 <div className="relative w-[115px] h-[29px]">
                   <div className="absolute top-[0px] left-[0px] rounded-8xs bg-seagreen-200 w-[115px] h-[29px]" />
                   <div className="absolute top-[6px] left-[9px] leading-[18px]">
-                    {t('OFFICIAL')}
+                    {t("OFFICIAL")}
                   </div>
                 </div>
                 <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[40px] font-semibold text-black">
@@ -211,7 +231,7 @@ const EditTeamPage: FunctionComponent = () => {
                     src="/img/group-1000008655.svg"
                   />
                   <div className="relative  leading-[18px]">
-                    {singleEvent?.eventStartDate || 'Default Date'}
+                    {singleEvent?.eventStartDate || "Default Date"}
                   </div>
                 </div>
               </div>
@@ -224,98 +244,143 @@ const EditTeamPage: FunctionComponent = () => {
               />
               <div className="flex flex-col items-start justify-center gap-4">
                 <div className="relative text-base md:text-xl leading-[18px]">
-                  {singleEvent?.place || t('NO_LOCATION')}
+                  {singleEvent?.place || t("NO_LOCATION")}
                 </div>
                 <div className="relative text-base md:text-xl  leading-[18px] text-lightseagreen-200">
-                  {singleEvent?.eventDetails || t('NO_LOCATION')}
+                  {singleEvent?.eventDetails || t("NO_LOCATION")}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="w-full mx-auto my-4">
-          <div className="flex justify-between items-end">
+          <div className="text-darkslateblue-300">
+            <Slider {...settings}>
+              <div className="w-full h-200">
+                <img
+                  className="w-full h-200"
+                  src={singleEvent?.imageUrl[0] || ""}
+                  alt="text"
+                />
+              </div>
 
-            {isCreated ? <><div className="flex gap-2 ">
-              <div>
-                <img src="/img/golfplyr.png" alt="" width="40px" />
-                <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                  Edit Teams
-                </b>
-              </div>
-            </div>
-              <div className="flex gap-2 place-self-end">
-              <div className="flex gap-2 items-center ">
-                <label
-                  className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
-                  htmlFor="teamSize"
-                >
-                  Capacity
-                </label>
-                <input
-                  className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
-                  id="teamSize"
-                  type="number"
-                  name="teamSize"
-                  value={capacity === undefined ? totalCapacity : capacity}
-                  onChange={(e) => setCapacity(e.target.value)}
-                  min="0"
+              <div className="w-full h-200">
+                <img
+                  className="w-full h-200"
+                  src={singleEvent?.imageUrl[0] || ""}
+                  alt="text"
                 />
               </div>
-              <div className="flex gap-2 items-center ">
-                <label
-                  className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
-                  htmlFor="teamSize"
-                >
-                  Team Size
-                </label>
-                <input
-                  className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
-                  id="teamSize"
-                  type="number"
-                  name="teamSize"
-                  value={currentTeamSize == undefined ? singleEvent?.teamSize : currentTeamSize}
-                  onChange={(e) => setCurrentTeamSize(e.target.value)}
-                  min="0"
+
+              <div className="w-full h-200">
+                <img
+                  className="w-full h-200"
+                  src={singleEvent?.imageUrl[0] || ""}
+                  alt="text"
                 />
               </div>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded" onClick={handleOpenPlayerList}>Remove Players List</button>
-              </div>
-            </> :
+            </Slider>
+          </div>
+          <div className="flex items-end justify-between">
+            {isCreated ? (
               <>
-              <div className="flex gap-4 items-end">
-                <div>
-                <img src="/img/golfplyr.png" alt="" width="40px" />
-                <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                Team Members
-                </b>
-                <div className=" ">
-                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                    Team Size: <span className="text-[#17b3a6]">{singleEvent?.teamSize === 0 ? 1 : singleEvent?.teamSize}</span>
-                  </p>
-                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                    Capacity: <span className="text-[#17b3a6]">
-                    {singleEvent?.capacity * singleEvent?.capacity}
-                      </span> 
-                  </p>
-                  
-                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                    Joined Members: <span className="text-[#17b3a6]">{totalJoinedMembers}</span> 
-
-                  </p>
-
-               
+                <div className="flex gap-2 ">
+                  <div>
+                    <img src="/img/golfplyr.png" alt="" width="40px" />
+                    <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                      Edit Teams
+                    </b>
+                  </div>
                 </div>
+                <div className="flex gap-2 place-self-end">
+                  <div className="flex items-center gap-2 ">
+                    <label
+                      className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
+                      htmlFor="teamSize"
+                    >
+                      Capacity
+                    </label>
+                    <input
+                      className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
+                      id="teamSize"
+                      type="number"
+                      name="teamSize"
+                      value={capacity === undefined ? totalCapacity : capacity}
+                      onChange={(e) => setCapacity(e.target.value)}
+                      min="0"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2 ">
+                    <label
+                      className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
+                      htmlFor="teamSize"
+                    >
+                      Team Size
+                    </label>
+                    <input
+                      className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
+                      id="teamSize"
+                      type="number"
+                      name="teamSize"
+                      value={
+                        currentTeamSize == undefined
+                          ? singleEvent?.teamSize
+                          : currentTeamSize
+                      }
+                      onChange={(e) => setCurrentTeamSize(e.target.value)}
+                      min="0"
+                    />
+                  </div>
+                  <button
+                    className="px-2 py-1 font-normal text-white bg-blue-500 rounded hover:bg-blue-700"
+                    onClick={handleOpenPlayerList}
+                  >
+                    Remove Players List
+                  </button>
                 </div>
-               
-              </div>
-                
-           
-                <button className="uppercase cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-normal px-4 py-4 rounded" onClick={() =>router(
-                            `/pay-now`
-                          )}>join now</button>
               </>
-            }
+            ) : (
+              <>
+                <div className="flex items-end gap-4">
+                  <div>
+                    <img src="/img/golfplyr.png" alt="" width="40px" />
+                    <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                      Team Members
+                    </b>
+                    <div className="">
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        Team Size:{" "}
+                        <span className="text-[#17b3a6]">
+                          {singleEvent?.teamSize === 0
+                            ? 1
+                            : singleEvent?.teamSize}
+                        </span>
+                      </p>
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        Capacity:{" "}
+                        <span className="text-[#17b3a6]">
+                          {singleEvent?.capacity * singleEvent?.capacity}
+                        </span>
+                      </p>
+
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        Joined Members:{" "}
+                        <span className="text-[#17b3a6]">
+                          {totalJoinedMembers}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  className="px-4 py-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                  onClick={() => router(`/pay-now`)}
+                >
+                  join now
+                </button>
+              </>
+            )}
           </div>
           <table className="w-full border-spacing-y-5 ">
             <thead className="text-left text-whitesmoke-100">
@@ -325,7 +390,6 @@ const EditTeamPage: FunctionComponent = () => {
                 </th>
 
                 {generateTableHeaders()}
-
               </tr>
             </thead>
             <tbody className="text-left text-black ">
@@ -354,7 +418,7 @@ const EditTeamPage: FunctionComponent = () => {
                       </div>
                     </div>
                   </td>
-                  {team.members.map((member:any, memberIndex) => (
+                  {team.members.map((member: any, memberIndex) => (
                     <td className="py-4 pl-4 whitespace-nowrap">
                       <Player
                         isCreator={isCreated}
@@ -364,30 +428,36 @@ const EditTeamPage: FunctionComponent = () => {
                         onEdit={() => {
                           setSelectedPlayerNickname(member.nickName);
                           setSelectedUserId(member.userId);
-                          setSelectedTeamName(team.name); 
-                          setEditOpen(true); 
+                          setSelectedTeamName(team.name);
+                          setEditOpen(true);
                         }}
                         onDelete={() => setOpen(true)}
                         name={member.nickName}
                         imageUrl={member.imageUrl}
                       />
-                  
                     </td>
                   ))}
                 </tr>
               ))}
             </tbody>
           </table>
-          {isCreated &&
+          {isCreated && (
             <div className="flex justify-end ">
-              <button className="px-4 py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700" onClick={updateTeams}>
+              <button
+                className="px-4 py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                onClick={updateTeams}
+              >
                 Update Team
               </button>
             </div>
-          }
+          )}
           <Transition.Root show={showPlayerList} as={Fragment}>
-            <Dialog as="div" className="relative z-[9999]" onClose={() => setShowPlayerList(false)}>
-              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <Dialog
+              as="div"
+              className="relative z-[9999]"
+              onClose={() => setShowPlayerList(false)}
+            >
+              <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
               <div className="fixed inset-0 z-10 overflow-y-auto">
                 <div className="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
                   <Transition.Child
@@ -398,14 +468,28 @@ const EditTeamPage: FunctionComponent = () => {
                     leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                   >
-                    <Dialog.Panel className="w-fullrelative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6">
+                    <Dialog.Panel className="px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl w-fullrelative sm:my-8 sm:max-w-lg sm:w-full sm:p-6">
                       <div className="flex items-start justify-between">
-                        <h3 className="text-lg leading-6 font-medium text-gray-900">Removed Players List</h3>
+                        <h3 className="text-lg font-medium leading-6 text-gray-900">
+                          Removed Players List
+                        </h3>
                         <div className="flex items-start justify-between">
-
-                          <div className="cursor-pointer" onClick={() => setShowPlayerList(false)}>
-                            <svg className="h-6 w-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => setShowPlayerList(false)}
+                          >
+                            <svg
+                              className="w-6 h-6 text-gray-900"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                              />
                             </svg>
                           </div>
                         </div>
@@ -414,18 +498,30 @@ const EditTeamPage: FunctionComponent = () => {
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                              <th scope="col" className="px-6 py-3">Player Name</th>
-                              <th scope="col" className="px-6 py-3">Action</th>
+                              <th scope="col" className="px-6 py-3">
+                                Player Name
+                              </th>
+                              <th scope="col" className="px-6 py-3">
+                                Action
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
                             {playerList.map((player: any, index: any) => (
-                              <tr key={index} className={`bg-white border-b dark:bg-gray-900 dark:border-gray-700`}>
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                              <tr
+                                key={index}
+                                className={`bg-white border-b dark:bg-gray-900 dark:border-gray-700`}
+                              >
+                                <th
+                                  scope="row"
+                                  className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                                >
                                   {player.name}
                                 </th>
                                 <td className="px-6 py-4">
-                                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs py-1 px-2 rounded-full cursor-pointer">Add To Team</button>
+                                  <button className="px-2 py-1 text-white bg-blue-500 rounded-full cursor-pointer hover:bg-blue-700 font-xs">
+                                    Add To Team
+                                  </button>
                                 </td>
                               </tr>
                             ))}
@@ -572,7 +668,9 @@ const EditTeamPage: FunctionComponent = () => {
                                 id="teamname"
                                 className="w-full py-4 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                                 value={selectedTeamName}
-                                onChange={(e) => setSelectedTeamName(e.target.value)}
+                                onChange={(e) =>
+                                  setSelectedTeamName(e.target.value)
+                                }
                               />
 
                               <div className="absolute left-8 top-[30px] bg-[#4CAF50] rounded-full w-4 h-4 text-white flex items-center justify-center">
@@ -601,7 +699,7 @@ const EditTeamPage: FunctionComponent = () => {
                               {t("PLAYER")} Name
                             </label>
 
-                            <div className="relative flex gap-2 items-center w-full">
+                            <div className="relative flex items-center w-full gap-2">
                               <img
                                 src="/img/ellipse-13@2x.png"
                                 alt="Team Logo"
@@ -614,7 +712,9 @@ const EditTeamPage: FunctionComponent = () => {
                                 placeholder="Player 1"
                                 className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                                 value={selectedPlayerNickname} // Set the input value to the selected player's nickname
-                                onChange={(e) => setSelectedPlayerNickname(e.target.value)} // Optionally, handle changes to allow editing the nickname
+                                onChange={(e) =>
+                                  setSelectedPlayerNickname(e.target.value)
+                                } // Optionally, handle changes to allow editing the nickname
                               />
                               <input
                                 type="hidden"
@@ -623,17 +723,25 @@ const EditTeamPage: FunctionComponent = () => {
                                 placeholder="Player 1"
                                 className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
                                 value={selectedUserId} // Set the input value to the selected player's nickname
-                                onChange={(e) => setSelectedUserId(e.target.value)} // Optionally, handle changes to allow editing the nickname
+                                onChange={(e) =>
+                                  setSelectedUserId(e.target.value)
+                                } // Optionally, handle changes to allow editing the nickname
                               />
                               <select
                                 name="teamId"
                                 id="teamSelect"
                                 className="w-1/2 py-3 text-gray-900 border-none rounded-md bg-gray-50 sm:text-sm"
-                                onChange={(e) => setSelectedTeamId(e.target.value)} // Assuming you have setSelectedTeamId to handle this
+                                onChange={(e) =>
+                                  setSelectedTeamId(e.target.value)
+                                } // Assuming you have setSelectedTeamId to handle this
                               >
-                                <option value="" disabled selected>Select a Team</option>
+                                <option value="" disabled selected>
+                                  Select a Team
+                                </option>
                                 {team.map((team) => (
-                                  <option key={team.id} value={team.id}>{team.name}</option>
+                                  <option key={team.id} value={team.id}>
+                                    {team.name}
+                                  </option>
                                 ))}
                               </select>
 
@@ -684,7 +792,6 @@ const EditTeamPage: FunctionComponent = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
