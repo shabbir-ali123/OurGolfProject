@@ -112,7 +112,7 @@ const SideMenu: React.FC = () => {
 
   const small: React.CSSProperties = {
     padding: "20px",
-    width: "26px",
+    width: "16px",
     margin: "0px 0px 30px -26px",
     borderRadius: "10px",
   };
@@ -244,7 +244,7 @@ const SideMenu: React.FC = () => {
             />
           </svg>
         </div>
-        <div className="mt-24 w-full" style={{ width: isMenuOpen ? "" : "20px" }}>
+        <div className="mt-24 w-full" style={{ width: isMenuOpen ? "" : "10px" }}>
           {menuItems.map((item) => (
             <ul key={item.name} className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-10" : ""}`} >
               <Link
