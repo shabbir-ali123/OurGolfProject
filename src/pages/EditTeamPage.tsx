@@ -118,7 +118,7 @@ const EditTeamPage: FunctionComponent = () => {
   };
   function SampleNextArrow(props:any) {
     const { className, style, onClick } = props;
-    const modifiedClassName = `${className} before:content-['←'] before:text-red-500 `;
+    const modifiedClassName = `${className}`;
 
     return (
       <div

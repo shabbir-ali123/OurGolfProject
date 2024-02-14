@@ -209,18 +209,17 @@ const SideMenu: React.FC = () => {
     <>
       <div
         style={{
-          zIndex: "9999",
+          zIndex: "10",
           height: "100vh",
           width: isMenuOpen ? "300px" : "50px",
           backgroundColor: "white",
-          boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.25)",
+          boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.15)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           position: "fixed",
           left: 0,
           top: 0,
-          padding: "0px 0px",
           transition: "width 0.3s ease",
         }}
         className=""
@@ -246,7 +245,7 @@ const SideMenu: React.FC = () => {
         </div>
         <div className="mt-24 w-full" style={{ width: isMenuOpen ? "" : "10px" }}>
           {menuItems.map((item) => (
-            <ul key={item.name} className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-10" : ""}`} >
+            <ul key={item.name} className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-0" : ""}`} >
               <Link
                 to={item.path}
                 className={` ${item.active ? "active" : ""}`}
