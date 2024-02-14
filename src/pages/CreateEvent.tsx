@@ -10,12 +10,13 @@ import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { ToastProvider } from "../utils/ToastProvider";
 import { useToast } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
+import { object } from "prop-types";
 
 interface CreateEventType {
   id?: number;
   eventType?: string;
   eventName?: string;
-  files?: string[];
+  files?: File[] | null;
   video?: string;
   eventDetails?: string;
   eventVideoUrl?: string;
@@ -61,7 +62,7 @@ const CreateEvent: React.FC = () => {
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
     eventName: "",
-    files: [],
+    files: null,
     eventDetails: "",
     eventVideoUrl: "",
     categories: "",
@@ -142,18 +143,38 @@ const CreateEvent: React.FC = () => {
     const numberArray = JSON.parse(selectedHoles).map((str: string) => parseInt(str, 10));
 
 
-    console.log(typeof(numberArray));
-    const updatedFormData = {
+    const updatedFormData: any = {
       ...formData,
       selectedScoringType: selectedScoringType,
       selectedHoles: numberArray,
       shotsPerHoles: numberArray
     };
+    const formdata = new FormData();
+    Object.keys(updatedFormData).map((key)=>{
+      let value:any = updatedFormData?.[key]
+      console.log({key, value})
+      if (key === 'files' && value ) {
+        for(let i =0; i<value.length; i++){
+          let fil = value[i]
+          console.log({key, fil})
+          formdata.append('files[]', fil)
+        }
+      }
+      else if (key === 'placeCoordinates') {
+        formdata.append('placeCoordinates[lat]', updatedFormData.placeCoordinates.lat);
+        formdata.append('placeCoordinates[lng]', updatedFormData.placeCoordinates.lng);
+      }
+      else {
+        formdata.append(key, value)
+      }
+ 
+    })
+
     try {
-      const response = await axios.post(API_ENDPOINTS.CREATEEVENT, updatedFormData, {
+      const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formdata, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'Content-Type': 'multipart/form-data',
+           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         
       });

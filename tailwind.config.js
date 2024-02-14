@@ -155,6 +155,7 @@ module.exports = {
         poppins: "Poppins",
         "body-b2": "Inter",
         lato: "Lato",
+        sans: ['Montserrat', 'Helvetica', 'Arial', 'sans-serif'],
       },
       borderRadius: {
         "8xs": "5px",

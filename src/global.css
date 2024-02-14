@@ -6,7 +6,7 @@
 @tailwind utilities;
 body {
   @apply leading-[normal] m-0;
-  font-family: "Robboto", sans-serif;
+  font-family: 'Montserrat', 'Helvetica', 'Arial', 'sans-serif';
 }
 *,
 ::before,

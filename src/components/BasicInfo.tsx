@@ -108,16 +108,20 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const filesArray = Array.from(files).slice(0, 5);
-      setFormData((prevFormData: any) => ({
-        ...prevFormData,
-        files:
-          filesArray.length === 1
-            ? filesArray[0]
-            : [...prevFormData.files, ...filesArray],
-      }));
+      console.log(files);
+
+     
+          setFormData((prevFormData:any) => ({
+            ...prevFormData,
+            files
+          }));
+        
+      
     }
   };
+  
+  
+  
 
   const handleChange = (selectedOption: any) => {
     handleCitySelection(selectedOption.value);
@@ -155,7 +159,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               {t("EVENT_NAME")}
             </label>
             <input
-              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded shadow-xl appearance-none focus:outline-none focus: hover:animate-bounce"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-xl appearance-none focus:outline-none focus: hover:animate-bounce"
               style={{
                 boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
               }}
@@ -175,7 +179,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               {t("SHORT_VIDEO")}
             </label>
             <input
-              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded shadow-inner focus:outline-none focus:bg-white hover:animate-bounce"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-inner focus:outline-none focus:bg-white hover:animate-bounce"
               style={{
                 boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
               }}
@@ -226,7 +230,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               )}
             </label>
             <input
-              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded appearance-none focus:outline-none focus:bg-white hover:animate-bounce"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded appearance-none focus:outline-none focus:bg-white hover:animate-bounce"
               style={{
                 boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
               }}
@@ -286,7 +290,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                   readOnly
                 />
                 <span
-                  className="absolute top-[65px] left-[50%] transform -translate-x-1/2 pr-3 flex items-center text-gray-700 cursor-pointer"
+                  className="absolute top-[65px] left-[50%] transform -translate-x-1/2 pr-3 flex items-center text-gray-700 cursor-pointer "
                   onClick={handleFileInputChange}
                 >
                   <FontAwesomeIcon icon={faPlus} />

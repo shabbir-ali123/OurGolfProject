@@ -151,13 +151,19 @@ const SideMenu: React.FC = () => {
         {
           name: "CREATED EVENTS",
           icon: faSearch,
-          path: "/teacher-page",
+          path: "/created-events",
           active: false
         },
         {
           name: "JOINED EVENTS",
           icon: faSearch,
-          path: "/teacher-page",
+          path: "/joined-events",
+          active: false
+        },
+        {
+          name: "BOOKMARKED EVENTS",
+          icon: faSearch,
+          path: "/booked-mark",
           active: false
         },
       ],
@@ -265,9 +271,13 @@ const SideMenu: React.FC = () => {
               {subMenuVisibility[item.name] && item.subItems && (
                 <div  className={`${isMenuOpen ? "block" : "hidden"}`}>
                   {item.subItems.map((subItem) => (
-                    <li>
+                    <li className="mx-2">
                       <Link to={subItem.path} className="w-full" key={subItem.name}>
-                        <div>
+                        <div className="bg-white rounded-md shadow-lg mt-2 p-6"
+                         style={{
+                          boxShadow: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
+                        }}
+                        >
                           <span style={{ marginLeft: "30px" }}>{t(subItem.name)}</span>
                         </div>
                       </Link>

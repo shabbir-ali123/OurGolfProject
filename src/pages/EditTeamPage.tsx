@@ -341,14 +341,14 @@ const EditTeamPage: FunctionComponent = () => {
               </>
             ) : (
               <>
-                <div className="flex items-end gap-4">
+                <div className="flex items-center gap-4">
                   <div>
                     <img src="/img/golfplyr.png" alt="" width="40px" />
                     <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
                       Team Members
                     </b>
-                    <div className="">
-                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                    <div className="flex gap-8">
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] bg-white rounded-md shadow-lg p-6">
                         Team Size:{" "}
                         <span className="text-[#17b3a6]">
                           {singleEvent?.teamSize === 0
@@ -356,14 +356,14 @@ const EditTeamPage: FunctionComponent = () => {
                             : singleEvent?.teamSize}
                         </span>
                       </p>
-                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] bg-white rounded-md shadow-lg p-6">
                         Capacity:{" "}
                         <span className="text-[#17b3a6]">
                           {singleEvent?.capacity * singleEvent?.capacity}
                         </span>
                       </p>
 
-                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px]  bg-white rounded-md shadow-lg p-6">
                         Joined Members:{" "}
                         <span className="text-[#17b3a6]">
                           {totalJoinedMembers}
@@ -374,8 +374,8 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
 
                 <button
-                  className="px-4 py-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
-                  onClick={() => router(`/pay-now`)}
+                  className="p-6 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                  onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                 >
                   join now
                 </button>
@@ -397,8 +397,8 @@ const EditTeamPage: FunctionComponent = () => {
                 <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
                   <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                     <div
-                      className={`w-[156px] relative pl-1  rounded text-base h-[58px] flex items-center font-semibold leading-5 text-white`}
-                      style={{ backgroundColor: "#00BF9E" }}
+                      className={`w-[156px] relative pl-1   rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-gray-300`}
+                    
                     >
                       <h4>{team.name}</h4>
                       <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">

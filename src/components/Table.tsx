@@ -291,7 +291,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             {event.eventStartDate}
                           </td>
                           <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left"    onClick={()=>router(
-                                `/pay-now/${event.id}`
+                                `/edit-team/${event.id}`
                               )}>
                             <div className="flex flex-col text-2xl font-bold capitalize">
                               {event.eventName}

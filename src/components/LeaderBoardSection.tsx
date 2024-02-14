@@ -66,7 +66,7 @@ const LeaderBoardSection: FunctionComponent = () => {
     ];
     return (
         <>
-            <div className='mt-20 mx-5 md:mx-[80px] bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  p-[80px]'>
+            <div className='mt-20 mx-5 md:mx-[80px] bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  p-[80px]  animate__animated animate__bounceInDown'>
                 <div>
                     <LeaderBoardHeader />
                     <div className='mt-10'>
