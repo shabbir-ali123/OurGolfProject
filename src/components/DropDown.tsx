@@ -1,22 +1,20 @@
-
 import { Fragment, useState, useEffect } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useTranslation } from 'react-i18next';
+import { MenuItem } from '@material-tailwind/react';
 
 interface DropDownProps {
   timeSlots?: any;
+  dayFilter?: any;
 }
 
-function DropDown({ timeSlots }: DropDownProps) {
-  console.log(timeSlots);
-  const [selectedOption, setSelectedOption] = useState(timeSlots ? timeSlots[0] : '');
+function DropDown({ timeSlots, dayFilter }: DropDownProps) {
+  const [selectedOption, setSelectedOption] = useState('All'); // Set initial state to 'All'
 
-  useEffect(() => {
-    if (timeSlots) {
-      setSelectedOption(timeSlots[0]);
-    }
-  }, [timeSlots]);
+  const handleFilterDays = (data: any) => {
+    setSelectedOption(data);
+    dayFilter(data);
+  };
 
   return (
     <Menu as={Fragment}>
@@ -46,17 +44,23 @@ function DropDown({ timeSlots }: DropDownProps) {
       >
         <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="flex flex-col py-1 cursor-pointer">
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  className={active ? 'bg-gray-100 text-gray-900 p-2' : 'text-gray-700 p-2'}
+                  onClick={() => handleFilterDays('All')}
+                >
+                  All
+                </a>
+              )}
+            </Menu.Item>
             {timeSlots ? (
               timeSlots.map((slot: any, index: any) => (
                 <Menu.Item key={index}>
                   {({ active }) => (
                     <a
-                      className={
-                        active
-                          ? 'bg-gray-100 text-gray-900 p-2'
-                          : 'text-gray-700 p-2'
-                      }
-                      onClick={() => setSelectedOption(slot)}
+                      className={active ? 'bg-gray-100 text-gray-900 p-2' : 'text-gray-700 p-2'}
+                      onClick={() => handleFilterDays(slot)}
                     >
                       {slot}
                     </a>

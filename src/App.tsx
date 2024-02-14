@@ -38,6 +38,8 @@ import PendingLessonsPage from "./components/PendingLesson";
 import ReadPost from "./pages/ReadPost";
 import CreatedEvents from "./pages/CreatedEvent";
 import { useParams } from 'react-router-dom';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
 const params = useParams();

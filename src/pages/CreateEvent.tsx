@@ -53,6 +53,8 @@ interface CreateEventType {
 }
 
 const CreateEvent: React.FC = () => {
+ 
+  
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [value, setValue] = useState("");
@@ -141,7 +143,6 @@ const CreateEvent: React.FC = () => {
 
 
     console.log(typeof(numberArray));
-    // Prepare formData
     const updatedFormData = {
       ...formData,
       selectedScoringType: selectedScoringType,
@@ -205,6 +206,7 @@ const CreateEvent: React.FC = () => {
         <div className=" animate__animated animate__lightSpeedInRight">
           <TournamentBg />
         </div>
+       
         <form method="post" id="foirm" encType="multipart/form-data">
           <BasicInfo onChange={handleChange} setFormData={setFormData} />
 
