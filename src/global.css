@@ -141,3 +141,19 @@ button:disabled{
   justify-content: space-between;
   text-align: right;
 }
+
+/* .slick-list {
+  height: 450px !important;
+} */
+
+/* .slick-next {
+  right: 0;
+} */
+
+.slick-arrow::before {
+  color: #14b0a3 !important;
+}
+
+/* .slick-prev {
+  left: 6px;
+} */

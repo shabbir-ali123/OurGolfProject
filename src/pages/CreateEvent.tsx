@@ -100,7 +100,6 @@ const CreateEvent: React.FC = () => {
     nearPinContest: 0,
   });
   const { showToast } = useToast();
-  console.log(formData, "shabbir");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log({ e }, "eevent");
@@ -132,6 +131,7 @@ const CreateEvent: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+
     e.preventDefault();
     if (submitting) {
       return;
@@ -139,7 +139,6 @@ const CreateEvent: React.FC = () => {
     setSubmitting(true); // Set submitting to true
     const selectedScoringType = localStorage.getItem('score');
     const selectedHoles = localStorage.getItem('selected') || '[]';
-
     const numberArray = JSON.parse(selectedHoles).map((str: string) => parseInt(str, 10));
 
 
@@ -191,6 +190,8 @@ const CreateEvent: React.FC = () => {
       console.error("Error:", error);
     } finally {
       setSubmitting(false);
+  console.log(formData, "shabbir");
+
     }
   };
 
@@ -204,6 +205,7 @@ const CreateEvent: React.FC = () => {
       paymentType,
     }));
   };
+  
   const handleRecruitmentTabsChange = (formDataUpdate: any, eventType: Tab) => {
     setFormData((prevFormData: any) => ({
       ...prevFormData,
@@ -212,8 +214,6 @@ const CreateEvent: React.FC = () => {
     }));
   };
 
-  const user = localStorage.getItem('user')
-  console.log(user, 'user')
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
