@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
 import { fetchSingleEvent } from "../utils/fetchEvents";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 interface Team {
   id: string;
   name: string;
@@ -203,7 +205,7 @@ const EditTeamPage: FunctionComponent = () => {
 
   let images = singleEvent?.imageUrl.map((item) => item);
   return (
-    <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10">
+    <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10 ml-12">
       <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
         <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
           <div className="flex justify-around w-full">
@@ -253,11 +255,11 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
           </div>
         </div>
-        <div className="w-full mx-auto my-4">
-          <div className="text-darkslateblue-300">
+        <div className="dfv">
             <Slider {...settings}>
             {
               singleEvent?.imageUrl.map((item: any) => (
+              // [1, 2, 3].map((item: any) => (
                 <div className="w-full h-200">
                   <img
                     className="w-full h-200"
@@ -270,6 +272,8 @@ const EditTeamPage: FunctionComponent = () => {
             
             </Slider>
           </div>
+        <div className="w-full mx-auto my-4">
+         
           <div className="flex items-end justify-between">
             {isCreated ? (
               <>
