@@ -72,11 +72,13 @@ const EditTeamPage: FunctionComponent = () => {
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
   const [teamMembers, setTeamMembers] = useState<Members[]>([]);
-  const [playerList, setPlayerList] = useState([
+  
+  const playerList=[
     { name: "John Doe" },
     { name: "Jane Smith" },
     { name: "Mike Johnson" },
-  ]);
+  ];
+
   const teamCapacity = singleEvent?.capacity;
 
   const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
@@ -111,18 +113,13 @@ const EditTeamPage: FunctionComponent = () => {
     });
   };
 
-  console.log(team, "teams ");
-
   const updateTeams = async (event: any) => {
     event.preventDefault();
     const uId = selectedUserId.toString();
-
-    // Assume you have initial values stored in state for comparison
     const initialTeamSize = singleEvent?.teamSize;
     const initialCapacity = singleEvent?.capacity;
     const initialMembers = teamMembers;
 
-    // Check if there are changes
     const hasCapacityChanged = capacity !== initialCapacity;
     const hasTeamSizeChanged = currentTeamSize !== initialTeamSize;
     const hasMembersChanged =
@@ -134,7 +131,6 @@ const EditTeamPage: FunctionComponent = () => {
     }
     const teams = team;
 
-    // Proceed with update if changes are detected
     const formDataObj = {
       eventId: singleEvent?.id,
       teamSize:
@@ -203,7 +199,6 @@ const EditTeamPage: FunctionComponent = () => {
     return headers;
   };
 
-  let images = singleEvent?.imageUrl.map((item) => item);
   return (
     <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10 ml-12">
       <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
@@ -255,25 +250,16 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
           </div>
         </div>
-        <div className="dfv">
-            <Slider {...settings}>
-            {
-              singleEvent?.imageUrl.map((item: any) => (
-              // [1, 2, 3].map((item: any) => (
-                <div className="w-full h-200">
-                  <img
-                    className="w-full h-200"
-                    src={item || ""}
-                    alt="text"
-                  />
+        {singleEvent?.imageUrl?.length && (
+          <Slider {...settings}>
+            {singleEvent?.imageUrl.map((item: any) => (
+              <div className="w-full h-200">
+                <img className="w-full h-200" src={item || ""} alt="text" />
               </div>
-              ))
-            }
-            
-            </Slider>
-          </div>
+            ))}
+          </Slider>
+        )}
         <div className="w-full mx-auto my-4">
-         
           <div className="flex items-end justify-between">
             {isCreated ? (
               <>
@@ -704,10 +690,10 @@ const EditTeamPage: FunctionComponent = () => {
                                 id="playerName"
                                 placeholder="Player 1"
                                 className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
-                                value={selectedPlayerNickname} // Set the input value to the selected player's nickname
+                                value={selectedPlayerNickname} 
                                 onChange={(e) =>
                                   setSelectedPlayerNickname(e.target.value)
-                                } // Optionally, handle changes to allow editing the nickname
+                                }
                               />
                               <input
                                 type="hidden"
@@ -715,10 +701,10 @@ const EditTeamPage: FunctionComponent = () => {
                                 id="playerName"
                                 placeholder="Player 1"
                                 className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
-                                value={selectedUserId} // Set the input value to the selected player's nickname
+                                value={selectedUserId} 
                                 onChange={(e) =>
                                   setSelectedUserId(e.target.value)
-                                } // Optionally, handle changes to allow editing the nickname
+                                }
                               />
                               <select
                                 name="teamId"
@@ -726,7 +712,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 className="w-1/2 py-3 text-gray-900 border-none rounded-md bg-gray-50 sm:text-sm"
                                 onChange={(e) =>
                                   setSelectedTeamId(e.target.value)
-                                } // Assuming you have setSelectedTeamId to handle this
+                                } 
                               >
                                 <option value="" disabled selected>
                                   Select a Team
