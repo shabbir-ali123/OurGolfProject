@@ -226,7 +226,7 @@ const params = useParams();
         <Route path="/login-page"  element={<LoginPage  />} />
         <Route path="/register-page" element={<RegisterPage/>} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/pay-now" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
+        <Route path="/pay-now/:id" element={<PaymentForm  onSubmit={(values) => console.log(values)}/>} />
         <Route path="/booked-mark" element= {token? <BookMarkedEvents /> :<LoginPage />}  />
         <Route path="/joined-events" element= {token? <JoinedEvents /> :<LoginPage />} />
         <Route path="/create-teacher" element={token  || token !== "undefined" ? <CreateTeacher /> :<LoginPage />} /> 

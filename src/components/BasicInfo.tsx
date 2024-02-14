@@ -134,25 +134,31 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
 
   return (
     <motion.div
-      className="px-2 mx-auto lg:max-w-6xl "
+      className="px-2 mx-auto lg:max-w-7xl "
       animate={{ x: [0, 100, 0] }}
     >
-      <div className="p-4 mt-4 bg-gray-900 bg-opacity-50 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
+      <div className="p-4 mt-4  rounded-md bg-clip-padding " style={{
+        boxShadow:
+          'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+      }}>
         <div>
-          <h2 className="text-4xl text-white animate-bounce">
+          <h2 className="text-4xl text-[#626262] animate-bounce">
             {t("BASIC_INFORMATION")}
           </h2>
         </div>
         <div className="grid grid-cols-9 py-8 mx-auto lg:gap-x-16 ">
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3 ">
             <label
-              className="block mb-2 text-lg tracking-wide text-white captilize "
+              className="block mb-2 text-lg tracking-wide text-[#626262] captilize "
               htmlFor="grid-event-name"
             >
               {t("EVENT_NAME")}
             </label>
             <input
               className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded shadow-xl appearance-none focus:outline-none focus: hover:animate-bounce"
+              style={{
+                boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
+              }}
               id="grid-Event-Name"
               type="text"
               name="eventName"
@@ -163,13 +169,16 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           </div>
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
-              className="block mb-2 text-lg tracking-wide text-white captilize"
+              className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
               htmlFor="grid-short-video"
             >
               {t("SHORT_VIDEO")}
             </label>
             <input
               className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded shadow-inner focus:outline-none focus:bg-white hover:animate-bounce"
+              style={{
+                boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
+              }}
               id="grid-first-name"
               type="text"
               name="eventVideoUrl"
@@ -180,7 +189,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           </div>
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
-              className="relative flex items-center gap-2 mb-2 text-lg tracking-wide text-white capitalize captilize"
+              className="relative flex items-center gap-2 mb-2 text-lg tracking-wide text-[#626262] capitalize captilize"
               htmlFor="grid-short-video"
             >
               {t("EVENT_DETAILS")}
@@ -218,6 +227,9 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
             </label>
             <input
               className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border-none rounded appearance-none focus:outline-none focus:bg-white hover:animate-bounce"
+              style={{
+                boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
+              }}
               id="grid-first-name"
               name="eventDetails"
               type="text"
@@ -225,23 +237,18 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               required
               onChange={onChange}
             />
-            <div className="relative w-full col-span-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
+            <div className="relative w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
               <label
-                className="block mb-2 text-lg tracking-wide text-white captilize"
+                className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
                 htmlFor="place"
               >
                 {t("PLACE")}
               </label>
               <Select
                 name="place"
-                options={
-                  JapanCities as OptionsOrGroups<
-                    OptionType,
-                    GroupBase<OptionType>
-                  >
-                }
+                options={JapanCities as OptionsOrGroups<OptionType, GroupBase<OptionType>>}
                 onChange={handleChange}
-                className="w-full text-base border border-gray-300 rounded shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 classNamePrefix=""
               />
 
@@ -254,7 +261,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           </div>
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
-              className="relative block mb-2 text-lg tracking-wide text-white captilize"
+              className="relative block mb-2 text-lg tracking-wide text-[#626262] captilize"
               htmlFor="grid-short-video"
             >
               {t("UPLOAD_IMAGES")}
@@ -267,6 +274,9 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               <div className="flex items-center ">
                 <input
                   className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16 px-4 mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform shadow-xl"
+                  style={{
+                    boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
+                  }}
                   type="file"
                   name="files"
                   onChange={handleImageChange}
@@ -299,8 +309,8 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
 
           <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
             <button
-              className="bg-[#51ff85] mx-2 text-white py-3 px-4 mb-2 md:mb-0 md:mr-2 rounded-md"
-              onClick={() => {}}
+              className="bg-[#51ff85] mx-2 text-[#626262] py-3 px-4 mb-2 md:mb-0 md:mr-2 rounded-md"
+              onClick={() => { }}
             >
               {t("MAP")}
             </button>
@@ -310,8 +320,8 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               placeholder={t("SEARCH_LOCATION")}
             />
             <button
-              className="px-4 py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
-              onClick={() => {}}
+              className="px-4 py-3 mx-2 text-[#626262] bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
+              onClick={() => { }}
             >
               {t("SELECT")}
             </button>

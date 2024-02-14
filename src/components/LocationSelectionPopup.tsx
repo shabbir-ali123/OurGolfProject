@@ -55,12 +55,12 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
   selectedCitiesData(selectedCities);
   sendDataToParent(selectedCities)
   return (
-    <div className={`fixed inset-0 z-50 h-[100vh] ${isOpen ? 'block' : 'hidden'}`}>
+    <div className={`fixed inset-0 z-50 h-[100vh] ${isOpen ? 'block' : 'hidden'} `}>
       <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" onClick={onClose}>
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-        <div className="inline-block overflow-hidden overflow-y-scroll h-[600px] text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-[50rem] sm:w-full" role="dialog" aria-modal="true">
+        <div className="inline-block overflow-y-auto scrollbar h-[600px] text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-[50rem] sm:w-full" role="dialog" aria-modal="true">
           <div className="fixed top-0 right-0 flex justify-end p-4">
             <span onClick={onClose} className="border-solid border-[2px] border-[#52FF86] rounded-full px-2 p-2 flex justify-center items-center">
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
@@ -89,6 +89,27 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
           </div>
         </div>
       </div>
+      <style>
+              {`
+              @media screen and (min-width: 1300px) {
+                .scrollbar {
+                  scrollbar-width: thin;
+                  scrollbar-color: #52FF86 transparent;
+                }
+                .scrollbar::-webkit-scrollbar {
+                  width: 4px;
+                  height: 10px;
+                }
+                .scrollbar::-webkit-scrollbar-thumb {
+                  background-color: #52FF86;
+                  border-radius: 6px;
+                }
+                .scrollbar::-webkit-scrollbar-track {
+                  background-color: transparent;
+                }
+              }
+              `}
+            </style>
     </div>
   );
 };

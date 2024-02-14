@@ -79,13 +79,13 @@ export default function ProfileButton() {
              <div className="flex items-center justify-center ">
             <img
               onClick={handleDotClick}
-              className="inline-block h-6 w-6 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
+              className="inline-block h-8 w-8 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
               src={user?.imageUrl}
               alt=""
             />
             </div>
             <div className="ml-3">
-              <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
+              <p className="m-0 text-base font-medium text-black group-hover:text-gray-900">
                 {user.nickName ? user.nickName : user.email}
               </p>
               <button
@@ -114,7 +114,7 @@ export default function ProfileButton() {
           </div>
           <div className="ml-3">
               <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
-                <Link to="/login-page" className="text-white">Login</Link>
+                <Link to="/login-page" className="text-black">Login</Link>
               </p>
               <div>
               <button
@@ -142,7 +142,7 @@ export default function ProfileButton() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
-                stroke="white"
+                stroke="black"
                 className="w-6 h-6 cursor-pointer"
               >
                 <path

@@ -141,11 +141,16 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   }, [selectedScoringType, formData]);
 
   return (
-    <div className="px-2 py-10 mx-auto lg:max-w-6xl">
-      <div className="p-4 mt-4 bg-gray-900 bg-opacity-50 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
-        <h2 className="text-4xl text-white">{t('SCORING_CATEGORY')}</h2>
-        <h4 className="text-white">
-          01 <span className="ml-4 text-white">{t('SCORING_TYPE')}</span>
+    <div className="px-2 py-10 mx-auto lg:max-w-7xl">
+      <div className="p-4 mt-4  rounded-md "
+       style={{
+        boxShadow:
+          'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+      }}
+      >
+        <h2 className="text-4xl text-[#626262]">{t('SCORING_CATEGORY')}</h2>
+        <h4 className="text-[#626262]">
+          01 <span className="ml-4 text-[#626262]">{t('SCORING_TYPE')}</span>
         </h4>
         <div className="flex gap-10">
         <div>
@@ -162,7 +167,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               className={
                 activeTab === Tab.Normal
                   ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-white"
+                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
               {t('NORMAL')}
@@ -182,7 +187,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               className={
                 activeTab === Tab.Single
                   ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-white"
+                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
               {t('PERIA')}
@@ -202,7 +207,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               className={
                 activeTab === Tab.Double
                   ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-white"
+                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
               {t('DOUBLE_PERIA')}
@@ -222,7 +227,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               className={
                 activeTab === Tab.Triple
                   ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-white"
+                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
               {t('TRIPLE_PERIA')}
@@ -232,7 +237,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         {selectedScoringType === Tab.Normal && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4 className="text-white">Please select 9 holes</h4>
+              <h4 className="text-[#626262]">Please select 9 holes</h4>
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center" key={index + 1}>
@@ -245,9 +250,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       id={String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
-                    <label htmlFor={String(index + 1)} className="text-white">
+                    <label htmlFor={String(index + 1)} className="text-[#626262]">
                       {t('HOLE')}
-                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-white">
+                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
                         {index + 1}
                       </span>
                     </label>
@@ -260,7 +265,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         {selectedScoringType === Tab.Single && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4 className="text-white">Please select 9 holes</h4>
+              <h4 className="text-[#626262]">Please select 9 holes</h4>
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center" key={index + 1}>
@@ -273,9 +278,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       id={String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
-                    <label htmlFor={String(index + 1)} className="text-white">
+                    <label htmlFor={String(index + 1)} className="text-[#626262]">
                       {t('HOLE')}
-                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-white">
+                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
                         {index + 1}
                       </span>
                     </label>
@@ -289,7 +294,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         {selectedScoringType === Tab.Double && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4 className="text-white">Please select 12 holes</h4>
+              <h4 className="text-[#626262]">Please select 12 holes</h4>
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center" key={index + 1}>
@@ -304,9 +309,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       id={"double" + String(index + 1)}
                       className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                     />
-                    <label htmlFor={`double${index + 1}`} className="text-white">
+                    <label htmlFor={`double${index + 1}`} className="text-[#626262]">
                       {t('HOLE')}
-                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-white">
+                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
                         {index + 1}
                       </span>
                     </label>
@@ -318,7 +323,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         )}
 
         {selectedScoringType === Tab.Triple && (
-          <div className="grid grid-cols-9 mx-auto text-white lg:gap-x-16 ">
+          <div className="grid grid-cols-9 mx-auto text-[#626262] lg:gap-x-16 ">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
               <h4>{t('SELECT_HOLE')}</h4>
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
@@ -347,17 +352,17 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </div>
           </div>
         )}
-        <p className="text-white">Optional</p>
+        <p className="text-[#626262]">Optional</p>
         <div className="flex items-center col-span-12 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="driverContest"
-            className="block mb-2 text-xs font-bold tracking-wide text-white capitalize"
+            className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
           >
             02
             <span className="ml-4">{t('DRIVER_CONTEST')}</span>
           </label>
           <input
-            className="text-center appearance-none block w-[50px] bg-gray-200 text-white border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
+            className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
             id="driverContest"
             type="number"
             name="driverContest"
@@ -370,12 +375,12 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
           <label
             htmlFor="nearPinContest"
-            className="block mb-2 text-xs font-bold tracking-wide text-white capitalize"
+            className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
           >
             03 <span className="ml-4">{t('PIN_CONTEST')}</span>
           </label>
           <input
-            className="text-center appearance-none block w-[50px] bg-gray-200 text-white border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none "
+            className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none "
             id="nearPinContest"
             type="number"
             name="nearPinContest"

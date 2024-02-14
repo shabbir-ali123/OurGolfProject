@@ -124,7 +124,7 @@ const EditTeamPage: FunctionComponent = () => {
 
       eventId: singleEvent?.id,
       teamSize: currentTeamSize == undefined ? singleEvent?.teamSize : Number(currentTeamSize),
-      capacity: capacity === undefined ? totalCapacity: Number(capacity),
+      capacity: capacity === undefined ? totalCapacity : Number(capacity),
       teams
     };
 
@@ -242,78 +242,87 @@ const EditTeamPage: FunctionComponent = () => {
                 <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
                   Edit Teams
                 </b>
+                <div className=" ">
+                <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                  Joined Members: <span className="text-[#17b3a6]">{totalJoinedMembers}</span>
+
+                </p>
+
+
               </div>
+              </div>
+              
             </div>
               <div className="flex gap-2 place-self-end">
-              <div className="flex gap-2 items-center ">
-                <label
-                  className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
-                  htmlFor="teamSize"
-                >
-                  Capacity
-                </label>
-                <input
-                  className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
-                  id="teamSize"
-                  type="number"
-                  name="teamSize"
-                  value={capacity === undefined ? totalCapacity : capacity}
-                  onChange={(e) => setCapacity(e.target.value)}
-                  min="0"
-                />
-              </div>
-              <div className="flex gap-2 items-center ">
-                <label
-                  className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
-                  htmlFor="teamSize"
-                >
-                  Team Size
-                </label>
-                <input
-                  className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
-                  id="teamSize"
-                  type="number"
-                  name="teamSize"
-                  value={currentTeamSize == undefined ? singleEvent?.teamSize : currentTeamSize}
-                  onChange={(e) => setCurrentTeamSize(e.target.value)}
-                  min="0"
-                />
-              </div>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded" onClick={handleOpenPlayerList}>Remove Players List</button>
+                <div className="flex gap-2 items-center ">
+                  <label
+                    className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
+                    htmlFor="teamSize"
+                  >
+                    Capacity
+                  </label>
+                  <input
+                    className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
+                    id="teamSize"
+                    type="number"
+                    name="teamSize"
+                    value={capacity === undefined ? totalCapacity : capacity}
+                    onChange={(e) => setCapacity(e.target.value)}
+                    min="0"
+                  />
+                </div>
+                <div className="flex gap-2 items-center ">
+                  <label
+                    className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
+                    htmlFor="teamSize"
+                  >
+                    Team Size
+                  </label>
+                  <input
+                    className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
+                    id="teamSize"
+                    type="number"
+                    name="teamSize"
+                    value={currentTeamSize == undefined ? singleEvent?.teamSize : currentTeamSize}
+                    onChange={(e) => setCurrentTeamSize(e.target.value)}
+                    min="0"
+                  />
+                </div>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-2 rounded" onClick={handleOpenPlayerList}>Remove Players List</button>
               </div>
             </> :
               <>
-              <div className="flex gap-4 items-end">
-                <div>
-                <img src="/img/golfplyr.png" alt="" width="40px" />
-                <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                Team Members
-                </b>
-                <div className=" ">
-                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                    Team Size: <span className="text-[#17b3a6]">{singleEvent?.teamSize === 0 ? 1 : singleEvent?.teamSize}</span>
-                  </p>
-                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                    Capacity: <span className="text-[#17b3a6]">
-                    {singleEvent?.capacity * singleEvent?.capacity}
-                      </span> 
-                  </p>
-                  
-                  <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                    Joined Members: <span className="text-[#17b3a6]">{totalJoinedMembers}</span> 
+                <div className="flex gap-4 items-end">
+                  <div>
+                    <img src="/img/golfplyr.png" alt="" width="40px" />
+                    <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                      Team Members
+                    </b>
+                    <div className=" ">
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        Team Size: <span className="text-[#17b3a6]">{singleEvent?.teamSize === 0 ? 1 : singleEvent?.teamSize}</span>
+                      </p>
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        Capacity: <span className="text-[#17b3a6]">
+                          {singleEvent?.capacity * singleEvent?.capacity}
+                        </span>
+                      </p>
 
-                  </p>
+                      <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        Joined Members: <span className="text-[#17b3a6]">{totalJoinedMembers}</span>
 
-               
+                      </p>
+
+
+                    </div>
+                  </div>
+
                 </div>
-                </div>
-               
-              </div>
-                
-           
-                <button className="uppercase cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-normal px-4 py-4 rounded" onClick={() =>router(
-                            `/pay-now`
-                          )}>join now</button>
+
+
+                <button className="uppercase cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-normal px-4 py-4 rounded"  onClick={()=>router(
+                                `/pay-now/${teamId}`
+                              )}>join now</button>
               </>
             }
           </div>
@@ -354,7 +363,7 @@ const EditTeamPage: FunctionComponent = () => {
                       </div>
                     </div>
                   </td>
-                  {team.members.map((member:any, memberIndex) => (
+                  {team.members.map((member: any, memberIndex) => (
                     <td className="py-4 pl-4 whitespace-nowrap">
                       <Player
                         isCreator={isCreated}
@@ -364,14 +373,14 @@ const EditTeamPage: FunctionComponent = () => {
                         onEdit={() => {
                           setSelectedPlayerNickname(member.nickName);
                           setSelectedUserId(member.userId);
-                          setSelectedTeamName(team.name); 
-                          setEditOpen(true); 
+                          setSelectedTeamName(team.name);
+                          setEditOpen(true);
                         }}
                         onDelete={() => setOpen(true)}
                         name={member.nickName}
                         imageUrl={member.imageUrl}
                       />
-                  
+
                     </td>
                   ))}
                 </tr>
