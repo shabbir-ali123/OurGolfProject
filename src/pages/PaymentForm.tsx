@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
+import { useParams } from "react-router-dom";
 interface PaymentFormProps {
   onSubmit: (values: PaymentFormValues) => void;
 }
@@ -20,8 +21,8 @@ export interface PaymentFormValues {
 
 export const PaymentForm: React.FC<PaymentFormProps> = () => {
   const [events, setEvents] = useState<any>([]); 
-  
-  const eventID = Number(localStorage.getItem('selectedEventId'));
+  const params = useParams<{ id?: string }>();
+  const eventID = params.id;
 
 useEffect(() => {
   const getEvents = async () => {

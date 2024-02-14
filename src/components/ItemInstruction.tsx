@@ -6,13 +6,18 @@ const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
 
   return (
-    <div className="px-2 mx-auto lg:max-w-6xl ">
+    <div className="px-2 mx-auto lg:max-w-7xl ">
       
-      <div className="bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50  p-4 mt-4">
-      <h2 className="text-white text-4xl px-16">
+      <div className=" rounded-md  p-4 mt-4"
+      style={{
+        boxShadow:
+          'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+      }}
+      >
+      <h2 className="text-[#626262] text-4xl px-16">
         {t('PARTICIPANTS_ITEMS')}
       </h2>
-        <p className="px-16 text-white">
+        <p className="px-16 text-[#626262]">
         {t('INSTRUCTION')}
         </p>
         <div className="gap-16 lg:flex">
@@ -33,8 +38,8 @@ document.body.dir = i18n.dir();
                 />
               </svg>
               <div>
-                <h4 className="py-1 m-0 text-white">{t('FULL_NAME')}</h4>
-                <p className="m-0 text-white">{t('NAME_EXAMPLE')}</p>
+                <h4 className="py-1 m-0 text-[#626262]">{t('FULL_NAME')}</h4>
+                <p className="m-0 text-[#626262]">{t('NAME_EXAMPLE')}</p>
               </div>
             </div>
             <div className="flex items-center col-span-3 gap-2">
@@ -53,8 +58,8 @@ document.body.dir = i18n.dir();
                 />
               </svg>
               <div>
-                <h4 className="py-1 m-0 text-white">{t('EMAIL')}</h4>
-                <p className="m-0 text-white">{t('EMAIL_EXAMPLE')}</p>
+                <h4 className="py-1 m-0 text-[#626262]">{t('EMAIL')}</h4>
+                <p className="m-0 text-[#626262]">{t('EMAIL_EXAMPLE')}</p>
               </div>
             </div>
           </div>
@@ -75,8 +80,8 @@ document.body.dir = i18n.dir();
                 />
               </svg>
               <div>
-                <h4 className="py-1 m-0 text-white">{t('TELEPHONE')}</h4>
-                <p className="m-0 text-white">{t('TELEPHONE_EXAMPLE')}</p>
+                <h4 className="py-1 m-0 text-[#626262]">{t('TELEPHONE')}</h4>
+                <p className="m-0 text-[#626262]">{t('TELEPHONE_EXAMPLE')}</p>
               </div>
             </div>
             <div className="flex items-center col-span-3 gap-2">
@@ -95,8 +100,8 @@ document.body.dir = i18n.dir();
                 />
               </svg>
               <div>
-                <h4 className="py-1 m-0 text-white">{t('HANDICAP_SCORE')}</h4>
-                <p className="m-0 text-white">{t('HANDICAP_EXAMPLE')}</p>
+                <h4 className="py-1 m-0 text-[#626262]">{t('HANDICAP_SCORE')}</h4>
+                <p className="m-0 text-[#626262]">{t('HANDICAP_EXAMPLE')}</p>
               </div>
             </div>
           </div>

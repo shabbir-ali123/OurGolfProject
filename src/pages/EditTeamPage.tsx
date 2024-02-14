@@ -256,29 +256,18 @@ const EditTeamPage: FunctionComponent = () => {
         <div className="w-full mx-auto my-4">
           <div className="text-darkslateblue-300">
             <Slider {...settings}>
-              <div className="w-full h-200">
-                <img
-                  className="w-full h-200"
-                  src={singleEvent?.imageUrl[0] || ""}
-                  alt="text"
-                />
+            {
+              singleEvent?.imageUrl.map((item: any) => (
+                <div className="w-full h-200">
+                  <img
+                    className="w-full h-200"
+                    src={item || ""}
+                    alt="text"
+                  />
               </div>
-
-              <div className="w-full h-200">
-                <img
-                  className="w-full h-200"
-                  src={singleEvent?.imageUrl[0] || ""}
-                  alt="text"
-                />
-              </div>
-
-              <div className="w-full h-200">
-                <img
-                  className="w-full h-200"
-                  src={singleEvent?.imageUrl[0] || ""}
-                  alt="text"
-                />
-              </div>
+              ))
+            }
+            
             </Slider>
           </div>
           <div className="flex items-end justify-between">

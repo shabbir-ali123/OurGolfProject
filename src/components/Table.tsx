@@ -179,7 +179,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     localStorage.setItem('selectedEventId', e.id)
   }
 
-  console.log({localEvents})
+  console.log({ localEvents })
   return (
     <div className="animate__animated animate__fadeInLeft">
       {localEvents.length === 0 ? (
@@ -250,9 +250,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       <React.Fragment key={index}>
                         <tr
                           className={`rounded-lg cursor-pointer`}
-                          onClick={()=>router(
-                            `/edit-team/${event.id}`
-                          )}
+
                           style={{
                             width: "100%",
                             borderRadius: "10px",
@@ -260,7 +258,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             boxShadow: "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px"
                           }}
                         >
-                          <td className="">
+                          <td className="" onClick={() => router(
+                            `/edit-team/${event.id}`
+                          )}>
                             <div className="flex items-center gap-x-4 mx-2">
                               <img
                                 src={
@@ -271,7 +271,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 alt=""
                                 className="w-12 h-12  rounded-full border border-indigo-600 border-solid "
                               />
-                             
+
                               <div className="text-lg font-medium leading-6 truncate tableText">
                                 {event.creator && event.creator.nickName
                                   ? event.creator.nickName
@@ -280,13 +280,19 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </div>
                           </td>
 
-                          <td className="px-3 py-0 text-sm whitespace-nowrap">
+                          <td className="px-3 py-0 text-sm whitespace-nowrap"    onClick={()=>router(
+                            `/edit-team/${event.id}`
+                          )}>
                             {event.eventStartTime}
                           </td>
-                          <td className="px-3 py-0 text-sm whitespace-nowrap">
+                          <td className="px-3 py-0 text-sm whitespace-nowrap"    onClick={()=>router(
+                            `/edit-team/${event.id}`
+                          )}>
                             {event.eventStartDate}
                           </td>
-                          <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left">
+                          <td className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left"    onClick={()=>router(
+                                `/pay-now/${event.id}`
+                              )}>
                             <div className="flex flex-col text-2xl font-bold capitalize">
                               {event.eventName}
                               <span className="flex items-center gap-1 font-normal ">
@@ -301,27 +307,29 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                             <span
                               className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2 cursor-pointer    ${event.type === "full"
-                                ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full "
-                                : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
+                                ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3  h-full "
+                                : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat   h-[100%]"
                                 }`}
                             >
-                              <Link
-                                to={user ? "/pay-now" : "/login-page" }
-                                target="_blank" 
+                              <div
+                              
                                 rel="noopener noreferrer"
-                                className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0 sm:mx-2 cursor-pointer ${event.type === "full"
-                                  ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3 hover:animate-bounce h-full"
-                                  : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat  hover:animate-bounce h-[100%]"
+                                className={`md:whitespace-nowrap rounded-lg px-0 text-white py-1 text-sm mx-0 sm: cursor-pointer ${event.type === "full"
+                                  ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full"
+                                  : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%]"
                                   }`}
-                                onClick={() => handleJoinClick(event)}
+                              
                               >
                                 <p className="rotate-45 sm:text-lg xl:text-x">
+                                  
                                   Join
                                 </p>
-                              </Link>
+                              </div>
                             </span>
                           </td>
-                          <td className="px-3 py-0 text-sm whitespace-nowrap">
+                          <td className="px-3 py-0 text-sm whitespace-nowrap"    onClick={()=>router(
+                            `/edit-team/${event.id}`
+                          )}>
                             {event.eventDetails}
                           </td>
                           <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">

@@ -50,7 +50,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <header className="bg-[#054a51] overflow-hidden ">
+      <header className="bg-[white] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] overflow-hidden text-black mx-20 my-4  ">
         <nav
           className="flex items-center justify-between py-2 lg:px-32 "
           aria-label="Global"
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.to}
-                className={`text-2xl list-none no-underline font-normal leading-6 text-white hover:animate-bounce hover:text-[#ffe000] hover:text-xl ${item.active ? "active" : ""
+                className={`text-2xl list-none no-underline font-normal leading-6 text-black hover:animate-bounce hover:text-[#ffe000] hover:text-xl ${item.active ? "active" : ""
                   }`}
                 style={
                   item.active
@@ -103,7 +103,8 @@ const Header: React.FC = () => {
           onClose={() => setMobileMenuOpen(false)}
         >
           <div className="fixed inset-0 z-10" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full px-6 py-6 overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full px-6 py-6 overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 lg:hidden">
+
             <div className="flex items-center justify-between">
               <Link to="/" className="ml-10 lg:ml-0 md:ml-0 p-1.5">
                 <img className="w-auto h-8" src="./img/logo.png" alt="" />

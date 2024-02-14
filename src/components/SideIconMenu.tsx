@@ -2,22 +2,29 @@ import React, { useEffect, useState, useRef } from "react";
 import {
   faHome,
   faGlobe,
-  faHeart,
   faBell,
-  faCog,
-  faSignOutAlt,
-  faSearch,
-  faCalendar,
-  faEnvelope,
   faUser,
+  faCalendar,
+  faUserFriends,
+  faMessage,
+  faPeopleGroup,
+  faSearch,
+  faGear,
+  faSignOutAlt,
+  faChevronDown,
+  faChevronLeft,
+  faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-interface MenuStyles {
-  zIndex: string;
-  height: string;
-  width: string;
+
+interface MenuItem {
+  name: string;
+  icon: any;
+  path: string;
+  active?: boolean;
+  subItems?: MenuItem[];
 }
 
 const SideMenu: React.FC = () => {
@@ -25,8 +32,8 @@ const SideMenu: React.FC = () => {
   document.body.dir = i18n.dir();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("Events");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [subMenuVisibility, setSubMenuVisibility] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -58,105 +65,170 @@ const SideMenu: React.FC = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleDropdownItemSelect = (item: string) => {
-    setSelectedItem(item);
+  const handleMenuItemClick = (itemName: string) => {
     setIsDropdownOpen(false);
+
+    Object.keys(subMenuVisibility).forEach((key) => {
+      if (key !== itemName) {
+        setSubMenuVisibility((prevVisibility) => ({
+          ...prevVisibility,
+          [key]: false,
+        }));
+      }
+    });
+
+    setSubMenuVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [itemName]: !prevVisibility[itemName],
+    }));
   };
 
-  const menuStyles: React.CSSProperties = {
-    zIndex: "9999",
-    height: "100vh",
-    width: isMenuOpen ? "200px" : "40px",
-    backgroundColor: "#054a51",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "fixed",
-    left: 0,
-    top: 0,
-    padding: "0px 0px",
-    transition: "width 0.3s ease",
-  };
 
-  const menuItemStyles: React.CSSProperties = {
+  const getMenuItemStyles = (itemName: string, itemPath: string): React.CSSProperties => ({
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginBottom: "20px",
     cursor: "pointer",
     borderBottom: "1px solid #ffff",
-    width: "100%",
-    height: "50px",
-  };
+    background: window.location.pathname === itemPath ? "linear-gradient(14deg, rgb(23 179 166), rgb(23 179 166 / 58%))" : "transparent",
+    borderRadius: window.location.pathname === itemPath ? "4px" : "",
+    boxShadow: window.location.pathname === itemPath ? "0 0 10px 1px rgb(94 243 231)" : "",
+    alignItems: "center",
+    color: "#fff",
+    marginBottom: isMenuOpen && subMenuVisibility[itemName] ? "10px" : "0", // Adjust this value as needed
 
-  const iconStyles: React.CSSProperties = {
+  });
+
+  const iconStyles = (itemName: string, itemPath: string): React.CSSProperties => ({
     fontSize: "20px",
-    color: "white",
-    marginBottom: "5px",
-  };
+    color: window.location.pathname === itemPath ? "#fff" : "#565656",
+  });
 
-  const textStyles: React.CSSProperties = {
-    fontSize: "14px",
-    color: "white",
+  const textStyles = (itemName: string, itemPath: string): React.CSSProperties => ({
+    fontSize: "15px",
+    color: window.location.pathname === itemPath ? "#fff" : "#626262",
     visibility: isMenuOpen ? "visible" : "hidden",
     transition: "visibility 0.3s ease",
+    marginLeft: "10px", // Adjust this value as needed
+  });
+
+  const small: React.CSSProperties = {
+    padding: "20px",
+    width: "26px",
+    margin: "0px 0px 30px -26px",
+    borderRadius: "10px",
   };
 
-  const dropdownStyles: React.CSSProperties = {
-    position: "relative",
-    width: "100%",
-    left: "20",
-    top: "0",
+  const big: React.CSSProperties = {
+    padding: "10px 0px 10px 10px",
+    margin: "10px 10px 50px 10px",
+
   };
 
-  const dropdownButtonStyles: React.CSSProperties = {
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-  };
-
-  const dropdownListStyles: React.CSSProperties = {
-    display: isDropdownOpen ? "block" : "none",
-    position: "absolute",
-    top: "100%",
-    left: 0,
-    backgroundColor: "white",
-    width: "100%",
-    border: "1px solid white",
-    borderRadius: "5px",
-    zIndex: 1000,
-  };
-
-  const dropdownItemStyles: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    cursor: "pointer",
-    width: "100%",
-    height: "50px",
-    color: "black",
-  };
+  const menuItems: MenuItem[] = [
+    {
+      name: "HOME",
+      icon: faHome,
+      path: "/score-board",
+      active: false
+    },
+    {
+      name: "NOTIFICATIONS",
+      icon: faBell,
+      path: "/notification",
+      active: false
+    },
+    {
+      name: "POSTS",
+      icon: faGlobe,
+      path: "/post-page",
+      active: false
+    },
+    {
+      name: "EVENTS",
+      icon: faPeopleGroup,
+      path: "/event-main-page",
+      active: false,
+      subItems: [
+        {
+          name: "CREATED EVENTS",
+          icon: faSearch,
+          path: "/teacher-page",
+          active: false
+        },
+        {
+          name: "JOINED EVENTS",
+          icon: faSearch,
+          path: "/teacher-page",
+          active: false
+        },
+      ],
+    },
+    {
+      name: "FIND A TEACHER",
+      icon: faSearch,
+      path: "/teacher-page",
+      active: false
+    },
+    {
+      name: "CALENDAR",
+      icon: faCalendar,
+      path: "/calendar-page",
+    },
+    {
+      name: "PROFILE",
+      icon: faUser,
+      path: "/profile-page",
+      active: false
+    },
+    {
+      name: "MESSAGE",
+      icon: faMessage,
+      path: "/message-page",
+      active: false
+    },
+    {
+      name: "SETTING",
+      icon: faGear,
+      path: "/setting-page",
+      active: false
+    },
+    {
+      name: "LOGOUT",
+      icon: faSignOutAlt,
+      path: "/logout",
+      active: false
+    },
+  ];
 
   return (
     <>
-
       <div
         style={{
-          ...menuStyles,
-          ...(window.innerWidth <= 768 && { width: "40px" }),
+          zIndex: "9999",
+          height: "100vh",
+          width: isMenuOpen ? "300px" : "50px",
+          backgroundColor: "white",
+          boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.25)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          position: "fixed",
+          left: 0,
+          top: 0,
+          padding: "0px 0px",
+          transition: "width 0.3s ease",
         }}
+        className=""
         onMouseEnter={handleMenuMouseEnter}
         onMouseLeave={handleMenuMouseLeave}
       >
+        {/* Sidebar content */}
         <div className="absolute top-[0]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="white"
             viewBox="0 0 24 24"
             strokeWidth="1.5"
-            stroke="white"
+            stroke="#565656"
             className="w-10 h-10 border border-[#51ff85] p-2"
           >
             <path
@@ -166,156 +238,48 @@ const SideMenu: React.FC = () => {
             />
           </svg>
         </div>
-        <div className="mt-24" style={{ width: isMenuOpen ? "100%" : "36px" }}>
-          <Link to="/score-board" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faHome} style={iconStyles} />
-              <span style={textStyles}>{t("HOME")}</span>
-            </div>
-          </Link>
-          <Link to="/notification" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faBell} style={iconStyles} />
-              <span style={textStyles}>{t("NOTIFICATIONS")}</span>
-            </div>
-          </Link>
-          <Link to="/post-page" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faGlobe} style={iconStyles} />
-              <span style={textStyles}>{t("POSTS")}</span>
-            </div>
-          </Link>
-
-          <div style={dropdownStyles} ref={dropdownRef}>
-            <div
-              style={{
-                ...menuItemStyles,
-                ...dropdownButtonStyles,
-                ...(isMenuOpen && menuItemStyles),
-              }}
-              onClick={handleDropdownClick}
-            >
-              <FontAwesomeIcon icon={faHeart} style={iconStyles} />
-              <div className="text-center mt-[-4px]">
-                {isMenuOpen && (
-                  <div className="flex items-center gap-2">
-                    <span style={textStyles}>
-                      {" "}
-                      {t(selectedItem.toLocaleUpperCase())}
-                    </span>
-                    <svg
-                      width="15"
-                      height="9"
-                      viewBox="0 0 15 9"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
-                        fill="white"
-                      />
-                      <path
-                        d="M7.29304 9L14.5861 1.71255L12.8723 -4.17232e-07L7.29312 5.56275L1.71417 -4.17232e-07L0.000301675 1.71255L7.29304 9Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </div>
-
-              <div className="px-2 py-4" style={dropdownListStyles}>
-                <Link to="/created-events">
-                  <div
-                    className="shadow-md text-start"
-                    style={dropdownItemStyles}
-                    onClick={() => handleDropdownItemSelect("Created Events")}
-                  >
-                    {t("CREATED_EVENTS")}
-                  </div>
-                </Link>
-
-                <Link to="/joined-events">
-                  <div
-                    className="shadow-md text-start"
-                    style={dropdownItemStyles}
-                    onClick={() => handleDropdownItemSelect("Joined Events")}
-                  >
-                    {t("JOINED_EVENTS")}
-                  </div>
-                </Link>
-                <Link to="/booked-mark">
-                  <div
-                    className="shadow-md text-start"
-                    style={dropdownItemStyles}
-                    onClick={() =>
-                      handleDropdownItemSelect("BookMarked Events")
+        <div className="mt-24 w-full" style={{ width: isMenuOpen ? "" : "20px" }}>
+          {menuItems.map((item) => (
+            <ul key={item.name} className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-10" : ""}`} >
+              <Link
+                to={item.path}
+                className={` ${item.active ? "active" : ""}`}
+                style={
+                  item.active
+                    ? {
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      fontWeight: "900",
+                      borderRadius: "2px",
                     }
-                  >
-                    {t("BOOKMARKED_EVENTS")}
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-          <Link to="/student-page" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faSearch} style={iconStyles} />
-              <span className="" style={textStyles}>
-                {t("FIND_TEACHER")}
-              </span>
-            </div>
-          </Link>
-          <Link to="/calender" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faCalendar} style={iconStyles} />
-              <span style={textStyles}>{t("CALENDER")}</span>
-            </div>
-          </Link>
-          <Link to="/profile-page" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faUser} style={iconStyles} />
-              <span style={textStyles}>{t("PROFILE")}</span>
-            </div>
-          </Link>
-          <Link to="/message-page" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faEnvelope} style={iconStyles} />
-              <span style={textStyles}>{t("MESSAGE")}</span>
-            </div>
-          </Link>
-          <Link to="/setting-page" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faCog} style={iconStyles} />
-              <span style={textStyles}>{t("SETTING")}</span>
-            </div>
-          </Link>
-          <Link to="/logout" className="w-full ">
-            <div
-              style={{ ...menuItemStyles, ...(isMenuOpen && menuItemStyles) }}
-            >
-              <FontAwesomeIcon icon={faSignOutAlt} style={iconStyles} />
-              <span style={textStyles}>{t("LOGOUT")}</span>
-            </div>
-          </Link>
+                    : {}
+                }
+                onClick={() => handleMenuItemClick(item.name)}
+              >
+                <div style={{ ...getMenuItemStyles(item.name, item.path), ...(isMenuOpen ? big : small) }}>
+                  <FontAwesomeIcon icon={item.icon} style={iconStyles(item.name, item.path)} />
+                  <span className={` ${isMenuOpen ? "block" : "hidden"}`} style={textStyles(item.name, item.path)}>{t(item.name)}</span>
+                  {item.subItems && <FontAwesomeIcon icon={subMenuVisibility[item.name] && item.subItems ? faChevronDown   : faChevronRight} style={iconStyles(item.name, item.path)} className={`h-3 ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"}`}/>}
+                </div>
+              </Link>
+              {subMenuVisibility[item.name] && item.subItems && (
+                <div  className={`${isMenuOpen ? "block" : "hidden"}`}>
+                  {item.subItems.map((subItem) => (
+                    <li>
+                      <Link to={subItem.path} className="w-full" key={subItem.name}>
+                        <div>
+                          <span style={{ marginLeft: "30px" }}>{t(subItem.name)}</span>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </div>
+              )}
+            </ul>
+          ))}
+
         </div>
       </div>
-
     </>
   );
 };
