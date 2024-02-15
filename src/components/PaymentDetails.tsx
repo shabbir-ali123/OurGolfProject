@@ -83,7 +83,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   {t('BANK_NAME')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none  hover:animate-bounce"
+                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none  "
                   id="grid-Event-Name"
                   type="text"
                   name="bankName"
@@ -99,7 +99,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   {t('BRANCH')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-first-name"
                   type="text"
                   name="branchName"
@@ -115,7 +115,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                  {t('ACCOUNT_NUMBER')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-first-name"
                   type="text"
                   name="accountNumber"
@@ -131,7 +131,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   {t('ACCOUNT_HOLDER_NAME')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-first-name"
                   type="text"
                   name="accountHolderName"
@@ -154,7 +154,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   {t('PAYPA_ID')}
                 </label>
                 <input
-                  className="uppercase appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+                  className="uppercase appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="grid-Event-Name"
                   type="text"
                   name="paypalId"
@@ -171,7 +171,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   {t('PARTICIPATION_FEE')}
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+                  className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
                   id="participationFee"
                   type="number"
                   pattern="[0-9]*"

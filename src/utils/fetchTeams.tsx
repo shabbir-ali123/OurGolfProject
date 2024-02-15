@@ -15,7 +15,7 @@ export const fetchTeams = async (setTeams: any,  eventId: any, setTeamMembers: a
         setTeams(data.teams);
         setTotalJoinedMembers(data.totalJoinedMembers);
         setTeamMembers(data.teams.map((team: any) => team.members))
-        // setMembers(data.teams.members);
+        
 
     } catch (error) {
         console.error("Error fetching teams:", error);
@@ -33,10 +33,10 @@ export const updateTeams = async (event: any, selectedUserId: any, selectedTeamI
     };
     try {
         const response = await axios.put(API_ENDPOINTS.UPDATETEAMMEMBER,
-            JSON.stringify(formDataObj), // Convert the object to JSON string
+            JSON.stringify(formDataObj),
             {
                 headers: {
-                    'Content-Type': 'application/json', // Set the content type to application/json
+                    'Content-Type': 'application/json', 
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 }
             });

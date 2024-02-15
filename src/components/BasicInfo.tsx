@@ -159,7 +159,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               {t("EVENT_NAME")}
             </label>
             <input
-              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-xl appearance-none focus:outline-none focus: hover:animate-bounce"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-xl appearance-none focus:outline-none focus: "
               style={{
                 boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
               }}
@@ -179,7 +179,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               {t("SHORT_VIDEO")}
             </label>
             <input
-              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-inner focus:outline-none focus:bg-white hover:animate-bounce"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-inner focus:outline-none focus:bg-white "
               style={{
                 boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
               }}
@@ -230,7 +230,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               )}
             </label>
             <input
-              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded appearance-none focus:outline-none focus:bg-white hover:animate-bounce"
+              className="block w-full px-4 py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded appearance-none focus:outline-none focus:bg-white "
               style={{
                 boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
               }}
@@ -313,7 +313,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
 
           <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
             <button
-              className="bg-[#51ff85] mx-2 text-[#626262] py-3 px-4 mb-2 md:mb-0 md:mr-2 rounded-md"
+              className="bg-[#51ff85] mx-2 text-white py-3 px-4 mb-2 md:mb-0 md:mr-2 rounded-md"
               onClick={() => { }}
             >
               {t("MAP")}
@@ -324,7 +324,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               placeholder={t("SEARCH_LOCATION")}
             />
             <button
-              className="px-4 py-3 mx-2 text-[#626262] bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
+              className="px-4 py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
               onClick={() => { }}
             >
               {t("SELECT")}

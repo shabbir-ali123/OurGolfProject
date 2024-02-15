@@ -275,11 +275,11 @@ const EditTeamPage: FunctionComponent = () => {
           </div>
         </div>
     
-    <div className="mx-6 my-2">
+    <div className="mx-6 my-6 max-w-5xl mx-auto">
     {singleEvent?.imageUrl?.length && (
           <Slider {...settings}>
             {singleEvent?.imageUrl.map((item: any) => (
-              <div className="w-full ">
+              <div className="w-full  ">
                 <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
               </div>
             ))}

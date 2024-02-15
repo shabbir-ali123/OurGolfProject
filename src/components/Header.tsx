@@ -1,63 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 const navigation = [
-  { name: "Home", to: "/score-board", active: false },
-  { name: "Find_teacher", to: "/student-page", active: false },
-  { name: "Events", to: "/event-main-page", active: false },
-  { name: "Posts", to: "/post-page", active: false },
+  { name: "Home", to: "/score-board" },
+  { name: "Find_teacher", to: "/student-page" },
+  { name: "Events", to: "/event-main-page" },
+  { name: "Posts", to: "/post-page" },
+];
+
+const sideMenuItems = [
+  { name: "Notifications", to: "/notification", icon: faBell },
+  { name: "Calendar", to: "/calendar-page", icon: faCalendar },
+  { name: "Message", to: "/notification", icon: faBell },
+  { name: "Profile", to: "/calendar-page", icon: faCalendar },
+  { name: "Setting", to: "/setting-page", icon: faBell },
+  { name: "Logout", to: "/logout", icon: faCalendar },
 ];
 
 const Header: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const teacher_id = localStorage.getItem("teacher_id");
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  navigation.forEach((item) => {
-    if (item.to === "/event-main-page" || item.to === "/create-event") {
-      item.active =
-        location.pathname.startsWith("/event") ||
-        location.pathname.startsWith("/create-event") ||
-        location.pathname === "/";
-    } else if (item.to === "/student-page" || item.to === "/teacher-page") {
-      item.active =
-        location.pathname.startsWith("/student-page") ||
-        location.pathname.startsWith("/teacher-page");
-    } else {
-      item.active = item.to === location.pathname;
-    }
-  });
-  const findTeacherItem = navigation.find(
-    (item) => item.name === "Find_teacher"
-  );
-  if (findTeacherItem) {
-    if (findTeacherItem.active) {
-      if (teacher_id) {
-        findTeacherItem.to = "/teacher-page";
-      } else {
-        findTeacherItem.to = "/student-page";
-      }
-    }
-  }
+
+  const isActive = (path:any) => {
+    return location.pathname === path;
+  };
 
   return (
     <div>
-      <header className="bg-[white] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] overflow-hidden text-black mx-20 my-4  ">
-        <nav
-          className="flex items-center justify-between py-2 lg:px-32 "
-          aria-label="Global"
-        >
-          <div className="flex lg:flex-1 ">
+      <header className="bg-white shadow overflow-hidden text-black mx-20 my-4">
+        <nav className="flex items-center justify-between py-2 lg:px-32" aria-label="Global">
+          <div className="flex lg:flex-1">
             <Link to="/event-main-page" className="-m-1.5 p-1">
-
+              {/* Your logo or home link here */}
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -75,18 +59,8 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.to}
-                className={`text-2xl list-none no-underline font-normal leading-6 text-black hover:animate-bounce hover:text-[#ffe000] hover:text-xl ${item.active ? "active" : ""
-                  }`}
-                style={
-                  item.active
-                    ? {
-                      borderBottom: "3px solid #51ff85",
-                      color: "#51ff85",
-                      fontWeight: "900",
-                      borderRadius: "2px",
-                    }
-                    : {}
-                }
+                className={`text-2xl list-none no-underline font-normal leading-6 text-black hover:text-[#ffe000] hover:text-xl ${isActive(item.to) ? "active" : ""}`}
+                style={isActive(item.to) ? { borderBottom: "3px solid #51ff85", color: "#51ff85", fontWeight: "900", borderRadius: "2px" } : {}}
               >
                 {t(item.name.toLocaleUpperCase())}
               </Link>
@@ -96,22 +70,16 @@ const Header: React.FC = () => {
             <ProfileButton />
           </div>
         </nav>
-        <Dialog
-          as="div"
-          className="lg:hidden"
-          open={mobileMenuOpen}
-          onClose={() => setMobileMenuOpen(false)}
-        >
+        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
           <div className="fixed inset-0 z-10" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full px-6 py-6 overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 lg:hidden">
-
             <div className="flex items-center justify-between">
               <Link to="/" className="ml-10 lg:ml-0 md:ml-0 p-1.5">
-                <img className="w-auto h-8" src="./img/logo.png" alt="" />
+                {/* Your logo here */}
               </Link>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700 "
+                className="-m-2.5 rounded-md p-2.5 text-gray-700"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
@@ -121,13 +89,13 @@ const Header: React.FC = () => {
             <div className="flow-root mt-6 ml-14 lg:ml-0 md:ml-0">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="py-6 space-y-2">
-                  {navigation.map((item) => (
+                  {navigation.concat(sideMenuItems).map((item) => (
                     <Link
                       key={item.name}
                       to={item.to}
-                      className={`-mx-3 block text-2xl list-none no-underline font-normal leading-6 text-black ${item.active ? "active" : ""
-                        }`}
+                      className={`-mx-3 block text-2xl list-none no-underline font-normal leading-6 text-black ${isActive(item.to) ? "active" : ""}`}
                     >
+                      
                       {item.name}
                     </Link>
                   ))}
@@ -137,8 +105,8 @@ const Header: React.FC = () => {
           </Dialog.Panel>
         </Dialog>
       </header>
-
     </div>
   );
 };
+
 export default Header;
