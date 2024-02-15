@@ -37,7 +37,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <header className="bg-white shadow overflow-hidden text-black mx-20 my-4">
+      <header className="mx-20 my-4 overflow-hidden text-black bg-white shadow">
         <nav className="flex items-center justify-between py-2 lg:px-32" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link to="/event-main-page" className="-m-1.5 p-1">
@@ -59,8 +59,8 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.to}
-                className={`text-2xl list-none no-underline font-normal leading-6 text-black hover:text-[#ffe000] hover:text-xl ${isActive(item.to) ? "active" : ""}`}
-                style={isActive(item.to) ? { borderBottom: "3px solid #51ff85", color: "#51ff85", fontWeight: "900", borderRadius: "2px" } : {}}
+                className={`text-2xl list-none no-underline font-normal leading-6 text-black hover:text-teal-400 ${isActive(item.to) ? "active" : ""}`}
+                style={isActive(item.to) ? { background: "rgb(67 188 176)", color: "#ffffff", fontWeight: "400", borderRadius: "5px", padding: "2px 6px" } : {}}
               >
                 {t(item.name.toLocaleUpperCase())}
               </Link>
