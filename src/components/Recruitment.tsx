@@ -92,7 +92,7 @@ document.body.dir = i18n.dir();
   
   return (
     <div className="py-8 mx-auto lg:max-w-7xl ">
-      <div className="p-4 mt-4  rounded-md "style={{
+      <div className="p-4 mt-4 rounded-md "style={{
         boxShadow:
           'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
       }}>
