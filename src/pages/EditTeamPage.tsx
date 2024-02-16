@@ -27,7 +27,7 @@ interface Members {
 interface SingleEvent {
   id: string;
   creator: {
-    nickName: any;
+    nickName: string;
   };
   isFavorite: Boolean;
   comments: [];
@@ -44,6 +44,7 @@ interface SingleEvent {
   count: any;
   teamSize: any;
   capacity: any;
+  scoringType:string;
 }
 
 const EditTeamPage: FunctionComponent = () => {
@@ -54,16 +55,19 @@ const EditTeamPage: FunctionComponent = () => {
   document.body.dir = i18n.dir();
 
   var settings = {
-    dots: true,
+    className: "center",
+    centerMode: true,
     infinite: true,
+    centerPadding: "0px",
+    slidesToShow: 3,
     speed: 500,
-    centerPadding: "60px",
-    className: "slider variable-width",
-    slidesToShow: 1,
-    slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />
   };
+
+  // const settings = {
+    
+  // };
 
   const [singleEvent, setSingleEvent] = useState<SingleEvent>();
   const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
@@ -226,8 +230,9 @@ const EditTeamPage: FunctionComponent = () => {
   };
 
   return (
-    <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10 ml-12">
-      <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
+    <>
+    <div className=" py-10 ml-12">
+      <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg font-poppins  ">
         <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
           <div className="flex justify-around w-full">
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
@@ -276,48 +281,90 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
           </div>
         </div>
-
-        <div className="mx-6 my-6 max-w-5xl mx-auto">
-          {singleEvent?.imageUrl?.length && (
-            <Slider {...settings}>
-              {singleEvent?.imageUrl.map((item: any) => (
-                <div className="w-full  ">
-                  <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
-                </div>
-              ))}
-            </Slider>
-          )}
-        </div>
-        <div className="w-full flex flex-col justify-center p-6 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
-      <h2 className="text-xl font-bold text-gray-800">11-Oct-2023</h2>
-      <div className="flex justify-between items-center mt-4">
-        <div className="flex flex-col">
-          <span className="text-gray-500">Event Name</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventName}</h3>
-          <span className="text-gray-500">Event Details</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventDetails}</h3>
-          <span className="text-gray-500">Event Location</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.place}</h3>
-          <span className="text-gray-500">Team Size</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.teamSize}</h3>
-         
-        </div>
-        <div className="flex flex-col items-end">
-        <div className="flex flex-col">
-          <span className="text-gray-500">Total Players</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.capacity}</h3>
-          <span className="text-gray-500">Event Start Date</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventStartDate}</h3>
-          <span className="text-gray-500">Event End Date</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventEndDate}</h3>
-          <span className="text-gray-500">Application Deadline</span>
-          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventDeadlineDate}</h3>
-        </div>
-        </div>
-      </div>
+    
+    <div className="max-w-5xl mx-6 mx-auto my-6 slider-container">
+    {singleEvent?.imageUrl?.length && (
+          <Slider {...settings}>
+            {singleEvent?.imageUrl.map((item: any) => (
+              <div className="w-full " style={{transform: 'rotate(20deg)'}}>
+              <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
+            </div>
+            ))}
+          </Slider>
+        )}
     </div>
+    <div className="w-full flex flex-col justify-center p-6 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+          <div className="flex items-center gap-10">
+            <div className="relative w-[90.5px] h-[147.5px]">
+              <img
+                className="absolute top-[60px] left-[0px] w-[90.5px] h-[87.5px]"
+                alt=""
+                src="/img/ellipse-2303.svg"
+              />
+              <img
+                className="absolute top-[0px] left-[22.5px] w-[58px] h-[108px] object-cover"
+                alt=""
+                src="/img/rectangle-1249@2x.png"
+              />
+            </div>
+            <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl">About Event</h2>
+          </div>
 
-        <div className="w-full mx-auto  shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-20 my-20">
+          <div className="grid grid-cols-3 gap-4 py-6">
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Event Name</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventName}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Orginizer Name</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventName}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Event Details</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventDetails}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Event Location</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.place}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Event Type </span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.type}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Scoring Type </span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.scoringType}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Event Start Date</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2">{singleEvent?.eventStartDate}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Event End Date</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventEndDate}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Application Deadline</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventDeadlineDate}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Total Players</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.capacity}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Team Size</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.teamSize}</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Joined Members</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.scoringType}</h3>
+            </div>
+            
+          </div>
+
+
+        </div>
+        <div className="w-full  my-4">
           <div className="flex items-end justify-between">
             {isCreated ? (
               <>
@@ -829,6 +876,7 @@ const EditTeamPage: FunctionComponent = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

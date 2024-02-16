@@ -283,7 +283,7 @@ const CreateEvent: React.FC = () => {
                 src="/img/rectangle-1249@2x.png"
               />
             </div>
-            <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl">About Event</h2>
+            <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl ">About Event</h2>
           </div>
 
           <div className="grid grid-cols-3 gap-4 py-6">

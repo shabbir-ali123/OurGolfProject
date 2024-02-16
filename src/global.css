@@ -157,3 +157,16 @@ button:disabled{
 /* .slick-prev {
   left: 6px;
 } */
+
+
+.slick-slide {
+  position: relative;
+  z-index: 1;
+  transform: skewX(-6deg);
+}
+.slick-current + div {
+  z-index: 9;
+  background-color: red !important;
+  padding: 10px;
+  transform: scale(1.5) skew(-6deg)
+}
