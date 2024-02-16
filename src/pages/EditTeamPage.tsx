@@ -34,6 +34,8 @@ interface SingleEvent {
   accountHolderName: string;
   eventStartTime: string;
   eventStartDate: string;
+  eventEndDate:string;
+  eventDeadlineDate:string;
   eventName: string;
   eventDetails: string;
   type: string;
@@ -76,8 +78,8 @@ const EditTeamPage: FunctionComponent = () => {
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
   const [teamMembers, setTeamMembers] = useState<Members[]>([]);
-  
-  const playerList=[
+
+  const playerList = [
     { name: "John Doe" },
     { name: "Jane Smith" },
     { name: "Mike Johnson" },
@@ -116,7 +118,7 @@ const EditTeamPage: FunctionComponent = () => {
       return [...newState];
     });
   };
-  function SampleNextArrow(props:any) {
+  function SampleNextArrow(props: any) {
     const { className, style, onClick } = props;
     const modifiedClassName = `${className}`;
 
@@ -127,7 +129,7 @@ const EditTeamPage: FunctionComponent = () => {
       />
     );
   }
-  
+
   function SamplePrevArrow(props: any) {
     const { className, style, onClick } = props;
     return (
@@ -274,19 +276,48 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
           </div>
         </div>
-    
-    <div className="mx-6 my-6 max-w-5xl mx-auto">
-    {singleEvent?.imageUrl?.length && (
-          <Slider {...settings}>
-            {singleEvent?.imageUrl.map((item: any) => (
-              <div className="w-full  ">
-                <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
-              </div>
-            ))}
-          </Slider>
-        )}
+
+        <div className="mx-6 my-6 max-w-5xl mx-auto">
+          {singleEvent?.imageUrl?.length && (
+            <Slider {...settings}>
+              {singleEvent?.imageUrl.map((item: any) => (
+                <div className="w-full  ">
+                  <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
+                </div>
+              ))}
+            </Slider>
+          )}
+        </div>
+        <div className="w-[100%] flex flex-col justify-center p-6 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+      <h2 className="text-xl font-bold text-gray-800">11-Oct-2023</h2>
+      <div className="flex justify-between items-center mt-4">
+        <div className="flex flex-col">
+          <span className="text-gray-500">Event Name</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventName}</h3>
+          <span className="text-gray-500">Event Details</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventDetails}</h3>
+          <span className="text-gray-500">Event Location</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.place}</h3>
+          <span className="text-gray-500">Team Size</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.teamSize}</h3>
+         
+        </div>
+        <div className="flex flex-col items-end">
+        <div className="flex flex-col">
+          <span className="text-gray-500">Total Players</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.capacity}</h3>
+          <span className="text-gray-500">Event Start Date</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventStartDate}</h3>
+          <span className="text-gray-500">Event End Date</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventEndDate}</h3>
+          <span className="text-gray-500">Application Deadline</span>
+          <h3 className="text-lg font-bold text-gray-800 mt-2">{singleEvent?.eventDeadlineDate}</h3>
+        </div>
+        </div>
+      </div>
     </div>
-        <div className="w-full mx-auto my-4">
+
+        <div className="w-full mx-auto  shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-20 my-20">
           <div className="flex items-end justify-between">
             {isCreated ? (
               <>
@@ -404,7 +435,7 @@ const EditTeamPage: FunctionComponent = () => {
                   <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                     <div
                       className={`w-[156px] relative pl-1   rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-gray-300`}
-                    
+
                     >
                       <h4>{team.name}</h4>
                       <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
@@ -717,7 +748,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 id="playerName"
                                 placeholder="Player 1"
                                 className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
-                                value={selectedPlayerNickname} 
+                                value={selectedPlayerNickname}
                                 onChange={(e) =>
                                   setSelectedPlayerNickname(e.target.value)
                                 }
@@ -728,7 +759,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 id="playerName"
                                 placeholder="Player 1"
                                 className="w-full py-3 text-gray-900 border-none rounded-md pl-14 bg-gray-50 sm:text-sm"
-                                value={selectedUserId} 
+                                value={selectedUserId}
                                 onChange={(e) =>
                                   setSelectedUserId(e.target.value)
                                 }
@@ -739,7 +770,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 className="w-1/2 py-3 text-gray-900 border-none rounded-md bg-gray-50 sm:text-sm"
                                 onChange={(e) =>
                                   setSelectedTeamId(e.target.value)
-                                } 
+                                }
                               >
                                 <option value="" disabled selected>
                                   Select a Team
