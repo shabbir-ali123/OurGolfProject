@@ -41,7 +41,7 @@ const Header: React.FC = () => {
         <nav className="flex items-center justify-between py-2 lg:px-32" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link to="/event-main-page" className="-m-1.5 p-1">
-              {/* Your logo or home link here */}
+             
             </Link>
           </div>
           <div className="flex lg:hidden">
