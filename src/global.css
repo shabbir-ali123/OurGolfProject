@@ -158,15 +158,24 @@ button:disabled{
   left: 6px;
 } */
 
-
+.slick-list {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: center;
+}
 .slick-slide {
   position: relative;
   z-index: 1;
   transform: skewX(-6deg);
+  opacity: 0.5;
+  filter: brightness(0.5)
 }
 .slick-current + div {
   z-index: 9;
-  background-color: red !important;
   padding: 10px;
-  transform: scale(1.5) skew(-6deg)
+  transform: scale(1.5) skew(-6deg);
+  opacity: 1;
+  filter: brightness(1)
+
 }

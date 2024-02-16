@@ -231,7 +231,7 @@ const EditTeamPage: FunctionComponent = () => {
 
   return (
     <>
-    <div className=" py-10 ml-12">
+    <div className="py-10 ml-12 ">
       <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg font-poppins  ">
         <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
           <div className="flex justify-around w-full">
@@ -364,7 +364,7 @@ const EditTeamPage: FunctionComponent = () => {
 
 
         </div>
-        <div className="w-full  my-4">
+        <div className="w-full my-4">
           <div className="flex items-end justify-between">
             {isCreated ? (
               <>
