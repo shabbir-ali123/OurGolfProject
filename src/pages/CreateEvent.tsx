@@ -286,39 +286,56 @@ const CreateEvent: React.FC = () => {
             <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl">About Event</h2>
           </div>
 
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 gap-4 py-6">
             <div className="flex flex-col mx-2 ">
               <span className="text-gray-500">Event Name</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2 rounded-sm ">hdasjkhd</h3>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">hdasjkhd</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Orginizer Name</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">Shabbir ali</h3>
             </div>
             <div className="flex flex-col mx-2 ">
               <span className="text-gray-500">Event Details</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2 rounded-sm ">ewqeqw</h3>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">ewqeqw</h3>
             </div>
             <div className="flex flex-col mx-2 ">
               <span className="text-gray-500">Event Location</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2 rounded-sm ">fffsdf</h3>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">fffsdf</h3>
             </div>
             <div className="flex flex-col mx-2 ">
-              <span className="text-gray-500">Team Size</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2 rounded-sm ">wwwwee</h3>
+              <span className="text-gray-500">Event Type </span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">wwwwee</h3>
             </div>
             <div className="flex flex-col mx-2 ">
-              <span className="text-gray-500">Total Players</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2 rounded-sm ">fsdfsf</h3>
+              <span className="text-gray-500">Scoring Type </span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">fsdfsf</h3>
             </div>
             <div className="flex flex-col mx-2 ">
               <span className="text-gray-500">Event Start Date</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2">fsdfsdfsd</h3>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2">fsdfsdfsd</h3>
             </div>
             <div className="flex flex-col mx-2 ">
               <span className="text-gray-500">Event End Date</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2 rounded-sm ">fsdfsdf</h3>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">fsdfsdf</h3>
             </div>
             <div className="flex flex-col mx-2 ">
               <span className="text-gray-500">Application Deadline</span>
-              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 p-2 rounded-sm ">weweeqweq</h3>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">weweeqweq</h3>
             </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Total Players</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">double</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Team Size</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">Team</h3>
+            </div>
+            <div className="flex flex-col mx-2 ">
+              <span className="text-gray-500">Joined Members</span>
+              <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">123</h3>
+            </div>
+            
           </div>
 
 

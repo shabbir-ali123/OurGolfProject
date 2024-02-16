@@ -187,13 +187,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           <span className="text-lg font-medium">No events yet</span>
         </div>
       ) : (
-        <div className="flow-root mt-2">
+        <div className="flow-root ">
           <div className="-my-2 overflow-x-auto ">
             <div className="inline-block min-w-full py-0 align-middle ">
               <div className="overflow-hidden sm:rounded-lg">
                 <table
-                  className="relative min-w-full divide-y divide-gray-300 z-9 p-3"
-                  style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
+                  className="relative min-w-full divide-y divide-gray-300 z-9 px-3"
+                  style={{ borderCollapse: "separate", borderSpacing: "0 20px" }}
                 >
                   <thead className="bg-[#006800] text-white ">
                     <tr>

@@ -91,7 +91,7 @@ const EventMainPage: FunctionComponent = () => {
             <Link to="/create-event">
               <button
                 type="button"
-                className="flex items-center  rounded-md bg-[#A9A9A9] px-3 py-3 text-xs font-semibold text-white shadow-sm cursor-pointer animate__animated animate__jello animate__repeat-2 hover:animate-bounce"
+                className="flex items-center  rounded-md bg-[#17B3A6] px-3 py-3 text-xs font-semibold text-white shadow-sm cursor-pointer animate__animated animate__jello animate__repeat-2 hover:animate-bounce"
               >
                 <PencilSquareIcon
                   className="-mr-0.5 h-5 w-5"

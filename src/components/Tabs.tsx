@@ -96,7 +96,7 @@ const Tabs: React.FC<TabsProps> = ({
                 <button
                   type="button"
                   onClick={() => setLocationPopupOpen(true)}
-                  className="xl:h-full rounded-l-md sm:absolute left-[-88px] top-[-7px] inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className="xl:h-full rounded-md sm:absolute left-[-88px] top-[-7px] inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
                   {filterLocation && filterLocation.length
@@ -111,11 +111,11 @@ const Tabs: React.FC<TabsProps> = ({
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "w-full rounded-md py-1 px-10 text-base font-normal leading-5 cursor-pointer hover:animate-bounce",
+                      "w-full rounded-md  px-10 text-base font-normal leading-5 cursor-pointer ",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
-                        ? "bg-[#B1B1B1]  text-black "
-                        : "text-[#17B3A6] bg-white border border-solid-green-500 hover:bg-[#B1B1B1] hover:border-none hover:text-white"
+                        ? "bg-[#B1B1B1]  text-white "
+                        : "text-[#17B3A6] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] hover:bg-[#B1B1B1] hover:border-none hover:text-white"
                     )
                   }
                   onClick={() => handleTabChange(category)} // Call handleTabChange on tab click
