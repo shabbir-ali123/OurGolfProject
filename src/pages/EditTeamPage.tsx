@@ -293,7 +293,7 @@ const EditTeamPage: FunctionComponent = () => {
           </Slider>
         )}
     </div>
-    <div className="w-full flex flex-col justify-center p-6 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+    <div className="w-full flex flex-col justify-center p-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
           <div className="flex items-center gap-10">
             <div className="relative w-[90.5px] h-[147.5px]">
               <img
@@ -310,52 +310,52 @@ const EditTeamPage: FunctionComponent = () => {
             <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl">About Event</h2>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 py-6">
-            <div className="flex flex-col mx-2 ">
+          <div className="grid grid-cols-3 gap-4 py-6 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Event Name</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventName}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Orginizer Name</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventName}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Event Details</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventDetails}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Event Location</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.place}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Event Type </span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.type}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Scoring Type </span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.scoringType}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Event Start Date</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2">{singleEvent?.eventStartDate}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Event End Date</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventEndDate}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Application Deadline</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.eventDeadlineDate}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Total Players</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.capacity}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Team Size</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.teamSize}</h3>
             </div>
-            <div className="flex flex-col mx-2 ">
+            <div className="flex flex-col mx-2  ">
               <span className="text-gray-500">Joined Members</span>
               <h3 className="text-lg  text-[#17b3a6] mt-1 w-full uppercase border-solid border-b-2 py-2 rounded-sm ">{singleEvent?.scoringType}</h3>
             </div>
@@ -364,7 +364,7 @@ const EditTeamPage: FunctionComponent = () => {
 
 
         </div>
-        <div className="w-full  my-4">
+        <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10">
           <div className="flex items-end justify-between">
             {isCreated ? (
               <>
