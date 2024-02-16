@@ -52,16 +52,19 @@ const EditTeamPage: FunctionComponent = () => {
   document.body.dir = i18n.dir();
 
   var settings = {
-    dots: true,
+    className: "center",
+    centerMode: true,
     infinite: true,
+    centerPadding: "0px",
+    slidesToShow: 3,
     speed: 500,
-    centerPadding: "60px",
-    className: "slider variable-width",
-    slidesToShow: 1,
-    slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />
   };
+
+  // const settings = {
+    
+  // };
 
   const [singleEvent, setSingleEvent] = useState<SingleEvent>();
   const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
@@ -224,6 +227,7 @@ const EditTeamPage: FunctionComponent = () => {
   };
 
   return (
+    <>
     <div className=" [background:linear-gradient(180deg,_#edfffd,_#f2fffa)] py-10 ml-12">
       <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg text-white font-poppins  ">
         <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
@@ -275,17 +279,24 @@ const EditTeamPage: FunctionComponent = () => {
           </div>
         </div>
     
-    <div className="mx-6 my-6 max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-6 mx-auto my-6 slider-container">
     {singleEvent?.imageUrl?.length && (
           <Slider {...settings}>
             {singleEvent?.imageUrl.map((item: any) => (
-              <div className="w-full  ">
-                <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
-              </div>
+              <div className="w-full " style={{transform: 'rotate(20deg)'}}>
+              <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
+            </div>
             ))}
           </Slider>
         )}
     </div>
+    {/* <div style={{height: '300px', width: '300px', padding:"16px", background: 'red', margin: '0 auto'}}>
+    {singleEvent?.imageUrl.map((item: any) => (
+              <div className="w-full ">
+                <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
+              </div>
+            ))}
+    </div> */}
         <div className="w-full mx-auto my-4">
           <div className="flex items-end justify-between">
             {isCreated ? (
@@ -798,6 +809,7 @@ const EditTeamPage: FunctionComponent = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
