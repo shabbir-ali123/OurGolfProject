@@ -288,7 +288,7 @@ const EditTeamPage: FunctionComponent = () => {
             </Slider>
           )}
         </div>
-        <div className="w-[100%] flex flex-col justify-center p-6 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+        <div className="w-full flex flex-col justify-center p-6 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
       <h2 className="text-xl font-bold text-gray-800">11-Oct-2023</h2>
       <div className="flex justify-between items-center mt-4">
         <div className="flex flex-col">

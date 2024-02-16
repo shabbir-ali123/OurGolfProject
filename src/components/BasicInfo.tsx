@@ -7,9 +7,10 @@ import Select from "react-select";
 import { GroupBase, OptionsOrGroups } from "react-select";
 
 interface BasicInfoProps {
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
+
 
 interface OptionType {
   label: string;
@@ -110,18 +111,18 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
     if (files) {
       console.log(files);
 
-     
-          setFormData((prevFormData:any) => ({
-            ...prevFormData,
-            files
-          }));
-        
-      
+
+      setFormData((prevFormData: any) => ({
+        ...prevFormData,
+        files
+      }));
+
+
     }
   };
-  
-  
-  
+
+
+
 
   const handleChange = (selectedOption: any) => {
     handleCitySelection(selectedOption.value);
@@ -148,7 +149,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
             "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
         }}
       >
-        <h2 className="text-4xl text-[#626262] text-center">
+        <h2 className="text-4xl text-[#626262] ">
           {t("BASIC_INFORMATION")}
         </h2>
         <div className="grid grid-cols-9 py-8 mx-auto lg:gap-x-16 ">
@@ -229,18 +230,20 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                 </div>
               )}
             </label>
-            <input
-              className="block w-full  py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded appearance-none focus:outline-none focus:bg-white "
+            <textarea
+              className="block w-full py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded appearance-none focus:outline-none focus:bg-white "
               style={{
                 boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
               }}
               id="grid-first-name"
               name="eventDetails"
-              type="text"
               placeholder={t("EVENT_DETAILS")}
               required
               onChange={onChange}
-            />
+              rows={4} // You can adjust the number of rows as needed
+            ></textarea>
+
+
             <div className="relative w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
               <label
                 className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
@@ -319,7 +322,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
           <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
             <button
               className="bg-[#51ff85] mx-2 text-white py-3  mb-2 md:mb-0 md:mr-2 rounded-md"
-              onClick={() => {}}
+              onClick={() => { }}
             >
               {t("MAP")}
             </button>
@@ -330,7 +333,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
             />
             <button
               className="py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
-              onClick={() => {}}
+              onClick={() => { }}
             >
               {t("SELECT")}
             </button>

@@ -249,13 +249,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className={`rounded-lg cursor-pointer`}
+                          className="rounded-lg cursor-pointer mt-4"
 
                           style={{
                             width: "100%",
                             borderRadius: "10px",
                             border: "none",
-                            boxShadow: "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px"
+                            boxShadow: "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                            
                           }}
                         >
                           <td className="" onClick={() => router(
@@ -306,21 +307,18 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </div>
 
                             <span
-                              className={`md:whitespace-nowrap px-2 text-white py-0 text-sm mx-0  sm:mx-2 cursor-pointer    ${event.type === "full"
-                                ? "bg-[#006800] cursor-pointer py-0 mt-[-10px]  animate__animated animate__heartBeat animate__repeat-3  h-full "
-                                : "bg-[#006800] py-0 mt-[10px]  animate__animated animate__heartBeat   h-[100%]"
-                                }`}
+                              className="md:whitespace-nowrap px-2 text-[#17b3a6] py-0 text-sm mx-0  sm:mx-2 cursor-pointer rounded-lg  "
                             >
                               <div
                               
                                 rel="noopener noreferrer"
-                                className={`md:whitespace-nowrap rounded-lg px-0 text-white py-1 text-sm mx-0 sm: cursor-pointer ${event.type === "full"
-                                  ? "bg-[#006800] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full"
-                                  : "bg-[#006800] py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%]"
+                                className={`md:whitespace-nowrap rounded-lg px-0 text-[#17b3a6] py-1 text-sm mx-0 sm: cursor-pointer ${event.type === "full"
+                                  ? "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full rounded-lg"
+                                  : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
                                   }`}
                               
                               >
-                                <p className="rotate-45 sm:text-lg xl:text-x">
+                                <p className="p-2 sm:text-lg xl:text-x">
                                   
                                   Join
                                 </p>

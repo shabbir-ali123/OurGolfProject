@@ -6,7 +6,7 @@ const SearchMainEventFilter: FunctionComponent = () => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
   return (
-    <div className="flex w-full py-1 mt-2 animate__animated animate__rotateInDownLeft">
+    <div className="flex w-full py-1 mt-2 animate__animated animate__fadeInLeft">
       <div className="relative flex items-stretch flex-grow focus-within:z-10">
         <input
           type="email"
