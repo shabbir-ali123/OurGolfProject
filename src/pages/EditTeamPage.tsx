@@ -59,7 +59,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: "block",  position:'absolute', right:'285px' }}
+        style={{ ...style,   position:'absolute', right:'285px' }}
         onClick={onClick}
       />
     );
@@ -70,7 +70,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: "block",  position:'absolute', left:'365px'  }}
+        style={{ ...style,   position:'absolute', left:'365px'  }}
         onClick={onClick}
       />
     );
