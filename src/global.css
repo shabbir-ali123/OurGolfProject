@@ -134,7 +134,6 @@ button:disabled{
   text-align: right;
 }
 
-/* Optionally, you can also center the text within specific cells */
 .tableCol {
   display: flex;
   align-items: center;
@@ -142,21 +141,20 @@ button:disabled{
   text-align: right;
 }
 
-/* .slick-list {
-  height: 450px !important;
-} */
-
-/* .slick-next {
-  right: 0;
-} */
+.slick-next {
+  right: 16.5%;
+}
 
 .slick-arrow::before {
   color: #14b0a3 !important;
+  font-size: 40px;
+
 }
 
-/* .slick-prev {
-  left: 6px;
-} */
+.slick-prev {
+  left: 26.5%;
+  z-index: 9999;
+}
 
 .slick-list {
   display: flex;

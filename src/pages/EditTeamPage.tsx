@@ -58,16 +58,12 @@ const EditTeamPage: FunctionComponent = () => {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "0px",
+    centerPadding: "-50px",
     slidesToShow: 3,
     speed: 500,
-    nextArrow: <SampleNextArrow />,
+    nextArrow: <button className="slide-arrow prev-arrow">sd</button>,
     prevArrow: <SamplePrevArrow />
   };
-
-  // const settings = {
-    
-  // };
 
   const [singleEvent, setSingleEvent] = useState<SingleEvent>();
   const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
@@ -286,8 +282,8 @@ const EditTeamPage: FunctionComponent = () => {
     {singleEvent?.imageUrl?.length && (
           <Slider {...settings}>
             {singleEvent?.imageUrl.map((item: any) => (
-              <div className="w-full " style={{transform: 'rotate(20deg)'}}>
-              <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
+              <div style={{transform: 'rotate(20deg)'}}>
+              <img className="w-full h-[250px] fit-cover rounded-lg	 " src={singleEvent?.imageUrl[0] || ""} alt="text" />
             </div>
             ))}
           </Slider>
