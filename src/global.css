@@ -134,7 +134,6 @@ button:disabled{
   text-align: right;
 }
 
-/* Optionally, you can also center the text within specific cells */
 .tableCol {
   display: flex;
   align-items: center;
@@ -142,74 +141,50 @@ button:disabled{
   text-align: right;
 }
 
-/* .slick-list {
-  height: 450px !important;
-} */
 
-/* .slick-next {
-  right: 0;
-} */
 .slick-arrow {
-  width: 50px; /* Set your desired width */
-  height: 50px; /* Set your desired height */
-  /* Other styles */
+  width: 50px; 
+  height: 50px; 
 }
 .slick-arrow::before {
-  font-size: 50px; /* Adjust the size of the arrow icon */
+  font-size: 50px; 
   color: #ffffff;
 }
 
-/* .slick-prev {
-  left: 6px;
-} */
+
 
 .slick-list {
   display: flex;
   flex-direction: column;
-  height: 800px;
   justify-content: center;
+  height: 800px;
 }
 .slick-slide {
-  position: relative;
-  z-index: 1;
+  z-index: 0;
   transform: skewX(-4deg);
   opacity: 0.5;
   filter: brightness(0.5);
-  margin-left: 5px;
+  margin-left: 2px;
+  position: relative;
 }
-.slick-current  + div{
-  z-index: 9;
-  padding: 10px;
+.slick-current + div{
+  z-index: 9999;
   transform: scale(1.5) skew(-6deg);
   opacity: 1;
   filter: brightness(1)
-}
-.tt{
-  width: 30px;
-  height: 400px;
-  position: absolute;
-  background: white;
-  top: 200px;
-  bottom: 0;
-  transform: rotate(4deg);
-  left: -13px;
-  z-index: 2;
-}
+} 
+
 .slick-arrow{
   z-index: 10;
 }
 .slide {
   margin: 0 10px;
- 
 }
 .card {
-  width: 200px; /* Set this to the width of your card */
+  width: 200px; 
   border: 1px solid #ccc;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-
-
   padding: 10px;
-  /* Add other styles such as padding, background, etc */
 }
 .CustomNextArrow:before, .CustomPrevArrow:before {
   color: black;
@@ -220,14 +195,22 @@ button:disabled{
 #my-slider-container .custom-slick-prev {
   width: 50px;
   height: 50px;
-  /* additional styles */
 }
 
-/* You might also need to adjust the positioning */
 #my-slider-container .custom-slick-next {
-  right: -25px; /* Adjust as necessary */
+  right: -25px; 
 }
 
 #my-slider-container .custom-slick-prev {
-  left: -25px; /* Adjust as necessary */
+  left: -25px; 
+}
+.slick-current + div + div .object-cover  {
+  display: block !important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 10px;
+  background-color: white;
+  border-radius: 0px;
+  margin-left: -40px;
+}
+body{
+  zoom: 70%;
 }

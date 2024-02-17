@@ -70,7 +70,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style,   position:'absolute', left:'365px'  }}
+        style={{ ...style,   position:'absolute', left:'307px'  }}
         onClick={onClick}
       />
     );
@@ -82,21 +82,13 @@ const EditTeamPage: FunctionComponent = () => {
     dots: true,
     infinite: true,
     centerMode: true,
-    centerPadding: '60px', 
-    slidesToShow: 3, // You might need to adjust this depending on the size of your images
+    centerPadding: '0px', 
+    className: "center",
+    slidesToShow: 3, 
     speed: 500,
-    focusOnSelect: true,
-    responsive: [
-      {
-        breakpoint: 768, 
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '40px', // Adjust the padding for smaller screens
-          slidesToShow: 1
-        }
-      }
-    ]
+    afterChange: (index:any) => {
+      setCenterIndex(index);
+    }
   };
 
   // const settings = {
@@ -156,27 +148,8 @@ const EditTeamPage: FunctionComponent = () => {
       return [...newState];
     });
   };
-  function SampleNextArrow(props: any) {
-    const { className, style, onClick } = props;
-    const modifiedClassName = `${className}`;
-
-    return (
-      <div
-        className={modifiedClassName}
-        onClick={onClick}
-      />
-    );
-  }
-
-  function SamplePrevArrow(props: any) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        onClick={onClick}
-      />
-    );
-  }
+  const [centerIndex, setCenterIndex] = useState(0);
+  console.log(centerIndex ,"cc")
   const updateTeams = async (event: any) => {
     event.preventDefault();
     const uId = selectedUserId.toString();
@@ -226,8 +199,11 @@ const EditTeamPage: FunctionComponent = () => {
       toast.error("Please make changes before updating.");
     }
   };
+ let previousIndex = centerIndex - 1;
+ let nextIndex = centerIndex + 2;
 
   useEffect(() => {
+
     const fetchAndUpdateTeams = async () => {
       await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
       setShouldRefetchTeams(false);
@@ -266,7 +242,7 @@ const EditTeamPage: FunctionComponent = () => {
   return (
     <>
     <div className="py-10 ml-12 ">
-      <div className="h-[100vh] max-w-[1700px] mx-auto  text-left text-lg font-poppins  ">
+      <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
         <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
           <div className="flex justify-around w-full">
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
@@ -319,21 +295,27 @@ const EditTeamPage: FunctionComponent = () => {
         <div id="my-slider-container" className="max-w-7xl mx-auto my-6 slider-container">
   {singleEvent && singleEvent.imageUrl?.length > 0 && (
     <Slider {...settings}>
-      {singleEvent.imageUrl.map((item, index) => (
-        <div key={index} className="w-full">
-          <img 
-            className={`w-full h-[350px] object-cover rounded-lg ${index === 0 ? "slick-center" : ""}`} 
-            src={item || ""} 
-            alt={`Event Image ${index + 1}`}
-            style={{
-              boxShadow: index === 0 ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none',
-              backgroundColor: index === 0 ? 'white' : 'transparent',
-              borderRadius: index === 0 ? '10px' : '0',
-           
-            }}
-          />
-        </div>
-      ))}
+      {singleEvent.imageUrl.slice(0, 3).map((item, index) => {
+
+        console.log(index,index === nextIndex, "next");
+
+        return <div key={index} className="w-full">
+        <img 
+          className={`w-full h-[350px] object-cover rounded-lg ${index === centerIndex ? "slick-center" : ""}`} 
+          src={item || ""} 
+          alt={`Event Image ${index + 1}`}
+          style={{
+            boxShadow: index === centerIndex ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none',
+            backgroundColor: index === centerIndex ? 'white' : 'transparent',
+            borderRadius: index === centerIndex + 1 ? '10px' : '0',
+            display: index === previousIndex || index === nextIndex ? 'none' : 'block',
+
+          }}
+        />
+      </div>
+      }
+        
+      )}
     </Slider>
   )}
 </div>

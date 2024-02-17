@@ -210,7 +210,6 @@ const SideMenu: React.FC = () => {
       <div
         style={{
           zIndex: "10",
-          height: "100vh",
           width: isMenuOpen ? "300px" : "50px",
           backgroundColor: "white",
           boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.15)",
