@@ -149,9 +149,14 @@ button:disabled{
 /* .slick-next {
   right: 0;
 } */
-
+.slick-arrow {
+  width: 50px; /* Set your desired width */
+  height: 50px; /* Set your desired height */
+  /* Other styles */
+}
 .slick-arrow::before {
-  color: #14b0a3 !important;
+  font-size: 50px; /* Adjust the size of the arrow icon */
+  color: #ffffff;
 }
 
 /* .slick-prev {
@@ -192,4 +197,37 @@ button:disabled{
 }
 .slick-arrow{
   z-index: 10;
+}
+.slide {
+  margin: 0 10px;
+ 
+}
+.card {
+  width: 200px; /* Set this to the width of your card */
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+
+  padding: 10px;
+  /* Add other styles such as padding, background, etc */
+}
+.CustomNextArrow:before, .CustomPrevArrow:before {
+  color: black;
+  background-color: red;
+
+}
+#my-slider-container .custom-slick-next, 
+#my-slider-container .custom-slick-prev {
+  width: 50px;
+  height: 50px;
+  /* additional styles */
+}
+
+/* You might also need to adjust the positioning */
+#my-slider-container .custom-slick-next {
+  right: -25px; /* Adjust as necessary */
+}
+
+#my-slider-container .custom-slick-prev {
+  left: -25px; /* Adjust as necessary */
 }

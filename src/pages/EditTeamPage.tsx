@@ -9,9 +9,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
 import { fetchSingleEvent } from "../utils/fetchEvents";
-import Slider from "react-slick";
+import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+// import TeamSlider from "../components/TeamSlider";
 interface Team {
   id: string;
   name: string;
@@ -53,16 +54,49 @@ const EditTeamPage: FunctionComponent = () => {
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-
-  var settings = {
-    className: "center",
-    centerMode: true,
+  function CustomNextArrow(props:any) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block",  position:'absolute', right:'285px' }}
+        onClick={onClick}
+      />
+    );
+  }
+  
+  function CustomPrevArrow(props:any) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block",  position:'absolute', left:'365px'  }}
+        onClick={onClick}
+      />
+    );
+  }
+  
+  const settings = {
+    nextArrow: <CustomNextArrow />,
+  prevArrow: <CustomPrevArrow />,
+    dots: true,
     infinite: true,
-    centerPadding: "0px",
-    slidesToShow: 3,
+    centerMode: true,
+    centerPadding: '60px', 
+    slidesToShow: 3, // You might need to adjust this depending on the size of your images
     speed: 500,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
+    focusOnSelect: true,
+    responsive: [
+      {
+        breakpoint: 768, 
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: '40px', // Adjust the padding for smaller screens
+          slidesToShow: 1
+        }
+      }
+    ]
   };
 
   // const settings = {
@@ -282,17 +316,27 @@ const EditTeamPage: FunctionComponent = () => {
           </div>
         </div>
     
-    <div className="max-w-5xl mx-6 mx-auto my-6 slider-container">
-    {singleEvent?.imageUrl?.length && (
-          <Slider {...settings}>
-            {singleEvent?.imageUrl.map((item: any) => (
-              <div className="w-full " style={{transform: 'rotate(20deg)'}}>
-              <img className="w-full h-[350px] fit-cover rounded-lg	 " src={item || ""} alt="text" />
-            </div>
-            ))}
-          </Slider>
-        )}
-    </div>
+        <div id="my-slider-container" className="max-w-7xl mx-auto my-6 slider-container">
+  {singleEvent && singleEvent.imageUrl?.length > 0 && (
+    <Slider {...settings}>
+      {singleEvent.imageUrl.map((item, index) => (
+        <div key={index} className="w-full">
+          <img 
+            className={`w-full h-[350px] object-cover rounded-lg ${index === 0 ? "slick-center" : ""}`} 
+            src={item || ""} 
+            alt={`Event Image ${index + 1}`}
+            style={{
+              boxShadow: index === 0 ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none',
+              backgroundColor: index === 0 ? 'white' : 'transparent',
+              borderRadius: index === 0 ? '10px' : '0',
+           
+            }}
+          />
+        </div>
+      ))}
+    </Slider>
+  )}
+</div>
     <div className="w-full flex flex-col justify-center p-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
           <div className="flex items-center gap-10">
             <div className="relative w-[90.5px] h-[147.5px]">
@@ -364,7 +408,7 @@ const EditTeamPage: FunctionComponent = () => {
 
 
         </div>
-        <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10">
+        <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10 ">
           <div className="flex items-end justify-between">
             {isCreated ? (
               <>
