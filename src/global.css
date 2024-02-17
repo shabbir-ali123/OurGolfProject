@@ -161,21 +161,35 @@ button:disabled{
 .slick-list {
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 800px;
   justify-content: center;
 }
 .slick-slide {
   position: relative;
   z-index: 1;
-  transform: skewX(-6deg);
+  transform: skewX(-4deg);
   opacity: 0.5;
-  filter: brightness(0.5)
+  filter: brightness(0.5);
+  margin-left: 5px;
 }
-.slick-current + div {
+.slick-current  + div{
   z-index: 9;
   padding: 10px;
   transform: scale(1.5) skew(-6deg);
   opacity: 1;
   filter: brightness(1)
-
+}
+.tt{
+  width: 30px;
+  height: 400px;
+  position: absolute;
+  background: white;
+  top: 200px;
+  bottom: 0;
+  transform: rotate(4deg);
+  left: -13px;
+  z-index: 2;
+}
+.slick-arrow{
+  z-index: 10;
 }
