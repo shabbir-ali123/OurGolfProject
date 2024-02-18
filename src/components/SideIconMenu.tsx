@@ -34,6 +34,7 @@ const SideMenu: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [subMenuVisibility, setSubMenuVisibility] = useState<{ [key: string]: boolean }>({});
+  const [isDesktopScreen, setIsDesktopScreen] = useState(window.innerWidth > 768);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -110,10 +111,10 @@ const SideMenu: React.FC = () => {
     marginLeft: "10px", // Adjust this value as needed
   });
 
-  const small: React.CSSProperties = {
+  const small: any = {
     padding: "20px",
     width: "16px",
-    margin: "0px 0px 30px -26px",
+    margin: "0px 0px 0px -26px",
     borderRadius: "10px",
   };
 
@@ -204,7 +205,17 @@ const SideMenu: React.FC = () => {
       active: false
     },
   ];
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktopScreen(window.innerWidth > 1300);
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <>
       <div
@@ -220,12 +231,13 @@ const SideMenu: React.FC = () => {
           left: 0,
           top: 0,
           transition: "width 0.3s ease",
+          height: "150vh",
+          overflowY: isDesktopScreen ? "hidden" : "auto"
         }}
         className=""
         onMouseEnter={handleMenuMouseEnter}
         onMouseLeave={handleMenuMouseLeave}
       >
-        {/* Sidebar content */}
         <div className="absolute top-[0]">
           <svg
             xmlns="http://www.w3.org/2000/svg"

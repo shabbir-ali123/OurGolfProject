@@ -14,7 +14,7 @@ const ScoreBoard: FunctionComponent = () => {
     <div className="font-poppins">
       <div className="flex flex-col mx-[50px]">
         <ChampionShipName />
-        <Slider />
+        <div className="grid self-center w-[1200px]"><Slider /></div>
         <div className="mt-[400px]">
           <LeaderBoardSection />
         </div>

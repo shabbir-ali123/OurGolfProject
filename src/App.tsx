@@ -48,21 +48,10 @@ const params = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
-  const [isDesktopScreen, setIsDesktopScreen] = useState(window.innerWidth > 768);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false)
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktopScreen(window.innerWidth > 1300);
-    };
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
 
   useEffect(() => {
@@ -209,7 +198,7 @@ const params = useParams();
     <ToastProvider iconColor="white" textColor="white">
     <div className="">
       <Header />
-      {isDesktopScreen &&  <SideIconMenu />}
+      <SideIconMenu />
       <Routes>
         <Route path="/"
                   element={<EventMainPage/>} index/>

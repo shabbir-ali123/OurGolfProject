@@ -157,7 +157,7 @@ button:disabled{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 800px;
+  height: 500px;
 }
 .slick-slide {
   z-index: 0;

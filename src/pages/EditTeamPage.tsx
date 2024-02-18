@@ -293,7 +293,7 @@ const EditTeamPage: FunctionComponent = () => {
         </div>
     
         <div id="my-slider-container" className="max-w-7xl mx-auto my-6 slider-container">
-  {singleEvent && singleEvent.imageUrl?.length > 0 && (
+  {singleEvent && singleEvent.imageUrl?.length > 3 && (
     <Slider {...settings}>
       {singleEvent.imageUrl.slice(0, 3).map((item, index) => {
 

@@ -52,7 +52,7 @@ const Slider: FunctionComponent = () => {
   const currentSlideData = slidesData[currentSlide];
 
   return (
-    <div className="absolute top-[364px] left-[650px] w-[1211px] h-[404px] text-left text-[13.55px] text-black font-poppins  animate__animated animate__backInUp">
+    <div className=" text-black font-poppins  animate__animated animate__backInUp">
       <SliderBack />
       <SliderBack groupDivLeft="0px" />
       <div className="absolute top-[0px] left-[278px] w-[638px] h-[404px] text-xl">

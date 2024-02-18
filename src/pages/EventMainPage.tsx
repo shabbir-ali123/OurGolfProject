@@ -105,7 +105,6 @@ const EventMainPage: FunctionComponent = () => {
 
         <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} setCurrentTabs={handleTabChange} />
 
-        {isDesktop && <SideIconMenu />}
       </div>
     </ToastProvider>
   );

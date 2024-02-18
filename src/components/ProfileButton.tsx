@@ -70,7 +70,7 @@ export default function ProfileButton() {
     }
   };
   return (
-    <div className="hidden lg:flex lg:flex-1 lg:justify-end ">
+    <div className=" lg:flex lg:flex-1 lg:justify-end ">
       <div className="relative flex-shrink-0 block">
         <div className="flex items-center">
           
