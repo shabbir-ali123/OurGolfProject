@@ -293,33 +293,33 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
           </div>
 
-          <div id="my-slider-container" className="max-w-7xl mx-auto my-6 slider-container">
-            {singleEvent && singleEvent.imageUrl?.length > 1 && (
-              <Slider {...settings}>
-                {singleEvent.imageUrl.slice(0, 3).map((item, index) => {
+            <div id="my-slider-container" className="max-w-7xl mx-auto my-6 slider-container">
+              {singleEvent && singleEvent.imageUrl?.length > 1 && (
+                <Slider {...settings}>
+                  {singleEvent.imageUrl.slice(0, 3).map((item, index) => {
 
-                  console.log(index, index === nextIndex, "next");
+                    console.log(index, index === nextIndex, "next");
 
-                  return <div key={index} className="w-full">
-                    <img
-                      className={`w-full h-[280px] object-cover rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
-                      src={item || ""}
-                      alt={`Event Image ${index + 1}`}
-                      style={{
-                        boxShadow: index === centerIndex ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none',
-                        backgroundColor: index === centerIndex ? 'white' : 'transparent',
-                        borderRadius: index === centerIndex + 1 ? '10px' : '0',
-                        display: index === previousIndex || index === nextIndex ? 'none' : 'block',
+                    return <div key={index} className="w-full">
+                      <img
+                        className={`w-full h-[280px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
+                        src={item || ""}
+                        alt={`Event Image ${index + 1}`}
+                        style={{
+                          boxShadow: index === centerIndex ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none',
+                          backgroundColor: index === centerIndex ? 'white' : 'transparent',
+                          borderRadius: index === centerIndex + 1 ? '10px' : '0',
+                          display: index === previousIndex || index === nextIndex ? 'none' : 'block',
 
-                      }}
-                    />
-                  </div>
-                }
+                        }}
+                      />
+                    </div>
+                  }
 
-                )}
-              </Slider>
-            )}
-          </div>
+                  )}
+                </Slider>
+              )}
+            </div>
           <div className="w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
             <div className="flex items-center gap-10">
               <div className="relative w-[90.5px] h-[147.5px]">
@@ -340,58 +340,58 @@ const EditTeamPage: FunctionComponent = () => {
             <div className="grid grid-cols-1 gap-0 py-4 ">
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px] ">Event Name :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0 rounded-sm ">{singleEvent?.eventName}</p>
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventName}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px] basis-4"> Date :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0">{singleEvent?.eventStartDate}(start from {singleEvent?.eventStartTime}To {singleEvent?.
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0">{singleEvent?.eventStartDate}(start from {singleEvent?.eventStartTime}To {singleEvent?.
                   eventEndTime
                 })</p>
               </div>
               <div className="flex gap-10 items-center mx-2 ">
                 <span className="text-gray-500 basis-[200px] basis-[200px] ">Application Deadline :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0 rounded-sm ">{singleEvent?.eventDeadlineDate}</p>
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventDeadlineDate}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Event Type :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0 rounded-sm ">{singleEvent?.
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.
                   eventType}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Event Location :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize   ">{singleEvent?.place}</p>
+                <p className="text-lg  text-lightseagreen-200   capitalize   ">{singleEvent?.place}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Event Details :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0 rounded-sm ">{singleEvent?.eventDetails}</p>
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventDetails}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Total Participants :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0 rounded-sm ">{totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Team Size :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0 rounded-sm ">{singleEvent?.teamSize}</p>
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.teamSize}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Joined Members :</span>
-                <p className="text-lg  text-[#9b9b9b]   capitalize  py-0 rounded-sm ">{totalJoinedMembers}</p>
+                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{totalJoinedMembers}</p>
               </div>  
               {/* <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Orginizer Name</span>
-                <h3 className="text-  text-[#9b9b9b]  w-full capitalize  py-0 rounded-sm ">{singleEvent?.eventName}</h3>
+                <h3 className="text-  text-lightseagreen-200  w-full capitalize  py-0 rounded-sm ">{singleEvent?.eventName}</h3>
               </div>
            
              
              
               <div className="flex gap-10 items-center mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Scoring Type </span>
-                <h3 className="text-  text-[#9b9b9b]  w-full uppercase  py-0 rounded-sm ">{singleEvent?.scoringType}</h3>
+                <h3 className="text-  text-lightseagreen-200  w-full uppercase  py-0 rounded-sm ">{singleEvent?.scoringType}</h3>
               </div>
              
               <div className="flex flex-col mx-2  ">
                 <span className="text-gray-500 basis-[200px]">Event End Date</span>
-                <h3 className="text-  text-[#9b9b9b]  w-full uppercase  py-0 rounded-sm ">{singleEvent?.eventEndDate}</h3>
+                <h3 className="text-  text-lightseagreen-200  w-full uppercase  py-0 rounded-sm ">{singleEvent?.eventEndDate}</h3>
               </div> */}
              
              
