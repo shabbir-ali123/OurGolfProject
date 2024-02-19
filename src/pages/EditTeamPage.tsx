@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
 import { useParams, useNavigate } from "react-router-dom";
+import ScoringTableRow from '../components/ScoringTableRow';
 import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
@@ -12,6 +13,8 @@ import { fetchSingleEvent } from "../utils/fetchEvents";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ScoringTable from "../components/ScoringTable";
+import EditTeamScore from "../components/EditTeamScore";
 // import TeamSlider from "../components/TeamSlider";
 interface Team {
   id: string;
@@ -47,6 +50,8 @@ interface SingleEvent {
   teamSize: any;
   capacity: any;
   scoringType: string;
+  shotsPerHoles: any;
+  selectedHoles: any;
 }
 
 const EditTeamPage: FunctionComponent = () => {
@@ -117,7 +122,17 @@ const EditTeamPage: FunctionComponent = () => {
   ];
 
   const teamCapacity = singleEvent?.capacity;
-
+  const s = singleEvent?.selectedHoles;
+  let parsedArray = [1,2,3]
+  console.log(Array.isArray(s) , "asdasd");
+  // if (s) { // This checks if stringArray is not undefined
+  //     const validJsonArray = s.replace(/'/g, '"');
+  //        parsedArray = JSON.parse(validJsonArray);
+  //     console.log(parsedArray);
+  // } else {
+  //     console.log('stringArray is undefined');
+  // }
+  console.log(currentTeamSize, "scoresPerHole")
   const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -203,15 +218,18 @@ const EditTeamPage: FunctionComponent = () => {
   let previousIndex = centerIndex - 1;
   let nextIndex = centerIndex + 2;
 
-  useEffect(() => {
+  const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
+  useEffect(() => {
     const fetchAndUpdateTeams = async () => {
+      setIsLoading(true); // Set loading to true when starting to fetch
       await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
       setShouldRefetchTeams(false);
       await fetchSingleEvent(teamId, setSingleEvent, setCreatedBy);
+      setIsLoading(false); // Set loading to false once data is fetched
     };
     fetchAndUpdateTeams();
-  }, [shouldRefetchTeams]);
+  }, [teamId]);
 
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
@@ -239,7 +257,9 @@ const EditTeamPage: FunctionComponent = () => {
     }
     return headers;
   };
-
+  if (isLoading) {
+    return <div>Loading...</div>; // or any loading indicator you prefer
+  }
   return (
     <>
       <div className="py-10 ml-12 ">
@@ -402,6 +422,8 @@ const EditTeamPage: FunctionComponent = () => {
 
 
           </div>
+            <EditTeamScore hole={singleEvent?.selectedHoles} par={singleEvent?.shotsPerHoles} />
+          {/* edit team div */}
           <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10 ">
             <div className="flex items-end justify-between">
               {isCreated ? (
