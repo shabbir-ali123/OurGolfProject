@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SchedulesTabsProps } from "../utils/types";
 import { useTranslation } from "react-i18next";
-import axios, { all } from "axios";
+import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
+import socket from "../socket";
 
 interface AvailabilityTabsProps {
   onSelectTime: (selectedTime: string) => void;
@@ -33,11 +34,9 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     endTime: any;
     day: any;
   }
-  console.log(dayFilter, "acv  ");
   const tabColors = [
     "rounded-full bg-transparent text-[#51ff85] border-solid border-[2px] border-[#51ff85] py-4",
   ];
-  console.log(schedules, "acv  ");
 
   const generateTimeSlots = () => {
     const slots: any[] = [];
@@ -60,8 +59,11 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   let filteredSchedules = schedules.filter((slot) =>
     slot.shifts.some((shift) => shift.day === dayFilter)
   );
+  
   const initialTimeSlots = generateTimeSlots();
   const [selectedTime, setSelectedTime] = useState<any[]>([]);
+  const [bookedAppointment, setBookedAppointment] = useState<any | null>(null);
+
   const [bookedSlots, setBookedSlots] = useState<boolean[]>(
     initialTimeSlots.isBooked
   );
@@ -75,7 +77,17 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   const [selectedTimeDetails, setSelectedTimeDetails] = useState<TimeDetails[]>(
     []
   );
-
+  
+  useEffect(() => {
+   
+  
+    return () => {
+      socket.off('connection');
+    };
+  }, []);
+    
+  
+  
   const handleTabClick = (
     slotId: any,
     startTime: any,
@@ -121,6 +133,20 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     });
   };
 
+  useEffect(() => {
+    const handleAppointmentBooked = (data: any) => {
+      console.log('Appointment booked:', data);
+      setBookedAppointment(data); // Update the state with the received data
+    };
+  
+    socket.on('appointmentBooked', handleAppointmentBooked);
+  
+    return () => {
+      socket.off('appointmentBooked', handleAppointmentBooked);
+    };
+  }, []);
+
+  
   const bookAppointment = async (
     scheduleId: any,
     day: any,
@@ -128,6 +154,10 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     endTime: any,
     isBooked: boolean
   ) => {
+    socket.on('connection', (data) => {
+      console.log(data, 'data');
+    });
+    
     try {
       const token = localStorage.getItem("token");
       const id = Number(localStorage.getItem("id"));
@@ -158,7 +188,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     }
   };
   const allBookedSlots = dayFilter == 'All' ? initialTimeSlots.slots : filteredSchedules;
-  console.log(allBookedSlots)
   const scheduleComponents = allBookedSlots.map((slot: any, index) => {
     const isSelected = selectedTime.some(
       (item) => slot.shifts[0].scheduleId === item.id

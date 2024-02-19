@@ -13,6 +13,7 @@
   import { ToastConfig, toastProperties } from "../constants/toast";
   import { isAuthenticated } from "../utils/auth"; // Import your isAuthenticated function
   import { TeacherDetailsProp } from "../utils/types";
+import socket from "../socket";
 
 
 
@@ -46,7 +47,6 @@
         try {
           const token = localStorage.getItem("token");
         let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
-console.log(token === "undefined"  ,"tokeen")
         if (token && token !== "undefined") {
           endpoint = API_ENDPOINTS.GETALLTEACHERS;
         }
@@ -74,7 +74,17 @@ console.log(token === "undefined"  ,"tokeen")
 
       fetchTeachers();
     }, []);
+    useEffect(() => {
+      socket.on('appointmentBooked', (data: any) => {
+        console.log('Appointment booked event received:', data);
+        // Handle the received data (e.g., update state, display notification)
+      });
   
+      // Cleanup on component unmount
+      return () => {
+        socket.off('appointmentBooked');
+      };
+    }, []);
     const handleCloseModal = () => {
       setShowModal(false);
     };
