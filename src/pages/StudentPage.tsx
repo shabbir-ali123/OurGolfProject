@@ -74,12 +74,11 @@ console.log(token === "undefined"  ,"tokeen")
 
       fetchTeachers();
     }, []);
-    const handleBookAppointment = () => {
-      console.log("Booking appointment logic");
-    };
+  
     const handleCloseModal = () => {
       setShowModal(false);
     };
+    
     const showTeacherDetails = (teacher: TeacherDetailsProp) => {
       setSelectedTeacher(teacher);
     };
@@ -103,7 +102,7 @@ console.log(token === "undefined"  ,"tokeen")
         )}
 
         {!isUserAuthenticated ? (
-          <div className="col-span-12 p-4  mx-auto">
+          <div className="col-span-12 p-4 mx-auto">
             <TeacherList
               openModal={openModal}
               showTeacherDetails={showTeacherDetails}
