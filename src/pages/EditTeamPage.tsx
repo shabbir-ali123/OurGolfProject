@@ -258,7 +258,14 @@ const EditTeamPage: FunctionComponent = () => {
     return headers;
   };
   if (isLoading) {
-    return <div>Loading...</div>; // or any loading indicator you prefer
+    return <div className="flex justify-center items-center h-[100vh]">
+      <div>
+     
+      <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt=""  />
+      <p>loading...</p>
+      </div>
+      
+    </div>; 
   }
   return (
     <>
@@ -489,9 +496,9 @@ const EditTeamPage: FunctionComponent = () => {
                     <div>
                       <img src="/img/golfplyr.png" alt="" width="40px" />
                       <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                        Team Members
+                      {t("TEAM_MEMBERS")}
                       </b>
-                      <div className="flex gap-8">
+                      {/* <div className="flex gap-8">
                         <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] bg-white rounded-md shadow-lg p-6">
                           Team Size:{" "}
                           <span className="text-[#17b3a6]">
@@ -513,12 +520,12 @@ const EditTeamPage: FunctionComponent = () => {
                             {totalJoinedMembers}
                           </span>
                         </p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
                   <button
-                    className="p-6 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                    className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                     onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                   >
                     join now

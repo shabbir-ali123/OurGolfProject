@@ -41,7 +41,7 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ( {hole , par}) => {
               alt=""
               src="/img/rectangle-1248@2x.png"
             />
-            <b className="relative left-[-24px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+            <b className="relative left-[-4px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
               {t("SCORING_CATEGORY")}
             </b>
             <img
@@ -53,17 +53,17 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ( {hole , par}) => {
             <div className="flex justify-center    sm:rounded-lg my-6">
             <table className=" text-sm text-left text-gray-500 dark:text-gray-400 w-full">
                 <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
-                    <tr>
+                    <tr className=''>
                         <th scope="col" className="px-2 py-3">HOLE</th>
                         {newArrayHole.map((score: any) => (
-                             <th scope="col" className="px-2 py-3">{score}</th>
+                             <th scope="col" className="px-2 py-3 ">{score}</th>
                         ))}
 
                     </tr>
                 </thead>
                 <tbody className=''>
                     {products.map((product, index) => (
-                        <tr key={index} className='mt-10 shadow-md '>
+                        <tr key={index} className='mt-10 shadow-md g'>
                             <th scope="row" className="px-2 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                 {product.name}
                             </th>
