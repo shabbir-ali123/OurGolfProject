@@ -153,12 +153,13 @@ const CreateEvent: React.FC = () => {
     const selectedScoringType = localStorage.getItem('score');
     const selectedHoles = localStorage.getItem('selected') || '[]';
     const numberArray = JSON.parse(selectedHoles).map((str: string) => parseInt(str, 10));
-  
+    const par = localStorage.getItem('par') || '[]';
+    const parArray = JSON.parse(par).map((str: string) => parseInt(str, 10));
     const updatedFormData: any = {
       ...formData,
       selectedScoringType: selectedScoringType,
       selectedHoles: numberArray,
-      shotsPerHoles: numberArray
+      shotsPerHoles: parArray
     };
   
     const formdata = new FormData();
