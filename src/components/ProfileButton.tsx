@@ -88,16 +88,17 @@ export default function ProfileButton() {
               <p className="m-0 text-base font-medium text-black group-hover:text-gray-900">
                 {user.nickName ? user.nickName : user.email}
               </p>
+              <button onClick={() => handleChangeLanguage("ja")} className={i18n.resolvedLanguage === "ja" ? "actives  rounded-l-full p-1" : "rounded-l-full p-1"}>
+                {languages.ja.displayName}
+              </button>
               <button
                 onClick={() => handleChangeLanguage("en")}
-                className={i18n.resolvedLanguage === "en" ? "actives rounded-l-full p-1" : "rounded-l-full p-1" }
+                className={i18n.resolvedLanguage === "en" ? "actives rounded-r-full  p-1" : "rounded-r-full p-1" }
               
               >
                 {languages.en.displayName}
               </button>
-              <button onClick={() => handleChangeLanguage("ja")} className={i18n.resolvedLanguage === "ja" ? "actives rounded-r-full p-1" : "rounded-r-full p-1"}>
-                {languages.ja.displayName}
-              </button>
+              
             </div>
             </>
            
@@ -117,16 +118,17 @@ export default function ProfileButton() {
                 <Link to="/login-page" className="text-black">Login</Link>
               </p>
               <div>
+              <button onClick={() => handleChangeLanguage("ja")} className={i18n.resolvedLanguage === "ja" ? "actives rounded-l-full p-1" : "rounded-l-full p-1"}>
+                {languages.ja.displayName}
+              </button>
               <button
                 onClick={() => handleChangeLanguage("en")}
-                className={i18n.resolvedLanguage === "en" ? "actives rounded-l-full p-1" : "rounded-l-full p-1" }
+                className={i18n.resolvedLanguage === "en" ? "actives rounded-r-full p-1" : "rounded-r-full p-1" }
               
               >
                 {languages.en.displayName}
               </button>
-              <button onClick={() => handleChangeLanguage("ja")} className={i18n.resolvedLanguage === "ja" ? "actives rounded-r-full p-1" : "rounded-r-full p-1"}>
-                {languages.ja.displayName}
-              </button>
+            
               </div>
             </div>
             </>

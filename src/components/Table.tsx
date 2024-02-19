@@ -188,7 +188,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
         </div>
       ) : (
         <div className="flow-root ">
-          <div className="-my-2 overflow-x-auto ">
+          <div className="-my-2 sm:overflow-x-auto ">
             <div className="inline-block min-w-full py-0 align-middle ">
               <div className="overflow-hidden sm:rounded-lg">
                 <table
