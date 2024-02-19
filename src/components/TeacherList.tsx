@@ -68,7 +68,14 @@ const TeacherList: React.FC<TeacherListProps> = ({
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center  h-[100vh]">
+    <div>
+   
+    <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt=""  />
+    <p>loading...</p>
+    </div>
+    
+  </div>
   }
 
   if (error) {

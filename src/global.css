@@ -211,10 +211,4 @@ button:disabled{
   border-radius: 0px;
   margin-left: -40px;
 }
-.tab-text {
-  display: flex; /* Use flex layout to align items */
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-  writing-mode: horizontal-tb; /* Ensure text flows horizontally */
-  text-orientation: mixed; /* Ensure characters are upright */
-}
+

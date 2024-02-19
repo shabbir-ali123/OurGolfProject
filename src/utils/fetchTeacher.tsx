@@ -26,7 +26,6 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
     try {
       const token = localStorage.getItem("token");
       let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
-      console.log(token === "undefined", "tokeen")
       if (token && token !== "undefined") {
         endpoint = API_ENDPOINTS.GETALLTEACHERS;
       }
@@ -48,7 +47,6 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
       });
 
       setTeachers(response.data.teachers);
-      console.log(response.data.teachers, "hello")
 
       if (response.data.teachers && response.data.teachers.length > 0) {
         setSelectedTeacher(response.data.teachers[0]);
@@ -97,7 +95,6 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
         userId: userId,
       },
     });
-    console.log(response.data, "babuuu");
     if (response.status === 200) {
       setFavoriteTeachers(response.data.favoriteTeachers);
     } else {
