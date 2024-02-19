@@ -98,6 +98,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   document.body.dir = i18n.dir();
 
   const [isHovered, setIsHovered] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isWithinJapan, setIsWithinJapan] = useState(true);
   const handleFileInputChange = () => {
@@ -107,17 +108,15 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      console.log(files);
+    const files = event.target.files ? Array.from(event.target.files) : [];
+    console.log(files);
+    setUploadedImages(files); // Update state with uploaded files
 
-
+    if (files.length >= 3) {
       setFormData((prevFormData: any) => ({
         ...prevFormData,
-        files
+        files: files,
       }));
-
-
     }
   };
 
@@ -136,7 +135,17 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
       },
     } as React.ChangeEvent<HTMLInputElement>);
   };
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    // Check if at least three images are uploaded
+    if (uploadedImages.length < 3) {
+      alert('Please upload at least three images.');
+      return;
+    }
 
+    // Proceed with form submission or the next step
+    console.log('Form can be submitted');
+  };
   return (
     <motion.div
       className="px-2 mx-auto lg:max-w-7xl "

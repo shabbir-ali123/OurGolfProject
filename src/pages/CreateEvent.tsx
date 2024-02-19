@@ -134,53 +134,56 @@ const CreateEvent: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-
     e.preventDefault();
+  
+  
     if (submitting) {
       return;
     }
-    setSubmitting(true); // Set submitting to true
+  
+   
+    if (!formData.files || formData.files.length < 3) {
+      showToast("Please upload at least three images to proceed.", "[#FF0000]");
+      return;
+    }
+  
+   
+    setSubmitting(true);
+  
     const selectedScoringType = localStorage.getItem('score');
     const selectedHoles = localStorage.getItem('selected') || '[]';
     const numberArray = JSON.parse(selectedHoles).map((str: string) => parseInt(str, 10));
-
-
+  
     const updatedFormData: any = {
       ...formData,
       selectedScoringType: selectedScoringType,
       selectedHoles: numberArray,
       shotsPerHoles: numberArray
     };
+  
     const formdata = new FormData();
-    Object.keys(updatedFormData).map((key) => {
-      let value: any = updatedFormData?.[key]
-      console.log({ key, value })
+    Object.keys(updatedFormData).forEach((key) => {
+      let value: any = updatedFormData[key];
       if (key === 'files' && value) {
-        for (let i = 0; i < value.length; i++) {
-          let fil = value[i]
-          console.log({ key, fil })
-          formdata.append('files[]', fil)
-        }
-      }
-      else if (key === 'placeCoordinates') {
+        value.forEach((file: File) => {
+          formdata.append('files[]', file);
+        });
+      } else if (key === 'placeCoordinates') {
         formdata.append('placeCoordinates[lat]', updatedFormData.placeCoordinates.lat);
         formdata.append('placeCoordinates[lng]', updatedFormData.placeCoordinates.lng);
+      } else {
+        formdata.append(key, value);
       }
-      else {
-        formdata.append(key, value)
-      }
-
-    })
-
+    });
+  
     try {
       const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formdata, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-
       });
-
+  
       if (response.status === 201) {
         showToast("Event created successfully", "green");
         localStorage.removeItem('score');
@@ -193,10 +196,9 @@ const CreateEvent: React.FC = () => {
       console.error("Error:", error);
     } finally {
       setSubmitting(false);
-      console.log(formData, "shabbir");
-
     }
   };
+  
 
   const handlePaymentDetailsChange = (
     formDataUpdate: any,
