@@ -69,8 +69,6 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     }
   };
 
-
-
   const [selectedScoringType, setSelectedScoringType] = useState<Tab>(
     Tab.Single
   );
@@ -171,7 +169,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     );
     localStorage.setItem("par", JSON.stringify(holeValues));
 
-  }, [selectedScoringType, formData]);
+  }, [selectedScoringType, formData, holeValues]);
 
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-7xl">

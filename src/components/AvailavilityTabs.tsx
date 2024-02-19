@@ -78,13 +78,13 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     []
   );
   
-  useEffect(() => {
+  // useEffect(() => {
    
   
-    return () => {
-      socket.off('connection');
-    };
-  }, []);
+  //   return () => {
+  //     socket.off('connection');
+  //   };
+  // }, []);
     
   
   
@@ -133,18 +133,18 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     });
   };
 
-  useEffect(() => {
-    const handleAppointmentBooked = (data: any) => {
-      console.log('Appointment booked:', data);
-      setBookedAppointment(data); // Update the state with the received data
-    };
+  // useEffect(() => {
+  //   const handleAppointmentBooked = (data: any) => {
+  //     console.log('Appointment booked:', data);
+  //     setBookedAppointment(data); // Update the state with the received data
+  //   };
   
-    socket.on('appointmentBooked', handleAppointmentBooked);
+  //   socket.on('appointmentBooked', handleAppointmentBooked);
   
-    return () => {
-      socket.off('appointmentBooked', handleAppointmentBooked);
-    };
-  }, []);
+  //   return () => {
+  //     socket.off('appointmentBooked', handleAppointmentBooked);
+  //   };
+  // }, []);
 
   
   const bookAppointment = async (
