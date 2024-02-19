@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 interface ScoringTypeProps {
-  onChange: (scoringType: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    scoringType: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectedHoles: string[];
 }
@@ -52,8 +55,25 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+  const [numHoles, setNumHoles] = useState(9);
+  const [holeValues, setHoleValues] = useState(
+    Array.from({ length: numHoles }, () => 4)
+  );
 
-  const [selectedScoringType, setSelectedScoringType] = useState<Tab>(Tab.Single);
+  const handleParInputChange = (e: any, index: any) => {
+    const newValue = parseInt(e.target.value);
+    if (!isNaN(newValue) && newValue >= 0) {
+      const newHoleValues = [...holeValues];
+      newHoleValues[index] = newValue;
+      setHoleValues(newHoleValues);
+    }
+  };
+
+
+
+  const [selectedScoringType, setSelectedScoringType] = useState<Tab>(
+    Tab.Single
+  );
   const [activeTab, setActiveTab] = useState<Tab>(Tab.Single);
   const [formData, setFormData] = useState<FormData>({
     [Tab.Normal]: {
@@ -102,7 +122,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     handleScoringTypeChange(updatedEvent);
   };
 
-  const handleScoringTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleScoringTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const isChecked = event.target.checked;
     const scoringType = event.target.name as Tab;
     if (isChecked) {
@@ -120,13 +142,18 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     onChange(scoringType, event);
   };
 
-  const handleHoleSelection = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleHoleSelection = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const hole = String(index + 1);
-    const updatedSelectedHoles = formData[selectedScoringType].selectedHoles.includes(hole)
-      ? formData[selectedScoringType].selectedHoles.filter(h => h !== hole)
+    const updatedSelectedHoles = formData[
+      selectedScoringType
+    ].selectedHoles.includes(hole)
+      ? formData[selectedScoringType].selectedHoles.filter((h) => h !== hole)
       : [...formData[selectedScoringType].selectedHoles, hole];
 
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
       [selectedScoringType]: {
         ...prevFormData[selectedScoringType],
@@ -136,24 +163,30 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   };
 
   useEffect(() => {
-    localStorage.setItem('score', selectedScoringType);
-    localStorage.setItem('selected', JSON.stringify(formData[selectedScoringType].selectedHoles))
+    localStorage.setItem("score", selectedScoringType);
+    localStorage.setItem(
+      "selected",
+      JSON.stringify(formData[selectedScoringType].selectedHoles)
+    );
+    localStorage.setItem("par", JSON.stringify(holeValues));
+
   }, [selectedScoringType, formData]);
 
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-7xl">
-      <div className="p-4 mt-4  rounded-md "
-       style={{
-        boxShadow:
-          'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
-      }}
+      <div
+        className="p-4 mt-4  rounded-md "
+        style={{
+          boxShadow:
+            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+        }}
       >
-        <h2 className="text-4xl text-[#626262]">{t('SCORING_CATEGORY')}</h2>
+        <h2 className="text-4xl text-[#626262]">{t("SCORING_CATEGORY")}</h2>
         <h4 className="text-[#626262]">
-          01 <span className="ml-4 text-[#626262]">{t('SCORING_TYPE')}</span>
+          01 <span className="ml-4 text-[#626262]">{t("SCORING_TYPE")}</span>
         </h4>
         <div className="flex gap-10">
-        <div>
+          <div>
             <input
               className="rounded-full"
               type="checkbox"
@@ -170,7 +203,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
-              {t('NORMAL')}
+              {t("NORMAL")}
             </button>
           </div>
           <div>
@@ -190,7 +223,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
-              {t('PERIA')}
+              {t("PERIA")}
             </button>
           </div>
           <div>
@@ -210,7 +243,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
-              {t('DOUBLE_PERIA')}
+              {t("DOUBLE_PERIA")}
             </button>
           </div>
           <div>
@@ -230,7 +263,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
-              {t('TRIPLE_PERIA')}
+              {t("TRIPLE_PERIA")}
             </button>
           </div>
         </div>
@@ -238,24 +271,48 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
               <h4 className="text-[#626262]">Please select 9 holes</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center" key={index + 1}>
-                    <input
-                      type="checkbox"
-                      checked={
-                        index < 9 || selectedHoles.includes(String(index + 1))
-                      }
-                      onChange={(e) => handleHoleSelection(e, index)}
-                      id={String(index + 1)}
-                      className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                    />
-                    <label htmlFor={String(index + 1)} className="text-[#626262]">
-                      {t('HOLE')}
-                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
-                        {index + 1}
-                      </span>
-                    </label>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        checked={
+                          index < numHoles ||
+                          selectedHoles.includes(String(index + 1))
+                        }
+                        onChange={(e) => handleHoleSelection(e, index)}
+                        id={String(index + 1)}
+                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                      />
+                      <label
+                        htmlFor={String(index + 1)}
+                        className="text-[#626262]"
+                      >
+                        {t("HOLE")}
+                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
+                          {index + 1}
+                        </span>
+                      </label>
+                      <div className="flex items-center gap-3">
+                        <label
+                          htmlFor={String(index + 1)}
+                          className="text-[#626262]"
+                        >
+                          {t("Par")}
+                        </label>
+                        <input
+                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                          id={String(index + 1)}
+                          type="number"
+                          name="nearPinContest"
+                          placeholder=""
+                          value={holeValues[index]}
+                          min="0"
+                          onChange={(e) => handleParInputChange(e, index)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -266,24 +323,49 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
               <h4 className="text-[#626262]">Please select 9 holes</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center" key={index + 1}>
-                    <input
-                      type="checkbox"
-                      checked={
-                        index < 9 || selectedHoles.includes(String(index + 1))
-                      }
-                      onChange={(e) => handleHoleSelection(e, index)}
-                      id={String(index + 1)}
-                      className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                    />
-                    <label htmlFor={String(index + 1)} className="text-[#626262]">
-                      {t('HOLE')}
-                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
-                        {index + 1}
-                      </span>
-                    </label>
+                  <div className="flex items-center gap-5" key={index + 1}>
+                    <div className="flex items-center ">
+                      <input
+                        type="checkbox"
+                        checked={
+                          index < numHoles ||
+                          selectedHoles.includes(String(index + 1))
+                        }
+                        onChange={(e) => handleHoleSelection(e, index)}
+                        id={String(index + 1)}
+                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                      />
+                      <label
+                        htmlFor={String(index + 1)}
+                        className="text-[#626262]"
+                      >
+                        {t("HOLE")}
+                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
+                          {index + 1}
+                        </span>
+                      </label>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <label
+                        htmlFor={String(index + 1)}
+                        className="text-[#626262]"
+                      >
+                        {t("Par")}
+                      </label>
+                      <input
+                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                          id={String(index + 1)}
+                          type="number"
+                          name="nearPinContest"
+                          placeholder=""
+                          value={holeValues[index]}
+                          min="0"
+                          onChange={(e) => handleParInputChange(e, index)}
+                        />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -295,26 +377,49 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
               <h4 className="text-[#626262]">Please select 12 holes</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center" key={index + 1}>
-                    <input
-                      type="checkbox"
-                      checked={
-                        !(index < 12)
-                          ? selectedHoles.includes(String(index + 1))
-                          : true
-                      }
-                      onChange={(e) => handleHoleSelection(e, index)}
-                      id={"double" + String(index + 1)}
-                      className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                    />
-                    <label htmlFor={`double${index + 1}`} className="text-[#626262]">
-                      {t('HOLE')}
-                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
-                        {index + 1}
-                      </span>
-                    </label>
+                  <div className="flex items-center gap-3" key={index + 1}>
+                    <div className="flex items-center ">
+                      <input
+                        type="checkbox"
+                        checked={
+                          !(index < 12)
+                            ? selectedHoles.includes(String(index + 1))
+                            : true
+                        }
+                        onChange={(e) => handleHoleSelection(e, index)}
+                        id={"double" + String(index + 1)}
+                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                      />
+                      <label
+                        htmlFor={`double${index + 1}`}
+                        className="text-[#626262]"
+                      >
+                        {t("HOLE")}
+                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
+                          {index + 1}
+                        </span>
+                      </label>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <label
+                        htmlFor={String(index + 1)}
+                        className="text-[#626262]"
+                      >
+                        {t("Par")}
+                      </label>
+                      <input
+                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                          id={String(index + 1)}
+                          type="number"
+                          name="nearPinContest"
+                          placeholder=""
+                          value={holeValues[index]}
+                          min="0"
+                          onChange={(e) => handleParInputChange(e, index)}
+                        />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -325,27 +430,47 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
         {selectedScoringType === Tab.Triple && (
           <div className="grid grid-cols-9 mx-auto text-[#626262] lg:gap-x-16 ">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4>{t('SELECT_HOLE')}</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6">
+              <h4>{t("SELECT_HOLE")}</h4>
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center" key={index + 1}>
-                    <input
-                      type="checkbox"
-                      checked={
-                        !(index < 6)
-                          ? selectedHoles.includes(String(index + 1))
-                          : true
-                      }
-                      onChange={(e) => handleHoleSelection(e, index)}
-                      id={String(index + 1)}
-                      className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                    />
-                    <label htmlFor={`triple${index + 1}`}>
-                      {t('HOLE')}
-                      <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
-                        {index + 1}
-                      </span>
-                    </label>
+                  <div className="flex items-center gap-3" key={index + 1}>
+                    <div className="flex items-center ">
+                      <input
+                        type="checkbox"
+                        checked={
+                          !(index < 6)
+                            ? selectedHoles.includes(String(index + 1))
+                            : true
+                        }
+                        onChange={(e) => handleHoleSelection(e, index)}
+                        id={String(index + 1)}
+                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                      />
+                      <label htmlFor={`triple${index + 1}`}>
+                        {t("HOLE")}
+                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
+                          {index + 1}
+                        </span>
+                      </label>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <label
+                        htmlFor={String(index + 1)}
+                        className="text-[#626262]"
+                      >
+                        {t("Par")}
+                      </label>
+                      <input
+                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                          id={String(index + 1)}
+                          type="number"
+                          name="nearPinContest"
+                          placeholder=""
+                          value={holeValues[index]}
+                          min="0"
+                          onChange={(e) => handleParInputChange(e, index)}
+                        /> 
+                    </div>
                   </div>
                 ))}
               </div>
@@ -359,7 +484,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
           >
             02
-            <span className="ml-4">{t('DRIVER_CONTEST')}</span>
+            <span className="ml-4">{t("DRIVER_CONTEST")}</span>
           </label>
           <input
             className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
@@ -370,14 +495,13 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             min="0"
             onChange={onInputChange}
           />
-
         </div>
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
           <label
             htmlFor="nearPinContest"
             className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
           >
-            03 <span className="ml-4">{t('PIN_CONTEST')}</span>
+            03 <span className="ml-4">{t("PIN_CONTEST")}</span>
           </label>
           <input
             className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none "
@@ -388,12 +512,10 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             min="0"
             onChange={onInputChange}
           />
-
         </div>
       </div>
     </div>
   );
-
 };
 
 export default ScoringCategory;
