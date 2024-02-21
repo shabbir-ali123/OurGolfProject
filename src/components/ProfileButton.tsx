@@ -3,19 +3,16 @@ import { Link } from "react-router-dom";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from 'react-router-dom';
+import { notificationsContextStore } from "../contexts/notification";
+import { NotificationPop } from "./NotificationPop";
 
-import {
-  BellIcon
-} from "@heroicons/react/24/solid";
-import Example from "./StudentCalSec";
-import NotificationPop from "./NotificationPop";
 export default function ProfileButton() {
+  const { notifications } = notificationsContextStore();
   const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+
   const languages = {
     en: { displayName: "English" },
-    ja: { displayName: i18n.language === 'en' ? "Japan" : "日本語" },
+    ja: { displayName: i18n.language === "en" ? "Japan" : "日本語" },
   };
 
   const [token, setToken] = useState("");
@@ -23,7 +20,6 @@ export default function ProfileButton() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notification, setNotification] = useState(false);
 
-  const navigate = useNavigate();
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
@@ -36,36 +32,31 @@ export default function ProfileButton() {
     getUser(userId)
       .then((userData) => {
         setUser(userData.user);
-        localStorage.setItem('user', JSON.stringify(userData.user));
+        localStorage.setItem("user", JSON.stringify(userData.user));
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-
   }, []);
 
-
   const handleDotClick = () => {
-    setDropdownOpen(prevState => !prevState);
+    setDropdownOpen((prevState) => !prevState);
 
     const timeoutId = setTimeout(() => {
       setDropdownOpen(false);
     }, 5000);
 
     return () => clearTimeout(timeoutId);
-
   };
 
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
   };
 
-
   const getUser = async (userId: any) => {
     try {
       const token = localStorage.getItem("token");
       if (token && token !== "undefined") {
-
         const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -78,15 +69,11 @@ export default function ProfileButton() {
       throw "sdf";
     }
   };
-  const openNotification = () => {
-    setNotification(prevState => !prevState);
 
-  };
   return (
-    <div className=" lg:flex lg:flex-1 lg:justify-end ">
+    <div className=" lg:flex lg:flex-1 lg:justify-end">
       <div className="relative flex-shrink-0 block">
         <div className="flex items-center">
-
           {token && user ? (
             <>
               <div className="flex items-center justify-center ">
@@ -101,23 +88,30 @@ export default function ProfileButton() {
                 <p className="m-0 text-base font-medium text-black group-hover:text-gray-900">
                   {user.nickName ? user.nickName : user.email}
                 </p>
-                <button onClick={() => handleChangeLanguage("ja")} className={i18n.resolvedLanguage === "ja" ? "actives  rounded-l-full p-1" : "rounded-l-full p-1"}>
+                <button
+                  onClick={() => handleChangeLanguage("ja")}
+                  className={
+                    i18n.resolvedLanguage === "ja"
+                      ? "actives  rounded-l-full p-1"
+                      : "rounded-l-full p-1"
+                  }
+                >
                   {languages.ja.displayName}
                 </button>
                 <button
                   onClick={() => handleChangeLanguage("en")}
-                  className={i18n.resolvedLanguage === "en" ? "actives rounded-r-full  p-1" : "rounded-r-full p-1"}
-
+                  className={
+                    i18n.resolvedLanguage === "en"
+                      ? "actives rounded-r-full  p-1"
+                      : "rounded-r-full p-1"
+                  }
                 >
                   {languages.en.displayName}
                 </button>
-
               </div>
             </>
-
           ) : (
             <>
-
               <div className="flex items-center justify-center ">
                 <img
                   onClick={handleDotClick}
@@ -128,24 +122,34 @@ export default function ProfileButton() {
               </div>
               <div className="ml-3">
                 <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
-                  <Link to="/login-page" className="text-black">Login</Link>
+                  <Link to="/login-page" className="text-black">
+                    Login
+                  </Link>
                 </p>
                 <div>
-                  <button onClick={() => handleChangeLanguage("ja")} className={i18n.resolvedLanguage === "ja" ? "actives rounded-l-full p-1" : "rounded-l-full p-1"}>
+                  <button
+                    onClick={() => handleChangeLanguage("ja")}
+                    className={
+                      i18n.resolvedLanguage === "ja"
+                        ? "actives rounded-l-full p-1"
+                        : "rounded-l-full p-1"
+                    }
+                  >
                     {languages.ja.displayName}
                   </button>
                   <button
                     onClick={() => handleChangeLanguage("en")}
-                    className={i18n.resolvedLanguage === "en" ? "actives rounded-r-full p-1" : "rounded-r-full p-1"}
-
+                    className={
+                      i18n.resolvedLanguage === "en"
+                        ? "actives rounded-r-full p-1"
+                        : "rounded-r-full p-1"
+                    }
                   >
                     {languages.en.displayName}
                   </button>
-
                 </div>
               </div>
             </>
-
           )}
           <div className="relative">
             <button
@@ -266,25 +270,42 @@ export default function ProfileButton() {
               </div>
             )}
           </div>
-          <div onClick={openNotification} className="px-6">
+          <div
+            onClick={() => {
+              setNotification(!notification);
+            }}
+            className="px-6"
+          >
             <span>
               <div className="relative cursor-pointer">
-                <svg className="w-5 h-5 text-teal-600 animate-wiggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17" /></svg>
-                <div className="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -end-2">
-                  3
-                  <div className="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full" ></div>
+                <svg
+                  className="w-5 h-5 text-teal-600 animate-wiggle"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 21 21"
+                >
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17"
+                  />
+                </svg>
+                <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full -top-3 -end-2">
+                  {notifications.length > 0 && notifications.length}
+                  <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                 </div>
               </div>
-
-
-
             </span>
           </div>
-
         </div>
       </div>
-      {notification && <NotificationPop setNotification={setNotification} />}
-
+      {notification && (
+        <NotificationPop
+          notifcations={notifications}
+          setNotification={setNotification}
+        />
+      )}
     </div>
   );
 }
