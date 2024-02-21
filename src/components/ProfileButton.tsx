@@ -11,12 +11,13 @@ export default function ProfileButton() {
   const { t, i18n } = useTranslation();
   let n = [];
   const tokene = localStorage.getItem('token');
-  const id = localStorage.getItem('id');
-const tId = notifications.map((item: any) => item.teacherId)
+  const id = localStorage.getItem('teacher_id');
+let tId = notifications.map((item: any) => item.teacherId);
+tId = tId[tId.length - 1 ]
     if(tId == id  && tokene){
     n = notifications;
   }
-console.log(tId == id  && tokene, "notifications tid");
+console.log(id , tId, "notifications tid");
     
   const languages = {
     en: { displayName: "English" },

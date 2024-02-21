@@ -20,13 +20,13 @@ export const NotificationPop: React.FC<NotificationProp> = ({
   };
   let notification = [];
   const token = localStorage.getItem("token");
-  const id = localStorage.getItem("id");
-  const tId = notifications.map((item: any) => item.teacherId);
-
-  if (tId == id && token) {
-    notification = notifications;
-  }
-
+  const id = localStorage.getItem("teacher_id");
+  let tId = notifications.map((item: any) => item.teacherId);
+  tId = tId[tId.length - 1 ]
+      if(tId == id  && token){
+        notification = notifications;
+    }
+    
   return (
     <>
       <div
