@@ -39,7 +39,6 @@ const CreateTeacher: React.FC = () => {
     aboutMyself: "",
     firstName: "",
     lastName: "",
-    // Your Hourly Rate: "",
     phoneNumber: "",
     location: "",
     schedules: [

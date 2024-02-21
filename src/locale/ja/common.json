@@ -1,5 +1,6 @@
 {
     "HELLO": "こんにちは",
+    "JAPAN":"日本語",
     "EVENT": "イベントイン",
     "HOME": "ホーム",
     "NOTIFICATIONS": "通知",
@@ -131,6 +132,7 @@
     "INSTRUCTION": "応募時に参加者に入力していただく項目を設定できます。入力された内容は主催者のみが確認することができます。",
     "FULL_NAME": "フルネーム",
     "NAME_EXAMPLE": "例：佐藤太郎",
+    "EMAIL": "メール",
     "EMAIL_EXAMPLE": "info@golf.com が有効になっていることを確認してください",
     "TELEPHONE_EXAMPLE": "半角数字",
     "TELEPHONE": "電話",

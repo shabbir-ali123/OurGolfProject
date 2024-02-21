@@ -169,10 +169,10 @@ const TeacherList: React.FC<TeacherListProps> = ({
                     />
 
                     <div className={`ml-2 ${textFontSize}`}>
-                      <p className="text-xs font-bold tracking-wide text-[#52FF86]  m-0">
+                      <p className="text-xs font-bold tracking-wide text-[#626262]  m-0">
                         {teacher.firstName}
                       </p>
-                      <p className="text-[9.13px] font-normal text-[#838383] m-0 ">
+                      <p className="text-[9.13px] font-normal text-[#626262] m-0 ">
                         {teacher.location}
                       </p>
                     </div>
@@ -217,7 +217,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
                   <img className="w-16 " src="/img/teacher_rate.png" alt="" />
                   <span className="absolute flex items-center justify-center w-full h-full text-base font-bold tracking-wide ">
                     ¥{teacher.hourlyRate}
-                    <sub className="font-normal text-[5px] tracking-wide ">
+                    <sub className="font-normal text-[5px] tracking-wide text-[#626262] ">
                       Per/Hr
                     </sub>
                   </span>

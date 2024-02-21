@@ -97,8 +97,8 @@ export default function Example() {
         <div className="lg:col-span-8 xl:col-span-9 px-4 ">
          
 
-          <div className="flex items-center justify-between mx-2 my-2 text-gray-900">
-            <div className="font-inter font-semibold text-[#009C2F]">
+          <div className="flex items-center justify-between mx-2 my-2 text-[#626262]">
+            <div className="font-inter font-semibold text-[#626262]">
               January 2023
             </div>
             <div className="flex">
