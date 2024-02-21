@@ -134,7 +134,7 @@ const SideMenu: React.FC = () => {
     {
       name: "NOTIFICATIONS",
       icon: faBell,
-      path: "/notification",
+      path: "/notification-page",
       active: false
     },
     {

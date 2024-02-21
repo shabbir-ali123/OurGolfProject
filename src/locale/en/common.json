@@ -1,5 +1,6 @@
 {
     "HELLO": "helldfcdddo",
+    "JAPAN":"Japan",
     "EVENT": "Event In",
     "HOME": "Home",
     "NOTIFICATIONS": "Notifications",
@@ -57,6 +58,7 @@
     "ENTER_MOBILE": "Enter Mobile",
     "LOCATION": "Location",
     "ENTER_LOCATION": "Enter Location",
+    "EMAIL": "Email",
     "UPDATE": "Update",
     "WEEKLY_AVAILIBILTY": "Weekly Availibility",
     "AVAILIBILTY": "Availibility",
