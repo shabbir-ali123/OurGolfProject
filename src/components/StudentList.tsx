@@ -36,6 +36,7 @@ const StudentList: React.FC<StudentListProps> = ({
  
   const [showModal, setShowModal] = useState(false);
   const [lessontype, setLessonType] =   useState<string | undefined>(undefined);
+  
   useEffect(()=>{
     setLessonType(lessons);
   })
@@ -85,6 +86,7 @@ const StudentList: React.FC<StudentListProps> = ({
     }
   };
 
+  console.log(lessontype, 'LT')
   return (
     <>
       <div className="mt-6 cursor-pointer animate__animated animate__fadeInLeft">

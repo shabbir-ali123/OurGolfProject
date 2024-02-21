@@ -79,9 +79,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   );
   
   useEffect(() => {
-   
   socket.on('connection', (a:any)=>{console.log({a})});
-
     return () => {
       socket.off('connection');
     };
@@ -134,20 +132,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     });
   };
 
-  useEffect(() => {
-    const handleAppointmentBooked = (data: any) => {
-      console.log('Appointment bookdsed:', data);
-      setBookedAppointment(data); 
-    };
-  
-    socket.on('appointmentBooked', handleAppointmentBooked);
-  
-    return () => {
-      socket.off('appointmentBooked', handleAppointmentBooked);
-    };
-  }, []);
-
-  
+  console.log(bookedAppointment, 'Booked Appointment in client')
   const bookAppointment = async (
     scheduleId: any,
     day: any,
