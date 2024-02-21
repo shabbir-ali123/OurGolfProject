@@ -80,7 +80,8 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   
   useEffect(() => {
    
-  
+  socket.on('connection', (a:any)=>{console.log({a})});
+
     return () => {
       socket.off('connection');
     };
@@ -135,8 +136,8 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
 
   useEffect(() => {
     const handleAppointmentBooked = (data: any) => {
-      console.log('Appointment booked:', data);
-      setBookedAppointment(data); // Update the state with the received data
+      console.log('Appointment bookdsed:', data);
+      setBookedAppointment(data); 
     };
   
     socket.on('appointmentBooked', handleAppointmentBooked);
