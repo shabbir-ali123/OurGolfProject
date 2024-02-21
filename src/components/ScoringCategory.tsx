@@ -69,8 +69,6 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     }
   };
 
-
-
   const [selectedScoringType, setSelectedScoringType] = useState<Tab>(
     Tab.Single
   );
@@ -164,13 +162,14 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 
   useEffect(() => {
     localStorage.setItem("score", selectedScoringType);
+    console.log(formData[selectedScoringType], "selectedScoringType");
     localStorage.setItem(
       "selected",
       JSON.stringify(formData[selectedScoringType].selectedHoles)
     );
     localStorage.setItem("par", JSON.stringify(holeValues));
 
-  }, [selectedScoringType, formData]);
+  }, [selectedScoringType, formData, holeValues]);
 
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-7xl">
@@ -277,10 +276,8 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                     <div className="flex items-center gap-3">
                       <input
                         type="checkbox"
-                        checked={
-                          index < numHoles ||
-                          selectedHoles.includes(String(index + 1))
-                        }
+                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
+
                         onChange={(e) => handleHoleSelection(e, index)}
                         id={String(index + 1)}
                         className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
@@ -329,10 +326,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                     <div className="flex items-center ">
                       <input
                         type="checkbox"
-                        checked={
-                          index < numHoles ||
-                          selectedHoles.includes(String(index + 1))
-                        }
+                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
                         onChange={(e) => handleHoleSelection(e, index)}
                         id={String(index + 1)}
                         className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
@@ -383,11 +377,8 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                     <div className="flex items-center ">
                       <input
                         type="checkbox"
-                        checked={
-                          !(index < 12)
-                            ? selectedHoles.includes(String(index + 1))
-                            : true
-                        }
+                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
+
                         onChange={(e) => handleHoleSelection(e, index)}
                         id={"double" + String(index + 1)}
                         className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
@@ -437,11 +428,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                     <div className="flex items-center ">
                       <input
                         type="checkbox"
-                        checked={
-                          !(index < 6)
-                            ? selectedHoles.includes(String(index + 1))
-                            : true
-                        }
+                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
                         onChange={(e) => handleHoleSelection(e, index)}
                         id={String(index + 1)}
                         className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"

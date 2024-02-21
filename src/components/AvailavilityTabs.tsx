@@ -77,16 +77,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   const [selectedTimeDetails, setSelectedTimeDetails] = useState<TimeDetails[]>(
     []
   );
-  
-  useEffect(() => {
-  socket.on('connection', (a:any)=>{console.log({a})});
-    return () => {
-      socket.off('connection');
-    };
-  }, []);
-    
-  
-  
+
   const handleTabClick = (
     slotId: any,
     startTime: any,
@@ -132,7 +123,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     });
   };
 
-  console.log(bookedAppointment, 'Booked Appointment in client')
   const bookAppointment = async (
     scheduleId: any,
     day: any,
