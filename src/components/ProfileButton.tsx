@@ -9,7 +9,15 @@ import { NotificationPop } from "./NotificationPop";
 export default function ProfileButton() {
   const { notifications } = notificationsContextStore();
   const { t, i18n } = useTranslation();
-
+  let n = [];
+  const tokene = localStorage.getItem('token');
+  const id = localStorage.getItem('id');
+const tId = notifications.map((item: any) => item.teacherId)
+    if(tId == id  && tokene){
+    n = notifications;
+  }
+console.log(tId == id  && tokene, "notifications tid");
+    
   const languages = {
     en: { displayName: "English" },
     ja: { displayName: i18n.language === "en" ? "Japan" : "日本語" },
@@ -292,7 +300,7 @@ export default function ProfileButton() {
                   />
                 </svg>
                 <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full -top-3 -end-2">
-                  {notifications.length > 0 && notifications.length}
+                  {n.length > 0 && n.length}
                   <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                 </div>
               </div>
@@ -302,7 +310,6 @@ export default function ProfileButton() {
       </div>
       {notification && (
         <NotificationPop
-          notifcations={notifications}
           setNotification={setNotification}
         />
       )}
