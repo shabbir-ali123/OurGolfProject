@@ -91,6 +91,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const closeModal = () => {
     setSelectedEvent(null);
     setShowModal(false);
+    window.location.reload();
   };
 
   const handleLike = async (event: any) => {
@@ -173,7 +174,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   useEffect(() => {
     setLocalEvents(events);
-  }, [events]);
+  }, [events, selectedEvent]);
 
   const handleJoinClick = (e: any) => {
     localStorage.setItem('selectedEventId', e.id)
@@ -379,8 +380,10 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           </td>
                           <div className="flex items-center justify-start my-1 ml-4">
                             <button
-                              className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-                              onClick={() => handleComment(event)}
+                              className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded cursor-pointer"
+                              onClick={()=>router(
+                                `/score-board`
+                              )}
                             >
                               View
                             </button>

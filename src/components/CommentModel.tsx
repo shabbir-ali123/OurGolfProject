@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import { useToast } from "../utils/ToastProvider";
 import { fetchEvents } from "../utils/fetchEvents";
+
 interface CommentModelProps {
   eventId: any;
   closeModal: () => void;
@@ -13,14 +14,16 @@ interface AddComment {
   eventId: any;
   content: any;
 }
+
 interface Comment {
   id: any;
   content: any;
   userId: any;
-  nickName: string; // Add this field
-  createdAt: string;
+  nickName: string;
+  createdAt: Date;
   eventId: any;
 }
+
 interface Event {
   id: any;
   creator: {
@@ -42,9 +45,9 @@ interface Event {
     id: number;
   }>;
 }
+
 const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
   const [events, setEvents] = useState<Event[]>([]);
-
   const { showToast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [commentData, setCommentData] = useState<{
@@ -90,9 +93,32 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           createdAt: response.data.createdAt,
         });
 
-        closeModal();
-      } else {
-        console.log("Error Occurred");
+        const updatedEvents = events.map((event) => {
+          if (event.id === eventId) {
+            return {
+              ...event,
+              comments: [
+                {
+                  id: response.data.comment.id,
+                  content: response.data.comment.content,
+                  userId: response.data.comment.userId,
+                  nickName: response.data.comment.nickName,
+                  createdAt: response.data.comment.createdAt,
+                  eventId: response.data.comment.eventId,
+                },
+                ...event.comments,
+              ],
+            };
+          }
+          return event;
+        });
+
+        setEvents(updatedEvents);
+        setFormData({
+          userId: uid,
+          eventId: eventId,
+          content: "",
+        });
       }
     } catch (error) {
       showToast("Getting error, please try again", "red");
@@ -100,13 +126,16 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
       setSubmitting(false);
     }
   };
+
   useEffect(() => {
     fetchEvents("", "", setEvents);
   }, []);
 
   const loadMoreComments = () => {
     setCommentsToShow((prev) => prev + 2);
+    
   };
+
 
   return (
     <>
@@ -173,9 +202,11 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
 
             {events.map((event) => {
               if (event.id === eventId) {
+                const sortedComments: any = event.comments.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) .slice(0, commentsToShow);
+
                 return (
                   <div key={event.id}>
-                    {event.comments.slice(0, commentsToShow).map((comment) => {
+                    {sortedComments.map((comment: any) => {
                       if (comment.eventId === eventId) {
                         return (
                           <div key={comment.id} className="py-4">
