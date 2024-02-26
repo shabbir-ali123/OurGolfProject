@@ -161,7 +161,6 @@ button:disabled{
 }
 .slick-slide {
   z-index: 0;
-  transform: skewX(-4deg);
   opacity: 0.5;
   filter: brightness(0.5);
   margin-left: 2px;
@@ -169,7 +168,7 @@ button:disabled{
 }
 .slick-current + div{
   z-index: 9999;
-  transform: scale(1.5) skew(-6deg);
+  transform: scale(1.5);
   opacity: 1;
   filter: brightness(1)
 } 
