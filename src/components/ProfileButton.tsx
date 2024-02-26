@@ -121,14 +121,6 @@ console.log(id , tId, "notifications tid");
             </>
           ) : (
             <>
-              <div className="flex items-center justify-center ">
-                <img
-                  onClick={handleDotClick}
-                  className="inline-block h-6 w-6 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
-                  src="/img/profile-page.png"
-                  alt=""
-                />
-              </div>
               <div className="ml-3">
                 <p className="m-0 text-base font-medium text-white group-hover:text-gray-900">
                   <Link to="/login-page" className="text-black">
