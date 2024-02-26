@@ -102,7 +102,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                   id: response.data.comment.id,
                   content: response.data.comment.content,
                   userId: response.data.comment.userId,
-                  nickName: response.data.comment.nickName,
+                  nickName: response.data.comment.user.nickname,
                   createdAt: response.data.comment.createdAt,
                   eventId: response.data.comment.eventId,
                 },
@@ -133,7 +133,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
 
   const loadMoreComments = () => {
     setCommentsToShow((prev) => prev + 2);
-    
+
   };
 
 
@@ -201,6 +201,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
             </form>
 
             {events.map((event) => {
+
               if (event.id === eventId) {
                 const sortedComments: any = event.comments.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) .slice(0, commentsToShow);
 
@@ -218,7 +219,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                                   alt=""
                                 />
                                 <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                  {comment.userId}
+                                  {comment.user.nickname}
                                 </h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
                                   {comment.createdAt}
