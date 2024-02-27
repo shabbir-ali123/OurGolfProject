@@ -55,7 +55,6 @@ interface CreateEventType {
 
 const CreateEvent: React.FC = () => {
 
-
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [value, setValue] = useState("");
@@ -135,18 +134,15 @@ const CreateEvent: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-  
+
     if (submitting) {
       return;
     }
   
-   
     if (!formData.files || formData.files.length < 3) {
       showToast("Please upload at least three images to proceed.", "[#FF0000]");
       return;
     }
-  
    
     setSubmitting(true);
   
