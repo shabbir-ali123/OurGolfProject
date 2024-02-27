@@ -66,7 +66,7 @@ const formSubmission = async ()=>{
     const userId = localStorage.getItem("id") ?? "";
 
     if (!token) {
-      toast.error(`You are Not Login! Please Login`)        ;
+      toast.error(`You are Not Login! Please Login`);
       return;
     }
     const formdata = new FormData();
