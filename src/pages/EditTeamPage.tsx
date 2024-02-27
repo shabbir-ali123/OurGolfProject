@@ -65,7 +65,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', right: '264px' }}
+        style={{ ...style, position: 'absolute', right: '300px' }}
         onClick={onClick}
       />
     );
@@ -76,7 +76,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', left: '280px' }}
+        style={{ ...style, position: 'absolute', left: '340px' }}
         onClick={onClick}
       />
     );
@@ -328,9 +328,8 @@ const EditTeamPage: FunctionComponent = () => {
                     console.log(index, index === nextIndex, "next");
 
                     return <div key={index} className="w-full">
-                     <div className="p-2 bg-white">
-                     <img
-                        className={`w-full h-[280px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
+                      <img
+                        className={`w-full h-[220px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
                         src={item || ""}
                         alt={`Event Image ${index + 1}`}
                         style={{
@@ -341,7 +340,6 @@ const EditTeamPage: FunctionComponent = () => {
 
                         }}
                       />
-                     </div>
                     </div>
                   }
 
