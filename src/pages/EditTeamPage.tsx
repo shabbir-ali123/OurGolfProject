@@ -328,7 +328,8 @@ const EditTeamPage: FunctionComponent = () => {
                     console.log(index, index === nextIndex, "next");
 
                     return <div key={index} className="w-full">
-                      <img
+                     <div className="p-2 bg-white">
+                     <img
                         className={`w-full h-[280px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
                         src={item || ""}
                         alt={`Event Image ${index + 1}`}
@@ -340,6 +341,7 @@ const EditTeamPage: FunctionComponent = () => {
 
                         }}
                       />
+                     </div>
                     </div>
                   }
 
