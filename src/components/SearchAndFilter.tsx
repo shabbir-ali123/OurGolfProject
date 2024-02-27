@@ -70,12 +70,12 @@ const SearchAndFiltersEducator: React.FC<SearchAndFiltersEducatorProps> = ({ set
 
                 <div className='flex flex-row items-center'>
                     <p className='text-[10px] font-normal'>{t('FILTER_BY')}:</p>
-                    <div className='flex items-center justify-center gap-x-0'>
+                    <div className='flex items-center justify-center gap-x-0 w-full'>
                         {['Rating', 'Location', 'Availibilty'].map((title, index) => (
                           
                             <button
                                 key={index}
-                                className={`flex justify-center p-2 ml-2 rounded-md font-normal text-xs cursor-pointer ${search.includes(title) ? 'bg-[#A8FFC2]' : 'bg-[#D9D9D966]'
+                                className={`flex justify-center py-2  m-2 rounded-md font-normal text-xs cursor-pointer ${search.includes(title) ? 'bg-[#A8FFC2]' : 'bg-[#D9D9D966]'
                                     } text-xs text-black shadow-sm`}
                                 onClick={() => searchHandler(title)}
                             >

@@ -6,7 +6,10 @@ import {
   VideoCameraIcon
 } from "@heroicons/react/24/solid";
 import PostModal from "../components/PostModel"
+import { useTranslation } from "react-i18next";
 const ProfilePrompt: React.FC = () => {
+  const { t, i18n } = useTranslation();
+    document.body.dir = i18n.dir();
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +35,7 @@ const ProfilePrompt: React.FC = () => {
         />
         <input
           type="text"
-          placeholder="What's on your mind?"
+          placeholder={t('YOUR_MIND')}
           className="flex-1 border-2 border-solid border-[#51ff85] rounded-full py-2 px-4 focus:outline-none focus:border-green-300"
           onFocus={openModal}
         />
@@ -44,21 +47,21 @@ const ProfilePrompt: React.FC = () => {
           <span>
             <VideoCameraIcon className="w-5 h-5 cursor-pointer border-2 border-solid border-[#51ff85] rounded-full p-1 text-rose-500" aria-hidden="true" />
           </span>{" "}
-          Live video
+          {t('LIVE_VIDEO')}
         </button>
         <button className="flex items-center gap-2 font-semibold text-green-600 bg-transparent">
           {" "}
           <span>
             <PhotoIcon className="w-5 h-5 cursor-pointer border-2 border-solid border-[#51ff85] rounded-full p-1 text-springgreen" aria-hidden="true" />
           </span>
-          Photo/Video
+          {t('PHOTO')}
         </button>
         <button className="flex items-center gap-2 font-semibold text-green-600 bg-transparent">
           {" "}
           <span>
             <FaceSmileIcon className="w-5 h-5 cursor-pointer text-yellow-300 border-2 border-solid border-[#51ff85] rounded-full p-1 " aria-hidden="true" />
           </span>
-          Feeling/Activity
+         {t('FEELING')}
         </button>
       </div>
     </div>

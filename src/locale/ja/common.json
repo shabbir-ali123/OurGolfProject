@@ -156,6 +156,12 @@
     "PAYPAL_DETAILS": "ペイパルの詳細",
     "PAYPA_ID": "ペイパルID",    
     "PARTICIPATION_FEE": "参加費（お一人様の目安）",
-    "HIDE_NAME": "参加者名を非表示にする"
-
+    "HIDE_NAME": "参加者名を非表示にする",
+    "YOUR_MIND": "何を考えているの ?",
+    "LIVE_VIDEO": "ライブビデオ",
+    "PHOTO": "写真/ビデオ",
+    "FEELING": "感情/活動",
+    "BOOK_APPOINTMENT":"予約する",
+    "LIKE": "のように",
+    "VIEW_DETAILS":"詳細を見る"
 }
