@@ -215,7 +215,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                                   className="w-10 h-10"
                                   src="/img/ellipse-11@2x.png"
                                   alt=""
-                                />
+                                />  
                                 <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 dark:text-white">
                                   {comment.user?.nickname}
                                 </h4>
