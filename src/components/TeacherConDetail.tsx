@@ -17,9 +17,7 @@ export const TeacherConDetail: React.FC<{
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   
-  const [dayFilter, setDayFilter] = useState<any>('')
-  
-  console.log(dayFilter, 'DayFilto')
+  const [dayFilter, setDayFilter] = useState<any>('All')
   
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);
@@ -45,7 +43,7 @@ export const TeacherConDetail: React.FC<{
             />
           </div>
           <div className="py-3">
-            <p className="m-0 font-sans text-base font-bold text-black group-hover:text-gray-900">
+            <p className="m-0 font-sans text-base font-bold text-[#626262] group-hover:text-gray-900">
               {teacherDetails.firstName} {teacherDetails.lastName}
             </p>
             <p className="font-sans text-xs font-normal text-gray-700">
@@ -61,7 +59,7 @@ export const TeacherConDetail: React.FC<{
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="font-sans text-xs font-bold text-black">
+          <h3 className="font-sans text-xs font-bold text-[#626262]">
             {t("LOCATION")}
           </h3>
         </div>
@@ -80,7 +78,7 @@ export const TeacherConDetail: React.FC<{
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="font-sans text-xs font-bold text-black">
+          <h3 className="font-sans text-xs font-bold text-[#626262]">
             {t("MOBILE")}
           </h3>
         </div>
@@ -99,7 +97,7 @@ export const TeacherConDetail: React.FC<{
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="font-sans text-xs font-bold text-black">
+          <h3 className="font-sans text-xs font-bold text-[#626262]">
             {t("HOURLY")}
           </h3>
         </div>
@@ -118,7 +116,7 @@ export const TeacherConDetail: React.FC<{
               className=" text-[#51ff85] animate-bounce"
             />
           </div>
-          <h3 className="font-sans text-xs font-bold text-black">
+          <h3 className="font-sans text-xs font-bold text-[#626262]">
             {t("AVAILABILITY")}
           </h3>
         </div>

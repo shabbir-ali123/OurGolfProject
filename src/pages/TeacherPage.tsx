@@ -33,10 +33,8 @@ const TeacherProfile: React.FC = () => {
   );
   const [showModal, setShowModal] = useState(false);
   const [selectedTeacher, setSelectedTeacher] = useState<any>([]);
-  const [upcomingLessons, setUpcomingLessons] = useState([]);
-  const [completedLessons, setCompletedLessons] = useState([]);
-  const [pendingLessons, setPendingLessons] = useState([]);
   const [selectedStudentDetails, setSelectedStudentDetails] = useState<any | null>(null);
+  
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -98,13 +96,13 @@ const TeacherProfile: React.FC = () => {
             key={index}
             scheduleId={item.scheduleId}
             day={item.day}
-            lessons=""
+            lessons={item.status}
             newStatus=""
             startTime={item.startTime}
             endTime={item.endTime}
             email={item.bookedShifts.email}
             nickName={item.bookedShifts.nickName}
-            studentId={item.bookBy}
+            studentId={item.bookedBy}
             openModal={openModal}
             handleBookAppointment={handleBookAppointment}
             onSelectStudent={handleStudentSelect} 

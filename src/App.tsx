@@ -27,6 +27,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import BookMarkedEvents from "./pages/BookMarkedEvents"
 import JoinedEvents from "./pages/JoinedEvents"
 import CreateTeacher from "./pages/CreateTeacher"
+import AllNotificationPage from "./pages/AllNotificationsPage"
 // import BookedTeachers from "./pages/BookedTeachers";
 // import SingleTeacherBooked from "./pages/SingleTeacherBooked";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
@@ -161,6 +162,10 @@ const params = useParams();
                                 title = "";
                                 metaDescription = "";
                                 break;
+                                case "/notification-page":
+                                  title = "";
+                                  metaDescription = "";
+                                  break;
   
 
     }
@@ -229,6 +234,7 @@ const params = useParams();
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
+        <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
         <Route
           path="/edit-team/:id"
           element={<EditTeamPage  /> }

@@ -55,7 +55,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const [numHoles, setNumHoles] = useState(9);
+  const [numHoles, setNumHoles] = useState(18);
   const [holeValues, setHoleValues] = useState(
     Array.from({ length: numHoles }, () => 4)
   );
@@ -68,8 +68,6 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       setHoleValues(newHoleValues);
     }
   };
-
-
 
   const [selectedScoringType, setSelectedScoringType] = useState<Tab>(
     Tab.Single
@@ -171,7 +169,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     );
     localStorage.setItem("par", JSON.stringify(holeValues));
 
-  }, [selectedScoringType, formData]);
+  }, [selectedScoringType, formData, holeValues]);
 
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-7xl">
@@ -274,7 +272,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               <h4 className="text-[#626262]">Please select 9 holes</h4>
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center" key={index + 1}>
+                  <div className="flex items-center my-2" key={index + 1}>
                     <div className="flex items-center gap-3">
                       <input
                         type="checkbox"
@@ -325,7 +323,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center gap-5" key={index + 1}>
-                    <div className="flex items-center ">
+                    <div className="flex items-center my-2">
                       <input
                         type="checkbox"
                         checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
@@ -376,7 +374,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center gap-3" key={index + 1}>
-                    <div className="flex items-center ">
+                    <div className="flex items-center my-2">
                       <input
                         type="checkbox"
                         checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
@@ -427,7 +425,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                 {Array.from({ length: 18 }, (_, index) => (
                   <div className="flex items-center gap-3" key={index + 1}>
-                    <div className="flex items-center ">
+                    <div className="flex items-center my-2">
                       <input
                         type="checkbox"
                         checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}

@@ -7,7 +7,6 @@ export const fetchEvents = async (startDate:any, endDate:any, setEvents:any,  lo
     const token = localStorage.getItem("token");
     const headers:any= {}
     if (token) {
-      console.error("User not authenticated");
       headers["Authorization"]=  `Bearer ${token}`
     }
     const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {

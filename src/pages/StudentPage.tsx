@@ -36,9 +36,6 @@ import socket from "../socket";
       }
     };
 
-    const closeModal = () => {
-      setShowModal(false);
-    };
     const handleSelectTime = (selectedTime: string) => {
       console.log(`Selected Time: ${selectedTime}`);
     };
@@ -74,17 +71,7 @@ import socket from "../socket";
 
       fetchTeachers();
     }, []);
-    useEffect(() => {
-      socket.on('appointmentBooked', (data: any) => {
-        console.log('Appointment booked event received:', data);
-        // Handle the received data (e.g., update state, display notification)
-      });
-  
-      // Cleanup on component unmount
-      return () => {
-        socket.off('appointmentBooked');
-      };
-    }, []);
+   
     const handleCloseModal = () => {
       setShowModal(false);
     };

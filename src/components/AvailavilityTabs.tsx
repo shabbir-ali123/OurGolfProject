@@ -6,7 +6,6 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import socket from "../socket";
 
 interface AvailabilityTabsProps {
   onSelectTime: (selectedTime: string) => void;
@@ -34,9 +33,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     endTime: any;
     day: any;
   }
-  const tabColors = [
-    "rounded-full bg-transparent text-[#51ff85] border-solid border-[2px] border-[#51ff85] py-4",
-  ];
 
   const generateTimeSlots = () => {
     const slots: any[] = [];
@@ -59,10 +55,9 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   let filteredSchedules = schedules.filter((slot) =>
     slot.shifts.some((shift) => shift.day === dayFilter)
   );
-  
+
   const initialTimeSlots = generateTimeSlots();
   const [selectedTime, setSelectedTime] = useState<any[]>([]);
-  const [bookedAppointment, setBookedAppointment] = useState<any | null>(null);
 
   const [bookedSlots, setBookedSlots] = useState<boolean[]>(
     initialTimeSlots.isBooked
@@ -77,17 +72,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
   const [selectedTimeDetails, setSelectedTimeDetails] = useState<TimeDetails[]>(
     []
   );
-  
-  useEffect(() => {
-   
-  
-    return () => {
-      socket.off('connection');
-    };
-  }, []);
-    
-  
-  
+
   const handleTabClick = (
     slotId: any,
     startTime: any,
@@ -133,20 +118,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     });
   };
 
-  useEffect(() => {
-    const handleAppointmentBooked = (data: any) => {
-      console.log('Appointment booked:', data);
-      setBookedAppointment(data); // Update the state with the received data
-    };
-  
-    socket.on('appointmentBooked', handleAppointmentBooked);
-  
-    return () => {
-      socket.off('appointmentBooked', handleAppointmentBooked);
-    };
-  }, []);
-
-  
   const bookAppointment = async (
     scheduleId: any,
     day: any,
@@ -154,10 +125,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     endTime: any,
     isBooked: boolean
   ) => {
-    socket.on('connection', (data) => {
-      console.log(data, 'data');
-    });
-    
     try {
       const token = localStorage.getItem("token");
       const id = Number(localStorage.getItem("id"));
@@ -187,17 +154,43 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
       toast.error("Error booking appointment", toastProperties as ToastConfig);
     }
   };
-  const allBookedSlots = dayFilter == 'All' ? initialTimeSlots.slots : filteredSchedules;
-  const scheduleComponents = allBookedSlots.map((slot: any, index) => {
+  const [state, setState] = useState<any[]>([]);
+  useEffect(() => {
+    setState(dayFilter === "All" ? initialTimeSlots.slots : filteredSchedules);
+  }, [dayFilter, initialTimeSlots.slots]);
+
+  const scheduleComponents = state.map((slot: any, index: any) => {
     const isSelected = selectedTime.some(
       (item) => slot.shifts[0].scheduleId === item.id
     );
-    const isBooked = allBookedSlots === bookedSlots ? slot : bookedSlots[index];
-  
-    if (!slot.shifts || slot.shifts.length === 0) {
-      return null; 
+    const isBooked = state === bookedSlots ? slot : bookedSlots[index];
+
+    if (!slot.shifts || (slot.shifts.length === 0 && dayFilter !== "All")) {
+      console.log("asdasd");
+      return (
+        <div key={slot.id}>
+          <button
+            className={`${
+              isSelected
+                ? "rounded-full text-white bg-[#00A4FE] py-4"
+                : "rounded-full text-black bg-[#b9fbb9] py-4"
+            } ${isBooked ? "bg-[#e8e8e8] text-white" : ""}`}
+            onClick={() =>
+              handleTabClick(
+                slot.shifts[0].scheduleId,
+                slot.shifts[0].startTime,
+                slot.shifts[0].endTime,
+                slot.shifts[0].day
+              )
+            }
+            disabled={isBooked}
+          >
+            {slot.time}
+          </button>
+        </div>
+      );
     }
-  
+    console.log(slot);
     return (
       <div key={slot.id}>
         <button
@@ -216,11 +209,12 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
           }
           disabled={isBooked}
         >
-          {slot.shifts[0].startTime} - {slot.shifts[0].endTime}
+          {slot.shifts[0].startTime + " " + slot.shifts[0].endTime}
         </button>
       </div>
     );
   });
+
   return (
     <div>
       <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">

@@ -36,6 +36,7 @@ const StudentList: React.FC<StudentListProps> = ({
  
   const [showModal, setShowModal] = useState(false);
   const [lessontype, setLessonType] =   useState<string | undefined>(undefined);
+  
   useEffect(()=>{
     setLessonType(lessons);
   })
@@ -85,6 +86,7 @@ const StudentList: React.FC<StudentListProps> = ({
     }
   };
 
+  console.log(lessontype, 'LT')
   return (
     <>
       <div className="mt-6 cursor-pointer animate__animated animate__fadeInLeft">
@@ -97,10 +99,10 @@ const StudentList: React.FC<StudentListProps> = ({
                 alt=""
               />
               <div className="ml-3">
-                <p className="text-xs font-bold tracking-wide text-[#52FF86]  m-0 ">
+                <p className="text-xs font-bold tracking-wide text-[#626262] m-0 ">
                   {nickName}
                 </p>
-                <p className="text-[9.13px] font-normal text-[#838383] m-0">
+                <p className="text-[9.13px] font-normal text-[#626262] m-0">
                   Bogotá,Colombia
                 </p>
               </div>
@@ -118,7 +120,7 @@ const StudentList: React.FC<StudentListProps> = ({
                 </li>
                 <li className="flex items-center mb-2">
                   <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4 " />
-                  <span className="ml-6 font-normal text-[9.96px] leading-3 ">
+                  <span className="ml-6 font-normal text-[9.96px] leading-3 text-[#626262] ">
                     {email}
                   </span>
                 </li>
@@ -128,7 +130,7 @@ const StudentList: React.FC<StudentListProps> = ({
 
           {lessontype === "PENDING" ? (
         <div className="grid gap-2 animate__heartBeat">
-          <p className="bg-[#52FF86] rounded-full p-1 text-sm">
+          <p className="bg-[#52FF86] rounded-full p-1 text-sm text-[#626262]">
             {startTime}-{endTime}
           </p>
    

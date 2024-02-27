@@ -134,7 +134,7 @@ const SideMenu: React.FC = () => {
     {
       name: "NOTIFICATIONS",
       icon: faBell,
-      path: "/notification",
+      path: "/notification-page",
       active: false
     },
     {
@@ -170,13 +170,13 @@ const SideMenu: React.FC = () => {
       ],
     },
     {
-      name: "FIND A TEACHER",
+      name: "FIND_TEACHER",
       icon: faSearch,
       path: "/teacher-page",
       active: false
     },
     {
-      name: "CALENDAR",
+      name: "CALENDER",
       icon: faCalendar,
       path: "/calendar-page",
     },

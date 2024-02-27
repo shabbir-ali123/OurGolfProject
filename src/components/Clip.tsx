@@ -5,7 +5,6 @@ interface IProps {
 }
 
 export const Clip = ({ place }: IProps) => {
-  console.log(place, 'slp')
   const {t, i18n} = useTranslation();
   document.body.dir = i18n.dir();
   return (

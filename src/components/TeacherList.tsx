@@ -35,10 +35,13 @@ interface Teacher {
 }
 
 const TeacherList: React.FC<TeacherListProps> = ({
+  
   openModal,
   showTeacherDetails,
   isUserAuthenticated,
 }) => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [showModal, setShowModal] = useState(false);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState(true);
@@ -169,10 +172,10 @@ const TeacherList: React.FC<TeacherListProps> = ({
                     />
 
                     <div className={`ml-2 ${textFontSize}`}>
-                      <p className="text-xs font-bold tracking-wide text-[#52FF86]  m-0">
+                      <p className="text-xs font-bold tracking-wide text-[#626262]  m-0">
                         {teacher.firstName}
                       </p>
-                      <p className="text-[9.13px] font-normal text-[#838383] m-0 ">
+                      <p className="text-[9.13px] font-normal text-[#626262] m-0 ">
                         {teacher.location}
                       </p>
                     </div>
@@ -217,7 +220,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
                   <img className="w-16 " src="/img/teacher_rate.png" alt="" />
                   <span className="absolute flex items-center justify-center w-full h-full text-base font-bold tracking-wide ">
                     ¥{teacher.hourlyRate}
-                    <sub className="font-normal text-[5px] tracking-wide ">
+                    <sub className="font-normal text-[5px] tracking-wide text-[#626262] ">
                       Per/Hr
                     </sub>
                   </span>
@@ -225,7 +228,7 @@ const TeacherList: React.FC<TeacherListProps> = ({
                 <div className="gap-2">
                   <TeacherListButton
                     color="bg-[#0038FF]"
-                    title="Book an Appointment"
+                    title={t('BOOK_APPOINTMENT')}
                     icon="/img/appointment.svg"
                     onClick={() => {
                       openModal();
@@ -236,13 +239,13 @@ const TeacherList: React.FC<TeacherListProps> = ({
                   />
                   <TeacherListButton
                     color={favoriteTeacherIds.includes(teacher.id ?? '') ? "bg-black" : "bg-[#FF0000]"}
-                    title="Like"
+                    title={t('LIKE')}
                     icon="/img/like.svg"
                     onClick={() => handleButtonAction("Like", teacher)}
                   />
                   <TeacherListButton
                     color="bg-[#52FF86]"
-                    title="View Details"
+                    title={t('VIEW_DETAILS')}
                     icon="/img/details.svg"
                     textColor="#FF0000"
                     onClick={() => handleButtonAction("View Details", teacher)}

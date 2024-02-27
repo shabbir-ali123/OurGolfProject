@@ -1,5 +1,6 @@
 {
     "HELLO": "こんにちは",
+    "JAPAN":"日本語",
     "EVENT": "イベントイン",
     "HOME": "ホーム",
     "NOTIFICATIONS": "通知",
@@ -131,6 +132,7 @@
     "INSTRUCTION": "応募時に参加者に入力していただく項目を設定できます。入力された内容は主催者のみが確認することができます。",
     "FULL_NAME": "フルネーム",
     "NAME_EXAMPLE": "例：佐藤太郎",
+    "EMAIL": "メール",
     "EMAIL_EXAMPLE": "info@golf.com が有効になっていることを確認してください",
     "TELEPHONE_EXAMPLE": "半角数字",
     "TELEPHONE": "電話",
@@ -154,6 +156,12 @@
     "PAYPAL_DETAILS": "ペイパルの詳細",
     "PAYPA_ID": "ペイパルID",    
     "PARTICIPATION_FEE": "参加費（お一人様の目安）",
-    "HIDE_NAME": "参加者名を非表示にする"
-
+    "HIDE_NAME": "参加者名を非表示にする",
+    "YOUR_MIND": "何を考えているの ?",
+    "LIVE_VIDEO": "ライブビデオ",
+    "PHOTO": "写真/ビデオ",
+    "FEELING": "感情/活動",
+    "BOOK_APPOINTMENT":"予約する",
+    "LIKE": "のように",
+    "VIEW_DETAILS":"詳細を見る"
 }

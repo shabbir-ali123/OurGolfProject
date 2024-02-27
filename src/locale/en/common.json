@@ -1,5 +1,6 @@
 {
     "HELLO": "helldfcdddo",
+    "JAPAN":"Japan",
     "EVENT": "Event In",
     "HOME": "Home",
     "NOTIFICATIONS": "Notifications",
@@ -57,6 +58,7 @@
     "ENTER_MOBILE": "Enter Mobile",
     "LOCATION": "Location",
     "ENTER_LOCATION": "Enter Location",
+    "EMAIL": "Email",
     "UPDATE": "Update",
     "WEEKLY_AVAILIBILTY": "Weekly Availibility",
     "AVAILIBILTY": "Availibility",
@@ -155,6 +157,14 @@
     "PAYPAL_DETAILS": "Paypal Details",
     "PAYPA_ID": "Paypal ID",    
     "PARTICIPATION_FEE": "Participation fee (approximate per person)",
-    "HIDE_NAME": "Hide participant name"
+    "HIDE_NAME": "Hide participant name",
+    "YOUR_MIND": "What's on your mind ?",
+    "LIVE_VIDEO": "Live Video",
+    "PHOTO": "Photo/Video",
+    "FEELING": "Feeling/Activity",
+    "LIKE": "Like",
+    "VIEW_DETAILS":"View Details"
+    
+
 
 }
