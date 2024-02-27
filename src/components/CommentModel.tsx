@@ -19,7 +19,6 @@ interface Comment {
   id: any;
   content: any;
   userId: any;
-  nickName: string;
   createdAt: Date;
   eventId: any;
 }
@@ -62,6 +61,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
   const [commentsToShow, setCommentsToShow] = useState(2);
 
   const uid = localStorage.getItem("id");
+  const nickName = localStorage.getItem("nickName");
   const [formData, setFormData] = useState<AddComment>({
     userId: uid,
     eventId: eventId,
@@ -92,7 +92,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           content: response.data.content,
           createdAt: response.data.createdAt,
         });
-
+        debugger
         const updatedEvents = events.map((event) => {
           if (event.id === eventId) {
             return {
@@ -102,7 +102,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                   id: response.data.comment.id,
                   content: response.data.comment.content,
                   userId: response.data.comment.userId,
-                  nickName: response.data.comment.user.nickname,
+                  nickName: nickName,
                   createdAt: response.data.comment.createdAt,
                   eventId: response.data.comment.eventId,
                 },
@@ -112,7 +112,6 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           }
           return event;
         });
-
         setEvents(updatedEvents);
         setFormData({
           userId: uid,
@@ -135,7 +134,6 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
     setCommentsToShow((prev) => prev + 2);
 
   };
-
 
   return (
     <>
@@ -219,7 +217,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                                   alt=""
                                 />
                                 <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                  {comment.user.nickname}
+                                  {comment.user?.nickname}
                                 </h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
                                   {comment.createdAt}

@@ -17,9 +17,7 @@ export const TeacherConDetail: React.FC<{
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   
-  const [dayFilter, setDayFilter] = useState<any>('')
-  
-  console.log(dayFilter, 'DayFilto')
+  const [dayFilter, setDayFilter] = useState<any>('All')
   
   const handleSelectTime = (selectedTime: string) => {
     console.log("Selected Time:", selectedTime);

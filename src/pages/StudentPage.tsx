@@ -36,9 +36,6 @@ import socket from "../socket";
       }
     };
 
-    const closeModal = () => {
-      setShowModal(false);
-    };
     const handleSelectTime = (selectedTime: string) => {
       console.log(`Selected Time: ${selectedTime}`);
     };

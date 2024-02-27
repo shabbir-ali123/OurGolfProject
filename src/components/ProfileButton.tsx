@@ -72,6 +72,7 @@ console.log(id , tId, "notifications tid");
           },
         });
 
+        localStorage.setItem( "nickName", response.data.nickName)
         return response.data;
       }
     } catch (error) {
