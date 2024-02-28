@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
 interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (pageNumber: number) => void;
-  pageSize: number;
-  isPreviousDisabled: boolean;
-  isNextDisabled: boolean;
-}
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (pageNumber: number) => void;
+    pageSize: number;
+    isPreviousDisabled: boolean; 
+    isNextDisabled: boolean; 
+  }
+
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
-  pageSize,
-  isPreviousDisabled,
-  isNextDisabled,
 }) => {
+  const isPreviousDisabled = currentPage === 1;
+  const isNextDisabled = currentPage === totalPages;
+
   const pageNumbers = Array.from(
     { length: totalPages },
     (_, index) => index + 1
@@ -23,19 +25,19 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className="flex items-center justify-center px-4 py-3 bg-transparent border-t border-gray-200 sm:px-6">
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center">
-        <div >
+        <div>
           <nav
             className="z-[-1] isolate inline-flex -space-x-px rounded-md shadow-sm"
             aria-label="Pagination"
           >
             <button
               onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
-              className={`relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
-                currentPage === 1
+              className={`relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400  ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
+                isPreviousDisabled
                   ? "cursor-not-allowed bg-gray-300"
                   : "hover:bg-blue-500"
               }`}
-              disabled={currentPage === 1}
+              disabled={isPreviousDisabled}
             >
               <span className="sr-only">Previous</span>
               <svg
@@ -67,15 +69,13 @@ const Pagination: React.FC<PaginationProps> = ({
             ))}
 
             <button
-              onClick={() =>
-                onPageChange(Math.min(currentPage + 1, totalPages))
-              }
+              onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
               className={`relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
-                currentPage === totalPages
+                isNextDisabled
                   ? "cursor-not-allowed bg-gray-300"
                   : "hover:bg-blue-500"
               }`}
-              disabled={currentPage === totalPages}
+              disabled={isNextDisabled}
             >
               <span className="sr-only">Next</span>
               <svg
@@ -97,4 +97,5 @@ const Pagination: React.FC<PaginationProps> = ({
     </div>
   );
 };
+
 export default Pagination;

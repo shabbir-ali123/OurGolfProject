@@ -82,7 +82,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const closeModal = () => {
     setSelectedEvent(null);
     setShowModal(false);
-    window.location.reload();
   };
 
   const handleLike = async (event: any) => {
@@ -128,7 +127,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       }
     } catch (error) {
       toast.error(
-        `Error updating likes : ${error}`,
+        `Please Login`,
         toastProperties as ToastConfig
       );
     }

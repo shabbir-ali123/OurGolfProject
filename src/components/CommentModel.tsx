@@ -61,6 +61,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
   });
   const [commentsToShow, setCommentsToShow] = useState(2);
 
+  const token = localStorage.getItem("token");
   const uid = localStorage.getItem("id");
   const nickName = localStorage.getItem("nickName");
   const [formData, setFormData] = useState<AddComment>({
@@ -140,8 +141,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
         className="p-2  bg-white rounded-lg shadow-lg dark:bg-gray-700 mt-[-10px]"
       >
         <div className="col-span-12">
-          <div className="flex items-center justify-between mx-4">
-            <h2 className="mx-4">Add Your Comment</h2>
+         <div className="flex items-center justify-between mx-4">
+        {token ? <h2 className="mx-4">Add Your Comment</h2>: <h2 className="mx-4">Recent Comments</h2>} 
             <button
               type="button"
               className="flex items-center justify-center w-10 h-10 p-2 text-white bg-blue-500 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 hover:text-gray-900 "
@@ -168,7 +169,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           </div>
 
           <div className="relative max-h-full p-4 overflow-y-auto">
-            <form method="post" className="mx-4 ">
+            {token && <form method="post" className="mx-4 ">
               <input type="hidden" name="userId" />
               <input type="hidden" name="eventId" />
 
@@ -192,7 +193,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                   Post comment
                 </button>
               </div>
-            </form>
+            </form>}
 
             {eventss.map((event: any) => {
 

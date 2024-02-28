@@ -57,7 +57,7 @@ const AllEvents: React.FC<AllEventsProps> = ({
   const isNextDisabled =
     indexOfLastEvent >= localEvents.length ||
     currentPage === Math.ceil(localEvents.length / itemsPerPage);
-  const totalPages = Math.ceil(localEvents.length / itemsPerPage);
+  // const totalPages = Math.ceil(localEvents.length / itemsPerPage);
 
   const handleLike = async (event: Event) => {
     try {
@@ -67,7 +67,12 @@ const AllEvents: React.FC<AllEventsProps> = ({
       console.error("Error updating like:", error);
     }
   };
-  
+  const { eventsCount, handlePageChange } = eventContextStore();
+  const totalPages = Math.ceil(eventsCount / 6); 
+  const onPageChange = (pageNumber:any) => {
+    setCurrentPage(pageNumber); 
+    handlePageChange(pageNumber); 
+  };
   return (
     <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">
@@ -75,10 +80,10 @@ const AllEvents: React.FC<AllEventsProps> = ({
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={(page: any) => setCurrentPage(page)}
-          pageSize={pageSize}
-          isPreviousDisabled={isPreviousDisabled}
-          isNextDisabled={isNextDisabled}
+          onPageChange={onPageChange}
+          pageSize={6}
+          isPreviousDisabled={currentPage === 1}
+          isNextDisabled={currentPage === totalPages}
         />
       </div>
       <div>
