@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ChampionShipName from "../components/ChampionShipName";
-import { fetchEvents } from "../utils/fetchEvents";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
-import { useParams,Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 interface PaymentFormProps {
   onSubmit: (values: PaymentFormValues) => void;
@@ -35,7 +34,7 @@ useEffect(() => {
         const userId = localStorage.getItem("id") ?? "";
 
         if (!token) {
-          toast.error(          `You are Not Login! Please Login`)        ;
+          toast.error(`You are Not Login! Please Login`)        ;
           return;
         }
         const formdata = new FormData();
@@ -59,8 +58,8 @@ useEffect(() => {
   };
   getEvents();
 }, []);
+
 const paymentDetails = events.find((item: any) => item.id === eventID);
-console.log(paymentDetails, 'pd');
 const formSubmission = async ()=>{
 
   try {

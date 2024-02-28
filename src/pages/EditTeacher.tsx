@@ -8,7 +8,7 @@ import InputWithIcon from "../components/FormComponents";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
-import { fetchTeacherByID, fetchUser } from "../utils/fetchEvents";
+import { fetchTeacherByID } from "../utils/fetchEvents";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 

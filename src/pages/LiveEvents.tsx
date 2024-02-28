@@ -4,8 +4,9 @@ import { API_ENDPOINTS } from "../appConfig";
 import { formatDate } from "../utils/getStartedDate";
 import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
-import { fetchEvents } from "../utils/fetchEvents";
+// import { fetchEvents } from "../utils/fetchEvents";
 import Table from "../components/Table";
+import { eventContextStore } from "../contexts/eventContext";
 
 interface Event {
   id: string;
@@ -115,9 +116,11 @@ const LiveEvents: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchEvents(currentDate, "", setEvents);
-  }, []);
+ const {handleStartDate, handleEventStatus} = eventContextStore();
+ useEffect(() => {
+  handleStartDate(currentDate);
+  handleEventStatus('live')
+}, []);
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
