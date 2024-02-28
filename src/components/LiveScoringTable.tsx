@@ -84,7 +84,7 @@ document.body.dir = i18n.dir();
                                         boxShadow: ' 0px 0px 5px 0px #CF24EB',
                                     }}
                                 >
-                                    {t('TEAMS')}
+                                    {t('Individual')}
                                 </div>
                                 <div className='pl-3 text-lg font-semibold first-line:leading-5'>
                                     Par

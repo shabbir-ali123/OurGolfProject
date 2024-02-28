@@ -10,6 +10,7 @@ import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { ToastProvider } from "../utils/ToastProvider";
 import { useToast } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
 import { object } from "prop-types";
 
 interface CreateEventType {
@@ -54,8 +55,7 @@ interface CreateEventType {
 }
 
 const CreateEvent: React.FC = () => {
-
-
+  const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [value, setValue] = useState("");
@@ -135,18 +135,15 @@ const CreateEvent: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-  
+
     if (submitting) {
       return;
     }
   
-   
     if (!formData.files || formData.files.length < 3) {
       showToast("Please upload at least three images to proceed.", "[#FF0000]");
       return;
     }
-  
    
     setSubmitting(true);
   
@@ -189,6 +186,7 @@ const CreateEvent: React.FC = () => {
         showToast("Event created successfully", "green");
         localStorage.removeItem('score');
         localStorage.removeItem('selected');
+        router("/event-main-page");
       } else {
         showToast("Error occurred while creating the event", "[#FF0000]");
       }
@@ -279,3 +277,7 @@ const CreateEvent: React.FC = () => {
 };
 
 export default CreateEvent;
+function router(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

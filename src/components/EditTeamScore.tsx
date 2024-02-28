@@ -31,7 +31,7 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ( {hole , par}) => {
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
     const handleNavigateHome = () => {
-        navigate('/score-board'); // Assuming '/' is the path to your homepage
+        navigate('/ongoing-indiviual-score');
     };
     return (
         <div className='shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] py-20 px-10 my-10 w-full'>

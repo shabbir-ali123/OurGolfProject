@@ -13,7 +13,7 @@ import { fetchSingleEvent } from "../utils/fetchEvents";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ScoringTable from "../components/ScoringTable";
+import ScoringTable from "../components/LiveScoringTable";
 import EditTeamScore from "../components/EditTeamScore";
 // import TeamSlider from "../components/TeamSlider";
 interface Team {
@@ -65,7 +65,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', right: '264px' }}
+        style={{ ...style, position: 'absolute', right: '300px' }}
         onClick={onClick}
       />
     );
@@ -76,7 +76,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', left: '280px' }}
+        style={{ ...style, position: 'absolute', left: '340px' }}
         onClick={onClick}
       />
     );
@@ -210,6 +210,7 @@ const EditTeamPage: FunctionComponent = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       toast.success(response.data.message);
+      window.location.reload();
     } catch (error) {
       console.error("Error updating team:", error);
       toast.error("Please make changes before updating.");
@@ -218,7 +219,7 @@ const EditTeamPage: FunctionComponent = () => {
   let previousIndex = centerIndex - 1;
   let nextIndex = centerIndex + 2;
 
-  const [isLoading, setIsLoading] = useState(true); // Add a loading state
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     const fetchAndUpdateTeams = async () => {
@@ -329,7 +330,7 @@ const EditTeamPage: FunctionComponent = () => {
 
                     return <div key={index} className="w-full">
                       <img
-                        className={`w-full h-[280px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
+                        className={`w-full h-[220px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
                         src={item || ""}
                         alt={`Event Image ${index + 1}`}
                         style={{
@@ -533,7 +534,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </>
               )}
             </div>
-            <table className="w-full border-spacing-y-5 ">
+            <table className="w-full border-spacing-y-5  ">
               <thead className="text-left text-whitesmoke-100">
                 <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
                   <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
@@ -548,7 +549,7 @@ const EditTeamPage: FunctionComponent = () => {
                   <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
                     <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                       <div
-                        className={`w-[156px] relative pl-1   rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-gray-300`}
+                        className={`w-[156px] relative pl-1   rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-[#e0e0e0]`}
 
                       >
                         <h4>{team.name}</h4>
