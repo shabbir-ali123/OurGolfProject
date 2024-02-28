@@ -14,6 +14,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
+import { eventContextStore } from "../contexts/eventContext";
+import { locations } from '../constants/locations';
 
 interface UserData {
   nickName: string;
@@ -53,6 +55,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [localEvents, setLocalEvents] = useState<any>([]);
 
+  
   const handleComment = (eventId: string) => {
     setSelectedEvent(eventId);
     setShowModal(!showModal);
@@ -179,6 +182,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const handleJoinClick = (e: any) => {
     localStorage.setItem('selectedEventId', e.id)
   }
+  const {eventss} = eventContextStore();
 
   return (
     <div className="animate__animated animate__fadeInLeft">
@@ -238,7 +242,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     </tr>
                   </thead>
 
-                  {localEvents.map((event: any, index: number) => {
+                  {eventss.map((event: any, index: number) => {
                     const likes = event.likes || [];
                     const isFavorite = event.isFavorite || false;
                     const liked = likes.find(
@@ -325,7 +329,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </div>
                             </span>
                           </td>
-                          <td className="px-3 py-0 text-sm whitespace-nowrap"    onClick={()=>router(
+                          <td className="px-3 py-0 text-sm"    onClick={()=>router(
                             `/edit-team/${event.id}`
                           )}>
                             {event.eventDetails}

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { eventContextStore } from '../contexts/eventContext';
 
 interface JapanCities {
   [key: string]: string[];
@@ -47,7 +48,12 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
   const isCitySelected = (city: string): boolean => {
     return selectedCities.includes(city);
   };
-
+  const {handleLocationFilter} = eventContextStore();
+  // handleLocationFilter(["hunza"]);
+  useEffect(() => {
+    handleLocationFilter(selectedCities);
+  }, [selectedCities]);
+  
   const submitSelection = (): void => {
     onLocationSelect(selectedCities);
     onClose();

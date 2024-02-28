@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchEvents } from "../utils/fetchEvents";
 import { useTranslation } from "react-i18next";
+import { eventContextStore } from "../contexts/eventContext";
 
 interface CalendarProps {
   setEvents: any;
@@ -24,8 +25,14 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     setEndDate(date);
     fetchEvents(startDate, date, setEvents);
   };
-
+  const {handleStartDate, handleEndDate} = eventContextStore();
+  // handleLocationFilter(["hunza"]);
+  useEffect(() => {
+    handleStartDate(startDate);
+    handleEndDate(endDate);
+  }, [startDate, endDate]);
   
+  console.log(startDate , "actual")
   return (
     <div className="flex items-center gap-2 mb-4 xl:m-0">
       <div className="flex items-center ">

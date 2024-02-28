@@ -1,8 +1,9 @@
 import axios from "axios";
 import { formatDate } from "./getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
+import { locations } from '../constants/locations';
 
-export const fetchEvents = async (startDate:any, endDate:any, setEvents:any,  location?:any, status?:any) => {
+export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  location?:any, status?:any) => {
   try {
     const token = localStorage.getItem("token");
     const headers:any= {}
@@ -21,6 +22,31 @@ export const fetchEvents = async (startDate:any, endDate:any, setEvents:any,  lo
       },
     });
     setEvents(response.data.events);
+  } catch (error) {
+    throw error; 
+  }
+};
+export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParams?:any) => {
+  const { store_token, locations, startDate, endDate, eventStatus} = queryParams;
+
+  try {
+    const headers:any= {}
+    if (store_token) {
+      headers["Authorization"]=  `Bearer ${store_token}`
+    }
+    const response = await axios.get(store_token && store_token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
+      headers,
+      params: {
+        page: 1,
+        pageSize: 50000,
+        eventStartDate: startDate ? formatDate(startDate) : "",
+        eventEndDate: endDate ? formatDate(endDate) : "",
+        status: eventStatus,
+        place: locations
+      },
+    });
+    setEvents(response.data.events);
+    setEventsCount(response.data.count)
   } catch (error) {
     throw error; 
   }

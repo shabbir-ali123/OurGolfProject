@@ -8,6 +8,7 @@ import PastEvents from "../pages/PastEvents";
 import UpcomingEvents from "../pages/UpcomingEvents";
 import { useTranslation } from "react-i18next";
 import AllEvents from "../pages/AllEvents";
+import { eventContextStore } from "../contexts/eventContext";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -86,6 +87,12 @@ const Tabs: React.FC<TabsProps> = ({
     setFilterLocation(data);
   };
 
+  const {handleEventStatus} = eventContextStore();
+  useEffect(() => {
+    // Set localEvents to all events
+    handleEventStatus(currentTab);
+  }, []);
+console.log(currentTab)
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full animate__animated animate__fadeInLeft">
