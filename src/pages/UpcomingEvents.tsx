@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { API_ENDPOINTS } from "../appConfig";
 import Table from "../components/Table";
 import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
+import { eventContextStore } from "../contexts/eventContext";
 interface Event {
   id: string;
   creator:{
@@ -29,37 +28,12 @@ const UpcomingEvents:  React.FC<TabsProps> = ({ events, setEvents }: TabsProps) 
   const [UpcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
   const pageSize = 5;
   const [currentPage, setCurrentPage] = useState(1);
-  
-  // const fetchUpcomingEvents = async (page: any) => {
-  //   try {
-  //     const token = localStorage.getItem("token");
-
-  //     if (!token) {
-  //       console.error("User not authenticated");
-  //       return;
-  //     }
-
-  //     const response = await axios.get(API_ENDPOINTS.GETALLEVENT, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       params: {
-  //         page: 1,
-  //         pageSize: 50000,
-  //         status: "upcoming",
-          
-  //       },
-  //     });
-
-  //     setUpcomingEvents(response.data.events);
-  //   } catch (error) {
-  //     console.error("Error fetching events:", error);
-  //   }
-  // };
+  const { handleEventStatus, handleStartDate} = eventContextStore();
 
   useEffect(() => {
-    setUpcomingEvents(events);
-  }, [events, currentPage]);
+    handleEventStatus('upcoming');
+    handleStartDate('')
+  }, [events]);
 
   const totalEvents = UpcomingEvents.length;
   const totalPages = Math.ceil(totalEvents / pageSize);
