@@ -26,7 +26,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     fetchEvents(startDate, date, setEvents);
   };
   const {handleStartDate, handleEndDate} = eventContextStore();
-  // handleLocationFilter(["hunza"]);
+
   useEffect(() => {
     handleStartDate(startDate);
     handleEndDate(endDate);

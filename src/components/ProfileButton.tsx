@@ -5,8 +5,11 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notification";
 import { NotificationPop } from "./NotificationPop";
+import { userAuthContext } from "../contexts/authContext";
 
 export default function ProfileButton() {
+  const { userss} = userAuthContext();
+  console.log({userss})
   const { notifications } = notificationsContextStore();
   const { t, i18n } = useTranslation();
   let n = [];

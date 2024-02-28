@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -11,16 +11,9 @@ import CommentModel from "./CommentModel";
 import { API_ENDPOINTS } from "../appConfig";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import { eventContextStore } from "../contexts/eventContext";
-
-interface UserData {
-  nickName: string;
-  email: string;
-  token: string;
-}
 
 interface TableProps {
   events: Array<{
@@ -47,12 +40,8 @@ interface TableProps {
 
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const { eventss, handleEvents } = eventContextStore();
-
   const router = useNavigate();
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
   const [showModal, setShowModal] = useState(false);
-  const [user, setUser] = useState<UserData | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
 
   const handleComment = (eventId: string) => {
@@ -145,30 +134,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     }
   };
 
-  const getUser = async (userId: any) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      toast.error(`Please Login`, toastProperties as ToastConfig);
-    }
-  };
-
   const userId = localStorage.getItem("id");
-  useEffect(() => {
-    getUser(userId)
-      .then((userData) => {
-        setUser(userData.user);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
 
   return (
     <div className="animate__animated animate__fadeInLeft">
