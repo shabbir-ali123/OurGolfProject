@@ -362,47 +362,47 @@ const EditTeamPage: FunctionComponent = () => {
                   src="/img/rectangle-1249@2x.png"
                 />
               </div>
-              <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl">About Event</h2>
+              <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl"> {t('ABOUT_EVENT')}</h2>
             </div>
 
             <div className="grid grid-cols-1 gap-0 py-4 ">
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px] ">Event Name :</span>
+                <span className="text-gray-500 basis-[200px] ">{t('EVENT_NAME')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventName}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px] basis-4"> Date :</span>
+                <span className="text-gray-500 basis-[200px] basis-4"> {t('DATE')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0">{singleEvent?.eventStartDate}(start from {singleEvent?.eventStartTime}To {singleEvent?.
                   eventEndTime
                 })</p>
               </div>
               <div className="flex gap-10 items-center mx-2 ">
-                <span className="text-gray-500 basis-[200px] basis-[200px] ">Application Deadline :</span>
+                <span className="text-gray-500 basis-[200px] basis-[200px] ">{t('APPLICATION_DEADLINE')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventDeadlineDate}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Event Type :</span>
+                <span className="text-gray-500 basis-[200px]">{t('EVENT_TYPE')}  :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.
                   eventType}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Event Location :</span>
+                <span className="text-gray-500 basis-[200px]">{t('EVENT_LOCATION')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize   ">{singleEvent?.place}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Event Details :</span>
+                <span className="text-gray-500 basis-[200px]">{t('EVENT_LOCATION')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventDetails}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Total Participants :</span>
+                <span className="text-gray-500 basis-[200px]">{t('TOTAL_PARTICIPANT')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Team Size :</span>
+                <span className="text-gray-500 basis-[200px]">{t('TEAM_SIZE')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.teamSize}</p>
               </div>
               <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Joined Members :</span>
+                <span className="text-gray-500 basis-[200px]">{t('JOINED_MEMBER')} :</span>
                 <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{totalJoinedMembers}</p>
               </div>  
               {/* <div className="flex gap-10 items-center mx-2  ">
@@ -529,7 +529,7 @@ const EditTeamPage: FunctionComponent = () => {
                     className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                     onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                   >
-                    join now
+                    {t('JOIN_NOW')}
                   </button>
                 </>
               )}
@@ -538,7 +538,7 @@ const EditTeamPage: FunctionComponent = () => {
               <thead className="text-left text-whitesmoke-100">
                 <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
                   <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
-                    Team Name
+                  {t('TEAM_NAME')}
                   </th>
 
                   {generateTableHeaders()}
@@ -599,7 +599,7 @@ const EditTeamPage: FunctionComponent = () => {
                   className="px-4 py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                   onClick={updateTeams}
                 >
-                  Update Team
+                  {t('UPDATE_TEAM')}
                 </button>
               </div>
             )}

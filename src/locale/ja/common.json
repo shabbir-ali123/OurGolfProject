@@ -163,5 +163,14 @@
     "FEELING": "感情/活動",
     "BOOK_APPOINTMENT":"予約する",
     "LIKE": "のように",
-    "VIEW_DETAILS":"詳細を見る"
+    "VIEW_DETAILS":"詳細を見る",
+    "ABOUT_EVENT":"イベントについて",
+    "EVENT_TYPE":"イベントタイプ",
+    "EVENT_LOCATION":"イベントの場所",
+    "TOTAL_PARTICIPANT":"総参加者数",
+    "JOINED_MEMBER":"加入メンバー",
+    "JOIN_NOW":"今すぐ参加",
+    "UPDATE_TEAM":"今すぐ参加",
+    "VIEW_FULL":"フルスコアを表示"
+   
 }

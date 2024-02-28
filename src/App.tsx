@@ -38,6 +38,7 @@ import UpcomingLessonsPage from "./components/UpcomingLesson";
 import PendingLessonsPage from "./components/PendingLesson";
 import ReadPost from "./pages/ReadPost";
 import CreatedEvents from "./pages/CreatedEvent";
+import AddScorePage from "./pages/AddScorePage";
 import { useParams } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -166,6 +167,10 @@ const params = useParams();
                                   title = "";
                                   metaDescription = "";
                                   break;
+                                  case "/add-score-page":
+                                    title = "";
+                                    metaDescription = "";
+                                    break;
   
 
     }
@@ -235,6 +240,7 @@ const params = useParams();
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
         <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
+        <Route path="/add-score-page" element={token? <AddScorePage /> :<LoginPage />} />
         <Route
           path="/edit-team/:id"
           element={<EditTeamPage  /> }

@@ -31,7 +31,7 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ( {hole , par}) => {
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
     const handleNavigateHome = () => {
-        navigate('/ongoing-indiviual-score');
+        navigate('/add-score-page');
     };
     return (
         <div className='shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] py-20 px-10 my-10 w-full'>
@@ -76,7 +76,7 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ( {hole , par}) => {
                 </tbody>
             </table>
             </div>
-            <button onClick={handleNavigateHome} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer'>View Full Score</button>
+            <button onClick={handleNavigateHome} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer'>{t("VIEW_FULL")}</button>
         </div>
     );
 };

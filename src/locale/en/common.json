@@ -163,7 +163,15 @@
     "PHOTO": "Photo/Video",
     "FEELING": "Feeling/Activity",
     "LIKE": "Like",
-    "VIEW_DETAILS":"View Details"
+    "VIEW_DETAILS":"View Details",
+    "ABOUT_EVENT":"About Event",
+    "EVENT_TYPE":"Event Type",
+    "EVENT_LOCATION":"Event Location",
+    "TOTAL_PARTICIPANT":"Total Participants",
+    "JOINED_MEMBER":"Joined Members",
+    "JOIN_NOW":"Join Now",
+    "UPDATE_TEAM":"Update Team",
+    "VIEW_FULL":"View Full Score"
     
 
 

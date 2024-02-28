@@ -65,7 +65,6 @@ const Login: React.FC = () => {
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {error && (
                 <div className="text-[#F80202] text-sm mt-2">
-                  {/* Display the error message */}
                   {error}
                 </div>
               )}
