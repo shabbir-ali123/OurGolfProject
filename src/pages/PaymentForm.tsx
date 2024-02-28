@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
-import { useParams } from "react-router-dom";
+import { useParams,Link, useNavigate } from "react-router-dom";
+
 interface PaymentFormProps {
   onSubmit: (values: PaymentFormValues) => void;
 }
@@ -22,6 +23,7 @@ export interface PaymentFormValues {
 export const PaymentForm: React.FC<PaymentFormProps> = () => {
   const [events, setEvents] = useState<any>([]); 
   const params = useParams<{ id?: string }>();
+  const router = useNavigate();
   const eventID = params.id;
 
 useEffect(() => {
@@ -86,6 +88,7 @@ const formSubmission = async ()=>{
     }else{
       setEvents(response.data.events || []); 
       toast.success(response.data.message);
+      router("/edit-team/:id");
     }
   } catch (error) {
     toast.error(

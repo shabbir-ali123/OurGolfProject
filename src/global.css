@@ -183,7 +183,7 @@ button:disabled{
 } 
 
 .slick-current + div img{
-   transform: scale(1) skew(0deg);
+   transform: scale(1) skew(4deg);
  }
 
 

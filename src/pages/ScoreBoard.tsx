@@ -4,7 +4,7 @@ import Slider from "../components/Slider";
 import LeaderBoardSection from "../components/LeaderBoardSection";
 import IndiviualPlayerScore from "../components/LeaderBoardPlayerScore";
 import TeamPerformance from "../components/TeamPerformance";
-import ScoringTable from "../components/ScoringTable";
+import ScoringTable from "../components/LiveScoringTable";
 import { useTranslation } from "react-i18next";
 
 const ScoreBoard: FunctionComponent = () => {

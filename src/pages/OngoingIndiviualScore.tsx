@@ -7,7 +7,7 @@ const OngoingIndiviualScore: FunctionComponent = () => {
       <ChampionShipName />
        <div className="[background:linear-gradient(180deg,_#edfffd,_#f2fffa)] max-w-screen-2xl mx-auto mt-[50px] border-solid border-2 border-[#51ff85] rounded-md">
         <div className="max-w-screen-xl mx-auto">
-        <div className="grid grid-cols-6 gap-4 p-2 mt-8 bg-white rounded shadow-md">
+        {/* <div className="grid grid-cols-6 gap-4 p-2 mt-8 bg-white rounded shadow-md">
         <div className="col-span-6 md:col-span-3 ">
           <div className="flex items-center h-20 gap-4 rounded">
             <img
@@ -27,7 +27,7 @@ const OngoingIndiviualScore: FunctionComponent = () => {
             <img className="h-full " src="/img/golf-player.png" alt="Golf Player" />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex items-center gap-2 py-10">
         <img src="/img/short.png" alt="" className="w-40 h-40" />
         <h2 className="text-4xl font-bold text-blue-900">Team Score Card</h2>

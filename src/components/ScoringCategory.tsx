@@ -162,14 +162,19 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 
   useEffect(() => {
     localStorage.setItem("score", selectedScoringType);
-    console.log(holeValues, "selectedScorinwgType");
     localStorage.setItem(
       "selected",
       JSON.stringify(formData[selectedScoringType].selectedHoles)
     );
-    localStorage.setItem("par", JSON.stringify(holeValues));
-
+  
+    // Filter par values for selected holes
+    const selectedParValues = holeValues.filter((_, index) =>
+      formData[selectedScoringType].selectedHoles.includes(String(index + 1))
+    );
+  
+    localStorage.setItem("par", JSON.stringify(selectedParValues));
   }, [selectedScoringType, formData, holeValues]);
+  
 
 
   return (

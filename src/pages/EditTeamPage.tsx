@@ -13,7 +13,7 @@ import { fetchSingleEvent } from "../utils/fetchEvents";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ScoringTable from "../components/ScoringTable";
+import ScoringTable from "../components/LiveScoringTable";
 import EditTeamScore from "../components/EditTeamScore";
 // import TeamSlider from "../components/TeamSlider";
 interface Team {
