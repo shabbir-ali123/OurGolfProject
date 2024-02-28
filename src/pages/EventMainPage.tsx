@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
+import { eventContextStore } from "../contexts/eventContext";
 
 const EventMainPage: FunctionComponent = () => {
   const {t, i18n} = useTranslation();
@@ -16,6 +17,11 @@ const EventMainPage: FunctionComponent = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<any[]>(['Tokyo']);
   const [currentTab, setCurrentTab] = useState<string>("ALL"); 
+  
+  const {handleLocationFilter} = eventContextStore();
+  useEffect(() => {
+    handleLocationFilter(selectedLocations);
+  }, [selectedLocations]);
   
   const handleTabChange = (tab: string) => {
     const lowerTab = tab?.toLowerCase();
@@ -26,7 +32,6 @@ const EventMainPage: FunctionComponent = () => {
     fetchEvents("", "", setEvents, selectedLocations,currentTab);
   }, [selectedLocations, currentTab]);
 
-  // console.log(selectedLocations);
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 1280);

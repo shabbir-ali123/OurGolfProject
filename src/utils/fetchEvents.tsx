@@ -42,9 +42,10 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
         eventStartDate: startDate ? formatDate(startDate) : "",
         eventEndDate: endDate ? formatDate(endDate) : "",
         status: eventStatus,
-        place: locations
+        place: locations[0]
       },
     });
+    console.log(locations[0], 'loca')
     setEvents(response.data.events);
     setEventsCount(response.data.count)
   } catch (error) {

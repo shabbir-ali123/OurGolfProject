@@ -48,11 +48,6 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
   const isCitySelected = (city: string): boolean => {
     return selectedCities.includes(city);
   };
-  const {handleLocationFilter} = eventContextStore();
-  // handleLocationFilter(["hunza"]);
-  useEffect(() => {
-    handleLocationFilter(selectedCities);
-  }, [selectedCities]);
   
   const submitSelection = (): void => {
     onLocationSelect(selectedCities);

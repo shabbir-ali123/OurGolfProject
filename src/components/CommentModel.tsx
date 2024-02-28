@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import { useToast } from "../utils/ToastProvider";
 import { fetchEvents } from "../utils/fetchEvents";
+import { eventContextStore } from "../contexts/eventContext";
 
 interface CommentModelProps {
   eventId: any;
@@ -46,7 +47,8 @@ interface Event {
 }
 
 const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const {eventss, handleEvents} = eventContextStore();
+
   const { showToast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [commentData, setCommentData] = useState<{
@@ -93,7 +95,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           createdAt: response.data.createdAt,
         });
         debugger
-        const updatedEvents = events.map((event) => {
+        const updatedEvents = eventss.map((event: any) => {
           if (event.id === eventId) {
             return {
               ...event,
@@ -112,7 +114,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           }
           return event;
         });
-        setEvents(updatedEvents);
+        handleEvents(updatedEvents);
         setFormData({
           userId: uid,
           eventId: eventId,
@@ -126,13 +128,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
     }
   };
 
-  useEffect(() => {
-    fetchEvents("", "", setEvents);
-  }, []);
-
   const loadMoreComments = () => {
     setCommentsToShow((prev) => prev + 2);
-
   };
 
   return (
@@ -198,7 +195,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
               </div>
             </form>
 
-            {events.map((event) => {
+            {eventss.map((event: any) => {
 
               if (event.id === eventId) {
                 const sortedComments: any = event.comments.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) .slice(0, commentsToShow);
