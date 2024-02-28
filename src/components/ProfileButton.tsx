@@ -1,55 +1,44 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_ENDPOINTS } from "../appConfig";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notification";
 import { NotificationPop } from "./NotificationPop";
 import { userAuthContext } from "../contexts/authContext";
 
 export default function ProfileButton() {
-  const { userss} = userAuthContext();
-  console.log({userss})
+  const { user } = userAuthContext();
   const { notifications } = notificationsContextStore();
   const { t, i18n } = useTranslation();
   let n = [];
-  const tokene = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   const id = localStorage.getItem('teacher_id');
 let tId = notifications.map((item: any) => item.teacherId);
 tId = tId[tId.length - 1 ]
-    if(tId == id  && tokene){
+    if(tId == id  && token){
     n = notifications;
   }
-console.log(id , tId, "notifications tid");
-    
+  
+  console.log(user, 'user')
   const languages = {
     en: { displayName: "English" },
     ja: { displayName: i18n.language === "en" ? "Japan" : "日本語" },
   };
 
-  const [token, setToken] = useState("");
-  const [user, setUser] = useState<any>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notification, setNotification] = useState(false);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
 
-  useEffect(() => {
-    const userId = localStorage.getItem("id");
-    getUser(userId)
-      .then((userData) => {
-        setUser(userData.user);
-        localStorage.setItem("user", JSON.stringify(userData.user));
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const userId = localStorage.getItem("id");
+  //   handleUser(userId)
+  //     .then((userData: any) => {
+  //       setUser(userData.user);
+  //       localStorage.setItem("user", JSON.stringify(userData.user));
+  //     })
+  //     .catch((error: string) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, []);
 
   const handleDotClick = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -65,29 +54,12 @@ console.log(id , tId, "notifications tid");
     i18n.changeLanguage(lang);
   };
 
-  const getUser = async (userId: any) => {
-    try {
-      const token = localStorage.getItem("token");
-      if (token && token !== "undefined") {
-        const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        localStorage.setItem( "nickName", response.data.nickName)
-        return response.data;
-      }
-    } catch (error) {
-      throw "sdf";
-    }
-  };
-
+  console.log(user.nickName)
   return (
     <div className=" lg:flex lg:flex-1 lg:justify-end">
       <div className="relative flex-shrink-0 block">
         <div className="flex items-center">
-          {token && user ? (
+          {token  && user ? (
             <>
               <div className="flex items-center justify-center ">
                 <img

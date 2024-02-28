@@ -1,7 +1,5 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { fetchEvents, fetchEventss } from '../utils/fetchEvents';
-import { locations } from '../constants/locations';
-
+import { fetchEventss } from '../utils/fetchEvents';
 
 const EventCreateContext = React.createContext<any>({});
 
@@ -14,7 +12,7 @@ export const EventsContext = ({children}:any)=>{
     const [locations, setLocations]=useState<any[]>([]);
     const [startDate, setStartDate]=useState<string>("");
     const [endDate, setEndDate]= useState<string>("");
-    const [eventStatus, setEventStatus]= useState<string>("");
+    const [eventStatus, setEventStatus]= useState<string>("past");
 
     useEffect(() => {
         const queryParams = {
@@ -24,7 +22,7 @@ export const EventsContext = ({children}:any)=>{
             locations: locations,
             startDate: startDate,
             endDate: endDate,
-            status: eventStatus
+            eventStatus: eventStatus
         };
         fetchEventss(setEvents,setEventsCount, queryParams);
     }, [currentPage, locations, startDate, endDate, eventStatus, eventStatus]);
@@ -36,18 +34,23 @@ export const EventsContext = ({children}:any)=>{
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
+
     const handlePageSize = (pageSize: number) => {
         setPageSize(pageSize);
     };
+
     const handleLocationFilter = (location: any)=>{
         setLocations([location, ...locations]);
     }
+
     const handleStartDate = (startDate: string)=>{
         setStartDate(startDate);
     }
+
     const handleEndDate = (endDate: string)=>{
         setEndDate(endDate);
     }
+    
     const handleEventStatus = (status: string)=>{
         setEventStatus(status);
     }

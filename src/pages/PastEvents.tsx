@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
-import { formatDate } from "../utils/getStartedDate";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import EventMap from "../components/EventMap";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import { fetchEvents } from "../utils/fetchEvents";
+import { eventContextStore } from "../contexts/eventContext";
 
 interface Event {
   id: string;
@@ -154,6 +153,12 @@ const PastEvents: React.FC<AllEventsProps> = ({
     }
   };
 
+  const { handleEventStatus, eventStatus} = eventContextStore();
+
+  useEffect(() => {
+    handleEventStatus('past')
+  }, [eventStatus])
+  
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">

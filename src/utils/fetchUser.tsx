@@ -5,7 +5,7 @@ export  const getUser = async ( setUser: any) => {
     try {
         const userId = localStorage.getItem("id");
         const token = localStorage.getItem("token");
-        
+
       if (token && token !== "undefined") {
         const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
           headers: {
@@ -14,9 +14,9 @@ export  const getUser = async ( setUser: any) => {
         });
 
         localStorage.setItem( "nickName", response.data.nickName)
-        setUser(response.data)
+        setUser(response.data.user)
       }
     } catch (error) {
-      throw "sdf";
+      throw console.log(error);
     }
   };

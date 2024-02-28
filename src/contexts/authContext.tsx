@@ -1,21 +1,21 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { fetchEventss, fetchUser } from '../utils/fetchEvents';
+import { getUser } from '../utils/fetchUser';
 
 
 const UserAuthContext = React.createContext<any>({});
 
 export const AuthContext = ({children}:any)=>{
-    const [userss, setUser] = useState<any[]>([]);
+    const [user, setUser] = useState<any[]>([]);
     
     useEffect(() => {
-        fetchUser(setUser);
+        getUser(setUser);
     }, []);
 
     const handleUser = useCallback((value: any) => {
         return setUser(value);
-    }, [userss]);
+    }, [user]);
 
-    const value =  { handleUser, userss}
+    const value =  { handleUser, user}
 
     return <UserAuthContext.Provider  value={value}> {children}</UserAuthContext.Provider>
 }

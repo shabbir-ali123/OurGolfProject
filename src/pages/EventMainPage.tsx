@@ -5,7 +5,7 @@ import { Clip } from "../components/Clip";
 import Tabs from "../components/Tabs";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { fetchEvents } from "../utils/fetchEvents";
+// import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
 import { eventContextStore } from "../contexts/eventContext";
@@ -28,9 +28,9 @@ const EventMainPage: FunctionComponent = () => {
     setCurrentTab(lowerTab);
   };
 
-  useEffect(() => {
-    fetchEvents("", "", setEvents, selectedLocations,currentTab);
-  }, [selectedLocations, currentTab]);
+  // useEffect(() => {
+  //   fetchEvents("", "", setEvents, selectedLocations,currentTab);
+  // }, [selectedLocations, currentTab]);
 
   useEffect(() => {
     const handleResize = () => {

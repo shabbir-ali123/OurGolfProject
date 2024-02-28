@@ -1,7 +1,6 @@
 import axios from "axios";
 import { formatDate } from "./getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
-import { locations } from '../constants/locations';
 
 export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  location?:any, status?:any) => {
   try {
@@ -26,9 +25,10 @@ export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  lo
     throw error; 
   }
 };
-export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParams?:any) => {
-  const { store_token, locations, startDate, endDate, eventStatus} = queryParams;
 
+export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParams:any) => {
+  const { store_token, locations, startDate, endDate, eventStatus} = queryParams;
+  console.log({queryParams})
   try {
     const headers:any= {}
     if (store_token) {
@@ -53,25 +53,6 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
   }
 };
 
-export const fetchUser = async (setUser:any) => {
-  try {
-    const token = localStorage.getItem("token");
-    const id = localStorage.getItem("id");
-
-    const headers:any= {}
-    if (token) {
-      console.error("User not authenticated");
-      headers["Authorization"]=  `Bearer ${token}`
-    }
-    const response = await axios.get(token ? API_ENDPOINTS.GET_USER+ id : API_ENDPOINTS.PUBLICEVENTS, {
-      headers,
-    });
-    setUser(response.data.user);
-
-  } catch (error) {
-    throw error; 
-  }
-};
 
 export const fetchTeacherByID = async (setUser:any) => {
   try {

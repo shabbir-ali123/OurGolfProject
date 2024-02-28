@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import { useToast } from "../utils/ToastProvider";
-import { fetchEvents } from "../utils/fetchEvents";
 import { eventContextStore } from "../contexts/eventContext";
 
 interface CommentModelProps {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { fetchEvents } from "../utils/fetchEvents";
+// import { fetchEvents } from "../utils/fetchEvents";
 import { useTranslation } from "react-i18next";
 import { eventContextStore } from "../contexts/eventContext";
 
@@ -17,13 +17,13 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
 
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
-    fetchEvents(date, endDate, setEvents);
+    // fetchEvents(date, endDate, setEvents);
 
   };
 
   const handleEndDateChange = (date: Date | null) => {
     setEndDate(date);
-    fetchEvents(startDate, date, setEvents);
+    // fetchEvents(startDate, date, setEvents);
   };
   const {handleStartDate, handleEndDate} = eventContextStore();
 
