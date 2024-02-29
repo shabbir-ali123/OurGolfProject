@@ -104,7 +104,7 @@ const CreateEvent: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
+    
     // Check if the event is from an input element and the type is checkbox
     if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
       const { checked } = e.target;

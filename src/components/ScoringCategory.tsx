@@ -55,7 +55,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const [numHoles, setNumHoles] = useState(18);
+  const numHoles = 18;
   const [holeValues, setHoleValues] = useState(
     Array.from({ length: numHoles }, () => 4)
   );
@@ -180,19 +180,21 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   }, [selectedScoringType, formData, holeValues]);
 
   const toggleContestEnabled = (
+    scoringType: Tab,
     contestType: "driverContest" | "nearPinContest"
   ) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [selectedScoringType]: {
-        ...prevFormData[selectedScoringType],
+      [scoringType]: {
+        ...prevFormData[scoringType],
         [contestType]: {
-          ...prevFormData[selectedScoringType][contestType],
-          enabled: !prevFormData[selectedScoringType][contestType].enabled,
+          ...prevFormData[scoringType][contestType],
+          enabled: !prevFormData[scoringType][contestType].enabled,
         },
       },
     }));
   };
+
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-7xl">
       <div
@@ -549,14 +551,26 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                       checked={
                         formData[selectedScoringType].driverContest.enabled
                       }
-                      onChange={() => toggleContestEnabled("driverContest")}
+                      onChange={() =>
+                        toggleContestEnabled(
+                          selectedScoringType,
+                          "driverContest"
+                        )
+                      }
                     />
                     <div
-                      className={`block bg-gray-600 w-14 h-8 rounded-full  : ''}`}
+                      className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                        formData[selectedScoringType].driverContest.enabled
+                          ? "bg-green-600"
+                          : ""
+                      }`}
                     ></div>
                     <div
-                      className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}
-                    ></div>
+                      className={`dot absolute left-1 top-1 bg-white ${
+                        formData[selectedScoringType].driverContest.enabled &&
+                        "left-[26px]"
+                      } w-6 h-6 rounded-full transition`}
+                    />
                   </div>
                 </label>
               </div>
@@ -585,12 +599,26 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                   type="checkbox"
                   className="sr-only"
                   checked={formData[selectedScoringType].nearPinContest.enabled}
-                  onChange={() => toggleContestEnabled("nearPinContest")}
+                  onChange={() =>
+                    toggleContestEnabled(selectedScoringType, "nearPinContest")
+                  }
                 />
-                <div className="block h-8 bg-gray-600 rounded-full w-14"></div>
                 <div
-                  className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}
+                  onClick={() =>
+                    toggleContestEnabled(selectedScoringType, "nearPinContest")
+                  }
+                  className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                    formData[selectedScoringType].nearPinContest.enabled
+                      ? "bg-green-600"
+                      : ""
+                  }`}
                 ></div>
+                <div
+                  className={`dot absolute bg-white left-1 top-1 ${
+                    formData[selectedScoringType].nearPinContest.enabled &&
+                    "left-[26px]"
+                  } w-6 h-6 rounded-full transition`}
+                />
               </div>
             </div>
           </>
