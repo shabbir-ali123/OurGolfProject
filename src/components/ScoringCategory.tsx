@@ -11,40 +11,40 @@ interface ScoringTypeProps {
 }
 
 enum Tab {
-  Normal = "normal",
+  Regular = "Regular",
   Single = "single",
   Double = "double",
   Triple = "triple",
 }
 
 interface FormData {
-  [Tab.Normal]: {
+  [Tab.Regular]: {
     field1: boolean;
     field2: boolean;
     selectedHoles: string[];
-    driverContest: number;
-    nearPinContest: number;
+    driverContest: { enabled: boolean; score: number };
+    nearPinContest: { enabled: boolean; score: number };
   };
   [Tab.Single]: {
     field1: boolean;
     field2: boolean;
     selectedHoles: string[];
-    driverContest: number;
-    nearPinContest: number;
+    driverContest: { enabled: boolean; score: number };
+    nearPinContest: { enabled: boolean; score: number };
   };
   [Tab.Double]: {
     field1: boolean;
     field2: boolean;
     selectedHoles: string[];
-    driverContest: number;
-    nearPinContest: number;
+    driverContest: { enabled: boolean; score: number };
+    nearPinContest: { enabled: boolean; score: number };
   };
   [Tab.Triple]: {
     field1: boolean;
     field2: boolean;
     selectedHoles: string[];
-    driverContest: number;
-    nearPinContest: number;
+    driverContest: { enabled: boolean; score: number };
+    nearPinContest: { enabled: boolean; score: number };
   };
 }
 
@@ -74,38 +74,38 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   );
   const [activeTab, setActiveTab] = useState<Tab>(Tab.Single);
   const [formData, setFormData] = useState<FormData>({
-    [Tab.Normal]: {
+    [Tab.Regular]: {
       field1: true,
       field2: false,
       selectedHoles: Array.from({ length: 9 }, (_, i) => String(i + 1)),
-      driverContest: 0,
-      nearPinContest: 0,
+      driverContest: { enabled: false, score: 0 },
+      nearPinContest: { enabled: false, score: 0 },
     },
     [Tab.Single]: {
       field1: true,
       field2: false,
       selectedHoles: Array.from({ length: 9 }, (_, i) => String(i + 1)),
-      driverContest: 0,
-      nearPinContest: 0,
+      driverContest: { enabled: false, score: 0 },
+      nearPinContest: { enabled: false, score: 0 },
     },
     [Tab.Double]: {
       field1: false,
       field2: false,
       selectedHoles: Array.from({ length: 12 }, (_, i) => String(i + 1)),
-      driverContest: 0,
-      nearPinContest: 0,
+      driverContest: { enabled: false, score: 0 },
+      nearPinContest: { enabled: false, score: 0 },
     },
     [Tab.Triple]: {
       field1: true,
       field2: false,
       selectedHoles: Array.from({ length: 6 }, (_, i) => String(i + 1)),
-      driverContest: 0,
-      nearPinContest: 0,
+      driverContest: { enabled: false, score: 0 },
+      nearPinContest: { enabled: false, score: 0 },
     },
   });
 
   useEffect(() => {
-    handleTabClick(Tab.Normal);
+    handleTabClick(Tab.Regular);
   }, []);
 
   const handleTabClick = (tab: Tab) => {
@@ -128,7 +128,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     if (isChecked) {
       setSelectedScoringType(scoringType);
     } else {
-      setSelectedScoringType(Tab.Normal);
+      setSelectedScoringType(Tab.Regular);
     }
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -166,15 +166,29 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       "selected",
       JSON.stringify(formData[selectedScoringType].selectedHoles)
     );
-  
+
     // Filter par values for selected holes
     const selectedParValues = holeValues.filter((_, index) =>
       formData[selectedScoringType].selectedHoles.includes(String(index + 1))
     );
-  
+
     localStorage.setItem("par", JSON.stringify(selectedParValues));
   }, [selectedScoringType, formData, holeValues]);
-  
+
+  const toggleContestEnabled = (contestType: "driverContest" | "nearPinContest") => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [selectedScoringType]: {
+        ...prevFormData[selectedScoringType],
+        [contestType]: {
+          ...prevFormData[selectedScoringType][contestType],
+          enabled: !prevFormData[selectedScoringType][contestType].enabled,
+        },
+      },
+    }));
+  };
+
+
 
 
   return (
@@ -195,20 +209,20 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             <input
               className="rounded-full"
               type="checkbox"
-              checked={selectedScoringType === Tab.Normal}
-              name={Tab.Normal}
+              checked={selectedScoringType === Tab.Regular}
+              name={Tab.Regular}
               onChange={handleScoringTypeChange}
             />
             <button
-              onClick={() => handleTabClick(Tab.Normal)}
+              onClick={() => handleTabClick(Tab.Regular)}
               type="button"
               className={
-                activeTab === Tab.Normal
+                activeTab === Tab.Regular
                   ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
                   : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
               }
             >
-              {t("NORMAL")}
+              {t("REGULAR")}
             </button>
           </div>
           <div>
@@ -272,7 +286,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </button>
           </div>
         </div>
-        {selectedScoringType === Tab.Normal && (
+        {selectedScoringType === Tab.Regular && (
           <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
             <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
               <h4 className="text-[#626262]">Please select 9 holes</h4>
@@ -356,15 +370,15 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                         {t("Par")}
                       </label>
                       <input
-                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
-                          id={String(index + 1)}
-                          type="number"
-                          name="nearPinContest"
-                          placeholder=""
-                          value={holeValues[index]}
-                          min="0"
-                          onChange={(e) => handleParInputChange(e, index)}
-                        />
+                        className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                        id={String(index + 1)}
+                        type="number"
+                        name="nearPinContest"
+                        placeholder=""
+                        value={holeValues[index]}
+                        min="0"
+                        onChange={(e) => handleParInputChange(e, index)}
+                      />
                     </div>
                   </div>
                 ))}
@@ -407,15 +421,15 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                         {t("Par")}
                       </label>
                       <input
-                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
-                          id={String(index + 1)}
-                          type="number"
-                          name="nearPinContest"
-                          placeholder=""
-                          value={holeValues[index]}
-                          min="0"
-                          onChange={(e) => handleParInputChange(e, index)}
-                        />
+                        className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                        id={String(index + 1)}
+                        type="number"
+                        name="nearPinContest"
+                        placeholder=""
+                        value={holeValues[index]}
+                        min="0"
+                        onChange={(e) => handleParInputChange(e, index)}
+                      />
                     </div>
                   </div>
                 ))}
@@ -454,15 +468,15 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                         {t("Par")}
                       </label>
                       <input
-                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
-                          id={String(index + 1)}
-                          type="number"
-                          name="nearPinContest"
-                          placeholder=""
-                          value={holeValues[index]}
-                          min="0"
-                          onChange={(e) => handleParInputChange(e, index)}
-                        /> 
+                        className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                        id={String(index + 1)}
+                        type="number"
+                        name="nearPinContest"
+                        placeholder=""
+                        value={holeValues[index]}
+                        min="0"
+                        onChange={(e) => handleParInputChange(e, index)}
+                      />
                     </div>
                   </div>
                 ))}
@@ -471,6 +485,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
           </div>
         )}
         <p className="text-[#626262]">Optional</p>
+
         <div className="flex items-center col-span-12 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             htmlFor="driverContest"
@@ -479,15 +494,34 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             02
             <span className="ml-4">{t("DRIVER_CONTEST")}</span>
           </label>
-          <input
-            className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
-            id="driverContest"
-            type="number"
-            name="driverContest"
-            placeholder=""
-            min="0"
-            onChange={onInputChange}
-          />
+          {formData[selectedScoringType].driverContest.enabled && (
+            <input
+              className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
+              id="driverContest"
+              type="number"
+              name="driverContest"
+              placeholder=""
+              min="0"
+              max="18"
+              onChange={onInputChange}
+            />
+          )}
+          <div className="mb-4">
+            <label className="flex items-center cursor-pointer">
+              <div className="relative ml-10">
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  checked={formData[selectedScoringType].driverContest.enabled}
+                  onChange={() => toggleContestEnabled("driverContest")}
+
+                />
+                <div className={`block bg-gray-600 w-14 h-8 rounded-full  : ''}`}></div>
+                <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}></div>
+              </div>
+
+            </label>
+          </div>
         </div>
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
           <label
@@ -496,16 +530,32 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
           >
             03 <span className="ml-4">{t("PIN_CONTEST")}</span>
           </label>
-          <input
-            className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none "
-            id="nearPinContest"
-            type="number"
-            name="nearPinContest"
-            placeholder=""
-            min="0"
-            onChange={onInputChange}
-          />
+          {formData[selectedScoringType].nearPinContest.enabled && (
+            <input
+              className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
+              id="nearPinContest"
+              type="number"
+              name="nearPinContest"
+              placeholder=""
+              min="0"
+              max="18"
+              onChange={onInputChange}
+            />
+          )}
+          <div className="relative ml-10">
+            <input
+              type="checkbox"
+              className="sr-only"
+              checked={formData[selectedScoringType].nearPinContest.enabled}
+              onChange={() => toggleContestEnabled("nearPinContest")}
+
+            />
+            <div className={`block bg-gray-600 w-14 h-8 rounded-full  : ''}`}></div>
+            <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}></div>
+          </div>
         </div>
+
+
       </div>
     </div>
   );
