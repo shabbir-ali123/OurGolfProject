@@ -150,19 +150,19 @@ const SideMenu: React.FC = () => {
       active: false,
       subItems: [
         {
-          name: "CREATED EVENTS",
+          name: "CREATED_EVENTS",
           icon: faSearch,
           path: "/created-events",
           active: false
         },
         {
-          name: "JOINED EVENTS",
+          name: "JOINED_EVENTS",
           icon: faSearch,
           path: "/joined-events",
           active: false
         },
         {
-          name: "BOOKMARKED EVENTS",
+          name: "BOOKMARKED_EVENTS",
           icon: faSearch,
           path: "/booked-mark",
           active: false
@@ -178,7 +178,7 @@ const SideMenu: React.FC = () => {
     {
       name: "CALENDER",
       icon: faCalendar,
-      path: "/calendar-page",
+      path: "/activties-page",
     },
     {
       name: "PROFILE",

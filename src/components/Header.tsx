@@ -18,7 +18,7 @@ const navigation = [
 
 const sideMenuItems = [
   { name: "Notifications", to: "/notification", icon: faBell },
-  { name: "Calendar", to: "/calendar-page", icon: faCalendar },
+  { name: "Calendar", to: "/Schedule-page", icon: faCalendar },
   { name: "Message", to: "/notification", icon: faBell },
   { name: "Profile", to: "/calendar-page", icon: faCalendar },
   { name: "Setting", to: "/setting-page", icon: faBell },

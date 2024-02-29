@@ -51,7 +51,6 @@ interface CreateEventType {
   shotsPerHoles?: string[];
   driverContest?: number;
   nearPinContest?: number;
-
 }
 
 const CreateEvent: React.FC = () => {
@@ -101,7 +100,9 @@ const CreateEvent: React.FC = () => {
   });
   const { showToast } = useToast();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     // Check if the event is from an input element and the type is checkbox
@@ -133,59 +134,107 @@ const CreateEvent: React.FC = () => {
   };
   const [submitting, setSubmitting] = useState(false);
 
+  const getDefaultImageFile = async (imagePath: string): Promise<File> => {
+    const response = await fetch(imagePath);
+    const blob = await response.blob();
+    const imageName = imagePath.split("/").pop(); // Get the image name
+    return new File([blob], imageName || "defaultName.png", {
+      type: blob.type,
+    }); // Use a default name if imagePath is invalid
+  };
+  const defaultImage1 = "/img/FullScore.png";
+  const defaultImage2 = "/img/FullScore.png";
+  const defaultImage3 = "/img/zozo.png";
+
+  const getDefaultImages = async (): Promise<File[]> => {
+
+
+    const defaultImageFiles = await Promise.all([
+      getDefaultImageFile(defaultImage1),
+      getDefaultImageFile(defaultImage2),
+      getDefaultImageFile(defaultImage3),
+    ]);
+    return defaultImageFiles;
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (submitting) {
       return;
     }
   
-    if (!formData.files || formData.files.length < 3) {
-      showToast("Please upload at least three images to proceed.", "[#FF0000]");
-      return;
+    let updatedFiles: File[] = [];
+    if (formData.files && formData.files.length > 0) {
+      updatedFiles = formData.files;
+      if (formData.files.length === 1) {
+        const defaultFiles = await getDefaultImages();
+        updatedFiles.push(...defaultFiles.slice(0, 2));
+      } else if (formData.files.length === 2) {
+        const defaultFiles = await getDefaultImages();
+        updatedFiles.push(...defaultFiles.slice(0, 1));
+      }
+    } else {
+      updatedFiles = await getDefaultImages();
     }
-   
-    setSubmitting(true);
   
-    const selectedScoringType = localStorage.getItem('score');
-    const selectedHoles = localStorage.getItem('selected') || '[]';
-    const numberArray = JSON.parse(selectedHoles).map((str: string) => parseInt(str, 10));
-    const par = localStorage.getItem('par') || '[]';
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      files: updatedFiles,
+    }));
+    setSubmitting(true)
+    const formdata = new FormData();
+
+    updatedFiles.forEach((file: File) => {
+      formdata.append("files[]", file);
+    });
+
+    const selectedScoringType = localStorage.getItem("score") ?? "";
+    const selectedHoles = localStorage.getItem("selected") || "[]";
+    const numberArray = JSON.parse(selectedHoles).map((str: string) =>
+      parseInt(str, 10)
+    );
+    const par = localStorage.getItem("par") || "[]";
     const parArray = JSON.parse(par).map((str: string) => parseInt(str, 10));
+
     const updatedFormData: any = {
       ...formData,
       selectedScoringType: selectedScoringType,
       selectedHoles: numberArray,
-      shotsPerHoles: parArray
+      shotsPerHoles: parArray,
     };
-  
-    const formdata = new FormData();
+
     Object.keys(updatedFormData).forEach((key) => {
       let value: any = updatedFormData[key];
-      if (key === 'files' && value) {
+      if (key === "files" && value) {
         value.forEach((file: File) => {
-          formdata.append('files[]', file);
+          formdata.append("files[]", file);
         });
-      } else if (key === 'placeCoordinates') {
-        formdata.append('placeCoordinates[lat]', updatedFormData.placeCoordinates.lat);
-        formdata.append('placeCoordinates[lng]', updatedFormData.placeCoordinates.lng);
+      } else if (key === "placeCoordinates") {
+        formdata.append(
+          "placeCoordinates[lat]",
+          updatedFormData.placeCoordinates.lat
+        );
+        formdata.append(
+          "placeCoordinates[lng]",
+          updatedFormData.placeCoordinates.lng
+        );
       } else {
         formdata.append(key, value);
       }
     });
-  
+
     try {
       const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formdata, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token") ?? ""}`,
         },
       });
-  
+
       if (response.status === 201) {
         showToast("Event created successfully", "green");
-        localStorage.removeItem('score');
-        localStorage.removeItem('selected');
+        localStorage.removeItem("score");
+        localStorage.removeItem("selected");
         router("/event-main-page");
       } else {
         showToast("Error occurred while creating the event", "[#FF0000]");
@@ -197,7 +246,6 @@ const CreateEvent: React.FC = () => {
       setSubmitting(false);
     }
   };
-  
 
   const handlePaymentDetailsChange = (
     formDataUpdate: any,
@@ -264,7 +312,6 @@ const CreateEvent: React.FC = () => {
             </div>
           </div>
         </form>
-       
       </div>
     </ToastProvider>
   );
@@ -274,4 +321,3 @@ export default CreateEvent;
 function router(arg0: string) {
   throw new Error("Function not implemented.");
 }
-
