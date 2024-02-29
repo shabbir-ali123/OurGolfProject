@@ -1,12 +1,34 @@
 
 
 import { Link } from 'react-router-dom';
+import { userAuthContext } from '../contexts/authContext';
+import { useEffect } from 'react';
 
 const Profile = () => {
+
+    const { user} = userAuthContext();
+    useEffect(() => {
+    console.log({user})
+
+    }, [])
+    const formatDate = (dateString: string): string => {
+        const options: Intl.DateTimeFormatOptions = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        //   hour: '2-digit',
+        //   minute: '2-digit',
+        //   second: '2-digit',
+        //   hour12: true,
+        };
+        return new Date(dateString).toLocaleString(undefined, options);
+      };
+      
+      
   return (
     <>
    
-      <div className="max-w-6xl mx-auto rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="max-w-6xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative z-20 h-35 md:h-65">
           <img
             src="/img/cover-01.png"
@@ -14,10 +36,10 @@ const Profile = () => {
             className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
           />
           <Link to="/edit-teacher">
-          <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
+          <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4 my-2">
             <label
               htmlFor="cover"
-              className="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-90 xsm:px-4"
+              className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
            
               <span>
@@ -43,7 +65,10 @@ const Profile = () => {
                   />
                 </svg>
               </span>
-              <span>Edit</span>
+              
+              <span>Edit Profile</span>
+            
+              
             </label>
           </div>
           </Link>
@@ -51,11 +76,11 @@ const Profile = () => {
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
           <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur  sm:max-w-44 sm:p-3">
-            <div className="absolute top-[-100px] left-[40%] right-[40%] drop-shadow-2 ">
-              <img src="/img/user-06.png" alt="profile" className='w-40 h-40' />
+            <div className="absolute top-[-100px] left-[37%] right-[40%] drop-shadow-2 ">
+              <img src={user?.imageUrl} alt="profile" className='w-40 h-40 rounded-full' />
               <label
                 htmlFor="profile"
-                className="absolute bottom-0 right-[20px] flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-[50px] sm:top-[-10px"
+                className="absolute bottom-0 right-[20px] flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-[70px] "
               >
                 <svg
                   className="fill-current"
@@ -89,10 +114,10 @@ const Profile = () => {
           </div>
           <div className="mt-16">
             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-              Danish Heilium
+              {user.nickName}
             </h3>
-            <p className="font-medium">EmailExample@gmail.com</p>
-            <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
+            <p className="font-medium">{user.email}</p>
+            <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-4 rounded-md border border-stroke py-4 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
                   259
@@ -105,6 +130,13 @@ const Profile = () => {
                 </span>
                 <span className="text-sm">Events</span>
               </div>
+              <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                <span className="font-semibold text-black dark:text-white">
+                  259
+                </span>
+                <span className="text-sm">Joined Events</span>
+              </div>
+             
               <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
                   2K
@@ -112,7 +144,10 @@ const Profile = () => {
                 <span className="text-sm">Created Events</span>
               </div>
             </div>
-
+            <div className='text-center md:mt-20 sm:mt-0'>
+            <p className='font-bold'>Member Since :  {formatDate(user.createdAt)}</p>
+            </div>
+{/* 
             <div className="bg-white p-3 shadow-sm rounded-sm">
       <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 text-start">
         <span className="text-green-500">
@@ -125,13 +160,10 @@ const Profile = () => {
       <div className="text-gray-700">
         <div className="grid md:grid-cols-2 text-sm text-start">
           <div className="grid grid-cols-2">
-            <div className="px-4 py-4 font-semibold">First Name</div>
-            <div className="px-4 py-4">Jane</div>
+            <div className="px-4 py-4 font-semibold">Full Name</div>
+            <div className="px-4 py-4">{user.nickName}</div>
           </div>
-          <div className="grid grid-cols-2">
-            <div className="px-4 py-4 font-semibold">Last Name</div>
-            <div className="px-4 py-4">Doe</div>
-          </div>
+     
         
           <div className="grid grid-cols-2">
             <div className="px-4 py-4 font-semibold">Contact No.</div>
@@ -152,7 +184,7 @@ const Profile = () => {
         </div>
       </div>
      
-    </div>
+    </div> */}
 
            
           </div>

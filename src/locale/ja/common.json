@@ -199,6 +199,7 @@
     "ACCEPT":"承認",
     "DECLINE":"日承認",
     "MIN_AGO":"分前",
-    "PREV_ACTIVITIES":"以前のレッスン"
-   
+    "PREVIOUSACTIVITIES":"以前のレッスン",
+    "TODAYACTIVITIES":"今日のアクティビティ",
+    "UPCOMINGACTIVITIES":"今後の活動"
 }

@@ -204,7 +204,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
         }}
       >
-        <div>
+        <div className="flex gap-2 items-center">
           <h2 className="text-4xl text-[#626262]">{t("SCORING_CATEGORY")}</h2>
           <div className="relative">
             <div>

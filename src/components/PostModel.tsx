@@ -12,6 +12,7 @@ interface CreatePostType {
 }
 
 const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+  
   const [postContent, setPostContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const userId = localStorage.getItem("id");
@@ -125,7 +126,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
           <div>
             <label className="block text-gray-700">Add photos and videos</label>
-            <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#51ff85]">
+            <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
               <input
                 id="file-upload"
                 name="mediaFiles"
@@ -178,7 +179,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           </div>
        
           <button
-            className="w-full bg-[#51ff85] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
+            className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
             onClick={(event) => handlePost(event)}
           >
             Post

@@ -198,7 +198,10 @@
     "ACCEPT":"Accept",
     "DECLINE":"Decline",
     "MIN_AGO":"min ago",
-    "PREV_ACTIVITIES":"Previous Activities"
+    "PREVIOUSACTIVITIES":"Previous Activities",
+    "TODAYACTIVITIES":"Today Activities",
+    "UPCOMINGACTIVITIES":"Upcomming Activities"
+    
     
 
 }

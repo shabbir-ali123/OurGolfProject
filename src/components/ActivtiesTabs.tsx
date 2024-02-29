@@ -1,8 +1,11 @@
 import { Tab } from "@headlessui/react";
 import ActivtiesBox from "../components/ActivtiesBox";
 import { categories } from "../constants/activities";
+import { useTranslation } from "react-i18next";
 
 export default function Activeties() {  
+  const { t, i18n } = useTranslation();
+
   const defaultTabIndex = Object.keys(categories).indexOf('TodayActivities');
   const tabNumbers = [29, 34, 32];
 
@@ -31,7 +34,7 @@ export default function Activeties() {
                     >
                       {tabNumbers[index]}
                     </div>
-                    <span className="ml-2">{category}</span>
+                    <span className="ml-2">{  t(category.toLocaleUpperCase())}</span>
                   </div>
                 </Tab>
               ))}
