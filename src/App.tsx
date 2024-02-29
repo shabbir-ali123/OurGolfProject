@@ -43,6 +43,7 @@ import ProfilePage from "./pages/Profile";
 import { useParams } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { PostContext } from "./contexts/postsContext";
 
 function App() {
 const params = useParams();
@@ -239,7 +240,7 @@ const params = useParams();
      
         <Route path="/edit-teacher" element={token? <EditTeacher /> :<LoginPage />} />
         <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
-        <Route path="/post-page" element={<PostPage   />} />
+        <Route path="/post-page" element={<PostContext> <PostPage   /></PostContext>} />
         <Route path="/completed-lesson" element={token || token === "undefined" ? <CompleteLessonsPage /> :<LoginPage />} />
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />

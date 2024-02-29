@@ -269,11 +269,6 @@ const CreateEvent: React.FC = () => {
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
-        // style={{
-        //   backgroundImage: "url(/img/golfbgg.jpg)",
-        //   backgroundSize: "cover",
-        //   height: "auto",
-        // }}
         className="p-10 rounded-2x"
       >
         <div className=" animate__animated animate__lightSpeedInRight">
