@@ -5,7 +5,6 @@ import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
 import { useParams, useNavigate } from "react-router-dom";
-import ScoringTableRow from '../components/ScoringTableRow';
 import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
@@ -13,9 +12,8 @@ import { fetchSingleEvent } from "../utils/fetchEvents";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ScoringTable from "../components/LiveScoringTable";
 import EditTeamScore from "../components/EditTeamScore";
-// import TeamSlider from "../components/TeamSlider";
+import SliderStyles from "../components/sliderStyles";
 interface Team {
   id: string;
   name: string;
@@ -123,16 +121,7 @@ const EditTeamPage: FunctionComponent = () => {
 
   const teamCapacity = singleEvent?.capacity;
   const s = singleEvent?.selectedHoles;
-  let parsedArray = [1,2,3]
-  console.log(Array.isArray(s) , "asdasd");
-  // if (s) { // This checks if stringArray is not undefined
-  //     const validJsonArray = s.replace(/'/g, '"');
-  //        parsedArray = JSON.parse(validJsonArray);
-  //     console.log(parsedArray);
-  // } else {
-  //     console.log('stringArray is undefined');
-  // }
-  console.log(currentTeamSize, "scoresPerHole")
+  
   const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -268,8 +257,10 @@ const EditTeamPage: FunctionComponent = () => {
       
     </div>; 
   }
+ 
   return (
     <>
+    <SliderStyles />
       <div className="py-10 ml-12 ">
         <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
           <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
@@ -321,7 +312,7 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
           </div>
 
-            <div id="my-slider-container" className="max-w-7xl mx-auto my-6 slider-container">
+            <div id="my-slider-container" className="mx-auto my-6 max-w-7xl slider-container">
               {singleEvent && singleEvent.imageUrl?.length > 1 && (
                 <Slider {...settings}>
                   {singleEvent.imageUrl.slice(0, 3).map((item, index) => {
@@ -366,66 +357,45 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-0 py-4 ">
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px] ">{t('EVENT_NAME')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventName}</p>
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventName}</p>
               </div>
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px] basis-4"> {t('DATE')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0">{singleEvent?.eventStartDate}(start from {singleEvent?.eventStartTime}To {singleEvent?.
+                <p className="py-0 text-lg capitalize text-lightseagreen-200">{singleEvent?.eventStartDate}(start from {singleEvent?.eventStartTime}To {singleEvent?.
                   eventEndTime
                 })</p>
               </div>
-              <div className="flex gap-10 items-center mx-2 ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px] basis-[200px] ">{t('APPLICATION_DEADLINE')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventDeadlineDate}</p>
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventDeadlineDate}</p>
               </div>
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('EVENT_TYPE')}  :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.
                   eventType}</p>
               </div>
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('EVENT_LOCATION')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize   ">{singleEvent?.place}</p>
+                <p className="text-lg capitalize text-lightseagreen-200 ">{singleEvent?.place}</p>
               </div>
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('EVENT_LOCATION')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.eventDetails}</p>
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventDetails}</p>
               </div>
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('TOTAL_PARTICIPANT')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
               </div>
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('TEAM_SIZE')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{singleEvent?.teamSize}</p>
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.teamSize}</p>
               </div>
-              <div className="flex gap-10 items-center mx-2  ">
+              <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('JOINED_MEMBER')} :</span>
-                <p className="text-lg  text-lightseagreen-200   capitalize  py-0 rounded-sm ">{totalJoinedMembers}</p>
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{totalJoinedMembers}</p>
               </div>  
-              {/* <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Orginizer Name</span>
-                <h3 className="text-  text-lightseagreen-200  w-full capitalize  py-0 rounded-sm ">{singleEvent?.eventName}</h3>
-              </div>
-           
-             
-             
-              <div className="flex gap-10 items-center mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Scoring Type </span>
-                <h3 className="text-  text-lightseagreen-200  w-full uppercase  py-0 rounded-sm ">{singleEvent?.scoringType}</h3>
-              </div>
-             
-              <div className="flex flex-col mx-2  ">
-                <span className="text-gray-500 basis-[200px]">Event End Date</span>
-                <h3 className="text-  text-lightseagreen-200  w-full uppercase  py-0 rounded-sm ">{singleEvent?.eventEndDate}</h3>
-              </div> */}
-             
-             
-             
-            
-
             </div>
 
 
@@ -499,29 +469,7 @@ const EditTeamPage: FunctionComponent = () => {
                       <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
                       {t("TEAM_MEMBERS")}
                       </b>
-                      {/* <div className="flex gap-8">
-                        <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] bg-white rounded-md shadow-lg p-6">
-                          Team Size:{" "}
-                          <span className="text-[#17b3a6]">
-                            {singleEvent?.teamSize === 0
-                              ? 1
-                              : singleEvent?.teamSize}
-                          </span>
-                        </p>
-                        <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px] bg-white rounded-md shadow-lg p-6">
-                          Capacity:{" "}
-                          <span className="text-[#17b3a6]">
-                            {singleEvent?.capacity * singleEvent?.teamSize}
-                          </span>
-                        </p>
-
-                        <p className=" text-[30px] mt-10 text-darkslateblue-300 leading-[18px]  bg-white rounded-md shadow-lg p-6">
-                          Joined Members:{" "}
-                          <span className="text-[#17b3a6]">
-                            {totalJoinedMembers}
-                          </span>
-                        </p>
-                      </div> */}
+                      
                     </div>
                   </div>
 
@@ -534,7 +482,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </>
               )}
             </div>
-            <table className="w-full border-spacing-y-5  ">
+            <table className="w-full border-spacing-y-5 ">
               <thead className="text-left text-whitesmoke-100">
                 <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
                   <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">

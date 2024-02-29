@@ -221,11 +221,6 @@ const CreateEvent: React.FC = () => {
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
-        // style={{
-        //   backgroundImage: "url(/img/golfbgg.jpg)",
-        //   backgroundSize: "cover",
-        //   height: "auto",
-        // }}
         className="p-10 rounded-2x"
       >
         <div className=" animate__animated animate__lightSpeedInRight">
@@ -256,7 +251,6 @@ const CreateEvent: React.FC = () => {
                     {t("PREV")}
                   </button>
                   <button
-
                     onClick={handleSubmit}
                     className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >

@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { ShareIcon, HandThumbUpIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
-import { fetchPosts } from "../utils/fetchPosts";
-interface PostCardProps {
-  category: string;
-}
+import { postContext } from "../contexts/postsContext";
+
 interface Post {
   id: string;
   tags: string[];
@@ -16,14 +14,11 @@ interface Post {
   PostLikes: string[]
 }
 
-const PostCard: React.FC<PostCardProps> = ({ category }) => {
-
-  const [posts, setPosts] = useState<Post[]>([]);
+const PostCard = () => {
+  const { handleCategory, post} = postContext()
   const navigate = useNavigate();
- 
-  useEffect(() => {
-    fetchPosts(setPosts, category);
-  }, [category]);
+  
+
 
   const isAuthenticated = () => {
     return localStorage.getItem("token");
@@ -40,7 +35,7 @@ const PostCard: React.FC<PostCardProps> = ({ category }) => {
 
   return (
     <div className="grid grid-cols-2 gap-4 bg-white">
-      {posts.map((post: Post) => (
+      {post.map((post: Post) => (
         <Link to={`/read-post/${post.id}`}>
           <div key={post.id} className="flex p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
             <img

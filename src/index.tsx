@@ -20,7 +20,10 @@ root.render(
     <AuthContext>
 
       <EventsContext>
+
         <App />
+        
+
       </EventsContext>
     </AuthContext>
 

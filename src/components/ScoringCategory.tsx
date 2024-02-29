@@ -77,7 +77,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     [Tab.Normal]: {
       field1: true,
       field2: false,
-      selectedHoles: Array.from({ length: 9 }, (_, i) => String(i + 1)),
+      selectedHoles: Array.from({ length: 0 }, (_, i) => String(i + 1)),
       driverContest: 0,
       nearPinContest: 0,
     },
