@@ -47,7 +47,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
   }, [formData, activeTab, showPaymentDetails]);
   return (
     <div className="p-2 mx-auto lg:max-w-7xl ">
-      <div className="p-4 mt-4  rounded-md "
+      <div className="p-4 mt-4 rounded-md "
       style={{
         boxShadow:
           'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
@@ -55,16 +55,16 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
       >
           <div className="mb-4">
           <label className="flex items-center cursor-pointer">
-            <div className="relative">
-              <input 
-                type="checkbox" 
-                className="sr-only" 
-                onChange={() => setShowPaymentDetails(!showPaymentDetails)} 
-                checked={showPaymentDetails} 
-              />
-              <div className={`block bg-gray-600 w-14 h-8 rounded-full ${showPaymentDetails ? 'bg-[green]' : ''}`}></div>
-              <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${showPaymentDetails ? 'transform translate-x-6' : ''}`}></div>
-            </div>
+              <div className="relative">
+                <input 
+                  type="checkbox" 
+                  className="sr-only" 
+                  onChange={() => setShowPaymentDetails(!showPaymentDetails)} 
+                  checked={showPaymentDetails} 
+                />
+                <div className={`block bg-gray-600 w-14 h-8 rounded-full ${showPaymentDetails ? 'bg-[green]' : ''}`}></div>
+                <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${showPaymentDetails ? 'transform translate-x-6' : ''}`}></div>
+              </div>
             <div className="ml-3 font-medium text-[#626262]">
               {t('ADD_PAYMENT_DETAILS')}
             </div>

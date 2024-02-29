@@ -103,10 +103,14 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       nearPinContest: { enabled: false, score: 0 },
     },
   });
-
+  const [showScoringType, setShowScoringType] = useState<any>(false);
   useEffect(() => {
     handleTabClick(Tab.Regular);
   }, []);
+
+  const toggleScoringType = () => {
+    setShowScoringType((prev: boolean) => !prev);
+  };
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
@@ -175,8 +179,10 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     localStorage.setItem("par", JSON.stringify(selectedParValues));
   }, [selectedScoringType, formData, holeValues]);
 
-  const toggleContestEnabled = (contestType: "driverContest" | "nearPinContest") => {
-    setFormData(prevFormData => ({
+  const toggleContestEnabled = (
+    contestType: "driverContest" | "nearPinContest"
+  ) => {
+    setFormData((prevFormData) => ({
       ...prevFormData,
       [selectedScoringType]: {
         ...prevFormData[selectedScoringType],
@@ -187,10 +193,6 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       },
     }));
   };
-
-
-
-
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-7xl">
       <div
@@ -200,362 +202,399 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
         }}
       >
-        <h2 className="text-4xl text-[#626262]">{t("SCORING_CATEGORY")}</h2>
-        <h4 className="text-[#626262]">
-          01 <span className="ml-4 text-[#626262]">{t("SCORING_TYPE")}</span>
-        </h4>
-        <div className="flex gap-10">
-          <div>
-            <input
-              className="rounded-full"
-              type="checkbox"
-              checked={selectedScoringType === Tab.Regular}
-              name={Tab.Regular}
-              onChange={handleScoringTypeChange}
-            />
-            <button
-              onClick={() => handleTabClick(Tab.Regular)}
-              type="button"
-              className={
-                activeTab === Tab.Regular
-                  ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
-              }
-            >
-              {t("REGULAR")}
-            </button>
-          </div>
-          <div>
-            <input
-              className="rounded-full"
-              type="checkbox"
-              checked={selectedScoringType === Tab.Single}
-              name={Tab.Single}
-              onChange={handleScoringTypeChange}
-            />
-            <button
-              onClick={() => handleTabClick(Tab.Single)}
-              type="button"
-              className={
-                activeTab === Tab.Single
-                  ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
-              }
-            >
-              {t("PERIA")}
-            </button>
-          </div>
-          <div>
-            <input
-              className="rounded-full"
-              type="checkbox"
-              checked={selectedScoringType === Tab.Double}
-              name={Tab.Double}
-              onChange={handleScoringTypeChange}
-            />
-            <button
-              onClick={() => handleTabClick(Tab.Double)}
-              type="button"
-              className={
-                activeTab === Tab.Double
-                  ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
-              }
-            >
-              {t("DOUBLE_PERIA")}
-            </button>
-          </div>
-          <div>
-            <input
-              className="rounded-full"
-              type="checkbox"
-              checked={selectedScoringType === Tab.Triple}
-              name={Tab.Triple}
-              onChange={handleScoringTypeChange}
-            />
-            <button
-              onClick={() => handleTabClick(Tab.Triple)}
-              type="button"
-              className={
-                activeTab === Tab.Triple
-                  ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
-                  : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
-              }
-            >
-              {t("TRIPLE_PERIA")}
-            </button>
+        <div>
+          <h2 className="text-4xl text-[#626262]">{t("SCORING_CATEGORY")}</h2>
+          <div className="relative">
+            <div>
+              <input
+                type="checkbox"
+                className="sr-only"
+                checked={showScoringType}
+              />
+            </div>
+
+            <div
+              onClick={toggleScoringType}
+              className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                showScoringType ? "bg-[green]" : ""
+              }`}
+            ></div>
+            <div
+              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
+                showScoringType ? "transform translate-x-6" : ""
+              }`}
+            ></div>
           </div>
         </div>
-        {selectedScoringType === Tab.Regular && (
-          <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-            <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4 className="text-[#626262]">Please select 9 holes</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
-                {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center my-2" key={index + 1}>
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
-
-                        onChange={(e) => handleHoleSelection(e, index)}
-                        id={String(index + 1)}
-                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                      />
-                      <label
-                        htmlFor={String(index + 1)}
-                        className="text-[#626262]"
-                      >
-                        {t("HOLE")}
-                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
-                          {index + 1}
-                        </span>
-                      </label>
-                      <div className="flex items-center gap-3">
-                        <label
-                          htmlFor={String(index + 1)}
-                          className="text-[#626262]"
-                        >
-                          {t("Par")}
-                        </label>
-                        <input
-                          className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
-                          id={String(index + 1)}
-                          type="number"
-                          name="nearPinContest"
-                          placeholder=""
-                          value={holeValues[index]}
-                          min="0"
-                          onChange={(e) => handleParInputChange(e, index)}
-                        />
+        {showScoringType && (
+          <>
+            <h4 className="text-[#626262]">
+              01{" "}
+              <span className="ml-4 text-[#626262]">{t("SCORING_TYPE")}</span>
+            </h4>
+            <div className="flex gap-10">
+              <div>
+                <input
+                  className="rounded-full"
+                  type="checkbox"
+                  checked={selectedScoringType === Tab.Regular}
+                  name={Tab.Regular}
+                  onChange={handleScoringTypeChange}
+                />
+                <button
+                  onClick={() => handleTabClick(Tab.Regular)}
+                  type="button"
+                  className={
+                    activeTab === Tab.Regular
+                      ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
+                      : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
+                  }
+                >
+                  {t("REGULAR")}
+                </button>
+              </div>
+              <div>
+                <input
+                  className="rounded-full"
+                  type="checkbox"
+                  checked={selectedScoringType === Tab.Single}
+                  name={Tab.Single}
+                  onChange={handleScoringTypeChange}
+                />
+                <button
+                  onClick={() => handleTabClick(Tab.Single)}
+                  type="button"
+                  className={
+                    activeTab === Tab.Single
+                      ? "active-tab bg-[#51ff85] rounded-md cursor-pointer animate-bounce py-2 px-4"
+                      : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
+                  }
+                >
+                  {t("PERIA")}
+                </button>
+              </div>
+              <div>
+                <input
+                  className="rounded-full"
+                  type="checkbox"
+                  checked={selectedScoringType === Tab.Double}
+                  name={Tab.Double}
+                  onChange={handleScoringTypeChange}
+                />
+                <button
+                  onClick={() => handleTabClick(Tab.Double)}
+                  type="button"
+                  className={
+                    activeTab === Tab.Double
+                      ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
+                      : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
+                  }
+                >
+                  {t("DOUBLE_PERIA")}
+                </button>
+              </div>
+              <div>
+                <input
+                  className="rounded-full"
+                  type="checkbox"
+                  checked={selectedScoringType === Tab.Triple}
+                  name={Tab.Triple}
+                  onChange={handleScoringTypeChange}
+                />
+                <button
+                  onClick={() => handleTabClick(Tab.Triple)}
+                  type="button"
+                  className={
+                    activeTab === Tab.Triple
+                      ? "active-tab bg-[#51ff85] rounded-md animate-bounce cursor-pointer py-2 px-4"
+                      : "bg-transparent py-2 px-4 cursor-pointer text-[#626262]"
+                  }
+                >
+                  {t("TRIPLE_PERIA")}
+                </button>
+              </div>
+            </div>
+            {selectedScoringType === Tab.Regular && (
+              <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
+                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                  <h4 className="text-[#626262]">Please select 9 holes</h4>
+                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                    {Array.from({ length: 18 }, (_, index) => (
+                      <div className="flex items-center my-2" key={index + 1}>
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            checked={formData[
+                              selectedScoringType
+                            ].selectedHoles.includes(String(index + 1))}
+                            onChange={(e) => handleHoleSelection(e, index)}
+                            id={String(index + 1)}
+                            className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                          />
+                          <label
+                            htmlFor={String(index + 1)}
+                            className="text-[#626262]"
+                          >
+                            {t("HOLE")}
+                            <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
+                              {index + 1}
+                            </span>
+                          </label>
+                          <div className="flex items-center gap-3">
+                            <label
+                              htmlFor={String(index + 1)}
+                              className="text-[#626262]"
+                            >
+                              {t("Par")}
+                            </label>
+                            <input
+                              className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                              id={String(index + 1)}
+                              type="number"
+                              name="nearPinContest"
+                              placeholder=""
+                              value={holeValues[index]}
+                              min="0"
+                              onChange={(e) => handleParInputChange(e, index)}
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+              </div>
+            )}
+            {selectedScoringType === Tab.Single && (
+              <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
+                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                  <h4 className="text-[#626262]">Please select 9 holes</h4>
+                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                    {Array.from({ length: 18 }, (_, index) => (
+                      <div className="flex items-center gap-5" key={index + 1}>
+                        <div className="flex items-center my-2">
+                          <input
+                            type="checkbox"
+                            checked={formData[
+                              selectedScoringType
+                            ].selectedHoles.includes(String(index + 1))}
+                            onChange={(e) => handleHoleSelection(e, index)}
+                            id={String(index + 1)}
+                            className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                          />
+                          <label
+                            htmlFor={String(index + 1)}
+                            className="text-[#626262]"
+                          >
+                            {t("HOLE")}
+                            <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
+                              {index + 1}
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <label
+                            htmlFor={String(index + 1)}
+                            className="text-[#626262]"
+                          >
+                            {t("Par")}
+                          </label>
+                          <input
+                            className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                            id={String(index + 1)}
+                            type="number"
+                            name="nearPinContest"
+                            placeholder=""
+                            value={holeValues[index]}
+                            min="0"
+                            onChange={(e) => handleParInputChange(e, index)}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedScoringType === Tab.Double && (
+              <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
+                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                  <h4 className="text-[#626262]">Please select 12 holes</h4>
+                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                    {Array.from({ length: 18 }, (_, index) => (
+                      <div className="flex items-center gap-3" key={index + 1}>
+                        <div className="flex items-center my-2">
+                          <input
+                            type="checkbox"
+                            checked={formData[
+                              selectedScoringType
+                            ].selectedHoles.includes(String(index + 1))}
+                            onChange={(e) => handleHoleSelection(e, index)}
+                            id={"double" + String(index + 1)}
+                            className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                          />
+                          <label
+                            htmlFor={`double${index + 1}`}
+                            className="text-[#626262]"
+                          >
+                            {t("HOLE")}
+                            <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
+                              {index + 1}
+                            </span>
+                          </label>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <label
+                            htmlFor={String(index + 1)}
+                            className="text-[#626262]"
+                          >
+                            {t("Par")}
+                          </label>
+                          <input
+                            className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                            id={String(index + 1)}
+                            type="number"
+                            name="nearPinContest"
+                            placeholder=""
+                            value={holeValues[index]}
+                            min="0"
+                            onChange={(e) => handleParInputChange(e, index)}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedScoringType === Tab.Triple && (
+              <div className="grid grid-cols-9 mx-auto text-[#626262] lg:gap-x-16 ">
+                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                  <h4>{t("SELECT_HOLE")}</h4>
+                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                    {Array.from({ length: 18 }, (_, index) => (
+                      <div className="flex items-center gap-3" key={index + 1}>
+                        <div className="flex items-center my-2">
+                          <input
+                            type="checkbox"
+                            checked={formData[
+                              selectedScoringType
+                            ].selectedHoles.includes(String(index + 1))}
+                            onChange={(e) => handleHoleSelection(e, index)}
+                            id={String(index + 1)}
+                            className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
+                          />
+                          <label htmlFor={`triple${index + 1}`}>
+                            {t("HOLE")}
+                            <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
+                              {index + 1}
+                            </span>
+                          </label>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <label
+                            htmlFor={String(index + 1)}
+                            className="text-[#626262]"
+                          >
+                            {t("Par")}
+                          </label>
+                          <input
+                            className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
+                            id={String(index + 1)}
+                            type="number"
+                            name="nearPinContest"
+                            placeholder=""
+                            value={holeValues[index]}
+                            min="0"
+                            onChange={(e) => handleParInputChange(e, index)}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            <p className="text-[#626262]">Optional</p>
+
+            <div className="flex items-center col-span-12 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
+              <label
+                htmlFor="driverContest"
+                className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
+              >
+                02
+                <span className="ml-4">{t("DRIVER_CONTEST")}</span>
+              </label>
+              {formData[selectedScoringType].driverContest.enabled && (
+                <input
+                  className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
+                  id="driverContest"
+                  type="number"
+                  name="driverContest"
+                  placeholder=""
+                  min="0"
+                  max="18"
+                  onChange={onInputChange}
+                />
+              )}
+              <div className="mb-4">
+                <label className="flex items-center cursor-pointer">
+                  <div className="relative ml-10">
+                    <input
+                      type="checkbox"
+                      className="sr-only"
+                      checked={
+                        formData[selectedScoringType].driverContest.enabled
+                      }
+                      onChange={() => toggleContestEnabled("driverContest")}
+                    />
+                    <div
+                      className={`block bg-gray-600 w-14 h-8 rounded-full  : ''}`}
+                    ></div>
+                    <div
+                      className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}
+                    ></div>
+                  </div>
+                </label>
               </div>
             </div>
-          </div>
-        )}
-        {selectedScoringType === Tab.Single && (
-          <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-            <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4 className="text-[#626262]">Please select 9 holes</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
-                {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center gap-5" key={index + 1}>
-                    <div className="flex items-center my-2">
-                      <input
-                        type="checkbox"
-                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
-                        onChange={(e) => handleHoleSelection(e, index)}
-                        id={String(index + 1)}
-                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                      />
-                      <label
-                        htmlFor={String(index + 1)}
-                        className="text-[#626262]"
-                      >
-                        {t("HOLE")}
-                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
-                          {index + 1}
-                        </span>
-                      </label>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <label
-                        htmlFor={String(index + 1)}
-                        className="text-[#626262]"
-                      >
-                        {t("Par")}
-                      </label>
-                      <input
-                        className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
-                        id={String(index + 1)}
-                        type="number"
-                        name="nearPinContest"
-                        placeholder=""
-                        value={holeValues[index]}
-                        min="0"
-                        onChange={(e) => handleParInputChange(e, index)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {selectedScoringType === Tab.Double && (
-          <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-            <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4 className="text-[#626262]">Please select 12 holes</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
-                {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center gap-3" key={index + 1}>
-                    <div className="flex items-center my-2">
-                      <input
-                        type="checkbox"
-                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
-
-                        onChange={(e) => handleHoleSelection(e, index)}
-                        id={"double" + String(index + 1)}
-                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                      />
-                      <label
-                        htmlFor={`double${index + 1}`}
-                        className="text-[#626262]"
-                      >
-                        {t("HOLE")}
-                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full text-[#626262]">
-                          {index + 1}
-                        </span>
-                      </label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <label
-                        htmlFor={String(index + 1)}
-                        className="text-[#626262]"
-                      >
-                        {t("Par")}
-                      </label>
-                      <input
-                        className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
-                        id={String(index + 1)}
-                        type="number"
-                        name="nearPinContest"
-                        placeholder=""
-                        value={holeValues[index]}
-                        min="0"
-                        onChange={(e) => handleParInputChange(e, index)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {selectedScoringType === Tab.Triple && (
-          <div className="grid grid-cols-9 mx-auto text-[#626262] lg:gap-x-16 ">
-            <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-              <h4>{t("SELECT_HOLE")}</h4>
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
-                {Array.from({ length: 18 }, (_, index) => (
-                  <div className="flex items-center gap-3" key={index + 1}>
-                    <div className="flex items-center my-2">
-                      <input
-                        type="checkbox"
-                        checked={formData[selectedScoringType].selectedHoles.includes(String(index + 1))}
-                        onChange={(e) => handleHoleSelection(e, index)}
-                        id={String(index + 1)}
-                        className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
-                      />
-                      <label htmlFor={`triple${index + 1}`}>
-                        {t("HOLE")}
-                        <span className="py-[2px] px-2 border-solid border-2 border-[#51ff85] rounded-full">
-                          {index + 1}
-                        </span>
-                      </label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <label
-                        htmlFor={String(index + 1)}
-                        className="text-[#626262]"
-                      >
-                        {t("Par")}
-                      </label>
-                      <input
-                        className="text-center appearance-none block w-[30px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-1 px-2 leading-tight focus:outline-none "
-                        id={String(index + 1)}
-                        type="number"
-                        name="nearPinContest"
-                        placeholder=""
-                        value={holeValues[index]}
-                        min="0"
-                        onChange={(e) => handleParInputChange(e, index)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-        <p className="text-[#626262]">Optional</p>
-
-        <div className="flex items-center col-span-12 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
-          <label
-            htmlFor="driverContest"
-            className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
-          >
-            02
-            <span className="ml-4">{t("DRIVER_CONTEST")}</span>
-          </label>
-          {formData[selectedScoringType].driverContest.enabled && (
-            <input
-              className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
-              id="driverContest"
-              type="number"
-              name="driverContest"
-              placeholder=""
-              min="0"
-              max="18"
-              onChange={onInputChange}
-            />
-          )}
-          <div className="mb-4">
-            <label className="flex items-center cursor-pointer">
+            <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
+              <label
+                htmlFor="nearPinContest"
+                className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
+              >
+                03 <span className="ml-4">{t("PIN_CONTEST")}</span>
+              </label>
+              {formData[selectedScoringType].nearPinContest.enabled && (
+                <input
+                  className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
+                  id="nearPinContest"
+                  type="number"
+                  name="nearPinContest"
+                  placeholder=""
+                  min="0"
+                  max="18"
+                  onChange={onInputChange}
+                />
+              )}
               <div className="relative ml-10">
                 <input
                   type="checkbox"
                   className="sr-only"
-                  checked={formData[selectedScoringType].driverContest.enabled}
-                  onChange={() => toggleContestEnabled("driverContest")}
-
+                  checked={formData[selectedScoringType].nearPinContest.enabled}
+                  onChange={() => toggleContestEnabled("nearPinContest")}
                 />
-                <div className={`block bg-gray-600 w-14 h-8 rounded-full  : ''}`}></div>
-                <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}></div>
+                <div className="block h-8 bg-gray-600 rounded-full w-14"></div>
+                <div
+                  className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}
+                ></div>
               </div>
-
-            </label>
-          </div>
-        </div>
-        <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-2 md:col-span-2 md:mr-0 md:mb-3">
-          <label
-            htmlFor="nearPinContest"
-            className="block mb-2 text-xs font-bold tracking-wide text-[#626262] capitalize"
-          >
-            03 <span className="ml-4">{t("PIN_CONTEST")}</span>
-          </label>
-          {formData[selectedScoringType].nearPinContest.enabled && (
-            <input
-              className="text-center appearance-none block w-[50px] bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-2 mb-3 ml-[36px] leading-tight focus:outline-none"
-              id="nearPinContest"
-              type="number"
-              name="nearPinContest"
-              placeholder=""
-              min="0"
-              max="18"
-              onChange={onInputChange}
-            />
-          )}
-          <div className="relative ml-10">
-            <input
-              type="checkbox"
-              className="sr-only"
-              checked={formData[selectedScoringType].nearPinContest.enabled}
-              onChange={() => toggleContestEnabled("nearPinContest")}
-
-            />
-            <div className={`block bg-gray-600 w-14 h-8 rounded-full  : ''}`}></div>
-            <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition `}></div>
-          </div>
-        </div>
-
-
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
