@@ -28,6 +28,17 @@ tId = tId[tId.length - 1 ]
   const [notification, setNotification] = useState(false);
 
 
+  // useEffect(() => {
+  //   const userId = localStorage.getItem("id");
+  //   handleUser(userId)
+  //     .then((userData: any) => {
+  //       setUser(userData.user);
+  //       localStorage.setItem("user", JSON.stringify(userData.user));
+  //     })
+  //     .catch((error: string) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, []);
 
   const handleDotClick = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -142,7 +153,7 @@ tId = tId[tId.length - 1 ]
               <div className="fixed right-[100px] mt-2 bg-white rounded-md shadow-lg w-[200px] z-[9999]">
                 <ul className="py-1 text-center">
                   {token ? (
-                    <Link to="/profile">
+                    <Link to="/profile-page">
                       <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +170,7 @@ tId = tId[tId.length - 1 ]
                           />
                         </svg>
 
-                        <Link to="/profile">{t("PROFILE")}</Link>
+                        <Link to="/profile-page">{t("PROFILE")}</Link>
                       </li>
                     </Link>
                   ) : (

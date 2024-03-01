@@ -6,7 +6,7 @@ const PostsContext = React.createContext<any>({});
 
 export const PostContext = ({children}:any)=>{
     const [post, setPost] = useState<any[]>([]);
-    const [category, setCategory] = useState<string>('party')
+    const [category, setCategory] = useState<string>('Public')
 
     useEffect(() => {
         fetchPosts(setPost, category);
