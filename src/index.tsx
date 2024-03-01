@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { EventsContext } from "./contexts/eventContext";
 import { AuthContext } from "./contexts/authContext";
+import {  SingleEventsContext } from "./contexts/singleEventContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -20,8 +21,10 @@ root.render(
     <AuthContext>
 
       <EventsContext>
+        <SingleEventsContext>
 
         <App />
+        </SingleEventsContext>
         
 
       </EventsContext>
