@@ -14,6 +14,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import EditTeamScore from "../components/EditTeamScore";
 import SliderStyles from "../components/sliderStyles";
+import { SingleEventsContext, singleEventContextStore } from "../contexts/singleEventContext";
 interface Team {
   id: string;
   name: string;
@@ -54,6 +55,7 @@ interface SingleEvent {
 
 const EditTeamPage: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
+  const {handleEventId, handleIsCreated, event} = singleEventContextStore()
   const teamId = params.id;
   const router = useNavigate();
   const { t, i18n } = useTranslation();
@@ -212,15 +214,19 @@ const EditTeamPage: FunctionComponent = () => {
 
   useEffect(() => {
     const fetchAndUpdateTeams = async () => {
-      setIsLoading(true); // Set loading to true when starting to fetch
+      setIsLoading(true); 
       await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
       setShouldRefetchTeams(false);
       await fetchSingleEvent(teamId, setSingleEvent, setCreatedBy);
-      setIsLoading(false); // Set loading to false once data is fetched
+      setIsLoading(false);
     };
     fetchAndUpdateTeams();
   }, [teamId]);
 
+  // useEffect(() => {
+  //   handleEventId(teamId)
+  // }, [])
+  
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
   }, [open]);

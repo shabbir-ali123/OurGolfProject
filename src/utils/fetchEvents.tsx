@@ -88,7 +88,6 @@ export const fetchSingleEvent = async (eventId:any, setEvent:any, setCreatedBy?:
     }
     const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETEVENTBYID + eventId : API_ENDPOINTS.GETPUBLICEVENTBYID + eventId, {
       headers,
-     
     });
     setEvent(response.data.event);
     if(response.data.event.creatorId == id){
