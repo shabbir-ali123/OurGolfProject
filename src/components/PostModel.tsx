@@ -161,11 +161,9 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             <option value="" >
               Select Category
             </option>
-            <option value="Party">Party</option>
-            <option value="Before Match">Before Match</option>
-            <option value="Match">Match</option>
-            <option value="After Match">After Match</option>
-            <option value="Event">Event</option>
+            <option value="Public">Public</option>
+            <option value="Private">Private</option>
+           
           </select>
           <div>
             <label htmlFor="">Add tags</label>

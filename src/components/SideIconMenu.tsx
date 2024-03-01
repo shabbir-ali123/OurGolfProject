@@ -172,7 +172,7 @@ const SideMenu: React.FC = () => {
     {
       name: "FIND_TEACHER",
       icon: faSearch,
-      path: "/teacher-page",
+      path: "/student-page",
       active: false
     },
     {
@@ -283,7 +283,7 @@ const SideMenu: React.FC = () => {
                   {item.subItems.map((subItem) => (
                     <li className="mx-2">
                       <Link to={subItem.path} className="w-full" key={subItem.name}>
-                        <div className="bg-white rounded-md shadow-lg mt-2 p-6"
+                        <div className="bg-white rounded-md shadow-lg mt-2 p-6 text-[#626262]"
                          style={{
                           boxShadow: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
                         }}

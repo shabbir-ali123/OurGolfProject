@@ -21,7 +21,7 @@ tId = tId[tId.length - 1 ]
   console.log(user, 'user')
   const languages = {
     en: { displayName: "English" },
-    ja: { displayName: i18n.language === "en" ? "Japan" : "日本語" },
+    ja: { displayName: i18n.language === "en" ? "日本語" : "日本語" },
   };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -77,8 +77,8 @@ tId = tId[tId.length - 1 ]
                   onClick={() => handleChangeLanguage("ja")}
                   className={
                     i18n.resolvedLanguage === "ja"
-                      ? "actives  rounded-l-full p-1"
-                      : "rounded-l-full p-1"
+                      ? "actives  rounded-l-full p-1 cursor-pointer"
+                      : "rounded-l-full p-1 cursor-pointer"
                   }
                 >
                   {languages.ja.displayName}
@@ -87,8 +87,8 @@ tId = tId[tId.length - 1 ]
                   onClick={() => handleChangeLanguage("en")}
                   className={
                     i18n.resolvedLanguage === "en"
-                      ? "actives rounded-r-full  p-1"
-                      : "rounded-r-full p-1"
+                      ? "actives rounded-r-full  p-1 cursor-pointer"
+                      : "rounded-r-full p-1 cursor-pointer"
                   }
                 >
                   {languages.en.displayName}
@@ -108,8 +108,8 @@ tId = tId[tId.length - 1 ]
                     onClick={() => handleChangeLanguage("ja")}
                     className={
                       i18n.resolvedLanguage === "ja"
-                        ? "actives rounded-l-full p-1"
-                        : "rounded-l-full p-1"
+                        ? "actives rounded-l-full p-1 cursor-pointer"
+                        : "rounded-l-full p-1 cursor-pointer"
                     }
                   >
                     {languages.ja.displayName}
@@ -118,8 +118,8 @@ tId = tId[tId.length - 1 ]
                     onClick={() => handleChangeLanguage("en")}
                     className={
                       i18n.resolvedLanguage === "en"
-                        ? "actives rounded-r-full p-1"
-                        : "rounded-r-full p-1"
+                        ? "actives rounded-r-full p-1 cursor-pointer"
+                        : "rounded-r-full p-1 cursor-pointer"
                     }
                   >
                     {languages.en.displayName}

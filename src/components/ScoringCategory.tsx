@@ -84,7 +84,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     [Tab.Single]: {
       field1: true,
       field2: false,
-      selectedHoles: Array.from({ length: 9 }, (_, i) => String(i + 1)),
+      selectedHoles: Array.from({ length: 6 }, (_, i) => String(i + 1)),
       driverContest: { enabled: false, score: 0 },
       nearPinContest: { enabled: false, score: 0 },
     },
@@ -98,7 +98,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     [Tab.Triple]: {
       field1: true,
       field2: false,
-      selectedHoles: Array.from({ length: 6 }, (_, i) => String(i + 1)),
+      selectedHoles: Array.from({ length: 9 }, (_, i) => String(i + 1)),
       driverContest: { enabled: false, score: 0 },
       nearPinContest: { enabled: false, score: 0 },
     },
@@ -319,7 +319,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             {selectedScoringType === Tab.Regular && (
               <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
                 <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-                  <h4 className="text-[#626262]">Please select 9 holes</h4>
+                  <h4 className="text-[#626262]">{t("PLEASE_HOLE")} </h4>
                   <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center my-2" key={index + 1}>
@@ -370,7 +370,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             {selectedScoringType === Tab.Single && (
               <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
                 <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-                  <h4 className="text-[#626262]">Please select 9 holes</h4>
+                  <h4 className="text-[#626262]">06 {t("SELECT_HOLE")} </h4>
                   <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center gap-5" key={index + 1}>
@@ -423,7 +423,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             {selectedScoringType === Tab.Double && (
               <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
                 <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-                  <h4 className="text-[#626262]">Please select 12 holes</h4>
+                  <h4 className="text-[#626262]">12 {t("SELECT_HOLE")} </h4>
                   <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center gap-3" key={index + 1}>
@@ -475,7 +475,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             {selectedScoringType === Tab.Triple && (
               <div className="grid grid-cols-9 mx-auto text-[#626262] lg:gap-x-16 ">
                 <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-                  <h4>{t("SELECT_HOLE")}</h4>
+                  <h4>09 {t("SELECT_HOLE")} </h4>
                   <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center gap-3" key={index + 1}>

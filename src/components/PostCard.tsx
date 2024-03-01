@@ -61,9 +61,7 @@ const PostCard = () => {
                   <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
                     {post.tags}
                   </span>
-                  <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                    #Party
-                  </span>
+                
                 </div>
                 <div className="flex mt-6 space-x-4">
                   <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" onClick={handleInteraction} data-interaction="comment" > <EnvelopeIcon

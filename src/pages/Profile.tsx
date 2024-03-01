@@ -29,7 +29,7 @@ const Profile = () => {
     <>
    
       <div className="max-w-6xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="relative z-20 h-35 md:h-65">
+        <div className="relative  h-35 md:h-65">
           <img
             src="/img/cover-01.png"
             alt="profile cover"
@@ -76,8 +76,8 @@ const Profile = () => {
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
           <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur  sm:max-w-44 sm:p-3">
-            <div className="absolute top-[-100px] left-[37%] right-[40%] drop-shadow-2 ">
-              <img src={user?.imageUrl} alt="profile" className='w-40 h-40 rounded-full' />
+            <div className="absolute top-[-100px] left-[37%] right-[40%] drop-shadow-2  ">
+              <img src={user?.imageUrl} alt="profile" className='w-40 h-40 md: w-20 h-20 sm: w-20 h-20 rounded-full' />
               <label
                 htmlFor="profile"
                 className="absolute bottom-0 right-[20px] flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-[70px] "
