@@ -15,7 +15,7 @@ export const PostContext = ({children}:any)=>{
     const handlePosts = useCallback((value: any) => {
         return setPost(value);
     }, [post]);
-
+    
     const handleCategory = useCallback((category: string) => {
         setCategory(category)
     }, [category])

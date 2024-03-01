@@ -171,12 +171,11 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       JSON.stringify(formData[selectedScoringType].selectedHoles)
     );
 
-    // Filter par values for selected holes
-    const selectedParValues = holeValues.filter((_, index) =>
-      formData[selectedScoringType].selectedHoles.includes(String(index + 1))
-    );
+    // const selectedParValues = holeValues.filter((_, index) =>
+    //   formData[selectedScoringType].selectedHoles.includes(String(index + 1))
+    // );
 
-    localStorage.setItem("par", JSON.stringify(selectedParValues));
+    localStorage.setItem("par", JSON.stringify(holeValues));
   }, [selectedScoringType, formData, holeValues]);
 
   const toggleContestEnabled = (
