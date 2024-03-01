@@ -170,7 +170,9 @@
     "DRIVER_CONTEST": "ドライバーコンテストチームの成績",
     "PIN_CONTEST": "ニアピンコンテストチームの成績",
     "NUMBER_SELECT": "整数を選択してください",
-    "SELECT_HOLE": "6穴を選択してください",
+    "SELECT_HOLE": "穴の選択",
+    "PLEASE_HOLE": "穴を選択してください",
+    "ADD_SCORE": "スコアの追加",
     "BANK_DETAILS": "銀行詳細",
     "BANK_NAME": "銀行名",
     "BRANCH": "支店名",
@@ -200,6 +202,6 @@
     "DECLINE":"日承認",
     "MIN_AGO":"分前",
     "PREVIOUSACTIVITIES":"以前のレッスン",
-    "TODAYACTIVITIES":"今日のアクティビティ",
-    "UPCOMINGACTIVITIES":"今後の活動"
+    "TODAYACTIVITIES":"本日のレッスン",
+    "UPCOMINGACTIVITIES":"今後のレッスン"
 }

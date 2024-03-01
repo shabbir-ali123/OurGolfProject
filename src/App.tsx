@@ -55,8 +55,25 @@ const params = useParams();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false)
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const tokenTimestamp = localStorage.getItem('tokenTimestamp');
+    const tokenExpirationTime = 24 * 60 * 60 * 1000; 
 
-
+    if (token && tokenTimestamp) {
+      const currentTime = new Date().getTime();
+      if (currentTime - parseInt(tokenTimestamp) > tokenExpirationTime) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenTimestamp');
+        localStorage.removeItem('nickName');
+        localStorage.removeItem('teacher_id');
+        localStorage.removeItem('user');
+        localStorage.removeItem('id');
+        localStorage.removeItem('score');
+        localStorage.removeItem('par');
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (action !== "POP") {
@@ -198,7 +215,8 @@ const params = useParams();
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
-      setToken(storedToken);    }
+      setToken(storedToken);    
+    }
   });
 
   useEffect(() => {

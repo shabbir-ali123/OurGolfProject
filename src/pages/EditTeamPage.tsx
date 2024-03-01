@@ -114,7 +114,7 @@ const EditTeamPage: FunctionComponent = () => {
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
   const [teamMembers, setTeamMembers] = useState<Members[]>([]);
-
+  const navigate = useNavigate();
   const playerList = [
     { name: "John Doe" },
     { name: "Jane Smith" },
@@ -174,7 +174,7 @@ const EditTeamPage: FunctionComponent = () => {
       return;
     }
     const teams = team;
-
+   
     const formDataObj = {
       eventId: singleEvent?.id,
       teamSize:
@@ -263,7 +263,9 @@ const EditTeamPage: FunctionComponent = () => {
       
     </div>; 
   }
- 
+  const handleNavigateHome = () => {
+    navigate('/add-score-page');
+};
   return (
     <>
     <SliderStyles />
@@ -465,7 +467,12 @@ const EditTeamPage: FunctionComponent = () => {
                     >
                       Remove Players List
                     </button>
-                    
+                    <button
+                      className="px-2 py-1 font-normal text-white bg-blue-500 rounded hover:bg-blue-700"
+                      onClick={handleNavigateHome}
+                    >
+                      Add Players Score
+                    </button>
                   </div>
                 </>
               ) : (
