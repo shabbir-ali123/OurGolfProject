@@ -402,7 +402,7 @@ const EditTeamPage: FunctionComponent = () => {
 
 
           </div>
-            <EditTeamScore hole={singleEvent?.selectedHoles} par={singleEvent?.shotsPerHoles} />
+            <EditTeamScore hole={singleEvent?.selectedHoles} par={singleEvent?.shotsPerHoles} isCreator={isCreated} />
           {/* edit team div */}
           <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10 ">
             <div className="flex items-end justify-between">

@@ -21,7 +21,7 @@ export const API_ENDPOINTS = {
   GETJOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/get-joined-events`,
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/join-event/`,
   GETEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-event-by-id/`,
-GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
+  GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
  
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
