@@ -31,11 +31,14 @@ const Login: React.FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const response = await axios.post(API_ENDPOINTS.LOGIN, formData);
+      const tokenTimestamp = new Date().getTime().toString();
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data.jwtToken);
         localStorage.setItem("id", response.data.id);
         localStorage.setItem("teacher_id", response.data.teacherId);
+        localStorage.setItem('tokenTimestamp', tokenTimestamp);
+
         router("/event-main-page");
         window.location.reload();
       }
@@ -49,7 +52,7 @@ const Login: React.FC = () => {
     }
   };
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
+    <section className="bg-gray-50 ">
       {loading && (
         <div className="flex items-center justify-center h-screen">
           <BeatLoader color="#51ff85" size={15} />

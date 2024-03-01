@@ -28,17 +28,6 @@ tId = tId[tId.length - 1 ]
   const [notification, setNotification] = useState(false);
 
 
-  // useEffect(() => {
-  //   const userId = localStorage.getItem("id");
-  //   handleUser(userId)
-  //     .then((userData: any) => {
-  //       setUser(userData.user);
-  //       localStorage.setItem("user", JSON.stringify(userData.user));
-  //     })
-  //     .catch((error: string) => {
-  //       console.error("Error:", error);
-  //     });
-  // }, []);
 
   const handleDotClick = () => {
     setDropdownOpen((prevState) => !prevState);

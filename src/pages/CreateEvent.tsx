@@ -235,6 +235,7 @@ const CreateEvent: React.FC = () => {
         showToast("Event created successfully", "green");
         localStorage.removeItem("score");
         localStorage.removeItem("selected");
+        localStorage.removeItem("par");
         router("/event-main-page");
       } else {
         showToast("Error occurred while creating the event", "[#FF0000]");
