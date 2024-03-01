@@ -459,6 +459,7 @@ const EditTeamPage: FunctionComponent = () => {
                     >
                       Remove Players List
                     </button>
+                    
                   </div>
                 </>
               ) : (
