@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { singleEventContextStore } from '../contexts/EventContext';
+import { singleTeamsContextStore } from '../contexts/TeamContext';
+import Player from '../components/Player';
 
 interface GolfScoreProps {
   onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
 }
 
 const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
+  const {isCreated, singleEvent} = singleEventContextStore()
+  const hole = singleEvent ? singleEvent?.selectedHoles : [];
+  const newArrayHole = hole?.split(",").map(Number)
+
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [scores, setScores] = useState<number[]>(new Array(18).fill(0));
@@ -40,6 +47,14 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       />
     </td>
   ));
+  
+  const {
+    handleSingleTeam,
+    totalJoinedMembers,
+    teamMembers,
+    isLoading,
+    teams,
+  } = singleTeamsContextStore();
 
   return (
     <div className='max-w-7xl mx-auto'>
@@ -67,10 +82,21 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
             <th className='text-center px-2 py-3'>Total</th>
             <th className='text-center px-2 py-3'>HDCP</th>
             <th className='text-center px-2 py-3'>Net</th>
+           
           </tr>
           <tr>
             <th className="px-2 py-3">PAR</th>
-            {pars.map((par, index) => <td className='text-center' key={`par-${index}`}>{par}</td>)}
+            {[...Array(18)].map((_, i) => {
+                                const match = newArrayHole?.includes(i + 1);
+
+
+                const bgColor = match ? "bg-red" : "";
+                return (
+                  <th key={i} scope="col" className={`px-2 py-3 ${bgColor }`}>
+                    {i + 1}
+                  </th>
+                );
+              })}
             <td className='text-center font-bold'>{calculateTotalPar()}</td>
             <td className='text-center font-bold'>{calculateHDCP().toFixed(2)}</td>
             <td className='text-center font-bold'>{(calculateTotalScore() - calculateHDCP()).toFixed(2)}</td>
@@ -79,9 +105,36 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
             <th>Score</th>
             {renderScoreInputs()}
             <td className='text-center font-bold'>{calculateTotalScore()}</td>
-            <td></td> {/* Placeholder if additional calculation is needed */}
-            <td></td> {/* Placeholder if additional calculation is needed */}
+            <td></td> 
+            <td></td> 
           </tr>
+          {teams?.map((team: any) => {
+            
+              {
+                return  team.members?.map((member: any, memberIndex: any) => (
+                   <tr className="py-4 pl-4 whitespace-nowrap">
+                    <Player
+                      isCreator={isCreated}
+                      key={memberIndex}
+                      showNumber={false}
+                      enableHover={true}
+                      onEdit={() => {
+                        // setSelectedPlayerNickname(member.nickName);
+                        // setSelectedUserId(member.userId);
+                        // setSelectedTeamName(team.name);
+                        // setEditOpen(true);
+                      }}
+                      onDelete={() => {}}
+                      name={member.nickName}
+                      imageUrl={member.imageUrl}
+                    />
+                    {renderScoreInputs()}
+                    <td className='text-center font-bold'>{calculateTotalScore()}</td>
+
+                  </tr>
+                ));
+              }
+            })}
         </thead>
       </table>
       <button

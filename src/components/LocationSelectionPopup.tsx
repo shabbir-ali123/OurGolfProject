@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { eventContextStore } from '../contexts/eventContext';
+import { eventContextStore } from '../contexts/EventContext';
 
 interface JapanCities {
   [key: string]: string[];

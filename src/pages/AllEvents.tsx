@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import Pagination from "../components/Pagination";
 import EventMap from "../components/EventMap";
 import Table from "../components/Table";
-import { eventContextStore } from "../contexts/eventContext";
+import { eventContextStore } from "../contexts/EventContext";
 
  interface Event {
   id: string;
@@ -67,7 +67,7 @@ const AllEvents: React.FC<AllEventsProps> = ({
       console.error("Error updating like:", error);
     }
   };
-  const { eventsCount, handlePageChange } = eventContextStore();
+  const { eventsCount, handlePageChange, handlePageSize} = eventContextStore();
   const totalPages = Math.ceil(eventsCount / 6); 
   const onPageChange = (pageNumber:any) => {
     setCurrentPage(pageNumber); 
@@ -81,7 +81,7 @@ const AllEvents: React.FC<AllEventsProps> = ({
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
-          pageSize={6}
+          pageSize={handlePageSize}
           isPreviousDisabled={currentPage === 1}
           isNextDisabled={currentPage === totalPages}
         />

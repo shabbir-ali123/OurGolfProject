@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { postContext } from '../contexts/postsContext';
+import { postContext } from '../contexts/PostsContext';
 interface FilterCategory {
 }
 

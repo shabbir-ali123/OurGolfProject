@@ -2,9 +2,9 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 
-export const fetchTeams = async (setTeams: any,  eventId: any, setTeamMembers: any, setTotalJoinedMembers:any) => {
+export const fetchTeams = async (setTeams: any, eventId: any, setTeamMembers: any, setTotalJoinedMembers:any) => {
     try {
-
+        
         const response = await fetch(API_ENDPOINTS.GETTEAMSBYEVENT + eventId, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -21,7 +21,26 @@ export const fetchTeams = async (setTeams: any,  eventId: any, setTeamMembers: a
         console.error("Error fetching teams:", error);
     }
 };
+export const fetchTeam = async (teamId: any) => {
+    try {
+        const token = localStorage.getItem("token");
+        const headers: any = {};
+        if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+        }
+        const response = await axios.get( API_ENDPOINTS.GETTEAMSBYEVENT + teamId,
+            {
+                headers
+            }
+        );
 
+        return response.data;
+        
+
+    } catch (error) {
+        console.error("Error fetching teams:", error);
+    }
+};
 export const updateTeams = async (event: any, selectedUserId: any, selectedTeamId: any) => {
     event.preventDefault();
 

@@ -43,7 +43,9 @@ import ProfilePage from "./pages/Profile";
 import { useParams } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { PostContext } from "./contexts/postsContext";
+import { PostContext } from "./contexts/PostsContext";
+import { SingleEventsContext } from "./contexts/EventContext";
+import { SingleTeamsContext } from "./contexts/TeamContext";
 
 function App() {
 const params = useParams();
@@ -264,11 +266,15 @@ const params = useParams();
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
         <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
-        <Route path="/add-score-page" element={token? <AddScorePage /> :<LoginPage />} />
         <Route path="/profile-page" element={token? <ProfilePage /> :<LoginPage />} />
         <Route
           path="/edit-team/:id"
-          element={<EditTeamPage  /> }
+          element={<SingleTeamsContext> <SingleEventsContext> <EditTeamPage  /> </SingleEventsContext> </SingleTeamsContext>}
+        />
+        <Route path="/add-score-page/:id" 
+          element={ 
+          <SingleTeamsContext> 
+            <SingleEventsContext > <AddScorePage /> </SingleEventsContext></SingleTeamsContext>} 
         />
         <Route
           path="/read-post/:id"
