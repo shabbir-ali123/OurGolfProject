@@ -16,15 +16,6 @@ const navigation = [
   { name: "Posts", to: "/post-page" },
 ];
 
-const sideMenuItems = [
-  { name: "Notifications", to: "/notification", icon: faBell },
-  { name: "Calendar", to: "/Schedule-page", icon: faCalendar },
-  { name: "Message", to: "/notification", icon: faBell },
-  { name: "Profile", to: "/calendar-page", icon: faCalendar },
-  { name: "Setting", to: "/setting-page", icon: faBell },
-  { name: "Logout", to: "/logout", icon: faCalendar },
-];
-
 const Header: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -36,18 +27,25 @@ const Header: React.FC = () => {
     return location.pathname === path;
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <div>
-      <header className="mx-20 my-4 overflow-hidden text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
+      <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
         <nav
-          className="flex items-center justify-between py-2 lg:px-32"
+          className="flex justify-between px-4 py-2 sm:items-end lg:items-center sm:px-32"
           aria-label="Global"
         >
-          <div className="flex lg:flex-1">
+          <div className="flex items-center lg:flex-1">
+            <button onClick={toggleMobileMenu} className="mr-4 lg:hidden">
+              {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+            </button>
             <Link to="/event-main-page" className="-m-1.5 p-1"></Link>
           </div>
 
-          <div className="flex gap-x-12">
+          <div className="hidden lg:flex gap-x-12">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -71,11 +69,37 @@ const Header: React.FC = () => {
               </Link>
             ))}
           </div>
-          <div className=" lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden lg:block lg:flex-1 lg:justify-end">
             <NotificationsContext>
               <ProfileButton />
             </NotificationsContext>
           </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden">
+              <div className="flex flex-col items-center p-4">
+              <div className="">
+            <NotificationsContext>
+              <ProfileButton />
+            </NotificationsContext>
+          </div>
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.to}
+                    className={`text-xl list-none no-underline font-normal leading-6 text-black hover:text-teal-400 mb-4 ${
+                      isActive(item.to) ? "active" : ""
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {t(item.name.toLocaleUpperCase())}
+                  </Link>
+                ))}
+               
+              </div>
+            </div>
+          )}
         </nav>
       </header>
     </div>

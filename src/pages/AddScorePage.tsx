@@ -8,6 +8,10 @@ interface GolfScoreProps {
   onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
 }
 
+interface UserScores {
+  sums: number[];
+  filteredSums: number[];
+}
 const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const { isCreated, singleEvent } = singleEventContextStore();
   const hole = singleEvent ? singleEvent.selectedHoles : [];
@@ -16,12 +20,64 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
 
-  // const[handiCape, setHandiCap] = useState():
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
   const holes = Array.from({ length: 18 }, (_, index: number) => index + 1);
   const [sums, setSums] = useState<{ [key: string]: any }>({});
+  const [isHandicap, setIsHandicap] = useState<{ [key: string]: boolean }>({});
+  const [formData, setFormData] = useState<any>([])
+
+  const handleForm = (event: any) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    const userScoresMap: { [userId: string]: UserScores } = {};
+
+    for (const [userId, userSums] of Object.entries(sums)) {
+      userScoresMap[userId] = userScoresMap[userId] || {
+        sums: [],
+        filteredSums: [],
+      };
+      userScoresMap[userId].sums.push(...userSums);
+    }
+
+    for (const [userId, userFilteredSums] of Object.entries(filteredSums)) {
+      userScoresMap[userId] = userScoresMap[userId] || {
+        sums: [],
+        filteredSums: [],
+      };
+      userScoresMap[userId].filteredSums.push(...userFilteredSums);
+    }
+
+    const formDataArray = [];
+    for (const [userId, userScores] of Object.entries(userScoresMap)) {
+      console.log(`UserID: ${userId}`);
+      console.log("Sums:", userScores.sums);
+      console.log("FilteredSums:", userScores.filteredSums);
+
+      const totalScore = userScores.sums.reduce((acc, score) => acc + score, 0);
+      const roundedValue =
+        isHandicap[userId] ?
+        Math.round((totalScore * (singleEvent?.scoringType === "single" ? 3 : (singleEvent?.scoringType === "double" ? 1.5 : 2)) - totalPar) * 0.8) :
+        0;
+      const netValue = totalPar - roundedValue;
+
+      formDataArray.push({
+        userId: userId,
+        sums: userScores.sums,
+        filteredSums: userScores.filteredSums,
+        totalScore: totalScore,
+        roundedValue: roundedValue,
+        netValue: netValue,
+      });
+    }
+
+    setFormData(formDataArray);
+  };
+
+
+
+  console.log(formData, 'form data')
 
   const handleInputChange = (
     userId: string,
@@ -30,15 +86,10 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   ) => {
     const key = userId + "-" + holeIndex;
     const updatedSums = { ...sums };
-
-    // Initialize the array for the userId if it doesn't exist
     if (!updatedSums[userId]) {
       updatedSums[userId] = Array.from({ length: holes.length }, () => 0);
     }
-
-    // Update the value in the array
     updatedSums[userId][holeIndex] = value;
-
     setSums(updatedSums);
   };
 
@@ -54,8 +105,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     const selectedsum: { [userId: string]: number } = {};
     for (const userId in filteredSums) {
       const totalScore = filteredSums[userId].reduce(
-        (acc: any, score: any) => acc + score,
-        0
+        (acc: any, score: any) => acc + score
       );
       selectedsum[userId] = totalScore;
     }
@@ -69,7 +119,6 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
   console.log(sums);
 
-  // Calculate the total sum for each user
   const calculateTotalSum = () => {
     const totalSums: { [userId: string]: number } = {};
 
@@ -84,13 +133,26 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     return totalSums;
   };
 
-  console.log(calculateTotalSum());
-  // Inside the GolfScoreInput component
   const totalScores = calculateTotalSum();
-
   const totalPar = par?.reduce((acc: number, curr: number) => acc + curr, 0);
   const { teams } = singleTeamsContextStore();
 
+  const handleHandicap = (playerId: string) => {
+    setIsHandicap((prev) => ({
+      ...prev,
+      [playerId]: !prev[playerId],
+    }));
+  };
+
+  const uniqueMembers = teams.flatMap((team: any) => team.members || [])
+  .reduce((acc: any, member: any) => {
+      const existingMember = acc.find((m: any) => m.userId === member.userId);
+      if (!existingMember) {
+          acc.push(member);
+      }
+      return acc;
+  }, []);  
+  
   return (
     <div className="mx-auto max-w-7xl">
       <div className="flex items-center gap-10">
@@ -111,96 +173,133 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         </h2>
       </div>
       <p>
-        Scoring Type: <span className="font-bold">Double Peria</span>{" "}
+        Scoring Type:{" "}
+        <span className="font-bold">{singleEvent?.scoringType} PERIA</span>{" "}
       </p>
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
-          <tr>
-            <th className="px-2 py-3 text-center">HOLE</th>
-            {holes.map((hole) => {
-              const match = newArrayHole?.includes(hole);
-              const bgColor = match ? "bg-red" : "";
-              return (
-                <th className={`text-center px-2 py-3 ${bgColor}`} key={hole}>
-                  {hole}
+      <form action="" onSubmit={handleForm}>
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
+            <tr>
+              <th className="px-2 py-3 text-center">HOLE</th>
+              {holes.map((hole) => {
+                const match = newArrayHole?.includes(hole);
+                const bgColor = match ? "bg-red" : "";
+                return (
+                  <th className={`text-center px-2 py-3 ${bgColor}`} key={hole}>
+                    {hole}
+                  </th>
+                );
+              })}
+
+              <th className="px-2 py-3 text-center">Total</th>
+              <th className="px-2 py-3 text-center">HDCP</th>
+              <th className="px-2 py-3 text-center">Net</th>
+            </tr>
+            <tr>
+              <th className="px-2 py-3">PAR</th>
+
+              {par?.map((parValue: any, index: any) => (
+                <th key={index} className="px-2 py-3 text-center">
+                  {parValue}
                 </th>
-              );
-            })}
+              ))}
+              <th className="px-2 py-3 text-center">{totalPar}</th>
+              <th className="px-2 py-3 text-center">{totalPar}</th>
+              <th className="px-2 py-3 text-center">{totalPar}</th>
 
-            <th className="px-2 py-3 text-center">Total</th>
-            <th className="px-2 py-3 text-center">HDCP</th>
-            <th className="px-2 py-3 text-center">Net</th>
-          </tr>
-          <tr>
-            <th className="px-2 py-3">PAR</th>
+              <></>
+            </tr>
+            {uniqueMembers.map((member: any, memberIndex: number) => {
+                const playerHandicap = isHandicap[member.nickName] || false;
 
-            {par?.map((parValue: any, index: any) => (
-              <th key={index} className="px-2 py-3 text-center">
-                {parValue}
-              </th>
-            ))}
-            <th className="px-2 py-3 text-center">{totalPar}</th>
-            <th className="px-2 py-3 text-center">{totalPar}</th>
-            <th className="px-2 py-3 text-center">{totalPar}</th>
+                let roundedValue = 0;
+                if (playerHandicap) {
+                  if (singleEvent?.scoringType == "single") {
+                    roundedValue = Math.round(
+                      (selectedHoleSum[member.nickName] * 3 - totalPar) * 0.8
+                    );
+                  }
+                  if (singleEvent?.scoringType == "double") {
+                    roundedValue = Math.round(
+                      (selectedHoleSum[member.nickName] * 1.5 - totalPar) * 0.8
+                    );
 
-            <></>
-          </tr>
-          {teams?.map((team: any, teamIndex: number) =>
-            team.members?.map((member: any, memberIndex: number) => {
-              const roundedValue = Math.round(
-                (selectedHoleSum[member.nickName] * 3 - totalPar) * 0.8
-              );
-              const netValue = totalPar - roundedValue ;
-              return (
-                <tr key={memberIndex} className="py-4 pl-4 whitespace-nowrap">
-                  <Player
-                    isCreator={isCreated}
-                    key={memberIndex}
-                    showNumber={false}
-                    enableHover={true}
-                    onEdit={() => {
-                      // setSelectedPlayerNickname(member.nickName);
-                      // setSelectedUserId(member.userId);
-                      // setSelectedTeamName(team.name);
-                      // setEditOpen(true);
-                    }}
-                    onDelete={() => {}}
-                    name={member.nickName}
-                    imageUrl={member.imageUrl}
-                  />
-                  {holes.map((hole, holeIndex: number) => (
-                    <td key={holeIndex}>
-                      <input
-                        type="number"
-                        min="1"
-                        onChange={(e) =>
-                          handleInputChange(
-                            member.nickName,
-                            holeIndex,
-                            parseInt(e.target.value)
-                          )
-                        }
-                        className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
-                      />
+                  }
+                  if (singleEvent?.scoringType == "triple") {
+                    roundedValue = Math.round(
+                      (selectedHoleSum[member.nickName] * 2 - totalPar) * 0.8
+                    );
+
+                  }
+                }
+
+                const netValue = totalPar - roundedValue;
+                return (
+                  <tr key={memberIndex} className="py-4 pl-4 whitespace-nowrap">
+                    <Player
+                      isCreator={isCreated}
+                      key={memberIndex}
+                      showNumber={false}
+                      enableHover={true}
+                      onDelete={() => {}}
+                      name={member.nickName}
+                      imageUrl={member.imageUrl}
+                    />
+                    {holes.map((hole, holeIndex: number) => (
+                      <td key={holeIndex}>
+                        <input
+                          type="number"
+                          min="1"
+                          onChange={(e) =>
+                            handleInputChange(
+                              member.nickName,
+                              holeIndex,
+                              parseInt(e.target.value)
+                            )
+                          }
+                          className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                        />
+                      </td>
+                    ))}
+                    <td className="px-2 py-3 text-center">
+                      {totalScores[member.nickName]}
                     </td>
-                  ))}
-                  <td className="px-2 py-3 text-center">
-                    {totalScores[member.nickName]}
-                  </td>
-                  <td className="px-2 py-3 text-center">{roundedValue}</td>
-                  <td className="px-2 py-3 text-center">{netValue}</td>
-                </tr>
-              );
-            })
-          )}
-        </thead>
-      </table>
-      <button
-        className="mt-4 px-4 py-2 bg-[#17b3a6] text-white rounded hover:bg-blue-700"
-        onClick={() => {}}
-      >
-        Save Scores
-      </button>
+                    <td className="px-2 py-3 text-center">{roundedValue}</td>
+                    <td className="px-2 py-3 text-center">{netValue}</td>
+                    <td className="px-2 py-3 text-center">
+                      <div className="relative">
+                        <input
+                          type="checkbox"
+                          className="sr-only"
+                          checked={playerHandicap}
+                        />
+                        <div
+                          onClick={() => handleHandicap(member.nickName)}
+                          className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                            playerHandicap ? "bg-[green]" : ""
+                          }`}
+                        ></div>
+                        <div
+                          className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
+                            playerHandicap ? "transform translate-x-6" : ""
+                          }`}
+                        ></div>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+            
+          </thead>
+        </table>
+        <button
+          type="submit"
+          className="mt-4 px-4 py-2 bg-[#17b3a6] text-white rounded hover:bg-blue-700"
+        >
+          Save Scores
+        </button>
+      </form>
     </div>
   );
 };
