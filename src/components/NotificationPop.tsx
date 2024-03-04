@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
-import { notificationsContextStore } from "../contexts/notification";
+import { notificationsContextStore } from "../contexts/NotificationContext";
 interface NotificationProp {
   setNotification: any;
 }

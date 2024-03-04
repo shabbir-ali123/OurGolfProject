@@ -14,7 +14,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import EditTeamScore from "../components/EditTeamScore";
 import SliderStyles from "../components/sliderStyles";
-import { SingleEventsContext, singleEventContextStore } from "../contexts/singleEventContext";
+import { singleEventContextStore } from "../contexts/EventContext";
+import {  singleTeamsContextStore } from "../contexts/TeamContext";
 interface Team {
   id: string;
   name: string;
@@ -55,11 +56,21 @@ interface SingleEvent {
 
 const EditTeamPage: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
-  const {handleEventId, handleIsCreated, event} = singleEventContextStore()
   const teamId = params.id;
+  const {isCreated, singleEvent} = singleEventContextStore()
+  const {handleSingleTeam, totalJoinedMembers, teamMembers, isLoading,  teams} = singleTeamsContextStore()
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+  console.log(teams, "teams");
+
+
+
+
+
+
+
+
   function CustomNextArrow(props: any) {
     const { className, style, onClick } = props;
     return (
@@ -97,15 +108,9 @@ const EditTeamPage: FunctionComponent = () => {
     }
   };
 
-  // const settings = {
+ 
 
-  // };
-
-  const [singleEvent, setSingleEvent] = useState<SingleEvent>();
-  const [shouldRefetchTeams, setShouldRefetchTeams] = useState(false);
-  const [isCreated, setCreatedBy] = useState(false);
   const [open, setOpen] = useState(false);
-  const [team, setTeams] = useState<Team[]>([]);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState("");
   const [selectedTeamName, setSelectedTeamName] = useState("");
   const [currentTeamSize, setCurrentTeamSize] = useState(singleEvent?.teamSize);
@@ -113,7 +118,6 @@ const EditTeamPage: FunctionComponent = () => {
   const [selectedTeamId, setSelectedTeamId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
-  const [teamMembers, setTeamMembers] = useState<Members[]>([]);
   const navigate = useNavigate();
   const playerList = [
     { name: "John Doe" },
@@ -122,12 +126,11 @@ const EditTeamPage: FunctionComponent = () => {
   ];
 
   const teamCapacity = singleEvent?.capacity;
-  const s = singleEvent?.selectedHoles;
   
-  const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
+  // const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setTeams((prev: Team[]) => {
+    handleSingleTeam((prev: Team[]) => {
       let newState = [...prev].map((team: any) => {
         console.log({ team });
         if (team.id == selectedTeamId && team.members.length < teamCapacity) {
@@ -173,7 +176,7 @@ const EditTeamPage: FunctionComponent = () => {
       toast.error("Please make changes before updating.");
       return;
     }
-    const teams = team;
+  
    
     const formDataObj = {
       eventId: singleEvent?.id,
@@ -196,7 +199,7 @@ const EditTeamPage: FunctionComponent = () => {
           },
         }
       );
-      setShouldRefetchTeams(true);
+      
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -210,18 +213,17 @@ const EditTeamPage: FunctionComponent = () => {
   let previousIndex = centerIndex - 1;
   let nextIndex = centerIndex + 2;
 
-  const [isLoading, setIsLoading] = useState(true); 
 
-  useEffect(() => {
-    const fetchAndUpdateTeams = async () => {
-      setIsLoading(true); 
-      await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
-      setShouldRefetchTeams(false);
-      await fetchSingleEvent(teamId, setSingleEvent, setCreatedBy);
-      setIsLoading(false);
-    };
-    fetchAndUpdateTeams();
-  }, [teamId]);
+  // useEffect(() => {
+  //   const fetchAndUpdateTeams = async () => {
+  //     setIsLoading(true); 
+  //     await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
+  //     setShouldRefetchTeams(false);
+      
+  //     setIsLoading(false);
+  //   };
+  //   fetchAndUpdateTeams();
+  // }, [teamId]);
 
   // useEffect(() => {
   //   handleEventId(teamId)
@@ -264,7 +266,7 @@ const EditTeamPage: FunctionComponent = () => {
     </div>; 
   }
   const handleNavigateHome = () => {
-    navigate('/add-score-page');
+    navigate('/add-score-page/' + singleEvent?.id);
 };
   return (
     <>
@@ -277,7 +279,7 @@ const EditTeamPage: FunctionComponent = () => {
                 <img
                   className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
                   alt="Event"
-                  src={singleEvent?.imageUrl[0] || "/img/zozo.png"}
+                  src={singleEvent?.imageUrl ? singleEvent?.imageUrl[0] : "/img/zozo.png"}
                 />
 
                 <div className="flex flex-col items-start justify-center gap-4">
@@ -323,7 +325,7 @@ const EditTeamPage: FunctionComponent = () => {
             <div id="my-slider-container" className="mx-auto my-6 max-w-7xl slider-container">
               {singleEvent && singleEvent.imageUrl?.length > 1 && (
                 <Slider {...settings}>
-                  {singleEvent.imageUrl.slice(0, 3).map((item, index) => {
+                  {singleEvent.imageUrl.slice(0, 3).map((item:any, index:any) => {
 
                     console.log(index, index === nextIndex, "next");
 
@@ -408,7 +410,7 @@ const EditTeamPage: FunctionComponent = () => {
 
 
           </div>
-            <EditTeamScore hole={singleEvent?.selectedHoles} par={singleEvent?.shotsPerHoles} isCreator={isCreated} />
+            {/* <EditTeamScore /> */}
           {/* edit team div */}
           <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10 ">
             <div className="flex items-end justify-between">
@@ -507,7 +509,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </tr>
               </thead>
               <tbody className="text-left text-black ">
-                {team.map((team, index) => (
+                {teams?.map((team:any, index:any) => (
                   <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
                     <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                       <div
@@ -532,7 +534,7 @@ const EditTeamPage: FunctionComponent = () => {
                         </div>
                       </div>
                     </td>
-                    {team.members.map((member: any, memberIndex) => (
+                    {team.members?.map((member: any, memberIndex:any) => (
                       <td className="py-4 pl-4 whitespace-nowrap">
                         <Player
                           isCreator={isCreated}
@@ -852,7 +854,7 @@ const EditTeamPage: FunctionComponent = () => {
                                   <option value="" disabled selected>
                                     Select a Team
                                   </option>
-                                  {team.map((team) => (
+                                  {teams?.map((team:any) => (
                                     <option key={team.id} value={team.id}>
                                       {team.name}
                                     </option>

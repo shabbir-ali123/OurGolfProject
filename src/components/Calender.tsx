@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import { fetchEvents } from "../utils/fetchEvents";
 import { useTranslation } from "react-i18next";
-import { eventContextStore } from "../contexts/eventContext";
+import { eventContextStore } from "../contexts/EventContext";
 
 interface CalendarProps {
   setEvents: any;

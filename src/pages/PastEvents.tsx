@@ -6,7 +6,7 @@ import Table from "../components/Table";
 import EventMap from "../components/EventMap";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import { eventContextStore } from "../contexts/eventContext";
+import { eventContextStore } from "../contexts/EventContext";
 
 interface Event {
   id: string;

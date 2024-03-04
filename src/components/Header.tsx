@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import socket from "../socket";
-import { NotificationsContext } from "../contexts/notification";
+import { NotificationsContext } from "../contexts/NotificationContext";
 
 const navigation = [
   { name: "Home", to: "/score-board" },

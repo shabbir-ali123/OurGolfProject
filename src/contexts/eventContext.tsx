@@ -1,5 +1,6 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { fetchEventss } from '../utils/fetchEvents';
+import { fetchEventss, fetchSingleEvent } from '../utils/fetchEvents';
+import { useParams } from 'react-router-dom';
 
 const EventCreateContext = React.createContext<any>({});
 
@@ -8,7 +9,7 @@ export const EventsContext = ({children}:any)=>{
     const store_token: string = localStorage.getItem('token') || '';
     const [eventsCount, setEventsCount] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [pageSize, setPageSize] = useState<number>(10);
+    const [pageSize, setPageSize] = useState<number>(6);
     const [locations, setLocations]=useState<any[]>([]);
     const [startDate, setStartDate]=useState<string>("");
     const [endDate, setEndDate]= useState<string>("");
@@ -25,19 +26,19 @@ export const EventsContext = ({children}:any)=>{
             eventStatus: eventStatus
         };
         fetchEventss(setEvents,setEventsCount, queryParams);
-    }, [currentPage, locations, startDate, endDate, eventStatus, eventStatus]);
+    }, [currentPage,pageSize, locations, startDate, endDate, eventStatus, eventStatus]);
 
     const handleEvents = useCallback((value: any) => {
         return setEvents(value);
     }, [eventss]);
     
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-    };
+    const handlePageChange = useCallback((value: any) => {
+        setCurrentPage(value);
+    },[currentPage]);
 
-    const handlePageSize = (pageSize: number) => {
-        setPageSize(pageSize);
-    };
+    const handlePageSize = useCallback((value: any) => {
+        setPageSize(value);
+    },[pageSize]);
 
     const handleLocationFilter = (location: any)=>{
         setLocations([location, ...locations]);
@@ -61,4 +62,73 @@ export const EventsContext = ({children}:any)=>{
 }
 
 export const eventContextStore = ()=> React.useContext(EventCreateContext);
+
+
+interface SingleEvent {
+    id: string;
+    creator: {
+      nickName: string;
+    };
+    isFavorite: Boolean;
+    comments: [];
+    accountHolderName: string;
+    eventStartTime: string;
+    eventStartDate: string;
+    eventEndTime: string;
+    eventEndDate: string;
+    eventDeadlineDate: string;
+    eventName: string;
+    eventDetails: string;
+    eventType: string;
+    place: string;
+    imageUrl: [];
+    count: any;
+    teamSize: any;
+    capacity: any;
+    scoringType: string;
+    shotsPerHoles: any;
+    selectedHoles: any;
+  }
+const SingleEventContext = React.createContext<any>({});
+
+export const SingleEventsContext = ({children}:any)=>{
+
+    const params = useParams<{ id?: string }>();
+    const eventId = params.id;
+
+    const [singleEvent, setSingleEvent] = useState<any[]>([]);
+    const [isCreated, setIsCreated] = useState<any>(false)
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const eventData = await fetchSingleEvent(eventId);
+                console.log(eventData.event.creatorId,  localStorage.getItem('id') ,"ss")
+                setSingleEvent(eventData.event);
+                if (eventData.event.creatorId == localStorage.getItem('id')) {
+                    handleisCreated(true);
+                    console.log(true);
+                }
+            } catch (error) {
+                console.error("Error fetching single event:", error);
+            }
+        };
+
+        fetchData();
+    }, [eventId]);
+   
+    const handleSingleEvent =  useCallback( (value: any) => {
+        return setSingleEvent(value);
+    }, []);
+    const handleisCreated =  useCallback( (value: any) => {
+        return setIsCreated(value);
+    }, []);
+    
+    const value =  { handleSingleEvent, isCreated, singleEvent}
+
+    return <SingleEventContext.Provider  value={value}> {children}</SingleEventContext.Provider>
+}
+
+export const singleEventContextStore = ()=> React.useContext(SingleEventContext);
 

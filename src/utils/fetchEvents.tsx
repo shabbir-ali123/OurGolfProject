@@ -27,8 +27,7 @@ export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  lo
 };
 
 export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParams:any) => {
-  const { store_token, locations, startDate, endDate, eventStatus} = queryParams;
-  console.log({queryParams})
+  const { store_token,currentPage, locations, startDate, endDate,pageSize, eventStatus} = queryParams;
   try {
     const headers:any= {}
     if (store_token) {
@@ -37,8 +36,8 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
     const response = await axios.get(store_token && store_token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
       headers,
       params: {
-        page: 1,
-        pageSize: 50000,
+        page: currentPage,
+        pageSize: pageSize,
         eventStartDate: startDate ? formatDate(startDate) : "",
         eventEndDate: endDate ? formatDate(endDate) : "",
         status: eventStatus,
@@ -76,24 +75,26 @@ export const fetchTeacherByID = async (setUser:any) => {
   }
 };
 
-export const fetchSingleEvent = async (eventId:any, setEvent:any, setCreatedBy?:any) => {
+export const fetchSingleEvent = async (eventId: any) => {
   try {
-    const token = localStorage.getItem("token");
-    const id = localStorage.getItem("id");
-    const headers:any= {}
-    if (token) {
-      console.error("User not authenticated");
-      headers["Authorization"]=  `Bearer ${token}`
+      const token = localStorage.getItem("token");
+      const headers: any = {};
+      if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+      }
 
-    }
-    const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETEVENTBYID + eventId : API_ENDPOINTS.GETPUBLICEVENTBYID + eventId, {
-      headers,
-    });
-    setEvent(response.data.event);
-    if(response.data.event.creatorId == id){
-      setCreatedBy(true);
-    }
+      const response = await axios.get(
+          token && token !== "undefined"
+              ? API_ENDPOINTS.GETEVENTBYID + eventId
+              : API_ENDPOINTS.GETPUBLICEVENTBYID + eventId,
+          {
+              headers,
+          }
+      );
+
+      return response.data;
   } catch (error) {
-    return
+      console.error("Error fetching single event:", error);
+      throw error; // Rethrow the error to handle it in the component
   }
 };

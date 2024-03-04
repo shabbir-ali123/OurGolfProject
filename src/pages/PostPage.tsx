@@ -3,7 +3,7 @@ import PostHeader from "../components/PostHeader";
 import PostProfile from "../components/PostProfilePrompt";
 import PostCard from "../components/PostCard";
 import { useTranslation } from "react-i18next";
-import { postContext } from "../contexts/postsContext";
+import { postContext } from "../contexts/PostsContext";
 
 const PostPage: FunctionComponent = () => {
   const { t, i18n } = useTranslation();

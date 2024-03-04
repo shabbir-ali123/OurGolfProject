@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 // import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
-import { eventContextStore } from "../contexts/eventContext";
+import { eventContextStore } from "../contexts/EventContext";
 
 const EventMainPage: FunctionComponent = () => {
   const {t, i18n} = useTranslation();

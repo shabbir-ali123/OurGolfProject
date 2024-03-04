@@ -1,6 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { singleEventContextStore } from "../contexts/EventContext";
+import Player from "./Player";
+import { singleTeamsContextStore } from "../contexts/TeamContext";
 
 type Product = {
   name: string;
@@ -13,21 +16,20 @@ const products: Product[] = [
   { name: "PAR", color: "4", category: "4", price: "4" },
 ];
 
-type EditTeamScoreProps = {
-  hole: any;
-  par: any;
-  isCreator: any;
-};
-const EditTeamScore: React.FC<EditTeamScoreProps> = ({ hole, par,isCreator }) => {
-  const newArrayHole = hole.split(",");
-  const newArraypar = par.split(",");
-  const navigate = useNavigate();
+type EditTeamScoreProps = {};
+const EditTeamScore: React.FC<EditTeamScoreProps> = () => {
+  const { isCreated, singleEvent } = singleEventContextStore();
+  const hole = singleEvent ? singleEvent?.selectedHoles : [];
+  const par = singleEvent ? singleEvent?.shotsPerHoles : [];
+  const newArrayHole = hole?.split(",").map(Number);
 
+  const newArraypar = par?.split(",").map(Number);
+  const navigate = useNavigate();
   if (!Array.isArray(newArrayHole) && !Array.isArray(newArraypar)) {
     return null; // Or render a fallback UI
   }
+  
 
-  console.log(isCreator);
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const handleNavigateHome = () => {
@@ -51,7 +53,7 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ({ hole, par,isCreator }) =>
         />
       </div>
       <div className="flex justify-center    sm:rounded-lg my-6">
-        <table className=" text-sm text-left text-gray-500 dark:text-gray-400 w-full">
+        <table className=" text-sm text-left text-gray-500  w-full">
           <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
             <tr className="">
               <th scope="col" className="px-2 py-3">
@@ -63,7 +65,11 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ({ hole, par,isCreator }) =>
 
                 const bgColor = match ? "bg-red" : "";
                 return (
-                  <th key={i} scope="col" className={`px-2 py-3 ${isCreator && bgColor}`}>
+                  <th
+                    key={i}
+                    scope="col"
+                    className={`px-2 py-3 ${isCreated && bgColor}`}
+                  >
                     {i + 1}
                   </th>
                 );
@@ -75,17 +81,18 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = ({ hole, par,isCreator }) =>
               <tr key={index} className="mt-10 shadow-md g">
                 <th
                   scope="row"
-                  className="px-2 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                  className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
                   {product.name}
                 </th>
-                {newArraypar.map((score: any) => (
+                {newArraypar?.map((score: any) => (
                   <th scope="col" className="px-2 py-3">
                     {score}
                   </th>
                 ))}
               </tr>
             ))}
+           
           </tbody>
         </table>
       </div>
