@@ -156,7 +156,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   }, []);  
   
   return (
-    <div className="mx-auto max-w-7xl">
+    <div className="max-w-[1650px] mx-auto sm:mx-20 lg:mx-auto">
       <div className="flex items-center gap-10">
         <div className="relative w-[90.5px] h-[147.5px]">
           <img
@@ -178,14 +178,15 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         Scoring Type:{" "}
         <span className="font-bold">{singleEvent?.scoringType} PERIA</span>{" "}
       </p>
+      <div className="overflow-x-scroll  lg:overflow-hidden w-full">
       <form action="" onSubmit={handleForm}>
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
+        <table className=" text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg overflow-x-scroll ">
             <tr>
               <th className="px-2 py-3 text-center">HOLE</th>
               {holes.map((hole) => {
                 const match = newArrayHole?.includes(hole);
-                const bgColor = match ? "bg-red" : "";
+                const bgColor = match ? "bg-[#17b3a6]" : "";
                 return (
                   <th className={`text-center px-2 py-3 ${bgColor}`} key={hole}>
                     {hole}
@@ -196,9 +197,10 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
               <th className="px-2 py-3 text-center">Total</th>
               <th className="px-2 py-3 text-center">HDCP</th>
               <th className="px-2 py-3 text-center">Net</th>
+              <th className="px-2 py-3 text-center">H</th>
             </tr>
             <tr>
-              <th className="px-2 py-3">PAR</th>
+              <th className="flex justify-center py-3">PAR</th>
 
               {par?.map((parValue: any, index: any) => (
                 <th key={index} className="px-2 py-3 text-center">
@@ -208,7 +210,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
               <th className="px-2 py-3 text-center">{totalPar}</th>
               <th className="px-2 py-3 text-center">{totalPar}</th>
               <th className="px-2 py-3 text-center">{totalPar}</th>
-
+              <th className="px-2 py-3 text-center">ON/OFF</th>
               <></>
             </tr>
             {uniqueMembers.map((member: any, memberIndex: number) => {
@@ -237,16 +239,19 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
                 const netValue = totalPar - roundedValue;
                 return (
-                  <tr key={memberIndex} className="py-4 pl-4 whitespace-nowrap">
+                  <tr key={memberIndex} className="">
+                    <div className="flex justify-center items-center">
                     <Player
                       isCreator={isCreated}
                       key={memberIndex}
                       showNumber={false}
-                      enableHover={true}
-                      onDelete={() => {}}
+                      // enableHover={true}
+                      // onDelete={() => {}}
                       name={member.nickName}
                       imageUrl={member.imageUrl}
                     />
+                    </div>
+                   
                     {holes.map((hole, holeIndex: number) => (
                       <td key={holeIndex}>
                         <input
@@ -263,7 +268,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         />
                       </td>
                     ))}
-                    <td className="px-2 py-3 text-center">
+                    <td className=" py-3 text-center">
                       {totalScores[member.nickName]}
                     </td>
                     <td className="px-2 py-3 text-center">{roundedValue}</td>
@@ -304,6 +309,8 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           Save Scores
         </button>
       </form>
+      </div>
+     
     </div>
   );
 };
