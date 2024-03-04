@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import Pagination from "../components/Pagination";
 import EventMap from "../components/EventMap";
 import Table from "../components/Table";
-import { eventContextStore } from "../contexts/EventContext";
+import { eventContextStore } from "../contexts/eventContext";
 
  interface Event {
   id: string;

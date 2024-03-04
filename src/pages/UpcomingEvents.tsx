@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "../components/Table";
 import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
-import { eventContextStore } from "../contexts/EventContext";
+import { eventContextStore } from "../contexts/eventContext";
 interface Event {
   id: string;
   creator:{

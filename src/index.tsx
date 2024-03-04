@@ -8,7 +8,7 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "./locale";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { EventsContext } from "./contexts/EventContext";
+import { EventsContext } from "./contexts/eventContext";
 import { AuthContext } from "./contexts/authContext";
 
 const container = document.getElementById("root");

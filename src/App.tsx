@@ -43,8 +43,8 @@ import ProfilePage from "./pages/Profile";
 import { useParams } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { PostContext } from "./contexts/PostsContext";
-import { SingleEventsContext } from "./contexts/EventContext";
+import { PostContext } from "./contexts/postsContext";
+import { SingleEventsContext } from "./contexts/eventContext";
 import { SingleTeamsContext } from "./contexts/TeamContext";
 import TeacherDetails from "./pages/TeacherDetails";
 function App() {

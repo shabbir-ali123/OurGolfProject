@@ -8,7 +8,7 @@ import PastEvents from "../pages/PastEvents";
 import UpcomingEvents from "../pages/UpcomingEvents";
 import { useTranslation } from "react-i18next";
 import AllEvents from "../pages/AllEvents";
-import { eventContextStore } from "../contexts/EventContext";
+import { eventContextStore } from "../contexts/eventContext";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { singleEventContextStore } from "../contexts/EventContext";
-import { singleTeamsContextStore } from "../contexts/TeamContext";
+import { singleEventContextStore } from "../contexts/eventContext";
 import Player from "../components/Player";
+import { singleTeamsContextStore } from "../contexts/TeamContext";
 
 interface GolfScoreProps {
   onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
@@ -92,7 +92,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const { teams } = singleTeamsContextStore();
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="mx-auto max-w-7xl">
       <div className="flex items-center gap-10">
         <div className="relative w-[90.5px] h-[147.5px]">
           <img
@@ -113,7 +113,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       <p>
         Scoring Type: <span className="font-bold">Double Peria</span>{" "}
       </p>
-      <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
           <tr>
             <th className="px-2 py-3 text-center">HOLE</th>
@@ -127,19 +127,19 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
               );
             })}
 
-            <th className="text-center px-2 py-3">Total</th>
-            {/* <th className="text-center px-2 py-3">HDCP</th>
-            <th className="text-center px-2 py-3">Net</th> */}
+            <th className="px-2 py-3 text-center">Total</th>
+            {/* <th className="px-2 py-3 text-center">HDCP</th>
+            <th className="px-2 py-3 text-center">Net</th> */}
           </tr>
           <tr>
             <th className="px-2 py-3">PAR</th>
         
   {par?.map((parValue:any, index:any) => (
-    <th key={index} className="text-center px-2 py-3">
+    <th key={index} className="px-2 py-3 text-center">
       {parValue}
     </th>
   ))}
-<th  className="text-center px-2 py-3">
+<th  className="px-2 py-3 text-center">
   {totalPar}
 </th>
 <>
@@ -180,7 +180,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                     />
                   </td>
                 ))}
-                <td className="text-center px-2 py-3">
+                <td className="px-2 py-3 text-center">
                   {totalScores[member.nickName]}
                 </td>
               </tr>

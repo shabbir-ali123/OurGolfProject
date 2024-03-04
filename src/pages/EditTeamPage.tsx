@@ -14,8 +14,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import EditTeamScore from "../components/EditTeamScore";
 import SliderStyles from "../components/sliderStyles";
-import { singleEventContextStore } from "../contexts/EventContext";
-import {  singleTeamsContextStore } from "../contexts/TeamContext";
+import { singleEventContextStore } from "../contexts/eventContext";
+import { singleTeamsContextStore } from "../contexts/TeamContext";
 interface Team {
   id: string;
   name: string;

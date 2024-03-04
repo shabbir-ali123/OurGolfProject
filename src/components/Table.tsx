@@ -13,7 +13,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import { eventContextStore } from "../contexts/EventContext";
+import { eventContextStore } from "../contexts/eventContext";
 
 interface TableProps {
   events: Array<{

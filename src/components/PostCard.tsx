@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { ShareIcon, HandThumbUpIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
-import { postContext } from "../contexts/PostsContext";
+import { postContext } from "../contexts/postsContext";
 
 interface Post {
   id: string;

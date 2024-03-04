@@ -6,7 +6,7 @@ import EventMap from "../components/EventMap";
 import Pagination from "../components/Pagination";
 // import { fetchEvents } from "../utils/fetchEvents";
 import Table from "../components/Table";
-import { eventContextStore } from "../contexts/EventContext";
+import { eventContextStore } from "../contexts/eventContext";
 
 interface Event {
   id: string;

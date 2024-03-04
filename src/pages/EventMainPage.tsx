@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 // import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
-import { eventContextStore } from "../contexts/EventContext";
+import { eventContextStore } from "../contexts/eventContext";
 
 const EventMainPage: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
@@ -79,7 +79,7 @@ const EventMainPage: FunctionComponent = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      className="h-4 w-4">
+                      className="w-4 h-4">
                       <path
                         stroke-linecap="round"
                         stroke-linejoin="round"

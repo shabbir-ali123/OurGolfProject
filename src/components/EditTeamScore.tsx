@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { singleEventContextStore } from "../contexts/EventContext";
+import { singleEventContextStore } from "../contexts/eventContext";
 import Player from "./Player";
 import { singleTeamsContextStore } from "../contexts/TeamContext";
 
@@ -52,8 +52,8 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = () => {
           src="/img/flag.png"
         />
       </div>
-      <div className="flex justify-center    sm:rounded-lg my-6">
-        <table className=" text-sm text-left text-gray-500  w-full">
+      <div className="flex justify-center my-6 sm:rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
             <tr className="">
               <th scope="col" className="px-2 py-3">
@@ -98,7 +98,7 @@ const EditTeamScore: React.FC<EditTeamScoreProps> = () => {
       </div>
       <button
         onClick={handleNavigateHome}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+        className="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
       >
         {t("VIEW_FULL")}
       </button>
