@@ -16,6 +16,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
 
+  // const[handiCape, setHandiCap] = useState():
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
@@ -62,6 +63,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     return selectedsum;
   };
   const selectedHoleSum = calculateTotalSelected();
+
   console.log(selectedHoleSum, "sum selected holes");
   console.log(filteredSums, "filter");
 
@@ -86,8 +88,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   // Inside the GolfScoreInput component
   const totalScores = calculateTotalSum();
 
-
-  const totalPar = par?.reduce((acc:any, curr:any) => acc + curr, 0);
+  const totalPar = par?.reduce((acc: number, curr: number) => acc + curr, 0);
   const { teams } = singleTeamsContextStore();
 
   return (
@@ -127,63 +128,70 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
             })}
 
             <th className="px-2 py-3 text-center">Total</th>
-            {/* <th className="px-2 py-3 text-center">HDCP</th>
-            <th className="px-2 py-3 text-center">Net</th> */}
+            <th className="px-2 py-3 text-center">HDCP</th>
+            <th className="px-2 py-3 text-center">Net</th>
           </tr>
           <tr>
             <th className="px-2 py-3">PAR</th>
-        
-  {par?.map((parValue:any, index:any) => (
-    <th key={index} className="px-2 py-3 text-center">
-      {parValue}
-    </th>
-  ))}
-<th  className="px-2 py-3 text-center">
-  {totalPar}
-</th>
-<>
 
-</>
+            {par?.map((parValue: any, index: any) => (
+              <th key={index} className="px-2 py-3 text-center">
+                {parValue}
+              </th>
+            ))}
+            <th className="px-2 py-3 text-center">{totalPar}</th>
+            <th className="px-2 py-3 text-center">{totalPar}</th>
+            <th className="px-2 py-3 text-center">{totalPar}</th>
+
+            <></>
           </tr>
           {teams?.map((team: any, teamIndex: number) =>
-            team.members?.map((member: any, memberIndex: number) => (
-              <tr key={memberIndex} className="py-4 pl-4 whitespace-nowrap">
-                <Player
-                  isCreator={isCreated}
-                  key={memberIndex}
-                  showNumber={false}
-                  enableHover={true}
-                  onEdit={() => {
-                    // setSelectedPlayerNickname(member.nickName);
-                    // setSelectedUserId(member.userId);
-                    // setSelectedTeamName(team.name);
-                    // setEditOpen(true);
-                  }}
-                  onDelete={() => {}}
-                  name={member.nickName}
-                  imageUrl={member.imageUrl}
-                />
-                {holes.map((hole, holeIndex: number) => (
-                  <td key={holeIndex}>
-                    <input
-                      type="number"
-                      min="1"
-                      onChange={(e) =>
-                        handleInputChange(
-                          member.nickName,
-                          holeIndex,
-                          parseInt(e.target.value)
-                        )
-                      }
-                      className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
-                    />
+            team.members?.map((member: any, memberIndex: number) => {
+              const roundedValue = Math.round(
+                (selectedHoleSum[member.nickName] * 3 - totalPar) * 0.8
+              );
+              const netValue = totalPar - roundedValue ;
+              return (
+                <tr key={memberIndex} className="py-4 pl-4 whitespace-nowrap">
+                  <Player
+                    isCreator={isCreated}
+                    key={memberIndex}
+                    showNumber={false}
+                    enableHover={true}
+                    onEdit={() => {
+                      // setSelectedPlayerNickname(member.nickName);
+                      // setSelectedUserId(member.userId);
+                      // setSelectedTeamName(team.name);
+                      // setEditOpen(true);
+                    }}
+                    onDelete={() => {}}
+                    name={member.nickName}
+                    imageUrl={member.imageUrl}
+                  />
+                  {holes.map((hole, holeIndex: number) => (
+                    <td key={holeIndex}>
+                      <input
+                        type="number"
+                        min="1"
+                        onChange={(e) =>
+                          handleInputChange(
+                            member.nickName,
+                            holeIndex,
+                            parseInt(e.target.value)
+                          )
+                        }
+                        className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                      />
+                    </td>
+                  ))}
+                  <td className="px-2 py-3 text-center">
+                    {totalScores[member.nickName]}
                   </td>
-                ))}
-                <td className="px-2 py-3 text-center">
-                  {totalScores[member.nickName]}
-                </td>
-              </tr>
-            ))
+                  <td className="px-2 py-3 text-center">{roundedValue}</td>
+                  <td className="px-2 py-3 text-center">{netValue}</td>
+                </tr>
+              );
+            })
           )}
         </thead>
       </table>
