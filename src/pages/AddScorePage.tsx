@@ -28,6 +28,8 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const [isHandicap, setIsHandicap] = useState<{ [key: string]: boolean }>({});
   const [formData, setFormData] = useState<any>([])
 
+  const uId = localStorage.getItem('id')
+  const isCreator = uId == singleEvent?.creatorId;
   const handleForm = (event: any) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
@@ -266,6 +268,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                     </td>
                     <td className="px-2 py-3 text-center">{roundedValue}</td>
                     <td className="px-2 py-3 text-center">{netValue}</td>
+                    {isCreator && 
                     <td className="px-2 py-3 text-center">
                       <div className="relative">
                         <input
@@ -286,6 +289,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         ></div>
                       </div>
                     </td>
+            }
                   </tr>
                 );
               })
