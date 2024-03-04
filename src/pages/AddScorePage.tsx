@@ -86,7 +86,6 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   // Inside the GolfScoreInput component
   const totalScores = calculateTotalSum();
 
-  // Then render the total scores for each user
 
   const totalPar = par?.reduce((acc:any, curr:any) => acc + curr, 0);
   const { teams } = singleTeamsContextStore();
