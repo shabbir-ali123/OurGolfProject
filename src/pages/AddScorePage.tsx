@@ -5,7 +5,7 @@ import Player from "../components/Player";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 
 interface GolfScoreProps {
-  onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
+  onSaveScores?: (scores: number[]) => void; 
 }
 
 interface UserScores {
