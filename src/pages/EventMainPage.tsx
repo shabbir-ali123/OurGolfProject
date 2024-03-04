@@ -11,18 +11,18 @@ import { useTranslation } from "react-i18next";
 import { eventContextStore } from "../contexts/EventContext";
 
 const EventMainPage: FunctionComponent = () => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [events, setEvents] = useState([]);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<any[]>(['Tokyo']);
-  const [currentTab, setCurrentTab] = useState<string>("ALL"); 
-  
-  const {handleLocationFilter} = eventContextStore();
+  const [currentTab, setCurrentTab] = useState<string>("ALL");
+
+  const { handleLocationFilter } = eventContextStore();
   useEffect(() => {
     handleLocationFilter(selectedLocations);
   }, [selectedLocations]);
-  
+
   const handleTabChange = (tab: string) => {
     const lowerTab = tab?.toLowerCase();
     setCurrentTab(lowerTab);
@@ -41,14 +41,14 @@ const EventMainPage: FunctionComponent = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
+
   const handleRemoveLocation = (locationToRemove: string) => {
     setSelectedLocations((prevSelectedLocations) =>
       prevSelectedLocations.filter((location) => location !== locationToRemove)
     );
   };
-  
-  return (  
+
+  return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">
         <SearchEventContainer />
@@ -63,31 +63,30 @@ const EventMainPage: FunctionComponent = () => {
             </div>
             <div className="flex flex-wrap items-center gap-4 my-2 xl:m-0">
               <h1 className="text-[#193A8B] text-[3xl] font-semibold animate__animated animate__rubberBand animate__repeat-3">
-              {t('EVENTS_IN')}
+                {t('EVENTS_IN')}
               </h1>
               {selectedLocations.map((location, index) => (
-                <div key={index} className="flex ">
-                  <Clip  place={location} />
-                  <button
-                    type="button"
+                <div key={index} className="flex items-center ">
+                  <Clip place={location} />
+
+                  <span
                     onClick={() => handleRemoveLocation(location)}
-                    className="text-gray-400 hover:text-red-500 rounded-r-2 focus:outline-none "
-                  >
+                    data-te-chip-close
+                    className="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
+                      stroke-width="1.5"
                       stroke="currentColor"
-                      className="w-4 h-4"
-                    >
+                      className="h-4 w-4">
                       <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                  </button>
+                  </span>
+
                 </div>
               ))}
             </div>
@@ -106,7 +105,7 @@ const EventMainPage: FunctionComponent = () => {
                 {t('CREATE_EVENTS')}
               </button>
             </Link>
-           </div>
+          </div>
         </div>
 
         <Tabs events={events} setEvents={setEvents} selectedCities={setSelectedLocations} setCurrentTabs={handleTabChange} />

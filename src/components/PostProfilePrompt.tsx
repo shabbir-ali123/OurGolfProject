@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import PostModal from "../components/PostModel"
 import { useTranslation } from "react-i18next";
-import { userAuthContext } from "../contexts/AuthContext";
+import { userAuthContext } from "../contexts/authContext";
 const ProfilePrompt: React.FC = () => {
   const { user} = userAuthContext();
   const { t, i18n } = useTranslation();

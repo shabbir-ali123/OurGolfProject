@@ -1,7 +1,7 @@
 
 
 import { Link } from 'react-router-dom';
-import { userAuthContext } from '../contexts/AuthContext';
+import { userAuthContext } from '../contexts/authContext';
 import { useEffect } from 'react';
 
 const Profile = () => {

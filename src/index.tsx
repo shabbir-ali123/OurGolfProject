@@ -9,7 +9,7 @@ import i18n from "./locale";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { EventsContext } from "./contexts/EventContext";
-import { AuthContext } from "./contexts/AuthContext";
+import { AuthContext } from "./contexts/authContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);

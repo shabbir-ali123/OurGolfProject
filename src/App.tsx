@@ -46,7 +46,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { PostContext } from "./contexts/PostsContext";
 import { SingleEventsContext } from "./contexts/EventContext";
 import { SingleTeamsContext } from "./contexts/TeamContext";
-
+import TeacherDetails from "./pages/TeacherDetails";
 function App() {
 const params = useParams();
 
@@ -196,6 +196,10 @@ const params = useParams();
                                       title = "";
                                       metaDescription = "";
                                       break;
+                                      case "/teacher-details":
+                                        title = "";
+                                        metaDescription = "";
+                                        break;
   
 
     }
@@ -267,6 +271,7 @@ const params = useParams();
         <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
         <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
         <Route path="/profile-page" element={token? <ProfilePage /> :<LoginPage />} />
+        <Route path="/teacher-details" element={ <TeacherDetails />} />
         <Route
           path="/edit-team/:id"
           element={<SingleTeamsContext> <SingleEventsContext> <EditTeamPage  /> </SingleEventsContext> </SingleTeamsContext>}
