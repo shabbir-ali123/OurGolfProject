@@ -26,23 +26,23 @@ const UserProfile: React.FC<UserProfileProps> = ({
     return (
         <div className="p-6  rounded  text-white ">
             <div className="flex items-center justify-around">
-                <div className="flex items-start gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start ">
                     <div className='text-center'>
                         <img
-                            className="w-32 h-32 rounded-full"
+                            className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full"
                             src="/img/user-06.png"
                             alt="Profile"
                         />
                         <div className="mt-4">
                             <div>
-                                <button className="bg-green-500 text-[#17b3a6] px-4 py-1 rounded hover:bg-green-600">
+                                <button className="bg-green-500 px-4 py-1 rounded hover:bg-green-600 text-sm md:text-base">
                                     Availble
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <div className="ml-4 grid grid-cols-2 gap-6 justify-center">
+                    <div className="ml-4 grid grid-cols-1 xl:grid-cols-2 gap-6 justify-center ">
                        
                             <h2 className="text-lg font-semibold text-white">{name}</h2>
                             <h2 className="text-lg font-semibold text-white">{rate} <span className='text-sm font-normal'>Per/Hr</span></h2>
