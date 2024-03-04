@@ -15,7 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import EditTeamScore from "../components/EditTeamScore";
 import SliderStyles from "../components/sliderStyles";
 import { singleEventContextStore } from "../contexts/eventContext";
-import { singleTeamsContextStore } from "../contexts/TeamContext";
+import { singleTeamsContextStore } from "../contexts/teamContext";
 interface Team {
   id: string;
   name: string;
@@ -59,16 +59,11 @@ const EditTeamPage: FunctionComponent = () => {
   const teamId = params.id;
   const {isCreated, singleEvent} = singleEventContextStore()
   const {handleSingleTeam, totalJoinedMembers, teamMembers, isLoading,  teams} = singleTeamsContextStore()
+  console.log(teams, 'te edi')
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   console.log(teams, "teams");
-
-
-
-
-
-
 
 
   function CustomNextArrow(props: any) {

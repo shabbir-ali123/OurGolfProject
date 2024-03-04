@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { notificationsContextStore } from "../contexts/NotificationContext";
 import { NotificationPop } from "./NotificationPop";
 import { userAuthContext } from "../contexts/authContext";
+import { notificationsContextStore } from "../contexts/notificationContext";
 
 export default function ProfileButton() {
   const { user } = userAuthContext();

@@ -45,7 +45,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PostContext } from "./contexts/postsContext";
 import { SingleEventsContext } from "./contexts/eventContext";
-import { SingleTeamsContext } from "./contexts/TeamContext";
+import { SingleTeamsContext } from "./contexts/teamContext";
 import TeacherDetails from "./pages/TeacherDetails";
 function App() {
 const params = useParams();
