@@ -14,7 +14,7 @@ const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover,
   const [isHovered, setIsHovered] = useState(false);
   const defaultImageUrl = '/img/ellipse-1310@2x.png';
   return (
-    <div className='flex justify-between items-center w-[130px]'
+    <div className='flex justify-center items-center w-[130px]'
       onMouseEnter={() => enableHover && setIsHovered(true)}
       onMouseLeave={() => enableHover && setIsHovered(false)}>
       <div className='flex items-center'>

@@ -1,28 +1,38 @@
-// Availability.tsx
-import React from 'react';
+// TeacherSlots.tsx
+import React, { useState } from 'react';
 
-interface AvailabilitySlot {
+interface TeacherSlots {
   startTime: string;
   endTime: string;
 }
 
-interface AvailabilityProps {
-  slots: AvailabilitySlot[];
+interface TeacherSlotsProps {
+  slots: TeacherSlots[];
 }
 
-const Availability: React.FC<AvailabilityProps> = ({ slots }) => {
+const TeacherSlotss: React.FC<TeacherSlotsProps> = ({ slots }:any) => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md">
-      <h3 className="font-semibold mb-4">Availability</h3>
-      <div className="grid grid-cols-2 gap-4">
-        {slots.map((slot, index) => (
-          <div key={index} className="text-sm text-center text-gray-600 p-2 bg-gray-100 rounded">
+    <div className="">
+      <h3 className="font-semibold mb-4 text-lg">Availability</h3>
+      <div className="grid lg:grid-cols-4 sm:grid-cols-3 gap-4">
+        {slots.map((slot:any, index:any) => (
+          <button
+            key={index}
+            className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
+              activeIndex === index
+                ? 'bg-teal-400 text-white'
+                : 'bg-gray-100 text-gray-600'
+            }`}
+            onClick={() => setActiveIndex(index)}
+          >
             {slot.startTime} - {slot.endTime}
-          </div>
+          </button>
         ))}
       </div>
     </div>
   );
 };
 
-export default Availability;
+export default TeacherSlotss;
