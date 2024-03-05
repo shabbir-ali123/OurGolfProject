@@ -57,14 +57,15 @@ interface SingleEvent {
 const EditTeamPage: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
   const teamId = params.id;
-  const {isCreated, singleEvent} = singleEventContextStore()
-  const {handleSingleTeam, totalJoinedMembers, teamMembers, isLoading,  teams} = singleTeamsContextStore()
-  console.log(teams, 'te edi')
+  const {isCreated, singleEvent} = singleEventContextStore();
+  console.log(singleEvent, 'sE')
+  const {handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading,  teams} = singleTeamsContextStore()
+
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  console.log(teams, "teams");
-
+  
+  
 
   function CustomNextArrow(props: any) {
     const { className, style, onClick } = props;
@@ -471,6 +472,19 @@ const EditTeamPage: FunctionComponent = () => {
                       Add Players Score
                     </button>
                   </div>
+                </>
+              ) : isJoined ? (
+                <>
+                  {/* Content for when isCreated is false and isJoined is true */}
+                  <div className="flex items-center gap-4">
+                    {/* Your content here */}
+                  </div>
+                  <button
+                    className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                    onClick={() => router(`/add-score-page/${singleEvent?.id}`)}
+                  >
+                    {t('Add Score')}
+                  </button>
                 </>
               ) : (
                 <>

@@ -56,5 +56,11 @@ export const API_ENDPOINTS = {
   
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
-  GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`
+  GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,
+
+  // Score Page
+  GETALLSCORE: `${API_BASE_URL}/${API_VERSION}/get-all-score-cards`,
+  ADDSCORE: `${API_BASE_URL}/${API_VERSION}/add-score-card`,
+  GETSCOREBYEVENTID: `${API_BASE_URL}/${API_VERSION}/get-score-card-by-event/`,
+
 };
