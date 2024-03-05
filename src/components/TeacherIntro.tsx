@@ -12,9 +12,10 @@ const IntroVideo: React.FC<IntroVideoProps> = ({ videoSrc, posterSrc }) => {
 
   return (
     <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
-       
+   
       {!videoVisible && (
         <>
+        
           <img
             className="rounded-lg"
             src={posterSrc}

@@ -246,6 +246,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               </label>
               <Select
                 name="place"
+                required
                 options={
                   JapanCities as OptionsOrGroups<
                     OptionType,
@@ -323,6 +324,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               type="text"
               className="w-3/4 md:w-1/2 p-2 rounded-md focus:outline-none border-[#52FF86]"
               placeholder={t("SEARCH_LOCATION")}
+              required
             />
             <button
               className="py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"

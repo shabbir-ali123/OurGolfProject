@@ -111,6 +111,7 @@ document.body.dir = i18n.dir();
             name="capacity"
             min="0"
             onChange={handleInputChange}
+            required
           />
         </div>
         <div className="flex col-span-12 gap-2 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
@@ -126,6 +127,7 @@ document.body.dir = i18n.dir();
               className="sr-only peer"
               name="selfIncluded"
               onChange={handleInputChange}
+              required
             />
             <div className="w-11 h-5 border border-solid border-[#626262] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-[#626262] after:border-gray-300 bg-white after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
@@ -145,6 +147,7 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventStartDate"
             onChange={handleInputChange}
+            required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
 
@@ -154,6 +157,7 @@ document.body.dir = i18n.dir();
             name="eventStartTime"
             onChange={handleInputChange}
             placeholder="Select Time:"
+            required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -169,6 +173,7 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventEndDate"
             onChange={handleInputChange}
+            required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
 
@@ -177,6 +182,7 @@ document.body.dir = i18n.dir();
             id="time"
             name="eventEndTime"
             onChange={handleInputChange}
+            required
             placeholder="Select Time:"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
@@ -193,6 +199,7 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventDeadlineDate"
             onChange={handleInputChange}
+            required
             placeholder="Enter Date"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
@@ -202,6 +209,7 @@ document.body.dir = i18n.dir();
             id="time"
             name="eventDeadlineTime"
             onChange={handleInputChange}
+            required
             placeholder="Enter Time"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />

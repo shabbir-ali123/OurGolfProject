@@ -56,7 +56,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                                     />
                                     <p className='m-0 font-bold'>Location</p>
                                 </div>
-                                <p className="text-sm text-white m-0 pl-[calc(1rem+1.2rem)]">{location}</p> 
+                                <p className="text-sm text-white m-0 pl-[calc(1rem+1.2rem)] w-full">{location}</p> 
                             </div>
                         </div>
 
@@ -94,7 +94,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
 
                 </div>
                 <div>
-                    <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600">
+                    <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 w-full">
                         Book an Appointment
                     </button>
                     <div className='mt-4'>

@@ -10,20 +10,20 @@ interface TeacherSlotsProps {
   slots: TeacherSlots[];
 }
 
-const TeacherSlotss: React.FC<TeacherSlotsProps> = ({ slots }:any) => {
+const TeacherListSlots: React.FC<TeacherSlotsProps> = ({ slots }:any) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <div className="mt-10">
-      <h3 className="font-semibold mb-4 text-lg">Availability</h3>
-      <div className="grid lg:grid-cols-2 sm:grid-cols-3 gap-4">
+    <div className="mt-4">
+      
+      <div className="grid  lg:grid-cols-8  sm:grid-cols-3 gap-4 ">
         {slots.map((slot:any, index:any) => (
           <button
             key={index}
-            className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
+            className={`text-[12px] text-center px-1 py-4 rounded-lg shadow-sm   ${
               activeIndex === index
                 ? 'bg-teal-400 text-white'
-                : 'bg-gray-100 text-gray-600'
+                : 'bg-gray-100 text-gray-600 '
             }`}
             onClick={() => setActiveIndex(index)}
           >
@@ -35,4 +35,4 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({ slots }:any) => {
   );
 };
 
-export default TeacherSlotss;
+export default TeacherListSlots;

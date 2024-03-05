@@ -47,6 +47,7 @@ import { PostContext } from "./contexts/postsContext";
 import { SingleEventsContext } from "./contexts/eventContext";
 import { SingleTeamsContext } from "./contexts/teamContext";
 import TeacherDetails from "./pages/TeacherDetails";
+import TeacherListpage from "./pages/TeachersListPage";
 function App() {
 const params = useParams();
 
@@ -200,6 +201,10 @@ const params = useParams();
                                         title = "";
                                         metaDescription = "";
                                         break;
+                                        case "/all-teachers":
+                                          title = "";
+                                          metaDescription = "";
+                                          break;
   
 
     }
@@ -272,6 +277,7 @@ const params = useParams();
         <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
         <Route path="/profile-page" element={token? <ProfilePage /> :<LoginPage />} />
         <Route path="/teacher-details" element={ <TeacherDetails />} />
+        <Route path="/all-teachers" element={ <TeacherListpage />} />
         <Route
           path="/edit-team/:id"
           element={<SingleTeamsContext> <SingleEventsContext> <EditTeamPage  /> </SingleEventsContext> </SingleTeamsContext>}

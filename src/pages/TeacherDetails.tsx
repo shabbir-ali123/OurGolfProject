@@ -38,6 +38,7 @@ const TeacherDetails: React.FC = () => {
                     <div className="bg-gray-100 p-4 rounded">
                        <TeacherCalender />
                     </div>
+                    <TeacherSlotss slots={slotsData} />
                 </div>
                 <div className="col-span-4 md:col-span-8">
                     <div className='bg-[#17b3a6] p-4 rounded'>
@@ -46,10 +47,10 @@ const TeacherDetails: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
                         <div className='col-span-1 md:col-span-5'>
                             <AboutTeacher />
-                            <TeacherSlotss slots={slotsData} />
+                            
                         </div>
                         <div className='col-span-1 md:col-span-3 my-4'>
-                            <h3 className="text-lg text-white font-semibold mb-2">Introduction Video</h3>
+                            <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">Introduction Video</h3>
                             <IntroVideo videoSrc={videoSrc} posterSrc={posterSrc} />
                         </div>
                     </div>

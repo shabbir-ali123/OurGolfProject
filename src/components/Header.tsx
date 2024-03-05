@@ -11,7 +11,7 @@ import { NotificationsContext } from "../contexts/notificationContext";
 
 const navigation = [
   { name: "Home", to: "/score-board" },
-  { name: "Find_teacher", to: "/student-page" },
+  { name: "Find_teacher", to: "/all-teachers" },
   { name: "Events", to: "/event-main-page" },
   { name: "Posts", to: "/post-page" },
 ];
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
             </NotificationsContext>
           </div>
 
-          {/* Mobile Menu */}
+          
           {mobileMenuOpen && (
             <div className="lg:hidden">
               <div className="flex flex-col items-center p-4">
