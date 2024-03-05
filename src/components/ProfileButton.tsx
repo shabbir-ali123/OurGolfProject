@@ -69,16 +69,15 @@ tId = tId[tId.length - 1 ]
                   alt=""
                 />
               </div>
-              <div className="ml-3">
+              <div className="ml-3 sm:flex sm:gap-2">
                 <p className="m-0 text-base font-medium text-black group-hover:text-gray-900">
                   {user.nickName ? user.nickName : user.email}
                 </p>
+                <div>
                 <button
                   onClick={() => handleChangeLanguage("ja")}
                   className={
-                    i18n.resolvedLanguage === "ja"
-                      ? "actives  rounded-l-full p-1 cursor-pointer"
-                      : "rounded-l-full p-1 cursor-pointer"
+                    i18n.resolvedLanguage === "ja" ? "actives  rounded-l-full p-1 cursor-pointer" : "rounded-l-full p-1 cursor-pointer"
                   }
                 >
                   {languages.ja.displayName}
@@ -93,6 +92,7 @@ tId = tId[tId.length - 1 ]
                 >
                   {languages.en.displayName}
                 </button>
+                </div>
               </div>
             </>
           ) : (

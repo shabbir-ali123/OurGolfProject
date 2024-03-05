@@ -5,9 +5,10 @@ import Player from "../components/Player";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { scoreContext } from "../contexts/scoreContext";
 
 interface GolfScoreProps {
-  onSaveScores?: (scores: number[]) => void; 
+  onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
 }
 
 interface UserScores {
@@ -16,12 +17,14 @@ interface UserScores {
 }
 const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const { isCreated, singleEvent } = singleEventContextStore();
+  const { handleScore } = scoreContext();
   const hole = singleEvent ? singleEvent.selectedHoles : [];
   const newArrayHole = hole?.split(",").map(Number);
 
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -29,11 +32,14 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const holes = Array.from({ length: 18 }, (_, index: number) => index + 1);
   const [sums, setSums] = useState<{ [key: string]: any }>({});
   const [isHandicap, setIsHandicap] = useState<{ [key: string]: boolean }>({});
-  const [formData, setFormData] = useState<any>([])
+  const [formData, setFormData] = useState<any>([]);
 
-  const uId = localStorage.getItem('id')
+  const totalPar = par?.reduce((acc: number, curr: number) => acc + curr, 0);
+
+  const uId = localStorage.getItem("id");
   const isCreator = uId == singleEvent?.creatorId;
   const handleForm = (event: any) => {
+
     event.preventDefault(); // Prevent the default form submission behavior
 
     const userScoresMap: { [userId: string]: UserScores } = {};
@@ -61,10 +67,17 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       console.log("FilteredSums:", userScores.filteredSums);
 
       const totalScore = userScores.sums.reduce((acc, score) => acc + score, 0);
-      const roundedValue =
-        isHandicap[userId] ?
-        Math.round((totalScore * (singleEvent?.scoringType === "single" ? 3 : (singleEvent?.scoringType === "double" ? 1.5 : 2)) - totalPar) * 0.8) :
-        0;
+      const roundedValue = isHandicap[userId]
+        ? Math.round(
+            (totalScore *
+              (singleEvent?.scoringType === "single"
+                ? 3
+                : singleEvent?.scoringType === "double"
+                ? 1.5
+                : 2) -
+              totalPar) * 0.8
+          )
+        : 0;
       const netValue = totalPar - roundedValue;
 
       formDataArray.push({
@@ -74,15 +87,15 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         totalScore: totalScore,
         handiCapValue: roundedValue,
         netValue: netValue,
+        eventId: singleEvent.id
       });
     }
 
     setFormData(formDataArray);
+    handleScore(formData)
   };
 
-
-
-  console.log(formData, 'form data')
+  console.log(formData, "form data");
 
   const handleInputChange = (
     userId: string,
@@ -139,8 +152,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   };
 
   const totalScores = calculateTotalSum();
-  const totalPar = par?.reduce((acc: number, curr: number) => acc + curr, 0);
-  const { teams } = singleTeamsContextStore();
+  const { teams, isJoined } = singleTeamsContextStore();
 
   const handleHandicap = (playerId: string) => {
     setIsHandicap((prev) => ({
@@ -149,17 +161,18 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }));
   };
 
-  const uniqueMembers = teams.flatMap((team: any) => team.members || [])
-  .reduce((acc: any, member: any) => {
+  const uniqueMembers = teams
+    .flatMap((team: any) => team.members || [])
+    .reduce((acc: any, member: any) => {
       const existingMember = acc.find((m: any) => m.userId === member.userId);
       if (!existingMember) {
-          acc.push(member);
+        acc.push(member);
       }
       return acc;
-  }, []);  
-  
+    }, []);
+
   return (
-    <div className="max-w-[1650px] mx-auto sm:mx-20 lg:mx-auto">
+    <div className="mx-auto max-w-7xl">
       <div className="flex items-center gap-10">
         <div className="relative w-[90.5px] h-[147.5px]">
           <img
@@ -181,19 +194,17 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         Scoring Type:{" "}
         <span className="font-bold">{singleEvent?.scoringType} PERIA</span>{" "}
       </p>
-      <div className="overflow-x-scroll  lg:overflow-hidden w-full">
       <form action="" onSubmit={handleForm}>
-        <table className=" text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg overflow-x-scroll ">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
             <tr>
               <th className="px-2 py-3 text-center">HOLE</th>
               {holes.map((hole) => {
-                let bgColor = ''
+                let bgColor = "";
                 if (isCreator) {
-
-                const match = newArrayHole?.includes(hole);
-                bgColor = match ? "bg-red" : "";
-              }
+                  const match = newArrayHole?.includes(hole);
+                  bgColor = match ? "bg-red" : "";
+                }
 
                 return (
                   <th className={`text-center px-2 py-3 ${bgColor}`} key={hole}>
@@ -203,19 +214,15 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
               })}
 
               <th className="px-2 py-3 text-center">Total</th>
-              {
-                isCreator && 
+              {isCreator && (
                 <>
-              <th className="px-2 py-3 text-center">HDCP</th>
-              <th className="px-2 py-3 text-center">Net</th>
-              </>
-
-            }
-
-              <th className="px-2 py-3 text-center">H</th>
+                  <th className="px-2 py-3 text-center">HDCP</th>
+                  <th className="px-2 py-3 text-center">Net</th>
+                </>
+              )}
             </tr>
             <tr>
-              <th className="flex justify-center py-3">PAR</th>
+              <th className="px-2 py-3">PAR</th>
 
               {par?.map((parValue: any, index: any) => (
                 <th key={index} className="px-2 py-3 text-center">
@@ -223,118 +230,223 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                 </th>
               ))}
               <th className="px-2 py-3 text-center">{totalPar}</th>
-              {
-                isCreator && 
+              {isCreator && (
                 <>
-                
-              
-              <th className="px-2 py-3 text-center">{totalPar}</th>
-              <th className="px-2 py-3 text-center">{totalPar}</th>
-              </>
-              }
-              <th className="px-2 py-3 text-center">ON/OFF</th>
-              <></>
+                  <th className="px-2 py-3 text-center">{totalPar}</th>
+                  <th className="px-2 py-3 text-center">{totalPar}</th>
+                </>
+              )}
             </tr>
-            {uniqueMembers.map((member: any, memberIndex: number) => {
-                const playerHandicap = isHandicap[member.nickName] || false;
-                if (!isCreator) {
-                  if (member.userId == uId) {
-                    member;
-                  }
-                  else {
-                    toast.error('Please join event')
-                    navigate('/event-main-page')
-                  }
-                }
-                console.log(member, 'uuuu')
-                let roundedValue = 0;
-                if (playerHandicap) {
-                  if (singleEvent?.scoringType == "single") {
-                    roundedValue = Math.round(
-                      (selectedHoleSum[member.nickName] * 3 - totalPar) * 0.8
-                    );
-                  }
-                  if (singleEvent?.scoringType == "double") {
-                    roundedValue = Math.round(
-                      (selectedHoleSum[member.nickName] * 1.5 - totalPar) * 0.8
-                    );
+            {isJoined && !isCreator
+              ? uniqueMembers
+                  .filter((member: any) => member.userId == uId)
+                  .map((member: any, memberIndex: number) => {
+                    const playerHandicap = isHandicap[member.userId] || false;
 
-                  }
-                  if (singleEvent?.scoringType == "triple") {
-                    roundedValue = Math.round(
-                      (selectedHoleSum[member.nickName] * 2 - totalPar) * 0.8
+                    let memberr;
+                    if (!isCreator) {
+                      if (member.userId == uId) {
+                        memberr = member;
+                      } else {
+                        toast.error("Please join event");
+                        // navigate('/event-main-page')
+                      }
+                    }
+                    console.log(memberr, "uuuu");
+                    let roundedValue = 0;
+                    if (playerHandicap) {
+                      if (singleEvent?.scoringType == "single") {
+                        roundedValue = Math.round(
+                          (selectedHoleSum[member.userId] * 3 - totalPar) *
+                            0.8
+                        );
+                      }
+                      if (singleEvent?.scoringType == "double") {
+                        roundedValue = Math.round(
+                          (selectedHoleSum[member.userId] * 1.5 - totalPar) *
+                            0.8
+                        );
+                      }
+                      if (singleEvent?.scoringType == "triple") {
+                        roundedValue = Math.round(
+                          (selectedHoleSum[member.userId] * 2 - totalPar) *
+                            0.8
+                        );
+                      }
+                    }
+                    const netValue = totalPar - roundedValue;
+                    return (
+                      <tr
+                        key={memberIndex}
+                        className="py-4 pl-4 whitespace-nowrap"
+                      >
+                        <Player
+                          isCreator={isCreated}
+                          key={memberIndex}
+                          showNumber={false}
+                          enableHover={true}
+                          onDelete={() => {}}
+                          name={member.userId}
+                          imageUrl={member.imageUrl}
+                        />
+                        {holes.map((hole, holeIndex: number) => (
+                          <td key={holeIndex}>
+                            <input
+                              type="number"
+                              min="1"
+                              onChange={(e) =>
+                                handleInputChange(
+                                  member.userId,
+                                  holeIndex,
+                                  parseInt(e.target.value)
+                                )
+                              }
+                              className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                            />
+                          </td>
+                        ))}
+                        <td className="px-2 py-3 text-center">
+                          {totalScores[member.userId]}
+                        </td>
+                        {isCreator && (
+                          <>
+                            <td className="px-2 py-3 text-center">
+                              {roundedValue}
+                            </td>
+                            <td className="px-2 py-3 text-center">
+                              {netValue}
+                            </td>
+                          </>
+                        )}
+
+                        {isCreator && (
+                          <td className="px-2 py-3 text-center">
+                            <div className="relative">
+                              <input
+                                type="checkbox"
+                                className="sr-only"
+                                checked={playerHandicap}
+                              />
+                              <div
+                                onClick={() => handleHandicap(member.userId)}
+                                className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                                  playerHandicap ? "bg-[green]" : ""
+                                }`}
+                              ></div>
+                              <div
+                                className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
+                                  playerHandicap
+                                    ? "transform translate-x-6"
+                                    : ""
+                                }`}
+                              ></div>
+                            </div>
+                          </td>
+                        )}
+                      </tr>
                     );
+                  })
+              : uniqueMembers.map((member: any, memberIndex: number) => {
+                  const playerHandicap = isHandicap[member.userId] || false;
 
+                  let memberr;
+                  if (!isCreator) {
+                    if (member.userId == uId) {
+                      memberr = member;
+                    } else {
+                      toast.error("Please join event");
+                      navigate("/event-main-page");
+                    }
                   }
-                }
+                  console.log(memberr, "uuuu");
+                  let roundedValue = 0;
+                  if (playerHandicap) {
+                    if (singleEvent?.scoringType == "single") {
+                      roundedValue = Math.round(
+                        (selectedHoleSum[member.userId] * 3 - totalPar) * 0.8
+                      );
+                    }
+                    if (singleEvent?.scoringType == "double") {
+                      roundedValue = Math.round(
+                        (selectedHoleSum[member.userId] * 1.5 - totalPar) *
+                          0.8
+                      );
+                    }
+                    if (singleEvent?.scoringType == "triple") {
+                      roundedValue = Math.round(
+                        (selectedHoleSum[member.userId] * 2 - totalPar) * 0.8
+                      );
+                    }
+                  }
 
-                const netValue = totalPar - roundedValue;
-                return (
-                  <tr key={memberIndex} className="">
-                    <div className="flex justify-center items-center">
-                    <Player
-                      isCreator={isCreated}
+                  const netValue = totalPar - roundedValue;
+                  return (
+                    <tr
                       key={memberIndex}
-                      showNumber={false}
-                      // enableHover={true}
-                      // onDelete={() => {}}
-                      name={member.nickName}
-                      imageUrl={member.imageUrl}
-                    />
-                    </div>
-                   
-                    {holes.map((hole, holeIndex: number) => (
-                      <td key={holeIndex}>
-                        <input
-                          type="number"
-                          min="1"
-                          onChange={(e) =>
-                            handleInputChange(
-                              member.nickName,
-                              holeIndex,
-                              parseInt(e.target.value)
-                            )
-                          }
-                          className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
-                        />
+                      className="py-4 pl-4 whitespace-nowrap"
+                    >
+                      <Player
+                        isCreator={isCreated}
+                        key={memberIndex}
+                        showNumber={false}
+                        enableHover={true}
+                        onDelete={() => {}}
+                        name={member.userId}
+                        imageUrl={member.imageUrl}
+                      />
+                      {holes.map((hole, holeIndex: number) => (
+                        <td key={holeIndex}>
+                          <input
+                            type="number"
+                            min="1"
+                            onChange={(e) =>
+                              handleInputChange(
+                                member.userId,
+                                holeIndex,
+                                parseInt(e.target.value)
+                              )
+                            }
+                            className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                          />
+                        </td>
+                      ))}
+                      <td className="px-2 py-3 text-center">
+                        {totalScores[member.userId]}
                       </td>
-                    ))}
-                    <td className=" py-3 text-center">
-                      {totalScores[member.nickName]}
-                    </td>
-                    {isCreator && <>
-                    
-                    <td className="px-2 py-3 text-center">{roundedValue}</td>
-                    <td className="px-2 py-3 text-center">{netValue}</td>
-                    </>}
+                      {isCreator && (
+                        <>
+                          <td className="px-2 py-3 text-center">
+                            {roundedValue}
+                          </td>
+                          <td className="px-2 py-3 text-center">{netValue}</td>
+                        </>
+                      )}
 
-                    {isCreator && 
-                    <td className="px-2 py-3 text-center">
-                      <div className="relative">
-                        <input
-                          type="checkbox"
-                          className="sr-only"
-                          checked={playerHandicap}
-                        />
-                        <div
-                          onClick={() => handleHandicap(member.nickName)}
-                          className={`block bg-gray-600 w-14 h-8 rounded-full ${
-                            playerHandicap ? "bg-[green]" : ""
-                          }`}
-                        ></div>
-                        <div
-                          className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
-                            playerHandicap ? "transform translate-x-6" : ""
-                          }`}
-                        ></div>
-                      </div>
-                    </td>
-            }
-                  </tr>
-                );
-              })
-            }
-            
+                      {isCreator && (
+                        <td className="px-2 py-3 text-center">
+                          <div className="relative">
+                            <input
+                              type="checkbox"
+                              className="sr-only"
+                              checked={playerHandicap}
+                            />
+                            <div
+                              onClick={() => handleHandicap(member.userId)}
+                              className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                                playerHandicap ? "bg-[green]" : ""
+                              }`}
+                            ></div>
+                            <div
+                              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
+                                playerHandicap ? "transform translate-x-6" : ""
+                              }`}
+                            ></div>
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  );
+                })}
           </thead>
         </table>
         <button
@@ -344,8 +456,6 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           Save Scores
         </button>
       </form>
-      </div>
-     
     </div>
   );
 };
