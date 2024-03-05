@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { singleEventContextStore } from "../contexts/eventContext";
 import Player from "../components/Player";
 import { singleTeamsContextStore } from "../contexts/teamContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface GolfScoreProps {
   onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
@@ -19,6 +21,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
+  const navigate = useNavigate();
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -66,10 +69,10 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
       formDataArray.push({
         userId: userId,
-        sums: userScores.sums,
-        filteredSums: userScores.filteredSums,
+        scorePerShot: userScores.sums,
+        handiCapPerShot: userScores.filteredSums,
         totalScore: totalScore,
-        roundedValue: roundedValue,
+        handiCapValue: roundedValue,
         netValue: netValue,
       });
     }
@@ -184,8 +187,13 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
             <tr>
               <th className="px-2 py-3 text-center">HOLE</th>
               {holes.map((hole) => {
+                let bgColor = ''
+                if (isCreator) {
+
                 const match = newArrayHole?.includes(hole);
-                const bgColor = match ? "bg-red" : "";
+                bgColor = match ? "bg-red" : "";
+              }
+
                 return (
                   <th className={`text-center px-2 py-3 ${bgColor}`} key={hole}>
                     {hole}
@@ -194,8 +202,15 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
               })}
 
               <th className="px-2 py-3 text-center">Total</th>
+              {
+                isCreator && 
+                <>
               <th className="px-2 py-3 text-center">HDCP</th>
               <th className="px-2 py-3 text-center">Net</th>
+              </>
+
+            }
+
             </tr>
             <tr>
               <th className="px-2 py-3">PAR</th>
@@ -206,14 +221,28 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                 </th>
               ))}
               <th className="px-2 py-3 text-center">{totalPar}</th>
+              {
+                isCreator && 
+                <>
+                
+              
               <th className="px-2 py-3 text-center">{totalPar}</th>
               <th className="px-2 py-3 text-center">{totalPar}</th>
-
-              <></>
+              </>
+              }
             </tr>
             {uniqueMembers.map((member: any, memberIndex: number) => {
                 const playerHandicap = isHandicap[member.nickName] || false;
-
+                if (!isCreator) {
+                  if (member.userId == uId) {
+                    member;
+                  }
+                  else {
+                    toast.error('Please join event')
+                    navigate('/event-main-page')
+                  }
+                }
+                console.log(member, 'uuuu')
                 let roundedValue = 0;
                 if (playerHandicap) {
                   if (singleEvent?.scoringType == "single") {
@@ -266,8 +295,12 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                     <td className="px-2 py-3 text-center">
                       {totalScores[member.nickName]}
                     </td>
+                    {isCreator && <>
+                    
                     <td className="px-2 py-3 text-center">{roundedValue}</td>
                     <td className="px-2 py-3 text-center">{netValue}</td>
+                    </>}
+
                     {isCreator && 
                     <td className="px-2 py-3 text-center">
                       <div className="relative">

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { singleEventContextStore } from "../contexts/eventContext";
 import Player from "./Player";
-import { singleTeamsContextStore } from "../contexts/teamContext";
 
 type Product = {
   name: string;
