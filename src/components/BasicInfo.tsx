@@ -237,34 +237,29 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
             ></textarea>
 
 
-            <div className="relative w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
-              <label
-                className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
-                htmlFor="place"
-              >
-                {t("PLACE")}
-              </label>
-              <Select
-                name="place"
-                required
-                options={
-                  JapanCities as OptionsOrGroups<
-                    OptionType,
-                    GroupBase<OptionType>
-                  >
-                }
-                onChange={handleChange}
-                className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                classNamePrefix=""
-              />
-
-              {!isWithinJapan && (
-                <p className="text-[#dc0000] bg-white text-center w-full">
-                  Please enter a location within Japan.
-                </p>
-              )}
-            </div>
+           
           </div>
+          <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
+            <label
+              className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
+              htmlFor="grid-short-video"
+            >
+              {t("ADDRESS")}
+            </label>
+            <input
+              className="block w-full  py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-inner focus:outline-none focus:bg-white "
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
+              }}
+              id="grid-first-name"
+              type="text"
+              name="address"
+              placeholder={t("ADDRESS")}
+              required
+              onChange={onChange}
+            />
+          </div>
+         
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
               className="relative block mb-2 text-lg tracking-wide text-[#626262] captilize"
@@ -300,6 +295,33 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               </div>
             </div>
           </div>
+          <div className="relative w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
+              <label
+                className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
+                htmlFor="place"
+              >
+                {t("PLACE")}
+              </label>
+              <Select
+                name="place"
+                required
+                options={
+                  JapanCities as OptionsOrGroups<
+                    OptionType,
+                    GroupBase<OptionType>
+                  >
+                }
+                onChange={handleChange}
+                className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                classNamePrefix=""
+              />
+
+              {!isWithinJapan && (
+                <p className="text-[#dc0000] bg-white text-center w-full">
+                  Please enter a location within Japan.
+                </p>
+              )}
+            </div>
         </div>
 
         <div className="relative col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">

@@ -136,6 +136,7 @@
     "HOLE": "ホール",
     "TEAMS": "チーム",
     "SEARCH_LOCATION": "検索場所",
+    "ADDRESS":"住所",
     "MAP": "地図",
     "SELECT": "選択する",
     "UPLOAD_IMAGES": "画像アップロード(最大5枚)",

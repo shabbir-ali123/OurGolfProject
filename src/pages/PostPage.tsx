@@ -10,7 +10,7 @@ const PostPage: FunctionComponent = () => {
   
 
   return (
-    <div className="flex justify-center h-full max-w-6xl mx-auto mt-10 font-poppins">
+    <div className="flex justify-center h-full  md:max-w-6xl mx-auto mt-10 font-poppins">
       <div  className="w-full">
         <PostHeader/>
         <PostProfile />

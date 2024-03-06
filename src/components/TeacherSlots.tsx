@@ -22,7 +22,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({ slots }:any) => {
             key={index}
             className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
               activeIndex === index
-                ? 'bg-teal-400 text-white'
+                ? 'bg-[#17b3a6] text-white'
                 : 'bg-gray-100 text-gray-600'
             }`}
             onClick={() => setActiveIndex(index)}
@@ -31,6 +31,9 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({ slots }:any) => {
           </button>
         ))}
       </div>
+      <button className="bg-[#17b3a6] text-white text-lg px-4 py-4 cursor-pointer rounded hover:bg-green-600 w-full my-6">
+                        Book an Appointment
+                    </button>
     </div>
   );
 };

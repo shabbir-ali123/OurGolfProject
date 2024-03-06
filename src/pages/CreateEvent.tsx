@@ -20,6 +20,7 @@ interface CreateEventType {
   files?: File[] | null;
   video?: string;
   eventDetails?: string;
+  address?: string;
   eventVideoUrl?: string;
   categories?: string;
   place?: string;

@@ -26,7 +26,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
     return (
         <div className="p-6  rounded  text-white ">
             <div className="flex items-center justify-around">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start ">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start ">
                     <div className='text-center'>
                         <img
                             className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full"
@@ -35,7 +35,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                         />
                         <div className="mt-4">
                             <div>
-                                <button className="bg-green-500 px-4 py-1 rounded hover:bg-green-600 text-sm md:text-base">
+                                <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
                                     Availble
                                 </button>
                             </div>
@@ -93,20 +93,18 @@ const UserProfile: React.FC<UserProfileProps> = ({
                     </div>
 
                 </div>
-                <div>
-                    <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 w-full">
-                        Book an Appointment
-                    </button>
-                    <div className='mt-4'>
-                        <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 w-full">
+               
+                  
+                  
+
+               
+            </div>
+
+            <div className='mt-4 flex justify-end'>
+                        <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 ">
                             Chat
                         </button>
                     </div>
-
-                </div>
-            </div>
-
-           
         </div>
     );
 };

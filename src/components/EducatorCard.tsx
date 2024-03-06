@@ -2,6 +2,7 @@ import React from 'react';
 import { MapPinIcon, StarIcon } from '@heroicons/react/24/outline';
 import TeacherCalender from "../components/TeacherCalender";
 import TeacherListSlots from './TeacherListSlots';
+import { Link } from 'react-router-dom';
 
 export default function EducatorCard() {
     const slotsData = [
@@ -17,7 +18,8 @@ export default function EducatorCard() {
     
     return (
         <>
-            <div className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4'>
+       
+        <div className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4'>
                 <div className='grid grid-cols-1 xl:grid-cols-8 gap-4'>
                     <div className="md:col-span-6">
                         <div className="flex flex-col lg:flex-row">
@@ -31,7 +33,9 @@ export default function EducatorCard() {
                                     <div className="flex gap-4 mt-2 md:mt-0">
                                         <button className="bg-[#61cbc2] hover:bg-[#61cbc2] text-white font-bold py-2 px-4 rounded">Book An Appointment</button>
                                         <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">Chat</button>
+                                        <Link to="/teacher-details">
                                         <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">View Details</button>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-10 mt-4 md:mt-0">
@@ -66,6 +70,8 @@ export default function EducatorCard() {
                 </div>
                 <TeacherListSlots slots={slotsData} />
             </div>
+      
+           
         </>
     );
 }
