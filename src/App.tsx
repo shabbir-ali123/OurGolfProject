@@ -48,6 +48,8 @@ import { SingleEventsContext } from "./contexts/eventContext";
 import { SingleTeamsContext } from "./contexts/teamContext";
 import TeacherDetails from "./pages/TeacherDetails";
 import TeacherListpage from "./pages/TeachersListPage";
+import ScorePage from "./pages/ScorePage";
+import { ScoreContextProvider } from "./contexts/scoreContext";
 function App() {
 const params = useParams();
 
@@ -286,6 +288,11 @@ const params = useParams();
           element={ 
           <SingleTeamsContext> 
             <SingleEventsContext > <AddScorePage /> </SingleEventsContext></SingleTeamsContext>} 
+        />
+         <Route path="/score-page/:id" 
+          element={ 
+          <SingleTeamsContext> 
+            <SingleEventsContext ><ScoreContextProvider><ScorePage /></ScoreContextProvider>  </SingleEventsContext></SingleTeamsContext>} 
         />
         <Route
           path="/read-post/:id"

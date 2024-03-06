@@ -5,7 +5,7 @@ import Player from "../components/Player";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { scoreContext } from "../contexts/scoreContext";
+import { useScoreContext } from "../contexts/scoreContext";
 
 interface GolfScoreProps {
   onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
@@ -17,7 +17,7 @@ interface UserScores {
 }
 const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const { isCreated, singleEvent } = singleEventContextStore();
-  const { handleScore } = scoreContext();
+  const { handleScore } = useScoreContext();
   const hole = singleEvent ? singleEvent.selectedHoles : [];
   const newArrayHole = hole?.split(",").map(Number);
 
