@@ -34,7 +34,7 @@ const PostCard = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4 bg-white">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white">
       {post.map((post: Post) => (
         <Link to={`/read-post/${post.id}`}>
           <div key={post.id} className="flex p-4 rounded-lg" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>

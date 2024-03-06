@@ -136,6 +136,7 @@
     "HOLE": "Hole",
     "TEAMS": "Teams",
     "SEARCH_LOCATION": "Search Location",
+    "ADDRESS":"Address",
     "MAP": "Map",
     "SELECT": "Select",
     "UPLOAD_IMAGES": "Upload Images(Max 5 Images)",

@@ -43,29 +43,7 @@ const ProfilePrompt: React.FC = () => {
         />
       </div>
 
-      <div className="flex justify-around mt-4">
-        <button className="flex items-center gap-2 font-semibold text-green-600 bg-transparent">
-          {" "}
-          <span>
-            <VideoCameraIcon className="w-5 h-5 cursor-pointer border-2 border-solid border-[#43bcb0] rounded-full p-1 text-rose-500" aria-hidden="true" />
-          </span>{" "}
-          {t('LIVE_VIDEO')}
-        </button>
-        <button className="flex items-center gap-2 font-semibold text-green-600 bg-transparent">
-          {" "}
-          <span>
-            <PhotoIcon className="w-5 h-5 cursor-pointer border-2 border-solid border-[#43bcb0] rounded-full p-1 text-[#43bcb0]" aria-hidden="true" />
-          </span>
-          {t('PHOTO')}
-        </button>
-        {/* <button className="flex items-center gap-2 font-semibold text-green-600 bg-transparent">
-          {" "}
-          <span>
-            <FaceSmileIcon className="w-5 h-5 cursor-pointer text-[#43bcb0] border-2 border-solid border-[#43bcb0] rounded-full p-1 " aria-hidden="true" />
-          </span>
-         {t('FEELING')}
-        </button> */}
-      </div>
+    
     </div>
     {isModalOpen && (
         <PostModal closeModal={closeModal} />
