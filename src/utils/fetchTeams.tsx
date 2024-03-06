@@ -4,10 +4,17 @@ import { toast } from "react-toastify";
 
 export const fetchTeams = async (setTeams: any, eventId: any, setTeamMembers: any, setTotalJoinedMembers:any) => {
     try {
+        const token = localStorage.getItem("token");
+        let letUrl = API_ENDPOINTS.GETPUBLICTEAMSBYEVENT+ eventId;
         
-        const response = await fetch(API_ENDPOINTS.GETTEAMSBYEVENT + eventId, {
+        if(token){
+            letUrl = API_ENDPOINTS.GETTEAMSBYEVENT+ eventId;
+        }else{
+        }
+
+        const response = await fetch(letUrl, {
             headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Authorization: `Bearer ${token}`,
 
             },
         });
@@ -25,10 +32,12 @@ export const fetchTeam = async (teamId: any) => {
     try {
         const token = localStorage.getItem("token");
         const headers: any = {};
+        let url = API_ENDPOINTS.GETPUBLICTEAMSBYEVENT + teamId
         if (token) {
             headers["Authorization"] = `Bearer ${token}`;
+            url = API_ENDPOINTS.GETTEAMSBYEVENT + teamId
         }
-        const response = await axios.get( API_ENDPOINTS.GETTEAMSBYEVENT + teamId,
+        const response = await axios.get( url ,
             {
                 headers
             }

@@ -40,6 +40,7 @@ export const API_ENDPOINTS = {
   
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
+  GETPUBLICTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-public-teams-by-event/`, 
   GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`, 
   UPDATETEAMMEMBER: `${API_BASE_URL}/${API_VERSION}/update-team-member`, 
   
