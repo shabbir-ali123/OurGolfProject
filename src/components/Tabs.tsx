@@ -94,7 +94,7 @@ const Tabs: React.FC<TabsProps> = ({
   }, []);
 console.log(currentTab)
   return (
-    <div className="flex flex-wrap xl:flex-nowrap">
+    <div className="flex flex-wrap">
       <div className="w-full animate__animated animate__fadeInLeft">
         <Tab.Group>
           <Tab.List className="flex justify-between w-full lg:col-span-6   space-x-4 items-center px-2 rounded-md bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
@@ -152,6 +152,7 @@ console.log(currentTab)
               <div className="flex justify-end ml-0 lg:ml-2 ">
                 <Calendar setEvents={setEvents} />
               </div>
+            
             </div>
           </Tab.List>
           {isLocationPopupOpen && (

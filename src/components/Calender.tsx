@@ -33,6 +33,12 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
   }, [startDate, endDate]);
   
   console.log(startDate , "actual")
+  const clearDates = () => {
+    setStartDate(null);
+    setEndDate(null);
+    // If you need to clear events when dates are cleared, uncomment the next line
+    // setEvents([]);
+  };
   return (
     <div className="flex items-center gap-2 mb-4 xl:m-0">
       <div className="flex items-center ">
@@ -61,6 +67,9 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
           className="py-3.5  rounded-md border border-solid-green-500"
         />
       </div>
+      <div className="flex items-center ">
+                <button className="bg-[#17b3a6] cursor-pointer text-white font-bold py-4 px-4 rounded" onClick={clearDates}>Clear</button>
+              </div>
     </div>
   );
 };
