@@ -1,21 +1,34 @@
 import React, {  useCallback, useEffect, useState } from 'react';
 import { getAllScores, getScoreById, postScores } from '../utils/getAllScores';
+import { useParams } from 'react-router-dom';
+import { singleEventContextStore } from './eventContext';
 
 
 const ScoresContext = React.createContext<any>({});
 
-export const ScoreContext = ({children}:any)=>{
+export const ScoreContextProvider = ({children}:any)=>{
+  
+
     const [score, setScore] = useState<any>();
-    const [eventId, setEventId] = useState<any>(2)
     const [eventScore, setEventScore] = useState<any>()
+    const [eventId, setEventId] = useState<any>()
 
     useEffect(() => {
-        getAllScores(setScore);
+        const fetchScores = async () => {
+            await getAllScores(setScore);
+        };
+        fetchScores();    
     }, [score]);
 
-    useEffect(() => {
-        getScoreById(setEventScore, eventId);
-    }, [eventScore]);
+    useEffect( () => {
+        const fetchEventScore = async () => {
+               if(eventId){
+                await getScoreById(setEventScore, eventId);
+               }
+            
+        };
+        fetchEventScore();
+    }, [ eventId ]);
 
     const handleScore = useCallback((score: any) => {
         postScores(score);
@@ -23,12 +36,12 @@ export const ScoreContext = ({children}:any)=>{
 
     const handleEventId = useCallback((eventId: any) => {
         setEventId(eventId);
-    },[score]);
+    },[]);
 
-    const value =  {handleScore, handleEventId, score}
+    const value =  {handleScore,handleEventId, score, eventScore}
 
     return <ScoresContext.Provider  value={value}> {children}</ScoresContext.Provider>
 }
 
-export const scoreContext = ()=> React.useContext(ScoresContext);
+export const useScoreContext = ()=> React.useContext(ScoresContext);
 

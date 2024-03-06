@@ -29,7 +29,7 @@ export const getScoreById = async ( setEventScore: any, eventId: any ) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setEventScore(response.data.user)
+        setEventScore(response.data)
       }
     } catch (error) {
       throw console.log(error);
