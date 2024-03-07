@@ -54,7 +54,8 @@ export const API_ENDPOINTS = {
   GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/`, 
   ADDPOSTCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-post-comment`,
   ADDPOSTLIKE: `${API_BASE_URL}/${API_VERSION}/add-post-like`,
-  
+  DELETEPOST: `${API_BASE_URL}/${API_VERSION}/delete-post/`,
+
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
   GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,
@@ -63,5 +64,6 @@ export const API_ENDPOINTS = {
   GETALLSCORE: `${API_BASE_URL}/${API_VERSION}/get-all-score-cards`,
   ADDSCORE: `${API_BASE_URL}/${API_VERSION}/add-score-card`,
   GETSCOREBYEVENTID: `${API_BASE_URL}/${API_VERSION}/get-score-card-by-event/`,
+ 
 
 };

@@ -1,5 +1,5 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { fetchPosts } from '../utils/fetchPosts';
+import { deletePost, fetchPosts } from '../utils/fetchPosts';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -10,6 +10,7 @@ export const PostContext = ({children}:any)=>{
     const [category, setCategory] = useState<string>('Public');
     const token = localStorage.getItem("token");
     const router = useNavigate();
+    const [deletePostId, setDeletePostId] = useState<any>();
 
 
     useEffect(() => {
@@ -28,7 +29,14 @@ export const PostContext = ({children}:any)=>{
         
     }, [category])
 
-    const value =  { handlePosts, handleCategory, category, post}
+
+    const handleDeletePost = useCallback((postId: any) => {
+        console.log(postId);
+        setDeletePostId(postId);
+        deletePost(postId, router); // Call the external deletePost function
+    }, [router]);
+
+    const value =  { handlePosts, handleDeletePost, handleCategory, category, post}
 
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }

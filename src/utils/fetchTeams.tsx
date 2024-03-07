@@ -25,7 +25,19 @@ export const fetchTeams = async (setTeams: any, eventId: any, setTeamMembers: an
         
 
     } catch (error) {
-        console.error("Error fetching teams:", error);
+        if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+            localStorage.removeItem('token');
+                localStorage.removeItem('tokenTimestamp');
+                localStorage.removeItem('nickName');
+                localStorage.removeItem('teacher_id');
+                localStorage.removeItem('user');
+                localStorage.removeItem('id');
+                localStorage.removeItem('score');
+                localStorage.removeItem('par');
+            toast.error("Session expired. Please log in again.");
+          } else {
+            toast.error("An error occurred. Please try again.");
+          }
     }
 };
 export const fetchTeam = async (teamId: any) => {
@@ -47,7 +59,19 @@ export const fetchTeam = async (teamId: any) => {
         
 
     } catch (error) {
-        console.error("Error fetching teams:", error);
+        if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+            localStorage.removeItem('token');
+                localStorage.removeItem('tokenTimestamp');
+                localStorage.removeItem('nickName');
+                localStorage.removeItem('teacher_id');
+                localStorage.removeItem('user');
+                localStorage.removeItem('id');
+                localStorage.removeItem('score');
+                localStorage.removeItem('par');
+            toast.error("Session expired. Please log in again.");
+          } else {
+            toast.error("An error occurred. Please try again.");
+          }
     }
 };
 export const updateTeams = async (event: any, selectedUserId: any, selectedTeamId: any) => {
@@ -74,6 +98,18 @@ export const updateTeams = async (event: any, selectedUserId: any, selectedTeamI
         toast.success(response.data.message);
 
     } catch (error) {
-        console.error("Error fetching teams:", error);
+        if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+            localStorage.removeItem('token');
+                localStorage.removeItem('tokenTimestamp');
+                localStorage.removeItem('nickName');
+                localStorage.removeItem('teacher_id');
+                localStorage.removeItem('user');
+                localStorage.removeItem('id');
+                localStorage.removeItem('score');
+                localStorage.removeItem('par');
+            toast.error("Session expired. Please log in again.");
+          } else {
+            toast.error("An error occurred. Please try again.");
+          }
     }
 };

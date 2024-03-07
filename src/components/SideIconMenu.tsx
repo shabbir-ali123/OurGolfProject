@@ -70,7 +70,7 @@ export const menuItems: MenuItem[] = [
       active: false
   },
   {
-      name: "CALENDAR",
+      name: "CALENDER",
       icon: faCalendar,
       path: "/activities-page",
   },
