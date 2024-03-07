@@ -3,9 +3,9 @@ import TeacherProfile from '../components/TeacherProfile';
 import AboutTeacher from '../components/AboutTeacher';
 import IntroVideo from '../components/TeacherIntro';
 
-import TeacherCalender from '../components/TeacherCalender';
 import TeacherPortfolio from '../components/TeacherPortfolio';
 import TeacherSlotss from '../components/TeacherSlots';
+import { TeacherCalender } from '../components/TeacherCalender';
 
 
 const TeacherDetails: React.FC = () => {

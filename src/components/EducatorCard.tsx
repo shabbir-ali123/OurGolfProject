@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { MapPinIcon, StarIcon } from '@heroicons/react/24/outline';
-import TeacherCalender from "../components/TeacherCalender";
+// import TeacherCalender from "../components/TeacherCalender";
 import TeacherListSlots from './TeacherListSlots';
 import { Link } from 'react-router-dom';
 import { teacherContext } from '../contexts/teachersContext';
+import { TeacherCalender } from './TeacherCalender';
 
 export const EducatorCard = ({firstName, lastName, imgUrl, location, rating, aboutMyself, schedules  }: any) => {
     const slotsData = [
@@ -91,13 +92,11 @@ export const EducatorCard = ({firstName, lastName, imgUrl, location, rating, abo
                                         })}
                                     </>
                                 })}
-
                             </div>
                         </div>
                     </div>
                 ))
             }
-
         </>
     );
 }
