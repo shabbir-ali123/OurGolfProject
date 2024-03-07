@@ -23,13 +23,6 @@ export const TeacherContext = ({children}:any)=>{
         setTeachers(value);
     },[schedules]);
 
-
-
-
-
-
-
-
     const value =  {handleSchedules, schedules, teachers, selectedTeacher}
 
     return <TeachersContext.Provider  value={value}> {children} </TeachersContext.Provider>
