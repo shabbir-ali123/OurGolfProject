@@ -18,7 +18,87 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+export const menuItems: MenuItem[] = [
+  {
+      name: "HOME",
+      icon: faHome,
+      path: "/score-board",
+      active: false
+  },
+  {
+      name: "NOTIFICATIONS",
+      icon: faBell,
+      path: "/notification-page",
+      active: false
+  },
+  {
+      name: "POSTS",
+      icon: faGlobe,
+      path: "/post-page",
+      active: false
+  },
+  {
+      name: "EVENTS",
+      icon: faPeopleGroup,
+      path: "/event-main-page",
+      active: false,
+      subItems: [
+          {
+              name: "CREATED_EVENTS",
+              icon: faSearch,
+              path: "/created-events",
+              active: false
+          },
+          {
+              name: "JOINED_EVENTS",
+              icon: faSearch,
+              path: "/joined-events",
+              active: false
+          },
+          {
+              name: "BOOKMARKED_EVENTS",
+              icon: faSearch,
+              path: "/booked-mark",
+              active: false
+          },
+      ],
+  },
+  {
+      name: "FIND_TEACHER",
+      icon: faSearch,
+      path: "/student-page",
+      active: false
+  },
+  {
+      name: "CALENDAR",
+      icon: faCalendar,
+      path: "/activities-page",
+  },
+  {
+      name: "PROFILE",
+      icon: faUser,
+      path: "/profile-page",
+      active: false
+  },
+  {
+      name: "MESSAGE",
+      icon: faMessage,
+      path: "/message-page",
+      active: false
+  },
+  {
+      name: "SETTING",
+      icon: faGear,
+      path: "/setting-page",
+      active: false
+  },
+  {
+      name: "LOGOUT",
+      icon: faSignOutAlt,
+      path: "/logout",
+      active: false
+  },
+];
 interface MenuItem {
   name: string;
   icon: any;
@@ -124,87 +204,8 @@ const SideMenu: React.FC = () => {
 
   };
 
-  const menuItems: MenuItem[] = [
-    {
-      name: "HOME",
-      icon: faHome,
-      path: "/score-board",
-      active: false
-    },
-    {
-      name: "NOTIFICATIONS",
-      icon: faBell,
-      path: "/notification-page",
-      active: false
-    },
-    {
-      name: "POSTS",
-      icon: faGlobe,
-      path: "/post-page",
-      active: false
-    },
-    {
-      name: "EVENTS",
-      icon: faPeopleGroup,
-      path: "/event-main-page",
-      active: false,
-      subItems: [
-        {
-          name: "CREATED_EVENTS",
-          icon: faSearch,
-          path: "/created-events",
-          active: false
-        },
-        {
-          name: "JOINED_EVENTS",
-          icon: faSearch,
-          path: "/joined-events",
-          active: false
-        },
-        {
-          name: "BOOKMARKED_EVENTS",
-          icon: faSearch,
-          path: "/booked-mark",
-          active: false
-        },
-      ],
-    },
-    {
-      name: "FIND_TEACHER",
-      icon: faSearch,
-      path: "/student-page",
-      active: false
-    },
-    {
-      name: "CALENDER",
-      icon: faCalendar,
-      path: "/activties-page",
-    },
-    {
-      name: "PROFILE",
-      icon: faUser,
-      path: "/profile-page",
-      active: false
-    },
-    {
-      name: "MESSAGE",
-      icon: faMessage,
-      path: "/message-page",
-      active: false
-    },
-    {
-      name: "SETTING",
-      icon: faGear,
-      path: "/setting-page",
-      active: false
-    },
-    {
-      name: "LOGOUT",
-      icon: faSignOutAlt,
-      path: "/logout",
-      active: false
-    },
-  ];
+
+
   useEffect(() => {
     const handleResize = () => {
       setIsDesktopScreen(window.innerWidth > 1300);
@@ -224,7 +225,7 @@ const SideMenu: React.FC = () => {
           width: isMenuOpen ? "300px" : "50px",
           backgroundColor: "white",
           boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.15)",
-          display: "flex",
+          display: isDesktopScreen ? "flex" : "none",
           flexDirection: "column",
           alignItems: "center",
           position: "fixed",

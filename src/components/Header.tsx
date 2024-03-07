@@ -8,8 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import socket from "../socket";
 import { NotificationsContext } from "../contexts/notificationContext";
+import MobileMenu from "./MobileMenu";
 
-const navigation = [
+export const navigation = [
   { name: "Home", to: "/score-board" },
   { name: "Find_teacher", to: "/all-teachers" },
   { name: "Events", to: "/event-main-page" },
@@ -30,7 +31,11 @@ const Header: React.FC = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <div>
       <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
@@ -39,7 +44,7 @@ const Header: React.FC = () => {
           aria-label="Global"
         >
           <div className="flex items-center lg:flex-1">
-            <button onClick={toggleMobileMenu} className="mr-4 lg:hidden">
+            <button onClick={toggleMenu} className="mr-4 lg:hidden">
               {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
             </button>
             <Link to="/event-main-page" className="-m-1.5 p-1"></Link>
@@ -75,11 +80,16 @@ const Header: React.FC = () => {
             </NotificationsContext>
           </div>
 
-          
-          {mobileMenuOpen && (
+          <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} />
+
+          {/* {mobileMenuOpen && (
             <div className="lg:hidden">
               <div className="flex flex-col items-center p-4">
               <div className="">
+              <button onClick={toggleMenu}>
+menu
+              </button>
+
             <NotificationsContext>
               <ProfileButton />
             </NotificationsContext>
@@ -99,7 +109,7 @@ const Header: React.FC = () => {
                
               </div>
             </div>
-          )}
+          )} */}
         </nav>
       </header>
     </div>
