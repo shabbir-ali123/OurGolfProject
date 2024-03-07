@@ -237,7 +237,7 @@ const CreateTeacher: React.FC = () => {
     });
   };
 
-  const user = JSON.parse(localStorage.getItem('user') || "");
+  // const user = JSON.parse(localStorage.getItem('user') || "");
   return (
     <div className="py-8">
       <div className="flex justify-start ml-16">
@@ -254,7 +254,7 @@ const CreateTeacher: React.FC = () => {
         pname=""
         icon={<ShareIcon />}
         label={t('FIRST_NAME')}
-        imageUrl={user?.imageUrl}
+        // imageUrl={user?.imageUrl}
         onChangeImage={(file) => {
           console.log("Selected file:", file);
         }}

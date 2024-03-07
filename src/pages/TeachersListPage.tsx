@@ -17,9 +17,6 @@ const TeachersListPage: React.FC = () => {
           
           <TeacherListHeader/>
           <EducatorCard/>
-          <EducatorCard/>
-          <EducatorCard/>
-          <EducatorCard/>
         </div>
       </div>
     </div>

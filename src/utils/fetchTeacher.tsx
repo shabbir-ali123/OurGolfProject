@@ -59,7 +59,7 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
     }
   };
 
-  export const fetchTeacherss = async (setTeachers: any, setSelectedTeacher: any) => {
+  export const fetchTeacherss = async (setTeachers: any, setSelectedTeacher: any, setSchedules:any) => {
     try {
       const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
