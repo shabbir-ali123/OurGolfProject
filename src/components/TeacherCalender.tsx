@@ -1,9 +1,20 @@
-import { useState } from "react";
+import {  useState } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/20/solid";
-import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths } from "date-fns";
+  format,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval,
+  isSameMonth,
+  isSameDay,
+  addMonths,
+  subMonths,
+  isWithinInterval,
+  parseISO,
+} from "date-fns";
+import { teacherContext } from "../contexts/teachersContext";
 
 function classNames(
   ...classes: (string | boolean | undefined | null)[]
@@ -11,7 +22,19 @@ function classNames(
   return classes.filter(Boolean).join(" ");
 }
 
-export const TeacherCalender = () => {
+const isDayInRange = (day: any, ranges: any) => {
+  console.log({day})
+  return ranges.some(({ startDate, endDate }: any) =>
+    isWithinInterval(day, { start: parseISO(startDate), end: parseISO(startDate) })
+  );
+};
+
+export const TeacherCalender = ({startEndDates}: any) => {
+  
+  const startDate = startEndDates?.map((slot: any) => slot.startDate);
+
+  const { teachers } = teacherContext()
+  
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
@@ -20,7 +43,9 @@ export const TeacherCalender = () => {
   const days = eachDayOfInterval({ start: startDay, end: endDay });
 
   const handleDateClick = (date: any) => {
-    setSelectedDate(date);
+    if (isDayInRange(date, startEndDates)) {
+      setSelectedDate(date);
+    }
   };
 
   const handleNextMonth = () => {
@@ -30,6 +55,7 @@ export const TeacherCalender = () => {
   const handlePrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
+
 
   return (
     <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent w-full">
@@ -49,26 +75,28 @@ export const TeacherCalender = () => {
             </div>
           </div>
           <div className="mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
-          {days.map((day) => (
-  <button
-    key={day.toString()}
-    onClick={() => handleDateClick(day)}
-    className={classNames(
-      "py-1.5 hover:bg-gray-100 focus:z-10",
-      isSameMonth(day, currentMonth) ? "" : "bg-gray-50",
-      isSameDay(day, selectedDate) && "bg-black text-white", // Changed text color here
-      isSameDay(day, new Date()) && !isSameDay(day, selectedDate) && "text-red-600"
-    )}
-  >
-    <time dateTime={format(day, "yyyy-MM-dd")}>
-      {format(day, "d")}
-    </time>
-  </button>
-))}
-
+            {days.map((day) => (
+              <button
+                key={day.toString()}
+                onClick={() => handleDateClick(day)}
+                disabled={!isDayInRange(day, startEndDates)}
+                className={classNames(
+                  "py-1.5 hover:bg-gray-100 focus:z-10",
+                  isSameMonth(day, currentMonth) ? "" : "bg-gray-50",
+                  isDayInRange(day, startEndDates) ? "text-gray-900" : "text-gray-300 cursor-not-allowed",
+                  isSameDay(day, selectedDate) ? "bg-gray-300 text-black" : "",
+                  isSameDay(day, new Date()) && !isSameDay(day, selectedDate) && "text-red-600",
+                  !isDayInRange(day, startEndDates) && 'bg-red'
+                )}
+              >
+                <time dateTime={format(day, "yyyy-MM-dd")}>
+                  {format(day, "d")}
+                </time>
+              </button>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
