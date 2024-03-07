@@ -58,6 +58,36 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
       setLoading(false);
     }
   };
+
+  export const fetchTeacherss = async (setTeachers: any, setSelectedTeacher: any) => {
+    try {
+      const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
+    if (token && token !== "undefined") {
+      endpoint = API_ENDPOINTS.GETALLTEACHERS;
+    }
+    const response = await axios.get(endpoint, {
+      headers: {
+          Authorization: token ? `Bearer ${token}` : '',
+        },
+        params: {
+          page: 1,
+          pageSize: 20,
+        },
+      });
+
+      if (response.data && response.data.teachers) {
+        setTeachers(response.data.teachers);
+        if (response.data.teachers.length > 0) {
+          setSelectedTeacher(response.data.teachers[0]);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
+      toast.error('Error fetching teachers');
+    }
+  }
+
  export const toggleFavoriteStatus = async (teacher: any, setTeachers:any) => {
     try {
       const token = localStorage.getItem("token");

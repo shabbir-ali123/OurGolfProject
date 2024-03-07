@@ -50,6 +50,7 @@ import TeacherDetails from "./pages/TeacherDetails";
 import TeacherListpage from "./pages/TeachersListPage";
 import ScorePage from "./pages/ScorePage";
 import { ScoreContextProvider } from "./contexts/scoreContext";
+import { TeacherContext } from "./contexts/teachersContext";
 function App() {
 const params = useParams();
 
@@ -258,7 +259,7 @@ const params = useParams();
         <Route path="/event-main-page" element={<EventMainPage/>} />
         <Route path="/activties-page" element={token? <ActivtiesPage /> :<LoginPage />} />
         <Route path="/teacher-page" element={token ? isTeacher ? <TeacherPage /> : <CreateTeacher/> :<LoginPage/> } />
-        <Route path="/student-page" element={ <StudentPage />} />
+        <Route path="/student-page" element={<TeacherContext> <StudentPage /> </TeacherContext>} />
         <Route path="/create-event"  element={token? <CreateEvent/>:<LoginPage />} />
         <Route path="/score-board" element={<ScoreBoard/>} />
         <Route path="/login-page"  element={<LoginPage  />} />
@@ -279,7 +280,7 @@ const params = useParams();
         <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
         <Route path="/profile-page" element={token? <ProfilePage /> :<LoginPage />} />
         <Route path="/teacher-details" element={ <TeacherDetails />} />
-        <Route path="/all-teachers" element={ <TeacherListpage />} />
+        <Route path="/all-teachers" element={<TeacherContext> <TeacherListpage /></TeacherContext>} />
         <Route
           path="/edit-team/:id"
           element={<SingleTeamsContext> <SingleEventsContext> <EditTeamPage  /> </SingleEventsContext> </SingleTeamsContext>}
