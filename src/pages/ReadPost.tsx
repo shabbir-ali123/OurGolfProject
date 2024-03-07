@@ -31,9 +31,8 @@ const ReadPost: React.FC = () => {
 
   useEffect(() => {
     if (singlePost) {
-      setUserHasLiked(singlePost);
       const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-      setUserHasLiked(singlePost.PostLikes.some((like: any) => like.userId === loggedInUser));
+      setUserHasLiked(singlePost.PostLikes.some((like: any) => like.userId === loggedInUser && like.counter === 1));
     }
   }, [singlePost]);
 
@@ -305,34 +304,34 @@ const ReadPost: React.FC = () => {
 
       </div>
 
-<div className="flex gap-2 items-center">
-<div className="flex items-center gap-0">
-        <div className="flex items-center">
-          <button onClick={handleLike} className="flex items-center bg-transparent">
-            {userHasLiked ? (
-              <HandThumbUpIcon className="w-6 h-6 text-blue-500" />
-            ) : (
-              <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
-            )}
-          </button>
-        </div> {
-          (singlePost?.PostLikes || []).filter(
-            (like: any) => like.counter
-          ).length
-        } Likes</div>
+      <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-0">
+          <div className="flex items-center">
+            <button onClick={handleLike} className="flex items-center cursor-pointer bg-transparent">
+              {userHasLiked ? (
+                <HandThumbUpIcon className="w-6 h-6 text-blue-500" />
+              ) : (
+                <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+              )}
+            </button>
+          </div> {
+            (singlePost?.PostLikes || []).filter(
+              (like: any) => like.counter
+            ).length
+          } Likes</div>
 
-      <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"  data-interaction="share">
-        {" "}
-        <ShareIcon
-          className="w-4 h-4 cursor-pointer"
-          aria-hidden="true"
+        <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" data-interaction="share">
+          {" "}
+          <ShareIcon
+            className="w-4 h-4 cursor-pointer"
+            aria-hidden="true"
 
-          data-interaction="share"
-        />
-        Share
-      </span>
-</div>
-     
+            data-interaction="share"
+          />
+          Share
+        </span>
+      </div>
+
     </div>
   );
 };
