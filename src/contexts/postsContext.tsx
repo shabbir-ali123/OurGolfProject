@@ -13,7 +13,7 @@ export const PostContext = ({children}:any)=>{
 
 
     useEffect(() => {
-        fetchPosts(setPost, category);
+        fetchPosts(setPost, category, router);
     }, [category]);
 
     const handlePosts = useCallback((value: any) => {

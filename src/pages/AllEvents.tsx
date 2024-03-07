@@ -67,12 +67,15 @@ const AllEvents: React.FC<AllEventsProps> = ({
       console.error("Error updating like:", error);
     }
   };
-  const { eventsCount, handlePageChange, handlePageSize} = eventContextStore();
+  const { eventsCount, handlePageChange, handlePageSize, handleEventStatus} = eventContextStore();
   const totalPages = Math.ceil(eventsCount / 6); 
   const onPageChange = (pageNumber:any) => {
     setCurrentPage(pageNumber); 
     handlePageChange(pageNumber); 
   };
+  useEffect(() => {
+   handleEventStatus('All')
+ }, []);
   return (
     <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">

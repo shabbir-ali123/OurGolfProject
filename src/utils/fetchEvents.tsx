@@ -1,6 +1,8 @@
 import axios from "axios";
 import { formatDate } from "./getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  location?:any, status?:any) => {
   try {
@@ -26,13 +28,15 @@ export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  lo
   }
 };
 
-export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParams:any) => {
+export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParams:any, navigate:any) => {
+
   const { store_token,currentPage, locations, startDate, endDate,pageSize, eventStatus} = queryParams;
   try {
     const headers:any= {}
     if (store_token) {
       headers["Authorization"]=  `Bearer ${store_token}`
     }
+    
     const response = await axios.get(store_token && store_token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
       headers,
       params: {
@@ -44,12 +48,23 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
         place: locations[0]
       },
     });
-    console.log(locations[0], 'loca')
-    setEvents(response.data.events);
+
+  // Check for 401 status code right after receiving the response
+  if (response.status === 401) {
+    // Handle 401 Unauthorized error
+    console.error("Unauthorized access - 401 error");
+    // Optionally, you can perform actions like redirecting to a login page or displaying an error message
+    return;
+  }    setEvents(response.data.events);
     setEventsCount(response.data.count)
   } catch (error) {
-    throw error; 
-  }
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      toast.error("Session expired. Please log in again.");
+      navigate('/login-page'); 
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
+}
 };
 
 

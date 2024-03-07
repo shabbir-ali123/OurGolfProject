@@ -1,6 +1,6 @@
 import React, {  useCallback, useEffect, useState } from 'react';
 import { fetchEventss, fetchSingleEvent } from '../utils/fetchEvents';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EventCreateContext = React.createContext<any>({});
 
@@ -14,6 +14,7 @@ export const EventsContext = ({children}:any)=>{
     const [startDate, setStartDate]=useState<string>("");
     const [endDate, setEndDate]= useState<string>("");
     const [eventStatus, setEventStatus]= useState<string>("past");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const queryParams = {
@@ -25,8 +26,8 @@ export const EventsContext = ({children}:any)=>{
             endDate: endDate,
             eventStatus: eventStatus
         };
-        fetchEventss(setEvents,setEventsCount, queryParams);
-    }, [currentPage,pageSize, locations, startDate, endDate, eventStatus, eventStatus]);
+        fetchEventss(setEvents,setEventsCount, queryParams, navigate);
+    }, [currentPage,pageSize, locations, startDate, endDate, eventStatus]);
 
     const handleEvents = useCallback((value: any) => {
         return setEvents(value);
@@ -52,10 +53,12 @@ export const EventsContext = ({children}:any)=>{
         setEndDate(endDate);
     }
     
-    const handleEventStatus = (status: string)=>{
-        setEventStatus(status);
-    }
-
+    // const handleEventStatus = (status: string)=>{
+    //     setEventStatus(status);
+    // }
+    const handleEventStatus = useCallback((value: any) => {
+        setEventStatus(value);
+    },[eventStatus]);
     const value =  { handleEvents,handlePageChange, handlePageSize, handleLocationFilter,handleStartDate, handleEndDate,handleEventStatus, locations, eventss, eventsCount}
 
     return <EventCreateContext.Provider  value={value}> {children}</EventCreateContext.Provider>

@@ -5,8 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-
+import { useTranslation } from "react-i18next";
 const Login: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const router = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -62,7 +64,7 @@ const Login: React.FC = () => {
         <div className="w-full bg-white rounded-lg shadow-xl dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Login to your account
+            {t("LOGIN")}
             </h1>
 
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
@@ -77,7 +79,7 @@ const Login: React.FC = () => {
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your email
+                  {t("YOUR_EMAIL")}
                 </label>
                 <input
                   type="email"
@@ -94,7 +96,7 @@ const Login: React.FC = () => {
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Password
+                  {t("PASSWORD")}
                 </label>
                 <input
                   type="password"
@@ -122,7 +124,7 @@ const Login: React.FC = () => {
                       htmlFor="remember"
                       className="text-gray-500 dark:text-gray-300 "
                     >
-                      Remember me
+                     {t("REMEMBER")}
                     </label>
                   </div>
                 </div>
@@ -130,14 +132,14 @@ const Login: React.FC = () => {
                   href="#"
                   className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Forgot password?
+                   {t("FORGOT_PASSWORD")}
                 </a>
               </div>
               <button
                 type="submit"
                 className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Sign In
+                {t("SIGN_IN")}
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}

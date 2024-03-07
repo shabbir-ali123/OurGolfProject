@@ -1,6 +1,6 @@
 import React, {  useCallback, useEffect, useState } from 'react';
 import { getAllScores, getScoreById, postScores } from '../utils/getAllScores';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { singleEventContextStore } from './eventContext';
 
 
@@ -12,10 +12,11 @@ export const ScoreContextProvider = ({children}:any)=>{
     const [score, setScore] = useState<any>();
     const [eventScore, setEventScore] = useState<any>()
     const [eventId, setEventId] = useState<any>()
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchScores = async () => {
-            await getAllScores(setScore);
+            await getAllScores(setScore, navigate);
         };
         fetchScores();    
     }, [score]);

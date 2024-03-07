@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 
-export const getAllScores = async ( setScore: any) => {
+export const getAllScores = async ( setScore: any, navigate:any) => {
     try {
         const token = localStorage.getItem("token");
 
@@ -15,7 +15,12 @@ export const getAllScores = async ( setScore: any) => {
         setScore(response.data.user)
       }
     } catch (error) {
-      throw console.log(error);
+      if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+        toast.error("Session expired. Please log in again.");
+        navigate('/login-page'); 
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
     }
   };
 
