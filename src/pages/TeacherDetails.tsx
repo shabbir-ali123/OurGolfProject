@@ -36,7 +36,7 @@ const TeacherDetails: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 <div className="col-span-1 md:col-span-4">
                     <div className="bg-gray-100 p-4 rounded">
-                       <TeacherCalender />
+                       {/* <TeacherCalender /> */}
                     </div>
                     <TeacherSlotss slots={slotsData} />
                 </div>

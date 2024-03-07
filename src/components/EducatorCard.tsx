@@ -49,7 +49,7 @@ export const EducatorCard = ({
                       <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                         Chat
                       </button>
-                      <Link to="/teacher-details">
+                      <Link to={"/teacher-details/" + teacher.id}>
                         <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                           View Details
                         </button>

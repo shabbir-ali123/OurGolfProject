@@ -198,6 +198,7 @@
     "ABOUT_EVENT":"イベントについて",
     "EVENT_TYPE":"イベントタイプ",
     "EVENT_LOCATION":"イベントの場所",
+    "EVENT_ADDRESS":"イベントアドレス",
     "TOTAL_PARTICIPANT":"総参加者数",
     "JOINED_MEMBER":"加入メンバー",
     "JOIN_NOW":"今すぐ参加",
