@@ -45,7 +45,7 @@ const PostCard = () => {
 
   const handleEllipsisClick = (event: any, postId: any) => {
     event.preventDefault();
-    event.stopPropagation();
+    // event.stopPropagation();
     setActiveDropdownPostId(activeDropdownPostId === postId ? null : postId);
   };
   const deletePost = (postId: any) => {
@@ -57,8 +57,8 @@ const PostCard = () => {
   const closeModal = () => setIsModalOpen(false);
 
   const handleLike = async (postId: string, hasLiked: boolean,event:any) => {
-    event.preventDefault();
-    event.stopPropagation();
+    // event.preventDefault();
+    // event.stopPropagation();
     if (!isAuthenticated()) {
       navigate('/login-page');
       return;
@@ -92,7 +92,8 @@ const PostCard = () => {
         const userHasLiked = post.PostLikes.some((like: any) => like.userId === loggedInUser && like.counter === 1);
         return <>
         {isModalOpen && (
-          <UpdatePost closeModal={closeModal} postId={post.id} />
+          // <UpdatePost  />
+          <></>
         )}
         <Link to={`/read-post/${post.id}`}>
           <div
@@ -128,12 +129,12 @@ const PostCard = () => {
                     <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
                       <ul className="p-0 m-0">
                         <li className="list-none p-2 hover:shadow-lg  text-start">
-                          <a
+                          <Link
                             className="decoration-none text-[#43bcb0] hover:text-[#000] "
-                            onClick={() => editPost(post.id)}
+                            to={"/edit-post/" + post.id}
                           >
                             Edit
-                          </a>
+                          </Link>
                         </li>
                         <li className="list-none p-2 hover:shadow-lg text-start">
                           <a

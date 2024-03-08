@@ -51,6 +51,7 @@ import TeacherListpage from "./pages/TeachersListPage";
 import ScorePage from "./pages/ScorePage";
 import { ScoreContextProvider } from "./contexts/scoreContext";
 import { TeacherContext, TeacherDetailsContext } from "./contexts/teachersContext";
+import UpdatePost from "./components/UpdatePost";
 function App() {
 const params = useParams();
 
@@ -273,6 +274,7 @@ const params = useParams();
         <Route path="/edit-teacher" element={token? <EditTeacher /> :<LoginPage />} />
         <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
         <Route path="/post-page" element={<PostContext> <PostPage   /></PostContext>} />
+        <Route path="/edit-post/:id" element={<PostContext> <UpdatePost   /></PostContext>} />
         <Route path="/completed-lesson" element={token || token === "undefined" ? <CompleteLessonsPage /> :<LoginPage />} />
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />

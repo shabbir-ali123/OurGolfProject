@@ -4,22 +4,24 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { postContext } from "../contexts/postsContext";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
-interface CreatePostType {
+interface UpdatePostType {
   text: string;
   category: string;
   tags: string;
   userId: string | null;
-  mediaFile: File[];
+  mediaFiles: File[];
 }
 
 interface UpdatePostProps {
-  closeModal: () => void;
-  postId?: any;
+  closeModal?: () => void;
 }
 
-const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal, postId }) => {
+const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
   const { handlePostId, singlePost, handlePosts, post } = postContext();
+  const params = useParams<{ id: string }>();
+  const postId = params.id;
 
   useEffect(() => {
     if (postId) {
@@ -34,17 +36,17 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal, postId }) => {
         text: singlePost?.text,
         category: singlePost?.category,
         tags: singlePost?.tags,
-        mediaFile: [singlePost?.mediaFile[0]],
+        mediaFiles: singlePost.mediaFile || [],
       });
     }
   }, [singlePost]);
 
-  const [formData, setFormData] = useState<CreatePostType>({
+  const [formData, setFormData] = useState<UpdatePostType>({
     userId: singlePost?.userId,
     text: singlePost?.text,
     category: singlePost?.category,
     tags: singlePost?.tags,
-    mediaFile: [singlePost?.mediaFile[0]],
+    mediaFiles: [],
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -52,24 +54,40 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal, postId }) => {
     const files = event.target.files;
 
     if (files && files.length > 0) {
-      const filesArray: File[] = Array.from(files).slice(0, 5);
-      setFormData((prevFormData: CreatePostType) => ({
+      const filesArray: File[] = Array.from(files);
+
+      setFormData((prevFormData: UpdatePostType) => ({
         ...prevFormData,
-        mediaFiles: [...prevFormData.mediaFile, ...filesArray],
+        mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
       }));
     }
+    console.log(formData);
   };
-
+  
+  async function fetchAndConvertFiles(urls:any ) {
+    const files = [];
+  
+    for (const url of urls) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const filename = url.substring(url.lastIndexOf("/") + 1);
+        const file = new File([blob], filename, { type: blob.type });
+        files.push(file);
+      } catch (error) {
+        console.error("Error fetching or converting file:", error);
+      }
+    }
+  
+    return files;
+  }
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
 
-
-
-    console.log(formData.mediaFile.length, "asdasd")
-    if (!formData.userId || formData.mediaFile.length === 0) {
+    console.log(formData.mediaFiles.length, "asdasd");
+    if (!formData.userId || formData.mediaFiles.length === 0) {
       return;
     }
-
     const userToken = localStorage.getItem("token");
 
     try {
@@ -78,11 +96,24 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal, postId }) => {
       formDataToSend.append("text", formData.text);
       formDataToSend.append("category", formData.category);
       formDataToSend.append("tags", formData.tags);
-
-      formData.mediaFile.forEach((file, index) => {
-        formDataToSend.append("mediaFiles", file);
+      if (postId) {
+        formDataToSend.append("postId", postId);
+      }
+      formData.mediaFiles.forEach((file, index) => {
+        formData.mediaFiles.forEach((file, index) => {
+          if (typeof file === "object") {
+            formDataToSend.append("mediaFiles", file);
+          }
+          
+        });
       });
-
+      if (singlePost && singlePost.mediaFile) {
+        const urlFiles = await fetchAndConvertFiles(singlePost.mediaFile);
+        urlFiles.forEach((file) => {
+          formDataToSend.append("mediaFiles", file);
+        });
+      }
+  
       const response = await axios.put(
         API_ENDPOINTS.UPDATEPOST + postId,
         formDataToSend,
@@ -94,8 +125,8 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal, postId }) => {
         }
       );
       handlePosts(post);
-      toast.success("Post has been Updated")
-      closeModal();
+      toast.success("Post has been Updated");
+      // closeModal();
     } catch (error: unknown) {}
   };
 

@@ -37,6 +37,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
       }));
     }
+    console.log(formData);
   };
 
   const handlePost = async (event: React.FormEvent) => {
