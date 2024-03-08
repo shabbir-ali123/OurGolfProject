@@ -9,7 +9,7 @@ import PostModal from "./PostModel";
 import UpdatePost from "./UpdatePost";
 import { toast } from "react-toastify";
 import { fetchPosts } from "../utils/fetchPosts";
-
+import { useTranslation } from "react-i18next";
 interface Post {
   id: string;
   tags: string[];
@@ -22,6 +22,8 @@ interface Post {
 }
 
 const PostCard = () => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const { handleDeletePost, handleCategory, category, handlePost, post } = postContext();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +43,7 @@ const PostCard = () => {
   };
 
   const [activeDropdownPostId, setActiveDropdownPostId] = useState(null);
-  
+
 
   const handleEllipsisClick = (event: any, postId: any) => {
     event.preventDefault();
@@ -56,9 +58,9 @@ const PostCard = () => {
   };
   const closeModal = () => setIsModalOpen(false);
 
-  const handleLike = async (postId: string, hasLiked: boolean,event:any) => {
-    // event.preventDefault();
-    // event.stopPropagation();
+  const handleLike = async (postId: string, hasLiked: boolean, event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
     if (!isAuthenticated()) {
       navigate('/login-page');
       return;
@@ -75,11 +77,11 @@ const PostCard = () => {
           },
         }
       );
-      if(response.status === 200){
+      if (response.status === 200) {
         // fetchPosts(handlePost, category, router);
         toast.success("Post Has been Liked");
         window.location.reload()
-        
+
       }
     } catch (error) {
       console.error(`Error updating likes: ${error}`);
@@ -91,10 +93,7 @@ const PostCard = () => {
         const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
         const userHasLiked = post.PostLikes.some((like: any) => like.userId === loggedInUser && like.counter === 1);
         return <>
-        {isModalOpen && (
-          // <UpdatePost  />
-          <></>
-        )}
+        
         <Link to={`/read-post/${post.id}`}>
           <div
             key={post.id}
@@ -153,61 +152,61 @@ const PostCard = () => {
                 {post.text}
               </p>
 
-              <div className="mt-2">
-                <div className="flex space-x-2">
-                  <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                    {post.tags}
-                  </span>
-                </div>
-                <div className="flex mt-6 space-x-4">
-                  <span
-                    className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-                    onClick={handleInteraction}
-                    data-interaction="comment"
-                  >
-                    {" "}
-                    <EnvelopeIcon
-                      className="w-4 h-4 cursor-pointer text-[#00D1FF]"
-                      aria-hidden="true"
-                    />
-                    {post.PostComments.length} comments
-                  </span>
-                  <div className="flex items-center gap-0">
-                    <div className="flex items-center">
-                      
-<button onClick={(event) => handleLike(post.id, userHasLiked,event)} className="flex items-center cursor-pointer bg-transparent">
-                      {userHasLiked ? (
-                        <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
-                      ) : (
-                        <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
-                      )}
-                    </button>
-                    </div>{" "}
-                    {
-                      (post?.PostLikes || []).filter(
-                        (like: any) => like.counter
-                      ).length
-                    }{" "}
-                    Likes
+                <div className="mt-2">
+                  <div className="flex space-x-2">
+                    <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+                      {post.tags}
+                    </span>
                   </div>
-                  <span
-                    className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-                    onClick={handleInteraction}
-                    data-interaction="share"
-                  >
-                    <ShareIcon
-                      className="w-4 h-4 cursor-pointer"
-                      aria-hidden="true"
+                  <div className="flex mt-6 space-x-4">
+                    <span
+                      className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
+                      onClick={handleInteraction}
+                      data-interaction="comment"
+                    >
+                      {" "}
+                      <EnvelopeIcon
+                        className="w-4 h-4 cursor-pointer text-[#00D1FF]"
+                        aria-hidden="true"
+                      />
+                      {post.PostComments.length} {t("COMMENTS")}
+                    </span>
+                    <div className="flex items-center gap-0">
+                      <div className="flex items-center">
+
+                        <button onClick={(event) => handleLike(post.id, userHasLiked, event)} className="flex items-center cursor-pointer bg-transparent">
+                          {userHasLiked ? (
+                            <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
+                          ) : (
+                            <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+                          )}
+                        </button>
+                      </div>{" "}
+                      {
+                        (post?.PostLikes || []).filter(
+                          (like: any) => like.counter
+                        ).length
+                      }{" "}
+                      {t("LIKES")}
+                    </div>
+                    <span
+                      className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
+                      onClick={handleInteraction}
                       data-interaction="share"
-                    />
-                    Share
-                  </span>
+                    >
+                      <ShareIcon
+                        className="w-4 h-4 cursor-pointer"
+                        aria-hidden="true"
+                        data-interaction="share"
+                      />
+                      {t("SHARE")}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Link>
-      </>
+          </Link>
+        </>
       })}
     </div>
   );

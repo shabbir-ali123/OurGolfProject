@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import {
   format,
@@ -22,32 +22,54 @@ function classNames(
   return classes.filter(Boolean).join(" ");
 }
 
-const isDayInRange = (day: any, ranges: any) => {
-  console.log({day})
-  return ranges.some(({ startDate, endDate }: any) =>
-    isWithinInterval(day, { start: parseISO(startDate), end: parseISO(startDate) })
+const isDayDisabled = (day: any, startEndDates: any) => {
+  const inRange = startEndDates?.some(({ startDate, endDate }: any) =>
+    isWithinInterval(day, {
+      start: parseISO(startDate),
+      end: parseISO(endDate),
+    })
+  );
+
+  if (!inRange) return true;
+
+  const dayOfWeek = format(day, "EEEE");
+
+  return !startEndDates.some(({ shifts }: any) =>
+    shifts.some((shift: any) => shift.day === dayOfWeek)
   );
 };
 
-export const TeacherCalender = ({startEndDates}: any) => {
-  
-  const startDate = startEndDates?.map((slot: any) => slot.startDate);
-
-  const { teachers } = teacherContext()
-  
+export const TeacherCalender = ({ startEndDates, shifts }: any) => {
+  const {handleShift, shift} = teacherContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
+  console.log(startEndDates, 'end')
   const startDay = startOfWeek(startOfMonth(currentMonth));
   const endDay = endOfWeek(endOfMonth(currentMonth));
   const days = eachDayOfInterval({ start: startDay, end: endDay });
 
   const handleDateClick = (date: any) => {
-    if (isDayInRange(date, startEndDates)) {
+    if (!isDayDisabled(date, startEndDates)) {
       setSelectedDate(date);
+      console.log(format(date, "yyyy-MM-dd")); 
     }
   };
 
+  const formattedMonth = selectedDate.toLocaleString('default', { weekday: 'long' }).replace(/^\w/, (c) => c.toUpperCase());
+  const day: (string | undefined)[] = (startEndDates || []).flatMap(
+    (schedule: any) => schedule?.shifts.map((es: any) => es.day)
+  );  
+
+let matchedShifts:any = [];
+
+day.forEach((dayName, index) => {
+  if (dayName && dayName.toLowerCase() === formattedMonth.toLowerCase()) {
+    matchedShifts.push(startEndDates[index].shifts);
+  }
+});
+
+console.log(matchedShifts)
   const handleNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
@@ -56,6 +78,9 @@ export const TeacherCalender = ({startEndDates}: any) => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
 
+  useEffect(() => {
+    handleShift(matchedShifts)
+  }, [shift])
 
   return (
     <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent w-full">
@@ -79,14 +104,13 @@ export const TeacherCalender = ({startEndDates}: any) => {
               <button
                 key={day.toString()}
                 onClick={() => handleDateClick(day)}
-                disabled={!isDayInRange(day, startEndDates)}
+                disabled={isDayDisabled(day, startEndDates)}
                 className={classNames(
                   "py-1.5 hover:bg-gray-100 focus:z-10",
-                  isSameMonth(day, currentMonth) ? "" : "bg-gray-50",
-                  isDayInRange(day, startEndDates) ? "text-gray-900" : "text-gray-300 cursor-not-allowed",
-                  isSameDay(day, selectedDate) ? "bg-gray-300 text-black" : "",
-                  isSameDay(day, new Date()) && !isSameDay(day, selectedDate) && "text-red-600",
-                  !isDayInRange(day, startEndDates) && 'bg-red'
+                  isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
+                  !isDayDisabled(day, startEndDates) ? "hover:bg-blue-100" : "cursor-not-allowed",
+                  isSameDay(day, selectedDate) ? "bg-blue-200 text-black" : "",
+                  isSameDay(day, new Date()) && !isSameDay(day, selectedDate) ? "text-red-600" : "",
                 )}
               >
                 <time dateTime={format(day, "yyyy-MM-dd")}>
@@ -100,3 +124,4 @@ export const TeacherCalender = ({startEndDates}: any) => {
     </div>
   );
 };
+

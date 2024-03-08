@@ -14,14 +14,13 @@ export const EducatorCard = ({
   rating,
   aboutMyself,
   schedules,
+  hourlyRate,
+  teacherId
 }: any) => {
   const { teachers } = teacherContext();
 
   return (
-    <>
-      {teachers?.map((teacher: any, index: any) => (
         <div
-          key={index}
           className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4"
         >
           <div className="grid grid-cols-1 xl:grid-cols-8 gap-4">
@@ -35,7 +34,7 @@ export const EducatorCard = ({
                     className="rounded-full"
                     alt=""
                   />
-                  <h4>¥ {teacher.hourlyRate} Per/Hr </h4>
+                  <h4>¥ {hourlyRate} Per/Hr </h4>
                 </div>
                 <div className="mt-4 md:mt-0 md:mx-4 flex-1">
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
@@ -49,7 +48,7 @@ export const EducatorCard = ({
                       <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                         Chat
                       </button>
-                      <Link to={"/teacher-details/" + teacher.id}>
+                      <Link to={"/teacher-details/" + teacherId}>
                         <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                           View Details
                         </button>
@@ -88,7 +87,8 @@ export const EducatorCard = ({
             </div>
             <div className="md:col-span-2">
               <TeacherCalender
-                startEndDates={teacher.schedules}
+                startEndDates={schedules}
+                shifts={schedules?.shifts}
               />
             </div>
           </div>
@@ -118,7 +118,5 @@ export const EducatorCard = ({
             </div>
           </div>
         </div>
-      ))}
-    </>
   );
 };

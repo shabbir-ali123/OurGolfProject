@@ -19,7 +19,13 @@ a {
 }
 /* global.css */
 
-
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .backdrop-blur {
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 100vw;
+  }
+}
 .animate-color-change {
   animation: colorChange 4s infinite; /* Adjust the duration (4s) as needed */
 }

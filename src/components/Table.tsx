@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import { eventContextStore } from "../contexts/eventContext";
-
+import { useTranslation } from "react-i18next";
 interface TableProps {
   events: Array<{
     id: string;
@@ -39,6 +39,8 @@ interface TableProps {
 }
 
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const { eventss, handleEvents } = eventContextStore();
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -159,39 +161,39 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         scope="col"
                         className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
                       >
-                        Organizer
+                        {t("ORGANIZER")}
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
-                        Time
+                        {t("TIME")}
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
-                        Date
+                         {t("DATE")}
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
-                        Event Name
+                        {t("EVENTS_NAME")}
                       </th>
 
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
-                        Short Notes
+                         {t("SHORT_NOTES")}
                       </th>
 
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm text-left font-semibol"
                       >
-                        Actions
+                         {t("ACTIONS")}
                       </th>
                     </tr>
                   </thead>
@@ -277,7 +279,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
                                 }`}
                               >
-                                <p className="p-2 sm:text-lg xl:text-x">Join</p>
+                                <p className="p-2 sm:text-lg xl:text-x">{t("JOIN")}</p>
                               </div>
                             </span>
                           </td>
@@ -342,7 +344,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded cursor-pointer"
                               onClick={() => router(`/score-board`)}
                             >
-                              View
+                               {t("VIEW")}
                             </button>
                           </div>
                         </tr>

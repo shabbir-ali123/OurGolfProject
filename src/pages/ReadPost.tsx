@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { HandThumbUpIcon, HandThumbDownIcon, ShareIcon } from '@heroicons/react/24/solid';
+import { useTranslation } from "react-i18next";
 export interface SinglePostProps {
   posts: any;
   category: string;
@@ -18,6 +19,8 @@ export interface SinglePostProps {
 }
 
 const ReadPost: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const params = useParams<{ id?: string }>();
   const postId = params.id;
   const [formData, setFormData] = useState<any>({ content: "", postId: postId });
@@ -160,9 +163,9 @@ const ReadPost: React.FC = () => {
         </div>
 
         <div>
-          <Link to="/post-page" className="-m-1.5 p-1">
-            <button className="bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
-              Back
+          <Link to="/post-page" className="">
+            <button className="bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-2 rounded cursor-pointer">
+            {t("BACK")}
             </button>
           </Link>
 
@@ -191,7 +194,7 @@ const ReadPost: React.FC = () => {
             (singlePost?.PostLikes || []).filter(
               (like: any) => like.counter
             ).length
-          } Likes</div>
+          } {t("LIKES")}</div>
 
         <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" data-interaction="share">
           {" "}
@@ -201,7 +204,7 @@ const ReadPost: React.FC = () => {
 
             data-interaction="share"
           />
-          Share
+          {t("SHARE")}
         </span>
       </div>
 
@@ -298,12 +301,12 @@ const ReadPost: React.FC = () => {
                   );
                 })}
                 <div className="flex items-center justify-between ">
-                  <h4 className="">Add Your Comment</h4>
+                  <h4 className="">{t("ADD_COMMENTS")}</h4>
                 </div>
                 <textarea
                   name="content"
                   id=""
-                  placeholder="Write a comment..."
+                  placeholder={t("WRITE_COMMENTS")}
                   value={formData.content}
                   onChange={(e) =>
                     setFormData({ ...formData, content: e.target.value })
@@ -317,7 +320,7 @@ const ReadPost: React.FC = () => {
                     onClick={handleSubmit}
                     className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
                   >
-                    Post comment
+                    {t("POST_COMMENTS")}
                   </button>
                 </div>
               </form>
