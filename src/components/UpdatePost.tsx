@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { postContext } from "../contexts/postsContext";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface UpdatePostType {
   text: string;
@@ -100,19 +100,9 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
         formDataToSend.append("postId", postId);
       }
       formData.mediaFiles.forEach((file, index) => {
-        formData.mediaFiles.forEach((file, index) => {
-          if (typeof file === "object") {
             formDataToSend.append("mediaFiles", file);
-          }
-          
-        });
       });
-      if (singlePost && singlePost.mediaFile) {
-        const urlFiles = await fetchAndConvertFiles(singlePost.mediaFile);
-        urlFiles.forEach((file) => {
-          formDataToSend.append("mediaFiles", file);
-        });
-      }
+   
   
       const response = await axios.put(
         API_ENDPOINTS.UPDATEPOST + postId,
@@ -167,12 +157,12 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
         <form className="px-2">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold">Edit Post</h1>
-            <button
-              onClick={closeModal}
+            <Link
+              to={"/post-page"}
               className="p-2 rounded-full cursor-pointer"
             >
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
-            </button>
+            </Link>
           </div>
           <div>
             <textarea
