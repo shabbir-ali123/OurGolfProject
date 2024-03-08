@@ -19,6 +19,14 @@ export const fetchPosts = async (setPosts: any, category: any, navigate:any) => 
     setPosts(response.data.posts);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+          localStorage.removeItem('tokenTimestamp');
+          localStorage.removeItem('nickName');
+          localStorage.removeItem('teacher_id');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('score');
+          localStorage.removeItem('par');
       toast.error("Session expired. Please log in again.");
       navigate('/login-page');
     } else {
@@ -66,3 +74,32 @@ export const addPostComment = async (formData: any) => {
   }
 };
 
+
+export const deletePost = async (postId: any, navigate: any) => {
+  try {
+      const token = localStorage.getItem("token");
+      let endpoint = API_ENDPOINTS.DELETEPOST + postId;
+      const headers: any = {};
+      if (token && token !== "undefined") {
+          headers["Authorization"] = `Bearer ${token}`;
+      }
+      const response = await axios.delete(endpoint, { headers });
+      console.log(response);
+      // Handle the response, e.g., remove the post from the state or notify the user
+  } catch (error) {
+      if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+          toast.error("Session expired. Please log in again.");
+          localStorage.removeItem('token');
+          localStorage.removeItem('tokenTimestamp');
+          localStorage.removeItem('nickName');
+          localStorage.removeItem('teacher_id');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('score');
+          localStorage.removeItem('par');
+          navigate('/login-page');
+      } else {
+          toast.error("An error occurred. Please try again.");
+      }
+  }
+};

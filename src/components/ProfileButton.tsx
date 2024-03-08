@@ -69,7 +69,7 @@ tId = tId[tId.length - 1 ]
                   alt=""
                 />
               </div>
-              <div className="ml-3 sm:flex sm:gap-2">
+              <div className=" sm:gap-2">
                 <p className="m-0 text-base font-medium text-black group-hover:text-gray-900">
                   {user.nickName ? user.nickName : user.email}
                 </p>

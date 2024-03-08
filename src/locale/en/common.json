@@ -197,6 +197,7 @@
     "ABOUT_EVENT":"About Event",
     "EVENT_TYPE":"Event Type",
     "EVENT_LOCATION":"Event Location",
+    "EVENT_ADDRESS":"Event Address",
     "TOTAL_PARTICIPANT":"Total Participants",
     "JOINED_MEMBER":"Joined Members",
     "JOIN_NOW":"Join Now",

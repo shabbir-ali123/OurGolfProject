@@ -64,8 +64,19 @@ import socket from "../socket";
             }
           }
         } catch (error) {
-          console.error('Error fetching teachers:', error);
-          toast.error('Error fetching teachers');
+          if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+            localStorage.removeItem('token');
+                localStorage.removeItem('tokenTimestamp');
+                localStorage.removeItem('nickName');
+                localStorage.removeItem('teacher_id');
+                localStorage.removeItem('user');
+                localStorage.removeItem('id');
+                localStorage.removeItem('score');
+                localStorage.removeItem('par');
+            toast.error("Session expired. Please log in again.");
+          } else {
+            toast.error("An error occurred. Please try again.");
+          }
         }
       };
 

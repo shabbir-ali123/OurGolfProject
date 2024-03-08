@@ -43,6 +43,7 @@ interface SingleEvent {
   eventDeadlineDate: string;
   eventName: string;
   eventDetails: string;
+  address: string;
   eventType: string;
   place: string;
   imageUrl: [0];
@@ -389,6 +390,10 @@ const EditTeamPage: FunctionComponent = () => {
               <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('EVENT_LOCATION')} :</span>
                 <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventDetails}</p>
+              </div>
+              <div className="flex items-center gap-10 mx-2 ">
+                <span className="text-gray-500 basis-[200px]">{t('EVENT_ADDRESS')} :</span>
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.address}</p>
               </div>
               <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('TOTAL_PARTICIPANT')} :</span>

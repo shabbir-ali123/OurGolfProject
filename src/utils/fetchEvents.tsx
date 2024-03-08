@@ -24,7 +24,19 @@ export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  lo
     });
     setEvents(response.data.events);
   } catch (error) {
-    throw error; 
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+          localStorage.removeItem('tokenTimestamp');
+          localStorage.removeItem('nickName');
+          localStorage.removeItem('teacher_id');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('score');
+          localStorage.removeItem('par');
+      toast.error("Session expired. Please log in again.");
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
   }
 };
 
@@ -59,6 +71,14 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
     setEventsCount(response.data.count)
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+          localStorage.removeItem('tokenTimestamp');
+          localStorage.removeItem('nickName');
+          localStorage.removeItem('teacher_id');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('score');
+          localStorage.removeItem('par');
       toast.error("Session expired. Please log in again.");
       navigate('/login-page'); 
     } else {
@@ -86,7 +106,19 @@ export const fetchTeacherByID = async (setUser:any) => {
     console.log(response.data.events); 
 
   } catch (error) {
-    throw error; 
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+          localStorage.removeItem('tokenTimestamp');
+          localStorage.removeItem('nickName');
+          localStorage.removeItem('teacher_id');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('score');
+          localStorage.removeItem('par');
+      toast.error("Session expired. Please log in again.");
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
   }
 };
 
@@ -109,7 +141,18 @@ export const fetchSingleEvent = async (eventId: any) => {
 
       return response.data;
   } catch (error) {
-      console.error("Error fetching single event:", error);
-      throw error; // Rethrow the error to handle it in the component
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+          localStorage.removeItem('tokenTimestamp');
+          localStorage.removeItem('nickName');
+          localStorage.removeItem('teacher_id');
+          localStorage.removeItem('user');
+          localStorage.removeItem('id');
+          localStorage.removeItem('score');
+          localStorage.removeItem('par');
+      toast.error("Session expired. Please log in again.");
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
   }
 };

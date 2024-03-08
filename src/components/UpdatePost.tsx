@@ -1,30 +1,51 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
+import { postContext } from "../contexts/postsContext";
+import { toast } from "react-toastify";
 
 interface CreatePostType {
   text: string;
   category: string;
   tags: string;
   userId: string | null;
-  mediaFiles: File[];
+  mediaFile: File[];
 }
 
-const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
-  
-  const [postContent, setPostContent] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const userId = localStorage.getItem("id");
+interface UpdatePostProps {
+  closeModal: () => void;
+  postId?: any;
+}
+
+const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal, postId }) => {
+  const { handlePostId, singlePost, handlePosts, post } = postContext();
+
+  useEffect(() => {
+    if (postId) {
+      handlePostId(postId);
+    }
+  }, [postId]);
+
+  useEffect(() => {
+    if (singlePost) {
+      setFormData({
+        userId: singlePost?.userId,
+        text: singlePost?.text,
+        category: singlePost?.category,
+        tags: singlePost?.tags,
+        mediaFile: [singlePost?.mediaFile[0]],
+      });
+    }
+  }, [singlePost]);
 
   const [formData, setFormData] = useState<CreatePostType>({
-    userId: userId,
-    text: postContent,
-    category: "",
-    tags: "",
-    mediaFiles: [],
+    userId: singlePost?.userId,
+    text: singlePost?.text,
+    category: singlePost?.category,
+    tags: singlePost?.tags,
+    mediaFile: [singlePost?.mediaFile[0]],
   });
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,14 +55,18 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       const filesArray: File[] = Array.from(files).slice(0, 5);
       setFormData((prevFormData: CreatePostType) => ({
         ...prevFormData,
-        mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
+        mediaFiles: [...prevFormData.mediaFile, ...filesArray],
       }));
     }
   };
 
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!formData.userId || formData.mediaFiles.length === 0) {
+
+
+
+    console.log(formData.mediaFile.length, "asdasd")
+    if (!formData.userId || formData.mediaFile.length === 0) {
       return;
     }
 
@@ -54,12 +79,13 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       formDataToSend.append("category", formData.category);
       formDataToSend.append("tags", formData.tags);
 
-      formData.mediaFiles.forEach((file, index) => {
+      formData.mediaFile.forEach((file, index) => {
         formDataToSend.append("mediaFiles", file);
       });
 
-      const response = await axios.post(
-        API_ENDPOINTS.CREATEPOSTS, formDataToSend,
+      const response = await axios.put(
+        API_ENDPOINTS.UPDATEPOST + postId,
+        formDataToSend,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -67,12 +93,10 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           },
         }
       );
-      if (response.status === 201) {
-        window.location.reload();
-      }
+      handlePosts(post);
+      toast.success("Post has been Updated")
       closeModal();
-    } catch (error: unknown) {
-    }
+    } catch (error: unknown) {}
   };
 
   const handleInputTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -82,7 +106,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       [name]: value,
     }));
   };
-  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -93,7 +117,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setSelectedCategory(value);
+    // setSelectedCategory(value);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -101,15 +125,21 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   };
 
   return (
-    <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
-      <div className=" w-full max-w-xl p-6 mx-auto bg-white rounded-lg " style={{
-        boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
-      }}
+    <div className="z-50 fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+      <div
+        className="w-full max-w-xl p-6 mx-auto bg-white rounded-lg "
+        style={{
+          boxShadow:
+            "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+        }}
       >
         <form className="px-2">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Write Post</h1>
-            <button onClick={closeModal} className="p-2 rounded-full cursor-pointer">
+            <h1 className="text-2xl font-bold">Edit Post</h1>
+            <button
+              onClick={closeModal}
+              className="p-2 rounded-full cursor-pointer"
+            >
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
@@ -120,12 +150,18 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               name="text"
               value={formData.text}
               onChange={handleInputTextChange}
-              rows={4} 
+              rows={4}
             ></textarea>
           </div>
 
           <div>
-            <label className="block text-gray-700">Add photos and videos</label>
+            {singlePost?.mediaFile.map((item: any, index: number) => (
+              <img key={index} src={item} alt="" className="h-20" />
+            ))}
+
+            <label className="block text-gray-700">
+              Update photos and videos
+            </label>
             <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
               <input
                 id="file-upload"
@@ -137,7 +173,10 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
                 onChange={handleImageChange}
                 accept="image/*,video/*"
               />
-              <label htmlFor="file-upload" className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]">
+              <label
+                htmlFor="file-upload"
+                className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
+              >
                 <svg
                   className="w-6 h-6 text-gray-600"
                   fill="none"
@@ -156,14 +195,12 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <select
             className="w-full p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
             onChange={handleSelectChange}
+            value={formData.category}
             name="category"
           >
-            <option value="" >
-              Select Category
-            </option>
+            <option value="">Select Category</option>
             <option value="Public">Public</option>
             <option value="Private">Private</option>
-           
           </select>
           <div>
             <label htmlFor="">Add tags</label>
@@ -171,16 +208,18 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder="# Tags"
               name="tags"
+              value={formData.tags}
               onChange={handleInputChange}
               required
             />
           </div>
-       
+
           <button
+            type="submit"
             className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
             onClick={(event) => handlePost(event)}
           >
-            Post
+            Update
           </button>
         </form>
       </div>
@@ -188,4 +227,4 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   );
 };
 
-export default PostModal;
+export default UpdatePost;

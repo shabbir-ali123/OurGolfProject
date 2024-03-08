@@ -135,3 +135,27 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
       console.error("Error fetching favorite teachers:", error.message);
     }
   };
+
+  
+  export const fetchSingleTeacher = async (setTeacher: any, teacherId:any) => {
+    try {
+      const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
+    if (token && token !== "undefined") {
+      endpoint = API_ENDPOINTS.GETTEACHERBYID + teacherId;
+    }
+    const response = await axios.get(endpoint, {
+      headers: {
+          Authorization: token ? `Bearer ${token}` : '',
+        },
+   
+      });
+
+      if (response.data && response.data.teachers) {
+        setTeacher(response.data.teacher);
+      }
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
+      toast.error('Error fetching teachers');
+    }
+  }
