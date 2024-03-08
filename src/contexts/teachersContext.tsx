@@ -9,6 +9,7 @@ export const TeacherContext = ({children}:any)=>{
     const [teachers, setTeachers] = useState<any[]>([]);
     const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
     const [schedules, setSchedules] = useState<any[]>([]);
+    const [shift, setShift] = useState<any>()
 
     useEffect(() => {
         fetchTeacherss(handleTeachers, setSelectedTeacher, handleSchedules);
@@ -22,7 +23,11 @@ export const TeacherContext = ({children}:any)=>{
         setTeachers(value);
     },[schedules]);
 
-    const value =  {handleSchedules, schedules, teachers, selectedTeacher}
+    const handleShift = useCallback((value: any) => {
+        setShift(value);
+    },[shift]);
+
+    const value =  {handleSchedules, handleShift, schedules, teachers, selectedTeacher}
 
     return <TeachersContext.Provider  value={value}> {children} </TeachersContext.Provider>
 }

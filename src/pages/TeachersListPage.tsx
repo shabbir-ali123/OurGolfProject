@@ -28,6 +28,7 @@ const TeachersListPage: React.FC = () => {
                 rating={teacher.rating}
                 aboutMyself={teacher.aboutMyself}
                 schedules={teacher.schedules}
+                hourlyRate={teacher?.hourlyRate}
               />
             );
           })}
