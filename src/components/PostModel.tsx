@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-
+import { useTranslation } from "react-i18next";
 interface CreatePostType {
   text: string;
   category: string;
@@ -12,7 +12,8 @@ interface CreatePostType {
 }
 
 const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
-  
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [postContent, setPostContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const userId = localStorage.getItem("id");
@@ -108,7 +109,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       >
         <form className="px-2">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Write Post</h1>
+            <h1 className="text-2xl font-bold">{t("WRITE_POST")}</h1>
             <button onClick={closeModal} className="p-2 rounded-full cursor-pointer">
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </button>
@@ -116,7 +117,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <div>
             <textarea
               className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
-              placeholder="Write text..."
+              placeholder={t("WRITE_TEXT")}
               name="text"
               value={formData.text}
               onChange={handleInputTextChange}
@@ -125,7 +126,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Add photos and videos</label>
+            <label className="block text-gray-700">{t("ADD_VIDEOS")}</label>
             <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
               <input
                 id="file-upload"
@@ -152,24 +153,24 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               </label>
             </div>
           </div>
-          <label htmlFor="">Add Category</label>
+          <label htmlFor="">{t("ADD_CATEGORY")}</label>
           <select
             className="w-full p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
             onChange={handleSelectChange}
             name="category"
           >
             <option value="" >
-              Select Category
+            {t("SELECT_CATEGORY")}
             </option>
-            <option value="Public">Public</option>
-            <option value="Private">Private</option>
+            <option value="Public">{t("PUBLIC")}</option>
+          <option value="Private">{t("PRIVATE")}</option>
            
           </select>
           <div>
-            <label htmlFor="">Add tags</label>
+            <label htmlFor="">{t("ADD_TAGS")}</label>
             <input
               className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
-              placeholder="# Tags"
+              placeholder={t("ADD_TAGS")}
               name="tags"
               onChange={handleInputChange}
               required
@@ -180,7 +181,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
             onClick={(event) => handlePost(event)}
           >
-            Post
+            {t("POST")}
           </button>
         </form>
       </div>

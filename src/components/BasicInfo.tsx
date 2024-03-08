@@ -27,76 +27,90 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
 
   const JapanCities: GroupedOptionType[] = [
     {
-      label: t('KANTO'),
-      options: [
-        { value: "Tokyo", label: t('TOKYO') },
-        { value: "Kanagawa", label: t('KANAGAWA') },
-        { value: "Saitama", label: t('SAITAMA') },
-        { value: "Chiba", label: t('CHIBA') },
-        { value: "Gunma", label: t('GUNMA') },
-        { value: "Ibaraki", label: t('IBARAKI') },
-        { value: "Tochigi", label: t('TOCHIGI') },
-        { value: "Yamanashi", label: t('YAMANASHI') },
-      ],
-    },
-    {
-      label: t('KINKI'),
-      options: [
-        { value: "Osaka", label: t('OSAKA') },
-        { value: "Kyoto", label: t('KYOTO') },
-        { value: "Nara", label: t('NARA') },
-        { value: "Shiga", label: t('SHIGA') },
-        { value: "Wakayama", label: t('WAKAYAMA') },
-      ],
-    },
-    {
-      label: "lo",
+      label: t('HOKKAIDO_TOHOKU'),
       options: [
         { value: "Hokkaido", label: t('HOKKAIDO') },
+        { value: "Aomori Prefecture", label: t('AOMORI') },
+        { value: "Iwate Prefecture", label: t('IWATE') },
+        { value: "Miyagi Prefecture", label: t('MIYAGI') },
+        { value: "Akita", label: t('AKITA') },
+        { value: "Yamagata Prefecture", label: t('YAMAGATA') },
+        { value: "Fukushima Prefecture", label: t('FUKUSHIMA') },
+       
       ],
     },
     {
-      label: t('TOHOKU'),
+      label: t('KANTO'),
       options: [
-        { value: "Tohoku", label: t('TOHOKU') },
-      ],
-    },
-    {
-      label: t('KOUSHINETSU'),
-      options: [
-        { value: "Koushinetsu and Hokuriku", label: t('KOUSHINETSU') },
-      ],
-    },
-    {
-      label: t('TOKAI'),
-      options: [
-        { value: "Tokai", label: t('TOKAI') },
-      ],
-    },
-    {
-      label: t('SHIKOKU'),
-      options: [
-        { value: "Shikoku", label: t('SHIKOKU') },
+        { value: "Ibaraki Prefecture", label: t('IBARAKI') },
+        { value: "Tochigi Prefecture", label: t('TOCHIGI') },
+        { value: "Gunma Prefecture", label: t('GUNMA') },
+        { value: "Saitama", label: t('SAITAMA') },
+        { value: "Chiba prefecture", label: t('CHIBA') },
+        { value: "Tokyo", label: t('TOKYO') },
+        { value: "Kanagawa Prefecture", label: t('KANAGAWA') },
       ],
     },
     {
       label: t('CHUBU'),
       options: [
-        { value: "Chubu", label: t('CHUBU') },
+        { value: "Niigata Prefecture", label: t('NIIGATA') },
+        { value: "Toyama Prefecture", label: t('TOYAMA') },
+        { value: "Ishikawa Prefecture", label: t('ISHIKAWA') },
+        { value: "Fukui prefecture", label: t('FUKUI') },
+        { value: "Yamanashi Prefecture", label: t('YAMANSHI') },
+        { value: "Yamanashi Prefecture", label: t('NAGANO') },
+      ],
+    },
+    {
+      label: t('TOKAI'),
+      options: [
+        { value: "Shizuoka Prefecture", label: t('SHIZUAKA') },
+        { value: "Aichi prefecture", label: t('AICHI') },
+        { value: "Mie Prefecture", label: t('MIE') },
+        { value: "Gifu Prefecture", label: t('GIFU') },
+      ],
+    },
+    {
+      label: t('KINKI'),
+      options: [
+        { value: "Shiga Prefecture", label: t('SHIGA') },
+        { value: "Kyoto", label: t('KYOTO') },
+        { value: "Osaka prefecture", label: t('OSAKA') },
+        { value: "Hyogo prefecture", label: t('HYOGO') },
+        { value: "Nara Prefecture", label: t('NARA') },
+        { value: "Wakayama Prefecture", label: t('WAKAYAMA') },
+
+      ],
+    },
+    {
+      label: t('SHIKOKU'),
+      options: [
+        { value: "Tottori prefecture", label: t('TOTTORI') },
+        { value: "Shimane Prefecture", label: t('SHIMANE') },
+        { value: "Okayama Prefecture", label: t('OKAYAMA') },
+        { value: "Hiroshima", label: t('HIROSHIMA') },
+        { value: "Yamaguchi Prefecture", label: t('YAMAGUCHI') },
+        { value: "Tokushima", label: t('TOKUSHIMA') },
+        { value: "Kagawa Prefecture", label: t('KAGAWA') },
+        { value: "Ehime Prefecture", label: t('EHIME') },
+        { value: "Kochi Prefecture", label: t('KOCHI') },
       ],
     },
     {
       label: t('KYUSHU'),
       options: [
-        { value: "Kyushu", label: t('KYUSHU')},
+        { value: "Fukuoka Prefecture", label: t('FUKUOKA') },
+        { value: "Saga Prefecture", label: t('SAGA') },
+        { value: "Nagasaki Prefecture", label: t('NAGASAKI') },
+        { value: "Kumamoto Prefecture", label: t('KUMAMOTO') },
+        { value: "Oita Prefecture", label: t('OITA') },
+        { value: "Miyazaki prefecture", label: t('MIYAZAKI') },
+        { value: "Kagoshima prefecture", label: t('KAGOSHIMA') },
+        { value: "Okinawa Prefecture", label: t('OKINAWA') },
       ],
     },
-    {
-      label: t('OKINAWA'),
-      options: [
-        { value: "Okinawa", label: t('OKINAWA') },
-      ],
-    },
+
   ];
   const [isHovered, setIsHovered] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);

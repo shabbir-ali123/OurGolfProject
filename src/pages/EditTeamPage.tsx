@@ -370,7 +370,7 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
               <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px] basis-4"> {t('DATE')} :</span>
-                <p className="py-0 text-lg capitalize text-lightseagreen-200">{singleEvent?.eventStartDate}(start from {singleEvent?.eventStartTime}To {singleEvent?.
+                <p className="py-0 text-lg capitalize text-lightseagreen-200">{singleEvent?.eventStartDate}({t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
                   eventEndTime
                 })</p>
               </div>

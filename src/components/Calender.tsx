@@ -67,8 +67,8 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
           className="py-3.5  rounded-md border border-solid-green-500"
         />
       </div>
-      <div className="flex items-center ">
-                <button className="bg-[#17b3a6] cursor-pointer text-white font-bold py-4 px-4 rounded" onClick={clearDates}>Clear</button>
+      <div className="flex items-center w-full">
+                <button className="bg-[#17b3a6] cursor-pointer text-white font-bold py-4 w-[100px] rounded" onClick={clearDates}>{t("CLEAR")}</button>
               </div>
     </div>
   );

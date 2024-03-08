@@ -9,7 +9,7 @@ import PostModal from "./PostModel";
 import UpdatePost from "./UpdatePost";
 import { toast } from "react-toastify";
 import { fetchPosts } from "../utils/fetchPosts";
-
+import { useTranslation } from "react-i18next";
 interface Post {
   id: string;
   tags: string[];
@@ -22,6 +22,8 @@ interface Post {
 }
 
 const PostCard = () => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const { handleDeletePost, handleCategory, category, handlePost, post } = postContext();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +43,7 @@ const PostCard = () => {
   };
 
   const [activeDropdownPostId, setActiveDropdownPostId] = useState(null);
-  
+
 
   const handleEllipsisClick = (event: any, postId: any) => {
     event.preventDefault();
@@ -56,7 +58,7 @@ const PostCard = () => {
   };
   const closeModal = () => setIsModalOpen(false);
 
-  const handleLike = async (postId: string, hasLiked: boolean,event:any) => {
+  const handleLike = async (postId: string, hasLiked: boolean, event: any) => {
     event.preventDefault();
     event.stopPropagation();
     if (!isAuthenticated()) {
@@ -75,11 +77,11 @@ const PostCard = () => {
           },
         }
       );
-      if(response.status === 200){
+      if (response.status === 200) {
         // fetchPosts(handlePost, category, router);
         toast.success("Post Has been Liked");
         window.location.reload()
-        
+
       }
     } catch (error) {
       console.error(`Error updating likes: ${error}`);
@@ -91,122 +93,122 @@ const PostCard = () => {
         const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
         const userHasLiked = post.PostLikes.some((like: any) => like.userId === loggedInUser && like.counter === 1);
         return <>
-        {isModalOpen && (
-          <UpdatePost closeModal={closeModal} postId={post.id} />
-        )}
-        <Link to={`/read-post/${post.id}`}>
-          <div
-            key={post.id}
-            className="flex p-4 relative rounded-lg"
-            style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
-          >
-            <img
-              className="rounded-lg  object-cover h-[auto] w-[180px]"
-              src={post.mediaFile[0]}
-              alt="Post"
-            />
-            <div className="p-4">
-              <div className="flex items-center gap-2 justify-between">
-                <div className="flex items-center gap-2 ">
-                  <img
-                    className="w-8 h-8 rounded-full "
-                    src={post.posts.imageUrl}
-                    alt="Post"
-                  />
-                  <p className="p-0">{post.posts.nickName}</p>
-                </div>
-                <div
-                  className="relative"
-                  onClick={(event) => handleEllipsisClick(event, post.id)}
-                >
-                  <EllipsisVerticalIcon
-                    className="w-6 h-6 cursor-pointer text-[#00D1FF]"
-                    aria-hidden="true"
-                    onClick={(event) => handleEllipsisClick(event, post.id)}
-                  />
-                  {activeDropdownPostId === post.id && (
-                    <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
-                      <ul className="p-0 m-0">
-                        <li className="list-none p-2 hover:shadow-lg  text-start">
-                          <a
-                            className="decoration-none text-[#43bcb0] hover:text-[#000] "
-                            onClick={() => editPost(post.id)}
-                          >
-                            Edit
-                          </a>
-                        </li>
-                        <li className="list-none p-2 hover:shadow-lg text-start">
-                          <a
-                            className="decoration-none text-[#43bcb0] hover:text-[red]"
-                            onClick={() => deletePost(post.id)}
-                          >
-                            Delete
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <p className="p-0 text-sm text-gray-700 break-words truncate w-80 ">
-                {post.text}
-              </p>
-
-              <div className="mt-2">
-                <div className="flex space-x-2">
-                  <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                    {post.tags}
-                  </span>
-                </div>
-                <div className="flex mt-6 space-x-4">
-                  <span
-                    className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-                    onClick={handleInteraction}
-                    data-interaction="comment"
-                  >
-                    {" "}
-                    <EnvelopeIcon
-                      className="w-4 h-4 cursor-pointer text-[#00D1FF]"
-                      aria-hidden="true"
+          {isModalOpen && (
+            <UpdatePost closeModal={closeModal} postId={post.id} />
+          )}
+          <Link to={`/read-post/${post.id}`}>
+            <div
+              key={post.id}
+              className="flex p-4 relative rounded-lg"
+              style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
+            >
+              <img
+                className="rounded-lg  object-cover h-[auto] w-[180px]"
+                src={post.mediaFile[0]}
+                alt="Post"
+              />
+              <div className="p-4">
+                <div className="flex items-center gap-2 justify-between">
+                  <div className="flex items-center gap-2 ">
+                    <img
+                      className="w-8 h-8 rounded-full "
+                      src={post.posts.imageUrl}
+                      alt="Post"
                     />
-                    {post.PostComments.length} comments
-                  </span>
-                  <div className="flex items-center gap-0">
-                    <div className="flex items-center">
-                      
-<button onClick={(event) => handleLike(post.id, userHasLiked,event)} className="flex items-center cursor-pointer bg-transparent">
-                      {userHasLiked ? (
-                        <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
-                      ) : (
-                        <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
-                      )}
-                    </button>
-                    </div>{" "}
-                    {
-                      (post?.PostLikes || []).filter(
-                        (like: any) => like.counter
-                      ).length
-                    }{" "}
-                    Likes
+                    <p className="p-0">{post.posts.nickName}</p>
                   </div>
-                  <span
-                    className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-                    onClick={handleInteraction}
-                    data-interaction="share"
+                  <div
+                    className="relative"
+                    onClick={(event) => handleEllipsisClick(event, post.id)}
                   >
-                    <ShareIcon
-                      className="w-4 h-4 cursor-pointer"
+                    <EllipsisVerticalIcon
+                      className="w-6 h-6 cursor-pointer text-[#00D1FF]"
                       aria-hidden="true"
-                      data-interaction="share"
+                      onClick={(event) => handleEllipsisClick(event, post.id)}
                     />
-                    Share
-                  </span>
+                    {activeDropdownPostId === post.id && (
+                      <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
+                        <ul className="p-0 m-0">
+                          <li className="list-none p-2 hover:shadow-lg  text-start">
+                            <a
+                              className="decoration-none text-[#43bcb0] hover:text-[#000] "
+                              onClick={() => editPost(post.id)}
+                            >
+                              Edit
+                            </a>
+                          </li>
+                          <li className="list-none p-2 hover:shadow-lg text-start">
+                            <a
+                              className="decoration-none text-[#43bcb0] hover:text-[red]"
+                              onClick={() => deletePost(post.id)}
+                            >
+                              Delete
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <p className="p-0 text-sm text-gray-700 break-words truncate w-80 ">
+                  {post.text}
+                </p>
+
+                <div className="mt-2">
+                  <div className="flex space-x-2">
+                    <span className="bg-[#e0ffe9] text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+                      {post.tags}
+                    </span>
+                  </div>
+                  <div className="flex mt-6 space-x-4">
+                    <span
+                      className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
+                      onClick={handleInteraction}
+                      data-interaction="comment"
+                    >
+                      {" "}
+                      <EnvelopeIcon
+                        className="w-4 h-4 cursor-pointer text-[#00D1FF]"
+                        aria-hidden="true"
+                      />
+                      {post.PostComments.length} {t("COMMENTS")}
+                    </span>
+                    <div className="flex items-center gap-0">
+                      <div className="flex items-center">
+
+                        <button onClick={(event) => handleLike(post.id, userHasLiked, event)} className="flex items-center cursor-pointer bg-transparent">
+                          {userHasLiked ? (
+                            <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
+                          ) : (
+                            <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+                          )}
+                        </button>
+                      </div>{" "}
+                      {
+                        (post?.PostLikes || []).filter(
+                          (like: any) => like.counter
+                        ).length
+                      }{" "}
+                      {t("LIKES")}
+                    </div>
+                    <span
+                      className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
+                      onClick={handleInteraction}
+                      data-interaction="share"
+                    >
+                      <ShareIcon
+                        className="w-4 h-4 cursor-pointer"
+                        aria-hidden="true"
+                        data-interaction="share"
+                      />
+                      {t("SHARE")}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Link>
-      </>
+          </Link>
+        </>
       })}
     </div>
   );

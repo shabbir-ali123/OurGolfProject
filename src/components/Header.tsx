@@ -40,17 +40,17 @@ const Header: React.FC = () => {
     <div>
       <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
         <nav
-          className="flex justify-between px-4 py-2 sm:items-end lg:items-center sm:px-32 sm:justify-start"
+          className="flex justify-between px-4 py-2  lg:items-center xl:px-32 sm:justify-start"
           aria-label="Global"
         >
-          <div className="flex items-center lg:flex-1">
+          
             <button onClick={toggleMenu} className="mr-4 lg:hidden">
               {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
             </button>
-            <Link to="/event-main-page" className="-m-1.5 p-1"></Link>
-          </div>
+            
+         
 
-          <div className="hidden lg:flex gap-x-12">
+          <div className="hidden gap-x-6 lg:flex xl:gap-x-16">
             {navigation.map((item) => (
               <Link
                 key={item.name}
