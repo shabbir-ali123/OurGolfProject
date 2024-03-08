@@ -158,14 +158,14 @@ const ReadPost: React.FC = () => {
             alt="Post"
           />
           <div>
-            <h4 className="m-0 font-semibold text-lg uppercase">{singlePost?.posts.nickName}</h4>
-            <p className="m-0 p-0 text-xs">{timeAgo}</p>
+            <h4 className="m-0 font-medium text-lg uppercase text-[#565656]">{singlePost?.posts.nickName}</h4>
+            <p className="m-0 p-0 text-sm">{timeAgo}</p>
           </div>
         </div>
 
         <div>
           <Link to="/post-page" className="-m-1.5 p-1">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+            <button className="bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
               Back
             </button>
           </Link>
@@ -173,7 +173,7 @@ const ReadPost: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="col-span-8">
           <img
             className=" w-full h-[600px]  rounded-lg "
@@ -181,6 +181,33 @@ const ReadPost: React.FC = () => {
             alt="Blog Post Image"
           />
           <p className="text-gray-600">{singlePost?.text}</p>
+          <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-0">
+          <div className="flex items-center">
+            <button onClick={handleLike} className="flex items-center cursor-pointer bg-transparent">
+              {userHasLiked ? (
+                <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
+              ) : (
+                <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+              )}
+            </button>
+          </div> {
+            (singlePost?.PostLikes || []).filter(
+              (like: any) => like.counter
+            ).length
+          } Likes</div>
+
+        <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" data-interaction="share">
+          {" "}
+          <ShareIcon
+            className="w-4 h-4 cursor-pointer"
+            aria-hidden="true"
+
+            data-interaction="share"
+          />
+          Share
+        </span>
+      </div>
 
         </div>
         <div className="col-span-4">
@@ -266,7 +293,7 @@ const ReadPost: React.FC = () => {
                       </div>
 
                       <div>
-                        <p className="p-0 m-0 text-gray-500 dark:text-gray-400">
+                        <p className="p-0 pl-14 m-0 text-gray-500 dark:text-gray-400">
                           {comment.content}
                         </p>
 
@@ -292,7 +319,7 @@ const ReadPost: React.FC = () => {
                     data-modal-hide="popup-modal"
                     type="submit"
                     onClick={handleSubmit}
-                    className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-500 hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+                    className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
                   >
                     Post comment
                   </button>
@@ -304,34 +331,7 @@ const ReadPost: React.FC = () => {
 
       </div>
 
-      <div className="flex gap-2 items-center">
-        <div className="flex items-center gap-0">
-          <div className="flex items-center">
-            <button onClick={handleLike} className="flex items-center cursor-pointer bg-transparent">
-              {userHasLiked ? (
-                <HandThumbUpIcon className="w-6 h-6 text-blue-500" />
-              ) : (
-                <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
-              )}
-            </button>
-          </div> {
-            (singlePost?.PostLikes || []).filter(
-              (like: any) => like.counter
-            ).length
-          } Likes</div>
-
-        <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" data-interaction="share">
-          {" "}
-          <ShareIcon
-            className="w-4 h-4 cursor-pointer"
-            aria-hidden="true"
-
-            data-interaction="share"
-          />
-          Share
-        </span>
-      </div>
-
+      
     </div>
   );
 };

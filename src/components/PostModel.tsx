@@ -101,8 +101,8 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
-      <div className="w-full max-w-xl p-6 mx-auto bg-white rounded-lg " style={{
+    <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+      <div className=" w-full max-w-xl p-6 mx-auto bg-white rounded-lg " style={{
         boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
       }}
       >
