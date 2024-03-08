@@ -48,11 +48,7 @@ const ReadPost: React.FC = () => {
   };
   const likescount = singlePost?.PostLikes.length;
   const handleLike = async () => {
-    //   const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-    //   if (!loggedInUser) {
-    //     toast.error("You must be logged in to like a post");
-    //     return;
-    //   }
+    
 
     try {
       const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
