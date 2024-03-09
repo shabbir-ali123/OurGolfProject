@@ -59,7 +59,13 @@ export const EventsContext = ({children}:any)=>{
     const handleEventStatus = useCallback((value: any) => {
         setEventStatus(value);
     },[eventStatus]);
-    const value =  { handleEvents,handlePageChange, handlePageSize, handleLocationFilter,handleStartDate, handleEndDate,handleEventStatus, locations, eventss, eventsCount}
+    const sortedPosts = [...eventss].sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+    
+        return Number(dateB) - Number(dateA);
+      });
+    const value =  { handleEvents,handlePageChange, handlePageSize, handleLocationFilter,handleStartDate, handleEndDate,handleEventStatus, locations, sortedPosts,eventss, eventsCount}
 
     return <EventCreateContext.Provider  value={value}> {children}</EventCreateContext.Provider>
 }

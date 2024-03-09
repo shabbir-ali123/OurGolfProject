@@ -43,7 +43,7 @@ export const PostContext = ({children}:any)=>{
         setPostId(value)
         
     }, [postId])
-
+  
 
     const handleDeletePost = useCallback((postId: any) => {
         setDeletePostId(postId);
@@ -55,9 +55,10 @@ export const PostContext = ({children}:any)=>{
         setSinglePost(value)
     }, [singlePost])
 
+  
 
     const value =  {handlePostId, handlePosts,handlePost, handleDeletePost, handleCategory,singlePost, category, post}
-
+   
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }
 

@@ -17,7 +17,36 @@ export interface SinglePostProps {
   createdAt: any
   id: any
 }
+export const getTimeAgo = (pastTime: any) => {
+  const currentTime: any = new Date();
 
+  const msPerMinute = 60 * 1000;
+  const msPerHour = msPerMinute * 60;
+  const msPerDay = msPerHour * 24;
+  const msPerMonth = msPerDay * 30;
+  const msPerYear = msPerDay * 365;
+
+  const elapsed = currentTime - pastTime;
+
+  if (elapsed < msPerMinute) {
+    return Math.round(elapsed / 1000) + ' seconds ago';
+  }
+  else if (elapsed < msPerHour) {
+    return Math.round(elapsed / msPerMinute) + ' minutes ago';
+  }
+  else if (elapsed < msPerDay) {
+    return Math.round(elapsed / msPerHour) + ' hours ago';
+  }
+  else if (elapsed < msPerMonth) {
+    return '' + Math.round(elapsed / msPerDay) + ' days ago';
+  }
+  else if (elapsed < msPerYear) {
+    return '' + Math.round(elapsed / msPerMonth) + ' months ago';
+  }
+  else {
+    return '' + Math.round(elapsed / msPerYear) + ' years ago';
+  }
+}
 const ReadPost: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -106,36 +135,8 @@ const ReadPost: React.FC = () => {
 
 
   console.log(singlePost)
-  const currentTime: any = new Date();
 
-  const getTimeAgo = (pastTime: any) => {
-    const msPerMinute = 60 * 1000;
-    const msPerHour = msPerMinute * 60;
-    const msPerDay = msPerHour * 24;
-    const msPerMonth = msPerDay * 30;
-    const msPerYear = msPerDay * 365;
 
-    const elapsed = currentTime - pastTime;
-
-    if (elapsed < msPerMinute) {
-      return Math.round(elapsed / 1000) + ' seconds ago';
-    }
-    else if (elapsed < msPerHour) {
-      return Math.round(elapsed / msPerMinute) + ' minutes ago';
-    }
-    else if (elapsed < msPerDay) {
-      return Math.round(elapsed / msPerHour) + ' hours ago';
-    }
-    else if (elapsed < msPerMonth) {
-      return '' + Math.round(elapsed / msPerDay) + ' days ago';
-    }
-    else if (elapsed < msPerYear) {
-      return '' + Math.round(elapsed / msPerMonth) + ' months ago';
-    }
-    else {
-      return '' + Math.round(elapsed / msPerYear) + ' years ago';
-    }
-  }
 
   const postTime = new Date(singlePost?.createdAt);
   const timeAgo = getTimeAgo(postTime);

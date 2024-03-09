@@ -41,7 +41,7 @@ interface TableProps {
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { eventss, handleEvents } = eventContextStore();
+  const { sortedPosts, handleEvents } = eventContextStore();
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
@@ -137,9 +137,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   const userId = localStorage.getItem("id");
 
+
+
+
+
+
   return (
     <div className="animate__animated animate__fadeInLeft">
-      {eventss.length === 0 ? (
+      {sortedPosts.length === 0 ? (
         <div className="p-5 text-center">
           <span className="text-lg font-medium">No events yet</span>
         </div>
@@ -186,7 +191,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
-                         {t("SHORT_NOTES")}
+                         {t("JOINED_MEMBER")}
                       </th>
 
                       <th
@@ -198,7 +203,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     </tr>
                   </thead>
 
-                  {eventss.map((event: any, index: number) => {
+                  {sortedPosts.map((event: any, index: number) => {
                     const likes = event.likes || [];
                     const isFavorite = event.isFavorite || false;
                     const liked = likes.find(
@@ -284,10 +289,10 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </span>
                           </td>
                           <td
-                            className="px-3 py-0 text-sm"
+                            className="px-3 py-0 text-sm "
                             onClick={() => router(`/edit-team/${event.id}`)}
                           >
-                            {event.eventDetails}
+                            Total: {event.teamMemberCount} / {event.capacity * event.teamSize}
                           </td>
                           <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
                             <div className="flex flex-col items-center gap-1">
