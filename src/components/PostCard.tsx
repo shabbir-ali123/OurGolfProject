@@ -57,7 +57,7 @@ const PostCard = () => {
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
-  const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
+  const loggedInUser = localStorage.getItem("id") ;
   const handleLike = async (postId: string, hasLiked: boolean, event: any) => {
     event.preventDefault();
     event.stopPropagation();
