@@ -57,7 +57,7 @@ const PostCard = () => {
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
-
+  const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
   const handleLike = async (postId: string, hasLiked: boolean, event: any) => {
     event.preventDefault();
     event.stopPropagation();
@@ -66,7 +66,7 @@ const PostCard = () => {
       return;
     }
     try {
-      const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
+      
       const newCounter = hasLiked ? 0 : 1;
       const response = await axios.post(
         API_ENDPOINTS.ADDPOSTLIKE,
@@ -115,7 +115,7 @@ const PostCard = () => {
                   />
                   <p className="p-0">{post.posts.nickName}</p>
                 </div>
-                <div
+                {post.posts.id === loggedInUser  &&  <div
                   className="relative"
                   onClick={(event) => handleEllipsisClick(event, post.id)}
                 >
@@ -146,7 +146,9 @@ const PostCard = () => {
                       </ul>
                     </div>
                   )}
-                </div>
+                </div>}
+
+               
               </div>
               <p className="p-0 text-sm text-gray-700 break-words truncate w-80 ">
                 {post.text}

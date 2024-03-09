@@ -23,7 +23,7 @@ export const PostContext = ({children}:any)=>{
         if (postId) {
             fetchSinglePosts(handlePost, postId);
         }
-    }, [postId]);
+    }, [postId, setSinglePost]);
 
     const handlePosts = useCallback((value: any) => {
         return setPost(value);
@@ -47,18 +47,16 @@ export const PostContext = ({children}:any)=>{
 
     const handleDeletePost = useCallback((postId: any) => {
         setDeletePostId(postId);
-        deletePost(postId, router); // Call the external deletePost function
+        deletePost(postId, router); 
     }, [router]);
     
 
-    const handlePost = useCallback((value: string) => {
-       
+    const handlePost = useCallback((value: any) => {
         setSinglePost(value)
-        
     }, [singlePost])
 
 
-    const value =  {handlePostId, handlePosts, handleDeletePost, handleCategory,singlePost, category, post}
+    const value =  {handlePostId, handlePosts,handlePost, handleDeletePost, handleCategory,singlePost, category, post}
 
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }

@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { postContext } from "../contexts/postsContext";
 import { toast } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 interface UpdatePostType {
   text: string;
@@ -19,8 +19,9 @@ interface UpdatePostProps {
 }
 
 const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
-  const { handlePostId, singlePost, handlePosts, post } = postContext();
+  const { handlePostId, singlePost } = postContext();
   const params = useParams<{ id: string }>();
+  const router = useNavigate();
   const postId = params.id;
 
   useEffect(() => {
@@ -114,9 +115,8 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
           },
         }
       );
-      handlePosts(post);
       toast.success("Post has been Updated");
-      // closeModal();
+      router('/post-page')
     } catch (error: unknown) {}
   };
 
