@@ -99,11 +99,11 @@ console.log(currentTab)
         <Tab.Group>
           <Tab.List className="flex justify-between w-full lg:col-span-6   space-x-4 items-center px-2 rounded-md bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
             <div className="flex flex-wrap gap-4 py-2 lg:flex-nowrap">
-              <div className="w-full md:mx-20 xl:relative animate__animated animate__shakeY">
+              <div className="w-full  md:mx-20 xl:relative animate__animated animate__shakeY">
                 <button
                   type="button"
                   onClick={() => setLocationPopupOpen(true)}
-                  className="xl:h-full rounded-md sm:absolute left-[-88px] top-[-7px] inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className="py-4 flex justify-center w-full  xl:w-auto rounded-md sm:absolute left-[-88px] top-[-7px] inline-flex items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
                   {filterLocation && filterLocation.length
@@ -121,8 +121,8 @@ console.log(currentTab)
                       "w-full rounded-md  px-6 text-base font-normal leading-5 cursor-pointer ",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
-                        ? "bg-[#B1B1B1]  text-white "
-                        : "text-[#17B3A6] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] hover:bg-[#B1B1B1] hover:border-none hover:text-white"
+                        ? "bg-[#B1B1B1]  text-white flex items-center justify-center"
+                        : "text-[#17B3A6] shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] flex items-center justify-center hover:bg-[#B1B1B1] hover:border-none hover:text-white"
                     )
                   }
                   onClick={() => handleTabChange(category)} // Call handleTabChange on tab click

@@ -40,38 +40,28 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     // setEvents([]);
   };
   return (
-    <div className="flex items-center gap-2 mb-4 xl:m-0">
-      <div className="flex items-center ">
-        <DatePicker
-          selected={startDate}
-          onChange={handleStartDateChange}
-          placeholderText={t('START_DATE')}
-          className="py-3.5 rounded-md border border-solid-green-500"
-        />
-      </div>
-      <div className="flex items-center">
-        <svg
-          width="24"
-          height="25"
-          viewBox="0 0 24 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-        </svg>
-      </div>
-      <div className="flex items-center ">
-        <DatePicker
-          selected={endDate}
-          onChange={handleEndDateChange}
-          placeholderText={t('END_DATE')}
-          className="py-3.5  rounded-md border border-solid-green-500"
-        />
-      </div>
-      <div className="flex items-center w-full">
-                <button className="bg-[#17b3a6] cursor-pointer text-white font-bold py-4 w-[100px] rounded" onClick={clearDates}>{t("CLEAR")}</button>
-              </div>
+    <div className="flex flex-wrap xl:flex-nowrap items-center gap-2">
+      <DatePicker
+        selected={startDate}
+        onChange={setStartDate}
+        placeholderText={t('START_DATE')}
+        className=" py-2.5 text-center rounded-md border border-solid border-green-500"
+      />
+      <DatePicker
+        selected={endDate}
+        onChange={setEndDate}
+        placeholderText={t('END_DATE')}
+        className=" py-2.5 text-center rounded-md border border-solid border-green-500"
+      />
+      <button
+        className="bg-[#17b3a6] text-white font-bold py-3 w-full xl:w-[100px] rounded"
+        onClick={clearDates}
+      >
+        {t("CLEAR")}
+      </button>
     </div>
   );
 };
+
 
 export default Calendar;

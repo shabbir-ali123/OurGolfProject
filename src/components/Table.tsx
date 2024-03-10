@@ -149,8 +149,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           <span className="text-lg font-medium">No events yet</span>
         </div>
       ) : (
-        <div className="flow-root ">
-          <div className="-my-2 sm:overflow-x-auto ">
+        <div className="flow-root  ">
+          <div className="-my-2 overflow-x-auto xl:overflow-x-auto ">
             <div className="inline-block min-w-full py-0 align-middle ">
               <div className="overflow-hidden sm:rounded-lg">
                 <table
@@ -214,7 +214,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className="mt-4 rounded-lg cursor-pointer"
+                          className="mt-4 rounded-lg cursor-pointer text-black hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
                           style={{
                             width: "100%",
                             borderRadius: "10px",
@@ -280,8 +280,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 rel="noopener noreferrer"
                                 className={`md:whitespace-nowrap rounded-lg px-0 text-[#17b3a6] py-1 text-sm mx-0 sm: cursor-pointer ${
                                   event.type === "full"
-                                    ? "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full rounded-lg"
-                                    : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
+                                    ? "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full rounded-lg"
+                                    : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
                                 }`}
                               >
                                 <p className="p-2 sm:text-lg xl:text-x">{t("JOIN")}</p>
@@ -295,17 +295,17 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             Total: {event.teamMemberCount} / {event.capacity * event.teamSize}
                           </td>
                           <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
-                            <div className="flex flex-col items-center gap-1">
+                            <div className="flex flex-col items-center gap-1 ">
                               <div
-                                className={`flex bg-${
+                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${
                                   liked ? "green" : "[#17B3A6]"
                                 } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleLike(event)}
                               >
                                 <HandThumbUpIcon className="w-3 h-3 text-white" />
                               </div>
-                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
-                                <div className="text-[10px] text-white ">
+                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md shadow-lg border border-solid border-white ">
+                                <div className="text-[10px] text-white  ">
                                   {
                                     (event?.likes || []).filter(
                                       (like: any) => like.counter
@@ -317,11 +317,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             <div className="flex flex-col items-center gap-1">
                               <div
                                 onClick={() => handleComment(event.id)}
-                                className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md"
+                                className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md shadow-lg border border-solid border-white hover:bg-black"
                               >
-                                <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white" />
+                                <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white " />
                               </div>
-                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
+                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md shadow-lg border border-solid border-white">
                                 <div className="text-[10px] text-white">
                                   {event.comments.length}
                                 </div>
@@ -329,7 +329,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </div>
                             <div className="flex flex-col items-center gap-1">
                               <div
-                                className={`flex bg-${
+                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${
                                   isFavorite ? "[#006800]" : "[#17B3A6]"
                                 } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleFavoriteClick(event.id)}
@@ -339,14 +339,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   className={`h-3 w-3 text-white`}
                                 />
                               </div>
-                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md">
+                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md shadow-lg border border-solid border-white">
                                 <ShareIcon className="w-3 h-3 text-white" />
                               </div>
                             </div>
                           </td>
                           <div className="flex items-center justify-start my-1 ml-4">
                             <button
-                              className="bg-[#52FF86] hover:bg-blue-700 text-white font-bold py-1 px-4 rounded cursor-pointer"
+                              className="bg-[#52FF86] hover:bg-black text-white font-bold py-1 px-4 rounded cursor-pointer"
                               onClick={() => router(`/score-board`)}
                             >
                                {t("VIEW")}
