@@ -10,7 +10,9 @@ export const TeacherContext = ({children}:any)=>{
     const [teachers, setTeachers] = useState<any[]>([]);
     const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
     const [schedules, setSchedules] = useState<any[]>([]);
-    const [shift, setShift] = useState<any>()
+    const [shift, setShift] = useState<any>([])
+
+    console.log(shift, "context");
 
     useEffect(() => {
         fetchTeacherss(handleTeachers, setSelectedTeacher, handleSchedules);
@@ -28,7 +30,7 @@ export const TeacherContext = ({children}:any)=>{
         setShift(value);
     },[shift]);
 
-    const value =  {handleSchedules, handleShift, schedules, teachers, selectedTeacher}
+    const value =  {handleSchedules, handleShift,shift, schedules, teachers, selectedTeacher}
 
     return <TeachersContext.Provider  value={value}> {children} </TeachersContext.Provider>
 }

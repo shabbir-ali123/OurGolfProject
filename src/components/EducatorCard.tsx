@@ -17,8 +17,9 @@ export const EducatorCard = ({
   hourlyRate,
   teacherId
 }: any) => {
-  const { teachers } = teacherContext();
+  const { shift } = teacherContext();
 
+  console.log(shift, "shifts");
   return (
         <div
           className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4"

@@ -48,6 +48,7 @@ export const TeacherCalender = ({ startEndDates, shifts }: any) => {
   const startDay = startOfWeek(startOfMonth(currentMonth));
   const endDay = endOfWeek(endOfMonth(currentMonth));
   const days = eachDayOfInterval({ start: startDay, end: endDay });
+  const [localshift, setLocalShift] = useState<any>([])
 
   const handleDateClick = (date: any) => {
     if (!isDayDisabled(date, startEndDates)) {
@@ -61,11 +62,12 @@ export const TeacherCalender = ({ startEndDates, shifts }: any) => {
     (schedule: any) => schedule?.shifts.map((es: any) => es.day)
   );  
 
-let matchedShifts:any = [];
+const matchedShifts:any = [];
+
 
 day.forEach((dayName, index) => {
   if (dayName && dayName.toLowerCase() === formattedMonth.toLowerCase()) {
-    matchedShifts.push(startEndDates[index].shifts);
+     matchedShifts.concat(startEndDates[index].shifts);
   }
 });
 
@@ -79,8 +81,9 @@ console.log(matchedShifts)
   };
 
   useEffect(() => {
-    handleShift(matchedShifts)
-  }, [shift])
+    setLocalShift(matchedShifts)
+  }, [])
+  console.log(localshift)
 
   return (
     <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent w-full">
