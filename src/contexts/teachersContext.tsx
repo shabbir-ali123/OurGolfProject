@@ -12,7 +12,6 @@ export const TeacherContext = ({children}:any)=>{
     const [schedules, setSchedules] = useState<any[]>([]);
     const [shift, setShift] = useState<any>([])
 
-    console.log(shift, "context");
 
     useEffect(() => {
         fetchTeacherss(handleTeachers, setSelectedTeacher, handleSchedules);
