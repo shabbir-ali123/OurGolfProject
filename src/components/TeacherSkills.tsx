@@ -29,7 +29,7 @@ const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
           <label key={skill} className={`inline-flex items-center mt-3 cursor-pointer ${selectedSkills.includes(skill) ? 'bg-[#2bb9ad] text-white' : 'bg-white text-gray-700'}`}>
             <input
               type="checkbox"
-              className="form-checkbox h-5 w-5  "
+              className="form-checkbox h-5 w-5 border border-solid border-[#61cbc2] "
               value={skill}
               checked={selectedSkills.includes(skill)}
               onChange={e => handleSkillChange(skill, e.target.checked)}

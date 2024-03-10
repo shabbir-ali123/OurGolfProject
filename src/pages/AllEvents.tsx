@@ -6,7 +6,7 @@ import EventMap from "../components/EventMap";
 import Table from "../components/Table";
 import { eventContextStore } from "../contexts/eventContext";
 
- interface Event {
+interface Event {
   id: string;
   creator: {
     nickName: any;
@@ -48,48 +48,33 @@ const AllEvents: React.FC<AllEventsProps> = ({
   // Pagination logic
   const indexOfLastEvent = currentPage * itemsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
-  const currentEvents = localEvents.slice(
-    indexOfFirstEvent,
-    indexOfLastEvent
-  );
-  const isPreviousDisabled = currentPage === 1;
+  const currentEvents = localEvents.slice(indexOfFirstEvent, indexOfLastEvent);
 
-  const isNextDisabled =
-    indexOfLastEvent >= localEvents.length ||
-    currentPage === Math.ceil(localEvents.length / itemsPerPage);
-  // const totalPages = Math.ceil(localEvents.length / itemsPerPage);
-
-  const handleLike = async (event: Event) => {
-    try {
-      // Your like handling logic here
-      // ...
-    } catch (error) {
-      console.error("Error updating like:", error);
-    }
-  };
-  const { eventsCount, handlePageChange, handlePageSize, handleEventStatus} = eventContextStore();
+  const { eventsCount, handlePageChange, handlePageSize, handleEventStatus } = eventContextStore();
   const totalPages = Math.ceil(eventsCount / 6); 
-  const onPageChange = (pageNumber:any) => {
+  const onPageChange = (pageNumber: any) => {
     setCurrentPage(pageNumber); 
     handlePageChange(pageNumber); 
   };
+
   useEffect(() => {
-   handleEventStatus('All')
- }, []);
+    handleEventStatus('All');
+  }, []);
+
   return (
-    <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      <div className="col-span-3">
-        <Table events={currentEvents} handleLike={handleLike} {...status} />
+    <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="col-span-1 lg:col-span-3">
+        <Table events={currentEvents} {...status} />
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
-          pageSize={handlePageSize}
+          pageSize={pageSize}
           isPreviousDisabled={currentPage === 1}
           isNextDisabled={currentPage === totalPages}
         />
       </div>
-      <div>
+      <div className="col-span-1">
         <EventMap />
       </div>
     </div>
