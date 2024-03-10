@@ -27,7 +27,8 @@ export const EducatorCard = ({
   };
   const handleMatchedShifts = (matchedShifts: any) => {
     if (!tap) {
-      matchedShifts = schedules.flatMap(({ shifts }: any) => shifts);
+      const s = schedules.flatMap(({ shifts }: any) => shifts);
+      matchedShifts = s.slice(0, 5);
     }
     setShiftsData(matchedShifts);
   };
@@ -38,8 +39,7 @@ export const EducatorCard = ({
   useEffect(() => {
     handleMatchedShift;
   }, [tap]);
-  console.log(shiftsData, "");
-  console.log(shift, "shifts");
+  
   return (
     <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
       <div className="grid grid-cols-1 xl:grid-cols-8 gap-4">

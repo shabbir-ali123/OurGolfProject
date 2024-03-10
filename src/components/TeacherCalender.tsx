@@ -44,6 +44,7 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
   const [matchedShifts, setMatchedShifts] = useState([]);
   const [click, setClick] = useState<boolean>(false);
 
+  console.log(matchedShifts, "double");
 
   const startDay = startOfWeek(startOfMonth(currentMonth));
   const endDay = endOfWeek(endOfMonth(currentMonth));
@@ -55,12 +56,14 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
       shifts.filter((shift:any) => shift.day.toLowerCase() === formattedMonth.toLowerCase())
     );
     setMatchedShifts(matchedShifts);
+    onClicked(click)
+    onMatchedShifts(matchedShifts);
   }, [selectedDate, startEndDates]);
 
   const handleDateClick = (date:any) => {
-    if (!isDayDisabled(date, startEndDates)) {
+    if (isDayDisabled(date, startEndDates) === false) {
       setSelectedDate(date);
-      setClick(!click)
+      setClick(true)
     }
   };
 
@@ -72,10 +75,9 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
     setCurrentMonth(subMonths(currentMonth, 1));
   };
   
-  useEffect(() => {
-    onClicked(click)
-    onMatchedShifts(matchedShifts);
-  }, [selectedDate, startEndDates]);
+  // useEffect(() => {
+   
+  // }, [selectedDate, startEndDates]);
   return (
     <>
       <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent w-full">
