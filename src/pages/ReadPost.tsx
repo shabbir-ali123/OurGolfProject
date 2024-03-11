@@ -7,6 +7,7 @@ import axios from "axios";
 import { HandThumbUpIcon, HandThumbDownIcon, ShareIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
+import { hasImageExtension } from "../utils/imgExtension";
 export interface SinglePostProps {
   posts: any;
   category: string;
@@ -81,7 +82,7 @@ const ReadPost: React.FC = () => {
   };
   const likescount = singlePost?.PostLikes.length;
   const handleLike = async () => {
-    
+
 
     try {
       const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
@@ -143,14 +144,14 @@ const ReadPost: React.FC = () => {
   const timeAgo = getTimeAgo(postTime);
   console.log(singlePost, "single");
 
-    var settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false
-    };
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false
+  };
 
   return (
 
@@ -174,7 +175,7 @@ const ReadPost: React.FC = () => {
         <div>
           <Link to="/post-page" className="">
             <button className="bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-2 rounded cursor-pointer">
-            {t("BACK")}
+              {t("BACK")}
             </button>
           </Link>
 
@@ -183,43 +184,53 @@ const ReadPost: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="col-span-8  ">
-        <Slider {...settings}>
-        {singlePost?.mediaFile?.map((img: any) => 
-          <img
-            className=" w-full h-[600px]  rounded-lg "
-            src={img}
-            alt="Blog Post Image"
-          />
-        )}
-        </Slider>
+          <Slider {...settings}>
+            {singlePost?.mediaFile?.map((img: any) => {
+              if (hasImageExtension(img)) {
+                return  <img
+                  className=" w-full h-[600px]  rounded-lg "
+                  src={img}
+                  alt="Blog Post Image"
+                />
+              }else{
+                return  <video controls
+                  className=" w-full h-[600px]  rounded-lg "
+                  src={img}
+                  
+                />
+              }
+            }
+
+            )}
+          </Slider>
           <p className="text-gray-600">{singlePost?.text}</p>
           <div className="flex gap-2 items-center">
-        <div className="flex items-center gap-0">
-          <div className="flex items-center">
-            <button onClick={handleLike} className="flex items-center cursor-pointer bg-transparent">
-              {userHasLiked ? (
-                <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
-              ) : (
-                <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
-              )}
-            </button>
-          </div> {
-            (singlePost?.PostLikes || []).filter(
-              (like: any) => like.counter
-            ).length
-          } {t("LIKES")}</div>
+            <div className="flex items-center gap-0">
+              <div className="flex items-center">
+                <button onClick={handleLike} className="flex items-center cursor-pointer bg-transparent">
+                  {userHasLiked ? (
+                    <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
+                  ) : (
+                    <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+                  )}
+                </button>
+              </div> {
+                (singlePost?.PostLikes || []).filter(
+                  (like: any) => like.counter
+                ).length
+              } {t("LIKES")}</div>
 
-        <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" data-interaction="share">
-          {" "}
-          <ShareIcon
-            className="w-4 h-4 cursor-pointer"
-            aria-hidden="true"
+            <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" data-interaction="share">
+              {" "}
+              <ShareIcon
+                className="w-4 h-4 cursor-pointer"
+                aria-hidden="true"
 
-            data-interaction="share"
-          />
-          {t("SHARE")}
-        </span>
-      </div>
+                data-interaction="share"
+              />
+              {t("SHARE")}
+            </span>
+          </div>
 
         </div>
         <div className="col-span-4">
@@ -244,7 +255,7 @@ const ReadPost: React.FC = () => {
                             src={comment.user.imageUrl}
                             alt=""
                           />
-                          <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900" >
+                          <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 ">
                             {comment.user.nickName}
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -343,7 +354,7 @@ const ReadPost: React.FC = () => {
 
       </div>
 
-      
+
     </div>
   );
 };
