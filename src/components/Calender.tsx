@@ -40,7 +40,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     // setEvents([]);
   };
   return (
-    <div className="flex flex-wrap xl:flex-nowrap items-center gap-2">
+    <div className="flex flex-wrap md:flex-nowrap items-center gap-2">
       <DatePicker
         selected={startDate}
         onChange={setStartDate}

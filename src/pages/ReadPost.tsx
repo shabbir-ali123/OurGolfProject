@@ -8,6 +8,7 @@ import { HandThumbUpIcon, HandThumbDownIcon, ShareIcon } from '@heroicons/react/
 import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
 import { hasImageExtension } from "../utils/imgExtension";
+import { Slide } from "react-slideshow-image";
 export interface SinglePostProps {
   posts: any;
   category: string;
@@ -146,10 +147,10 @@ const ReadPost: React.FC = () => {
 
   var settings = {
     dots: true,
-    infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1,
+
+    initialSlide: 1,
     arrows: false
   };
 
@@ -184,25 +185,44 @@ const ReadPost: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="col-span-8  ">
-          <Slider {...settings}>
-            {singlePost?.mediaFile?.map((img: any) => {
-              if (hasImageExtension(img)) {
-                return  <img
-                  className=" w-full h-[600px]  rounded-lg "
-                  src={img}
-                  alt="Blog Post Image"
-                />
-              }else{
-                return  <video controls
-                  className=" w-full h-[600px]  rounded-lg "
-                  src={img}
-                  
-                />
-              }
-            }
+          {singlePost?.mediaFile?.map((img: string, index: number) => {
 
-            )}
+            if (singlePost?.mediaFile?.length === 1) {
+              return <img
+                className="w-full h-[600px] rounded-lg"
+                src={img}
+                alt="Blog Post Image"
+              />
+            }
+          })}
+          <Slider {...settings}>
+            {singlePost?.mediaFile?.map((img: string, index: number) => {
+
+              if (singlePost?.mediaFile?.length === 1) {
+                return
+              } else {
+                return (
+                  <div key={`multiple-${index}`}> {/* Ensure key is unique and at the top element */}
+                    {hasImageExtension(img) ? (
+                      <img
+                        className="w-full h-[600px] rounded-lg"
+                        src={img}
+                        alt="Blog Post Image"
+                      />
+                    ) : (
+                      <video
+                        controls
+                        className="w-full h-[600px] rounded-lg"
+                        src={img}
+                      />
+                    )}
+                  </div>
+                );
+              }
+            })}
           </Slider>
+
+
           <p className="text-gray-600">{singlePost?.text}</p>
           <div className="flex gap-2 items-center">
             <div className="flex items-center gap-0">
