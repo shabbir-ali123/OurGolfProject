@@ -6,6 +6,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { HandThumbUpIcon, HandThumbDownIcon, ShareIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from "react-i18next";
+import Slider from "react-slick";
 export interface SinglePostProps {
   posts: any;
   category: string;
@@ -142,7 +143,14 @@ const ReadPost: React.FC = () => {
   const timeAgo = getTimeAgo(postTime);
   console.log(singlePost, "single");
 
-
+    var settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false
+    };
 
   return (
 
@@ -174,12 +182,16 @@ const ReadPost: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <div className="col-span-8">
+        <div className="col-span-8  ">
+        <Slider {...settings}>
+        {singlePost?.mediaFile?.map((img: any) => 
           <img
-            className=" w-full h-auto md:h-[600px]  rounded-lg "
-            src={singlePost?.mediaFile?.map((img: any) => img)}
+            className=" w-full h-[600px]  rounded-lg "
+            src={img}
             alt="Blog Post Image"
           />
+        )}
+        </Slider>
           <p className="text-gray-600">{singlePost?.text}</p>
           <div className="flex gap-2 items-center">
         <div className="flex items-center gap-0">
