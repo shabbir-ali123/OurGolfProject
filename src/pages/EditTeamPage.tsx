@@ -388,7 +388,7 @@ const EditTeamPage: FunctionComponent = () => {
                 <p className="text-lg capitalize text-lightseagreen-200 ">{singleEvent?.place}</p>
               </div>
               <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('EVENT_LOCATION')} :</span>
+                <span className="text-gray-500 basis-[200px]">{t('EVENT_DETAILS')} :</span>
                 <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventDetails}</p>
               </div>
               <div className="flex items-center gap-10 mx-2 ">
