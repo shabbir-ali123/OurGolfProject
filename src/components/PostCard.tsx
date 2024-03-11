@@ -122,7 +122,7 @@ const PostCard = () => {
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
             to={`/read-post/${post.id}`}
-            className="text-black "
+            className="text-black hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
           >
             <div
               className=" flex-wrap mx-4 lg:mx-0 lg:flex p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
