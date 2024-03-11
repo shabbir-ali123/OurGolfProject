@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import { eventContextStore } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
+import { deleteEvent } from "../utils/fetchEvents";
 interface TableProps {
   events: Array<{
     id: string;
@@ -137,11 +138,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   const userId = localStorage.getItem("id");
 
-
-
-
-
-
+  const handleDeleteEvent = (id: any) => {
+    deleteEvent(id)
+  }
   return (
     <div className="animate__animated animate__fadeInLeft">
       {sortedPosts.length === 0 ? (
@@ -351,6 +350,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             >
                               {t("VIEW")}
                             </button>
+                            <button onClick={() => handleDeleteEvent(event.id)}>delete</button>
                           </div>
                         </tr>
 
