@@ -146,7 +146,7 @@ const ReadPost: React.FC = () => {
 
   return (
 
-    <div className="max-w-7xl px-6 mx-auto my-4 py-4" style={{
+    <div className="mx-6 md:mx-auto max-w-7xl px-6  my-4 py-4" style={{
       boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
     }}>
 
@@ -176,7 +176,7 @@ const ReadPost: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="col-span-8">
           <img
-            className=" w-full h-[600px]  rounded-lg "
+            className=" w-full h-auto md:h-[600px]  rounded-lg "
             src={singlePost?.mediaFile?.map((img: any) => img)}
             alt="Blog Post Image"
           />

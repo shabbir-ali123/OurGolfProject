@@ -122,27 +122,27 @@ const PostCard = () => {
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
             to={`/read-post/${post.id}`}
-            className="text-black hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
+            className="text-black "
           >
             <div
-              className="flex p-4 relative rounded-lg "
+              className=" flex-wrap mx-4 lg:mx-0 lg:flex p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
               style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
             >
               <img
-                className="rounded-lg  object-cover h-[auto] w-[180px]"
+                className="rounded-lg  object-cover h-[auto] w-full lg:w-[180px]"
                 src={post.mediaFile[0]}
                 alt="Post"
               />
               <div className="p-4">
                 <div className="flex items-center gap-2 justify-between">
-                  <div className="flex items-center gap-2 ">
+                  <div className="flex items-center  gap-2 ">
                     <img
                       className="w-8 h-8 rounded-full "
                       src={post.posts.imageUrl}
                       alt="Post"
                     />
 
-                    <p className="p-0 text-sm">
+                    <p className="p-0 text-sm flex gap-4 items-center">
                       {post.posts.nickName}{" "}
                       <span className="text-[10px]">
                         {getTimeAgo(new Date(post?.createdAt))}

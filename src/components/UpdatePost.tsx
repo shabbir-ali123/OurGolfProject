@@ -146,7 +146,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
   };
 
   return (
-    <div className="z-50 fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+    <div className=" z-50 fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
       <div
         className="w-full max-w-xl p-6 mx-auto bg-white rounded-lg "
         style={{

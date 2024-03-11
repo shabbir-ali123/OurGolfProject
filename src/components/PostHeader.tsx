@@ -10,9 +10,9 @@ const PostHeader: React.FC<FilterCategory> = () => {
   const { handleCategory } = postContext();
 
   return (
-    <div className="grid grid-cols-1 mx-10 md:mx-0  md:grid-cols-12 gap-10 items-center justify-between ">
+    <div className="grid grid-cols-1   md:grid-cols-12 gap-8 items-center justify-between ">
 
-      <div className="relative mt-2 rounded-md shadow-sm mx- md:col-span-10">
+      <div className="flex justify-start  relative text-center mt-2 rounded-md shadow-sm mx-8 md:mx-0 md:col-span-10">
         <input
           type="text"
           name="account-number"
@@ -25,8 +25,8 @@ const PostHeader: React.FC<FilterCategory> = () => {
         </div>
       </div>
 
-      <div className="relative flex items-center md:col-span-2">
-        <button className="font-semibold bg-transparent text-md w-[150px]">{t("FILTER")}</button>
+      <div className="mx-4 md:mx-0 relative  flex items-center md:col-span-2">
+        <button className="font-semibold text-start bg-transparent text-md w-[100px] md:w-[150px]">{t("FILTER")}</button>
         <select
           className="block appearance-none w-full bg-white border-solid border-[#51ff85] hover:border-gray-500 px-4 py-2 pr-8 rounded-full shadow leading-tight focus:outline-none focus:shadow-outline"
           onChange={(e) => handleCategory(e.target.value)}
