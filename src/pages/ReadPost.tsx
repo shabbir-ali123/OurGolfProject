@@ -244,7 +244,7 @@ const ReadPost: React.FC = () => {
                             src={comment.user.imageUrl}
                             alt=""
                           />
-                          <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 dark:text-white">
+                          <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900" >
                             {comment.user.nickName}
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-400">
