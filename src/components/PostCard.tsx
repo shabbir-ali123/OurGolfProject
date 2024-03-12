@@ -128,17 +128,7 @@ const PostCard = () => {
         //       : e
         //   )
         // );
-        handlePosts((prev: any) =>
-        prev.map((e: any) =>{
-          e.id == postId
-          ? {
-              ...e,
-            }
-          : e
-        }
-         
-        )
-      );
+        window.location.reload();
       }
     } catch (error) {
       console.error(`Error updating likes: ${error}`);
