@@ -136,7 +136,7 @@ const PostCard = () => {
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
             to={`/read-post/${post.id}`}
-            className="text-black hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
+            className="text-black hover:rounded-lg "
           >
             {isLikesModelOpen && post.id === postwId ? (
               <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
@@ -174,7 +174,7 @@ const PostCard = () => {
               style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
             >
               <img
-                className="rounded-lg  object-cover h-[200px] w-full lg:w-[180px]"
+                className="rounded-lg  object-cover h-auto w-full lg:w-[180px]"
                 src={post.mediaFile[0]}
                 alt="Post"
               />
@@ -208,14 +208,16 @@ const PostCard = () => {
                       {activeDropdownPostId === post.id && (
                         <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
                           <ul className="p-0 m-0">
-                            <li className="list-none p-2 hover:shadow-lg  text-start">
-                              <Link
+                          <Link
                                 className="decoration-none text-[#43bcb0] hover:text-[#000] "
                                 to={"/edit-post/" + post.id}
                               >
+                            <li className="list-none p-2 hover:shadow-lg  text-start">
+                            
                                 Edit
-                              </Link>
+                         
                             </li>
+                            </Link>
                             <li className="list-none p-2 hover:shadow-lg text-start">
                               <a
                                 className="decoration-none text-[#43bcb0] hover:text-[red]"

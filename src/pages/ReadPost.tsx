@@ -205,7 +205,7 @@ const ReadPost: React.FC = () => {
                   <div key={`multiple-${index}`}> {/* Ensure key is unique and at the top element */}
                     {hasImageExtension(img) ? (
                       <img
-                        className="w-full h-[600px] rounded-lg"
+                        className="w-full h-auto md:h-[600px] rounded-lg"
                         src={img}
                         alt="Blog Post Image"
                       />

@@ -174,12 +174,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
-                         {t("DATE")}
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-2 text-sm font-semibold text-left"
-                      >
                         {t("EVENTS_NAME")}
                       </th>
 
@@ -223,7 +217,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             className=""
                             onClick={() => router(`/edit-team/${event.id}`)}
                           >
-                            <div className="flex items-center mx-2 gap-x-4">
+                            <div className="flex-wrap text-start items-center justify-start mx-4">
                               <img
                                 src={
                                   event.imageUrl[0]
@@ -231,7 +225,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     : "img/zozo.png"
                                 }
                                 alt=""
-                                className="w-12 h-12 border border-indigo-600 border-solid rounded-full "
+                                className="w-16 h-16 border border-indigo-600 border-solid rounded-full "
                               />
 
                               <div className="text-lg font-medium leading-6 truncate tableText">
@@ -245,14 +239,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           <td
                             className="px-3 py-0 text-sm whitespace-nowrap"
                             onClick={() => router(`/edit-team/${event.id}`)}
+
                           >
+                            <p>
+                              {event.eventStartDate}
+                            </p>
+
                             {event.eventStartTime}
-                          </td>
-                          <td
-                            className="px-3 py-0 text-sm whitespace-nowrap"
-                            onClick={() => router(`/edit-team/${event.id}`)}
-                          >
-                            {event.eventStartDate}
                           </td>
                           <td
                             className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left"
@@ -285,10 +278,19 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </span>
                           </td>
                           <td
-                            className="px-3 py-0 text-sm "
+                            className="px-3 py-0 text-sm flex-wrap"
                             onClick={() => router(`/edit-team/${event.id}`)}
                           >
-                            Total: {event.teamMemberCount} / {event.capacity * event.teamSize}
+                            <p>
+                              <span className="font-bold">Confirmed:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
+                            </p>
+                            <p>
+                              <span className="font-bold">
+                                Waiting:
+                              </span> {event.teamMemberCount} / {event.capacity * event.teamSize}
+
+                            </p>
+
                           </td>
                           <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
                             <div className="flex flex-col items-center gap-1 ">

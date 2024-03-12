@@ -5,7 +5,7 @@ import axios from "axios";
 import { postContext } from "../contexts/postsContext";
 import { toast } from "react-toastify";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 interface UpdatePostType {
   text: string;
   category: string;
@@ -19,6 +19,8 @@ interface UpdatePostProps {
 }
 
 const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const { handlePostId, singlePost } = postContext();
   const params = useParams<{ id: string }>();
   const router = useNavigate();
@@ -156,7 +158,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
       >
         <form className="px-2">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Edit Post</h1>
+            <h1 className="text-2xl font-bold">{t("EDIT_POST")}</h1>
             <Link
               to={"/post-page"}
               className="p-2 rounded-full cursor-pointer"
