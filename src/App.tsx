@@ -305,7 +305,7 @@ const params = useParams();
         />
         <Route
           path="/edit-event/:id"
-          element={token ? <EditEvent /> : <LoginPage />}
+          element={token ?<CreatedEventContext> <SingleEventsContext> <EditEvent /> </SingleEventsContext></CreatedEventContext> : <LoginPage />}
         />
 
       </Routes>

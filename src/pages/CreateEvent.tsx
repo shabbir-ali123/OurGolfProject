@@ -11,6 +11,7 @@ import { ToastProvider } from "../utils/ToastProvider";
 import { useToast } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface CreateEventType {
   id?: number;
@@ -188,11 +189,11 @@ const CreateEvent: React.FC = () => {
 
     const selectedScoringType = localStorage.getItem("score") ?? "";
     const selectedHoles = localStorage.getItem("selected") || "[]";
-    const numberArray = JSON.parse(selectedHoles).map((str: string) =>
+    const numberArray = JSON.parse(selectedHoles)?.map((str: string) =>
       parseInt(str, 10)
     );
     const par = localStorage.getItem("par") || "[]";
-    const parArray = JSON.parse(par).map((str: string) => parseInt(str, 10));
+    const parArray = JSON.parse(par)?.map((str: string) => parseInt(str, 10));
 
     const updatedFormData: any = {
       ...formData,
@@ -236,10 +237,10 @@ const CreateEvent: React.FC = () => {
         localStorage.removeItem("par");
         router("/event-main-page");
       } else {
-        showToast("Error occurred while creating the event", "[#FF0000]");
+        toast.success("Error occurred while creating the event");
       }
     } catch (error) {
-      showToast("Error occurred while creating the event", "[#FF0000]");
+      toast.success("Error occurred while creating the event");
       console.error("Error:", error);
     } finally {
       setSubmitting(false);

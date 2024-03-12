@@ -71,7 +71,47 @@ export const EventsContext = ({children}:any)=>{
 }
 
 export const eventContextStore = ()=> React.useContext(EventCreateContext);
-
+export interface CreateEventType {
+  id?: number;
+  eventType?: string;
+  eventName?: string;
+  files?: File[] | null;
+  video?: string;
+  eventDetails?: string;
+  address?: string;
+  eventVideoUrl?: string;
+  categories?: string;
+  place?: string;
+  placeCoordinates?: { lat: string; lng: string };
+  capacity?: number;
+  selfIncluded?: boolean;
+  eventStartDate?: string;
+  eventStartTime?: string;
+  eventEndDate?: string;
+  eventEndTime?: string;
+  recruitmentStartDate?: string;
+  recruitmentStartTime?: string;
+  eventDeadlineDate?: string;
+  eventDeadlineTime?: string;
+  matchType?: string;
+  paymentType?: string;
+  bankName?: string;
+  branchName?: string;
+  accountHolderName?: string;
+  accountNumber?: number;
+  paypalId?: string;
+  teamSize?: number;
+  participationFee?: number;
+  isEventPublished?: boolean;
+  hideParticipantName?: boolean;
+  isRequiresApproval?: boolean;
+  scoringType?: string;
+  selectedHoles?: string[];
+  shotsPerHoles?: string[];
+  driverContest?: number;
+  nearPinContest?: number;
+}
+// single event context 
 const SingleEventContext = React.createContext<any>({});
 
 export const SingleEventsContext = ({children}:any)=>{
@@ -117,28 +157,37 @@ export const singleEventContextStore = ()=> React.useContext(SingleEventContext)
 //context for created events 
 const CreatedEventsContext = React.createContext<any>({})
 
-export const CreatedEventContext = ({children}: any) => {
-    const pageSize = 6;
-    const [createdEvents, setCreatedEvents] = useState<any[]>([])
-    const [activeTab, setActiveTab] = useState<any>('past');
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [totalPages, setTotalPages] = useState<number>(1)
+    export const CreatedEventContext = ({children}: any) => {
+        const { id } = useParams<{ id: string }>();
 
-    useEffect(() => {
-        fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents)
-    }, [])
+        const pageSize = 6;
+        const [createdEvents, setCreatedEvents] = useState<any[]>([])
+        const [activeTab, setActiveTab] = useState<any>('past');
+        const [currentPage, setCurrentPage] = useState<number>(1);
+        const [totalPages, setTotalPages] = useState<number>(1)
+        
 
-    const handleActiveTab = useCallback((value: any) => {
-        return setActiveTab(value);
-    }, []);
 
-    const handleCurrentPage = useCallback((currentPage: any) => {
-        return setCurrentPage(currentPage);
-    }, []);
+        useEffect(() => {
+            fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents)
+        }, [])
 
-    const value = {handleActiveTab, handleCurrentPage, activeTab, totalPages, currentPage, createdEvents}
-    return <CreatedEventsContext.Provider  value={value}> {children}</CreatedEventsContext.Provider>
+        const handleActiveTab = useCallback((value: any) => {
+            return setActiveTab(value);
+        }, []);
 
-}
+        const handleCurrentPage = useCallback((currentPage: any) => {
+            return setCurrentPage(currentPage);
+        }, []);
+
+
+        const updateEvent = createdEvents.find((event: CreateEventType) => event.id == id);
+        console.log(updateEvent?.eventName, "xasdf")
+       
+        
+        const value = {handleActiveTab, handleCurrentPage, id,  activeTab, totalPages, currentPage, createdEvents, updateEvent}
+        return <CreatedEventsContext.Provider  value={value}> {children}</CreatedEventsContext.Provider>
+
+    }
 
 export const createdEventsStore = ()=> React.useContext(CreatedEventsContext);

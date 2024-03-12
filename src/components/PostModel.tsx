@@ -85,6 +85,8 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       );
       setLoading(false);
       if (response.status === 201) {
+        setLoading(false);
+        // window.location.reload();
         window.location.reload();
       }
       closeModal();
@@ -98,6 +100,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -149,7 +152,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               name="text"
               value={formData.text}
               onChange={handleInputTextChange}
-              rows={4}
+              // rows={4}
             ></textarea>
           </div>
 

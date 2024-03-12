@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TournamentBg from "../components/TournamentBg";
 import BasicInfo from "../components/BasicInfo";
 import Recuitments, { Tab } from "../components/Recruitment";
@@ -10,7 +10,9 @@ import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { ToastProvider } from "../utils/ToastProvider";
 import { useToast } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { CreatedEventContext, createdEventsStore, eventContextStore, singleEventContextStore } from "../contexts/eventContext";
+import { toast } from "react-toastify";
 
 interface CreateEventType {
   id?: number;
@@ -51,67 +53,73 @@ interface CreateEventType {
   shotsPerHoles?: string[];
   driverContest?: number;
   nearPinContest?: number;
+  creatorId?: any
 }
 
 const EditEvent: React.FC = () => {
-  const router = useNavigate();
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
-  const [formData, setFormData] = useState<CreateEventType>({
-    eventType: "",
-    eventName: "",
-    files: null,
-    eventDetails: "",
-    eventVideoUrl: "",
-    categories: "",
-    place: "",
-    placeCoordinates: {
-      lat: "",
-      lng: "",
-    },
-    capacity: 0,
-    selfIncluded: false,
-    eventStartDate: "",
-    eventStartTime: "",
-    eventEndDate: "",
-    eventEndTime: "",
-    recruitmentStartDate: "",
-    recruitmentStartTime: "",
-    eventDeadlineDate: "",
-    eventDeadlineTime: "",
-    matchType: "",
-    paymentType: "",
-    bankName: "",
-    branchName: "",
-    accountNumber: 0,
-    accountHolderName: "",
-    paypalId: "",
-    teamSize: 0,
-    participationFee: 0,
-    isEventPublished: false,
-    hideParticipantName: false,
-    isRequiresApproval: false,
-    scoringType: "",
-    selectedHoles: [],
-    shotsPerHoles: [],
-    driverContest: 0,
-    nearPinContest: 0,
+    const { id } = createdEventsStore();
+    const {singleEvent} = singleEventContextStore();
+    const userId = localStorage.getItem('id');
+    console.log({singleEvent})
+    const router = useNavigate();
+    const { t, i18n } = useTranslation();
+    document.body.dir = i18n.dir();
+    const [formData, setFormData] = useState<any>({
+        eventType: singleEvent?.eventType,
+        eventName: singleEvent?.address,
+        files: null,
+        eventDetails: singleEvent?.eventDetails,
+        eventVideoUrl: singleEvent?.eventVideoUrl,
+        categories: singleEvent?.categories,
+        place: singleEvent?.place,
+        placeCoordinates: {
+        lat: singleEvent?.lat,
+        lng: singleEvent?.lng,
+        },
+        capacity:singleEvent?.capacity,
+        selfIncluded: singleEvent?.selfIncluded,
+        eventStartDate: singleEvent?.eventStartDate,
+        eventStartTime: singleEvent?.eventStartTime,
+        eventEndDate: singleEvent?.eventEndDate,
+        eventEndTime: singleEvent?.eventEndTime,
+        recruitmentStartDate: singleEvent?.recruitmentStartDate,
+        recruitmentStartTime: singleEvent?.recruitmentStartTime,
+        eventDeadlineDate: singleEvent?.eventDeadlineDate,
+        eventDeadlineTime: singleEvent?.eventDeadlineTime,
+        matchType: singleEvent?.matchType,
+        paymentType: singleEvent?.paymentType,
+        bankName: singleEvent?.bankName,
+        branchName: singleEvent?.branchName,
+        accountNumber: singleEvent?.accountNumber,
+        accountHolderName: singleEvent?.accountHolderName,
+        paypalId: singleEvent?.paypalId,
+        teamSize: singleEvent?.teamSize,
+        participationFee: singleEvent?.participationFee,
+        isEventPublished: singleEvent?.isEventPublished,
+        hideParticipantName: singleEvent?.hideParticipantName,
+        isRequiresApproval: singleEvent?.isRequiresApproval,
+        scoringType: singleEvent?.scoringType,
+        selectedHoles: singleEvent?.selectedHoles,
+        shotsPerHoles: singleEvent?.shotsPerHoles,
+        driverContest:  singleEvent?.driverContest,
+        nearPinContest:  singleEvent?.nearPinContest,
+        creatorId: userId
   });
   const { showToast } = useToast();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
+//   const handleChange = (
+//     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+//   ) => {
+//     const { name, value } = e.target;
     
-    if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
-      const { checked } = e.target;
-      setFormData({ ...formData, [name]: checked });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
+//     if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
+//       const { checked } = e.target;
+//       setFormData({ ...formData, [name]: checked });
+//     } else {
+//       setFormData({ ...formData, [name]: value });
+//     }
+//   };
+ 
   const handleScoringTypeChange = (
     scoringType: string,
     event: React.ChangeEvent<HTMLInputElement>
@@ -222,7 +230,7 @@ const EditEvent: React.FC = () => {
     });
 
     try {
-      const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formdata, {
+      const response = await axios.put(API_ENDPOINTS.UPDATE_EVENT + id, formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token") ?? ""}`,
@@ -236,10 +244,10 @@ const EditEvent: React.FC = () => {
         localStorage.removeItem("par");
         router("/event-main-page");
       } else {
-        showToast("Error occurred while creating the event", "[#FF0000]");
+        toast.error("Error occurred while updating the event");
       }
     } catch (error) {
-      showToast("Error occurred while creating the event", "[#FF0000]");
+      toast.error("Error occurred while creating the event");
       console.error("Error:", error);
     } finally {
       setSubmitting(false);
@@ -264,6 +272,64 @@ const EditEvent: React.FC = () => {
       eventType,
     }));
   };
+  useEffect(() => {
+    if (singleEvent) {
+      setFormData({
+        eventType: singleEvent?.eventType,
+        eventName: singleEvent?.eventName,
+        files: singleEvent?.imageUrl,
+        eventDetails: singleEvent?.eventDetails,
+        eventVideoUrl: singleEvent?.eventVideoUrl,
+        categories: singleEvent?.categories,
+        place: singleEvent?.place,
+        placeCoordinates: {
+        lat: singleEvent?.lat,
+        lng: singleEvent?.lng,
+        },
+        capacity:singleEvent?.capacity,
+        selfIncluded: singleEvent?.selfIncluded,
+        eventStartDate: singleEvent?.eventStartDate,
+        eventStartTime: singleEvent?.eventStartTime,
+        eventEndDate: singleEvent?.eventEndDate,
+        eventEndTime: singleEvent?.eventEndTime,
+        recruitmentStartDate: singleEvent?.recruitmentStartDate,
+        recruitmentStartTime: singleEvent?.recruitmentStartTime,
+        eventDeadlineDate: singleEvent?.eventDeadlineDate,
+        eventDeadlineTime: singleEvent?.eventDeadlineTime,
+        matchType: singleEvent?.matchType,
+        paymentType: singleEvent?.paymentType,
+        bankName: singleEvent?.bankName,
+        branchName: singleEvent?.branchName,
+        accountNumber: singleEvent?.accountNumber,
+        accountHolderName: singleEvent?.accountHolderName,
+        paypalId: singleEvent?.paypalId,
+        teamSize: singleEvent?.teamSize,
+        participationFee: singleEvent?.participationFee,
+        isEventPublished: singleEvent?.isEventPublished,
+        hideParticipantName: singleEvent?.hideParticipantName,
+        isRequiresApproval: singleEvent?.isRequiresApproval,
+        scoringType: singleEvent?.scoringType,
+        selectedHoles: singleEvent?.selectedHoles,
+        shotsPerHoles: singleEvent?.shotsPerHoles,
+        driverContest:  singleEvent?.driverContest,
+        nearPinContest:  singleEvent?.nearPinContest,
+        creatorId: userId
+      });
+    }
+  }, [singleEvent]);
+  console.log(formData.eventName, "assadasd")
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    
+    if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
+      const { checked } = e.target;
+      setFormData({ ...formData, [name]: checked });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
 
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -275,7 +341,7 @@ const EditEvent: React.FC = () => {
         </div>
 
         <form method="post" id="foirm" encType="multipart/form-data">
-          <BasicInfo onChange={handleChange} setFormData={setFormData} />
+          <BasicInfo onChange={handleChange} setFormData={setFormData} formData={formData}/>
 
           <Recuitments onChange={handleRecruitmentTabsChange} />
 
@@ -301,7 +367,7 @@ const EditEvent: React.FC = () => {
                     onClick={handleSubmit}
                     className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    {t("NEXT")}
+                    {'Update'}
                   </button>
                   <button className="cursor-pointer text-white bg-[#FE2E00] hover:bg-blue-800  focus:outline-none  focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700  dark:focus:ring-blue-800 hover:scale-105 transform transition duration-300 ease-in-out">
                     {t("CLEAR")}

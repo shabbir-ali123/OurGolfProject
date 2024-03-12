@@ -28,9 +28,6 @@ const EventMainPage: FunctionComponent = () => {
     setCurrentTab(lowerTab);
   };
 
-  // useEffect(() => {
-  //   fetchEvents("", "", setEvents, selectedLocations,currentTab);
-  // }, [selectedLocations, currentTab]);
 
   useEffect(() => {
     const handleResize = () => {
