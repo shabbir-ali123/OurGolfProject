@@ -170,7 +170,7 @@ const EditEvent: React.FC = () => {
     }
   
     let updatedFiles: File[] = [];
-    if (formData.files && formData.files.length > 0) {
+    if (formData.files && formData.files?.length > 0) {
       updatedFiles = formData.files;
       if (formData.files.length === 1) {
         const defaultFiles = await getDefaultImages();
