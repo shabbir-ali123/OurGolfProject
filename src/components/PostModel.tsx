@@ -17,6 +17,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [postContent, setPostContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const userId = localStorage.getItem("id");
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const [formData, setFormData] = useState<CreatePostType>({
     userId: userId,
@@ -48,7 +49,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     }
 
     const userToken = localStorage.getItem("token");
-
+    setLoading(true);
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("userId", formData.userId);
@@ -70,6 +71,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         }
       );
       if (response.status === 201) {
+        setLoading(false);
         window.location.reload();
       }
       closeModal();
@@ -180,7 +182,8 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
        
           <button
             className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
-            onClick={(event) => handlePost(event)}
+            disabled = {isLoading}
+            type="submit" onClick={(event) => handlePost(event)}
           >
             {t("POST")}
           </button>
