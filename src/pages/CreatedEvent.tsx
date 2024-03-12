@@ -4,9 +4,8 @@ import { CreatedEventPagination } from '../components/CreatedEventPagination';
 import { API_ENDPOINTS } from '../appConfig';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { Any } from 'react-spring';
-import EditTeamPage from './EditTeamPage';
-import { deleteEvent } from '../utils/fetchEvents';
+import { deleteEvent, fetchCreatedEvents } from '../utils/fetchEvents';
+import { createdEventsStore } from '../contexts/eventContext';
 
 interface Event {
     id: number;
@@ -25,79 +24,35 @@ interface Event {
 const tabs = ['live', 'upcoming', 'past'] as const;
 
 const CreatedEvents: React.FC = () => {
+    const { handleActiveTab, handleCurrentPage, activeTab, currentPage, totalPages, createdEvents} = createdEventsStore();
 
-    const [events, setEvents] = useState<Event[]>([]);
-    const [activeTab, setActiveTab] = useState<typeof tabs[number]>('past');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [totalPages, setTotalPage] = useState<number>(1);
+    console.log(createdEvents, 'CE')
+    // const [events, setEvents] = useState<Event[]>([]);
+    // const [activeTab, setActiveTab] = useState<typeof tabs[number]>('past');
+    // const [currentPage, setCurrentPage] = useState<number>(1);
+    // const [totalPages, setTotalPage] = useState<number>(1);
     const [showPopup, setShowPopup] = useState(false);
-    const pageSize = 6; // Set your desired page size
+    const pageSize = 6; 
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     const navigate = useNavigate();
-    useEffect(() => {
-        const fetchUserEvents = async () => {
-            try {
-                const userID = localStorage.getItem('id');
-                const token = localStorage.getItem('token');
-                const status = activeTab;
-
-                if (userID && token) {
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-                    const response = await axios.get(API_ENDPOINTS.GETEVENTSBYID, {
-                        params: {
-                            pageSize,
-                            page: currentPage,
-                            status,
-                        },
-                    });
-
-                    const data = response.data.rows;
-                    const count = response.data.count;
-                    setTotalPage(count);
-                    setEvents(data);
-                    setLoading(false);
-                    setError(null); // Reset error state on successful fetch
-                } else {
-                    console.error('User ID or token not found in local storage');
-                    setLoading(false);
-                    setError('User ID or token not found');
-                }
-            } catch (error) {
-                console.error('Error fetching user created events:', error);
-                setLoading(false);
-                setError('Error fetching events');
-            }
-        };
-
-        fetchUserEvents();
-    }, [activeTab, currentPage]);
 
     const handleTabClick = (tab: any) => {
-        console.log('Tab clicked:', tab);
-        setActiveTab(tab);
+        handleActiveTab(tab);
     };
 
     const handlePageChange = (newPage: number) => {
-        console.log('Page changed:', newPage);
-        setCurrentPage(newPage);
+        handleCurrentPage(newPage);
     };
     const handleCogIconClick = (event: Event) => {
         setSelectedEvent(event);
         setShowPopup(true);
     };
-    const handleCogIconClickDirectly = (event: Event) => {
-        navigate(`/edit-team-page?id=${event.id}&eventName=${encodeURIComponent(event.eventName)}`);
-    };
+ 
     const handleEditTeam = (id:any, eventName:any, eventStartDate:any, place:any, eventDetails:any, teamSize:any, imageUrl:any) => {
         navigate(`/edit-team-page?id=${id}&eventName=${encodeURIComponent(eventName)}&eventStartDate=${encodeURIComponent(eventStartDate)}&eventLocation=${encodeURIComponent(place)}&eventDetails=${encodeURIComponent(eventDetails)}&teamSize=${encodeURIComponent(teamSize)}&imageUrl=${encodeURIComponent(imageUrl)}`);
         setShowPopup(false);
       };
-    const handleEditClick = (event:any) => {
-        setSelectedEvent(event);
-    };
+  
     const handleCancelEvent = () => {
         setShowPopup(false);
     };
@@ -106,7 +61,7 @@ const CreatedEvents: React.FC = () => {
         deleteEvent(id);
       }
 
-    console.log({events})
+    // console.log({events})
     return (
         <div className=' max-w-7xl mx-auto flex  justify-center py-10 custom-box-shadow my-10'>
             <div >
@@ -151,14 +106,14 @@ const CreatedEvents: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody className="mt-2">
-                            {events.length === 0 ? (
+                            {createdEvents?.length === 0 ? (
                                 <tr className='flex justify-center'>
                                     <td  className="text-center py-4">
                                         No event
                                     </td>
                                 </tr>
                             ) : (
-                                events.map((event) => (
+                                createdEvents?.map((event: any) => (
                                     <tr key={event.id} className="bg-white" style={{
                                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
                                     }}>
@@ -171,8 +126,9 @@ const CreatedEvents: React.FC = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4] text-center">
                                             {/* <Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} /> */}
                                             <Link to={`/edit-team/${event.id}`}><Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} />
-                                        </Link>
+                                            </Link>
                                         <p onClick={() => handleDeleteEvent(event.id)}>Delete</p>
+                                        <Link to={`/edit-event/${event.id}`}>Edit</Link>
                                         </td>
                                     </tr>
                               ))
@@ -210,7 +166,7 @@ const CreatedEvents: React.FC = () => {
                 <CreatedEventPagination
                     currentPage={currentPage}
                     pageSize={pageSize}
-                    totalEvents={totalPages} // Assuming you have the total count of events
+                    totalEvents={totalPages}
                     onPageChange={handlePageChange}
                 />
             </div>

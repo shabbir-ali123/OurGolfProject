@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
   GETEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-event-by-id/`,
   GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
   DELETE_EVENT: `${API_BASE_URL}/${API_VERSION}/delete-event-by-id/`,
+  UPDATE_EVENT: `${API_BASE_URL}/${API_VERSION}/update-event-by-id/`,
   
  
   // teacher
