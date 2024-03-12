@@ -70,9 +70,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prevs.map((e: any) =>
             e.id === eventId
               ? {
-                ...e,
-                isFavorite: !e.isFavorite,
-              }
+                  ...e,
+                  isFavorite: !e.isFavorite,
+                }
               : e
           )
         );
@@ -108,22 +108,22 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prev.map((e: any) =>
             e.id === event.id
               ? {
-                ...e,
-                likes: userEvent
-                  ? likes.map((like: any) =>
-                    like.userId === loggedInUser
-                      ? { ...like, counter: newCounter }
-                      : like
-                  )
-                  : [
-                    ...likes,
-                    {
-                      counter: newCounter,
-                      userId: loggedInUser,
-                      id: Math.floor(Math.random() * 10),
-                    },
-                  ],
-              }
+                  ...e,
+                  likes: userEvent
+                    ? likes.map((like: any) =>
+                        like.userId === loggedInUser
+                          ? { ...like, counter: newCounter }
+                          : like
+                      )
+                    : [
+                        ...likes,
+                        {
+                          counter: newCounter,
+                          userId: loggedInUser,
+                          id: Math.floor(Math.random() * 10),
+                        },
+                      ],
+                }
               : e
           )
         );
@@ -138,9 +138,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   const userId = localStorage.getItem("id");
 
-  const handleDeleteEvent = (id: any) => {
-    deleteEvent(id)
-  }
   return (
     <div className="animate__animated animate__fadeInLeft">
       {sortedPosts.length === 0 ? (
@@ -163,7 +160,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     <tr>
                       <th
                         scope="col"
-                        className="py-2 pl-4 pr-3 text-sm font-semibold text-start sm:pl-6"
+                        className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
                       >
                         {t("ORGANIZER")}
                       </th>
@@ -173,7 +170,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       >
                         {t("TIME")}
                       </th>
-
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
@@ -185,14 +181,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
-                        {t("JOINED_MEMBER")}
+                         {t("JOINED_MEMBER")}
                       </th>
 
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm text-left font-semibol"
                       >
-                        {t("ACTIONS")}
+                         {t("ACTIONS")}
                       </th>
                     </tr>
                   </thead>
@@ -251,7 +247,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                             {event.eventStartTime}
                           </td>
-
                           <td
                             className="flex items-center justify-between ml-2 text-sm font-semibold text-center whitespace-pre-wrap xl:text-left"
                             onClick={() => router(`/edit-team/${event.id}`)}
@@ -260,8 +255,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               {event.eventName}
                               <span className="flex items-center gap-1 font-normal ">
                                 <MapPinIcon
-                                  className={`-mr-0.5 h-4 w-4 ${event.type !== "full" && "text-[#33333]"
-                                    }`}
+                                  className={`-mr-0.5 h-4 w-4 ${
+                                    event.type !== "full" && "text-[#33333]"
+                                  }`}
                                   aria-hidden="true"
                                 />
                                 {event.place}
@@ -271,10 +267,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             <span className="md:whitespace-nowrap px-2 text-[#17b3a6] py-0 text-sm mx-0  sm:mx-2 cursor-pointer rounded-lg  ">
                               <div
                                 rel="noopener noreferrer"
-                                className={`md:whitespace-nowrap rounded-lg px-0 text-[#17b3a6] py-1 text-sm mx-0 sm: cursor-pointer ${event.type === "full"
+                                className={`md:whitespace-nowrap rounded-lg px-0 text-[#17b3a6] py-1 text-sm mx-0 sm: cursor-pointer ${
+                                  event.type === "full"
                                     ? "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full rounded-lg"
                                     : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
-                                  }`}
+                                }`}
                               >
                                 <p className="p-2 sm:text-lg xl:text-x">{t("JOIN")}</p>
                               </div>
@@ -291,15 +288,16 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <span className="font-bold">
                                 Waiting:
                               </span> {event.teamMemberCount} / {event.capacity * event.teamSize}
-                              
+
                             </p>
 
                           </td>
                           <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
                             <div className="flex flex-col items-center gap-1 ">
                               <div
-                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${liked ? "green" : "[#17B3A6]"
-                                  } cursor-pointer p-1 rounded-md`}
+                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${
+                                  liked ? "green" : "[#17B3A6]"
+                                } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleLike(event)}
                               >
                                 <HandThumbUpIcon className="w-3 h-3 text-white" />
@@ -329,8 +327,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </div>
                             <div className="flex flex-col items-center gap-1">
                               <div
-                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${isFavorite ? "[#006800]" : "[#17B3A6]"
-                                  } cursor-pointer p-1 rounded-md`}
+                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${
+                                  isFavorite ? "[#006800]" : "[#17B3A6]"
+                                } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleFavoriteClick(event.id)}
                               >
                                 <FontAwesomeIcon
@@ -348,9 +347,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               className="bg-[#52FF86] hover:bg-black text-white font-bold py-1 px-4 rounded cursor-pointer"
                               onClick={() => router(`/score-board`)}
                             >
-                              {t("VIEW")}
+                               {t("VIEW")}
                             </button>
-                            <button onClick={() => handleDeleteEvent(event.id)}>delete</button>
                           </div>
                         </tr>
 

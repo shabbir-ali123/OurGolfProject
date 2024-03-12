@@ -44,7 +44,7 @@ import { useParams } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PostContext } from "./contexts/postsContext";
-import { SingleEventsContext } from "./contexts/eventContext";
+import { CreatedEventContext, SingleEventsContext } from "./contexts/eventContext";
 import { SingleTeamsContext } from "./contexts/teamContext";
 import TeacherDetails from "./pages/TeacherDetails";
 import TeacherListpage from "./pages/TeachersListPage";
@@ -52,6 +52,8 @@ import ScorePage from "./pages/ScorePage";
 import { ScoreContextProvider } from "./contexts/scoreContext";
 import { TeacherContext, TeacherDetailsContext } from "./contexts/teachersContext";
 import UpdatePost from "./components/UpdatePost";
+import EditEvent from "./pages/EditEvent";
+
 function App() {
 const params = useParams();
 
@@ -278,7 +280,7 @@ const params = useParams();
         <Route path="/completed-lesson" element={token || token === "undefined" ? <CompleteLessonsPage /> :<LoginPage />} />
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
-        <Route path="/created-events" element={token? <CreatedEvents /> :<LoginPage />} />
+        <Route path="/created-events" element={token?<CreatedEventContext> <CreatedEvents /> </CreatedEventContext>:<LoginPage />} />
         <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
         <Route path="/profile-page" element={token? <ProfilePage /> :<LoginPage />} />
         <Route path="/teacher-details/:id" element={ <TeacherDetailsContext><TeacherDetails /> </TeacherDetailsContext>} />
@@ -300,6 +302,10 @@ const params = useParams();
         <Route
           path="/read-post/:id"
           element={token ? <ReadPost  /> : <LoginPage />}
+        />
+        <Route
+          path="/edit-event/:id"
+          element={token ? <EditEvent /> : <LoginPage />}
         />
 
       </Routes>

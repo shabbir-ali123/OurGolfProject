@@ -1,7 +1,6 @@
 import axios from "axios";
 import { formatDate } from "./getStartedDate";
 import { API_ENDPOINTS } from "../appConfig";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  location?:any, status?:any) => {
@@ -77,11 +76,8 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
       },
     });
 
-  // Check for 401 status code right after receiving the response
   if (response.status === 401) {
-    // Handle 401 Unauthorized error
     console.error("Unauthorized access - 401 error");
-    // Optionally, you can perform actions like redirecting to a login page or displaying an error message
     return;
   }    setEvents(response.data.events);
     setEventsCount(response.data.count)
@@ -128,6 +124,7 @@ export const fetchSingleEvent = async (eventId: any) => {
   try {
       const token = localStorage.getItem("token");
       const headers: any = {};
+
       if (token) {
           headers["Authorization"] = `Bearer ${token}`;
       }
@@ -150,4 +147,35 @@ export const fetchSingleEvent = async (eventId: any) => {
       toast.error("An error occurred. Please try again.");
     }
   }
+};
+
+export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentPage: any, setTotalPage: any, setEvents: any  ) => {
+  try {
+    const userID = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    const status = activeTab;
+
+    if (userID && token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        const response = await axios.get(API_ENDPOINTS.GETEVENTSBYID, {
+            params: {
+                pageSize,
+                page: currentPage,
+                status,
+            },
+        });
+
+        const data = response.data.rows;
+        const count = response.data.count;
+        setTotalPage(count);
+        setEvents(data);
+        
+    } else {
+        console.error('User ID or token not found in local storage');
+       
+    }
+} catch (error) {
+    console.error('Error fetching user created events:', error);                
+}
 };

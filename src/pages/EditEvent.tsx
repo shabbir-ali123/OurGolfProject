@@ -53,7 +53,7 @@ interface CreateEventType {
   nearPinContest?: number;
 }
 
-const CreateEvent: React.FC = () => {
+const EditEvent: React.FC = () => {
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -316,5 +316,5 @@ const CreateEvent: React.FC = () => {
   );
 };
 
-export default CreateEvent;
+export default EditEvent;
 
