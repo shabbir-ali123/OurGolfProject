@@ -35,11 +35,16 @@ interface Post {
 const PostCard = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { handleDeletePost, handleCategory, category, handlePost, post } =
+  const { handleDeletePost, handleCategory, category, handlePosts, post } =
     postContext();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLikesModelOpen, setLikesModelOpen] = useState(false);
+  const uId = localStorage.getItem("id");
+  const likes = post.PostLikes || [];
+  const userLikes =  post.PostLikes?.find(
+    (like: any) => like.userId === loggedInUser
+  );
 
   const isAuthenticated = () => {
     return localStorage.getItem("token");
@@ -100,7 +105,40 @@ const PostCard = () => {
       if (response.status === 200) {
         // fetchPosts(handlePost, category, router);
         toast.success("Post Has been Liked");
-        window.location.reload();
+        // handlePosts((prev: any) =>
+        //   prev.map((e: any) =>
+        //     e.id === postId
+        //       ? {
+        //           ...e,
+        //           PostsLikes: userLikes
+        //             ? likes.map((like: any) =>
+        //                 like.userId === loggedInUser
+        //                   ? { ...like, counter: newCounter }
+        //                   : like
+        //               )
+        //             : [
+        //                 ...likes,
+        //                 {
+        //                   counter: newCounter,
+        //                   userId: loggedInUser,
+        //                   id: Math.floor(Math.random() * 10),
+        //                 },
+        //               ],
+        //         }
+        //       : e
+        //   )
+        // );
+        handlePosts((prev: any) =>
+        prev.map((e: any) =>{
+          e.id == postId
+          ? {
+              ...e,
+            }
+          : e
+        }
+         
+        )
+      );
       }
     } catch (error) {
       console.error(`Error updating likes: ${error}`);
@@ -126,7 +164,6 @@ const PostCard = () => {
     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 bg-white">
       {sortedPosts.map((post: Post, index) => {
         const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-
         const userHasLiked = post.PostLikes.some(
           (like: any) => like.userId === loggedInUser && like.counter === 1
         );
@@ -160,9 +197,9 @@ const PostCard = () => {
                     >
                       <img
                         className="w-10 h-10 rounded-full"
-                        src={item.user.imageUrl}
+                        src={item.user?.imageUrl}
                       />
-                      <p className="text-black">{item.user.nickName}</p>
+                      <p className="text-black">{item.user?.nickName}</p>
                     </div>
                   ))}
                 </div>
@@ -208,15 +245,13 @@ const PostCard = () => {
                       {activeDropdownPostId === post.id && (
                         <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
                           <ul className="p-0 m-0">
-                          <Link
-                                className="decoration-none text-[#43bcb0] hover:text-[#000] "
-                                to={"/edit-post/" + post.id}
-                              >
-                            <li className="list-none p-2 hover:shadow-lg  text-start">
-                            
+                            <Link
+                              className="decoration-none text-[#43bcb0] hover:text-[#000] "
+                              to={"/edit-post/" + post.id}
+                            >
+                              <li className="list-none p-2 hover:shadow-lg  text-start">
                                 Edit
-                         
-                            </li>
+                              </li>
                             </Link>
                             <li className="list-none p-2 hover:shadow-lg text-start">
                               <a
@@ -258,14 +293,17 @@ const PostCard = () => {
                     >
                       <div className="flex items-center "></div>{" "}
                       <span className="flex items-center gap-2 text-[10px] cursor-pointer">
-                        by {userHasLiked ? "you, " : ""}
-                        {post?.PostLikes[0]?.user?.nickName} &{" "}
-                        {
-                          (post?.PostLikes || []).filter(
-                            (like: any) => like.counter
-                          ).length
-                        }{" "}
-                        others
+                        {userHasLiked ? "by you " : ""}
+                        {uId !== post?.PostLikes[0]?.userId &&
+                        post?.PostLikes.length > 1 
+                          ? userHasLiked ? "&  "
+                            : post?.PostLikes[0]?.user?.nickName + " &"
+                            : " "
+                          }{" "}
+                        {post?.PostLikes.length > 0 && (post?.PostLikes || []).filter(
+                          (like: any) => like.counter
+                        ).length + (userHasLiked ? -1 : 0) +  " others" }
+                       
                       </span>
                     </div>
                     <div className="flex item-center">
