@@ -59,6 +59,7 @@ export const API_ENDPOINTS = {
   ADDPOSTLIKE: `${API_BASE_URL}/${API_VERSION}/add-post-like`,
   DELETEPOST: `${API_BASE_URL}/${API_VERSION}/delete-post/`,
   UPDATEPOST:`${API_BASE_URL}/${API_VERSION}/update-post/`,
+  GETMYPOSTS: `${API_BASE_URL}/${API_VERSION}/get-my-posts`,
 
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,

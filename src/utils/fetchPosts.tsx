@@ -20,13 +20,7 @@ export const fetchPosts = async (setPosts: any, category: any, navigate:any) => 
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
       localStorage.removeItem('token');
-          localStorage.removeItem('tokenTimestamp');
-          localStorage.removeItem('nickName');
-          localStorage.removeItem('teacher_id');
-          localStorage.removeItem('user');
-          localStorage.removeItem('id');
-          localStorage.removeItem('score');
-          localStorage.removeItem('par');
+          localStorage.clear();
       toast.error("Session expired. Please log in again.");
       navigate('/login-page');
     } else {
@@ -34,7 +28,53 @@ export const fetchPosts = async (setPosts: any, category: any, navigate:any) => 
     }
   }
 };
-
+export const fetchMyPosts = async (setPosts: any, navigate:any) => {
+  try {
+    const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETMYPOSTS;
+    const headers: any = {}
+    if (token && token !== "undefined") {
+      headers["Authorization"] = `Bearer ${token}`;
+      endpoint = API_ENDPOINTS.GETMYPOSTS;
+    }
+    const response = await axios.get(endpoint, {
+      headers,
+    });
+    setPosts(response.data.posts);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.clear();
+      toast.error("Session expired. Please log in again.");
+      navigate('/login-page');
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
+  }
+};
+export const fetchAllPosts = async (setPosts: any,category:any, navigate:any) => {
+  try {
+    const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
+    const headers: any = {}
+    if (token && token !== "undefined") {
+      headers["Authorization"] = `Bearer ${token}`;
+      endpoint = API_ENDPOINTS.GETALLPOSTS;
+    }
+    const response = await axios.get(endpoint, {
+      headers,
+      params: { category },
+    });
+    setPosts(response.data.posts);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.clear();
+      toast.error("Session expired. Please log in again.");
+      navigate('/login-page');
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
+  }
+};
 
 export const fetchSinglePosts = async (setSinglePosts: any, id: any) => {
   try {
@@ -89,14 +129,7 @@ export const deletePost = async (postId: any, navigate: any) => {
   } catch (error) {
       if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
           toast.error("Session expired. Please log in again.");
-          localStorage.removeItem('token');
-          localStorage.removeItem('tokenTimestamp');
-          localStorage.removeItem('nickName');
-          localStorage.removeItem('teacher_id');
-          localStorage.removeItem('user');
-          localStorage.removeItem('id');
-          localStorage.removeItem('score');
-          localStorage.removeItem('par');
+          localStorage.clear();
           navigate('/login-page');
       } else {
           toast.error("An error occurred. Please try again.");

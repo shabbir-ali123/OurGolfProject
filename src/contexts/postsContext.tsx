@@ -1,5 +1,5 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { deletePost, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
+import { deletePost, fetchAllPosts, fetchMyPosts, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -8,7 +8,7 @@ const PostsContext = React.createContext<any>({});
 export const PostContext = ({children}:any)=>{
     const [post, setPost] = useState<any[]>([]);
     const [singlePost, setSinglePost] = useState<any>();
-    const [category, setCategory] = useState<string>('Public');
+    const [category, setCategory] = useState<string>('All');
     const token = localStorage.getItem("token");
     const router = useNavigate();
     const [deletePostId, setDeletePostId] = useState<any>();
@@ -16,9 +16,19 @@ export const PostContext = ({children}:any)=>{
 
 
     useEffect(() => {
-        fetchPosts(setPost, category, router);
-    }, [category]);
-    
+        if(category === 'MyPost'){
+             fetchMyPosts(setPost, router);
+        }
+        if(category === 'All'){
+            fetchAllPosts(setPost,category, router);
+        }
+        if(category === 'Public' || category === 'Private'){
+            fetchPosts(setPost, category, router);
+
+        }
+
+     }, [category]);
+
     useEffect(() => {
         if (postId) {
             fetchSinglePosts(handlePost, postId);

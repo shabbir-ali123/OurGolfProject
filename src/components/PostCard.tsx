@@ -11,6 +11,7 @@ import { postContext } from "../contexts/postsContext";
 import {
   EllipsisVerticalIcon,
   HandThumbDownIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import PostModal from "./PostModel";
 import UpdatePost from "./UpdatePost";
@@ -28,7 +29,7 @@ interface Post {
   mediaFile: string[];
   imageUrl: string[0];
   PostComments: string[];
-  PostLikes: string[];
+  PostLikes: any[];
 }
 
 const PostCard = () => {
@@ -38,6 +39,7 @@ const PostCard = () => {
     postContext();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLikesModelOpen, setLikesModelOpen] = useState(false);
 
   const isAuthenticated = () => {
     return localStorage.getItem("token");
@@ -55,6 +57,8 @@ const PostCard = () => {
 
   const [activeDropdownPostId, setActiveDropdownPostId] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(-1);
+  const [postwId, setPostwId] = useState("");
+
   const handleMouseEnter = (index: any) => {
     setHoveredIndex(index);
   };
@@ -102,6 +106,11 @@ const PostCard = () => {
       console.error(`Error updating likes: ${error}`);
     }
   };
+  const handleLikes = (postId: string, hasLiked: boolean, event: any) => {
+    event.preventDefault();
+    setLikesModelOpen(true);
+    setPostwId(postId);
+  };
   const sortedPosts = [...post].sort((a, b) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
@@ -109,10 +118,15 @@ const PostCard = () => {
     return Number(dateB) - Number(dateA);
   });
 
+  const closeLikesModel = (event: any) => {
+    event.preventDefault();
+    setLikesModelOpen(false);
+  };
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 bg-white">
       {sortedPosts.map((post: Post, index) => {
         const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
+
         const userHasLiked = post.PostLikes.some(
           (like: any) => like.userId === loggedInUser && like.counter === 1
         );
@@ -124,15 +138,47 @@ const PostCard = () => {
             to={`/read-post/${post.id}`}
             className="text-black hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
           >
+            {isLikesModelOpen && post.id === postwId ? (
+              <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+                <div
+                  className="w-full max-w-sm p-6 mx-auto bg-white rounded-lg "
+                  style={{
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+                  }}
+                >
+                  <button
+                    onClick={closeLikesModel}
+                    className="p-2 rounded-full cursor-pointer"
+                  >
+                    <XMarkIcon className="w-6 h-6" aria-hidden="true" />
+                  </button>
+                  {post.PostLikes.map((item: any) => (
+                    <div
+                      key={item.key}
+                      className="flex items-center gap-2 m-0 p-0 "
+                    >
+                      <img
+                        className="w-10 h-10 rounded-full"
+                        src={item.user.imageUrl}
+                      />
+                      <p className="text-black">{item.user.nickName}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
             <div
               className=" flex-wrap mx-4 lg:mx-0 lg:flex p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
               style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
             >
               <img
-                className="rounded-lg  object-cover h-[auto] w-full lg:w-[180px]"
+                className="rounded-lg  object-cover h-[200px] w-full lg:w-[180px]"
                 src={post.mediaFile[0]}
                 alt="Post"
               />
+
               <div className="p-4">
                 <div className="flex items-center gap-2 justify-between">
                   <div className="flex items-center  gap-2 ">
@@ -200,21 +246,49 @@ const PostCard = () => {
                       {post.tags}
                     </span>
                   </div>
-                  <div className="flex mt-6 space-x-4 ">
-                    <span
-                      className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
-                      onClick={handleInteraction}
-                      data-interaction="comment"
-                    >
-                      {" "}
-                      <EnvelopeIcon
-                        className="w-4 h-4 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                      {post.PostComments.length} {t("COMMENTS")}
-                    </span>
+
+                  <div className="flex justify-between mt-6 space-x-4 z-10 relative">
                     <div
-                      className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
+                      className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
+                      onClick={(event) =>
+                        handleLikes(post.id, userHasLiked, event)
+                      }
+                    >
+                      <div className="flex items-center "></div>{" "}
+                      <span className="flex items-center gap-2 text-[10px] cursor-pointer">
+                        by {userHasLiked ? "you, " : ""}
+                        {post?.PostLikes[0]?.user?.nickName} &{" "}
+                        {
+                          (post?.PostLikes || []).filter(
+                            (like: any) => like.counter
+                          ).length
+                        }{" "}
+                        others
+                      </span>
+                    </div>
+                    <div className="flex item-center">
+                      <span
+                        className="flex items-center text-[10px] gap-0 hover:bg-black p-1 rounded-lg"
+                        onClick={handleInteraction}
+                        data-interaction="comment"
+                      >
+                        {" "}
+                        {post.PostComments.length} {t("COMMENTS")}
+                      </span>
+
+                      <span
+                        className="flex items-center gap-0 text-[10px] hover:bg-black p-1 rounded-lg"
+                        onClick={handleInteraction}
+                        data-interaction="share"
+                      >
+                        <span className=""></span>0{t("SHARE")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex  justify-between z-10 relative">
+                    <div
+                      className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
                       onClick={(event) =>
                         handleLike(post.id, userHasLiked, event)
                       }
@@ -240,16 +314,28 @@ const PostCard = () => {
                           )}
                         </button>
                       </div>{" "}
-                      <span className="flex items-center gap-2 text-sm cursor-pointer">
-                        {" "}
-                        {
-                          (post?.PostLikes || []).filter(
-                            (like: any) => like.counter
-                          ).length
-                        }{" "}
-                        {t("LIKES")}
+                      <span
+                        className={`flex items-center gap-2 cursor-pointer ${
+                          hoveredIndex === index
+                            ? "text-white "
+                            : "text-[#17b3a6]"
+                        } ${userHasLiked ? "text-[#17b3a6]" : "text-black"}`}
+                      >
+                        {t("LIKE")}
                       </span>
                     </div>
+                    <span
+                      className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
+                      onClick={handleInteraction}
+                      data-interaction="comment"
+                    >
+                      {" "}
+                      <EnvelopeIcon
+                        className="w-4 h-4 cursor-pointer"
+                        aria-hidden="true"
+                      />
+                      {t("COMMENTS")}
+                    </span>
 
                     <span
                       className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"

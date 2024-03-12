@@ -32,7 +32,7 @@ const ProfilePrompt: React.FC = () => {
         <div className="flex flex-wrap items-center md:flex items-center p-4 space-x-4">
           <img
             className="w-12 h-12 rounded-full"
-            src={user.imageUrl}
+            src={user.imageUrl ? user.imageUrl : "./img/short.png"}
             alt="User"
           />
           <input
