@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Any } from 'react-spring';
 import EditTeamPage from './EditTeamPage';
+import { deleteEvent } from '../utils/fetchEvents';
 
 interface Event {
     id: number;
@@ -26,7 +27,7 @@ const tabs = ['live', 'upcoming', 'past'] as const;
 const CreatedEvents: React.FC = () => {
 
     const [events, setEvents] = useState<Event[]>([]);
-    const [activeTab, setActiveTab] = useState<typeof tabs[number]>('live');
+    const [activeTab, setActiveTab] = useState<typeof tabs[number]>('past');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -100,6 +101,12 @@ const CreatedEvents: React.FC = () => {
     const handleCancelEvent = () => {
         setShowPopup(false);
     };
+
+    const handleDeleteEvent = (id: any) => {
+        deleteEvent(id);
+      }
+
+    console.log({events})
     return (
         <div className=' max-w-7xl mx-auto flex  justify-center py-10 custom-box-shadow my-10'>
             <div >
@@ -139,7 +146,7 @@ const CreatedEvents: React.FC = () => {
                                     End Date
                                 </th>
                                 <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Setting
+                                    Actions
                                 </th>
                             </tr>
                         </thead>
@@ -165,6 +172,7 @@ const CreatedEvents: React.FC = () => {
                                             {/* <Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} /> */}
                                             <Link to={`/edit-team/${event.id}`}><Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} />
                                         </Link>
+                                        <p onClick={() => handleDeleteEvent(event.id)}>Delete</p>
                                         </td>
                                     </tr>
                               ))
