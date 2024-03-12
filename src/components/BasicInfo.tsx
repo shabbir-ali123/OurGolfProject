@@ -295,7 +295,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
               <div className="flex justify-center">
 
             {
-                  formData?.files.length > 0 && formData?.files.map((item: any) => {return (
+                  formData?.files?.length > 0 && formData?.files.map((item: any) => {return (
                     <img className="h-[50px] w-[50px]" key={item} src={item} alt="scd"/>
                   )})
                 }
