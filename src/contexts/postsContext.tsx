@@ -8,7 +8,7 @@ const PostsContext = React.createContext<any>({});
 export const PostContext = ({children}:any)=>{
     const [post, setPost] = useState<any[]>([]);
     const [singlePost, setSinglePost] = useState<any>();
-    const [category, setCategory] = useState<string>('All');
+    const [category, setCategory] = useState<string>('Public');
     const token = localStorage.getItem("token");
     const router = useNavigate();
     const [deletePostId, setDeletePostId] = useState<any>();

@@ -63,9 +63,9 @@ const PostCard = () => {
     setHoveredIndex(index);
   };
 
-  // Function to handle mouse leaving a card
+
   const handleMouseLeave = () => {
-    setHoveredIndex(-1); // Reset hoveredIndex when mouse leaves any card
+    setHoveredIndex(-1); 
   };
   const handleEllipsisClick = (event: any, postId: any) => {
     event.preventDefault();
@@ -174,7 +174,7 @@ const PostCard = () => {
               style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
             >
               <img
-                className="rounded-lg  object-cover  h-[250px] w-full lg:w-[180px]"
+                className="rounded-lg  object-fit  h-[250px] w-full lg:w-[180px]"
                 src={post.mediaFile[0]}
                 alt="Post"
               />

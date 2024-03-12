@@ -66,8 +66,7 @@ const ReadPost: React.FC = () => {
 
   useEffect(() => {
     if (singlePost) {
-      const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-      setUserHasLiked(singlePost.PostLikes.some((like: any) => like.userId === loggedInUser && like.counter === 1));
+      console.log('Fetched post content:', singlePost.text);
     }
   }, [singlePost]);
 
