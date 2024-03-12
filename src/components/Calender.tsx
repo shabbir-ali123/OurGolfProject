@@ -20,7 +20,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     // fetchEvents(date, endDate, setEvents);
 
   };
-
+  
   const handleEndDateChange = (date: Date | null) => {
     setEndDate(date);
     // fetchEvents(startDate, date, setEvents);

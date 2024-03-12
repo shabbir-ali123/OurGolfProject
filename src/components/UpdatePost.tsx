@@ -183,7 +183,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
             ))}
 
             <label className="block text-gray-700">
-              Update photos and videos
+            {t("ADD_VIDEOS")}
             </label>
             <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
               <input
@@ -214,19 +214,21 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
               </label>
             </div>
           </div>
-          <label htmlFor="">Add Category</label>
+          <label htmlFor="">{t("SELECT_CATEGORY")}</label>
           <select
             className="w-full p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
             onChange={handleSelectChange}
             value={formData.category}
             name="category"
           >
-            <option value="">Select Category</option>
-            <option value="Public">Public</option>
-            <option value="Private">Private</option>
+            <option value="" >
+            {t("SELECT_CATEGORY")}
+            </option>
+            <option value="Public">{t("PUBLIC")}</option>
+          <option value="Private">{t("PRIVATE")}</option>
           </select>
           <div>
-            <label htmlFor="">Add tags</label>
+            <label htmlFor="">{t("ADD_TAGS")}</label>
             <input
               className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder="# Tags"
@@ -241,8 +243,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
             type="submit"
             className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
             onClick={(event) => handlePost(event)}
-          >
-            Update
+          >{t("UPDATE")}
           </button>
         </form>
       </div>

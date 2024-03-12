@@ -12,13 +12,12 @@ export default function ProfileButton() {
   let n = [];
   const token = localStorage.getItem('token');
   const id = localStorage.getItem('teacher_id');
-let tId = notifications.map((item: any) => item.teacherId);
-tId = tId[tId.length - 1 ]
-    if(tId == id  && token){
+  let tId = notifications.map((item: any) => item.teacherId);
+  tId = tId[tId.length - 1 ]
+  if(tId == id && token){
     n = notifications;
   }
-  
-  console.log(user, 'user')
+
   const languages = {
     en: { displayName: "English" },
     ja: { displayName: i18n.language === "en" ? "日本語" : "日本語" },
@@ -27,18 +26,12 @@ tId = tId[tId.length - 1 ]
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notification, setNotification] = useState(false);
 
-
-  // useEffect(() => {
-  //   const userId = localStorage.getItem("id");
-  //   handleUser(userId)
-  //     .then((userData: any) => {
-  //       setUser(userData.user);
-  //       localStorage.setItem("user", JSON.stringify(userData.user));
-  //     })
-  //     .catch((error: string) => {
-  //       console.error("Error:", error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    const storedLang = localStorage.getItem('lang');
+    if (storedLang) {
+      i18n.changeLanguage(storedLang);
+    }
+  }, []);
 
   const handleDotClick = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -52,14 +45,14 @@ tId = tId[tId.length - 1 ]
 
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
+    localStorage.setItem('lang', lang); // Save language preference to localStorage
   };
 
-  console.log(user.nickName)
   return (
     <div className=" lg:flex lg:flex-1 lg:justify-end">
       <div className="relative flex-shrink-0 block">
         <div className="flex items-center">
-          {token  && user ? (
+          {token && user ? (
             <>
               <div className="flex items-center justify-center ">
                 <img
@@ -74,24 +67,24 @@ tId = tId[tId.length - 1 ]
                   {user.nickName ? user.nickName : user.email}
                 </p>
                 <div>
-                <button
-                  onClick={() => handleChangeLanguage("ja")}
-                  className={
-                    i18n.resolvedLanguage === "ja" ? "actives  rounded-l-full p-1 cursor-pointer" : "rounded-l-full p-1 cursor-pointer"
-                  }
-                >
-                  {languages.ja.displayName}
-                </button>
-                <button
-                  onClick={() => handleChangeLanguage("en")}
-                  className={
-                    i18n.resolvedLanguage === "en"
-                      ? "actives rounded-r-full  p-1 cursor-pointer"
-                      : "rounded-r-full p-1 cursor-pointer"
-                  }
-                >
-                  {languages.en.displayName}
-                </button>
+                  <button
+                    onClick={() => handleChangeLanguage("ja")}
+                    className={
+                      i18n.resolvedLanguage === "ja" ? "actives  rounded-l-full p-1 cursor-pointer" : "rounded-l-full p-1 cursor-pointer"
+                    }
+                  >
+                    {languages.ja.displayName}
+                  </button>
+                  <button
+                    onClick={() => handleChangeLanguage("en")}
+                    className={
+                      i18n.resolvedLanguage === "en"
+                        ? "actives rounded-r-full  p-1 cursor-pointer"
+                        : "rounded-r-full p-1 cursor-pointer"
+                    }
+                  >
+                    {languages.en.displayName}
+                  </button>
                 </div>
               </div>
             </>
