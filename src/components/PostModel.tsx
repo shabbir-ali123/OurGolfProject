@@ -70,12 +70,14 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           },
         }
       );
+      setLoading(false);
       if (response.status === 201) {
-        setLoading(false);
         window.location.reload();
       }
       closeModal();
     } catch (error: unknown) {
+      setLoading(false);
+
     }
   };
 
