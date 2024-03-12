@@ -74,10 +74,7 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
   const handlePrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
-  
-  // useEffect(() => {
-   
-  // }, [selectedDate, startEndDates]);
+
   return (
     <>
       <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent w-full">

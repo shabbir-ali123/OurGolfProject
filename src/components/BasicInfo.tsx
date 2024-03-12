@@ -9,6 +9,7 @@ import { GroupBase, OptionsOrGroups } from "react-select";
 interface BasicInfoProps {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
+  formData?: any;
 }
 
 
@@ -21,7 +22,7 @@ type GroupedOptionType = GroupBase<OptionType>;
 
 
 
-const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
+const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
@@ -143,7 +144,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
       },
     } as React.ChangeEvent<HTMLInputElement>);
   };
- 
+  
   return (
     <motion.div
       className="px-2 mx-auto lg:max-w-7xl "
@@ -175,6 +176,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               id="grid-Event-Name"
               type="text"
               name="eventName"
+              value={formData?.eventName}
               placeholder={t("EVENT_NAME")}
               onChange={onChange}
               required
@@ -196,6 +198,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               type="text"
               name="eventVideoUrl"
               placeholder={t("SHORT_VIDEO")}
+              value={formData?.eventVideoUrl}
               required
               onChange={onChange}
             />
@@ -245,6 +248,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               id="grid-first-name"
               name="eventDetails"
               placeholder={t("EVENT_DETAILS")}
+              value={formData?.eventDetails}
               required
               onChange={onChange}
               rows={4} // You can adjust the number of rows as needed
@@ -269,8 +273,10 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               type="text"
               name="address"
               placeholder={t("ADDRESS")}
+              value={formData?.address}
               required
               onChange={onChange}
+              
             />
           </div>
          
@@ -286,7 +292,17 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               </div>
             </label>
             <div className="relative">
+              <div className="flex justify-center">
+
+            {
+                  formData?.files.length > 0 && formData?.files.map((item: any) => {return (
+                    <img className="h-[50px] w-[50px]" key={item} src={item} alt="scd"/>
+                  )})
+                }
+              </div>
+
               <div className="flex items-center ">
+                
                 <input
                   className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16  mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform shadow-xl"
                   style={{
@@ -319,6 +335,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               <Select
                 name="place"
                 required
+                placeholder={formData?.place}
                 options={
                   JapanCities as OptionsOrGroups<
                     OptionType,
@@ -327,7 +344,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
                 }
                 onChange={handleChange}
                 className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                classNamePrefix=""
               />
 
               {!isWithinJapan && (
@@ -361,6 +377,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData }) => {
               className="w-3/4 md:w-1/2 p-2 rounded-md focus:outline-none border-[#52FF86]"
               placeholder={t("SEARCH_LOCATION")}
               required
+              value={formData?.place}
             />
             <button
               className="py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"

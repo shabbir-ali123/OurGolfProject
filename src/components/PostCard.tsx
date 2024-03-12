@@ -127,7 +127,7 @@ const PostCard = () => {
       {sortedPosts.map((post: Post, index) => {
         const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
 
-        const userHasLiked = post.PostLikes.some(
+        const userHasLiked = post.PostLikes?.some(
           (like: any) => like.userId === loggedInUser && like.counter === 1
         );
         return (
@@ -135,10 +135,10 @@ const PostCard = () => {
             key={post.id}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
-            to={`/read-post/${post.id}`}
+            to={`/read-post/${post?.id}`}
             className="text-black hover:rounded-lg "
           >
-            {isLikesModelOpen && post.id === postwId ? (
+            {isLikesModelOpen && post?.id === postwId ? (
               <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
                 <div
                   className="w-full max-w-sm p-6 mx-auto bg-white rounded-lg "
@@ -160,7 +160,7 @@ const PostCard = () => {
                     >
                       <img
                         className="w-10 h-10 rounded-full"
-                        src={item.user.imageUrl}
+                        src={item.user?.imageUrl}
                       />
                       <p className="text-black">{item.user.nickName}</p>
                     </div>
@@ -184,28 +184,28 @@ const PostCard = () => {
                   <div className="flex items-center  gap-2 ">
                     <img
                       className="w-8 h-8 rounded-full "
-                      src={post.posts.imageUrl}
+                      src={post.posts?.imageUrl}
                       alt="Post"
                     />
 
                     <p className="p-0 text-sm flex gap-4 items-center">
-                      {post.posts.nickName}{" "}
+                      {post.posts?.nickName}{" "}
                       <span className="text-[10px]">
                         {getTimeAgo(new Date(post?.createdAt))}
                       </span>
                     </p>
                   </div>
-                  {post.posts.id === loggedInUser && (
+                  {post.posts?.id === loggedInUser && (
                     <div
                       className="relative"
-                      onClick={(event) => handleEllipsisClick(event, post.id)}
+                      onClick={(event) => handleEllipsisClick(event, post?.id)}
                     >
                       <EllipsisVerticalIcon
                         className="w-6 h-6 cursor-pointer "
                         aria-hidden="true"
-                        onClick={(event) => handleEllipsisClick(event, post.id)}
+                        onClick={(event) => handleEllipsisClick(event, post?.id)}
                       />
-                      {activeDropdownPostId === post.id && (
+                      {activeDropdownPostId === post?.id && (
                         <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
                           <ul className="p-0 m-0">
                           <Link
@@ -253,7 +253,7 @@ const PostCard = () => {
                     <div
                       className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
                       onClick={(event) =>
-                        handleLikes(post.id, userHasLiked, event)
+                        handleLikes(post?.id, userHasLiked, event)
                       }
                     >
                       <div className="flex items-center "></div>{" "}
