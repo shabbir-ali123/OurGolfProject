@@ -132,6 +132,7 @@ const PostCard = () => {
                           id: Math.floor(Math.random() * 1000), // Generating a random id
                           counter: newCounter,
                           userId: Number(loggedInUser),
+                          postId: postId
                         },
                       ],
                 }
@@ -139,6 +140,7 @@ const PostCard = () => {
           });
         });
 
+        console.log(post)
         const tt = post.some((item: any) => {
           if (postId === item.id) {
             return item?.PostLikes.some(
