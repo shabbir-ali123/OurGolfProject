@@ -64,9 +64,16 @@ const EditEvent: React.FC = () => {
     const router = useNavigate();
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
+    const [checkboxValues, setCheckboxValues] = useState({
+      fullNameCheckbox: false,
+      emailCheckbox: false,
+      telephoneCheckbox: false,
+      handicapCheckbox: false,
+    });
     const [formData, setFormData] = useState<any>({
         eventType: singleEvent?.eventType,
-        eventName: singleEvent?.address,
+        eventName: singleEvent?.eventName,
+        address: singleEvent?.address,
         files: null,
         eventDetails: singleEvent?.eventDetails,
         eventVideoUrl: singleEvent?.eventVideoUrl,
@@ -103,8 +110,14 @@ const EditEvent: React.FC = () => {
         shotsPerHoles: singleEvent?.shotsPerHoles,
         driverContest:  singleEvent?.driverContest,
         nearPinContest:  singleEvent?.nearPinContest,
-        creatorId: userId
+        creatorId: userId,
+        fullNameCheckbox: checkboxValues?.fullNameCheckbox,
+        emailCheckbox: checkboxValues?.emailCheckbox,
+        telephoneCheckbox: checkboxValues?.telephoneCheckbox,
+        handicapCheckbox: checkboxValues?.handicapCheckbox,
+
   });
+
   const { showToast } = useToast();
 
 //   const handleChange = (
@@ -313,7 +326,7 @@ const EditEvent: React.FC = () => {
         shotsPerHoles: singleEvent?.shotsPerHoles,
         driverContest:  singleEvent?.driverContest,
         nearPinContest:  singleEvent?.nearPinContest,
-        creatorId: userId
+        creatorId: userId,
       });
     }
   }, [singleEvent]);
@@ -321,6 +334,7 @@ const EditEvent: React.FC = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    console.log({e})
     const { name, value } = e.target;
     
     if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
@@ -330,7 +344,12 @@ const EditEvent: React.FC = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
+  
 
+  const itemInstructions = (updatedValues: any) => {
+    setCheckboxValues(updatedValues)
+  }
+  console.log(checkboxValues)
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
@@ -343,16 +362,16 @@ const EditEvent: React.FC = () => {
         <form method="post" id="foirm" encType="multipart/form-data">
           <BasicInfo onChange={handleChange} setFormData={setFormData} formData={formData}/>
 
-          <Recuitments onChange={handleRecruitmentTabsChange} />
+          <Recuitments onChange={handleRecruitmentTabsChange} formDataa={formData}/>
 
-          <ItemInstruction />
+          <ItemInstruction formData={formData} handleChange={itemInstructions}/>
           <ScoringCategory
             onChange={handleScoringTypeChange}
             onInputChange={handleChange}
             selectedHoles={formData.selectedHoles || []}
           />
 
-          <PaymentDetails onChange={handlePaymentDetailsChange} />
+          <PaymentDetails onChange={handlePaymentDetailsChange} formDataa={formData}/>
           <div className="p-2 ">
             <div className="">
               <div className="flex justify-center gap-2 mx-4">

@@ -32,12 +32,9 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     handleEndDate(endDate);
   }, [startDate, endDate]);
   
-  console.log(startDate , "actual")
   const clearDates = () => {
     setStartDate(null);
     setEndDate(null);
-    // If you need to clear events when dates are cleared, uncomment the next line
-    // setEvents([]);
   };
   return (
     <div className="flex flex-wrap md:flex-nowrap items-center gap-2">

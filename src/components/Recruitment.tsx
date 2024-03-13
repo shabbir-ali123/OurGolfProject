@@ -6,9 +6,10 @@ export type Tab = "individual" | "team" | "message";
 
 interface RecuitmentsProps {
   onChange: (formData: Record<string, any>, eventType: Tab) => void;
+  formDataa?: any,
 }
 
-const Recuitments: React.FC<RecuitmentsProps> = ({ onChange }) => {
+const Recuitments: React.FC<RecuitmentsProps> = ({ onChange, formDataa }) => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
   const [activeTab, setActiveTab] = useState<Tab>("individual");
@@ -63,7 +64,7 @@ document.body.dir = i18n.dir();
     setError(null);
 
     if (name === "teamSize" || name === "capacity") {
-      const teamSizeValue = parseInt(formData["teamSize"], 1);
+      const teamSizeValue = parseInt(formData["teamSize" || ''], 1);
       if (!isNaN(teamSizeValue) && typeof numericValue === 'number' && numericValue < teamSizeValue) {
         setError("Number of players cannot be less than Team Size.");
         return;
@@ -74,12 +75,12 @@ document.body.dir = i18n.dir();
       const twelveHourFormat = parseInt(hours, 10) > 12 ? parseInt(hours, 10) - 12 : parseInt(hours, 10);
       const ampm = parseInt(hours, 10) >= 12 ? "PM" : "AM";
   
-      setFormData((prevData) => ({
+      setFormData((prevData: any) => ({
         ...prevData,
         [name]: `${twelveHourFormat}:${minutes} ${ampm}`,
       }));
     } else {
-      setFormData((prevData) => ({
+      setFormData((prevData: any) => ({
         ...prevData,
         [name]: stringFields.includes(name) ? value : numericValue,
       }));
@@ -89,7 +90,8 @@ document.body.dir = i18n.dir();
       onChange(formData, activeTab);
     }
   };
-  
+
+  let isEdit = formDataa?.capacity >= 0 ? false : true
   return (
     <div className="py-8 mx-auto lg:max-w-7xl ">
       <div className="p-4 mt-4 rounded-md "style={{
@@ -97,6 +99,8 @@ document.body.dir = i18n.dir();
           'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
       }}>
       <h2 className="text-4xl text-[#626262]">{t('RECRUITMENT_DETAILS')}</h2>
+      {
+        isEdit && 
         <div className="flex items-center col-span-5 gap-2 py-1 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3 ">
           <label
             className="block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
@@ -110,10 +114,13 @@ document.body.dir = i18n.dir();
             type="number"
             name="capacity"
             min="0"
+            value={formDataa?.capacity}
             onChange={handleInputChange}
             required
           />
         </div>
+      }
+
         <div className="flex col-span-12 gap-2 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <label
             className="block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
@@ -147,6 +154,7 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventStartDate"
             onChange={handleInputChange}
+            value={formDataa?.eventStartDate}
             required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
@@ -158,6 +166,7 @@ document.body.dir = i18n.dir();
             onChange={handleInputChange}
             placeholder="Select Time:"
             required
+            value={formDataa?.eventStartTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -174,6 +183,7 @@ document.body.dir = i18n.dir();
             name="eventEndDate"
             onChange={handleInputChange}
             required
+            value={formDataa?.eventStartDate}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
 
@@ -184,6 +194,7 @@ document.body.dir = i18n.dir();
             onChange={handleInputChange}
             required
             placeholder="Select Time:"
+            value={formDataa?.eventEndTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -200,6 +211,7 @@ document.body.dir = i18n.dir();
             name="eventDeadlineDate"
             onChange={handleInputChange}
             required
+            value={formDataa?.eventDeadlineDate}
             placeholder="Enter Date"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
@@ -211,9 +223,11 @@ document.body.dir = i18n.dir();
             onChange={handleInputChange}
             required
             placeholder="Enter Time"
+            value={formDataa?.eventDeadlineTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
+        {isEdit &&
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <div className="">
             <div className="">
@@ -262,6 +276,7 @@ document.body.dir = i18n.dir();
                       name="teamSize"
                       onChange={handleInputChange}
                       min="0"
+                      value={formDataa?.teamSize}
                     />
                       <button
                   className="text-white bg-blue-500 border-none cursor-pointer"
@@ -277,6 +292,7 @@ document.body.dir = i18n.dir();
             </div>
           </div>
         </div>
+}
       </div>
     </div>
   );

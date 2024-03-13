@@ -71,7 +71,8 @@ const formSubmission = async ()=>{
       return;
     }
     const formdata = new FormData();
-    formdata.append("userId", userId);
+    formdata.append("user_id", userId);
+    formdata.append("event_id", eventID || "");
    
     const response = await axios.post(API_ENDPOINTS.JOINEDEVENTS + eventID, formdata,{
       headers: {

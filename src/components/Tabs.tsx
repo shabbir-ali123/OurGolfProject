@@ -92,7 +92,6 @@ const Tabs: React.FC<TabsProps> = ({
     // Set localEvents to all events
     handleEventStatus(currentTab);
   }, []);
-console.log(currentTab)
   return (
     <div className="flex flex-wrap">
       <div className="w-full animate__animated animate__fadeInLeft">

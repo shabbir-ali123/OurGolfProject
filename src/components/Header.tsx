@@ -24,6 +24,7 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  let userId = localStorage.getItem('id');
   const isActive = (path: any) => {
     return location.pathname === path;
   };
@@ -36,6 +37,23 @@ const Header: React.FC = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const [eventJoined, setEventJoined] = useState<any>()
+  useEffect(() => {
+    const handleJoinEvent = (data: any) => {
+      console.log(data, 'daya for sockets')
+      if (data?.organizerId === userId) {
+        setEventJoined(data); 
+
+    }
+    };
+    socket.on('joinRequest', handleJoinEvent);
+
+    return () => {
+      socket.off('joinRequest', handleJoinEvent);
+    };
+  }, []); 
+
   return (
     <div>
       <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
@@ -73,6 +91,9 @@ const Header: React.FC = () => {
                 {t(item.name.toLocaleUpperCase())}
               </Link>
             ))}
+            {eventJoined !== undefined &&
+              <p className="sdc">{eventJoined.organizerId}</p>
+            }
           </div>
           <div className="hidden lg:block lg:flex-1 lg:justify-end">
             <NotificationsContext>

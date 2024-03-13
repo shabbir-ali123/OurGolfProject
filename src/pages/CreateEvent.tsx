@@ -48,16 +48,27 @@ interface CreateEventType {
   hideParticipantName?: boolean;
   isRequiresApproval?: boolean;
   scoringType?: string;
+  fullNameCheckbox: boolean,
+  emailCheckbox: boolean,
+  telephoneCheckbox: boolean,
+  handicapCheckbox: boolean,
   selectedHoles?: string[];
   shotsPerHoles?: string[];
   driverContest?: number;
   nearPinContest?: number;
+  
 }
 
 const CreateEvent: React.FC = () => {
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+  const [checkboxValues, setCheckboxValues] = useState({
+    fullNameCheckbox: false,
+    emailCheckbox: false,
+    telephoneCheckbox: false,
+    handicapCheckbox: false,
+  });
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
     eventName: "",
@@ -97,6 +108,10 @@ const CreateEvent: React.FC = () => {
     shotsPerHoles: [],
     driverContest: 0,
     nearPinContest: 0,
+    fullNameCheckbox: checkboxValues?.fullNameCheckbox,
+    emailCheckbox: checkboxValues?.emailCheckbox,
+    telephoneCheckbox: checkboxValues?.telephoneCheckbox,
+    handicapCheckbox: checkboxValues?.handicapCheckbox,
   });
   const { showToast } = useToast();
 
@@ -222,6 +237,7 @@ const CreateEvent: React.FC = () => {
       }
     });
 
+    // formdata.append("emailCheckb÷ox", formData)
     try {
       const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formdata, {
         headers: {
@@ -266,6 +282,11 @@ const CreateEvent: React.FC = () => {
     }));
   };
 
+  const itemInstructions = (updatedValues: any) => {
+    setCheckboxValues(updatedValues)
+  }
+
+  console.log(checkboxValues, 'asd')
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
@@ -280,7 +301,7 @@ const CreateEvent: React.FC = () => {
 
           <Recuitments onChange={handleRecruitmentTabsChange} />
 
-          <ItemInstruction />
+          <ItemInstruction  handleChange={itemInstructions}/>
           <ScoringCategory
             onChange={handleScoringTypeChange}
             onInputChange={handleChange}

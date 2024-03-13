@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -16,6 +16,7 @@ import { ToastConfig, toastProperties } from "../constants/toast";
 import { eventContextStore } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
 import { deleteEvent } from "../utils/fetchEvents";
+import socket from "../socket";
 interface TableProps {
   events: Array<{
     id: string;
@@ -136,8 +137,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     }
   };
 
-  console.log(sortedPosts);
   const userId = localStorage.getItem("id");
+
+ 
 
   return (
     <div className="animate__animated animate__fadeInLeft">

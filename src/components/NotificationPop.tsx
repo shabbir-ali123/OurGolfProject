@@ -1,8 +1,9 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import { notificationsContextStore } from "../contexts/notificationContext";
+import socket from "../socket";
 interface NotificationProp {
   setNotification: any;
 }
@@ -26,7 +27,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({
       if(tId == id  && token){
         notification = notifications;
     }
-    
+   
   return (
     <>
       <div

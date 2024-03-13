@@ -66,7 +66,8 @@ const ReadPost: React.FC = () => {
 
   useEffect(() => {
     if (singlePost) {
-      console.log('Fetched post content:', singlePost.text);
+      const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
+      setUserHasLiked(singlePost.PostLikes.some((like: any) => like.userId === loggedInUser && like.counter === 1));
     }
   }, [singlePost]);
 
@@ -188,7 +189,7 @@ const ReadPost: React.FC = () => {
 
             if (singlePost?.mediaFile?.length === 1) {
               return <img
-                className="w-full h-[300px] md:h-[600px]  rounded-lg"
+                className="w-full h-[600px] rounded-lg"
                 src={img}
                 alt="Blog Post Image"
               />
@@ -201,17 +202,17 @@ const ReadPost: React.FC = () => {
                 return
               } else {
                 return (
-                  <div key={`multiple-${index}`}>
+                  <div key={`multiple-${index}`}> {/* Ensure key is unique and at the top element */}
                     {hasImageExtension(img) ? (
                       <img
-                        className="w-full object-cover h-[300px] md:h-[600px]  rounded-lg"
+                        className="w-full h-[600px] rounded-lg"
                         src={img}
                         alt="Blog Post Image"
                       />
                     ) : (
                       <video
                         controls
-                        className="w-full h-[300px] md:h-[600px] rounded-lg"
+                        className="w-full h-[600px] rounded-lg"
                         src={img}
                       />
                     )}
@@ -370,11 +371,9 @@ const ReadPost: React.FC = () => {
             </div>
           </div>
         </div>
-
       </div>
-
-
     </div>
   );
 };
+
 export default ReadPost;

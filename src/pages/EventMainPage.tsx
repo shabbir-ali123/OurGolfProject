@@ -65,7 +65,6 @@ const EventMainPage: FunctionComponent = () => {
               {selectedLocations.map((location, index) => (
                 <div key={index} className="flex items-center ">
                   <Clip place={location} />
-
                   <span
                     onClick={() => handleRemoveLocation(location)}
                     data-te-chip-close

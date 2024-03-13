@@ -5,9 +5,10 @@ export type Click = "bank" | "paypal";
 
 interface PaymentDetailsProps {
   onChange: (formData: Record<string, any>, paymentType: Click) => void;
+  formDataa?: any
 }
 
-const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
+const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange, formDataa}) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
@@ -89,6 +90,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange }) => {
                   name="bankName"
                   onChange={handleInputChange}
                   placeholder={t('BANK_NAME')}
+                  value={formDataa?.bankName}
                 />
               </div>
               <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
