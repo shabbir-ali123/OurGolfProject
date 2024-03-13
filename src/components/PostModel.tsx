@@ -3,6 +3,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { postContext } from "../contexts/postsContext";
 
 interface CreatePostType {
   text: string;
@@ -20,14 +21,9 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const userId = localStorage.getItem("id");
   const [isLoading, setLoading] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const { handleCreatePost, formData,setFormData } =
+  postContext();
 
-  const [formData, setFormData] = useState<CreatePostType>({
-    userId: userId,
-    text: postContent,
-    category: "",
-    tags: "",
-    mediaFiles: [],
-  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,44 +52,18 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!formData.userId || formData.mediaFiles.length === 0) {
-      return;
-    }
+   console.log(formData);
+    // if (!formData?.userId || formData?.mediaFiles.length === 0) {
+    //   return;
+    // }
 
-    const userToken = localStorage.getItem("token");
     setLoading(true);
-    try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("userId", formData.userId);
-      formDataToSend.append("text", formData.text);
-      formDataToSend.append("category", formData.category);
-      formDataToSend.append("tags", formData.tags);
+   
+    handleCreatePost(formData);
 
-      formData.mediaFiles.forEach((file, index) => {
-        formDataToSend.append("mediaFiles", file);
-      });
+    setLoading(false);
+    closeModal();
 
-      const response = await axios.post(
-        API_ENDPOINTS.CREATEPOSTS,
-        formDataToSend,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setLoading(false);
-      if (response.status === 201) {
-        setLoading(false);
-        // window.location.reload();
-        window.location.reload();
-      }
-      closeModal();
-    } catch (error: unknown) {
-      setLoading(false);
-
-    }
   };
 
   const handleInputTextChange = (
@@ -101,7 +71,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   ) => {
     const { name, value } = e.target;
     
-    setFormData((prevFormData) => ({
+    setFormData((prevFormData:any) => ({
       ...prevFormData,
       [name]: value,
     }));
@@ -109,7 +79,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
+    setFormData((prevFormData:any) => ({
       ...prevFormData,
       [name]: value,
     }));
@@ -120,7 +90,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   ) => {
     const { name, value } = e.target;
     setSelectedCategory(value);
-    setFormData((prevFormData) => ({
+    setFormData((prevFormData:any) => ({
       ...prevFormData,
       [name]: value,
     }));
@@ -150,7 +120,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder={t("WRITE_TEXT")}
               name="text"
-              value={formData.text}
+              value={formData?.text}
               onChange={handleInputTextChange}
               // rows={4}
             ></textarea>
@@ -240,3 +210,5 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 };
 
 export default PostModal;
+
+

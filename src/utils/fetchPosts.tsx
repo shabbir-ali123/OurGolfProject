@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
+import { set } from "date-fns";
 
 export const fetchPosts = async (setPosts: any, category: any, navigate:any) => {
   try {
@@ -114,8 +115,7 @@ export const addPostComment = async (formData: any) => {
   }
 };
 
-
-export const deletePost = async (postId: any, navigate: any) => {
+export const deletePost = async (postId: any,setMessage:any, navigate: any) => {
   try {
       const token = localStorage.getItem("token");
       let endpoint = API_ENDPOINTS.DELETEPOST + postId;
@@ -124,7 +124,9 @@ export const deletePost = async (postId: any, navigate: any) => {
           headers["Authorization"] = `Bearer ${token}`;
       }
       const response = await axios.delete(endpoint, { headers });
-      console.log(response);
+
+      toast.success(response.data.message)
+      setMessage(response.data.message);
       // Handle the response, e.g., remove the post from the state or notify the user
   } catch (error) {
       if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
@@ -134,5 +136,39 @@ export const deletePost = async (postId: any, navigate: any) => {
       } else {
           toast.error("An error occurred. Please try again.");
       }
+  }
+};
+
+export const createPost = async ( formData:any, setMessage:any ) => {
+  const userToken = localStorage.getItem("token");
+
+  try {
+    const formDataToSend = new FormData();
+    formDataToSend.append("userId", formData.userId);
+    formDataToSend.append("text", formData.text);
+    formDataToSend.append("category", formData.category);
+    formDataToSend.append("tags", formData.tags);
+
+    formData.mediaFiles.forEach((file:any, index:any) => {
+      formDataToSend.append("mediaFiles", file);
+    });
+
+    const response = await axios.post(
+      API_ENDPOINTS.CREATEPOSTS,
+      formDataToSend,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    if (response.status === 201) {
+
+      setMessage(response.data.message);
+      toast.success(response.data.message);
+    }
+  } catch (error: unknown) {
+
   }
 };

@@ -1,9 +1,16 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { deletePost, fetchAllPosts, fetchMyPosts, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
+import { createPost, deletePost, fetchAllPosts, fetchMyPosts, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
 import { useNavigate } from 'react-router-dom';
 
 
 const PostsContext = React.createContext<any>({});
+interface CreatePostType {
+    text: string;
+    category: string;
+    tags: string;
+    userId: string | null;
+    mediaFiles: File[];
+  }
 
 export const PostContext = ({children}:any)=>{
     const [post, setPost] = useState<any[]>([]);
@@ -13,21 +20,14 @@ export const PostContext = ({children}:any)=>{
     const router = useNavigate();
     const [deletePostId, setDeletePostId] = useState<any>();
     const [postId, setPostId] = useState<any>();
-
-
-    useEffect(() => {
-        if(category === 'MyPost'){
-             fetchMyPosts(setPost, router);
-        }
-        if(category === 'All'){
-            fetchAllPosts(setPost,category, router);
-        }
-        if(category === 'Public' || category === 'Private'){
-            fetchPosts(setPost, category, router);
-
-        }
-
-     }, [category]);
+    const [message, setMessage] = useState<any>('');
+    const [formData, setFormData] = useState<CreatePostType>({
+        userId: "",
+        text: "",
+        category: "",
+        tags: "",
+        mediaFiles: [],
+      });
 
     useEffect(() => {
         if (postId) {
@@ -35,10 +35,6 @@ export const PostContext = ({children}:any)=>{
         }
     }, [postId, setSinglePost]);
 
-    const handlePosts = useCallback((value: any) => {
-        return setPost(value);
-    }, [post]);
-    
     const handleCategory = useCallback((category: string) => {
         if(!token){
             router("/login-page");
@@ -57,17 +53,36 @@ export const PostContext = ({children}:any)=>{
 
     const handleDeletePost = useCallback((postId: any) => {
         setDeletePostId(postId);
-        deletePost(postId, router); 
+        deletePost(postId, setMessage, router); 
     }, [router]);
+    const handleCreatePost = () => {
+        createPost(formData, setMessage); 
+    };
     
 
     const handlePost = useCallback((value: any) => {
         setSinglePost(value)
     }, [singlePost])
 
-  
+    useEffect(() => {
+        if(category === 'MyPost'){
+             fetchMyPosts(setPost, router);
+        }
+        if(category === 'All'){
+            fetchAllPosts(setPost,category, router);
+        }
+        if(category === 'Public' || category === 'Private'){
+            fetchPosts(setPost, category, router);
 
-    const value =  {handlePostId, handlePosts,handlePost, handleDeletePost, handleCategory,singlePost, category, post}
+        }
+
+     }, [category,message, postId]);
+
+     const handlePosts = useCallback((post: any) => {
+        return setPost(post);
+    }, [post,message, handleDeletePost]);
+   
+    const value =  {handlePostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,formData, singlePost, category, post}
    
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }

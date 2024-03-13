@@ -136,6 +136,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     }
   };
 
+  console.log(sortedPosts);
   const userId = localStorage.getItem("id");
 
   return (

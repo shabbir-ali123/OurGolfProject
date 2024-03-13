@@ -42,9 +42,6 @@ const PostCard = () => {
   const [isLikesModelOpen, setLikesModelOpen] = useState(false);
   const uId = localStorage.getItem("id");
   const likes = post.PostLikes || [];
-  const userLikes =  post.PostLikes?.find(
-    (like: any) => like.userId === loggedInUser
-  );
 
   const isAuthenticated = () => {
     return localStorage.getItem("token");
@@ -68,23 +65,29 @@ const PostCard = () => {
     setHoveredIndex(index);
   };
 
-
   const handleMouseLeave = () => {
-    setHoveredIndex(-1); 
+    setHoveredIndex(-1);
   };
   const handleEllipsisClick = (event: any, postId: any) => {
     event.preventDefault();
     setActiveDropdownPostId(activeDropdownPostId === postId ? null : postId);
   };
   const deletePost = (postId: any) => {
-    handleDeletePost(postId);
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+    if (confirmed) {
+      handleDeletePost(postId);
+    } else {
+      console.log("Post deletion canceled");
+    }
   };
   const editPost = (postId: any) => {
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
   const loggedInUser = localStorage.getItem("id");
-  const handleLike = async (postId: string, hasLiked: boolean, event: any) => {
+  const handleLike = async (postId: string, hasLiked: any, event: any) => {
     event.preventDefault();
     event.stopPropagation();
     if (!isAuthenticated()) {
@@ -104,37 +107,57 @@ const PostCard = () => {
       );
       if (response.status === 200) {
         // fetchPosts(handlePost, category, router);
-        toast.success("Post Has been Liked");
-        // handlePosts((prev: any) =>
-        //   prev.map((e: any) =>
-        //     e.id === postId
-        //       ? {
-        //           ...e,
-        //           PostsLikes: userLikes
-        //             ? likes.map((like: any) =>
-        //                 like.userId === loggedInUser
-        //                   ? { ...like, counter: newCounter }
-        //                   : like
-        //               )
-        //             : [
-        //                 ...likes,
-        //                 {
-        //                   counter: newCounter,
-        //                   userId: loggedInUser,
-        //                   id: Math.floor(Math.random() * 10),
-        //                 },
-        //               ],
-        //         }
-        //       : e
-        //   )
-        // );
-        window.location.reload();
+        console.log(post, "before");
+
+        const userEvent = post.map((e: any) =>
+          e.PostLikes?.find(
+            (like: any) => like.userId === loggedInUser && like.counter === 1
+          )
+        );
+
+        handlePosts((prev: any) => {
+          return prev.map((e: any) => {
+            return e.id === postId
+              ? {
+                  ...e,
+                  PostLikes: userEvent
+                    ? e.PostLikes.map((like: any) =>
+                        like.userId == loggedInUser
+                          ? { ...like, counter: like.counter === 1 ? 0 : 1 } // Toggle the counter value
+                          : like
+                      )
+                    : [
+                        ...e.PostLikes,
+                        {
+                          id: Math.floor(Math.random() * 1000), // Generating a random id
+                          counter: newCounter,
+                          userId: Number(loggedInUser),
+                        },
+                      ],
+                }
+              : e;
+          });
+        });
+
+        const tt = post.some((item: any) => {
+          if (postId === item.id) {
+            return item?.PostLikes.some(
+              (i: any) => i.userId == loggedInUser && i.counter === 1
+            );
+          }
+        });
+
+        if (!tt) {
+          toast.success("Post Has been Liked");
+        } else {
+          toast.error("Like has been removed");
+        }
       }
     } catch (error) {
       console.error(`Error updating likes: ${error}`);
     }
   };
-  const handleLikes = (postId: string, hasLiked: boolean, event: any) => {
+  const handleLikes = (postId: string, hasLiked: any, event: any) => {
     event.preventDefault();
     setLikesModelOpen(true);
     setPostwId(postId);
@@ -152,9 +175,9 @@ const PostCard = () => {
   };
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 bg-white">
-      {sortedPosts.map((post: Post, index) => {
+      {sortedPosts.map((post: Post, index: any) => {
         const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-        const userHasLiked = post.PostLikes.some(
+        const userHasLiked = post.PostLikes.find(
           (like: any) => like.userId === loggedInUser && like.counter === 1
         );
         return (
@@ -180,18 +203,20 @@ const PostCard = () => {
                   >
                     <XMarkIcon className="w-6 h-6" aria-hidden="true" />
                   </button>
-                  {post.PostLikes.map((item: any) => (
-                    <div
-                      key={item.key}
-                      className="flex items-center gap-2 m-0 p-0 "
-                    >
-                      <img
-                        className="w-10 h-10 rounded-full"
-                        src={item.user?.imageUrl}
-                      />
-                      <p className="text-black">{item.user?.nickName}</p>
-                    </div>
-                  ))}
+                  {post.PostLikes.filter((item: any) => item.counter !== 0).map(
+                    (item: any) => (
+                      <div
+                        key={item.key}
+                        className="flex items-center gap-2 m-0 p-0 "
+                      >
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src={item.user?.imageUrl}
+                        />
+                        <p className="text-black">{item.user?.nickName}</p>
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
             ) : null}
@@ -230,7 +255,9 @@ const PostCard = () => {
                       <EllipsisVerticalIcon
                         className="w-6 h-6 cursor-pointer "
                         aria-hidden="true"
-                        onClick={(event) => handleEllipsisClick(event, post?.id)}
+                        onClick={(event) =>
+                          handleEllipsisClick(event, post?.id)
+                        }
                       />
                       {activeDropdownPostId === post?.id && (
                         <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
@@ -285,15 +312,17 @@ const PostCard = () => {
                       <span className="flex items-center gap-2 text-[10px] cursor-pointer">
                         {userHasLiked ? "by you " : ""}
                         {uId !== post?.PostLikes[0]?.userId &&
-                        post?.PostLikes.length > 1 
-                          ? userHasLiked ? "&  "
+                        post?.PostLikes.length > 1
+                          ? userHasLiked
+                            ? "&  "
                             : post?.PostLikes[0]?.user?.nickName + " &"
-                            : " "
-                          }{" "}
-                        {post?.PostLikes.length > 0 && (post?.PostLikes || []).filter(
-                          (like: any) => like.counter
-                        ).length + (userHasLiked ? -1 : 0) +  " others" }
-                       
+                          : " "}{" "}
+                        {post?.PostLikes.length > 0 &&
+                          (post?.PostLikes || []).filter(
+                            (like: any) => like.counter
+                          ).length +
+                            (userHasLiked ? -1 : 0) +
+                            " others"}
                       </span>
                     </div>
                     <div className="flex item-center">
