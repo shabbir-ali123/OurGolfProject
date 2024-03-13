@@ -3,8 +3,10 @@ import RatingFilter from './RatingFilter';
 import LocationFilter from './LocationFilter';
 import AvailabilityFilter from './AvailabilityFilter';
 import TeacherSkills from './TeacherSkills';
-
+import { useTranslation } from "react-i18next";
 const AllTeacherFilters: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
   const handleRatingChange = (rating: number | null) => {
@@ -22,7 +24,7 @@ const AllTeacherFilters: React.FC = () => {
   };
   return (
     <div className="text-center p-4  bg-white shadow-lg">
-      <h2 className='text-start'>Filter By</h2>
+      <h2 className='text-start'>{t("FILTER_BY")}</h2>
       <div>
         <RatingFilter onRatingChange={handleRatingChange} />
         <LocationFilter />

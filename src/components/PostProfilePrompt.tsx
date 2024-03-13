@@ -19,7 +19,7 @@ const ProfilePrompt: React.FC = () => {
   const openModal = () => {
     const token = localStorage.getItem("token");
     if (token && token !== "undefined") {
-      setIsModalOpen(true);
+      setIsModalOpen(true); 
     } else {
       navigate('/login-page');
     }

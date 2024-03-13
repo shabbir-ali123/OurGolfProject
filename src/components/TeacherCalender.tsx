@@ -77,18 +77,18 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
 
   return (
     <>
-      <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent w-full">
+      <div className=" w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2 ">
         <div className="lg:grid lg:grid-cols-4 justify-center">
           <div className="lg:col-span-8 xl:col-span-9 px-4">
-            <div className="flex items-center justify-between mx-2 my-2 text-gray-900">
+            <div className="flex items-center justify-between mx-2 my-2 text-gray-900 ">
               <div className="font-inter font-semibold text-[#009C2F]">
                 {format(currentMonth, "MMMM yyyy")}
               </div>
-              <div className="flex">
-                <button onClick={handlePrevMonth} className="cursor-pointer">
+              <div className="flex gap-2 py-2">
+                <button onClick={handlePrevMonth} className="cursor-pointer rounded-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  hover:bg-[#2dd4bf] hover:text-white p-2 flex justify-center items-center" >
                   <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                 </button>
-                <button onClick={handleNextMonth} className="cursor-pointer">
+                <button onClick={handleNextMonth} className="cursor-pointer rounded-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] hover:bg-[#2dd4bf] hover:text-white p-2 flex justify-center items-center">
                   <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
@@ -100,7 +100,7 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
                   onClick={() => handleDateClick(day)}
                   disabled={isDayDisabled(day, startEndDates)}
                   className={classNames(
-                    "py-1.5 hover:bg-gray-100 focus:z-10",
+                    "py-1.5 bg-[#2dd4bf] text-white hover:bg-gray focus:z-10",
                     isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
                     !isDayDisabled(day, startEndDates) ? "hover:bg-blue-100" : "cursor-not-allowed",
                     isSameDay(day, selectedDate) ? "bg-blue-200 text-black" : "",

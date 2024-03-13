@@ -111,9 +111,9 @@ a {
   border: 1px solid rgba(255, 255, 255, 1);
 }
 button:disabled{
-  border: 1px solid rgb(84, 22, 230);
+ 
   color: grey;
-  background: transparent;
+  background: white;
 }
 
 .grid-cols-4 {

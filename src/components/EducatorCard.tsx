@@ -5,7 +5,7 @@ import TeacherListSlots from "./TeacherListSlots";
 import { Link } from "react-router-dom";
 import { teacherContext } from "../contexts/teachersContext";
 import { TeacherCalender } from "./TeacherCalender";
-
+import { useTranslation } from "react-i18next";
 export const EducatorCard = ({
   firstName,
   lastName,
@@ -17,6 +17,8 @@ export const EducatorCard = ({
   hourlyRate,
   teacherId,
 }: any) => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const { shift } = teacherContext();
   const [shiftsData, setShiftsData] = useState([]);
   const [tap, setTaped] = useState<boolean>(false);
@@ -101,6 +103,22 @@ export const EducatorCard = ({
               <p className="leading-6 text-[#5b5b5b] mt-4">{aboutMyself}</p>
             </div>
           </div>
+          <div className="mt-4">
+        <div className="grid lg:grid-cols-8 sm:grid-cols-3 gap-4">
+          {shiftsData.map((shift: any, index: any) => (
+            <button
+              key={index}
+              className={`text-[12px] text-center px-1 py-4 rounded-lg shadow-sm ${
+                !shift.isBooked
+                  ? "bg-teal-400 text-white"
+                  : "bg-gray-100 text-gray-600 "
+              }`}
+            >
+              {shift.startTime} - {shift.endTime}
+            </button>
+          ))}
+        </div>
+      </div>
         </div>
         <div className="md:col-span-2">
           <TeacherCalender
@@ -136,22 +154,7 @@ export const EducatorCard = ({
               })}
             </div>
           </div> */}
-      <div className="mt-4">
-        <div className="grid lg:grid-cols-8 sm:grid-cols-3 gap-4">
-          {shiftsData.map((shift: any, index: any) => (
-            <button
-              key={index}
-              className={`text-[12px] text-center px-1 py-4 rounded-lg shadow-sm ${
-                !shift.isBooked
-                  ? "bg-teal-400 text-white"
-                  : "bg-gray-100 text-gray-600 "
-              }`}
-            >
-              {shift.startTime} - {shift.endTime}
-            </button>
-          ))}
-        </div>
-      </div>
+    
     </div>
   );
 };

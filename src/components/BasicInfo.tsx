@@ -251,7 +251,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
               value={formData?.eventDetails}
               required
               onChange={onChange}
-              rows={4} // You can adjust the number of rows as needed
+              rows={4} 
             ></textarea>
 
 
