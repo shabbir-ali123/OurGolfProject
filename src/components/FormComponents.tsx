@@ -11,6 +11,7 @@ interface InputWithIconProps {
   iconWidth?: string;
   iconHeight?: string;
   value?: string;
+  ptype?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -18,6 +19,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   icon,
   label,
   pname,
+  ptype,
   placeholder,
   colSpanSm = 8,
   colSpanMd = 5,
@@ -47,7 +49,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
         <input
           className="float-right appearance-none ml-4 w-8/12 bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white hover:animate-bounce"
           id={pname}
-          type="text"
+          type={ptype}
           name={pname}
           placeholder={placeholder}
           value={value}

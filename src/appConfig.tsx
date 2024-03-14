@@ -7,6 +7,10 @@ export const API_ENDPOINTS = {
   //authe
   REGISTER: `${API_BASE_URL}/${API_VERSION}/register`,
   LOGIN: `${API_BASE_URL}/${API_VERSION}/login`,
+  UPDATEUSERPROFILE: `${API_BASE_URL}/${API_VERSION}/edit-user-profile/`, 
+
+
+
   //event
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
   GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
