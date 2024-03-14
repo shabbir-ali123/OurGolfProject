@@ -21,7 +21,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   pname,
   ptype,
   placeholder,
-  colSpanSm = 8,
+  colSpanSm = 4,
   colSpanMd = 5,
   colSpanLg = 4,
   iconWidth = "24px",
@@ -32,14 +32,14 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   return (
     <div>
       <div
-        className={`col-span-12 sm:col-span-${colSpanSm} md:col-span-${colSpanMd} lg:col-span-${colSpanLg} py-2 md:mr-0 md:mb-0`}
+        className={`col-span-12 mx-10 lg:mx-0 sm:col-span-${colSpanSm} md:col-span-${colSpanMd} lg:col-span-${colSpanLg} py-2 md:mr-0 md:mb-0`}
       >
         <label
-          className="mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize"
+          className="mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize flex items-center gap-2"
           htmlFor={pname}
         >
           <span
-            className="p-1 rounded-full border-solid border-2 border-[#4B4B4B] inline-block text-[#52FF86]"
+            className="p-1 rounded-full  inline-block text-[#52FF86]  my-2"
             style={{ width: iconWidth, height: iconHeight }}
           >
             {icon}
@@ -47,7 +47,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
           {label}
         </label>
         <input
-          className="float-right appearance-none ml-4 w-8/12 bg-gray-200 text-gray-700 border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none focus:bg-white hover:animate-bounce"
+          className="appearance-none block w-full bg-white text-gray-700 border border-green rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white "
           id={pname}
           type={ptype}
           name={pname}
@@ -55,6 +55,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
           value={value}
           onChange={onChange}
         />
+        
       </div>
     </div>
   );
