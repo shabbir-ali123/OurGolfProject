@@ -42,7 +42,7 @@ export default function AllNotification() {
                                     </div>
                                     <div className="ml-3 w-0 flex-1">
                                         <p className="text-sm font-medium text-gray-900">Emilia Gates</p>
-                                        <p className="mt-1 text-sm text-gray-500">item</p>
+                                        <p className="mt-1 text-sm text-gray-500">{item.message}</p>
                                         <div className="mt-4 flex">
                                             <button
                                                 type="button"
