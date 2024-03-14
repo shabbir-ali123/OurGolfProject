@@ -96,9 +96,7 @@ const Header: React.FC = () => {
             }
           </div>
           <div className="hidden lg:block lg:flex-1 lg:justify-end">
-            <NotificationsContext>
               <ProfileButton />
-            </NotificationsContext>
           </div>
 
           <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} />

@@ -284,7 +284,7 @@ const params = useParams();
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token?<CreatedEventContext> <CreatedEvents /> </CreatedEventContext>:<LoginPage />} />
-        <Route path="/notification-page" element={token? <NotificationsContext><AllNotificationPage /> </NotificationsContext>  :<LoginPage />} />
+        <Route path="/notification-page" element={token? <AllNotificationPage />  :<LoginPage />} />
         <Route path="/profile-page" element={token? <ProfilePage /> :<LoginPage />} />
         <Route path="/teacher-details/:id" element={ <TeacherDetailsContext><TeacherDetails /> </TeacherDetailsContext>} />
         <Route path="/all-teachers" element={<TeacherContext> <TeacherListpage /></TeacherContext>} />

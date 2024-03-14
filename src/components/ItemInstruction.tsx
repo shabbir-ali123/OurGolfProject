@@ -19,7 +19,7 @@ const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
     const { id, checked } = e.target;
     setCheckboxValues(prev => {
       const updatedValues = { ...prev, [id]: checked };
-      handleChange(updatedValues);  // Call handleChange here with the updated values
+      handleChange(updatedValues);
       return updatedValues;
     });
   }

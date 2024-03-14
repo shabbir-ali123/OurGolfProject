@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { EventsContext } from "./contexts/eventContext";
 import { AuthContext } from "./contexts/authContext";
 import { ScoreContextProvider } from "./contexts/scoreContext";
+import { NotificationsContext } from "./contexts/notificationContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -19,11 +20,15 @@ root.render(
   <I18nextProvider i18n={i18n}>
     <BrowserRouter>
       <AuthContext>
+        <NotificationsContext>
+
+        
         <ScoreContextProvider>
           <EventsContext>
             <App />
           </EventsContext>
         </ScoreContextProvider>
+        </NotificationsContext>
       </AuthContext>
       <ToastContainer />
     </BrowserRouter>
