@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { NotificationPop } from "./NotificationPop";
 import { userAuthContext } from "../contexts/authContext";
-import { notificationsContextStore } from "../contexts/notificationContext";
+import { NotificationsContext, notificationsContextStore } from "../contexts/notificationContext";
 
 export default function ProfileButton() {
   const { user } = userAuthContext();
@@ -293,9 +293,13 @@ export default function ProfileButton() {
         </div>
       </div>
       {notification && (
+        <NotificationsContext>
+
         <NotificationPop
           setNotification={setNotification}
         />
+        </NotificationsContext>
+
       )}
     </div>
   );

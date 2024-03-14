@@ -40,17 +40,25 @@ const UpdateProfilePage: React.FC = () => {
       return;
     }
 
-    await handleUpdateUser();
+    if (userFormData.confirmPassword === userFormData.password) {
+      await handleUpdateUser();
+      toast.success("Updated Succuss");
+    } else {
+      toast.error("Password Does Not Matched")
 
-    toast.success("Updated Succuss");
+    }
   };
+  // console.log(userFormData.imageUrl?.[0].name )
 
   return (
-    <div className="py-8">
-      <form onSubmit={handleSubmit}>
-        <section className="h-full max-w-6xl mx-auto mt-6 text-center">
+    <div className=" max-w-7xl mx-auto">
+      <form onSubmit={handleSubmit} className="py-20" style={{
+        boxShadow:
+          "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+      }}>
+        <section className="h-full max-w-6xl mx-auto mt-6 text-center ">
           <div className="">
-            <h3>{userFormData.nickName}</h3>
+
 
             <label
               htmlFor="fileInput"
@@ -58,13 +66,13 @@ const UpdateProfilePage: React.FC = () => {
             >
               {typeof userFormData.imageUrl === "string" ? (
                 <img
-                  className="w-64 h-64 rounded-full"
+                  className="w-24 h-24 md:w-40 md:h-40 rounded-full"
                   src={userFormData.imageUrl}
                   alt="User Profile"
                 />
-              ) : userFormData.imageUrl  ? (
+              ) : userFormData.imageUrl && userFormData.imageUrl?.[0]?.type ? (
                 <img
-                  className="w-64 h-64 rounded-full"
+                  className="w-24 h-24 md:w-40 md:h-40 rounded-full"
                   src={URL.createObjectURL(userFormData.imageUrl?.[0])}
                   onError={() => console.log("Invalid image file")}
 
@@ -84,61 +92,73 @@ const UpdateProfilePage: React.FC = () => {
                 onChange={handleImageChange}
               />
             </label>
+            <h3>{userFormData.nickName}</h3>
           </div>
 
-          <div className="py-6">
-            <div className="grid grid-cols-2 gap-4 text-start">
-              <InputWithIcon
-                pname="nickName"
-                icon={<UserIcon />}
-                label={t("LAST_NAME")}
-                value={userFormData.nickName}
-                onChange={handleChanges}
-                placeholder={t("ENTER_LAST_NAME")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                pname="email"
-                icon={<UserIcon />}
-                label={t("EMAIL")}
-                value={userFormData.email}
-                onChange={handleChanges}
-                placeholder={t("ENTER_EMAIL")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
+          <div className="py-0 md:py-6 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 text-start">
+              <div className="ml-[0.5px] mr-10 md:ml-0 md:mr-0">
+                <InputWithIcon
+                  pname="nickName"
+                  icon={<UserIcon />}
+                  label={t("LAST_NAME")}
+                  value={userFormData.nickName}
+                  onChange={handleChanges}
+                  placeholder={t("ENTER_LAST_NAME")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+              </div>
 
-              <InputWithIcon
-                pname="password"
-                icon={<PhoneIcon />}
-                label={t("PASSWORD")}
-                value={userFormData.password}
-                ptype={"password"}
-                onChange={handleChanges}
-                placeholder={t("ENTER_PASSWORD")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                pname="confirmPassword"
-                icon={<PhoneIcon />}
-                label={t("CONFIRM_PASSWORD")}
-                value={userFormData.confirmPassword}
-                ptype={"password"}
-                onChange={handleChanges}
-                placeholder={t("CONFIRM_PASSWORD")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
+              <div className="ml-[0.5px] mr-10 md:ml-10">
+                <InputWithIcon
+                  pname="email"
+                  icon={<UserIcon />}
+                  label={t("EMAIL")}
+                  value={userFormData.email}
+                  onChange={handleChanges}
+                  placeholder={t("ENTER_EMAIL")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+              </div>
+
+              <div className="ml-[0.5px] mr-10 md:ml-0 md:mr-0">
+                <InputWithIcon
+                  pname="password"
+                  icon={<PhoneIcon />}
+                  label={t("PASSWORD")}
+                  value={userFormData.password}
+                  ptype={"password"}
+                  onChange={handleChanges}
+                  placeholder={t("ENTER_PASSWORD")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+              </div>
+
+              <div className="ml-[0.5px] mr-10 md:ml-10">
+                <InputWithIcon
+                  pname="confirmPassword"
+                  icon={<PhoneIcon />}
+                  label={t("CONFIRM_PASSWORD")}
+                  value={userFormData.confirmPassword}
+                  ptype={"password"}
+                  onChange={handleChanges}
+                  placeholder={t("CONFIRM_PASSWORD")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+              </div>
+
             </div>
             <button
               type="submit"
-              className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
+              className="px-10 py-2 border-none md:px-16 md:py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
             >
               {t("UPDATE")}
             </button>
