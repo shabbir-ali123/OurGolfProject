@@ -54,6 +54,7 @@ import { TeacherContext, TeacherDetailsContext } from "./contexts/teachersContex
 import UpdatePost from "./components/UpdatePost";
 import EditEvent from "./pages/EditEvent";
 import UpdateProfilePage from "./pages/EditUserPage";
+import { NotificationsContext } from "./contexts/notificationContext";
 
 function App() {
 const params = useParams();
@@ -283,7 +284,7 @@ const params = useParams();
         <Route path="/upcomming-lesson" element={token? <UpcomingLessonsPage /> :<LoginPage />} />
         <Route path="/pending-lesson" element={token? <PendingLessonsPage /> :<LoginPage />} />
         <Route path="/created-events" element={token?<CreatedEventContext> <CreatedEvents /> </CreatedEventContext>:<LoginPage />} />
-        <Route path="/notification-page" element={token? <AllNotificationPage /> :<LoginPage />} />
+        <Route path="/notification-page" element={token? <NotificationsContext><AllNotificationPage /> </NotificationsContext>  :<LoginPage />} />
         <Route path="/profile-page" element={token? <ProfilePage /> :<LoginPage />} />
         <Route path="/teacher-details/:id" element={ <TeacherDetailsContext><TeacherDetails /> </TeacherDetailsContext>} />
         <Route path="/all-teachers" element={<TeacherContext> <TeacherListpage /></TeacherContext>} />
