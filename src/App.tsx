@@ -274,8 +274,8 @@ const params = useParams();
         <Route path="/joined-events" element= {token? <JoinedEvents /> :<LoginPage />} />
         <Route path="/create-teacher" element={token  || token !== "undefined" ? <CreateTeacher /> :<LoginPage />} /> 
      
-        {/* <Route path="/edit-teacher" element={token? <EditTeacher /> :<LoginPage />} /> */}
-        <Route path="/edit-teacher" element={token? <UpdateProfilePage /> :<LoginPage />} />
+        <Route path="/edit-teacher" element={token? <EditTeacher /> :<LoginPage />} />
+        <Route path="/edit-profile" element={token? <UpdateProfilePage /> :<LoginPage />} />
         <Route path="/teacher-profile-page" element={<TeacherProfilePage   />} />
         <Route path="/post-page" element={<PostContext> <PostPage   /></PostContext>} />
         <Route path="/edit-post/:id" element={<PostContext> <UpdatePost   /></PostContext>} />

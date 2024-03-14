@@ -146,6 +146,7 @@ export default function ProfileButton() {
               <div className="fixed right-[100px] mt-2 bg-white rounded-md shadow-lg w-[200px] z-[9999]">
                 <ul className="py-1 text-center">
                   {token ? (
+                    <>
                     <Link to="/profile-page">
                       <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         <svg
@@ -166,6 +167,27 @@ export default function ProfileButton() {
                         <Link to="/profile-page">{t("PROFILE")}</Link>
                       </li>
                     </Link>
+                     <Link to="/edit-profile">
+                     <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                       <svg
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="1.5"
+                         stroke="currentColor"
+                         className="w-4 h-4"
+                       >
+                         <path
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                         />
+                       </svg>
+
+                       <Link to="/edit-profile">{t("EDIT_PROFILE")}</Link>
+                     </li>
+                   </Link>
+                   </>
                   ) : (
                     ""
                   )}
