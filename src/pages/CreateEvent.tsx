@@ -237,7 +237,6 @@ const CreateEvent: React.FC = () => {
       }
     });
 
-    // formdata.append("emailCheckb÷ox", formData)
     try {
       const response = await axios.post(API_ENDPOINTS.CREATEEVENT, formdata, {
         headers: {
@@ -286,7 +285,6 @@ const CreateEvent: React.FC = () => {
     setCheckboxValues(updatedValues)
   }
 
-  console.log(checkboxValues, 'asd')
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
