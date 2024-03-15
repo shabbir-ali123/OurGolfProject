@@ -15,7 +15,7 @@ export const AuthContext = ({ children }: any) => {
     email: "",
     password: "",
     userId: "",
-    imageUrl: [],
+    imageUrl: "",
   });
   useEffect(() => {
     getUser(setUser, navigate);

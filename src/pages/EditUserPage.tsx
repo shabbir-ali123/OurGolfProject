@@ -22,10 +22,16 @@ const UpdateProfilePage: React.FC = () => {
 
     console.log(files);
     if (files) {
-      setUserFormData((prevFormData: any) => ({
-        ...prevFormData,
-        imageUrl: [files],
-      }));
+      const reader = new FileReader();
+    
+      reader.onloadend = () => {
+        setUserFormData((prevFormData: any) => ({
+          ...prevFormData,
+          imageUrl: reader.result,
+        }));
+      };
+    
+      reader.readAsDataURL(files);
     }
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
