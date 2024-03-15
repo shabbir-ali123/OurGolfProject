@@ -48,8 +48,6 @@ const UpdateProfilePage: React.FC = () => {
 
     }
   };
-  // console.log(userFormData.imageUrl?.[0].name )
-
   return (
     <div className=" max-w-7xl mx-auto">
       <form onSubmit={handleSubmit} className="py-20" style={{
@@ -66,13 +64,13 @@ const UpdateProfilePage: React.FC = () => {
             >
               {typeof userFormData.imageUrl === "string" ? (
                 <img
-                  className="w-24 h-24 md:w-40 md:h-40 rounded-full"
+                  className="w-24 h-24 xl:w-40 xl:h-40 rounded-full"
                   src={userFormData.imageUrl}
                   alt="User Profile"
                 />
               ) : userFormData.imageUrl && userFormData.imageUrl?.[0]?.type ? (
                 <img
-                  className="w-24 h-24 md:w-40 md:h-40 rounded-full"
+                  className="w-24 h-24 xl:w-40 xl:h-40 rounded-full"
                   src={URL.createObjectURL(userFormData.imageUrl?.[0])}
                   onError={() => console.log("Invalid image file")}
 
@@ -95,9 +93,9 @@ const UpdateProfilePage: React.FC = () => {
             <h3>{userFormData.nickName}</h3>
           </div>
 
-          <div className="py-0 md:py-6 ">
-            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 text-start">
-              <div className="ml-[0.5px] mr-10 md:ml-0 md:mr-0">
+          <div className="py-0 xl:py-6 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 text-start">
+              <div className="ml-[0.5px] mr-10 xl:ml-0 xl:mr-0">
                 <InputWithIcon
                   pname="nickName"
                   icon={<UserIcon />}
@@ -111,7 +109,7 @@ const UpdateProfilePage: React.FC = () => {
                 />
               </div>
 
-              <div className="ml-[0.5px] mr-10 md:ml-10">
+              <div className="ml-[0.5px] mr-10 xl:ml-10">
                 <InputWithIcon
                   pname="email"
                   icon={<UserIcon />}
@@ -125,7 +123,7 @@ const UpdateProfilePage: React.FC = () => {
                 />
               </div>
 
-              <div className="ml-[0.5px] mr-10 md:ml-0 md:mr-0">
+              <div className="ml-[0.5px] mr-10 xl:ml-0 xl:mr-0">
                 <InputWithIcon
                   pname="password"
                   icon={<PhoneIcon />}
@@ -140,7 +138,7 @@ const UpdateProfilePage: React.FC = () => {
                 />
               </div>
 
-              <div className="ml-[0.5px] mr-10 md:ml-10">
+              <div className="ml-[0.5px] mr-10 xl:ml-10">
                 <InputWithIcon
                   pname="confirmPassword"
                   icon={<PhoneIcon />}
@@ -158,7 +156,7 @@ const UpdateProfilePage: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="px-10 py-2 border-none md:px-16 md:py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
+              className="px-10 py-2 border-none xl:px-16 xl:py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
             >
               {t("UPDATE")}
             </button>

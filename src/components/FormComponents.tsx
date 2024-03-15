@@ -47,7 +47,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
           {label}
         </label>
         <input
-          className="appearance-none block w-full bg-white text-gray-700 border border-green rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white "
+          className="appearance-none block w-full bg-white text-gray-700 border border-[#d9d9d9] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white "
           id={pname}
           type={ptype}
           name={pname}
