@@ -31,7 +31,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
           <div className="flex flex-col bg-white mt-4 w-1/5 p-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
             {notificationData?.map((data: any) => (
               <Transition
-                key={data.id} // Assuming each notification has a unique ID
+                key={data.id}
                 show={show}
                 as={Fragment}
                 enter="transform ease-out duration-300 transition"
