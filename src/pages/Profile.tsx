@@ -3,10 +3,16 @@
 import { Link } from 'react-router-dom';
 import { userAuthContext } from '../contexts/authContext';
 import { useEffect } from 'react';
+import { postContext } from '../contexts/postsContext';
+import { createdEventsStore } from '../contexts/eventContext';
 
 const Profile = () => {
 
     const { user} = userAuthContext();
+    const { post, handleCategory} = postContext();
+    const { createdEvents } = createdEventsStore();
+    
+    const myId = localStorage.getItem("id")
     useEffect(() => {
     console.log({user})
 
@@ -16,15 +22,16 @@ const Profile = () => {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
-        //   hour: '2-digit',
-        //   minute: '2-digit',
-        //   second: '2-digit',
-        //   hour12: true,
+       
         };
         return new Date(dateString).toLocaleString(undefined, options);
       };
-      
-      
+     useEffect(()=>{
+      handleCategory("MyPost")
+
+     },[])
+     const myEvents = post.filter((item: any) => item.id === myId);
+
   return (
     <>
    
@@ -35,11 +42,11 @@ const Profile = () => {
             alt="profile cover"
             className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
           />
-          <Link to="/edit-teacher">
+          <Link to="/edit-profile">
           <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4 my-2">
             <label
               htmlFor="cover"
-              className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="flex cursor-pointer items-center justify-center gap-2 rounded bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
            
               <span>
@@ -120,13 +127,13 @@ const Profile = () => {
             <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-4 rounded-md border border-stroke py-4 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
-                  259
+                {post.length}
                 </span>
                 <span className="text-sm">Posts</span>
               </div>
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
-                  129K
+                  {createdEvents.length}
                 </span>
                 <span className="text-sm">Events</span>
               </div>
