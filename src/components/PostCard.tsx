@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { fetchPosts } from "../utils/fetchPosts";
 import { useTranslation } from "react-i18next";
 import { getTimeAgo } from "../pages/ReadPost";
+import ImageComponent from "./ImageComponent";
 
 interface Post {
   createdAt: string | number | Date;
@@ -227,10 +228,7 @@ const PostCard = () => {
               className=" mx-4 lg:mx-0 lg:flex p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
               style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
             >
-              <img
-                className="rounded-lg  object-fit  h-[250px] w-full lg:w-[180px]"
-                src={post.mediaFile[0]}
-                alt="Post"
+              <ImageComponent src={post.mediaFile?.[0]}
               />
 
               <div className="p-4">
