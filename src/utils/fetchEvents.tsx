@@ -105,8 +105,8 @@ export const fetchTeacherByID = async (setUser:any) => {
     }
     const response = await axios.get(token ? API_ENDPOINTS.GETTEACHERBYID + teacher_id : API_ENDPOINTS.PUBLICEVENTS, {
       headers,
-      
     });
+    
     setUser(response.data.teacher);
     console.log(response.data.events); 
 
