@@ -4,7 +4,8 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { postContext } from "../contexts/postsContext";
-
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 interface CreatePostType {
   text: string;
   category: string;
@@ -21,9 +22,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const userId = localStorage.getItem("id");
   const [isLoading, setLoading] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const { handleCreatePost, formData,setFormData } =
-  postContext();
-
+  const { handleCreatePost, formData, setFormData } = postContext();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -52,45 +51,46 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
-   console.log(formData);
+    console.log(formData);
     // if (!formData?.userId || formData?.mediaFiles.length === 0) {
     //   return;
     // }
 
     setLoading(true);
-   
+
     handleCreatePost(formData);
 
     setLoading(false);
     closeModal();
-
   };
 
-  const handleInputTextChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleInputوTextChange = (e: any) => {
     const { name, value } = e.target;
-    
-    setFormData((prevFormData:any) => ({
+
+    setFormData((prevFormData: any) => ({
       ...prevFormData,
       [name]: value,
+    }));
+  };
+  const handleInputTextChange = (content: string) => {
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      text: content,
     }));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevFormData:any) => ({
+    setFormData((prevFormData: any) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
 
-  const handleSelectChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setSelectedCategory(value);
-    setFormData((prevFormData:any) => ({
+    setFormData((prevFormData: any) => ({
       ...prevFormData,
       [name]: value,
     }));
@@ -115,21 +115,27 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
-          <div>
-            <textarea
+          <div style={{ height: '300px', overflow: 'hidden'}}>
+            <ReactQuill
+              theme="snow"
+              value={formData.text}
+              onChange={handleInputTextChange}
+              placeholder={t("WRITE_TEXT")}
+              style={{ height: "220px" }}
+
+            />{" "}
+            {/* <textarea
               className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder={t("WRITE_TEXT")}
               name="text"
               value={formData?.text}
               onChange={handleInputTextChange}
               // rows={4}
-            ></textarea>
+            ></textarea> */}
           </div>
 
           <div>
-            <label className="block text-gray-700">
-              {t("ADD_VIDEOS")}
-            </label>
+            <label className="block text-gray-700">{t("ADD_VIDEOS")}</label>
             <div className="flex flex-wrap gap-4 mt-2  ">
               {selectedFiles.map((file, index) => (
                 <div key={index} className="relative ">
@@ -174,7 +180,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               </svg>
             </label>
           </div>
-          <p  className="p-0 mt-4">{t("ADD_CATEGORY")}</p>
+          <p className="p-0 mt-4">{t("ADD_CATEGORY")}</p>
           <select
             className="w-full p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
             onChange={handleSelectChange}
@@ -210,5 +216,3 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 };
 
 export default PostModal;
-
-

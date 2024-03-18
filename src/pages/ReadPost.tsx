@@ -223,7 +223,7 @@ const ReadPost: React.FC = () => {
           </Slider>
 
 
-          <p className="text-gray-600">{singlePost?.text}</p>
+          <p dangerouslySetInnerHTML={{ __html: singlePost?.text ?? '' }} />
           <div className="flex gap-2 items-center">
             <div className="flex items-center gap-0">
               <div className="flex items-center">
