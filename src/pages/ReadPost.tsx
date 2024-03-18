@@ -4,11 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
-import {
-  HandThumbUpIcon,
-  HandThumbDownIcon,
-  ShareIcon,
-} from "@heroicons/react/24/solid";
+import { HandThumbUpIcon, HandThumbDownIcon, ShareIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
 import { hasImageExtension } from "../utils/imgExtension";
@@ -22,8 +18,8 @@ export interface SinglePostProps {
   text: string;
   PostComments: any;
   PostLikes: any;
-  createdAt: any;
-  id: any;
+  createdAt: any
+  id: any
 }
 export const getTimeAgo = (pastTime: any) => {
   const currentTime: any = new Date();
@@ -66,37 +62,19 @@ const ReadPost: React.FC = () => {
   document.body.dir = i18n.dir();
   const params = useParams<{ id?: string }>();
   const postId = params.id;
-  const [formData, setFormData] = useState<any>({
-    content: "",
-    postId: postId,
-  });
+  const [formData, setFormData] = useState<any>({ content: "", postId: postId });
   const [singlePost, setSinglePost] = useState<SinglePostProps>();
   const [userHasLiked, setUserHasLiked] = useState<any>(false);
   const [localEvents, setLocalEvents] = useState<any>([]);
-  const [isOpenMap, setIsOpenMap] = useState<{ [key: string]: boolean }>({});
-  const currentUserId = localStorage.getItem("id");
 
-  const [isEdit, setIsEdit] = useState<{ [key: string]: boolean }>({});
-
-  const handleEditComment = (commentId: string) => {
-    console.log(commentId, "comme");
-    setIsEdit((prevState) => ({
-      ...prevState,
-      [commentId]: !prevState[commentId],
-    }));
-  };
   useEffect(() => {
     fetchSinglePosts(setSinglePost, postId);
-  }, [postId]);
+  }, [postId])
 
   useEffect(() => {
     if (singlePost) {
       const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-      setUserHasLiked(
-        singlePost.PostLikes.some(
-          (like: any) => like.userId === loggedInUser && like.counter === 1
-        )
-      );
+      setUserHasLiked(singlePost.PostLikes.some((like: any) => like.userId === loggedInUser && like.counter === 1));
     }
   }, [singlePost]);
 
@@ -115,12 +93,12 @@ const ReadPost: React.FC = () => {
   
   const likescount = singlePost?.PostLikes.length;
   const handleLike = async () => {
+
+
     try {
       const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
       const likes = singlePost?.PostLikes || [];
-      const userPosts = likes?.find(
-        (like: any) => like.userId === loggedInUser
-      );
+      const userPosts = likes?.find((like: any) => like.userId === loggedInUser);
       console.log(singlePost?.PostLikes, "s");
       const newCounter = userPosts?.counter === 1 ? 0 : 1;
 
@@ -142,22 +120,22 @@ const ReadPost: React.FC = () => {
           prev.map((e: any) =>
             e.id === singlePost?.id
               ? {
-                  ...e,
-                  likes: userPosts
-                    ? likes.map((like: any) =>
-                        like.userId === loggedInUser
-                          ? { ...like, counter: newCounter }
-                          : like
-                      )
-                    : [
-                        ...likes,
-                        {
-                          counter: newCounter,
-                          userId: loggedInUser,
-                          id: Math.floor(Math.random() * 10),
-                        },
-                      ],
-                }
+                ...e,
+                likes: userPosts
+                  ? likes.map((like: any) =>
+                    like.userId === loggedInUser
+                      ? { ...like, counter: newCounter }
+                      : like
+                  )
+                  : [
+                    ...likes,
+                    {
+                      counter: newCounter,
+                      userId: loggedInUser,
+                      id: Math.floor(Math.random() * 10),
+                    },
+                  ],
+              }
               : e
           )
         );
@@ -167,12 +145,11 @@ const ReadPost: React.FC = () => {
     }
   };
 
-  const toggleDropdown = (commentId: string) => {
-    setIsOpenMap((prevState) => ({
-      ...prevState,
-      [commentId]: !prevState[commentId],
-    }));
-  };
+
+
+  console.log(singlePost)
+
+
 
   const postTime = new Date(singlePost?.createdAt);
   const timeAgo = getTimeAgo(postTime);
@@ -184,24 +161,15 @@ const ReadPost: React.FC = () => {
     slidesToShow: 1,
 
     initialSlide: 1,
-    arrows: false,
+    arrows: false
   };
-  useEffect(() => {
-    if (singlePost) {
-      setFormData({
-        content: singlePost.PostComments.map((item:any)=>item.content),
-        postId: postId,
-      });
-    }
-  }, [singlePost]);
+
   return (
-    <div
-      className="mx-6 md:mx-auto max-w-7xl px-6  my-4 py-4"
-      style={{
-        boxShadow:
-          "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
-      }}
-    >
+
+    <div className="mx-6 md:mx-auto max-w-7xl px-6  my-4 py-4" style={{
+      boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
+    }}>
+
       <div className="flex gap-2 items-center py-4 justify-between">
         <div className="flex gap-2 items-center py-4">
           <img
@@ -210,28 +178,25 @@ const ReadPost: React.FC = () => {
             alt="Post"
           />
           <div>
-            <h4 className="m-0 font-medium text-lg uppercase text-[#565656]">
-              {singlePost?.posts.nickName}
-            </h4>
+            <h4 className="m-0 font-medium text-lg uppercase text-[#565656]">{singlePost?.posts.nickName}</h4>
             <p className="m-0 p-0 text-sm">{timeAgo}</p>
           </div>
         </div>
 
         <div>
           <Link to="/post-page" className="">
-            <button
-              type="button"
-              className="bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-2 rounded cursor-pointer"
-            >
+            <button className="bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-2 rounded cursor-pointer">
               {t("BACK")}
             </button>
           </Link>
+
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="col-span-8  ">
           {singlePost?.mediaFile?.map((img: string, index: number) => {
+
             if (singlePost?.mediaFile?.length === 1) {
               return <img
                 className="w-full h-[300px]  lg:h-[600px] rounded-lg"
@@ -242,8 +207,9 @@ const ReadPost: React.FC = () => {
           })}
           <Slider {...settings}>
             {singlePost?.mediaFile?.map((img: string, index: number) => {
+
               if (singlePost?.mediaFile?.length === 1) {
-                return;
+                return
               } else {
                 return (
                   <div key={`multiple-${index}`}> 
@@ -271,45 +237,41 @@ const ReadPost: React.FC = () => {
           <div className="flex gap-2 items-center">
             <div className="flex items-center gap-0">
               <div className="flex items-center">
-                <button
-                  onClick={handleLike}
-                  className="flex items-center cursor-pointer bg-transparent"
-                >
+                <button onClick={handleLike} className="flex items-center cursor-pointer bg-transparent">
                   {userHasLiked ? (
                     <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
                   ) : (
                     <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
                   )}
                 </button>
-              </div>{" "}
-              {
+              </div> {
                 (singlePost?.PostLikes || []).filter(
                   (like: any) => like.counter
                 ).length
-              }{" "}
-              {t("LIKES")}
-            </div>
+              } {t("LIKES")}</div>
 
-            <span
-              className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-              data-interaction="share"
-            >
+            <span className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer" data-interaction="share">
               {" "}
               <ShareIcon
                 className="w-4 h-4 cursor-pointer"
                 aria-hidden="true"
+
                 data-interaction="share"
               />
               {t("SHARE")}
             </span>
           </div>
+
         </div>
         <div className="col-span-4">
-          <div>
-            <div className="  ">
+          <div >
+
+
+            <div className="  " >
               <form method="post" className=" ">
                 <input type="hidden" name="userId" />
                 <input type="hidden" name="eventId" />
+
 
                 {singlePost?.PostComments.map((comment: any) => {
                   const commentTime = new Date(comment.createdAt);
@@ -330,94 +292,64 @@ const ReadPost: React.FC = () => {
                             {timeAgo}
                           </p>
                         </div>
-                        <div className="relative inline-block text-left">
-                          {currentUserId == comment.userId && (
-                            <button
-                              id={`dropdownCommentButton-${comment.id}`} // Ensure unique ID for each comment
-                              onClick={() => toggleDropdown(comment.id)} // Pass comment ID to toggle function
-                              className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg dark:text-gray-400 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                              type="button"
-                            >
-                              <svg
-                                className="w-4 h-4"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 16 3"
+                        <button
+                          id="dropdownComment1Button"
+                          data-dropdown-toggle="dropdownComment1"
+                          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg dark:text-gray-400 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                          type="button"
+                        >
+                          <svg
+                            className="w-4 h-4"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 16 3"
+                          >
+                            <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                          </svg>
+                          <span className="sr-only">Comment settings</span>
+                        </button>
+                        <div
+                          id="dropdownComment1"
+                          className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-36 dark:bg-gray-700 dark:divide-gray-600"
+                        >
+                          <ul
+                            className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownMenuIconHorizontalButton"
+                          >
+                            <li>
+                              <a
+                                href="#"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                               >
-                                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                              </svg>
-                              <span className="sr-only">Comment settings</span>
-                            </button>
-                          )}
-                          {isOpenMap[comment.id] && (
-                            <div
-                              id="dropdownComment1"
-                              className="origin-top-right absolute right-0 mt-2 w-36 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                            >
-                              <ul
-                                className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="dropdownComment1Button"
+                                Edit
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                               >
-                                <li>
-                                  <button
-                                    type="button"
-                                    onClick={() =>
-                                      handleEditComment(comment.id)
-                                    }
-                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                  >
-                                    Edit
-                                  </button>
-                                </li>
-                                <li>
-                                  <a
-                                    href="#"
-                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                  >
-                                    Remove
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="#"
-                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                  >
-                                    Report
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          )}
+                                Remove
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="#"
+                                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Report
+                              </a>
+                            </li>
+                          </ul>
                         </div>
                       </div>
 
                       <div>
-                        <div className="p-0 pl-14 m-0 text-gray-500 dark:text-gray-400">
-                          {isEdit[comment.id] ? (
-                            <form onSubmit={()=>{}}>
-                              <input
-                                name="contesnt"
-                                id=""
-                                value={formData.content}
-                                onChange={(e) =>
-                                  setFormData({    content: e.target.value })
-                                }
-                                className="w-full px-1 h-16 px-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
-                              ></input>
-                              <button 
-                              type="submit"
-                              >
-                                tick
-                              </button>
-                              <button onClick={()=>{}}>
-                                close
-                              </button>
-                            </form>
-                          ) : (
-                            comment.content
-                          )}
-                        </div>
+                        <p className="p-0 pl-14 m-0 text-gray-500 dark:text-gray-400">
+                          {comment.content}
+                        </p>
+
                       </div>
                     </div>
                   );
@@ -429,6 +361,7 @@ const ReadPost: React.FC = () => {
                   name="content"
                   id=""
                   placeholder={t("WRITE_COMMENTS")}
+                  value={formData.content}
                   onChange={(e) =>
                     setFormData({ ...formData, content: e.target.value })
                   }
