@@ -6,6 +6,7 @@ import { postContext } from "../contexts/postsContext";
 import { toast } from "react-toastify";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ReactQuill from "react-quill";
 interface UpdatePostType {
   text: string;
   category: string;
@@ -122,11 +123,10 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
     } catch (error: unknown) {}
   };
 
-  const handleInputTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
+  const handleInputTextChange = (content: string) => {
+    setFormData((prevFormData: any) => ({
       ...prevFormData,
-      [name]: value,
+      text: content,
     }));
   };
 
@@ -166,15 +166,15 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </Link>
           </div>
-          <div>
-            <textarea
-              className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
-              placeholder="Write text..."
-              name="text"
+          <div style={{ height: '300px', overflow: 'hidden'}}>
+            <ReactQuill
+              theme="snow"
               value={formData.text}
               onChange={handleInputTextChange}
-              rows={4}
-            ></textarea>
+              placeholder={t("WRITE_TEXT")}
+              style={{ height: "220px" }}
+
+            />{" "}
           </div>
 
           <div>

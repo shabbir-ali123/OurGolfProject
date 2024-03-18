@@ -133,7 +133,7 @@ const PostCard = () => {
                           id: Math.floor(Math.random() * 1000), // Generating a random id
                           counter: newCounter,
                           userId: Number(loggedInUser),
-                          postId: postId
+                          postId: postId,
                         },
                       ],
                 }
@@ -141,7 +141,7 @@ const PostCard = () => {
           });
         });
 
-        console.log(post)
+        console.log(post);
         const tt = post.some((item: any) => {
           if (postId === item.id) {
             return item?.PostLikes.some(
@@ -176,8 +176,8 @@ const PostCard = () => {
     event.preventDefault();
     setLikesModelOpen(false);
   };
-  const stripHtmlTags = (html:any) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
+  const stripHtmlTags = (html: any) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
   };
 
@@ -233,8 +233,7 @@ const PostCard = () => {
               className=" mx-4 lg:mx-0 lg:flex p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
               style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
             >
-              <ImageComponent src={post.mediaFile?.[0]}
-              />
+              <ImageComponent src={post.mediaFile?.[0]} />
 
               <div className="p-4">
                 <div className="flex items-center gap-2 justify-between">
@@ -289,10 +288,10 @@ const PostCard = () => {
                     </div>
                   )}
                 </div>
-              
+
                 <div className="p-0 text-sm break-words truncate w-80 overflow-hidden">
-  {stripHtmlTags(post?.text)}
-</div>
+                  {stripHtmlTags(post?.text)}
+                </div>
                 <div className="mt-2">
                   <div className="flex space-x-2">
                     <span
