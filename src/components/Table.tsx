@@ -285,11 +285,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             onClick={() => router(`/edit-team/${event.id}`)}
                           >
                             <p>
-                              <span className="font-bold">Confirmed:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
+                              <span className="font-bold"> {t("CONFIRMED")}:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
                             </p>
                             <p>
                               <span className="font-bold">
-                                Waiting:
+                              {t("WAITING")}:
                               </span> {event.teamMemberCount} / {event.capacity * event.teamSize}
 
                             </p>

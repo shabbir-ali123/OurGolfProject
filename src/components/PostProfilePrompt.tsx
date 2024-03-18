@@ -45,11 +45,11 @@ const ProfilePrompt: React.FC = () => {
         <div className="flex items-center justify-around">
           <div className="flex gap-4 items-center cursor-pointer">
             <VideoCameraIcon className="w-6 h-6 border-2 border-solid border-[#43bcb0] rounded-full p-1 text-red" />
-            <p>Live Video</p>
+            <p>{t('LIVE_VIDEO')}</p>
           </div>
           <div className="flex gap-4 items-center cursor-pointer">
             <PhotoIcon className="w-6 h-6 border-2 border-solid border-[#43bcb0] rounded-full p-1 text-[#43bcb0]" />
-            <p>Photos/Video</p>
+            <p>{t('PHOTO')}</p>
           </div>
 
         </div>

@@ -267,7 +267,7 @@ const PostCard = () => {
                               to={"/edit-post/" + post.id}
                             >
                               <li className="list-none p-2 hover:shadow-lg  text-start">
-                                Edit
+                              {t('YOUR_MIND')}
                               </li>
                             </Link>
                             <li className="list-none p-2 hover:shadow-lg text-start">
@@ -275,7 +275,7 @@ const PostCard = () => {
                                 className="decoration-none text-[#43bcb0] hover:text-[red]"
                                 onClick={() => deletePost(post.id)}
                               >
-                                Delete
+                                  {t('YOUR_MIND')}
                               </a>
                             </li>
                           </ul>
@@ -301,7 +301,7 @@ const PostCard = () => {
                     </span>
                   </div>
 
-                  <div className="flex justify-between mt-6 space-x-4 z-10 relative">
+                  <div className="flex justify-between items-center mt-6  z-10 relative">
                     <div
                       className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
                       onClick={(event) =>
@@ -310,11 +310,12 @@ const PostCard = () => {
                     >
                       <div className="flex items-center "></div>{" "}
                       <span className="flex items-center gap-2 text-[10px] cursor-pointer">
-                        {userHasLiked ? "by you " : ""}
+                      {userHasLiked ? t('BY_YOU')  : ""}
+
                         {uId !== post?.PostLikes[0]?.userId &&
                         post?.PostLikes.length > 1
                           ? userHasLiked
-                            ? "&  "
+                            ? " &  "
                             : post?.PostLikes[0]?.user?.nickName + " &"
                           : " "}{" "}
                         {post?.PostLikes.length > 0 &&
@@ -322,19 +323,20 @@ const PostCard = () => {
                             (like: any) => like.counter
                           ).length +
                             (userHasLiked ? -1 : 0) +
-                            " others"}
+                            t('OTHER')}
                       </span>
                     </div>
                     <div className="flex item-center">
-                      <span
-                        className="flex items-center text-[10px] gap-0 hover:bg-black p-1 rounded-lg"
+                    <span
+                        className="flex items-center text-[10px] gap-0 hover:bg-black  rounded-lg"
                         onClick={handleInteraction}
                         data-interaction="comment"
                       >
                         {" "}
                         {post.PostComments.length} {t("COMMENTS")}
                       </span>
-
+                      </div>
+                    <div className="flex item-center">
                       <span
                         className="flex items-center gap-0 text-[10px] hover:bg-black p-1 rounded-lg"
                         onClick={handleInteraction}
