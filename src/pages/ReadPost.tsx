@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
 import { hasImageExtension } from "../utils/imgExtension";
 import { Slide } from "react-slideshow-image";
+import { t } from "i18next";
 export interface SinglePostProps {
   posts: any;
   category: string;
@@ -32,22 +33,28 @@ export const getTimeAgo = (pastTime: any) => {
   const elapsed = currentTime - pastTime;
 
   if (elapsed < msPerMinute) {
-    return Math.round(elapsed / 1000) + ' seconds ago';
+    return `${Math.round(elapsed / 1000)} ${t('SEC_AGO')}`;
   }
   else if (elapsed < msPerHour) {
-    return Math.round(elapsed / msPerMinute) + ' minutes ago';
+    return `${Math.round(elapsed / msPerMinute)} ${t('MIN_AGO')}`;
+   
   }
   else if (elapsed < msPerDay) {
-    return Math.round(elapsed / msPerHour) + ' hours ago';
+    return `${Math.round(elapsed / msPerHour)} ${t('HOUR_AGO')}`;
+   
   }
   else if (elapsed < msPerMonth) {
-    return '' + Math.round(elapsed / msPerDay) + ' days ago';
+    
+    return `${Math.round(elapsed / msPerDay)} ${t('DAYS_AGO')}`;
+
   }
   else if (elapsed < msPerYear) {
-    return '' + Math.round(elapsed / msPerMonth) + ' months ago';
+    return `${Math.round(elapsed / msPerMonth)} ${t('MONTH_AGO')}`;
+    
   }
   else {
-    return '' + Math.round(elapsed / msPerYear) + ' years ago';
+    
+    return `'' + ${Math.round(elapsed / msPerYear)} ${t('YEAR_AGO')}`;
   }
 }
 const ReadPost: React.FC = () => {
@@ -76,11 +83,14 @@ const ReadPost: React.FC = () => {
     try {
       await addPostComment(formData);
       toast.success("Comment added successfully");
+      // Reset the formData.content to clear the textarea
+      setFormData({ ...formData, content: "", postId: postId });
       fetchSinglePosts(setSinglePost, postId);
     } catch (error) {
       toast.error("Error adding comment, please try again");
     }
   };
+  
   const likescount = singlePost?.PostLikes.length;
   const handleLike = async () => {
 
@@ -189,7 +199,7 @@ const ReadPost: React.FC = () => {
 
             if (singlePost?.mediaFile?.length === 1) {
               return <img
-                className="w-full h-[600px] rounded-lg"
+                className="w-full h-[300px]  lg:h-[600px] rounded-lg"
                 src={img}
                 alt="Blog Post Image"
               />
@@ -202,17 +212,17 @@ const ReadPost: React.FC = () => {
                 return
               } else {
                 return (
-                  <div key={`multiple-${index}`}> {/* Ensure key is unique and at the top element */}
+                  <div key={`multiple-${index}`}> 
                     {hasImageExtension(img) ? (
                       <img
-                        className="w-full h-[600px] rounded-lg"
+                        className="w-full h-[300px]  lg:h-[600px] rounded-lg"
                         src={img}
                         alt="Blog Post Image"
                       />
                     ) : (
                       <video
                         controls
-                        className="w-full h-[600px] rounded-lg"
+                        className="w-full h-[300px]  lg:h-[600px] rounded-lg"
                         src={img}
                       />
                     )}
@@ -223,7 +233,7 @@ const ReadPost: React.FC = () => {
           </Slider>
 
 
-          <p className="text-gray-600">{singlePost?.text}</p>
+          <div className="overflow-x-scroll lg:overflow-x-hidden" dangerouslySetInnerHTML={{ __html: singlePost?.text ?? '' }} />
           <div className="flex gap-2 items-center">
             <div className="flex items-center gap-0">
               <div className="flex items-center">

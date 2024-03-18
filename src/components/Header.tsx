@@ -56,7 +56,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
+      <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-[#717171] bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
         <nav
           className="flex justify-between px-4 py-2  lg:items-center xl:px-32 sm:justify-start"
           aria-label="Global"
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.to}
-                className={`text-2xl list-none no-underline font-normal leading-6 text-black hover:text-teal-400 ${
+                className={`text-2xl list-none no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 ${
                   isActive(item.to) ? "active" : ""
                 }`}
                 style={

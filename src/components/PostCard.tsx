@@ -120,23 +120,23 @@ const PostCard = () => {
           return prev.map((e: any) => {
             return e.id === postId
               ? {
-                  ...e,
-                  PostLikes: userEvent
-                    ? e.PostLikes.map((like: any) =>
-                        like.userId == loggedInUser
-                          ? { ...like, counter: like.counter === 1 ? 0 : 1 } // Toggle the counter value
-                          : like
-                      )
-                    : [
-                        ...e.PostLikes,
-                        {
-                          id: Math.floor(Math.random() * 1000), // Generating a random id
-                          counter: newCounter,
-                          userId: Number(loggedInUser),
-                          postId: postId
-                        },
-                      ],
-                }
+                ...e,
+                PostLikes: userEvent
+                  ? e.PostLikes.map((like: any) =>
+                    like.userId == loggedInUser
+                      ? { ...like, counter: like.counter === 1 ? 0 : 1 } // Toggle the counter value
+                      : like
+                  )
+                  : [
+                    ...e.PostLikes,
+                    {
+                      id: Math.floor(Math.random() * 1000), // Generating a random id
+                      counter: newCounter,
+                      userId: Number(loggedInUser),
+                      postId: postId
+                    },
+                  ],
+              }
               : e;
           });
         });
@@ -176,6 +176,11 @@ const PostCard = () => {
     event.preventDefault();
     setLikesModelOpen(false);
   };
+  const stripHtmlTags = (html: any) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+  };
+
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 bg-white">
       {sortedPosts.map((post: Post, index: any) => {
@@ -267,7 +272,7 @@ const PostCard = () => {
                               to={"/edit-post/" + post.id}
                             >
                               <li className="list-none p-2 hover:shadow-lg  text-start">
-                                Edit
+                                {t('EDIT_POST')}
                               </li>
                             </Link>
                             <li className="list-none p-2 hover:shadow-lg text-start">
@@ -275,7 +280,7 @@ const PostCard = () => {
                                 className="decoration-none text-[#43bcb0] hover:text-[red]"
                                 onClick={() => deletePost(post.id)}
                               >
-                                Delete
+                                {t('DELETE')}
                               </a>
                             </li>
                           </ul>
@@ -284,24 +289,23 @@ const PostCard = () => {
                     </div>
                   )}
                 </div>
-                <p className="p-0 text-sm break-words truncate w-80 ">
-                  {post.text}
-                </p>
 
+                <div className="p-0 text-sm break-words truncate w-80 overflow-hidden">
+                  {stripHtmlTags(post?.text)}
+                </div>
                 <div className="mt-2">
                   <div className="flex space-x-2">
                     <span
-                      className={`bg-[#17b3a6] ${
-                        hoveredIndex === index
+                      className={`bg-[#17b3a6] ${hoveredIndex === index
                           ? "bg-black text-white"
                           : "bg-[#17b3a6] text-white"
-                      } hover:bg-black  text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full`}
+                        } hover:bg-black  text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full`}
                     >
                       {post.tags}
                     </span>
                   </div>
 
-                  <div className="flex justify-between mt-6 space-x-4 z-10 relative">
+                  <div className="flex justify-between items-center mt-6  z-10 relative">
                     <div
                       className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
                       onClick={(event) =>
@@ -310,37 +314,39 @@ const PostCard = () => {
                     >
                       <div className="flex items-center "></div>{" "}
                       <span className="flex items-center gap-2 text-[10px] cursor-pointer">
-                        {userHasLiked ? "by you " : ""}
+                        {userHasLiked ? t('BY_YOU') : ""}
+
                         {uId !== post?.PostLikes[0]?.userId &&
-                        post?.PostLikes.length > 1
+                          post?.PostLikes.length > 1
                           ? userHasLiked
-                            ? "&  "
+                            ? " &  "
                             : post?.PostLikes[0]?.user?.nickName + " &"
                           : " "}{" "}
                         {post?.PostLikes.length > 0 &&
                           (post?.PostLikes || []).filter(
                             (like: any) => like.counter
                           ).length +
-                            (userHasLiked ? -1 : 0) +
-                            " others"}
+                          (userHasLiked ? -1 : 0) +
+                          t('OTHER')}
                       </span>
                     </div>
                     <div className="flex item-center">
                       <span
-                        className="flex items-center text-[10px] gap-0 hover:bg-black p-1 rounded-lg"
+                        className="flex items-center text-[10px] gap-0 hover:bg-black  rounded-lg"
                         onClick={handleInteraction}
                         data-interaction="comment"
                       >
                         {" "}
                         {post.PostComments.length} {t("COMMENTS")}
                       </span>
-
+                    </div>
+                    <div className="flex item-center">
                       <span
                         className="flex items-center gap-0 text-[10px] hover:bg-black p-1 rounded-lg"
                         onClick={handleInteraction}
                         data-interaction="share"
                       >
-                        <span className=""></span>0{t("SHARE")}
+                        <span className=""></span>0 {t("SHARE")}
                       </span>
                     </div>
                   </div>
@@ -356,29 +362,26 @@ const PostCard = () => {
                         <button className="flex items-center cursor-pointer bg-transparent">
                           {userHasLiked ? (
                             <HandThumbUpIcon
-                              className={`w-6 h-6  ${
-                                hoveredIndex === index
+                              className={`w-6 h-6  ${hoveredIndex === index
                                   ? "text-white "
                                   : "text-[#17b3a6]"
-                              } text-[#17b3a6]`}
+                                } text-[#17b3a6]`}
                             />
                           ) : (
                             <HandThumbUpIcon
-                              className={`w-6 h-6  ${
-                                hoveredIndex === index
+                              className={`w-6 h-6  ${hoveredIndex === index
                                   ? "text-white"
                                   : "text-black"
-                              } `}
+                                } `}
                             />
                           )}
                         </button>
                       </div>{" "}
                       <span
-                        className={`flex items-center gap-2 cursor-pointer ${
-                          hoveredIndex === index
+                        className={`flex items-center gap-2 cursor-pointer ${hoveredIndex === index
                             ? "text-white "
                             : "text-[#17b3a6]"
-                        } ${userHasLiked ? "text-[#17b3a6]" : "text-black"}`}
+                          } ${userHasLiked ? "text-[#17b3a6]" : "text-black"}`}
                       >
                         {t("LIKE")}
                       </span>

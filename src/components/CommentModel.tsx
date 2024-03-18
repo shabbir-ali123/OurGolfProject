@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import { useToast } from "../utils/ToastProvider";
 import { eventContextStore } from "../contexts/eventContext";
-
+import { useTranslation } from "react-i18next";
 interface CommentModelProps {
   eventId: any;
   closeModal: () => void;
@@ -47,7 +47,8 @@ interface Event {
 
 const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
   const {eventss, handleEvents} = eventContextStore();
-
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const { showToast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [commentData, setCommentData] = useState<{
@@ -142,7 +143,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
       >
         <div className="col-span-12">
          <div className="flex items-center justify-between mx-4">
-        {token ? <h2 className="mx-4">Add Your Comment</h2>: <h2 className="mx-4">Recent Comments</h2>} 
+        {token ? <h2 className="mx-4">{t("ADD_COMMENTS")}</h2>: <h2 className="mx-4">Recent Comments</h2>} 
             <button
               type="button"
               className="flex items-center justify-center w-10 h-10 p-2 text-white bg-blue-500 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 hover:text-gray-900 "
@@ -176,7 +177,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
               <textarea
                 name="content"
                 id=""
-                placeholder="Write a comment..."
+                placeholder={t("WRITE_COMMENTS")}
                 value={formData.content}
                 onChange={(e) =>
                   setFormData({ ...formData, content: e.target.value })
@@ -190,7 +191,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                   onClick={handleSubmit}
                   className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-500 hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
                 >
-                  Post comment
+                  {t("POST_COMMENTS")}
                 </button>
               </div>
             </form>}
@@ -299,7 +300,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                                       d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
                                     />
                                   </svg>
-                                  Reply
+                                  {t("REPLY")}
                                 </button>
                               </div>
                             </div>
