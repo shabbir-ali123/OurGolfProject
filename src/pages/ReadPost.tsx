@@ -199,7 +199,7 @@ const ReadPost: React.FC = () => {
 
             if (singlePost?.mediaFile?.length === 1) {
               return <img
-                className="w-full h-[600px] rounded-lg"
+                className="w-full h-[300px]  lg:h-[600px] rounded-lg"
                 src={img}
                 alt="Blog Post Image"
               />
@@ -212,17 +212,17 @@ const ReadPost: React.FC = () => {
                 return
               } else {
                 return (
-                  <div key={`multiple-${index}`}> {/* Ensure key is unique and at the top element */}
+                  <div key={`multiple-${index}`}> 
                     {hasImageExtension(img) ? (
                       <img
-                        className="w-full h-[600px] rounded-lg"
+                        className="w-full h-[300px]  lg:h-[600px] rounded-lg"
                         src={img}
                         alt="Blog Post Image"
                       />
                     ) : (
                       <video
                         controls
-                        className="w-full h-[600px] rounded-lg"
+                        className="w-full h-[300px]  lg:h-[600px] rounded-lg"
                         src={img}
                       />
                     )}
@@ -233,7 +233,7 @@ const ReadPost: React.FC = () => {
           </Slider>
 
 
-          <p dangerouslySetInnerHTML={{ __html: singlePost?.text ?? '' }} />
+          <div className="overflow-x-scroll lg:overflow-x-hidden" dangerouslySetInnerHTML={{ __html: singlePost?.text ?? '' }} />
           <div className="flex gap-2 items-center">
             <div className="flex items-center gap-0">
               <div className="flex items-center">
