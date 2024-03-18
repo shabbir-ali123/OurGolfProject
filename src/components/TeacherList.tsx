@@ -3,7 +3,7 @@ import TeacherListButton from "./TeacherListButton";
 import { faPhoneAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReschedulePop from "../components/ReschedulePop";
-import { getTeacherById } from "../utils/getTeacherById";
+// import { getTeacherById } from "../utils/getTeacherById";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";

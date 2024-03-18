@@ -16,7 +16,7 @@ const TeachersListPage: React.FC = () => {
         </div>
         <div className="col-span-12 xl:col-span-9  rounded py-4 px-10">
           <TeacherListHeader />
-          {teachers.map((teacher: any, index: any) => {
+          {teachers?.map((teacher: any, index: any) => {
             return (
               <EducatorCard
                 firstName={teacher.firstName}

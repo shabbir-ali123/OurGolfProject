@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 interface RatingFilterProps {
-    // Allow onRatingChange to accept a number or null
     onRatingChange: (rating: number | null) => void;
 }
 
@@ -12,7 +11,7 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ onRatingChange }) => {
     const handleRatingSelect = (rating: number) => {
         const newRating = selectedRating === rating ? null : rating;
         setSelectedRating(newRating);
-        onRatingChange(newRating); // This is now valid as onRatingChange accepts number or null
+        onRatingChange(newRating); 
     };
 
     return (

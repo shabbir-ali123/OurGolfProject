@@ -280,12 +280,9 @@ const EditTeamPage: FunctionComponent = () => {
                 />
 
                 <div className="flex flex-col items-start justify-center gap-4">
-                  <div className="relative w-[115px] h-[29px]">
-                    <div className="absolute top-[0px] left-[0px] rounded-8xs bg-seagreen-200 w-[115px] h-[29px]" />
-                    <div className="absolute top-[6px] left-[9px] leading-[18px]">
-                      {t("OFFICIAL")}
-                    </div>
-                  </div>
+                 <div className="text-white bg-[#17b3a6]  rounded-lg">
+                 <p className="p-1 px-2 m-0">{t('EVENT_DETAILS')}</p>
+                 </div>
                   <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[40px] font-semibold text-black">
                     {singleEvent?.eventName}
                   </div>
@@ -414,7 +411,7 @@ const EditTeamPage: FunctionComponent = () => {
             {/* <EditTeamScore /> */}
           {/* edit team div */}
           <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10 ">
-            <div className="flex items-end justify-between">
+            <div className="flex items-end gap-40">
               {isCreated ? (
                 <>
                   <div className="flex gap-2 ">
@@ -504,7 +501,7 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
 
                   <button
-                    className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                    className="p-4 px-10 w-[250px] font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                     onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                   >
                     {t('JOIN_NOW')}

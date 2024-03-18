@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
+import { rating } from "@material-tailwind/react";
 
 export const fetchTeacherCounts = async (setAppointsCount:any) => {
     try {
@@ -59,7 +60,7 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
     }
   };
 
-  export const fetchTeacherss = async (setTeachers: any, setSelectedTeacher: any, setSchedules:any) => {
+  export const fetchTeacherss = async (setTeachers: any, setSelectedTeacher: any, setSchedules:any, teacherData: any) => {
     try {
       const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
@@ -73,6 +74,9 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
         params: {
           page: 1,
           pageSize: 20,
+          rating: teacherData?.rating,
+          availability: teacherData?.availability,
+          subject: teacherData?.subjects
         },
       });
 
@@ -137,25 +141,25 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
   };
 
   
-  export const fetchSingleTeacher = async (setTeacher: any, teacherId:any) => {
+  export const fetchSingleTeacher = async (setTeacher: any, teacherId: any) => {
     try {
-      const token = localStorage.getItem("token");
-    let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
-    if (token && token !== "undefined") {
-      endpoint = API_ENDPOINTS.GETTEACHERBYID + teacherId;
-    }
-    const response = await axios.get(endpoint, {
-      headers: {
-          Authorization: token ? `Bearer ${token}` : '',
-        },
-   
-      });
+        const token = localStorage.getItem("token");
+        let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
+        if (token && token !== "undefined") {
+            endpoint = API_ENDPOINTS.GETTEACHERBYID + teacherId;
+        }
+        const response = await axios.get(endpoint, {
+            headers: {
+                Authorization: token ? `Bearer ${token}` : '',
+            },
+           
+        });
 
-      if (response.data && response.data.teachers) {
-        setTeacher(response.data.teacher);
-      }
+        if (response.data && response.data.teacher) {
+            setTeacher(response.data.teacher);
+        }
     } catch (error) {
-      console.error('Error fetching teachers:', error);
-      toast.error('Error fetching teachers');
+        console.error('Error fetching teacher:', error);
+
     }
-  }
+}

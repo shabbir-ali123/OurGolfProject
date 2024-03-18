@@ -4,24 +4,24 @@ import LocationFilter from './LocationFilter';
 import AvailabilityFilter from './AvailabilityFilter';
 import TeacherSkills from './TeacherSkills';
 import { useTranslation } from "react-i18next";
+import {  teacherContext, useTeacherContext } from '../contexts/teachersContext';
 const AllTeacherFilters: React.FC = () => {
+  const {handleAvailability, handleRating, handleSubjects} = teacherContext();
+
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
   const handleRatingChange = (rating: number | null) => {
-    setSelectedRating(rating);
-    console.log(`Selected Rating: ${rating}`);
+    handleRating(rating);
   };
 
   const handleAvailabilityChange = (availability: 'available' | 'not-available') => {
-    console.log(`Selected Availability: ${availability}`);
-    // Add filtering logic here
+    handleAvailability(availability);
   };
   const handleSkillChange = (selectedSkills: string[]) => {
-    console.log('Selected Skills: ', selectedSkills);
-    // Add your filtering logic here based on selected skills
+    handleSubjects(selectedSkills);
   };
+
   return (
     <div className="text-center p-4  bg-white shadow-lg">
       <h2 className='text-start'>{t("FILTER_BY")}</h2>

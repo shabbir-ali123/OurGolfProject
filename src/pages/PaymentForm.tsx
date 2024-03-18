@@ -5,7 +5,7 @@ import { ToastConfig, toastProperties } from "../constants/toast";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 interface PaymentFormProps {
   onSubmit: (values: PaymentFormValues) => void;
 }
@@ -20,6 +20,8 @@ export interface PaymentFormValues {
 }
 
 export const PaymentForm: React.FC<PaymentFormProps> = () => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const [events, setEvents] = useState<any>([]); 
   const params = useParams<{ id?: string }>();
   const router = useNavigate();
@@ -105,7 +107,7 @@ const formSubmission = async ()=>{
           <div className="flex items-center">
             <img src="/img/golfplyr.png" alt="image" className="w-10 h-16" />
             <h2 className="text-2xl font-semibold text-blue-800 font-poppins-semibold">
-              Please Provide Below Information
+               {t('PROVIDE_INFO')}
             </h2>
           </div>
          
@@ -134,14 +136,14 @@ const formSubmission = async ()=>{
               >
                 <div  className="p-6">
                   <p className="text-2xl text-white font-poppins-medium">
-                    Required Information
+                  {t('REQUIRED_INFO')}
                   </p>
                   <div className="relative w-full">
                     <label
                       htmlFor="team"
                       className="text-xl font-medium text-white capitalize font-poppins"
                     >
-                      Full Name
+                     {t('FULL_NAME')}
                     </label>
 
                     <div className="relative flex items-center w-full my-3">
@@ -178,7 +180,7 @@ const formSubmission = async ()=>{
                       htmlFor="team"
                       className="text-xl font-medium text-white capitalize font-poppins"
                     >
-                      Telephone
+                      {t('TELEPHONE')}
                     </label>
 
                     <div className="relative flex items-center w-full my-3">
@@ -220,7 +222,7 @@ const formSubmission = async ()=>{
                       htmlFor="team"
                       className="text-xl font-medium text-white font-poppins"
                     >
-                      Email
+                      {t('EMAIL')}
                     </label>
 
                     <div className="relative flex items-center w-full my-3 ">
@@ -252,7 +254,7 @@ const formSubmission = async ()=>{
                       htmlFor="team"
                       className="text-xl font-medium text-white capitalize font-poppins "
                     >
-                      Handicapscore
+                      {t('HANDICAP_SCORE')}
                     </label>
 
                     <div className="relative flex items-center w-full my-3 capitalize ">
@@ -282,12 +284,12 @@ const formSubmission = async ()=>{
                   </div>
 
                   <button onClick={formSubmission} className="px-8 py-4 mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
-                    Submit
+                  {t('SUBMIT')}
                   </button>
                 </div>
                 
                 <div className="flex items-center justify-end">
-                  <h3 className="text-white">Contact with Host</h3>
+                  <h3 className="text-white">{t('CONTACT_HOST')}</h3>
                   <div>
                     <div className="cursor-pointer">
                       <img
