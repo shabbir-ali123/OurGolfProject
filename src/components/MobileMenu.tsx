@@ -6,6 +6,7 @@ import { navigation } from './Header';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'; // Import useTranslation instead of t
 import { menuItems } from './SideIconMenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -43,24 +44,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               <ProfileButton />
             </NotificationsContext>
 
-            <ul>
-              {navigation.map((item) => (
-                <li key={item.name} className='list-none py-1.5'>
-                  <Link
-                    to={item.to}
-                    className="text-xl no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 mb-4"
-                    onClick={onClose} // Close the menu when a link is clicked
-                  >
-                    {t(item.name.toUpperCase())}
-                  </Link>
-                </li>
-              ))}
+            <ul className=''>
               {menuItems.map((item) => (
-                <li key={item.name} className='list-none py-1.5'>
+                <li key={item.name} className='list-none py-3 flex items-center hover:text-[#17b3a6]'>
+                  <FontAwesomeIcon icon={item.icon} className="mr-2" />
                   <Link
                     to={item.path}
-                    className="text-xl no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 mb-4"
-                    onClick={onClose} // Close the menu when a link is clicked
+                    className="text-lg no-underline font-normal leading-6 text-[#717171] hover:text-[#17b3a6] mx-4 "
+                    onClick={onClose} 
                   >
                     {t(item.name.toUpperCase())}
                   </Link>
