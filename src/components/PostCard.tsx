@@ -176,6 +176,11 @@ const PostCard = () => {
     event.preventDefault();
     setLikesModelOpen(false);
   };
+  const stripHtmlTags = (html:any) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+  };
+
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 bg-white">
       {sortedPosts.map((post: Post, index: any) => {
@@ -284,10 +289,10 @@ const PostCard = () => {
                     </div>
                   )}
                 </div>
-                <p className="p-0 text-sm break-words truncate w-80 ">
-                  {post.text}
-                </p>
-
+              
+                <div className="p-0 text-sm break-words truncate w-80 overflow-hidden">
+  {stripHtmlTags(post?.text)}
+</div>
                 <div className="mt-2">
                   <div className="flex space-x-2">
                     <span
