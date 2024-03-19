@@ -66,12 +66,19 @@ const ReadPost: React.FC = () => {
 
   const [isEdit, setIsEdit] = useState<{ [key: string]: boolean }>({});
 
-  const handleEditComment = (commentId: string) => {
-    console.log(commentId, "comme");
-    setIsEdit((prevState) => ({
-      ...prevState,
+  const handleEditComment = (commentId: string, content: any) => {
+    setIsOpenMap((prevState) => ({
+      [commentId]: false,
+    }));    setIsEdit((prevState) => ({
       [commentId]: !prevState[commentId],
     }));
+  
+    if (isEdit) {
+      setFormData({
+        postId: commentId,
+        content: content,
+      });
+    }
   };
   useEffect(() => {
     fetchSinglePosts(setSinglePost, postId);
@@ -154,7 +161,6 @@ const ReadPost: React.FC = () => {
 
   const toggleDropdown = (commentId: string) => {
     setIsOpenMap((prevState) => ({
-      ...prevState,
       [commentId]: !prevState[commentId],
     }));
   };
@@ -174,11 +180,32 @@ const ReadPost: React.FC = () => {
   useEffect(() => {
     if (singlePost) {
       setFormData({
-        content: singlePost.PostComments.map((item:any)=>item.content),
+        content: singlePost.PostComments.map((item: any) => item.content),
         postId: postId,
       });
     }
   }, [singlePost]);
+
+  const handleEditForm = async (e: React.FormEvent)=>{
+    e.preventDefault;
+    try {
+      const response = await axios.post(
+        API_ENDPOINTS.EDITPOSTCOMMENTS , formData, 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          
+        }
+      );
+
+      if (response.status === 200) {
+      
+      }
+    } catch (error) {
+      toast.error(`Error updating likes: ${error}`);
+    }
+  }
   return (
     <div
       className="mx-6 md:mx-auto max-w-7xl px-6  my-4 py-4"
@@ -351,7 +378,10 @@ const ReadPost: React.FC = () => {
                                   <button
                                     type="button"
                                     onClick={() =>
-                                      handleEditComment(comment.id)
+                                      handleEditComment(
+                                        comment.id,
+                                        comment.content
+                                      )
                                     }
                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                   >
@@ -383,24 +413,19 @@ const ReadPost: React.FC = () => {
                       <div>
                         <div className="p-0 pl-14 m-0 text-gray-500 dark:text-gray-400">
                           {isEdit[comment.id] ? (
-                            <form onSubmit={()=>{}}>
+                            <form onSubmit={handleEditForm}>
                               <input
-                                name="contesnt"
+                                name="editContent"
                                 id=""
-                                value={comment.text}
-                                onChange={(e) =>
-                               {}
-                                }
+                                value={formData?.content}
+                                onChange={(e) => {
+                                  setFormData({ content: e.target.value });
+                                }}
                                 className="w-full px-1 h-16 px-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
                               ></input>
-                              <button 
-                              type="submit"
-                              >
-                                tick
-                              </button>
-                              <button onClick={()=>{}}>
-                                close
-                              </button>
+                              <input type="hidden" value={formData.id}/>
+                              <button onClick={handleEditForm} type="submit">tick</button>
+                              <button onClick={() => {}}>close</button>
                             </form>
                           ) : (
                             comment.content
@@ -417,7 +442,6 @@ const ReadPost: React.FC = () => {
                   name="content"
                   id=""
                   placeholder={t("WRITE_COMMENTS")}
-                  value={formData.content}
                   onChange={(e) =>
                     setFormData({ ...formData, content: e.target.value })
                   }

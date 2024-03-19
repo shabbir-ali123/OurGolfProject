@@ -66,6 +66,7 @@ export const API_ENDPOINTS = {
   DELETEPOST: `${API_BASE_URL}/${API_VERSION}/delete-post/`,
   UPDATEPOST:`${API_BASE_URL}/${API_VERSION}/update-post/`,
   GETMYPOSTS: `${API_BASE_URL}/${API_VERSION}/get-my-posts`,
+  EDITPOSTCOMMENTS: `${API_BASE_URL}/${API_VERSION}/edit-comment`,
 
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
