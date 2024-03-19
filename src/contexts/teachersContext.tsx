@@ -1,5 +1,4 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { getUser } from '../utils/fetchUser';
 import { fetchSingleTeacher, fetchTeacherss } from '../utils/fetchTeacher';
 import { useParams } from 'react-router-dom';
 
