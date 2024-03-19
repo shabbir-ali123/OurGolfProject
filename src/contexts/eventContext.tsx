@@ -170,7 +170,7 @@ const CreatedEventsContext = React.createContext<any>({})
 
         useEffect(() => {
             fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents)
-        }, [])
+        }, [activeTab])
 
         const handleActiveTab = useCallback((value: any) => {
             return setActiveTab(value);
