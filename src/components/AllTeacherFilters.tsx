@@ -6,7 +6,7 @@ import TeacherSkills from './TeacherSkills';
 import { useTranslation } from "react-i18next";
 import {  teacherContext, useTeacherContext } from '../contexts/teachersContext';
 const AllTeacherFilters: React.FC = () => {
-  const {handleAvailability, handleRating, handleSubjects} = teacherContext();
+  const {handleAvailability, handleRating, handleSubjects, handleNameSearch} = teacherContext();
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -23,12 +23,16 @@ const AllTeacherFilters: React.FC = () => {
     handleSubjects(selectedSkills);
   };
 
+  const handleLocationChange = (e: any) => {
+    handleNameSearch(e.target.value);
+  };
+
   return (
     <div className="text-center p-4  bg-white shadow-lg">
       <h2 className='text-start'>{t("FILTER_BY")}</h2>
       <div>
         <RatingFilter onRatingChange={handleRatingChange} />
-        <LocationFilter />
+        <LocationFilter handleLocationChange={handleLocationChange}/>
         <AvailabilityFilter onFilterChange={handleAvailabilityChange} />
         <TeacherSkills onSkillChange={handleSkillChange}/>
       </div>
