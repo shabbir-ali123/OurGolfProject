@@ -12,7 +12,7 @@ export const TeacherContext = ({children}:any)=>{
     const [schedules, setSchedules] = useState<any[]>([]);
     const [shift, setShift] = useState<any>([])
     const [teacherData, setTeacherData] = useState({
-        availability: undefined,
+        availability: true,
         rating: null,
         subjects: []
     });
