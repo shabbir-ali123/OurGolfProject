@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import RatingFilter from './RatingFilter';
-import LocationFilter from './LocationFilter';
-import AvailabilityFilter from './AvailabilityFilter';
-import TeacherSkills from './TeacherSkills';
 import { useTranslation } from "react-i18next";
 import {  teacherContext, useTeacherContext } from '../contexts/teachersContext';
+import RatingFilter from './filters/RatingFilter';
+import LocationFilter from './filters/LocationFilter';
+import AvailabilityFilter from './filters/AvailabilityFilter';
+import TeacherSkills from './filters/TeacherSkills';
+import NameFilter from './filters/NameFilter';
 const AllTeacherFilters: React.FC = () => {
-  const {handleAvailability, handleRating, handleSubjects, handleNameSearch} = teacherContext();
+  const {handleAvailability, handleRating, handleSubjects, handleLocationSearch, handleNameSearch} = teacherContext();
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -24,6 +25,10 @@ const AllTeacherFilters: React.FC = () => {
   };
 
   const handleLocationChange = (e: any) => {
+    handleLocationSearch(e.target.value);
+  };
+
+  const handleNameChange = (e: any) => {
     handleNameSearch(e.target.value);
   };
 
@@ -33,6 +38,7 @@ const AllTeacherFilters: React.FC = () => {
       <div>
         <RatingFilter onRatingChange={handleRatingChange} />
         <LocationFilter handleLocationChange={handleLocationChange}/>
+        <NameFilter handleNameChange={handleNameChange}/>
         <AvailabilityFilter onFilterChange={handleAvailabilityChange} />
         <TeacherSkills onSkillChange={handleSkillChange}/>
       </div>

@@ -77,6 +77,7 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
           rating: teacherData?.rating,
           availability: teacherData?.availability,
           subject: teacherData?.subjects,
+          location: teacherData?.locationSearch,
           search: teacherData?.nameSearch
         },
       });

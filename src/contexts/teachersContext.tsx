@@ -15,6 +15,7 @@ export const TeacherContext = ({children}:any)=>{
         availability: true,
         rating: null,
         subjects: [],
+        locationSearch: '',
         nameSearch: ''
     });
 
@@ -55,6 +56,13 @@ export const TeacherContext = ({children}:any)=>{
         }));
     },[teacherData]);
 
+    const handleLocationSearch = useCallback((value: any) => {
+        setTeacherData(prevData => ({
+            ...prevData,
+            locationSearch: value,
+        }));
+    },[teacherData]);
+
     const handleNameSearch = useCallback((value: any) => {
         setTeacherData(prevData => ({
             ...prevData,
@@ -62,7 +70,7 @@ export const TeacherContext = ({children}:any)=>{
         }));
     },[teacherData]);
 
-    const value =  {handleSchedules, handleShift, handleAvailability, handleRating, handleSubjects, handleNameSearch, shift, schedules, teachers, selectedTeacher}
+    const value =  {handleSchedules, handleShift, handleAvailability, handleRating, handleSubjects, handleLocationSearch, handleNameSearch, shift, schedules, teachers, selectedTeacher}
 
     return <TeachersContext.Provider  value={value}> {children} </TeachersContext.Provider>
 }
