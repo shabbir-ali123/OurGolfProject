@@ -16,7 +16,6 @@ const TeacherDetails: React.FC = () => {
     const shifts = availableSlots?.map((item: any) => item.shifts)
     const slots = shifts?.flatMap((item: any) => item)
     
-    console.log(teacher)
     return (
         <div className="mx-20 md:mx-20">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
