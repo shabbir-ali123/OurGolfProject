@@ -277,7 +277,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                             </div>
 
                             <div>
-                              <p className="p-0 m-0 text-gray-500 dark:text-gray-400">
+                              <p  className="comment-content p-0 m-0 text-gray-500 dark:text-gray-400">
                                 {comment.content}
                               </p>
                               <div className="flex items-center mt-4 space-x-4">

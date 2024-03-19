@@ -115,7 +115,9 @@ button:disabled{
   color: grey;
   background: white;
 }
-
+.comment-content {
+  white-space: pre-line;
+}
 .grid-cols-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 

@@ -346,7 +346,7 @@ const ReadPost: React.FC = () => {
                       </div>
 
                       <div>
-                        <p className="p-0 pl-14 m-0 text-gray-500 dark:text-gray-400">
+                        <p className="comment-content p-0 pl-14 m-0 text-gray-500 dark:text-gray-400">
                           {comment.content}
                         </p>
 

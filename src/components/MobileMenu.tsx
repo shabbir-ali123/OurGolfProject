@@ -4,7 +4,7 @@ import { NotificationsContext } from '../contexts/notificationContext';
 import ProfileButton from './ProfileButton';
 import { navigation } from './Header';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; // Import useTranslation instead of t
+import { useTranslation } from 'react-i18next';
 import { menuItems } from './SideIconMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,7 +14,7 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
-  const { t } = useTranslation(); // Use useTranslation hook
+  const { t } = useTranslation();
 
   useEffect(() => {
     const closeMenu = (event: MouseEvent) => {
