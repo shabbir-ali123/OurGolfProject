@@ -58,15 +58,15 @@ interface SingleEvent {
 const EditTeamPage: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
   const teamId = params.id;
-  const {isCreated, singleEvent} = singleEventContextStore();
+  const { isCreated, singleEvent } = singleEventContextStore();
   console.log(singleEvent, 'sE')
-  const {handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading,  teams} = singleTeamsContextStore()
+  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams } = singleTeamsContextStore()
 
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  
-  
+
+
 
   function CustomNextArrow(props: any) {
     const { className, style, onClick } = props;
@@ -105,7 +105,7 @@ const EditTeamPage: FunctionComponent = () => {
     }
   };
 
- 
+
 
   const [open, setOpen] = useState(false);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState("");
@@ -123,7 +123,7 @@ const EditTeamPage: FunctionComponent = () => {
   ];
 
   const teamCapacity = singleEvent?.capacity;
-  
+
   // const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -173,8 +173,8 @@ const EditTeamPage: FunctionComponent = () => {
       toast.error("Please make changes before updating.");
       return;
     }
-  
-   
+
+
     const formDataObj = {
       eventId: singleEvent?.id,
       teamSize:
@@ -196,7 +196,7 @@ const EditTeamPage: FunctionComponent = () => {
           },
         }
       );
-      
+
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -216,7 +216,7 @@ const EditTeamPage: FunctionComponent = () => {
   //     setIsLoading(true); 
   //     await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
   //     setShouldRefetchTeams(false);
-      
+
   //     setIsLoading(false);
   //   };
   //   fetchAndUpdateTeams();
@@ -225,7 +225,7 @@ const EditTeamPage: FunctionComponent = () => {
   // useEffect(() => {
   //   handleEventId(teamId)
   // }, [])
-  
+
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
   }, [open]);
@@ -255,34 +255,34 @@ const EditTeamPage: FunctionComponent = () => {
   if (isLoading) {
     return <div className="flex justify-center items-center h-[100vh]">
       <div>
-     
-      <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt=""  />
-      <p>loading...</p>
+
+        <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
+        <p>loading...</p>
       </div>
-      
-    </div>; 
+
+    </div>;
   }
   const handleNavigateHome = () => {
     navigate('/add-score-page/' + singleEvent?.id);
-};
+  };
   return (
     <>
-    <SliderStyles />
+      <SliderStyles />
       <div className="py-10 ml-12 ">
         <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
           <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
             <div className="flex justify-around w-full">
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
                 <img
-                  className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
+                  className="w-[123px] h-[123px] object-cover rounded-[100%] text-center md:text-start"
                   alt="Event"
                   src={singleEvent?.imageUrl ? singleEvent?.imageUrl[0] : "/img/zozo.png"}
                 />
 
                 <div className="flex flex-col items-start justify-center gap-4">
-                 <div className="text-white bg-[#17b3a6]  rounded-lg">
-                 <p className="p-1 px-2 m-0">{t('EVENT_DETAILS')}</p>
-                 </div>
+                  <div className="text-white bg-[#17b3a6]  rounded-lg">
+                    <p className="p-1 px-2 m-0">{t('EVENT_DETAILS')}</p>
+                  </div>
                   <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[40px] font-semibold text-black">
                     {singleEvent?.eventName}
                   </div>
@@ -316,34 +316,34 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
           </div>
 
-            <div id="my-slider-container" className="mx-auto my-6 max-w-7xl slider-container">
-              {singleEvent && singleEvent.imageUrl?.length > 1 && (
-                <Slider {...settings}>
-                  {singleEvent.imageUrl.slice(0, 3).map((item:any, index:any) => {
+          <div id="my-slider-container" className="mx-auto my-6 max-w-7xl slider-container">
+            {singleEvent && singleEvent.imageUrl?.length > 1 && (
+              <Slider {...settings}>
+                {singleEvent.imageUrl.slice(0, 3).map((item: any, index: any) => {
 
-                    console.log(index, index === nextIndex, "next");
+                  console.log(index, index === nextIndex, "next");
 
-                    return <div key={index} className="w-full">
-                      <img
-                        className={`w-full h-[220px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
-                        src={item || ""}
-                        alt={`Event Image ${index + 1}`}
-                        style={{
-                          boxShadow: index === centerIndex ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none',
-                          backgroundColor: index === centerIndex ? 'white' : 'transparent',
-                          borderRadius: index === centerIndex + 1 ? '10px' : '0',
-                          display: index === previousIndex || index === nextIndex ? 'none' : 'block',
+                  return <div key={index} className="w-full">
+                    <img
+                      className={`w-full h-[220px] object-cover  rounded-lg ${index === centerIndex ? "slick-center" : ""}`}
+                      src={item || ""}
+                      alt={`Event Image ${index + 1}`}
+                      style={{
+                        boxShadow: index === centerIndex ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none',
+                        backgroundColor: index === centerIndex ? 'white' : 'transparent',
+                        borderRadius: index === centerIndex + 1 ? '10px' : '0',
+                        display: index === previousIndex || index === nextIndex ? 'none' : 'block',
 
-                        }}
-                      />
-                    </div>
-                  }
+                      }}
+                    />
+                  </div>
+                }
 
-                  )}
-                </Slider>
-              )}
-            </div>
-          <div className="w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+                )}
+              </Slider>
+            )}
+          </div>
+          <div className="mr-9 lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
             <div className="flex items-center gap-10">
               <div className="relative w-[90.5px] h-[147.5px]">
                 <img
@@ -357,7 +357,7 @@ const EditTeamPage: FunctionComponent = () => {
                   src="/img/rectangle-1249@2x.png"
                 />
               </div>
-              <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl"> {t('ABOUT_EVENT')}</h2>
+              <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl xl:text-21xl"> {t('ABOUT_EVENT')}</h2>
             </div>
 
             <div className="grid grid-cols-1 gap-0 py-4 ">
@@ -403,21 +403,44 @@ const EditTeamPage: FunctionComponent = () => {
               <div className="flex items-center gap-10 mx-2 ">
                 <span className="text-gray-500 basis-[200px]">{t('JOINED_MEMBER')} :</span>
                 <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{totalJoinedMembers}</p>
-              </div>  
+              </div>
             </div>
 
 
           </div>
-            {/* <EditTeamScore /> */}
+          <div className="flex items-end gap-40">
+            {isCreated ? (
+              <>
+
+              </>
+            ) : isJoined ? (
+              <>
+
+              </>
+            ) : (
+              <>
+                <div className="flex justify-center text-center w-full ">
+                  <button
+                    className="py-4 lg:py-8 w-[200px] mt-10 lg:w-[450px] font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                    onClick={() => router(`/pay-now/${singleEvent?.id}`)}
+                  >
+                    {t('JOIN_NOW')}
+                  </button>
+                </div>
+
+              </>
+            )}
+          </div>
+          {/* <EditTeamScore /> */}
           {/* edit team div */}
-          <div className="w-full  my-4 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-10 mt-10 ">
+          <div className="mr-10 lg:mr-0 lg:w-full   shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-2 xl:p-10 mt-10 ">
             <div className="flex items-end gap-40">
               {isCreated ? (
                 <>
                   <div className="flex gap-2 ">
                     <div>
                       <img src="/img/golfplyr.png" alt="" width="40px" />
-                      <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                      <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
                         Edit Teams
                       </b>
                     </div>
@@ -493,81 +516,83 @@ const EditTeamPage: FunctionComponent = () => {
                   <div className="flex items-center gap-4">
                     <div>
                       <img src="/img/golfplyr.png" alt="" width="40px" />
-                      <b className=" text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                      {t("TEAM_MEMBERS")}
+                      <b className=" text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        {t("TEAM_MEMBERS")}
                       </b>
-                      
+
                     </div>
                   </div>
 
-                  <button
+                  {/* <button
                     className="p-4 px-10 w-[250px] font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                     onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                   >
                     {t('JOIN_NOW')}
-                  </button>
+                  </button> */}
                 </>
               )}
             </div>
-            <table className="w-full border-spacing-y-5 ">
-              <thead className="text-left text-whitesmoke-100">
-                <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
-                  <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
-                  {t('TEAM_NAME')}
-                  </th>
+            <div className="overflow-x-auto">
+              <table className="w-full border-spacing-y-5 px-1 ">
+                <thead className="text-left text-whitesmoke-100">
+                  <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
+                    <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
+                      {t('TEAM_NAME')}
+                    </th>
 
-                  {generateTableHeaders()}
-                </tr>
-              </thead>
-              <tbody className="text-left text-black ">
-                {teams?.map((team:any, index:any) => (
-                  <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
-                    <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
-                      <div
-                        className={`w-[156px] relative pl-1   rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-[#e0e0e0]`}
-
-                      >
-                        <h4>{team.name}</h4>
-                        <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
-                          {team.imageUrl ? (
-                            <img
-                              className="w-full h-full object-cover rounded-[50%]"
-                              alt=""
-                              src={team.imageUrl}
-                            />
-                          ) : (
-                            <img
-                              className="w-full h-full object-cover rounded-[50%]"
-                              alt="Default Image"
-                              src="/img/zozo.png"
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                    {team.members?.map((member: any, memberIndex:any) => (
-                      <td className="py-4 pl-4 whitespace-nowrap">
-                        <Player
-                          isCreator={isCreated}
-                          key={memberIndex}
-                          showNumber={false}
-                          enableHover={true}
-                          onEdit={() => {
-                            setSelectedPlayerNickname(member.nickName);
-                            setSelectedUserId(member.userId);
-                            setSelectedTeamName(team.name);
-                            setEditOpen(true);
-                          }}
-                          onDelete={() => setOpen(true)}
-                          name={member.nickName}
-                          imageUrl={member.imageUrl}
-                        />
-                      </td>
-                    ))}
+                    {generateTableHeaders()}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="text-left text-black ">
+                  {teams?.map((team: any, index: any) => (
+                    <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
+                      <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
+                        <div
+                          className={`w-[156px] relative pl-1   rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-[#e0e0e0]`}
+                        >
+                          <h4>{team.name}</h4>
+                          <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
+                            {team.imageUrl ? (
+                              <img
+                                className="w-full h-full object-cover rounded-[50%]"
+                                alt=""
+                                src={team.imageUrl}
+                              />
+                            ) : (
+                              <img
+                                className="w-full h-full object-cover rounded-[50%]"
+                                alt="Default Image"
+                                src="/img/BG-GOLF.jpg"
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                      {team.members?.map((member: any, memberIndex: any) => (
+                        <td className="py-4 pl-4 whitespace-nowrap">
+                          <Player
+                            isCreator={isCreated}
+                            key={memberIndex}
+                            showNumber={false}
+                            enableHover={true}
+                            onEdit={() => {
+                              setSelectedPlayerNickname(member.nickName);
+                              setSelectedUserId(member.userId);
+                              setSelectedTeamName(team.name);
+                              setEditOpen(true);
+                            }}
+                            onDelete={() => setOpen(true)}
+                            name={member.nickName}
+                            imageUrl={member.imageUrl}
+                          />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
             {isCreated && (
               <div className="flex justify-end ">
                 <button
@@ -865,7 +890,7 @@ const EditTeamPage: FunctionComponent = () => {
                                   <option value="" disabled selected>
                                     Select a Team
                                   </option>
-                                  {teams?.map((team:any) => (
+                                  {teams?.map((team: any) => (
                                     <option key={team.id} value={team.id}>
                                       {team.name}
                                     </option>

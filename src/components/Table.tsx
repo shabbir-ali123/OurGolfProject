@@ -225,7 +225,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 src={
                                   event.imageUrl[0]
                                     ? event.imageUrl[0]
-                                    : "img/zozo.png"
+                                    : "img/BG-GOLF.jpg"
                                 }
                                 alt=""
                                 className="w-16 h-16 border border-indigo-600 border-solid rounded-full "

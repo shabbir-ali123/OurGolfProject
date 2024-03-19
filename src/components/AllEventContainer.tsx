@@ -9,7 +9,7 @@ const AllEventContainer: FunctionComponent = () => {
         ellipse2311="/img/ellipse-2311@2x.png"
         golfMasters="GolfMasters"
         nov13SUN="Nov 13, SUN"
-        zOZOCHAMPIONSHIP="ZOZO CHAMPIONSHIP"
+        zOZOCHAMPIONSHIP="TEST CHAMPIONSHIP"
         />
       <FairwayFunContainer
         imageDimensions="/img/ellipse-23111@2x.png"
