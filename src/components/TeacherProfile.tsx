@@ -3,25 +3,27 @@ import { HandThumbUpIcon, MapPinIcon, PhoneArrowUpRightIcon, EnvelopeIcon, StarI
 import React from 'react';
 
 interface UserProfileProps {
-    name: string;
+    firstName: string;
     location: string;
     email: string;
     phoneNumber: string;
-    rate: number;
+    hourlyRate: number;
     rating: number;
     ratingCount: number;
     about: string;
+    lastName?: string
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({
-    name,
+    firstName,
     location,
     email,
     phoneNumber,
-    rate,
+    hourlyRate,
     rating,
     ratingCount,
     about,
+    lastName
 }) => {
     return (
         <div className="p-6  rounded  text-white ">
@@ -44,8 +46,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
 
                     <div className="ml-4 grid grid-cols-1 xl:grid-cols-2 gap-6 justify-center ">
                        
-                            <h2 className="text-lg font-semibold text-white">{name}</h2>
-                            <h2 className="text-lg font-semibold text-white">{rate} <span className='text-sm font-normal'>Per/Hr</span></h2>
+                            <h2 className="text-lg font-semibold text-white">{firstName} {lastName}</h2>
+                            <h2 className="text-lg font-semibold text-white">{hourlyRate} <span className='text-sm font-normal'>Per/Hr</span></h2>
                      
                         <div className=''>
                             <div className='flex flex-col gap-1'>

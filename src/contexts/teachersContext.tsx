@@ -1,5 +1,4 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { getUser } from '../utils/fetchUser';
 import { fetchSingleTeacher, fetchTeacherss } from '../utils/fetchTeacher';
 import { useParams } from 'react-router-dom';
 
@@ -12,9 +11,11 @@ export const TeacherContext = ({children}:any)=>{
     const [schedules, setSchedules] = useState<any[]>([]);
     const [shift, setShift] = useState<any>([])
     const [teacherData, setTeacherData] = useState({
-        availability: undefined,
+        availability: true,
         rating: null,
-        subjects: []
+        subjects: [],
+        locationSearch: '',
+        nameSearch: ''
     });
 
     useEffect(() => {
@@ -54,7 +55,21 @@ export const TeacherContext = ({children}:any)=>{
         }));
     },[teacherData]);
 
-    const value =  {handleSchedules, handleShift, handleAvailability, handleRating, handleSubjects, shift, schedules, teachers, selectedTeacher}
+    const handleLocationSearch = useCallback((value: any) => {
+        setTeacherData(prevData => ({
+            ...prevData,
+            locationSearch: value,
+        }));
+    },[teacherData]);
+
+    const handleNameSearch = useCallback((value: any) => {
+        setTeacherData(prevData => ({
+            ...prevData,
+            nameSearch: value,
+        }));
+    },[teacherData]);
+
+    const value =  {handleSchedules, handleShift, handleAvailability, handleRating, handleSubjects, handleLocationSearch, handleNameSearch, shift, schedules, teachers, selectedTeacher}
 
     return <TeachersContext.Provider  value={value}> {children} </TeachersContext.Provider>
 }

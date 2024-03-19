@@ -63,8 +63,11 @@ const CreatedEvents: React.FC = () => {
 
     // console.log({events})
     return (
-        <div className=' max-w-7xl mx-auto flex  justify-center py-10 custom-box-shadow my-10'>
-            <div >
+        <div className='mx-8 xl:max-w-7xl xl:mx-auto flex justify-center py-10 px-10  my-10  'style={{
+            boxShadow:
+              "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+          }}>
+            <div className="overflow-x-auto w-full">
                 <h4>Created Events</h4>
                 <div className="flex justify-start space-x-2 mb-4">
                     {tabs.map(tab => (
@@ -78,91 +81,61 @@ const CreatedEvents: React.FC = () => {
                         </button>
                     ))}
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="min-w-full">
-                        <thead>
-                            <tr className='bg-[#fffff]'>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Event Name
-                                </th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Total Players
-                                </th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Start Time
-                                </th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Start Date
-                                </th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    End Time
-                                </th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    End Date
-                                </th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    Actions
-                                </th>
+                <table className="min-w-full">
+                    <thead>
+                        <tr className='bg-[#fffff]'>
+                            <th className="px-4 py-2 xl:px-6 xl:py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Event Name
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Total Players
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Start Time
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Start Date
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                                End Time
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                                End Date
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className="mt-2">
+                        {createdEvents?.length === 0 ? (
+                            <tr className='flex justify-center'>
+                                <td  className="text-center py-4">
+                                    No event
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody className="mt-2">
-                            {createdEvents?.length === 0 ? (
-                                <tr className='flex justify-center'>
-                                    <td  className="text-center py-4">
-                                        No event
-                                    </td>
-                                </tr>
-                            ) : (
-                                createdEvents?.map((event: any) => (
-                                    <tr key={event.id} className="bg-white" style={{
-                                        boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
-                                    }}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventName}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.capacity}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartTime}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartDate}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndTime}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndDate}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4] text-center">
-                                            {/* <Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} /> */}
-                                            <Link to={`/edit-team/${event.id}`}><Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} />
-                                            </Link>
+                        ) : (
+                            createdEvents?.map((event: any) => (
+                                <tr key={event.id} className="bg-white" style={{
+                                    boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
+                                }}>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventName}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.capacity}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartTime}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartDate}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndTime}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndDate}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4] text-center">
+                                        <Link to={`/edit-team/${event.id}`}><Cog6ToothIcon className="w-8 h-8 text-blue-500" onClick={() => handleCogIconClick(event)} />
+                                        </Link>
                                         <p onClick={() => handleDeleteEvent(event.id)}>Delete</p>
                                         <Link to={`/edit-event/${event.id}`}>Edit</Link>
-                                        </td>
-                                    </tr>
-                              ))
-                              )}
-                         
-                        </tbody>
-                        {showPopup && selectedEvent && (
-                            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-                                <div className="bg-white p-8 rounded-md">
-                                    <h2 className="text-lg font-bold mb-4">Event Name <br /> {selectedEvent.eventName}</h2>
-                                
-                                    <button
-                                        className="px-4 py-2 bg-blue-500 text-white mr-2"
-                                        onClick={() => {
-                                            if (selectedEvent) handleEditTeam(selectedEvent.id, selectedEvent.eventName, selectedEvent.eventStartDate, selectedEvent.place, selectedEvent.eventDetails, selectedEvent.teamSize, selectedEvent.imageUrl);
-
-
-                                        }}
-                                    >
-                                        Edit Team
-                                    </button>
-                                
-                                    <button
-                                        className="px-4 py-2 bg-[red] text-white"
-                                        onClick={handleCancelEvent}
-                                    >
-                                        Cancel
-                                    </button>
-
-                                </div>
-                            </div>
+                                    </td>
+                                </tr>
+                            ))
                         )}
-                    </table>
-                </div>
+                    </tbody>
+                </table>
                 <CreatedEventPagination
                     currentPage={currentPage}
                     pageSize={pageSize}
@@ -170,6 +143,32 @@ const CreatedEvents: React.FC = () => {
                     onPageChange={handlePageChange}
                 />
             </div>
+            {showPopup && selectedEvent && (
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="bg-white p-8 rounded-md">
+                        <h2 className="text-lg font-bold mb-4">Event Name <br /> {selectedEvent.eventName}</h2>
+                    
+                        <button
+                            className="px-4 py-2 bg-blue-500 text-white mr-2"
+                            onClick={() => {
+                                if (selectedEvent) handleEditTeam(selectedEvent.id, selectedEvent.eventName, selectedEvent.eventStartDate, selectedEvent.place, selectedEvent.eventDetails, selectedEvent.teamSize, selectedEvent.imageUrl);
+
+
+                            }}
+                        >
+                            Edit Team
+                        </button>
+                    
+                        <button
+                            className="px-4 py-2 bg-[red] text-white"
+                            onClick={handleCancelEvent}
+                        >
+                            Cancel
+                        </button>
+
+                    </div>
+                </div>
+            )}
         </div>
 
     );

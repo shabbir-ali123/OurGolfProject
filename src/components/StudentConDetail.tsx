@@ -26,25 +26,25 @@ interface StudentConDetailProps {
 const StudentConDetail: React.FC<StudentConDetailProps> = ({ studentInfo }) => {
   const boxData = [
     {
-      imageUrl: "/img/zozo.png",
+      imageUrl: "/img/BG-GOLF.jpg",
       description: "You have a 30-minute appointment with Jaine at 2:00 PM.",
       bgColor: "#F2FAFF",
       borderColor: "#00A4FE",
     },
     {
-      imageUrl: "/img/zozo.png",
+      imageUrl: "/img/BG-GOLF.jpg",
       description: "Your appointment with Jaine at 3:00 PM got cancelled.",
       bgColor: "#FFE6E6",
       borderColor: "#00A4FE",
     },
     {
-      imageUrl: "/img/zozo.png",
+      imageUrl: "/img/BG-GOLF.jpg",
       description: "Your appointment with Jaine will start in 5 minutes.",
       bgColor: "#F2FAFF",
       borderColor: "#00A4FE",
     },
     {
-      imageUrl: "/img/zozo.png",
+      imageUrl: "/img/BG-GOLF.jpg",
       description: "You have a 30-minute appointment with Jaine at 2:00 PM.",
       bgColor: "#F2FAFF",
       borderColor: "#00A4FE",

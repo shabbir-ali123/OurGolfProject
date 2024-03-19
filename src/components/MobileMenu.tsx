@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { NotificationsContext } from '../contexts/notificationContext';
 import ProfileButton from './ProfileButton';
-import { navigation } from './Header';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { menuItems } from './SideIconMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NotificationsContext } from '../contexts/notificationContext';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -15,6 +15,7 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
+  const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const closeMenu = (event: MouseEvent) => {
@@ -32,6 +33,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     };
   }, [isOpen, onClose]);
 
+  const handleSubItemClick = (itemName: string) => {
+    setActiveSubMenu(activeSubMenu === itemName ? null : itemName);
+  };
+
+
   return (
     <>
       {isOpen && (
@@ -46,7 +52,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
             <ul className=''>
               {menuItems.map((item) => (
-                <li key={item.name} className='list-none py-3 flex items-center hover:text-[#17b3a6]'>
+                <li key={item.name} className='list-none py-3   items-center hover:text-[#17b3a6]'>
                   <FontAwesomeIcon icon={item.icon} className="mr-2" />
                   <Link
                     to={item.path}
@@ -55,6 +61,29 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                   >
                     {t(item.name.toUpperCase())}
                   </Link>
+                  {item.subItems && (
+                    <button onClick={() => handleSubItemClick(item.name)} className="ml-2 bg-transparent">
+                      <FontAwesomeIcon icon={activeSubMenu === item.name ? faChevronUp : faChevronDown} />
+                    </button>
+                  )}
+                  {activeSubMenu === item.name && item.subItems && (
+                    <ul className="mr-10">
+                      {item.subItems.map(subItem => (
+                        <li key={subItem.name} className=' p-2 list-none '  style={{
+                          boxShadow:
+                            "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+                        }}>
+                          <Link
+                            to={subItem.path}
+                            className="text-lg no-underline font-normal leading-6 text-[#717171] hover:text-[#17b3a6] "
+                            onClick={onClose}
+                          >
+                            {t(subItem.name.toUpperCase())}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
             </ul>

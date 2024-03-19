@@ -166,7 +166,6 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
     const isBooked = state === bookedSlots ? slot : bookedSlots[index];
 
     if (!slot.shifts || (slot.shifts.length === 0 && dayFilter !== "All")) {
-      console.log("asdasd");
       return (
         <div key={slot.id}>
           <button

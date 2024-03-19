@@ -161,9 +161,9 @@ const EditEvent: React.FC = () => {
       type: blob.type,
     }); 
   };
-  const defaultImage1 = "/img/FullScore.png";
-  const defaultImage2 = "/img/FullScore.png";
-  const defaultImage3 = "/img/zozo.png";
+  const defaultImage1 = "/img/BG-GOLF.jpg";
+  const defaultImage2 = "/img/BG-GOLF.jpg";
+  const defaultImage3 = "/img/BG-GOLF.jpg";
 
   const getDefaultImages = async (): Promise<File[]> => {
 

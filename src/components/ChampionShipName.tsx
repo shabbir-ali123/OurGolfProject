@@ -11,7 +11,7 @@ const ChampionShipName: FunctionComponent = () => {
           <img
             className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
             alt=""
-            src="/img/zozo.png"
+            src="/img/BG-GOLF.jpg"
           />
           <div className="flex flex-col items-start justify-center gap-4">
             <div className="relative w-[115px] h-[29px]">

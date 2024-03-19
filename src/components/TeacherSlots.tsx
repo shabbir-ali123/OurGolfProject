@@ -1,4 +1,3 @@
-// TeacherSlots.tsx
 import React, { useState } from 'react';
 
 interface TeacherSlots {
@@ -17,7 +16,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({ slots }:any) => {
     <div className="mt-10">
       <h3 className="font-semibold mb-4 text-lg">Availability</h3>
       <div className="grid lg:grid-cols-2 sm:grid-cols-3 gap-4">
-        {slots.map((slot:any, index:any) => (
+        {slots?.map((slot:any, index:any) => (
           <button
             key={index}
             className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
