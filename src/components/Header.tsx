@@ -43,16 +43,16 @@ const Header: React.FC = () => {
     const handleJoinEvent = (data: any) => {
       console.log(data, 'daya for sockets')
       if (data?.organizerId === userId) {
-        setEventJoined(data); 
+        setEventJoined(data);
 
-    }
+      }
     };
     socket.on('joinRequest', handleJoinEvent);
 
     return () => {
       socket.off('joinRequest', handleJoinEvent);
     };
-  }, []); 
+  }, []);
 
   return (
     <div>
@@ -61,30 +61,29 @@ const Header: React.FC = () => {
           className="flex justify-between px-4 py-2  lg:items-center xl:px-32 sm:justify-start"
           aria-label="Global"
         >
-          
-            <button onClick={toggleMenu} className="mr-4 lg:hidden">
-              {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
-            </button>
-            
-         
+
+          <button onClick={toggleMenu} className="mr-4 lg:hidden">
+            {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+          </button>
+
+
 
           <div className="hidden gap-x-6 lg:flex xl:gap-x-16">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.to}
-                className={`text-2xl list-none no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 ${
-                  isActive(item.to) ? "active" : ""
-                }`}
+                className={`text-2xl list-none no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 ${isActive(item.to) ? "active" : ""
+                  }`}
                 style={
                   isActive(item.to)
                     ? {
-                        background: "rgb(67 188 176)",
-                        color: "#ffffff",
-                        fontWeight: "400",
-                        borderRadius: "5px",
-                        padding: "2px 6px",
-                      }
+                      background: "rgb(67 188 176)",
+                      color: "#ffffff",
+                      fontWeight: "400",
+                      borderRadius: "5px",
+                      padding: "2px 6px",
+                    }
                     : {}
                 }
               >
@@ -96,7 +95,7 @@ const Header: React.FC = () => {
             }
           </div>
           <div className="hidden lg:block lg:flex-1 lg:justify-end">
-              <ProfileButton />
+            <ProfileButton />
           </div>
 
           <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} />

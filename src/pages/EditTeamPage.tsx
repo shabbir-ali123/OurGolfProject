@@ -343,7 +343,7 @@ const EditTeamPage: FunctionComponent = () => {
               </Slider>
             )}
           </div>
-          <div className="mr-9 lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+          <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
             <div className="flex items-center gap-10">
               <div className="relative w-[90.5px] h-[147.5px]">
                 <img
@@ -433,7 +433,7 @@ const EditTeamPage: FunctionComponent = () => {
           </div>
           {/* <EditTeamScore /> */}
           {/* edit team div */}
-          <div className="mr-10 lg:mr-0 lg:w-full   shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-2 xl:p-10 mt-10 ">
+          <div className="mr-4 lg:mr-0 lg:w-full   shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-2 xl:p-10 mt-10 ">
             <div className="flex items-end gap-40">
               {isCreated ? (
                 <>
@@ -532,7 +532,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </>
               )}
             </div>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto w-full">
               <table className="w-full border-spacing-y-5 px-1 ">
                 <thead className="text-left text-whitesmoke-100">
                   <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
