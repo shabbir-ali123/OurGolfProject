@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/20/solid";
 import { useTranslation } from "react-i18next";
@@ -13,14 +13,13 @@ export default function AllNotification() {
     notificationsContextStore();
 
   const handleApprove = (userId: any, eventId: any) => {
-    if (userId != undefined && eventId != undefined) {
+    handleFormData({ userId: userId, eventId: eventId });
 
-    handleFormData({userId: userId, eventId: eventId});
-    console.log(formData);
+    if (formData.userId != '' && formData.eventId != '') {
+      console.log(formData);
 
-    approveEvent(formData, handleMessage);
-}
-
+      approveEvent(formData, handleMessage);
+    }
   };
 
   return (
@@ -61,7 +60,9 @@ export default function AllNotification() {
                             <button
                               type="button"
                               className="inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                              onClick={() => handleApprove(item?.userId, item?.eventId)}
+                              onClick={() =>
+                                handleApprove(item?.userId, item?.eventId)
+                              }
                             >
                               {t("ACCEPT")}
                             </button>

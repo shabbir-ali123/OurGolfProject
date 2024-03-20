@@ -8,7 +8,7 @@ export const NotificationsContext = ({ children }: any) => {
   const [notifications, setNotifications] = useState<any>([])
   const [notificationData, setNotificationData] = useState<any>(null);
   const [message, setMessage] = useState('')
-  const [formData, setFormData] = useState<any>({userId: undefined, eventId: undefined});
+  const [formData, setFormData] = useState<any>({userId: '', eventId: ''});
   
   
   useEffect(() => {

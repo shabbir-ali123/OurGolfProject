@@ -186,10 +186,14 @@ export const approveEvent = async (formData:any, setMessage: any  ) => {
     const userID = localStorage.getItem('id');
     const token = localStorage.getItem('token');
 
+    const headers:any= {}
+    if (token) {
+      headers["Authorization"] =  `Bearer ${token}`
+    }
+
     if (userID && token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const response = await axios.put(API_ENDPOINTS.APPROVE_EVENT, formData, {
-           
+          headers
         });
 
         const data = response.data;
