@@ -15,7 +15,7 @@ const EventMainPage: FunctionComponent = () => {
   document.body.dir = i18n.dir();
   const [events, setEvents] = useState([]);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
-  const [selectedLocations, setSelectedLocations] = useState<any[]>(['Tokyo']);
+  const [selectedLocations, setSelectedLocations] = useState<any[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
 
   const { handleLocationFilter } = eventContextStore();
