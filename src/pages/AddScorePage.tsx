@@ -123,11 +123,11 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     const selectedsum: { [userId: string]: number } = {};
     for (const userId in filteredSums) {
       const totalScore = filteredSums[userId].reduce(
-        (acc: any, score: any) => acc + score
+        (acc: number, score: number) => acc + score,
+        0 // Providing initial value of 0
       );
       selectedsum[userId] = totalScore;
     }
-
     return selectedsum;
   };
   const selectedHoleSum = calculateTotalSelected();

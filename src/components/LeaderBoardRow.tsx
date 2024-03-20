@@ -1,20 +1,20 @@
 import { FunctionComponent } from "react";
 interface PlayerScoreProps {
-  data: {
-    pos: number;
-    teamName: string;
-    score1: number;
-    score2: number;
-    score3: number;
-    totalPar: number;
-    teamImage: string;
-    rowBackgroundColor: string;
-    teamBackgroundColor?: string;
-  };
-  rowBackgroundColor: string;
-  teamBackgroundColor: string;
+  // data: {
+  //   pos: number;
+  //   teamName: string;
+  //   score1: number;
+  //   score2: number;
+  //   score3: number;
+  //   totalPar: number;
+  //   teamImage: string;
+  //   rowBackgroundColor?: string;
+  //   teamBackgroundColor?: string;
+  // };
+  // rowBackgroundColor: string;
+  // teamBackgroundColor: string;
 }
-const LeaderBoardRow: FunctionComponent<PlayerScoreProps> = ({ data }) => {
+const LeaderBoardRow = ({ data }: any) => {
   const {
     teamName,
     score1,
@@ -49,7 +49,7 @@ const LeaderBoardRow: FunctionComponent<PlayerScoreProps> = ({ data }) => {
                 src={teamImage}
               />
               <div className="relative  leading-[18px] font-medium">
-                {teamName}
+                {data.userId}
               </div>
             </div>
           </div>
@@ -78,9 +78,9 @@ const LeaderBoardRow: FunctionComponent<PlayerScoreProps> = ({ data }) => {
           {score3}
         </div>
         <div className="basis-1/5 leading-[20px] font-medium text-lg">
-          {totalPar}
+          {data.totalScore}
         </div>
-        <div className="flex justify-center basis-1/2">
+        {/* <div className="flex justify-center basis-1/2">
           {" "}
           <div className="relative w-[101px] h-[54.7px] text-center text-[1.97px] text-darkslategray-200 font-lato">
             <div className="absolute top-[0px] left-[calc(50%_-_50.5px)] w-[101px] h-[54.7px]">
@@ -229,7 +229,7 @@ const LeaderBoardRow: FunctionComponent<PlayerScoreProps> = ({ data }) => {
               <div className="absolute top-[4.7px] left-[0px] rounded-t-[0.74px] rounded-b-none bg-mediumseagreen-100 w-[3.9px] h-[9.8px]" />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

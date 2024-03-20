@@ -18,10 +18,13 @@ const EventMainPage: FunctionComponent = () => {
   const [selectedLocations, setSelectedLocations] = useState<any[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
 
-  const { handleLocationFilter } = eventContextStore();
+  const { handleLocationFilter, clearFilter } = eventContextStore();
   useEffect(() => {
     handleLocationFilter(selectedLocations);
-  }, [selectedLocations]);
+    if(clearFilter){
+      handleLocationFilter([])
+    }
+  }, [selectedLocations, clearFilter]);
 
   const handleTabChange = (tab: string) => {
     const lowerTab = tab?.toLowerCase();
@@ -44,7 +47,12 @@ const EventMainPage: FunctionComponent = () => {
       prevSelectedLocations.filter((location) => location !== locationToRemove)
     );
   };
-
+ 
+  useEffect(() => {
+    if(clearFilter === true){
+      setSelectedLocations([])
+  
+    }  }, [clearFilter]);
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">

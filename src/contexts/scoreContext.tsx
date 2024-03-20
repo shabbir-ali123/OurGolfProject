@@ -19,7 +19,7 @@ export const ScoreContextProvider = ({children}:any)=>{
             await getAllScores(setScore, navigate);
         };
         fetchScores();    
-    }, [score]);
+    }, []);
 
     useEffect( () => {
         const fetchEventScore = async () => {

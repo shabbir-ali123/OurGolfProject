@@ -19,15 +19,15 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
     selectedCitiesData?.(selectedCities);
     sendDataToParent?.(selectedCities);
   }, [selectedCities, selectedCitiesData, sendDataToParent]);
-
+  
   const cityKeys = {
-    "HOKKAIDO_TOHOKU": ["HOKKAIDO", "AOMORI", "IWATE", "MIYAGI", "AKITA", "YAMAGATA", "FUKUSHIMA"],
-    "KANTO": ["IBARAKI", "TOCHIGI", "GUNMA", "SAITAMA", "CHIBA", "TOKYO", "KANAGAWA"],
-    "CHUBU": ["NIIGATA", "TOYAMA", "ISHIKAWA", "FUKUI", "YAMANSHI", "NAGANO"],
-    "TOKAI": ["SHIZUOKA", "AICHI", "MIE", "GIFU"],
-    "KINKI": ["SHIGA", "KYOTO", "OSAKA", "HYOGO", "NARA", "WAKAYAMA"],
-    "SHIKOKU": ["TOTTORI", "SHIMANE", "OKAYAMA", "HIROSHIMA", "YAMAGUCHI", "TOKUSHIMA", "KAGAWA", "EHIME", "KOCHI"],
-    "KYUSHU": ["FUKUOKA", "SAGA", "NAGASAKI", "KUMAMOTO", "OITA", "MIYAZAKI", "KAGOSHIMA", "OKINAWA"],
+    "HOKKAIDO_TOHOKU": ["Hokkaido", "Aomori Prefecture", "Iwate Prefecture", "Miyagi Prefecture", "Akita", "Yamagata Prefecture", "Fukushima Prefecture"],
+    "KANTO": ["Ibaraki Prefecture", "Tochigi Prefecture", "Gunma Prefecture", "Saitama", "Chiba prefecture", "Tokyo", "Kanagawa Prefecture"],
+    "CHUBU": ["Niigata Prefecture", "Toyama Prefecture", "Ishikawa Prefecture", "Fukui prefecture", "Yamanashi Prefecture", "Nagano"],
+    "TOKAI": ["Shizuoka Prefecture", "Aichi prefecture", "Mie Prefecture", "Gifu Prefecture"],
+    "KINKI": ["Shiga Prefecture", "Kyoto", "Osaka prefecture", "Hyogo prefecture", "Nara Prefecture", "Wakayama Prefecture"],
+    "SHIKOKU": ["Tottori prefecture", "Shimane Prefecture", "Okayama Prefecture", "Hiroshima", "Yamaguchi Prefecture", "Kagawa Prefecture", "Ehime Prefecture", "Kochi Prefecture", "KOCHI"],
+    "KYUSHU": ["Fukuoka Prefecture", "Saga Prefecture", "Nagasaki Prefecture", "Kumamoto Prefecture", "Oita Prefecture", "Miyazaki prefecture", "Kagoshima prefecture", "Okinawa Prefecture"],
   };
 
   const toggleProvince = (province: string): void => {

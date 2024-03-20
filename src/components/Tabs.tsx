@@ -50,7 +50,7 @@ const Tabs: React.FC<TabsProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
-
+  const { handleEventStatus, clearFilter } = eventContextStore();
   const itemsPerPage = 6;
 
   useEffect(() => {
@@ -85,9 +85,9 @@ const Tabs: React.FC<TabsProps> = ({
 
   const handleFilterLocation = (data: any) => {
     setFilterLocation(data);
+
   };
 
-  const {handleEventStatus} = eventContextStore();
   useEffect(() => {
     // Set localEvents to all events
     handleEventStatus(currentTab);
@@ -102,9 +102,9 @@ const Tabs: React.FC<TabsProps> = ({
                 <button
                   type="button"
                   onClick={() => setLocationPopupOpen(true)}
-                  className="py-4 flex justify-center w-full  xl:w-auto rounded-md sm:absolute left-[-88px] top-[-7px] items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className="py-4 flex justify-center w-full xl:w-auto rounded-md sm:absolute left-[-88px] top-[-7px] items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
-                  <MapPinIcon className="-mr-0.5 h-5 w-5 " aria-hidden="true" />
+                  <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
                   {filterLocation && filterLocation.length
                     ? filterLocation.length > 1
                       ? `${filterLocation[0]} ...`
@@ -149,9 +149,9 @@ const Tabs: React.FC<TabsProps> = ({
                 </Tab>
               ))}
               <div className="flex justify-end ml-0 lg:ml-2 ">
-                <Calendar setEvents={setEvents} />
+                <Calendar setEvents={setEvents} setFilterLocation={setFilterLocation}  />
               </div>
-            
+
             </div>
           </Tab.List>
           {isLocationPopupOpen && (
@@ -184,3 +184,11 @@ const Tabs: React.FC<TabsProps> = ({
 };
 
 export default Tabs;
+function handleStartDate(arg0: null) {
+  throw new Error("Function not implemented.");
+}
+
+function handleEndDate(arg0: null) {
+  throw new Error("Function not implemented.");
+}
+

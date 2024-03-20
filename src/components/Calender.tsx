@@ -7,13 +7,15 @@ import { eventContextStore } from "../contexts/eventContext";
 
 interface CalendarProps {
   setEvents: any;
+  setFilterLocation:any;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
+const Calendar: React.FC<CalendarProps> = ({ setEvents,setFilterLocation }) => {
   const {t, i18n} = useTranslation();
   document.body.dir = i18n.dir();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+  
 
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
@@ -25,7 +27,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
     setEndDate(date);
     // fetchEvents(startDate, date, setEvents);
   };
-  const {handleStartDate, handleEndDate} = eventContextStore();
+  const {handleStartDate, handleEndDate, handleLocationFilter, handleClear, clearFilter} = eventContextStore();
 
   useEffect(() => {
     handleStartDate(startDate);
@@ -35,7 +37,9 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
   const clearDates = () => {
     setStartDate(null);
     setEndDate(null);
-  };
+    handleClear(true);
+    setFilterLocation([]); // This will trigger the useEffect in your context to clear locations
+};
   return (
     <div className="flex flex-wrap md:flex-nowrap items-center gap-2">
       <DatePicker
@@ -62,3 +66,7 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents }) => {
 
 
 export default Calendar;
+function setFilterLocation(arg0: never[]) {
+  throw new Error("Function not implemented.");
+}
+

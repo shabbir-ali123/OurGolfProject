@@ -428,6 +428,7 @@ const EditTeamPage: FunctionComponent = () => {
               </>
             )}
           </div>
+          
           {/* <EditTeamScore /> */}
           {/* edit team div */}
           <div className="mr-4 lg:mr-0 lg:w-full   shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-2 xl:p-10 mt-10 ">

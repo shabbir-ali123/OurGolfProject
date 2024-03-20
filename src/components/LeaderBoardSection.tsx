@@ -3,81 +3,23 @@ import LeaderBoardHeader from '../components/LeaderBoardHeader';
 import LeaderBoardFirstRow from '../components/LeaderBoardRow';
 import Team from '../utils/Team';
 import { useTranslation } from 'react-i18next';
+import { useScoreContext } from '../contexts/scoreContext';
 
 const LeaderBoardSection: FunctionComponent = () => {
+    const { score } = useScoreContext();
     const {t, i18n} = useTranslation();
     document.body.dir = i18n.dir();
-    const teamData = [
-        new Team(
-            1,
-            'Fore Friends',
-            26,
-            15,
-            22,
-            78,
-            '/img/ellipse-23085@2x.png',
-            '#B8E4FD',
-            '#00BF9E'
-        ),
-        new Team(
-            2,
-            'Birdie Brigad',
-            26,
-            15,
-            22,
-            28,
-            '/img/ellipse-23085@2x.png',
-            '#B8E4FD',
-            '#00BF9E'
-        ),
-        new Team(
-            3,
-            'Hole-in-Won',
-            26,
-            15,
-            23,
-            78,
-            '/img/ellipse-23085@2x.png',
-            '#B8E4FD',
-            '#00BF9E'
-        ),
-        new Team(
-            4,
-            'Fore Friends',
-            26,
-            15,
-            22,
-            28,
-            '/img/ellipse-23085@2x.png',
-            '#B8E4FD',
-            '#00BF9E'
-        ),
-        new Team(
-            1,
-            'Eagle Express',
-            23,
-            5,
-            212,
-            748,
-            '/img/ellipse-23085@2x.png',
-            '#B8E4FD',
-            '#00BF9E'
-        ),
-    ];
+   
     return (
         <>
             <div className='mt-20 mx-5 md:mx-[80px] bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  p-[80px]  animate__animated animate__bounceInDown'>
                 <div>
                     <LeaderBoardHeader />
                     <div className='mt-10'>
-                        {teamData.map((data, index) => (
+                        {score?.map((score: any, index: any) => (
                             <div key={index}>
                                 <LeaderBoardFirstRow
-                                    data={data}
-                                    rowBackgroundColor={data.rowBackgroundColor}
-                                    teamBackgroundColor={
-                                        data.teamBackgroundColor
-                                    }
+                                    data={score}
                                 />
                             </div>
                         ))}

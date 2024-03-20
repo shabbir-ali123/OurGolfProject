@@ -60,7 +60,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
         { value: "Ishikawa Prefecture", label: t('ISHIKAWA') },
         { value: "Fukui prefecture", label: t('FUKUI') },
         { value: "Yamanashi Prefecture", label: t('YAMANSHI') },
-        { value: "Yamanashi Prefecture", label: t('NAGANO') },
+        { value: "Nagano", label: t('NAGANO') },
       ],
     },
     {

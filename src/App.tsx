@@ -266,7 +266,7 @@ const params = useParams();
         <Route path="/teacher-page" element={token ? isTeacher ? <TeacherPage /> : <CreateTeacher/> :<LoginPage/> } />
         <Route path="/student-page" element={<TeacherContext> <StudentPage /> </TeacherContext>} />
         <Route path="/create-event"  element={token? <CreateEvent/>:<LoginPage />} />
-        <Route path="/score-board" element={<ScoreBoard/>} />
+        <Route path="/score-board" element={<ScoreContextProvider><ScoreBoard/></ScoreContextProvider>} />
         <Route path="/login-page"  element={<LoginPage  />} />
         <Route path="/register-page" element={<RegisterPage/>} />
         <Route path="/logout" element={<Logout />} />

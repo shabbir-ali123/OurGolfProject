@@ -12,18 +12,11 @@ export const getAllScores = async ( setScore: any, navigate:any) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setScore(response.data.user)
+        setScore(response.data)
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
-          localStorage.removeItem('tokenTimestamp');
-          localStorage.removeItem('nickName');
-          localStorage.removeItem('teacher_id');
-          localStorage.removeItem('user');
-          localStorage.removeItem('id');
-          localStorage.removeItem('score');
-          localStorage.removeItem('par');
+        localStorage.clear();
         toast.error("Session expired. Please log in again.");
         navigate('/login-page'); 
       } else {
