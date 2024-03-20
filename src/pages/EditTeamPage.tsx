@@ -276,7 +276,7 @@ const EditTeamPage: FunctionComponent = () => {
                 <img
                   className="w-[123px] h-[123px] object-cover rounded-[100%] text-center md:text-start"
                   alt="Event"
-                  src={singleEvent?.imageUrl ? singleEvent?.imageUrl[0] : "/img/zozo.png"}
+                  src={singleEvent?.imageUrl ? singleEvent?.imageUrl[0] : "/img/BG-GOLF.jpg"}
                 />
 
                 <div className="flex flex-col items-start justify-center gap-4">
@@ -358,15 +358,12 @@ const EditTeamPage: FunctionComponent = () => {
                 />
               </div>
               <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl xl:text-21xl"> {t('ABOUT_EVENT')}</h2>
+              <h2 className=" text-lightseagreen-200">{singleEvent?.eventName}</h2>
             </div>
 
             <div className="grid grid-cols-1 gap-0 py-4 ">
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px] ">{t('EVENT_NAME')} :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventName}</p>
-              </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px] basis-4"> {t('DATE')} :</span>
+              <div className=" items-center gap-10 mx-2 w-full">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('DATE')}</div>
                 <p className="py-0 text-lg capitalize text-lightseagreen-200">{singleEvent?.eventStartDate}({t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
                   eventEndTime
                 })</p>
