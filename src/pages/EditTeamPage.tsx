@@ -16,6 +16,7 @@ import EditTeamScore from "../components/EditTeamScore";
 import SliderStyles from "../components/sliderStyles";
 import { singleEventContextStore } from "../contexts/eventContext";
 import { singleTeamsContextStore } from "../contexts/teamContext";
+
 interface Team {
   id: string;
   name: string;
@@ -53,6 +54,8 @@ interface SingleEvent {
   scoringType: string;
   shotsPerHoles: any;
   selectedHoles: any;
+  participationFee:any
+
 }
 
 const EditTeamPage: FunctionComponent = () => {
@@ -105,7 +108,62 @@ const EditTeamPage: FunctionComponent = () => {
     }
   };
 
-
+  const data = [
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+  ];
 
   const [open, setOpen] = useState(false);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState("");
@@ -364,47 +422,133 @@ const EditTeamPage: FunctionComponent = () => {
             <div className="grid grid-cols-1 gap-0 py-4 ">
               <div className=" items-center gap-10 mx-2 w-full">
                 <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('DATE')}</div>
-                <p className="py-0 text-lg capitalize text-lightseagreen-200">{singleEvent?.eventStartDate}({t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
+                <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">Event date :</span> {singleEvent?.eventStartDate}({t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
                   eventEndTime
                 })</p>
+                <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">Deadline :</span> {singleEvent?.eventEndDate}</p>
               </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px] basis-[200px] ">{t('APPLICATION_DEADLINE')} :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventDeadlineDate}</p>
+              <div className=" items-center gap-10 mx-2 w-full">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('EVENT_LOCATION')}</div>
+                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
+                <div className=" col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
+                  <iframe
+                    className="col-span-4 sm:col-span-4 rounded-2xl"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8181116.269949623!2d130.64039243803072!3d36.56179855912495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34674e0fd77f192f%3A0xf54275d47c665244!2sJapan!5e0!3m2!1sen!2s!4v1700468556527!5m2!1sen!2s"
+                    width="100%"
+                    height="350px"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+
+
+                </div>
               </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('EVENT_TYPE')}  :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.
-                  eventType}</p>
+              <div className=" items-center gap-10 mx-2 w-full">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('EVENT_DETAILS')}</div>
+                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">About Event :</span> {singleEvent?.eventDetails}</p>
+                <div className="flex items-center gap-10  ">
+
+                  <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
+                    eventType}</p>
+                </div>
+                <div className="flex items-center gap-10  ">
+
+                  <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('EVENT_LOCATION')} :</span>
-                <p className="text-lg capitalize text-lightseagreen-200 ">{singleEvent?.place}</p>
+              <div className=" items-center gap-10 mx-2 w-full">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('TOTAL_PARTICIPANT')}</div>
+                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('TOTAL_PARTICIPANT')} : </span> {totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
+                <div className="flex items-center   ">
+                
+                  <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">  <span className="text-gray-500 basis-[200px] font-bold">{t('TEAM_SIZE')} :</span>{singleEvent?.teamSize}</p>
+                </div>
               </div>
+
+
+
               <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('EVENT_DETAILS')} :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.eventDetails}</p>
-              </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('EVENT_ADDRESS')} :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.address}</p>
-              </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('TOTAL_PARTICIPANT')} :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
-              </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('TEAM_SIZE')} :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{singleEvent?.teamSize}</p>
-              </div>
-              <div className="flex items-center gap-10 mx-2 ">
-                <span className="text-gray-500 basis-[200px]">{t('JOINED_MEMBER')} :</span>
-                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">{totalJoinedMembers}</p>
+                
+                <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
               </div>
             </div>
 
-
+            <div className=" items-center gap-10 mx-2 w-full">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('PRICE')}</div>
+                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
+              </div>
+              <div className=" items-center gap-10 mx-2 w-full">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('Cancel')}</div>
+                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">No Cancellation Fee</p>
+              </div>
           </div>
+          <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+            <div className="flex gap-2 ">
+              <div>
+                <img src="/img/golfplyr.png" alt="" width="40px" />
+                <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                  Members
+                </b>
+              </div>
+            </div>
+            <div className="flex flex-col  xl:grid grid-cols-2  gap-4">
+
+              <div className=" ">
+                <div className="bg-[#17b3a6] text-white rounded-sm ">
+                  <h4 className="p-2">Confirmed Members</h4>
+                </div>
+                <table className=" ">
+
+                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
+                    {data.map((player, index) => (
+                      <tr key={index} className="border-b border-gray-200 shadow ">
+                        <td className="px-3 py-2 text-sm text-gray-500">
+                          <div className="flex items-center space-x-4">
+                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+
+                            </div>
+                          </div>
+                        </td>
+
+
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className=" ">
+                <div className="bg-[#17b3a6] text-white rounded-sm ">
+                  <h4 className="p-2">Waiting Members</h4>
+                </div>
+                <table className=" ">
+
+                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
+                    {data.map((player, index) => (
+                      <tr key={index} className="border-b border-gray-200 shadow ">
+                        <td className="px-3 py-2 text-sm text-gray-500">
+                          <div className="flex items-center space-x-4">
+                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+
+                            </div>
+                          </div>
+                        </td>
+
+
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
           <div className="flex items-end gap-40">
             {isCreated ? (
               <>
@@ -428,7 +572,7 @@ const EditTeamPage: FunctionComponent = () => {
               </>
             )}
           </div>
-          
+
           {/* <EditTeamScore /> */}
           {/* edit team div */}
           <div className="mr-4 lg:mr-0 lg:w-full   shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-2 xl:p-10 mt-10 ">
@@ -502,12 +646,15 @@ const EditTeamPage: FunctionComponent = () => {
                   <div className="flex items-center gap-4">
                     {/* Your content here */}
                   </div>
+                  <div className="flex justify-end w-full">
                   <button
                     className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                     onClick={() => router(`/add-score-page/${singleEvent?.id}`)}
                   >
                     {t('Add Score')}
                   </button>
+                  </div>
+                  
                 </>
               ) : (
                 <>

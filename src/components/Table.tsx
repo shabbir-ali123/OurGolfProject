@@ -143,11 +143,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   return (
     <div className="animate__animated animate__fadeInLeft">
-      {sortedPosts.length === 0 ? (
+      {(sortedPosts || []).length === 0 ? (
         <div className="p-5 text-center">
           <span className="text-lg font-medium">No events yet</span>
         </div>
       ) : (
+        
         <div className="flow-root  ">
           <div className="-my-2 overflow-x-auto xl:overflow-x-auto ">
             <div className="inline-block min-w-full py-0 align-middle ">

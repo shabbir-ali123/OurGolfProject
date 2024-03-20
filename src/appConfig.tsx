@@ -1,6 +1,6 @@
 // http://18.216.79.130:5000
 // http://localhost:5000
-const API_BASE_URL = "http://localhost:5000"
+const API_BASE_URL = "http://18.216.79.130:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -30,7 +30,7 @@ export const API_ENDPOINTS = {
   UPDATE_EVENT: `${API_BASE_URL}/${API_VERSION}/update-event-by-id/`,
   GET_NOTIFICATION: `${API_BASE_URL}/${API_VERSION}/get-notifications`,
   APPROVE_EVENT: `${API_BASE_URL}/${API_VERSION}/approve-join-request`,
- 
+  SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/search-event-by-name`,
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
   GETALLTEACHERS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers`,

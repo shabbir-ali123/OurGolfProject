@@ -1,6 +1,7 @@
 import React, { Children, useCallback, useEffect, useState } from 'react';
 import { fetchCreatedEvents, fetchEventss, fetchSingleEvent } from '../utils/fetchEvents';
 import { useNavigate, useParams } from 'react-router-dom';
+import { API_ENDPOINTS } from '../appConfig';
 
 const EventCreateContext = React.createContext<any>({});
 
@@ -66,6 +67,41 @@ export const EventsContext = ({ children }: any) => {
     const handleEventStatus = useCallback((value: any) => {
         setEventStatus(value);
     }, [eventStatus]);
+    // const handleSearch = async (query:any) => {
+    //     console.log(`Searching for: ${query}`); // Debugging
+    //     const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+    //     if (!token) {
+    //         console.log("No token found in localStorage");
+    //         return; // Exit if no token is found
+    //     }
+    //     const headers = new Headers({
+    //         'Authorization': `Bearer ${token}`, // Use Bearer authentication scheme
+    //         'Content-Type': 'application/json',
+    //     });
+    
+    //     try {
+    //         const response = await fetch(`${API_ENDPOINTS.SEARCH_EVENT_NAME}?name=${query}`, {
+    //             method: 'GET',
+    //             headers: headers,
+    //         });
+    
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`); // Handle HTTP errors
+    //         }
+    
+    //         const data = await response.json();
+    //         console.log('Search results:', data); // Debugging
+    
+    //         if (data && data.events) {
+    //             setEvents(data.events);
+    //         } else {
+    //             console.log('No results or error in fetching'); // Debugging
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching search results:", error);
+    //     }
+    // };
+    
     const sortedPosts = [...eventss].sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
