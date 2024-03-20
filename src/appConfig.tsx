@@ -67,7 +67,7 @@ export const API_ENDPOINTS = {
   UPDATEPOST:`${API_BASE_URL}/${API_VERSION}/update-post/`,
   GETMYPOSTS: `${API_BASE_URL}/${API_VERSION}/get-my-posts`,
   EDITPOSTCOMMENTS: `${API_BASE_URL}/${API_VERSION}/edit-comment`,
-
+  DELETECOMMENTBYID: `${API_BASE_URL}/${API_VERSION}/delete-comment/`,
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
   GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,

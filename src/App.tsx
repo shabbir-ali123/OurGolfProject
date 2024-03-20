@@ -304,7 +304,7 @@ const params = useParams();
         />
         <Route
           path="/read-post/:id"
-          element={token ? <ReadPost  /> : <LoginPage />}
+          element={token ? <PostContext> <ReadPost  /></PostContext> : <LoginPage />}
         />
         <Route
           path="/edit-event/:id"

@@ -1,6 +1,7 @@
 import React, {  useCallback, useEffect, useState } from 'react';
 import { createPost, deletePost, fetchAllPosts, fetchMyPosts, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const PostsContext = React.createContext<any>({});
@@ -20,7 +21,7 @@ export const PostContext = ({children}:any)=>{
     const router = useNavigate();
     const [deletePostId, setDeletePostId] = useState<any>();
     const [postId, setPostId] = useState<any>();
-    const [message, setMessage] = useState<any>('');
+    const [message, setMessage] = useState<any>();
     const [formData, setFormData] = useState<CreatePostType>({
         userId: "",
         text: "",
@@ -29,12 +30,7 @@ export const PostContext = ({children}:any)=>{
         mediaFiles: [],
       });
 
-    useEffect(() => {
-        if (postId) {
-            fetchSinglePosts(handlePost, postId);
-        }
-    }, [postId, setSinglePost]);
-
+   
     const handleCategory = useCallback((category: string) => {
         if(!token){
             router("/login-page");
@@ -42,7 +38,8 @@ export const PostContext = ({children}:any)=>{
         setCategory(category)
         
     }, [category]);
-    const handlePostId = useCallback((value: string) => {
+    const handlePostId = useCallback((value: any) => {
+
         if(!token){
             router("/login-page");
         }
@@ -50,7 +47,6 @@ export const PostContext = ({children}:any)=>{
         
     }, [postId])
   
-
     const handleDeletePost = useCallback((postId: any) => {
         setDeletePostId(postId);
         deletePost(postId, setMessage, router); 
@@ -59,7 +55,6 @@ export const PostContext = ({children}:any)=>{
         createPost(formData, setMessage); 
     };
     
-
     const handlePost = useCallback((value: any) => {
         setSinglePost(value)
     }, [singlePost])
@@ -81,8 +76,23 @@ export const PostContext = ({children}:any)=>{
      const handlePosts = useCallback((post: any) => {
         return setPost(post);
     }, [post,message, handleDeletePost]);
-   
-    const value =  {handlePostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,formData, singlePost, category, post}
+
+    const handleMessage =  useCallback((value: any) => {
+        return setMessage(value);
+
+    }, [message]);
+    useEffect(() => {
+        if (postId) {
+            fetchSinglePosts(handlePost, postId);
+        }
+    }, [ setSinglePost, postId]);
+    useEffect(() => {
+        console.log(message)
+        if (message) {
+            fetchSinglePosts(handlePost, postId);
+        }
+    }, [message, handleMessage, setMessage]);
+    const value =  {handleMessage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,formData, singlePost, category, post}
    
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }
