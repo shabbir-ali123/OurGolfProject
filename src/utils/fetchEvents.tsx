@@ -179,3 +179,27 @@ export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentP
     console.error('Error fetching user created events:', error);                
 }
 };
+
+
+export const approveEvent = async (formData:any, setMessage: any  ) => {
+  try {
+    const userID = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+
+    if (userID && token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const response = await axios.put(API_ENDPOINTS.APPROVE_EVENT, formData, {
+           
+        });
+
+        const data = response.data;
+        setMessage(data);
+        
+    } else {
+        console.error('apprive error');
+       
+    }
+} catch (error) {
+    console.error(error);                
+}
+};

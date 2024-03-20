@@ -7,7 +7,10 @@ const NotiContext = React.createContext<any>({});
 export const NotificationsContext = ({ children }: any) => {
   const [notifications, setNotifications] = useState<any>([])
   const [notificationData, setNotificationData] = useState<any>(null);
-
+  const [message, setMessage] = useState('')
+  const [formData, setFormData] = useState<any>({userId: undefined, eventId: undefined});
+  
+  
   useEffect(() => {
     const fetchDataWithDelay = async () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -26,9 +29,18 @@ export const NotificationsContext = ({ children }: any) => {
 
   const handleNotification = useCallback((value: any) => {
     setNotifications(value);
+  }, [message]);
+
+  const handleMessage = useCallback((value: any) => {
+    setMessage(value);
   }, []);
 
-  const value = { handleNotification,notifications,  notificationData }; 
+  const handleFormData = useCallback((value: any) => {
+    setFormData(value)
+  }, [])
+
+
+  const value = { handleNotification, handleMessage, handleFormData, formData, notifications,  notificationData }; 
 
   return <NotiContext.Provider value={value}> {children}</NotiContext.Provider>
 }

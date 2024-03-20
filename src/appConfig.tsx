@@ -29,7 +29,7 @@ export const API_ENDPOINTS = {
   DELETE_EVENT: `${API_BASE_URL}/${API_VERSION}/delete-event-by-id/`,
   UPDATE_EVENT: `${API_BASE_URL}/${API_VERSION}/update-event-by-id/`,
   GET_NOTIFICATION: `${API_BASE_URL}/${API_VERSION}/get-notifications`,
-  
+  APPROVE_EVENT: `${API_BASE_URL}/${API_VERSION}/approve-join-request`,
  
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,

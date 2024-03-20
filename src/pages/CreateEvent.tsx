@@ -8,7 +8,6 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { ToastProvider } from "../utils/ToastProvider";
-import { useToast } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -113,7 +112,6 @@ const CreateEvent: React.FC = () => {
     telephoneCheckbox: checkboxValues?.telephoneCheckbox,
     handicapCheckbox: checkboxValues?.handicapCheckbox,
   });
-  const { showToast } = useToast();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -246,7 +244,7 @@ const CreateEvent: React.FC = () => {
       });
 
       if (response.status === 201) {
-        showToast("Event created successfully", "green");
+        toast.success("Event created successfully");
         localStorage.removeItem("score");
         localStorage.removeItem("selected");
         localStorage.removeItem("par");
