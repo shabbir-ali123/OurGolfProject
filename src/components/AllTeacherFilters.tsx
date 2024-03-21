@@ -24,12 +24,8 @@ const AllTeacherFilters: React.FC = () => {
     handleSubjects(selectedSkills);
   };
 
-  const handleLocationChange = (e: any) => {
-    handleLocationSearch(e.target.value);
-  };
-
-  const handleNameChange = (e: any) => {
-    handleNameSearch(e.target.value);
+  const handleLocationChange = (selectedValue: any) => {
+    handleLocationSearch(selectedValue);
   };
 
   return (
