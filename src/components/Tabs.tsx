@@ -50,7 +50,7 @@ const Tabs: React.FC<TabsProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
-  const { handleEventStatus, clearFilter } = eventContextStore();
+  const { handleEventStatus, clearFilter, handleSearch } = eventContextStore();
   const itemsPerPage = 6;
 
   useEffect(() => {

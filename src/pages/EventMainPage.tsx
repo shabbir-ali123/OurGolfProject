@@ -18,7 +18,7 @@ const EventMainPage: FunctionComponent = () => {
   const [selectedLocations, setSelectedLocations] = useState<any[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
 
-  const { handleLocationFilter, clearFilter } = eventContextStore();
+  const { handleLocationFilter, clearFilter, handleSearch } = eventContextStore();
   useEffect(() => {
     handleLocationFilter(selectedLocations);
     if(clearFilter){

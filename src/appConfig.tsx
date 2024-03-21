@@ -30,7 +30,10 @@ export const API_ENDPOINTS = {
   UPDATE_EVENT: `${API_BASE_URL}/${API_VERSION}/update-event-by-id/`,
   GET_NOTIFICATION: `${API_BASE_URL}/${API_VERSION}/get-notifications`,
   APPROVE_EVENT: `${API_BASE_URL}/${API_VERSION}/approve-join-request`,
-  SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/search-event-by-name`,
+  SEARCH_EVENT: `${API_BASE_URL}/${API_VERSION}/search-event-by-name`,
+  SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/get-event-col-data`,
+ 
+ 
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
   GETALLTEACHERS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers`,

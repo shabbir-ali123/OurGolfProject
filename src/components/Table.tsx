@@ -330,7 +330,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </div>
                               <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md shadow-lg border border-solid border-white">
                                 <div className="text-[10px] text-white">
-                                  {event.comments.length}
+                                  {event.comments?.length}
                                 </div>
                               </div>
                             </div>

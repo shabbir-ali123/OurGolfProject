@@ -1,5 +1,5 @@
 import React, { Children, useCallback, useEffect, useState } from 'react';
-import { fetchCreatedEvents, fetchEventss, fetchSingleEvent } from '../utils/fetchEvents';
+import { fetchCreatedEvents, fetchEventss, fetchSeachedEvents, fetchSeachedEventsNames, fetchSingleEvent } from '../utils/fetchEvents';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API_ENDPOINTS } from '../appConfig';
 
@@ -7,6 +7,8 @@ const EventCreateContext = React.createContext<any>({});
 
 export const EventsContext = ({ children }: any) => {
     const [eventss, setEvents] = useState<any[]>([]);
+    const [eventsName, setEventsName] = useState<any[]>([]);
+
     const store_token: string = localStorage.getItem('token') || '';
     const [eventsCount, setEventsCount] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -16,6 +18,9 @@ export const EventsContext = ({ children }: any) => {
     const [endDate, setEndDate] = useState<string>("");
     const [eventStatus, setEventStatus] = useState<string>("past");
     const [clearFilter, setClearFilter] = useState<boolean>(false);
+    const [search, setSearch] =  useState<string>('');
+    const [initialSearch, setInitialSearch] =  useState<string>('');
+
     const navigate = useNavigate();
     useEffect(() => {
         if (clearFilter) {
@@ -24,17 +29,30 @@ export const EventsContext = ({ children }: any) => {
         }
     }, [clearFilter]);
     useEffect(() => {
-        const queryParams = {
-            store_token,
-            currentPage,
-            pageSize,
-            locations: locations,
-            startDate: startDate,
-            endDate: endDate,
-            eventStatus: eventStatus
-        };
-        fetchEventss(setEvents, setEventsCount, queryParams, navigate);
+        if(currentPage || pageSize || locations|| startDate || endDate ||eventStatus){
+            const queryParams = {
+                store_token,
+                currentPage,
+                pageSize,
+                locations: locations,
+                startDate: startDate,
+                endDate: endDate,
+                eventStatus: eventStatus
+            };
+            fetchEventss(setEvents, setEventsCount, queryParams, navigate);
+        }
+       
     }, [currentPage, pageSize, locations, startDate, endDate, eventStatus]);
+    useEffect(() => {
+        if(search){
+            fetchSeachedEvents(search, setEvents);
+        }
+        if(initialSearch){
+            fetchSeachedEventsNames(initialSearch, setEventsName);
+
+        }        
+       
+    }, [search, initialSearch]);
 
     const handleEvents = useCallback((value: any) => {
         return setEvents(value);
@@ -67,40 +85,14 @@ export const EventsContext = ({ children }: any) => {
     const handleEventStatus = useCallback((value: any) => {
         setEventStatus(value);
     }, [eventStatus]);
-    // const handleSearch = async (query:any) => {
-    //     console.log(`Searching for: ${query}`); // Debugging
-    //     const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-    //     if (!token) {
-    //         console.log("No token found in localStorage");
-    //         return; // Exit if no token is found
-    //     }
-    //     const headers = new Headers({
-    //         'Authorization': `Bearer ${token}`, // Use Bearer authentication scheme
-    //         'Content-Type': 'application/json',
-    //     });
+   
+    const handleSearch = useCallback((value: any) => {
+        setSearch(value);
+    }, [search]);
     
-    //     try {
-    //         const response = await fetch(`${API_ENDPOINTS.SEARCH_EVENT_NAME}?name=${query}`, {
-    //             method: 'GET',
-    //             headers: headers,
-    //         });
-    
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`); // Handle HTTP errors
-    //         }
-    
-    //         const data = await response.json();
-    //         console.log('Search results:', data); // Debugging
-    
-    //         if (data && data.events) {
-    //             setEvents(data.events);
-    //         } else {
-    //             console.log('No results or error in fetching'); // Debugging
-    //         }
-    //     } catch (error) {
-    //         console.error("Error fetching search results:", error);
-    //     }
-    // };
+    const handleInitialSearch = useCallback((value: any) => {
+        setInitialSearch(value);
+    }, [initialSearch]);
     
     const sortedPosts = [...eventss].sort((a, b) => {
         const dateA = new Date(a.createdAt);
@@ -108,7 +100,7 @@ export const EventsContext = ({ children }: any) => {
 
         return Number(dateB) - Number(dateA);
     });
-    const value = { handleEvents, handlePageChange, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear, clearFilter, locations, sortedPosts, eventss, eventsCount }
+    const value = { handleEvents, handlePageChange,handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,eventsName, clearFilter, locations, sortedPosts, eventss, eventsCount }
 
     return <EventCreateContext.Provider value={value}> {children}</EventCreateContext.Provider>
 }

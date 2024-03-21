@@ -207,3 +207,73 @@ export const approveEvent = async (formData:any, setMessage: any  ) => {
     console.error(error);                
 }
 };
+
+
+ export const fetchSeachedEvents = async (query:any, setEvents:any) => {
+      
+  const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        if (!token) {
+            console.log("No token found in localStorage");
+            return; // Exit if no token is found
+        }
+        const headers = new Headers({
+            'Authorization': `Bearer ${token}`, // Use Bearer authentication scheme
+            'Content-Type': 'application/json',
+        });
+    
+        try {
+            const response = await fetch(`${API_ENDPOINTS.SEARCH_EVENT}?name=${query}`, {
+                method: 'GET',
+                headers: headers,
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`); // Handle HTTP errors
+            }
+    
+            const data = await response.json();
+
+            
+            if (data && data.events) {
+                setEvents(data.events);
+            } else {
+                console.log('No results or error in fetching'); // Debugging
+            }
+        } catch (error) {
+            console.error("Error fetching search results:", error);
+        }
+    };
+export const fetchSeachedEventsNames = async (query:any, setEvents:any) => {
+      
+      const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+            if (!token) {
+                console.log("No token found in localStorage");
+                return; // Exit if no token is found
+            }
+            const headers = new Headers({
+                'Authorization': `Bearer ${token}`, // Use Bearer authentication scheme
+                'Content-Type': 'application/json',
+            });
+        
+            try {
+                const response = await fetch(`${API_ENDPOINTS.SEARCH_EVENT_NAME}?name=${query}`, {
+                    method: 'GET',
+                    headers: headers,
+                });
+        
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`); // Handle HTTP errors
+                }
+        
+                const data = await response.json();
+    
+                
+                if (data && data.events) {
+                    setEvents(data.events);
+                } else {
+                    console.log('No results or error in fetching'); // Debugging
+                }
+            } catch (error) {
+                console.error("Error fetching search results:", error);
+            }
+        };
