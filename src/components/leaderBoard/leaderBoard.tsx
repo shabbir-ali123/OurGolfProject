@@ -24,6 +24,21 @@ const LeaderBoardTables: FunctionComponent = () => {
   return (
     <div className="mx-5 ">
       <div className="px-3 overflow-x-auto">
+      <div className="flex gap-4">
+            <img
+              className="w-[57px] h-[103px]"
+              alt=""
+              src="/img/rectangle-1248@2x.png"
+            />
+            <b className="relative left-[-24px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+              {'Leader Board'}
+            </b>
+            <img
+              className="w-[57px] h-[103px] object-cover"
+              alt=""
+              src="/img/flag.png"
+            />
+          </div>
         <table className="w-full border-spacing-y-5 ">
           <thead className="text-left text-white ">
             <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
