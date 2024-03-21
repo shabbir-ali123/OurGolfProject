@@ -45,6 +45,7 @@ const SearchMainEventFilter: FunctionComponent = () => {
       </div>
       <button
         type="button"
+        onClick={handleClickSearch}
         className="inline-flex h-[40px] items-center gap-x-1.5 text-white bg-[#17B3A6] rounded-r-md px-4 cursor-pointer"
       >
         <FunnelIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
