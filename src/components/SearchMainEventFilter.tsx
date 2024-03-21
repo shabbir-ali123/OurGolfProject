@@ -2,6 +2,7 @@ import { FunnelIcon } from "@heroicons/react/24/outline";
 import { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { eventContextStore } from "../contexts/eventContext";
+import { Link } from "react-router-dom";
 
 const SearchMainEventFilter: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
@@ -38,7 +39,7 @@ const SearchMainEventFilter: FunctionComponent = () => {
       <div>
         <ul>
           {eventsName?.map((item: any) => {
-            return <li>{item.eventName}</li>;
+            return <li><Link to={"/edit-team/"+ item.id}>{item.eventName}</Link></li>;
           })}
         </ul>
       </div>
