@@ -52,7 +52,7 @@ const TeacherProfile: React.FC = () => {
   return (
     <div className="py-8">
       <form onSubmit={(e) => e.preventDefault()}>
-        <section className="h-full max-w-6xl mx-auto mt-6 text-center">
+        <section className="h-full max-w-7xl mx-auto mt-6 text-center">
           <div className="w-full py-6 text-start">
             <label className="text-lg font-bold" htmlFor="aboutMe">
               {t("ABOUT")}
@@ -69,7 +69,7 @@ const TeacherProfile: React.FC = () => {
           </div>
 
           <div className="py-6">
-            <div className="grid grid-cols-2 gap-4 text-start">
+            <div className="grid grid-cols-2 xl:grid grid-cols-1 gap-4 text-start ">
               <InputWithIcon
                 pname="firstName"
                 icon={<UserIcon />}

@@ -32,7 +32,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   return (
     <div>
       <div
-        className={`col-span-12 mx-10 lg:mx-0 sm:col-span-${colSpanSm} md:col-span-${colSpanMd} lg:col-span-${colSpanLg} py-2 md:mr-0 md:mb-0`}
+        className={`col-span-12 mx-0 lg:mx-4 sm:col-span-${colSpanSm} md:col-span-${colSpanMd} lg:col-span-${colSpanLg} py-0 xl:py-2 md:mr-0 md:mb-0`}
       >
         <label
           className="mb-2 text-xs font-bold tracking-wide text-gray-700 capitalize flex items-center gap-2"

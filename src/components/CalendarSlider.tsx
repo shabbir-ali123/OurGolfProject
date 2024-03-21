@@ -115,7 +115,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
           slidesToShow: 3,
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
     ],
@@ -127,7 +127,7 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
   };
 
   return (
-    <div className="border-solid border-2 border-[#51ff85] p-2 my-4">
+    <div className=" xl:mx-0 border-solid border-2 border-[#51ff85] p-2 my-4">
       <h2 className="mb-4 text-xl font-semibold">{t('WEEKLY_AVAILIBILTY')}</h2>
       <Slider
         {...settings}

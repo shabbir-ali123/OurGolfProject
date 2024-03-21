@@ -239,7 +239,7 @@ const CreateTeacher: React.FC = () => {
 
   // const user = JSON.parse(localStorage.getItem('user') || "");
   return (
-    <div className="py-8">
+    <div className="py-8 ">
       <div className="flex justify-start ml-16">
         <Link to="/student-page" className="-m-1.5 p-1 cusor-pointer">
         <FontAwesomeIcon
@@ -265,7 +265,7 @@ const CreateTeacher: React.FC = () => {
       />
 
       <section className="h-full max-w-6xl mx-auto mt-6 text-center">
-        <div className="w-full py-6 text-start">
+        <div className=" mx-10 xl:mx-0 xl:w-full py-6 text-start">
           <label className="text-lg font-bold" htmlFor="aboutMe">
             {t('ABOUT')}
           </label>
@@ -280,9 +280,9 @@ const CreateTeacher: React.FC = () => {
           ></textarea>
         </div>
 
-        <div className="py-6">
+        <div className="py-2 xl:py-6">
           <form onSubmit={handleFormSubmit}>
-            <div className="grid grid-cols-2 gap-4 text-start">
+            <div className="grid-cols-1 mx-10 xl:mx-0 xl:grid grid-cols-2 gap-4 text-start">
               <InputWithIcon
                 pname="firstName"
                 icon={<UserIcon />}
@@ -338,9 +338,9 @@ const CreateTeacher: React.FC = () => {
                 colSpanLg={2}
               />
             </div>
-            <div className="my-4 ">
+            <div className="my-4 mx-10   xl:mx-0">
               <CalendarSlider onWeekSelected={handleWeekSelected} />
-              <div className="grid grid-cols-8 gap-4 py-2 text-center">
+              <div className="grid grid-cols-8 gap-4 py-2 text-center ">
                 <div className="col-span-1 font-bold ">{t('TIME')}</div>
                 {selectedWeekStart &&
                   Array.from({ length: 7 }, (_, i) => {
@@ -350,7 +350,7 @@ const CreateTeacher: React.FC = () => {
                     return (
                       <div
                         key={date.toLocaleDateString()}
-                        className={`col-span-1 font-bold  ${date.getTime() === selectedTab?.getTime()
+                        className={`col-span-1 font-bold   ${date.getTime() === selectedTab?.getTime()
                           ? "selected-tab"
                           : ""
                           }`}

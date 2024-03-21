@@ -7,7 +7,7 @@ const EventCreateContext = React.createContext<any>({});
 
 export const EventsContext = ({ children }: any) => {
     const [eventss, setEvents] = useState<any[]>([]);
-    const [eventsName, setEventsName] = useState<any[]>([]);
+    const [eventsName, setEventsName] = useState<any>(null);
 
     const store_token: string = localStorage.getItem('token') || '';
     const [eventsCount, setEventsCount] = useState<any[]>([]);

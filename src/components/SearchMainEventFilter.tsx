@@ -36,13 +36,16 @@ const SearchMainEventFilter: FunctionComponent = () => {
           onFocus={handleFocus}
         />
       </div>
-      <div>
-        <ul>
+      {
+        eventsName && <div className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg p-4">
+        <ul className="p-0">
           {eventsName?.map((item: any) => {
-            return <li><Link to={"/edit-team/"+ item.id}>{item.eventName}</Link></li>;
+            return <li className="list-none text-start"><Link to={"/edit-team/"+ item.id} className="text-black">{item.eventName}</Link></li>;
           })}
         </ul>
       </div>
+      }
+   
       </div>
       <button
         type="button"
