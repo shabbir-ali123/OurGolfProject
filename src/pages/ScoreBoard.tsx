@@ -6,20 +6,20 @@ import IndiviualPlayerScore from "../components/LeaderBoardPlayerScore";
 import TeamPerformance from "../components/TeamPerformance";
 import ScoringTable from "../components/LiveScoringTable";
 import { useTranslation } from "react-i18next";
-import { useScoreContext } from "../contexts/scoreContext";
+import { ScoreContextProvider, useScoreContext } from "../contexts/scoreContext";
+import LeaderBoardTables from "../components/leaderBoard/leaderBoard";
 
 const ScoreBoard: FunctionComponent = () => {
-  const {score }  = useScoreContext();
-  console.log(score)
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+
   return (
     <div className="font-poppins">
       <div className="flex flex-col mx-[50px]">
         <ChampionShipName />
         <div className="grid self-center w-[1200px]"><Slider /></div>
         <div className="mt-[400px]">
-          <LeaderBoardSection />
+          <LeaderBoardTables/>
         </div>
         <IndiviualPlayerScore />
         <TeamPerformance title={t("DRIVER_CONTEST")} />

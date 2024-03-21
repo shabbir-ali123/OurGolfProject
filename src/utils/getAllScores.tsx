@@ -43,7 +43,6 @@ export const getScoreById = async ( setEventScore: any, eventId: any ) => {
   };
 
   export const postScores = async (score: any,) => {
-    console.log(score, 'score')
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
