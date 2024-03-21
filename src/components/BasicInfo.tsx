@@ -345,6 +345,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
                 onChange={handleChange}
                 className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
+              
 
               {!isWithinJapan && (
                 <p className="text-[#dc0000] bg-white text-center w-full">
