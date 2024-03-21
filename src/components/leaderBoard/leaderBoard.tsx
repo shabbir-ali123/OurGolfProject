@@ -22,7 +22,7 @@ const LeaderBoardTables: FunctionComponent = () => {
   document.body.dir = i18n.dir();
 
   return (
-    <div className="mx-5 ">
+    <div className=" mx-5 md:mx-[80px] ">
       <div className="px-3 overflow-x-auto">
       <div className="flex gap-4">
             <img
@@ -33,18 +33,14 @@ const LeaderBoardTables: FunctionComponent = () => {
             <b className="relative left-[-24px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
               {'Leader Board'}
             </b>
-            <img
-              className="w-[57px] h-[103px] object-cover"
-              alt=""
-              src="/img/flag.png"
-            />
+          
           </div>
         <table className="w-full border-spacing-y-5 ">
           <thead className="text-left text-white ">
             <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
               <LeaderBoard
                 title={t("HOLE")}
-                className="rounded-s-[3px] font-bold text-[24px] text-center"
+                className="rounded-s-[3px] font-bold text-[24px] text-start ml-4"
               />
 
               {Array.from({ length: 9 }, (_, index) => (
@@ -91,7 +87,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                         boxShadow: " 0px 0px 5px 0px #CF24EB",
                       }}
                     >
-                      {t("Individual")}
+                      {t("PAR")}
                     </div>
                   </td>
                   {
