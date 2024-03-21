@@ -38,7 +38,7 @@ const AllTeacherFilters: React.FC = () => {
       <div>
         <RatingFilter onRatingChange={handleRatingChange} />
         <LocationFilter handleLocationChange={handleLocationChange}/>
-        <NameFilter handleNameChange={handleNameChange}/>
+        
         <AvailabilityFilter onFilterChange={handleAvailabilityChange} />
         <TeacherSkills onSkillChange={handleSkillChange}/>
       </div>

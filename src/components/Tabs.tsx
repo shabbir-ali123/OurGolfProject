@@ -102,15 +102,16 @@ const Tabs: React.FC<TabsProps> = ({
                 <button
                   type="button"
                   onClick={() => setLocationPopupOpen(true)}
-                  className="py-4 flex justify-center w-[100px] xl:w-auto rounded-md sm:absolute left-[-88px] top-[-7px] items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
+                  className="py-4 flex justify-center w-[100px] xl:w-[120px] rounded-md sm:absolute left-[-88px] top-[-7px] items-center gap-x-1.5 text-[18px] px-6 mt-2 bg-[#17B3A6] text-white"
                 >
                   <MapPinIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
                   {filterLocation && filterLocation.length
                     ? filterLocation.length > 1
-                      ? `${filterLocation[0]} ...`
+                      ? `${filterLocation[0]}...`
                       : filterLocation[0]
-                    : "Location..."}
+                    : t("LOCATION")}
                 </button>
+
               </div>
               {Object.keys(categories).map((category) => (
                 <Tab
@@ -149,7 +150,7 @@ const Tabs: React.FC<TabsProps> = ({
                 </Tab>
               ))}
               <div className="flex justify-end ml-0 lg:ml-2 ">
-                <Calendar setEvents={setEvents} setFilterLocation={setFilterLocation}  />
+                <Calendar setEvents={setEvents} setFilterLocation={setFilterLocation} />
               </div>
 
             </div>

@@ -26,7 +26,7 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
     "CHUBU": ["Niigata Prefecture", "Toyama Prefecture", "Ishikawa Prefecture", "Fukui prefecture", "Yamanashi Prefecture", "Nagano"],
     "TOKAI": ["Shizuoka Prefecture", "Aichi prefecture", "Mie Prefecture", "Gifu Prefecture"],
     "KINKI": ["Shiga Prefecture", "Kyoto", "Osaka prefecture", "Hyogo prefecture", "Nara Prefecture", "Wakayama Prefecture"],
-    "SHIKOKU": ["Tottori prefecture", "Shimane Prefecture", "Okayama Prefecture", "Hiroshima", "Yamaguchi Prefecture", "Kagawa Prefecture", "Ehime Prefecture", "Kochi Prefecture", "KOCHI"],
+    "SHIKOKU": ["Tottori prefecture", "Shimane Prefecture", "Okayama Prefecture", "Hiroshima", "Yamaguchi Prefecture","Tokushima", "Kagawa Prefecture", "Ehime Prefecture", "Kochi Prefecture"],
     "KYUSHU": ["Fukuoka Prefecture", "Saga Prefecture", "Nagasaki Prefecture", "Kumamoto Prefecture", "Oita Prefecture", "Miyazaki prefecture", "Kagoshima prefecture", "Okinawa Prefecture"],
   };
 
