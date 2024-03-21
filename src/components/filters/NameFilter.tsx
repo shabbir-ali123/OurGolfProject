@@ -7,8 +7,8 @@ export default function NameFilter({handleNameChange}: any) {
     return (
         <>
                 <div>
-                    <div className='py-4'>
-                        <h3 className="block text-lg font-bold leading-6 text-gray-900 text-start">Name:</h3>
+                    <div className=''>
+                     
                         <div>
                            
                             <div className="relative mt-2 rounded-md shadow-sm">

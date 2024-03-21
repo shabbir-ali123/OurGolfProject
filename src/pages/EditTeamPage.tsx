@@ -54,7 +54,7 @@ interface SingleEvent {
   scoringType: string;
   shotsPerHoles: any;
   selectedHoles: any;
-  participationFee:any
+  participationFee: any
 
 }
 
@@ -341,7 +341,7 @@ const EditTeamPage: FunctionComponent = () => {
                   <div className="text-white bg-[#17b3a6]  rounded-lg">
                     <p className="p-1 px-2 m-0">{t('EVENT_DETAILS')}</p>
                   </div>
-                  <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl leading-[40px] font-semibold text-black">
+                  <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-16xl leading-[40px] font-semibold text-black">
                     {singleEvent?.eventName}
                   </div>
                   <div className="flex flex-row items-center justify-start gap-2 text-base md:text-xl text-darkslategray-300">
@@ -367,7 +367,7 @@ const EditTeamPage: FunctionComponent = () => {
                     {singleEvent?.place || t("NO_LOCATION")}
                   </div>
                   <div className="relative text-base md:text-xl  leading-[18px] text-lightseagreen-200">
-                    {singleEvent?.eventDetails || t("NO_LOCATION")}
+                    {singleEvent?.address || t("NO_ADDRESS")}
                   </div>
                 </div>
               </div>
@@ -430,6 +430,10 @@ const EditTeamPage: FunctionComponent = () => {
               <div className=" items-center gap-10 mx-2 w-full">
                 <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('EVENT_LOCATION')}</div>
                 <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
+                <div className="flex items-center gap-10  ">
+
+                  <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
+                </div>
                 <div className=" col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
                   <iframe
                     className="col-span-4 sm:col-span-4 rounded-2xl"
@@ -446,22 +450,19 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
               <div className=" items-center gap-10 mx-2 w-full">
                 <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('EVENT_DETAILS')}</div>
-                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">About Event :</span> {singleEvent?.eventDetails}</p>
+                <p className="py-0 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">About Event :</span> {singleEvent?.eventDetails}</p>
                 <div className="flex items-center gap-10  ">
 
                   <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
                     eventType}</p>
                 </div>
-                <div className="flex items-center gap-10  ">
 
-                  <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
-                </div>
               </div>
               <div className=" items-center gap-10 mx-2 w-full">
                 <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('TOTAL_PARTICIPANT')}</div>
                 <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('TOTAL_PARTICIPANT')} : </span> {totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
                 <div className="flex items-center   ">
-                
+
                   <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">  <span className="text-gray-500 basis-[200px] font-bold">{t('TEAM_SIZE')} :</span>{singleEvent?.teamSize}</p>
                 </div>
               </div>
@@ -469,19 +470,19 @@ const EditTeamPage: FunctionComponent = () => {
 
 
               <div className="flex items-center gap-10 mx-2 ">
-                
+
                 <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
               </div>
             </div>
 
             <div className=" items-center gap-10 mx-2 w-full">
-                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('PRICE')}</div>
-                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
-              </div>
-              <div className=" items-center gap-10 mx-2 w-full">
-                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('Cancel')}</div>
-                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">No Cancellation Fee</p>
-              </div>
+              <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('PRICE')}</div>
+              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
+            </div>
+            <div className=" items-center gap-10 mx-2 w-full">
+              <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('Cancel')}</div>
+              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">No Cancellation Fee</p>
+            </div>
           </div>
           <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
             <div className="flex gap-2 ">
@@ -547,6 +548,32 @@ const EditTeamPage: FunctionComponent = () => {
                 </table>
               </div>
             </div>
+            <div className="w-full ">
+                <div className="bg-[#17b3a6] text-white rounded-sm ">
+                  <h4 className="p-2">BookMarked Members</h4>
+                </div>
+                <table className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-full ">
+
+                  <tbody className="flex flex-wrap gap-2 p-1 py-2 ">
+                    {data.map((player, index) => (
+                      <tr key={index} className="border-b border-gray-200 shadow ">
+                        <td className="px-3 py-2 text-sm text-gray-500">
+                          <div className="flex items-center space-x-4">
+                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+
+                            </div>
+                          </div>
+                        </td>
+
+
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
           </div>
 
           <div className="flex items-end gap-40">
@@ -576,10 +603,10 @@ const EditTeamPage: FunctionComponent = () => {
           {/* <EditTeamScore /> */}
           {/* edit team div */}
           <div className="mr-4 lg:mr-0 lg:w-full   shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-2 xl:p-10 mt-10 ">
-            <div className="flex items-end gap-40">
+            <div className="xl:flex items-center  gap-40">
               {isCreated ? (
                 <>
-                  <div className="flex gap-2 ">
+                  <div className="flex gap-2 m-4 xl:m-0">
                     <div>
                       <img src="/img/golfplyr.png" alt="" width="40px" />
                       <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
@@ -587,13 +614,13 @@ const EditTeamPage: FunctionComponent = () => {
                       </b>
                     </div>
                   </div>
-                  <div className="flex gap-2 place-self-end">
-                    <div className="flex items-center gap-2 ">
+                  <div className="xl:flex gap-2 place-self-end">
+                    <div className="flex-wrap  xl:flex items-center gap-2 m-4 xl:m-0">
                       <label
                         className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
                         htmlFor="teamSize"
                       >
-                        Capacity
+                        {t('CAPACITY')}
                       </label>
                       <input
                         className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
@@ -605,12 +632,12 @@ const EditTeamPage: FunctionComponent = () => {
                         min="0"
                       />
                     </div>
-                    <div className="flex items-center gap-2 ">
+                    <div className="flex-wrap xl:flex items-center gap-2 m-4 xl:m-0">
                       <label
                         className="block mb-2 text-xs font-normal tracking-wide text-black capitalize"
                         htmlFor="teamSize"
                       >
-                        Team Size
+                        {t('TEAM_SIZE')}
                       </label>
                       <input
                         className="appearance-none block w-[80px] bg-gray-200 text-green border border-[#51ff85] bg-transparent hover:animate-bounce rounded py-2 px-2 mb-0 leading-tight focus:outline-none "
@@ -627,7 +654,7 @@ const EditTeamPage: FunctionComponent = () => {
                       />
                     </div>
                     <button
-                      className="px-2 py-1 font-normal text-white bg-blue-500 rounded hover:bg-blue-700"
+                      className="px-2 py-1 font-normal text-white bg-blue-500 rounded hover:bg-blue-700 m-4 xl:m-0"
                       onClick={handleOpenPlayerList}
                     >
                       Remove Players List
@@ -647,14 +674,14 @@ const EditTeamPage: FunctionComponent = () => {
                     {/* Your content here */}
                   </div>
                   <div className="flex justify-end w-full">
-                  <button
-                    className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
-                    onClick={() => router(`/add-score-page/${singleEvent?.id}`)}
-                  >
-                    {t('Add Score')}
-                  </button>
+                    <button
+                      className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                      onClick={() => router(`/add-score-page/${singleEvent?.id}`)}
+                    >
+                      {t('Add Score')}
+                    </button>
                   </div>
-                  
+
                 </>
               ) : (
                 <>
@@ -741,7 +768,7 @@ const EditTeamPage: FunctionComponent = () => {
             {isCreated && (
               <div className="flex justify-end ">
                 <button
-                  className="px-4 py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                  className="px-4 py-2 m-2 xl:m-0 xl:py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                   onClick={updateTeams}
                 >
                   {t('UPDATE_TEAM')}
