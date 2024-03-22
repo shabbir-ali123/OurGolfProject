@@ -96,7 +96,7 @@ export const fetchSinglePosts = async (setSinglePosts: any, id: any) => {
   }
 };
 
-export const addPostComment = async (formData: any) => {
+export const addPostComment = async (formData: any, handleMessage?: any) => {
   try {
     const response = await axios.post(API_ENDPOINTS.ADDPOSTCOMMENT, formData, {
       headers: {
@@ -106,7 +106,9 @@ export const addPostComment = async (formData: any) => {
     });
 
     if (response.status === 201) {
+      handleMessage(response.data)
       return response.data;
+
     } else {
       throw new Error("Failed to add comment");
     }
