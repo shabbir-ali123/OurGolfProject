@@ -1,10 +1,10 @@
 // http://18.216.79.130:5000
 // http://localhost:5000
-const API_BASE_URL = "http://localhost:5000"
+const API_BASE_URL = "http://18.216.79.130:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
-  //authe
+  //authen
   REGISTER: `${API_BASE_URL}/${API_VERSION}/register`,
   LOGIN: `${API_BASE_URL}/${API_VERSION}/login`,
   UPDATEUSERPROFILE: `${API_BASE_URL}/${API_VERSION}/edit-user-profile/`, 
