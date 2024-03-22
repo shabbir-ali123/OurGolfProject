@@ -118,6 +118,9 @@ button:disabled{
 .comment-content {
   white-space: pre-line;
 }
+.preserve-format {
+  white-space: pre-wrap;
+}
 .grid-cols-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 

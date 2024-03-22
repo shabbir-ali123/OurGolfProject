@@ -19,7 +19,7 @@ useEffect(()=>{
             hash="L6AU_;uD4mx1EeR8jKtM4mxu^nIm"
           
             punch={1}
-            style={{ height:'250px', width: '100%', minWidth: '180px' }}
+            style={{ height:'500px', width: '100%', minWidth: '180px' }}
             />
         
 
@@ -28,7 +28,7 @@ useEffect(()=>{
         <img
             src={src}
             alt =""
-            className={`${!imageLoading ? "hidden" : "rounded-lg  object-fit  h-[250px] w-full lg:w-[180px] block"}`}
+            className={`${!imageLoading ? "hidden" : "rounded-lg  object-fit  h-[500px] w-full lg:w-full block"}`}
 
         /> 
      
