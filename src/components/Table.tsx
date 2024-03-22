@@ -353,7 +353,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           <div className="flex items-center justify-start my-1 ml-4">
                             <button
                               className="bg-[#52FF86] hover:bg-black text-white font-bold py-1 px-4 rounded cursor-pointer"
-                              onClick={() => router(`/score-board`)}
+                              onClick={() => router(`/score-board/${event.id}`)}
                             >
                               {t("VIEW")}
                             </button>
