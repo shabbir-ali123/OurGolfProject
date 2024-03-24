@@ -50,15 +50,18 @@ const AllEvents: React.FC<AllEventsProps> = ({
   const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
   const currentEvents = localEvents.slice(indexOfFirstEvent, indexOfLastEvent);
 
-  const { eventsCount, handlePageChange, handlePageSize, handleEventStatus } = eventContextStore();
+  const { eventsCount, handlePageChange, handlePageSize,handleStartDate,handleEndDate, handleEventStatus } = eventContextStore();
   const totalPages = Math.ceil(eventsCount / 6); 
   const onPageChange = (pageNumber: any) => {
     setCurrentPage(pageNumber); 
     handlePageChange(pageNumber); 
   };
+  handleEventStatus('All');
 
   useEffect(() => {
     handleEventStatus('All');
+    handleStartDate('')
+    handleEndDate('')
   }, []);
 
   return (

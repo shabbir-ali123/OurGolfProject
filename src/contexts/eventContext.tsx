@@ -1,5 +1,5 @@
 import React, { Children, useCallback, useEffect, useState } from 'react';
-import { fetchCreatedEvents, fetchEventss, fetchSeachedEvents, fetchSeachedEventsNames, fetchSingleEvent } from '../utils/fetchEvents';
+import { fetchCreatedEvents, fetchEventss, fetchFavoriteEvents, fetchJoinedEvents, fetchSeachedEvents, fetchSeachedEventsNames, fetchSingleEvent } from '../utils/fetchEvents';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API_ENDPOINTS } from '../appConfig';
 
@@ -8,7 +8,10 @@ const EventCreateContext = React.createContext<any>({});
 export const EventsContext = ({ children }: any) => {
     const [eventss, setEvents] = useState<any[]>([]);
     const [eventsName, setEventsName] = useState<any>(null);
+    const [joinedEvents, setJoinedEvents] = useState<any[]>([])
+    const [favoriteEvents, setFavoriteEvents] = useState<any[]>([])
 
+    
     const store_token: string = localStorage.getItem('token') || '';
     const [eventsCount, setEventsCount] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -29,18 +32,26 @@ export const EventsContext = ({ children }: any) => {
         }
     }, [clearFilter]);
     useEffect(() => {
-        if(currentPage || pageSize || locations|| startDate || endDate ||eventStatus){
-            const queryParams = {
-                store_token,
-                currentPage,
-                pageSize,
-                locations: locations,
-                startDate: startDate,
-                endDate: endDate,
-                eventStatus: eventStatus
-            };
+        const queryParams = {
+            store_token,
+            currentPage,
+            pageSize,
+            locations: locations,
+            startDate: startDate,
+            endDate: endDate,
+            eventStatus: eventStatus
+        };
+        if(eventStatus=="All" ||eventStatus =="live" || eventStatus =="past" || eventStatus=="upcomming"){
+           
+
             fetchEventss(setEvents, setEventsCount, queryParams, navigate);
         }
+        if(eventStatus == "joined"){
+            fetchJoinedEvents(setEvents,setEventsCount, queryParams)
+        } 
+       if(eventStatus == "fav"){
+        fetchFavoriteEvents(setEvents,setEventsCount, queryParams)
+       }
        
     }, [currentPage, pageSize, locations, startDate, endDate, eventStatus]);
     useEffect(() => {
@@ -49,10 +60,11 @@ export const EventsContext = ({ children }: any) => {
         }
         if(initialSearch){
             fetchSeachedEventsNames(initialSearch, setEventsName);
-
         }        
+     
        
     }, [search, initialSearch]);
+
 
     const handleEvents = useCallback((value: any) => {
         return setEvents(value);
@@ -94,13 +106,17 @@ export const EventsContext = ({ children }: any) => {
         setInitialSearch(value);
     }, [initialSearch]);
     
-    const sortedPosts = [...eventss].sort((a, b) => {
-        const dateA = new Date(a.createdAt);
-        const dateB = new Date(b.createdAt);
+    // const sortedPosts = [...eventss].sort((a, b) => {
+    //     const dateA = new Date(a.createdAt);
+    //     const dateB = new Date(b.createdAt);
 
-        return Number(dateB) - Number(dateA);
-    });
-    const value = { handleEvents, handlePageChange,handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,eventsName, clearFilter, locations, sortedPosts, eventss, eventsCount }
+    //     return Number(dateB) - Number(dateA);
+    // });
+    const handleJoinedEvents = useCallback((value: any) => {
+        setJoinedEvents(value);
+    }, [joinedEvents]);
+
+    const value = { handleEvents, handlePageChange,handleJoinedEvents, handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,joinedEvents, eventsName, clearFilter, locations, eventss, eventsCount }
 
     return <EventCreateContext.Provider value={value}> {children}</EventCreateContext.Provider>
 }

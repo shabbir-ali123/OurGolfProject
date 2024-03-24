@@ -40,10 +40,10 @@ interface TableProps {
   handleFavorite?: (eventId: string) => void;
 }
 
-const Table: React.FunctionComponent<TableProps> = ({ events }) => {
+const BookmarkEvent: React.FunctionComponent<TableProps> = ({ events }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { eventss, handleEvents } = eventContextStore();
+  const { joinedEvents, handleJoinedEvents } = eventContextStore();
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
@@ -67,7 +67,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       );
 
       if (response.status === 200) {
-        handleEvents((prevs: any) =>
+        handleJoinedEvents((prevs: any) =>
           prevs.map((e: any) =>
             e.id === eventId
               ? {
@@ -105,7 +105,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       );
 
       if (response.status === 200) {
-        handleEvents((prev: any) =>
+        handleJoinedEvents((prev: any) =>
           prev.map((e: any) =>
             e.id === event.id
               ? {
@@ -140,10 +140,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const userId = localStorage.getItem("id");
 
 
+  console.log(joinedEvents, "joinedEvents")
 
   return (
     <div className="animate__animated animate__fadeInLeft">
-      {(eventss || []).length === 0 ? (
+      {(joinedEvents || []).length === 0 ? (
         <div className="p-5 text-center">
           <span className="text-lg font-medium">No events yet</span>
         </div>
@@ -197,7 +198,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     </tr>
                   </thead>
 
-                  {eventss.map((event: any, index: number) => {
+                  {joinedEvents?.map((event: any, index: number) => {
                     const likes = event.likes || [];
                     const isFavorite = event.isFavorite || false;
                     const liked = likes.find(
@@ -381,8 +382,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   );
 };
 
-Table.defaultProps = {
-  events: [],
-};
 
-export default Table;
+
+export default BookmarkEvent;

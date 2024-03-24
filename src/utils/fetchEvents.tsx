@@ -277,3 +277,61 @@ export const fetchSeachedEventsNames = async (query:any, setEvents:any) => {
                 console.error("Error fetching search results:", error);
             }
         };
+
+export const fetchJoinedEvents = async (setJoinedEvents:any, setEventsCount:any, queryParams:any,) => {
+  const { store_token,currentPage, locations, startDate, endDate,pageSize, eventStatus} = queryParams;
+       
+  try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+              toast.error(          `You are Not Login! Please Login`)        ;
+              return;
+            }
+    
+            const response = await axios.get(API_ENDPOINTS.GETJOINEDEVENTS, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              params: {
+                page: currentPage,
+                pageSize: pageSize,
+              
+              },
+             
+            });
+    
+            setJoinedEvents(response.data || []); 
+            setEventsCount(response.data.count)
+
+          } catch (error) {
+           
+          }
+        };
+
+export const fetchFavoriteEvents = async (setFavoriteEvents:any, setEventsCount:any, queryParams:any,) => {
+  const { store_token,currentPage, locations, startDate, endDate,pageSize, eventStatus} = queryParams;
+
+            try {
+              const token = localStorage.getItem("token");
+              if (!token) {
+                console.error("User not authenticated");
+                return;
+              }
+              const response = await axios.get(API_ENDPOINTS.GETFAVEVENTS, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                params: {
+                  page: currentPage,
+                  pageSize: pageSize,
+                
+                },
+              });
+              setFavoriteEvents(response.data.events);
+              setEventsCount(response.data.count)
+            } catch (error) {
+              toast.error(          `You are Not Login! Please Login`)        ;
+            }
+          };
+      
+        

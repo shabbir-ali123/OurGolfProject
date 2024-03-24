@@ -6,6 +6,8 @@ import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
+import { eventContextStore } from "../contexts/eventContext";
+import CreatedEventTable from "../components/CreatedEventTable";
 
 interface Event {
   id: string;
@@ -33,31 +35,15 @@ const BookMarkedEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [pageSize] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
+  const { eventsCount, handlePageChange, handlePageSize, handleEventStatus } = eventContextStore();
+  const totalPages = Math.ceil(eventsCount / 6); 
+  const onPageChange = (pageNumber: any) => {
+    setCurrentPage(pageNumber); 
+    handlePageChange(pageNumber); 
+  };
 
   useEffect(() => {
-    const fetchFavoriteEvents = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("User not authenticated");
-          return;
-        }
-        const response = await axios.get(API_ENDPOINTS.GETFAVEVENTS, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            page: 1,
-            pageSize: 50000, 
-          },
-        });
-        setEvents(response.data.events);
-      } catch (error) {
-        toast.error(          `You are Not Login! Please Login`)        ;
-      }
-    };
-
-    fetchFavoriteEvents();
+    handleEventStatus('fav');
   }, []);
 
   const itemsPerPage = 6;
@@ -66,20 +52,19 @@ const BookMarkedEvents: React.FC = () => {
   const localEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
   const isPreviousDisabled = currentPage === 1;
   const isNextDisabled = indexOfLastEvent >= events.length;
-  const totalPages = Math.ceil(events.length / itemsPerPage);
 
 
   return (
     <div className="grid grid-cols-1 gap-6 mx-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3 ">
-        <Table events={localEvents}  />
-        <Pagination
+      <Table />
+      <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={(page: any) => setCurrentPage(page)}
+          onPageChange={onPageChange}
           pageSize={pageSize}
-          isPreviousDisabled={isPreviousDisabled}
-          isNextDisabled={isNextDisabled}
+          isPreviousDisabled={currentPage === 1}
+          isNextDisabled={currentPage === totalPages}
         />
       </div>
       <div className="">

@@ -46,6 +46,9 @@ const UpcomingEvents:  React.FC<TabsProps> = ({ events, setEvents }: TabsProps) 
  const handleLike = (eventId: string) => {
   console.log(`Liked event with ID: ${eventId}`);
 };
+useEffect(() => {
+  handleEventStatus('upcomming')
+}, []);
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">
