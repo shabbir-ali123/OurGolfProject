@@ -1,17 +1,17 @@
-import React, { ReactNode, useRef } from "react";
+import React, { useState, useRef } from "react";
 
 interface ProfileAvatarProps {
-  icon: ReactNode;
-  label: string;
-  pname: string;
+  icon?: any;
+  label?: string;
+  pname?: string;
   placeholder?: string;
   colSpanSm?: number;
   colSpanMd?: number;
   colSpanLg?: number;
   iconWidth?: string;
   iconHeight?: string;
-  imageUrl?: any;
-  onChangeImage?: (file: File) => void; 
+  defaultImageUrl?: string;
+  onChangeImage?: any; 
 }
 
 const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
@@ -24,9 +24,10 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   iconWidth = "24px",
   iconHeight = "24px",
   pname,
-  imageUrl = "/img/profile1.png",
+  defaultImageUrl = "/img/profile1.png",
   onChangeImage,
 }) => {
+  const [imageUrl, setImageUrl] = useState(defaultImageUrl);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
@@ -36,19 +37,27 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile && onChangeImage) {
-      onChangeImage(selectedFile);
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setImageUrl(result);
+        if (onChangeImage) {
+          onChangeImage(file);
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   return (
     <div>
-      
       <div className="relative h-20 mt-10 bg-gradient-to-r from-blue-400 to-red-800 ">
         <div
-          className="absolute left-60 bottom-[-60] top-[-36px] border-10 border-solid-green "
+          className="absolute left-60 bottom-[-60px] top-[-36px] "
           onClick={handleImageClick}
+          style={{ cursor: "pointer" }}
         >
           <img
             className="rounded-full"
@@ -56,7 +65,6 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
             width="150px"
             height="150px"
             alt={pname}
-            style={{ cursor: "pointer " }}
           />
           <input
             type="file"
@@ -66,7 +74,6 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
             onChange={handleFileInputChange}
           />
         </div>
-     
       </div>
     </div>
   );

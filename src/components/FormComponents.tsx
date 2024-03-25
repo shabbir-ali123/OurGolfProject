@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 
 interface InputWithIconProps {
   icon: ReactNode;
@@ -13,6 +13,8 @@ interface InputWithIconProps {
   value?: string;
   ptype?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  variant?: string;
+  handleImageChange?: any;
 }
 
 const InputWithIcon: React.FC<InputWithIconProps> = ({
@@ -28,7 +30,22 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   iconHeight = "24px",
   value,
   onChange,
+  variant,
+  handleImageChange
 }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  const removeSelectedFile = (index: number) => {
+    const updatedFiles = [...selectedFiles];
+    updatedFiles.splice(index, 1);
+    setSelectedFiles(updatedFiles);
+    // setFormData((prevFormData: CreatePostType) => ({
+    //   ...prevFormData,
+    //   mediaFiles: updatedFiles,
+    // }));
+  };
   return (
     <div>
       <div
@@ -46,6 +63,55 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
           </span>
           {label}
         </label>
+        {
+          variant == 'video' ? (
+            <>
+            <div className="flex flex-wrap gap-4 mt-2  ">
+              {selectedFiles.map((file: any, index: any) => (
+                <div key={index} className="relative ">
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={`file-${index}`}
+                    className="w-16 h-16 object-cover rounded-lg "
+                  />
+                  <button
+                    className="absolute top-0 right-[-10px] h-4 w-4 bg-[#61cbc2] rounded-full text-white text-[14px] flex justify-center items-center cursor-pointer"
+                    onClick={() => removeSelectedFile(index)}
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+            <input
+            id="file-upload"
+            name="mediaFiles"
+            ref={fileInputRef}
+            className="hidden "
+            type="file"
+            multiple
+            onChange={handleImageChange}
+            accept="video/*"
+          />
+          <label
+                  htmlFor="file-upload"
+                  className="flex items-center justify-center p-4  border-2 border-dashed rounded-lg border-[#61cbc2] cursor-pointer"
+                >
+                  <svg
+                    className="w-6 h-6 text-gray-600"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 4v16m8-8H4"></path>
+                  </svg>
+                </label>
+                </>
+          ) :
+        
         <input
           className="appearance-none block w-full bg-white text-gray-700 border border-[#d9d9d9] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white "
           id={pname}
@@ -55,7 +121,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
           value={value}
           onChange={onChange}
         />
-        
+          }
       </div>
     </div>
   );

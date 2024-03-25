@@ -124,14 +124,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               style={{ height: "220px" }}
 
             />{" "}
-            {/* <textarea
-              className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
-              placeholder={t("WRITE_TEXT")}
-              name="text"
-              value={formData?.text}
-              onChange={handleInputTextChange}
-              // rows={4}
-            ></textarea> */}
+          
           </div>
 
           <div>

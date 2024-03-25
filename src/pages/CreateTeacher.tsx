@@ -35,12 +35,16 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 const CreateTeacher: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
+    profileImg: [],
     aboutMyself: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
     location: "",
+    introduction: "",
+    mediaFiles: [],
     schedules: [
       {
         startDate: "",
@@ -49,10 +53,10 @@ const CreateTeacher: React.FC = () => {
           {
             day: "",
             startTime: "",
-            endTime: ""
-          }
-        ]
-      }
+            endTime: "",
+          },
+        ],
+      },
     ],
   });
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
@@ -107,30 +111,51 @@ const CreateTeacher: React.FC = () => {
     }));
   };
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    console.log(files, "filessl");
+    if (files && files.length > 0) {
+      const filesArray: File[] = Array.from(files).slice(0, 5);
+      const formData = new FormData();
+
+      filesArray.forEach((file, index) => {
+        formData.append(`mediaFile${index}`, file);
+      });
+      setSelectedFiles([...selectedFiles, ...filesArray]);
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
+    }));
+    }
+  };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const onfitmData = selectedTimeSlots.map((timeSlot) => {
-      const [timeRange, , date] = timeSlot.split(' on ');
-      const [startTime, endTime] = timeRange.split(' to ');
-      const day = timeSlot.split('on ')[1].split(' -')[0].trim();
+      const [timeRange, , date] = timeSlot.split(" on ");
+      const [startTime, endTime] = timeRange.split(" to ");
+      const day = timeSlot.split("on ")[1].split(" -")[0].trim();
 
       const endDates = new Date(selectedWeekStart!);
       endDates.setDate(selectedWeekStart!.getDate() + 7); // Add 7 days to the selectedWeekStart
 
-      const newEndDate = endDates.toISOString().split('T')[0];
+      const newEndDate = endDates.toISOString().split("T")[0];
       const formatedDate = new Date(selectedWeekStart!);
-      formatedDate.setMinutes(formatedDate.getMinutes() - formatedDate.getTimezoneOffset());
-      const formattedDate = formatedDate.toISOString().split('T')[0];
-
+      formatedDate.setMinutes(
+        formatedDate.getMinutes() - formatedDate.getTimezoneOffset()
+      );
+      const formattedDate = formatedDate.toISOString().split("T")[0];
 
       return {
         startDate: formattedDate,
         endDate: newEndDate,
-        shifts: [{
-          day,
-          startTime,
-          endTime,
-        }],
+        shifts: [
+          {
+            day,
+            startTime,
+            endTime,
+          },
+        ],
       };
     });
 
@@ -138,24 +163,32 @@ const CreateTeacher: React.FC = () => {
       ...formData,
       schedules: onfitmData,
     };
+
     try {
       const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       if (response.status === 201) {
         localStorage.setItem("teacher_id", response.data.teacher.id);
-        toast.success('Teacher Created Successfully', toastProperties as ToastConfig)
+        toast.success(
+          "Teacher Created Successfully",
+          toastProperties as ToastConfig
+        );
       }
     } catch (error) {
-      const handleError = alert((error as any)?.response?.data?.message || "Error Occurred");
-      toast.error(`${handleError}`, toastProperties as ToastConfig)
+      const handleError = alert(
+        (error as any)?.response?.data?.message || "Error Occurred"
+      );
+      toast.error(`${handleError}`, toastProperties as ToastConfig);
     }
+    console.log(formData)
   };
 
+ 
   const handleWeekSelected = (date: Date) => {
     setSelectedWeekStart(date);
   };
@@ -182,15 +215,16 @@ const CreateTeacher: React.FC = () => {
       const newActiveStates = prev.map((dayStates, index) =>
         index === hourIndex
           ? dayStates.map((isActive, i) =>
-            i === dayIndex ? !isActive : isActive
-          )
+              i === dayIndex ? !isActive : isActive
+            )
           : [...dayStates]
       );
       return newActiveStates;
     });
 
-    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${selectedWeekStart?.toLocaleDateString() || ""
-      }`;
+    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${
+      selectedWeekStart?.toLocaleDateString() || ""
+    }`;
 
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
@@ -202,22 +236,28 @@ const CreateTeacher: React.FC = () => {
     });
   };
 
-
-  const handleTimeSlotClick = (dateKey: any, hour: string, hourIndex: number) => {
+  const handleTimeSlotClick = (
+    dateKey: any,
+    hour: string,
+    hourIndex: number
+  ) => {
     const date = new Date(dateKey);
 
     if (!isNaN(date.getTime())) {
-      const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
+      const dateFormatter = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+      });
       const dateParts = dateFormatter.formatToParts(date);
-      const dayName = dateParts.find((part) => part.type === "weekday")?.value || "";
+      const dayName =
+        dateParts.find((part) => part.type === "weekday")?.value || "";
       toggleAvailability(dayName, hour, hourIndex);
     } else {
-      console.error('Invalid date:', date);
+      console.error("Invalid date:", date);
       return; // Exit the function or handle it as required
     }
 
     const newShift = {
-      day: 'sunday',
+      day: "sunday",
       startTime: hour,
       endTime: "",
     };
@@ -237,28 +277,34 @@ const CreateTeacher: React.FC = () => {
     });
   };
 
+  
   // const user = JSON.parse(localStorage.getItem('user') || "");
   return (
     <div className="py-8 ">
       <div className="flex justify-start ml-16">
         <Link to="/student-page" className="-m-1.5 p-1 cusor-pointer">
-        <FontAwesomeIcon
-          icon={faArrowLeft}
-          style={{ background: "#51ff85", padding: "10px", borderRadius: "50%" }}
-        />
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            style={{
+              background: "#51ff85",
+              padding: "10px",
+              borderRadius: "50%",
+            }}
+          />
         </Link>
-       
-
       </div>
       <ProfileAvatar
         pname=""
         icon={<ShareIcon />}
-        label={t('FIRST_NAME')}
+        label={t("FIRST_NAME")}
         // imageUrl={user?.imageUrl}
-        onChangeImage={(file) => {
-          console.log("Selected file:", file);
+        onChangeImage={(file: any) => {
+          setFormData((prevFormData: any) => ({
+            ...prevFormData,
+            profileImg: [...prevFormData.mediaFiles, file],
+          }));
         }}
-        placeholder={t('FIRST_NAME')}
+        placeholder={t("FIRST_NAME")}
         colSpanSm={6}
         colSpanMd={4}
         colSpanLg={2}
@@ -267,7 +313,7 @@ const CreateTeacher: React.FC = () => {
       <section className="h-full max-w-6xl mx-auto mt-6 text-center">
         <div className=" mx-10 xl:mx-0 xl:w-full py-6 text-start">
           <label className="text-lg font-bold" htmlFor="aboutMe">
-            {t('ABOUT')}
+            {t("ABOUT")}
           </label>
           <textarea
             id="aboutMyself"
@@ -276,7 +322,7 @@ const CreateTeacher: React.FC = () => {
             onChange={handleChange}
             rows={4}
             className="w-full border border-[#51ff85]"
-            placeholder={t('BIO')}
+            placeholder={t("BIO")}
           ></textarea>
         </div>
 
@@ -286,10 +332,10 @@ const CreateTeacher: React.FC = () => {
               <InputWithIcon
                 pname="firstName"
                 icon={<UserIcon />}
-                label={t('FIRST_NAME')}
+                label={t("FIRST_NAME")}
                 value={formData.firstName}
                 onChange={handleChange}
-                placeholder={t('ENTER_FIRST_NAME')}
+                placeholder={t("ENTER_FIRST_NAME")}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -297,10 +343,10 @@ const CreateTeacher: React.FC = () => {
               <InputWithIcon
                 pname="lastName"
                 icon={<UserIcon />}
-                label={t('LAST_NAME')}
+                label={t("LAST_NAME")}
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder={t('ENTER_LAST_NAME')}
+                placeholder={t("ENTER_LAST_NAME")}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -308,9 +354,9 @@ const CreateTeacher: React.FC = () => {
               <InputWithIcon
                 pname="hourlyRate"
                 icon={<EnvelopeOpenIcon />}
-                label={t('Hourly')}
+                label={t("Hourly")}
                 onChange={handleChange}
-                placeholder={t('ENTER_RATE')}
+                placeholder={t("ENTER_RATE")}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -318,10 +364,10 @@ const CreateTeacher: React.FC = () => {
               <InputWithIcon
                 pname="phoneNumber"
                 icon={<PhoneIcon />}
-                label={t('MOBILE')}
+                label={t("MOBILE")}
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                placeholder={t('ENTER_MOBILE')}
+                placeholder={t("ENTER_MOBILE")}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -329,10 +375,32 @@ const CreateTeacher: React.FC = () => {
               <InputWithIcon
                 pname="location"
                 icon={<MapPinIcon />}
-                label={t('LOCATION')}
+                label={t("LOCATION")}
                 value={formData.location}
                 onChange={handleChange}
-                placeholder={t('ENTER_LOCATION')}
+                placeholder={t("ENTER_LOCATION")}
+                colSpanSm={6}
+                colSpanMd={4}
+                colSpanLg={2}
+              />
+              <InputWithIcon
+                pname="introduction"
+                icon={<MapPinIcon />}
+                label="Introduction Video URL"
+                value={formData.introduction}
+                onChange={handleChange}
+                placeholder="Enter Portfolio Video URL"
+                colSpanSm={6}
+                colSpanMd={4}
+                colSpanLg={2}
+              />
+              <InputWithIcon
+                variant="video"
+                pname="videos"
+                icon={<MapPinIcon />}
+                label={"Portfolio Videos"}
+                value={formData.location}
+                handleImageChange={handleImageChange}
                 colSpanSm={6}
                 colSpanMd={4}
                 colSpanLg={2}
@@ -341,7 +409,7 @@ const CreateTeacher: React.FC = () => {
             <div className="my-4 mx-10   xl:mx-0">
               <CalendarSlider onWeekSelected={handleWeekSelected} />
               <div className="grid grid-cols-8 gap-4 py-2 text-center ">
-                <div className="col-span-1 font-bold ">{t('TIME')}</div>
+                <div className="col-span-1 font-bold ">{t("TIME")}</div>
                 {selectedWeekStart &&
                   Array.from({ length: 7 }, (_, i) => {
                     const date = new Date(
@@ -350,10 +418,11 @@ const CreateTeacher: React.FC = () => {
                     return (
                       <div
                         key={date.toLocaleDateString()}
-                        className={`col-span-1 font-bold   ${date.getTime() === selectedTab?.getTime()
-                          ? "selected-tab"
-                          : ""
-                          }`}
+                        className={`col-span-1 font-bold   ${
+                          date.getTime() === selectedTab?.getTime()
+                            ? "selected-tab"
+                            : ""
+                        }`}
                         onClick={() => handleTabClick(date)}
                       >
                         {t(getDayName(date).toLocaleUpperCase())}
@@ -373,19 +442,20 @@ const CreateTeacher: React.FC = () => {
                       Array.from({ length: 7 }, (_, dayIndex) => {
                         const date = new Date(
                           selectedWeekStart.getTime() +
-                          dayIndex * 24 * 60 * 60 * 1000
+                            dayIndex * 24 * 60 * 60 * 1000
                         );
-                        const dateKey = date.toISOString().split('T');
+                        const dateKey = date.toISOString().split("T");
                         const isActive = activeStates[hourIndex][dayIndex];
 
                         return (
                           <button
                             key={dateKey + hour}
                             type="button"
-                            className={`col-span-1 rounded-md py-2 time-slot ${isActive
-                              ? "bg-[#B2C3FD] shadow-lg"
-                              : "bg-[#F1F1F1]"
-                              }`}
+                            className={`col-span-1 rounded-md py-2 time-slot ${
+                              isActive
+                                ? "bg-[#B2C3FD] shadow-lg"
+                                : "bg-[#F1F1F1]"
+                            }`}
                             onClick={() =>
                               handleTimeSlotClick(dateKey, hour, dayIndex)
                             }
@@ -402,7 +472,7 @@ const CreateTeacher: React.FC = () => {
               type="submit"
               className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
             >
-              {t('UPDATE')}
+              {t("UPDATE")}
             </button>
           </form>
         </div>

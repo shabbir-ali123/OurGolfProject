@@ -80,14 +80,7 @@ function App() {
     if (token && tokenTimestamp) {
       const currentTime = new Date().getTime();
       if (currentTime - parseInt(tokenTimestamp) > tokenExpirationTime) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("tokenTimestamp");
-        localStorage.removeItem("nickName");
-        localStorage.removeItem("teacher_id");
-        localStorage.removeItem("user");
-        localStorage.removeItem("id");
-        localStorage.removeItem("score");
-        localStorage.removeItem("par");
+        localStorage.clear();
       }
     }
   }, []);

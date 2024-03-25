@@ -24,13 +24,12 @@ export default function Register(): JSX.Element {
   
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-   
+
     if (files) {
       const filesArray = Array.from(files).slice(0, 5);
-  
       setFormData((prevFormData: any) => ({
         ...prevFormData,
-        image: filesArray.length === 1 ? filesArray[0] : [...prevFormData.files, ...filesArray],
+        profileImg: filesArray.length === 1 ? filesArray[0] : [...prevFormData.files, ...filesArray],
       }));
     }
   };
