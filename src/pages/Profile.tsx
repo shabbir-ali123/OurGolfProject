@@ -40,7 +40,7 @@ const Profile = () => {
       <div className="max-w-6xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative  h-35 md:h-65">
           <Link to="/teacher-page" className='absolute bottom-1 left-1 z-10 xsm:bottom-4 xsm:right-4 my-2'>
-          <button className='flex cursor-pointer items-center justify-center gap-2 bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Become a Teacher</button>
+          <button className='flex cursor-pointer items-center justify-center gap-2 rounded bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>{ t("BECOME_TEACHER")}</button>
           </Link>
           <img
             src="/img/cover-01.png"
