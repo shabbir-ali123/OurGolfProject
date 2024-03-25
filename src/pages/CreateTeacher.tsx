@@ -17,12 +17,15 @@ import { ToastConfig, toastProperties } from "../constants/toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
   const endHour = ((i + 1) % 24).toString().padStart(2, "0");
 
   return `${startHour}:00 to ${endHour}:00`;
 });
+
+
 
 const findHourIndex = (time: string): number => {
   return hoursOfDay.findIndex((hour) => hour.startsWith(time));
@@ -34,7 +37,7 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 
 const CreateTeacher: React.FC = () => {
   const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+  
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     profileImg: [],
@@ -369,6 +372,7 @@ const CreateTeacher: React.FC = () => {
                 colSpanLg={2}
               />
               <InputWithIcon
+                variant="dropdown"
                 pname="location"
                 icon={<MapPinIcon />}
                 label={t("LOCATION")}

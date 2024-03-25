@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import { teacherContext } from "../contexts/teachersContext";
 import { TeacherCalender } from "./TeacherCalender";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { API_ENDPOINTS } from "../appConfig";
+import { toast } from "react-toastify";
 export const EducatorCard = ({
   firstName,
   lastName,
@@ -17,14 +20,12 @@ export const EducatorCard = ({
   hourlyRate,
   teacherId,
 }: any) => {
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
-  const { shift } = teacherContext();
+  const { t } = useTranslation();
   const [shiftsData, setShiftsData] = useState([]);
   const [tap, setTaped] = useState<boolean>(false);
+  const [bookingsData, setBookingsData] = useState<any>();
 
   const handleMatchedShift = (matchedShifts: any) => {
-    // Update the state or perform any other action with the matchedShifts data
     setShiftsData(matchedShifts);
   };
   const handleMatchedShifts = (matchedShifts: any) => {
@@ -41,7 +42,59 @@ export const EducatorCard = ({
   useEffect(() => {
     handleMatchedShift;
   }, [tap]);
-  
+
+  const handleSelectedShifts = (shift: any) => {
+    setBookingsData(shift);
+  };
+
+  const handleBookAppointment = () => {
+    if (bookingsData) {
+      bookAppointment(
+        bookingsData.scheduleId,
+        bookingsData.day,
+        bookingsData.startTime,
+        bookingsData.endTime,
+        bookingsData.isBooked
+      );
+    } else {
+      toast.error("Please select a schedule");
+    }
+  };
+
+  const bookAppointment = async (
+    scheduleId: any,
+    day: any,
+    startTime: any,
+    endTime: any,
+    isBooked: boolean
+  ) => {
+    try {
+      const token = localStorage.getItem("token");
+      const id = Number(localStorage.getItem("id"));
+      const response = await axios.post(
+        API_ENDPOINTS.BOOKAPPOINTMENT,
+        {
+          scheduleId,
+          day,
+          startTime,
+          endTime,
+          isBooked: false,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            userId: id,
+          },
+        }
+      );
+      toast.success("Appointment booked successfully");
+    } catch (error) {
+      toast.error("Error booking appointment");
+    }
+  };
+
   return (
     <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
       <div className="grid grid-cols-1 xl:grid-cols-8 gap-4">
@@ -63,7 +116,10 @@ export const EducatorCard = ({
                   {firstName} {lastName}
                 </h3>
                 <div className="flex gap-4 mt-2 md:mt-0">
-                  <button className="bg-[#61cbc2] hover:bg-[#61cbc2] text-white font-bold py-2 px-4 rounded">
+                  <button
+                    className="bg-[#61cbc2] hover:bg-[#61cbc2] text-white font-bold py-2 px-4 rounded"
+                    onClick={handleBookAppointment}
+                  >
                     Book An Appointment
                   </button>
                   <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
@@ -104,21 +160,22 @@ export const EducatorCard = ({
             </div>
           </div>
           <div className="mt-4">
-        <div className="grid lg:grid-cols-8 sm:grid-cols-3 gap-4">
-          {shiftsData.map((shift: any, index: any) => (
-            <button
-              key={index}
-              className={`text-[12px] text-center px-1 py-4 rounded-lg shadow-sm ${
-                !shift.isBooked
-                  ? "bg-teal-400 text-white"
-                  : "bg-gray-100 text-gray-600 "
-              }`}
-            >
-              {shift.startTime} - {shift.endTime}
-            </button>
-          ))}
-        </div>
-      </div>
+            <div className="grid lg:grid-cols-8 sm:grid-cols-3 gap-4">
+              {shiftsData.map((shift: any, index: any) => (
+                <button
+                  key={index}
+                  className={`text-[12px] text-center px-1 py-4 rounded-lg shadow-sm ${
+                    !shift.isBooked
+                      ? "bg-teal-400 text-white"
+                      : "bg-gray-100 text-gray-600 "
+                  }`}
+                  onClick={() => handleSelectedShifts(shift)}
+                >
+                  {shift.startTime} - {shift.endTime}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
         <div className="md:col-span-2">
           <TeacherCalender
@@ -129,32 +186,6 @@ export const EducatorCard = ({
           />
         </div>
       </div>
-
-      {/* <div className="mt-4">
-            <div className="grid  lg:grid-cols-8  sm:grid-cols-3 gap-4">
-              {schedules?.map((slot: any, index: any) => {
-                return (
-                  <>
-                    {slot?.shifts.map((shift: any, index: any) => {
-                      return (
-                        <button
-                          key={index}
-                          className={`text-[12px] text-center px-1 py-4 rounded-lg shadow-sm   ${
-                            !shift.isBooked
-                              ? "bg-teal-400 text-white"
-                              : "bg-gray-100 text-gray-600 "
-                          }`}
-                        >
-                          {shift.startTime} - {shift.endTime}
-                        </button>
-                      );
-                    })}
-                  </>
-                );
-              })}
-            </div>
-          </div> */}
-    
     </div>
   );
 };
