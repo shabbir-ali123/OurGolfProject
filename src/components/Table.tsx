@@ -263,7 +263,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           >
                             <div className="flex flex-col ">
                               <p className="font-bold text-2xl  capitalize text-start">{event.eventName}</p>
-                              
+
                               <span className="flex items-center gap-1 font-normal ">
                                 <MapPinIcon
                                   className={`-mr-0.5 h-4 w-4 ${event.type !== "full" && "text-[#33333]"
@@ -272,15 +272,17 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 />
                                 {event.place}
                               </span>
-                              <p className="text-start m-0 my-1 text-sm ">{event.eventDetails}</p>
+                              <p className="text-start m-0 my-1 text-sm ">
+                                {event.eventDetails.length > 100 ? `${event.eventDetails.substring(0, 100)}...` : event.eventDetails}
+                              </p>
                             </div>
 
                             <span className="md:whitespace-nowrap px-2 text-[#17b3a6] py-0 text-sm mx-0  sm:mx-2 cursor-pointer rounded-lg  ">
                               <div
                                 rel="noopener noreferrer"
                                 className={`md:whitespace-nowrap rounded-lg px-0 text-[#17b3a6] py-1 text-sm mx-0 sm: cursor-pointer ${event.type === "full"
-                                    ? "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full rounded-lg"
-                                    : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
+                                  ? "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full rounded-lg"
+                                  : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
                                   }`}
                               >
                                 <p className="p-2 sm:text-lg xl:text-x">{t("JOIN")}</p>
@@ -336,7 +338,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             </div>
                             <div className="flex flex-col items-center gap-1">
                               <div
-                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${isFavorite ? "[#006800]" : "[#17B3A6]"
+                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${isFavorite ? "[red]" : "[#17B3A6]"
                                   } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleFavoriteClick(event.id)}
                               >

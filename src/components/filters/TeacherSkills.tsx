@@ -1,12 +1,17 @@
+import { t } from 'i18next';
 import React, { useState } from 'react';
-
+import { useTranslation } from "react-i18next";
 interface SkillFilterProps {
   onSkillChange: (selectedSkills: string[]) => void;
 }
 
-const skills = ['Math', 'Science', 'English', 'History', 'Art'];
+
 
 const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
+  const { t, i18n } = useTranslation();
+  const skillKeys = ["ENTRY", "BEGINNER", "INTERMEDIATE", "ADVANCED", "AMBASSADOR"];
+  const skills = skillKeys.map(key => t(key));
+ 
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
   const handleSkillChange = (skill: string, isChecked: boolean) => {
@@ -23,7 +28,7 @@ const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
   return (
     <>
     <div className='py-4'>
-    <h3 className='text-start'>Skills</h3>
+    <h3 className='text-start'>Category</h3>
       <div className="flex flex-col">
         {skills.map(skill => (
           <label key={skill} className={`inline-flex items-center mt-3 cursor-pointer ${selectedSkills.includes(skill) ? 'bg-[#2bb9ad] text-white' : 'bg-white text-gray-700'}`}>

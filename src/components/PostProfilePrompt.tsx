@@ -28,7 +28,7 @@ const ProfilePrompt: React.FC = () => {
   const closeModal = () => setIsModalOpen(false);
   return (
     <>
-      <div className="bg-white mx-4 md:mx-0 p-4 my-4 rounded-lg border-2 border-solid border-[#43bcb0]">
+      <div className="bg-white mx-4 md:mx-0 p-4 mb-4 rounded-lg border-2 border-solid border-[#43bcb0]">
         <div className="flex flex-wrap items-center md:flex items-center p-4 space-x-4">
           <img
             className="w-12 h-12 rounded-full"

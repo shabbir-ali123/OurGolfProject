@@ -163,6 +163,42 @@ const EditTeamPage: FunctionComponent = () => {
       scoredPar: 71,
       score: 210,
     },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
+    {
+      position: 1,
+      change: '+3',
+      playerName: 'Esther Howard',
+      teamName: 'Team 1',
+      totalPar: 78,
+      scoredPar: 71,
+      score: 210,
+    },
   ];
 
   const [open, setOpen] = useState(false);
@@ -415,20 +451,20 @@ const EditTeamPage: FunctionComponent = () => {
                   src="/img/rectangle-1249@2x.png"
                 />
               </div>
-              <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl xl:text-21xl"> {t('ABOUT_EVENT')}</h2>
-              <h2 className=" text-lightseagreen-200">{singleEvent?.eventName}</h2>
+              <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl  xl:text-21xl"> {t('ABOUT_EVENT')}</h2>
+              <h2 className=" text-lightseagreen-200 text-21xl">{singleEvent?.eventName}</h2>
             </div>
 
             <div className="grid grid-cols-1 gap-0 py-4 ">
-              <div className=" items-center gap-10 mx-2 w-full">
-                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('DATE')}</div>
-                <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">Event date :</span> {singleEvent?.eventStartDate}({t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
+              <div className=" items-center gap-10  ">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('DATE')}</div>
+                <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">Event date :</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
                   eventEndTime
-                })</p>
+                }</p>
                 <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">Deadline :</span> {singleEvent?.eventEndDate}</p>
               </div>
-              <div className=" items-center gap-10 mx-2 w-full">
-                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('EVENT_LOCATION')}</div>
+              <div className=" items-center gap-10  ">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_LOCATION')}</div>
                 <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
                 <div className="flex items-center gap-10  ">
 
@@ -448,8 +484,8 @@ const EditTeamPage: FunctionComponent = () => {
 
                 </div>
               </div>
-              <div className=" items-center gap-10 mx-2 w-full">
-                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('EVENT_DETAILS')}</div>
+              <div className=" items-center gap-10  ">
+                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_DETAILS')}</div>
                 <p className="py-0 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">About Event :</span> {singleEvent?.eventDetails}</p>
                 <div className="flex items-center gap-10  ">
 
@@ -458,29 +494,29 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
 
               </div>
-              <div className=" items-center gap-10 mx-2 w-full">
+              {/* <div className=" items-center gap-10  w-full">
                 <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('TOTAL_PARTICIPANT')}</div>
                 <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('TOTAL_PARTICIPANT')} : </span> {totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
                 <div className="flex items-center   ">
 
                   <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">  <span className="text-gray-500 basis-[200px] font-bold">{t('TEAM_SIZE')} :</span>{singleEvent?.teamSize}</p>
                 </div>
-              </div>
+              </div> */}
 
 
 
-              <div className="flex items-center gap-10 mx-2 ">
+              <div className="flex items-center gap-10  ">
 
                 <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
               </div>
             </div>
 
-            <div className=" items-center gap-10 mx-2 w-full">
-              <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('PRICE')}</div>
+            <div className=" items-center gap-10  ">
+              <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('PRICE')}</div>
               <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
             </div>
-            <div className=" items-center gap-10 mx-2 w-full">
-              <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('Cancel')}</div>
+            <div className=" items-center gap-10  ">
+              <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('Cancel')}</div>
               <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">No Cancellation Fee</p>
             </div>
           </div>
@@ -493,19 +529,19 @@ const EditTeamPage: FunctionComponent = () => {
                 </b>
               </div>
             </div>
-            <div className="flex flex-col  xl:grid grid-cols-2  gap-4">
+            <div className="">
 
               <div className=" ">
-                <div className="bg-[#17b3a6] text-white rounded-sm ">
+                <div className="bg-[#0d7168] text-white rounded-sm ">
                   <h4 className="p-2">Confirmed Members</h4>
                 </div>
                 <table className=" ">
 
-                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
+                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] ">
                     {data.map((player, index) => (
-                      <tr key={index} className="border-b border-gray-200 shadow ">
+                      <tr key={index} className="">
                         <td className="px-3 py-2 text-sm text-gray-500">
-                          <div className="flex items-center space-x-4">
+                          <div className="text-center">
                             <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
                             <div>
                               <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
@@ -529,9 +565,9 @@ const EditTeamPage: FunctionComponent = () => {
 
                   <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
                     {data.map((player, index) => (
-                      <tr key={index} className="border-b border-gray-200 shadow ">
+                      <tr key={index} className=" ">
                         <td className="px-3 py-2 text-sm text-gray-500">
-                          <div className="flex items-center space-x-4">
+                          <div className="text-center">
                             <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
                             <div>
                               <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
@@ -549,31 +585,31 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
             </div>
             <div className="w-full ">
-                <div className="bg-[#17b3a6] text-white rounded-sm ">
-                  <h4 className="p-2">BookMarked Members</h4>
-                </div>
-                <table className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-full ">
-
-                  <tbody className="flex flex-wrap gap-2 p-1 py-2 ">
-                    {data.map((player, index) => (
-                      <tr key={index} className="border-b border-gray-200 shadow ">
-                        <td className="px-3 py-2 text-sm text-gray-500">
-                          <div className="flex items-center space-x-4">
-                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
-                            <div>
-                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
-
-                            </div>
-                          </div>
-                        </td>
-
-
-
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="bg-[#17b3a6] text-white rounded-sm ">
+                <h4 className="p-2">BookMarked Members</h4>
               </div>
+              <table className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-full ">
+
+                <tbody className="flex flex-wrap gap-4 p-1 py-2 ">
+                  {data.map((player, index) => (
+                    <tr key={index} className=" ">
+                      <td className="px-3 py-2 text-sm text-gray-500">
+                        <div className=" text-center ">
+                          <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                          <div>
+                            <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+
+                          </div>
+                        </div>
+                      </td>
+
+
+
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div className="flex items-end gap-40">
@@ -589,7 +625,7 @@ const EditTeamPage: FunctionComponent = () => {
               <>
                 <div className="flex justify-center text-center w-full ">
                   <button
-                    className="py-4 lg:py-8 w-[200px] mt-10 lg:w-[450px] font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                    className="py-4  lg:text-[30px]  lg:py-8 w-[200px] mt-10 lg:w-[450px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                     onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                   >
                     {t('JOIN_NOW')}
@@ -600,10 +636,8 @@ const EditTeamPage: FunctionComponent = () => {
             )}
           </div>
 
-          {/* <EditTeamScore /> */}
-          {/* edit team div */}
-          <div className="mr-4 lg:mr-0 lg:w-full   shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] p-2 xl:p-10 mt-10 ">
-            <div className="xl:flex items-center  gap-40">
+          <div className="mr-4 lg:mr-0 lg:w-full  mt-10 ">
+            <div className="xl:flex items-center   gap-40">
               {isCreated ? (
                 <>
                   <div className="flex gap-2 m-4 xl:m-0">
@@ -685,7 +719,8 @@ const EditTeamPage: FunctionComponent = () => {
                 </>
               ) : (
                 <>
-                  <div className="flex items-center gap-4">
+
+                  {/* <div className="flex items-center gap-4">
                     <div>
                       <img src="/img/golfplyr.png" alt="" width="40px" />
                       <b className=" text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
@@ -693,7 +728,7 @@ const EditTeamPage: FunctionComponent = () => {
                       </b>
 
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* <button
                     className="p-4 px-10 w-[250px] font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
@@ -704,71 +739,71 @@ const EditTeamPage: FunctionComponent = () => {
                 </>
               )}
             </div>
-            <div className="overflow-x-auto w-full">
-              <table className="w-full border-spacing-y-5 px-1 ">
-                <thead className="text-left text-whitesmoke-100">
-                  <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200  h-[55px] text-xl ">
-                    <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px]  leading-[10.25px] font-medium ">
-                      {t('TEAM_NAME')}
-                    </th>
-
-                    {generateTableHeaders()}
-                  </tr>
-                </thead>
-                <tbody className="text-left text-black ">
-                  {teams?.map((team: any, index: any) => (
-                    <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[69px]   font-medium">
-                      <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
-                        <div
-                          className={`w-[156px] relative pl-1   rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-[#e0e0e0]`}
-                        >
-                          <h4>{team.name}</h4>
-                          <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4   h-[58px] w-[58px]  overflow-hidden   text-lg  leading-5 font-semibold">
-                            {team.imageUrl ? (
-                              <img
-                                className="w-full h-full object-cover rounded-[50%]"
-                                alt=""
-                                src={team.imageUrl}
-                              />
-                            ) : (
-                              <img
-                                className="w-full h-full object-cover rounded-[50%]"
-                                alt="Default Image"
-                                src="/img/BG-GOLF.jpg"
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </td>
-                      {team.members?.map((member: any, memberIndex: any) => (
-                        <td className="py-4 pl-4 whitespace-nowrap">
-                          <Player
-                            isCreator={isCreated}
-                            key={memberIndex}
-                            showNumber={false}
-                            enableHover={true}
-                            onEdit={() => {
-                              setSelectedPlayerNickname(member.nickName);
-                              setSelectedUserId(member.userId);
-                              setSelectedTeamName(team.name);
-                              setEditOpen(true);
-                            }}
-                            onDelete={() => setOpen(true)}
-                            name={member.nickName}
-                            imageUrl={member.imageUrl}
-                          />
-                        </td>
-                      ))}
+            {singleEvent?.eventType !== 'individual' && (
+              <div className="overflow-x-auto w-full shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10">
+                <div className="flex items-center gap-4">
+                  <div>
+                    <img src="/img/golfplyr.png" alt="" width="40px" />
+                    <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                      {t("TEAM_MEMBERS")}
+                    </b>
+                  </div>
+                </div>
+                <table className="w-full border-spacing-y-5 px-1 ">
+                  <thead className="text-left text-whitesmoke-100">
+                    <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200 h-[55px] text-xl ">
+                      <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px] leading-[10.25px] font-medium ">
+                        {t('TEAM_NAME')}
+                      </th>
+                      {generateTableHeaders()}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="text-left text-black ">
+                    {teams?.map((team: any, index: any) => (
+                      <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] h-[69px] font-medium">
+                        <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
+                          <div className={`w-[156px] relative pl-1 rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-[#e0e0e0]`}>
+                            <h4>{team.name}</h4>
+                            <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4 h-[58px] w-[58px] overflow-hidden text-lg leading-5 font-semibold">
+                              {team.imageUrl ? (
+                                <img className="w-full h-full object-cover rounded-[50%]" alt="" src={team.imageUrl} />
+                              ) : (
+                                <img className="w-full h-full object-cover rounded-[50%]" alt="Default Image" src="/img/BG-GOLF.jpg" />
+                              )}
+                            </div>
+                          </div>
+                        </td>
+                        {team.members?.map((member: any, memberIndex: any) => (
+                          <td className="py-4 pl-4 whitespace-nowrap">
+                            <Player
+                              isCreator={isCreated}
+                              key={memberIndex}
+                              showNumber={false}
+                              enableHover={true}
+                              onEdit={() => {
+                                setSelectedPlayerNickname(member.nickName);
+                                setSelectedUserId(member.userId);
+                                setSelectedTeamName(team.name);
+                                setEditOpen(true);
+                              }}
+                              onDelete={() => setOpen(true)}
+                              name={member.nickName}
+                              imageUrl={member.imageUrl}
+                            />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
 
             {isCreated && (
-              <div className="flex justify-end ">
+              <div className="flex justify-end my-10">
                 <button
-                  className="px-4 py-2 m-2 xl:m-0 xl:py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                  className="px-4 py-2 m-2 mt-8 xl:m-0 xl:py-4 text-xl font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                   onClick={updateTeams}
                 >
                   {t('UPDATE_TEAM')}

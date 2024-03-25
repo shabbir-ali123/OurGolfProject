@@ -114,6 +114,7 @@ document.body.dir = i18n.dir();
             type="number"
             name="capacity"
             min="0"
+            max="300"
             value={formDataa?.capacity}
             onChange={handleInputChange}
             required

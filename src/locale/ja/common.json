@@ -179,6 +179,7 @@
     "ADDRESS":"住所",
     "MAP": "地図",
     "SELECT": "選択する",
+    "BECOME_TEACHER": "レッスンプロとして登録",
     "UPLOAD_IMAGES": "画像アップロード(最大5枚)",
     "RECRUITMENT_DETAILS": "募集詳細",
     "ADD_PAYMENT_DETAILS": "イベントの前に支払いを希望される方は受け取り用の支払い情報を入力してください。＊お金は直接やり取りをしてください",
@@ -281,5 +282,10 @@
     "YEAR_AGO":"一年前",
     "PREVIOUSACTIVITIES":"以前のレッスン",
     "TODAYACTIVITIES":"本日のレッスン",
-    "UPCOMINGACTIVITIES":"今後のレッスン"
+    "UPCOMINGACTIVITIES":"今後のレッスン",
+    "ENTRY": "入門",
+    "BEGINNER": "初心者",
+    "INTERMEDIATE": "中級者",
+    "ADVANCED": "上級者",
+    "AMBASSADOR": "TASKGOLF アマチュアアンバサダ"
 }

@@ -188,6 +188,7 @@
     "ADDRESS":"Address",
     "MAP": "Map",
     "SELECT": "Select",
+    "BECOME_TEACHER": "Register as a Teacher",
     "UPLOAD_IMAGES": "Upload Images(Max 5 Images)",
     "RECRUITMENT_DETAILS": "Recruitment Details",
     "ADD_PAYMENT_DETAILS": "If you would like to pay before the event, please enter your payment information for pickup *Please exchange money directly.",
@@ -280,8 +281,11 @@
     "YEAR_AGO":"Year ago",
     "PREVIOUSACTIVITIES":"Previous Activities",
     "TODAYACTIVITIES":"Today Activities",
-    "UPCOMINGACTIVITIES":"Upcomming Activities"
-    
-    
+    "UPCOMINGACTIVITIES":"Upcomming Activities",
+    "ENTRY": "Entry",
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced",
+    "AMBASSADOR": "TASKGOLF Amateur Ambassador"
 
 }

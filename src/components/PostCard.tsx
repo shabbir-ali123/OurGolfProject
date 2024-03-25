@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import { getTimeAgo } from "../pages/ReadPost";
 import ImageComponent from "./ImageComponent";
 import PostCardComments from "./comments/PostComments";
-
+import PostProfile from "../components/PostProfilePrompt";
 interface Post {
   createdAt: string | number | Date;
   id: string;
@@ -190,8 +190,9 @@ const PostCard = () => {
     setCommentModelOpen(!commentModelOpen);
   };
   return (
-    <div className="relative grid grid-flow-col bg-white mt-10 gap-8">
+    <div className="relative flex flex-col-reverse lg:grid grid-flow-col bg-white mt-10 gap-8">
         <div className="row-span-3 col-span-8">
+        <PostProfile />
         {sortedPosts.map((post: Post, index: any) => {
         const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
         const userHasLiked = post.PostLikes.find(
@@ -243,9 +244,7 @@ const PostCard = () => {
                   className="col-span-8 mb-8 mx-4 lg:mx-0 lg:flex-col p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
                   style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
                 >
-                  <ImageComponent src={post.mediaFile?.[0]} />
-
-                  <div className="p-4">
+                   <div className="p-4">
                     <div className="flex items-center gap-2 justify-between">
                       <div className="flex items-center  gap-2 ">
                         <img
@@ -301,7 +300,7 @@ const PostCard = () => {
                       )}
                     </div>
                     <div
-                      className="p-0 text-sm comment-content"
+                      className="p-0 text-sm comment-content overflow-hidden"
                       dangerouslySetInnerHTML={{ __html: post?.text }}
                     ></div>
 
@@ -318,7 +317,11 @@ const PostCard = () => {
                         </span>
                       </div>
 
-                      <div className="flex justify-between items-center mt-6  z-10 relative">
+                     
+                    </div>
+                  </div>
+                  <ImageComponent src={post.mediaFile?.[0]} />
+                  <div className="flex justify-between items-center mt-6  z-10 relative">
                         <div
                           className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
                           onClick={(event) =>
@@ -429,8 +432,7 @@ const PostCard = () => {
                           {t("SHARE")}
                         </span>
                       </div>
-                    </div>
-                  </div>
+                 
                 </div>
               </div>
             </Link>
@@ -442,7 +444,7 @@ const PostCard = () => {
         );
       })}
         </div>
-        <div className="row-span-2 sticky top-0 col-span-4 px-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
+        <div className="row-span-2 lg:sticky top-0 col-span-12 px-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
                 <div>
                   <h5>Top Liked Posts</h5>
                   <ul className="p-0">

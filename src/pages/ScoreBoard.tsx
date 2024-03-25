@@ -8,7 +8,7 @@ import ScoringTable from "../components/LiveScoringTable";
 import { useTranslation } from "react-i18next";
 import { ScoreContextProvider, useScoreContext } from "../contexts/scoreContext";
 import LeaderBoardTables from "../components/leaderBoard/leaderBoard";
-
+import FinalEventGallery from "../components/FinalEventGallery"
 const ScoreBoard: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -18,13 +18,17 @@ const ScoreBoard: FunctionComponent = () => {
       <div className="flex flex-col mx-[50px]">
         <ChampionShipName />
         <div className="grid self-center w-[1200px]"><Slider /></div>
-        <div className="mt-[400px]">
+        <div className="mt-[400px] self-center">
+        <FinalEventGallery/>
+        </div>
+        
+        <div className="mt-4 xl:mt-[100px]">
           <LeaderBoardTables/>
         </div>
         <IndiviualPlayerScore />
         <TeamPerformance title={t("DRIVER_CONTEST")} />
         <TeamPerformance title={t("PIN_CONTEST")} />
-        <div className="mt-20 mx-[60px]">
+        {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">
             <img
               className="w-[57px] h-[103px]"
@@ -41,7 +45,7 @@ const ScoreBoard: FunctionComponent = () => {
             />
           </div>
           <ScoringTable />
-        </div>
+        </div> */}
       </div>
 
      

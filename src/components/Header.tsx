@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, HomeIcon, UserGroupIcon, CalendarIcon, ClipboardIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import socket from "../socket";
-import { NotificationsContext } from "../contexts/notificationContext";
 import MobileMenu from "./MobileMenu";
 
 export const navigation = [
-  { name: "Home", to: "/score-board" },
-  { name: "Find_teacher", to: "/all-teachers" },
-  { name: "Events", to: "/event-main-page" },
-  { name: "Posts", to: "/post-page" },
+  { name: "Home", to: "/score-board", icon: HomeIcon },
+  { name: "Find_teacher", to: "/all-teachers", icon: UserGroupIcon },
+  { name: "Events", to: "/event-main-page", icon: CalendarIcon },
+  { name: "Posts", to: "/post-page", icon: ClipboardIcon },
 ];
 
 const Header: React.FC = () => {
@@ -41,10 +38,9 @@ const Header: React.FC = () => {
   const [eventJoined, setEventJoined] = useState<any>()
   useEffect(() => {
     const handleJoinEvent = (data: any) => {
-      console.log(data, 'daya for sockets')
+      console.log(data, 'data for sockets')
       if (data?.organizerId === userId) {
         setEventJoined(data);
-
       }
     };
     socket.on('joinRequest', handleJoinEvent);
@@ -61,32 +57,25 @@ const Header: React.FC = () => {
           className="flex justify-between px-4 py-2  lg:items-center xl:px-32 sm:justify-start"
           aria-label="Global"
         >
-
           <button onClick={toggleMenu} className="mr-4 lg:hidden">
             {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
           </button>
 
-
-
-          <div className="hidden gap-x-6 lg:flex xl:gap-x-16">
+          <div className="hidden gap-x-6 lg:flex items-center xl:gap-x-16">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.to}
-                className={`text-2xl list-none no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 ${isActive(item.to) ? "active" : ""
-                  }`}
-                style={
-                  isActive(item.to)
-                    ? {
-                      background: "rgb(67 188 176)",
-                      color: "#ffffff",
-                      fontWeight: "400",
-                      borderRadius: "5px",
-                      padding: "2px 6px",
-                    }
-                    : {}
-                }
+                className={`flex items-center text-2xl list-none no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 ${isActive(item.to) ? "active" : ""}`}
+                style={isActive(item.to) ? {
+                  background: "rgb(67 188 176)",
+                  color: "#ffffff",
+                  fontWeight: "400",
+                  borderRadius: "5px",
+                  padding: "2px 6px",
+                } : {}}
               >
+                <item.icon className="w-6 h-6 mr-2" />
                 {t(item.name.toLocaleUpperCase())}
               </Link>
             ))}
@@ -99,35 +88,6 @@ const Header: React.FC = () => {
           </div>
 
           <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} />
-
-          {/* {mobileMenuOpen && (
-            <div className="lg:hidden">
-              <div className="flex flex-col items-center p-4">
-              <div className="">
-              <button onClick={toggleMenu}>
-menu
-              </button>
-
-            <NotificationsContext>
-              <ProfileButton />
-            </NotificationsContext>
-          </div>
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.to}
-                    className={`text-xl list-none no-underline font-normal leading-6 text-black hover:text-teal-400 mb-4 ${
-                      isActive(item.to) ? "active" : ""
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {t(item.name.toLocaleUpperCase())}
-                  </Link>
-                ))}
-               
-              </div>
-            </div>
-          )} */}
         </nav>
       </header>
     </div>
