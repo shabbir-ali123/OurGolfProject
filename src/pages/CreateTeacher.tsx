@@ -180,12 +180,8 @@ const CreateTeacher: React.FC = () => {
         );
       }
     } catch (error) {
-      const handleError = alert(
-        (error as any)?.response?.data?.message || "Error Occurred"
-      );
-      toast.error(`${handleError}`, toastProperties as ToastConfig);
+      toast.error('Teacher Already Created')
     }
-    console.log(formData)
   };
 
  
