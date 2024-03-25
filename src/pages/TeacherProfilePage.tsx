@@ -75,7 +75,7 @@ const TeacherProfile: React.FC = () => {
                 icon={<UserIcon />}
                 label={t("FIRST_NAME")}
                 value={formData.firstName}
-                onChange={(value) => handleChange("firstName", value.target.value)}
+                onChange={(value: any) => handleChange("firstName", value.target.value)}
                 placeholder={t("ENTER_FIRST_NAME")}
                 colSpanSm={6}
                 colSpanMd={4}
@@ -86,7 +86,7 @@ const TeacherProfile: React.FC = () => {
                 icon={<UserIcon />}
                 label={t("LAST_NAME")}
                 value={formData.lastName}
-                onChange={(value) => handleChange("lastName", value.target.value)}
+                onChange={(value: any) => handleChange("lastName", value.target.value)}
                 placeholder={t("ENTER_LAST_NAME")}
                 colSpanSm={6}
                 colSpanMd={4}
@@ -98,7 +98,7 @@ const TeacherProfile: React.FC = () => {
                 icon={<PhoneIcon />}
                 label={t("MOBILE")}
                 value={formData.phoneNumber}
-                onChange={(value) => handleChange("phoneNumber", value.target.value)}
+                onChange={(value: any) => handleChange("phoneNumber", value.target.value)}
                 placeholder={t("ENTER_MOBILE")}
                 colSpanSm={6}
                 colSpanMd={4}
@@ -109,7 +109,7 @@ const TeacherProfile: React.FC = () => {
                 icon={<MapPinIcon />}
                 label={t("LOCATION")}
                 value={formData.location}
-                onChange={(value) => handleChange("location", value.target.value)}
+                onChange={(value: any) => handleChange("location", value.target.value)}
                 placeholder={t("ENTER_LOCATION")}
                 colSpanSm={6}   
                 colSpanMd={4}

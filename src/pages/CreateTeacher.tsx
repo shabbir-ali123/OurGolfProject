@@ -114,6 +114,13 @@ const CreateTeacher: React.FC = () => {
     }));
   };
 
+  const handleLocationChange = (location: any) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      location: location.value,
+    }));
+  }
+  
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     console.log(files, "filessl");
@@ -377,7 +384,7 @@ const CreateTeacher: React.FC = () => {
                 icon={<MapPinIcon />}
                 label={t("LOCATION")}
                 value={formData.location}
-                onChange={handleChange}
+                handleLocationChange={handleLocationChange}
                 placeholder={t("ENTER_LOCATION")}
                 colSpanSm={6}
                 colSpanMd={4}

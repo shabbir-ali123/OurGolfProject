@@ -14,9 +14,11 @@ interface InputWithIconProps {
   iconHeight?: string;
   value?: string;
   ptype?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: any;
   variant?: string;
   handleImageChange?: any;
+  handleLocationChange?: any
+
 }
 
 interface OptionType {
@@ -38,7 +40,8 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   value,
   onChange,
   variant,
-  handleImageChange
+  handleImageChange,
+  handleLocationChange
 }) => {
   const { t, i18n } = useTranslation();
 
@@ -216,7 +219,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
                     GroupBase<OptionType>
                   >
                 }
-                // onChange={handleChange}
+                onChange={handleLocationChange}
                 className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
           ) :

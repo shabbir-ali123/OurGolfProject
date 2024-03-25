@@ -81,7 +81,7 @@ const EditProfilePage: React.FC = () => {
                 icon={<UserIcon />}
                 label={t("FIRST_NAME")}
                 value={getTeacher.firstName || ""}
-                onChange={(value) =>
+                onChange={(value: any) =>
                   handleChange("firstName", value.target.value)
                 }
                 placeholder={t("ENTER_FIRST_NAME")}
@@ -94,7 +94,7 @@ const EditProfilePage: React.FC = () => {
                 icon={<UserIcon />}
                 label={t("LAST_NAME")}
                 value={getTeacher.lastName || ""}
-                onChange={(value) =>
+                onChange={(value: any) =>
                   handleChange("lastName", value.target.value)
                 }
                 placeholder={t("ENTER_LAST_NAME")}
@@ -108,7 +108,7 @@ const EditProfilePage: React.FC = () => {
                 icon={<PhoneIcon />}
                 label={t("MOBILE")}
                 value={getTeacher.phoneNumber || ""}
-                onChange={(value) =>
+                onChange={(value: any) =>
                   handleChange("phoneNumber", value.target.value)
                 }
                 placeholder={t("ENTER_MOBILE")}
@@ -121,7 +121,7 @@ const EditProfilePage: React.FC = () => {
                 icon={<MapPinIcon />}
                 label={t("LOCATION")}
                 value={getTeacher.location || ""}
-                onChange={(value) =>
+                onChange={(value: any) =>
                   handleChange("location", value.target.value)
                 }
                 placeholder={t("ENTER_LOCATION")}
