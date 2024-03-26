@@ -87,7 +87,6 @@ export const PostContext = ({children}:any)=>{
         }
     }, [ setSinglePost, postId]);
     useEffect(() => {
-        console.log(message)
         if (message) {
             fetchSinglePosts(handlePost, postId);
         }

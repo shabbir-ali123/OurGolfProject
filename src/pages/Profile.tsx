@@ -6,20 +6,13 @@ import { useEffect } from 'react';
 import { postContext } from '../contexts/postsContext';
 import { createdEventsStore } from '../contexts/eventContext';
 import { useTranslation } from "react-i18next";
+
 const Profile = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
     const { user} = userAuthContext();
     const { post, handleCategory} = postContext();
     const { createdEvents } = createdEventsStore();
     
-    const myId = localStorage.getItem("id")
-    const tId = localStorage.getItem("teacher_id")
-
-    console.log(tId, 'tId')
-    useEffect(() => {
-    console.log({user})
-
-    }, [])
     const formatDate = (dateString: string): string => {
         const options: Intl.DateTimeFormatOptions = {
           year: 'numeric',
@@ -32,22 +25,20 @@ const Profile = () => {
      useEffect(()=>{
       handleCategory("MyPost")
      },[])
-     const myEvents = post.filter((item: any) => item.id === myId);
-
+     const tId = localStorage.getItem("teacher_id");
   return (
     <>
-   
       <div className="max-w-6xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative  h-35 md:h-65">
           <Link to="/teacher-page" className='absolute bottom-1 left-1 z-10 xsm:bottom-4 xsm:right-4 my-2'>
-          <button className='flex cursor-pointer items-center justify-center gap-2 rounded bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>{ t("BECOME_TEACHER")}</button>
+          <button className='flex cursor-pointer items-center justify-center gap-2 bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>{ t("BECOME_TEACHER")}</button>
           </Link>
           <img
             src="/img/cover-01.png"
             alt="profile cover"
             className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
           />
-          <Link to="/edit-profile">
+          <Link to={!tId ? "/edit-profile" : '/edit-teacher'}>
           <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4 my-2">
             <label
               htmlFor="cover"
@@ -77,19 +68,15 @@ const Profile = () => {
                   />
                 </svg>
               </span>
-              
               <span>Edit Profile</span>
-            
-              
             </label>
           </div>
           </Link>
-        
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
           <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur  sm:max-w-44 sm:p-3">
             <div className="absolute top-[-100px] left-[37%] right-[40%] drop-shadow-2  ">
-              <img src={user?.imageUrl} alt="profile" className='w-40 h-40 md: w-20 h-20 sm: w-20 h-20 rounded-full' />
+              <img src={user?.imageUrl} alt="profile" className='w-40 h-40 rounded-full' />
               <label
                 htmlFor="profile"
                 className="absolute bottom-0 right-[20px] flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-[70px] "
@@ -159,46 +146,6 @@ const Profile = () => {
             <div className='text-center md:mt-20 sm:mt-0'>
             <p className='font-bold'>Member Since :  {formatDate(user.createdAt)}</p>
             </div>
-{/* 
-            <div className="bg-white p-3 shadow-sm rounded-sm">
-      <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 text-start">
-        <span className="text-green-500">
-          <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-        </span>
-        <span className="tracking-wide">About</span>
-      </div>
-      <div className="text-gray-700">
-        <div className="grid md:grid-cols-2 text-sm text-start">
-          <div className="grid grid-cols-2">
-            <div className="px-4 py-4 font-semibold">Full Name</div>
-            <div className="px-4 py-4">{user.nickName}</div>
-          </div>
-     
-        
-          <div className="grid grid-cols-2">
-            <div className="px-4 py-4 font-semibold">Contact No.</div>
-            <div className="px-4 py-4">+11 998001001</div>
-          </div>
-          <div className="grid grid-cols-2">
-            <div className="px-4 py-4 font-semibold">Location</div>
-            <div className="px-4 py-4">Beech Creek, PA, Pennsylvania</div>
-          </div>
-          
-          <div className="grid grid-cols-2">
-            <div className="px-4 py-4 font-semibold">Email</div>
-            <div className="px-4 py-4">
-              <a className="text-blue-800" href="mailto:jane@example.com">jane@example.com</a>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-     
-    </div> */}
-
-           
           </div>
         </div>
       </div>

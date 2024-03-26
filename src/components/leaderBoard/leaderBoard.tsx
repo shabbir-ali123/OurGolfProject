@@ -17,9 +17,7 @@ const LeaderBoard = (props: {
 const LeaderBoardTables: FunctionComponent = () => {
   const { score } = useScoreContext();
 
-  console.log(score, 'score new')
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+  const { t } = useTranslation();
 
   return (
     <div className=" mx-5 md:mx-[80px] ">
