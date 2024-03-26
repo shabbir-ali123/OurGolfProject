@@ -22,7 +22,7 @@ const TeacherDetails: React.FC = () => {
                 <div className="col-span-1 md:col-span-4">
                     <div className="bg-gray-100 p-4 rounded">
                     </div>
-                    <TeacherSlotss slots={slots} />
+                    <TeacherSlotss slots={slots} schedules={availableSlots} />
                 </div>
                 <div className="col-span-4 md:col-span-8">
                     <div className='bg-[#17b3a6] p-4 rounded'>

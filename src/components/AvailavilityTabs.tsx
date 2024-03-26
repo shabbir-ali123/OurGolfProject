@@ -105,55 +105,55 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
 
   const navigate = useNavigate();
 
-  const handleBookAppointmentClick = () => {
-    const token = localStorage.getItem("token");
+  // const handleBookAppointmentClick = () => {
+  //   const token = localStorage.getItem("token");
 
-    if (!token) {
-      navigate("/login-page");
-      return;
-    }
+  //   if (!token) {
+  //     navigate("/login-page");
+  //     return;
+  //   }
 
-    selectedTimeDetails.forEach((time) => {
-      bookAppointment(time.id, time.day, time.startTime, time.endTime, false);
-    });
-  };
+  //   selectedTimeDetails.forEach((time) => {
+  //     bookAppointment(time.id, time.day, time.startTime, time.endTime, false);
+  //   });
+  // };
 
-  const bookAppointment = async (
-    scheduleId: any,
-    day: any,
-    startTime: any,
-    endTime: any,
-    isBooked: boolean
-  ) => {
-    try {
-      const token = localStorage.getItem("token");
-      const id = Number(localStorage.getItem("id"));
-      const response = await axios.post(
-        API_ENDPOINTS.BOOKAPPOINTMENT,
-        {
-          scheduleId,
-          day,
-          startTime,
-          endTime,
-          isBooked: false,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            userId: id,
-          },
-        }
-      );
-      toast.success(
-        "Appointment booked successfully",
-        toastProperties as ToastConfig
-      );
-    } catch (error) {
-      toast.error("Error booking appointment", toastProperties as ToastConfig);
-    }
-  };
+  // const bookAppointment = async (
+  //   scheduleId: any,
+  //   day: any,
+  //   startTime: any,
+  //   endTime: any,
+  //   isBooked: boolean
+  // ) => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const id = Number(localStorage.getItem("id"));
+  //     const response = await axios.post(
+  //       API_ENDPOINTS.BOOKAPPOINTMENT,
+  //       {
+  //         scheduleId,
+  //         day,
+  //         startTime,
+  //         endTime,
+  //         isBooked: false,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         params: {
+  //           userId: id,
+  //         },
+  //       }
+  //     );
+  //     toast.success(
+  //       "Appointment booked successfully",
+  //       toastProperties as ToastConfig
+  //     );
+  //   } catch (error) {
+  //     toast.error("Error booking appointment", toastProperties as ToastConfig);
+  //   }
+  // };
   const [state, setState] = useState<any[]>([]);
   useEffect(() => {
     setState(dayFilter === "All" ? initialTimeSlots.slots : filteredSchedules);
@@ -167,13 +167,12 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
 
     if (!slot.shifts || (slot.shifts.length === 0 && dayFilter !== "All")) {
       return (
-        <div key={slot.id}>
           <button
-            className={`${
+            className={`text-sm text-center p-4 rounded-lg shadow-sm ${
               isSelected
-                ? "rounded-full text-white bg-[#00A4FE] py-4"
-                : "rounded-full text-black bg-[#b9fbb9] py-4"
-            } ${isBooked ? "bg-[#e8e8e8] text-white" : ""}`}
+                ? 'bg-[#17b3a6] text-white'
+                : 'bg-gray-100 text-gray-600'
+            }`}
             onClick={() =>
               handleTabClick(
                 slot.shifts[0].scheduleId,
@@ -186,17 +185,14 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
           >
             {slot.time}
           </button>
-        </div>
       );
     }
-    console.log(slot);
     return (
-      <div key={slot.id}>
         <button
-          className={`${
+          className={`text-sm text-center p-4 rounded-lg shadow-sm ${
             isSelected
-              ? "rounded-full text-white bg-[#00A4FE] py-4"
-              : "rounded-full text-black bg-[#b9fbb9] py-4"
+              ? "bg-[#17b3a6] text-white"
+              : "bg-gray-100 text-gray-600"
           } ${isBooked ? "bg-[#e8e8e8] text-white" : ""}`}
           onClick={() =>
             handleTabClick(
@@ -210,17 +206,16 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
         >
           {slot.shifts[0].startTime + " " + slot.shifts[0].endTime}
         </button>
-      </div>
     );
   });
 
   return (
     <div>
       <div className="border-solid border-[2px] border-[#52FF86] rounded-md px-2 py-4">
-        <div className="flex flex-wrap justify-start gap-1 mt-4">
+        <div className="flex flex-wrap justify-between gap-4 mt-4">
           {scheduleComponents}
         </div>
-        <div className="mt-8 ml-2">
+        {/* <div className="mt-8 ml-2">
           <button
             onClick={handleBookAppointmentClick}
             className="bg-[#1b1c21] hover:bg-gray-400 text-white font-bold py-4 px-4 rounded-full inline-flex items-center md:py-4 sm:py-2 animate__animated animate__lightSpeedInRight cursor-pointer"
@@ -241,9 +236,9 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
               {t("BOOK_APPOINTMENT")}
             </span>
           </button>
-        </div>
+        </div> */}
       </div>
-
+{/* 
       <div>
         <div className="flex items-center justify-end ">
           <p className="my-1">{t("NOT_AVAILABLE")}-</p>
@@ -261,7 +256,7 @@ const AvailabilityTabs: React.FC<AvailabilityTabsProps> = ({
           <p className="my-1">{t("AVAILABLE")}-</p>
           <div className="h-4 w-8  md:w-10 lg:w-16  bg-[#b9fbb9]"></div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

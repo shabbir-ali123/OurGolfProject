@@ -16,7 +16,7 @@ export const TeacherConDetail: React.FC<{
 }> = ({ teacherDetails }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  
+  console.log(teacherDetails)
   const [dayFilter, setDayFilter] = useState<any>('All')
   
   const handleSelectTime = (selectedTime: string) => {

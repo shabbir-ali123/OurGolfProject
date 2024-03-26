@@ -129,7 +129,6 @@ export const deletePost = async (postId: any,setMessage:any, navigate: any) => {
 
       toast.success(response.data.message)
       setMessage(response.data.message);
-      // Handle the response, e.g., remove the post from the state or notify the user
   } catch (error) {
       if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
           toast.error("Session expired. Please log in again.");
