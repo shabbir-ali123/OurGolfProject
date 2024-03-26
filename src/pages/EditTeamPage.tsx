@@ -16,6 +16,7 @@ import EditTeamScore from "../components/EditTeamScore";
 import SliderStyles from "../components/sliderStyles";
 import { singleEventContextStore } from "../contexts/eventContext";
 import { singleTeamsContextStore } from "../contexts/teamContext";
+import CommentModel from "../components/CommentModel";
 
 interface Team {
   id: string;
@@ -1149,6 +1150,10 @@ const EditTeamPage: FunctionComponent = () => {
               </Dialog>
             </Transition.Root>
           </div>
+          <table className="w-full mt-8 mb-4">
+          <CommentModel eventId={singleEvent?.id} closeModal={()=>{} } />
+
+          </table>
         </div>
       </div>
     </>
