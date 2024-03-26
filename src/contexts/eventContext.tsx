@@ -162,18 +162,22 @@ export interface CreateEventType {
     driverContest?: number;
     nearPinContest?: number;
 }
-// single event context 
 const SingleEventContext = React.createContext<any>({});
 
 export const SingleEventsContext = ({ children }: any) => {
 
     const params = useParams<{ id?: string }>();
-    const eventId = params.id;
+    let eventId = params.id;
 
     const [singleEvent, setSingleEvent] = useState<any[]>([]);
     const [isCreated, setIsCreated] = useState<any>(false)
+    const [selectedEventId,  setSelectedEventId] = useState<any>()
 
+    if (selectedEventId) {
+        eventId = selectedEventId;
+    } 
 
+    console.log(eventId, selectedEventId)
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -198,7 +202,11 @@ export const SingleEventsContext = ({ children }: any) => {
         return setIsCreated(value);
     }, []);
 
-    const value = { handleSingleEvent, isCreated, singleEvent }
+    const handleSingleEventID = useCallback((value: any) => {
+        return setSelectedEventId(value);
+    }, []);
+
+    const value = { handleSingleEvent, handleSingleEventID, isCreated, singleEvent }
 
     return <SingleEventContext.Provider value={value}> {children}</SingleEventContext.Provider>
 }

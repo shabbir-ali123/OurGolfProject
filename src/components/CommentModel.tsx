@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../appConfig";
 import { useToast } from "../utils/ToastProvider";
-import { eventContextStore } from "../contexts/eventContext";
+import { eventContextStore, singleEventContextStore, SingleEventsContext } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
 interface CommentModelProps {
   eventId: any;
@@ -47,6 +47,8 @@ interface Event {
 
 const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
   const {eventss, handleEvents} = eventContextStore();
+  const {singleEvent, handleSingleEventID } = singleEventContextStore()
+
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const { showToast } = useToast();
@@ -71,6 +73,10 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
     content: "",
   });
 
+  useEffect(() =>{
+    handleSingleEventID(eventId)
+  }, [eventId])
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting || !formData.content.trim()) {
@@ -95,8 +101,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
           content: response.data.content,
           createdAt: response.data.createdAt,
         });
-        debugger
-        const updatedEvents = eventss.map((event: any) => {
+        const updatedEvents = singleEvent.map((event: any) => {
           if (event.id === eventId) {
             return {
               ...event,
@@ -195,15 +200,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                 </button>
               </div>
             </form>}
-
-            {eventss.map((event: any) => {
-
-              if (event.id === eventId) {
-                const sortedComments: any = event.comments.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) .slice(0, commentsToShow);
-
-                return (
-                  <div key={event.id}>
-                    {sortedComments.map((comment: any) => {
+              <div key={singleEvent.id}>
+                    {singleEvent?.comments?.map((comment: any) => {
                       if (comment.eventId === eventId) {
                         return (
                           <div key={comment.id} className="py-4">
@@ -310,7 +308,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                       return null;
                     })}
 
-                    {event.comments.length > commentsToShow && (
+                    {singleEvent?.comments?.length > commentsToShow && (
                       <div className="mt-4 text-center">
                         <button
                           className="text-blue-500 hover:underline"
@@ -320,11 +318,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                         </button>
                       </div>
                     )}
-                  </div>
-                );
-              }
-              return null;
-            })}
+              </div>
           </div>
         </div>
       </td>

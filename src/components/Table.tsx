@@ -13,7 +13,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import { eventContextStore } from "../contexts/eventContext";
+import { eventContextStore, SingleEventsContext } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
 import { deleteEvent } from "../utils/fetchEvents";
 import socket from "../socket";
@@ -364,10 +364,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                         {selectedEvent === event.id && (
                           <tr>
+                            <SingleEventsContext>
                             <CommentModel
                               closeModal={closeModal}
-                              eventId={selectedEvent}
+                              eventId={event.id}
                             />
+                            </SingleEventsContext>
                           </tr>
                         )}
                       </React.Fragment>
