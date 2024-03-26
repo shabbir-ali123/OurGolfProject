@@ -175,23 +175,22 @@ a {
 
 .carousel-cell {
   width: 100%;
-  height: 200px;
+  height: 500px;
   margin-right: 10px;
   background: #8c8;
   border-radius: 5px;
-  counter-increment: carousel-cell;
 }
 
 .carousel-cell-1 {
   width: 20%;
-  height: 200px;
+  height: 150px;
   margin-right: 10px;
-  background: #8c8 !important;
+  background: #8c8;
   border-radius: 5px;
-  counter-increment: carousel-cell;
 }
 
-/* cell number */
+/* Comment out or remove these styles to prevent numbers from showing */
+/*
 .carousel-cell:before {
   display: block;
   text-align: center;
@@ -209,17 +208,14 @@ a {
   font-size: 80px;
   color: white;
 }
+*/
 
 .carousel-nav .carousel-cell {
   height: 80px;
   width: 100%;
 }
 
-.carousel-nav .carousel-cell:before {
-  font-size: 50px;
-  line-height: 80px;
-}
-
 .carousel-nav .carousel-cell-1.is-nav-selected {
   background: #ed2;
 }
+

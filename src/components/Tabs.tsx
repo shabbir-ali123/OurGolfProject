@@ -93,11 +93,11 @@ const Tabs: React.FC<TabsProps> = ({
     handleEventStatus(currentTab);
   }, []);
   return (
-    <div className="flex flex-wrap gap-10 ">
+    <div className="flex flex-wrap gap-4 ">
       <div className="w-full  animate__animated animate__fadeInLeft">
         <Tab.Group>
           <Tab.List className="  w-full xl:col-span-12 items-center px-2 rounded-md  ">
-            <div className="flex flex-wrap gap-4 py-2 lg:flex-nowrap">
+            <div className="flex flex-wrap gap-4 xl:gap-12 py-2 lg:flex-nowrap">
               <div className="w-full xl:w-auto animate__animated animate__shakeY">
                 <button
                   type="button"

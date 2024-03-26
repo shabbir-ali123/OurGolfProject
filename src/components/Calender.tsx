@@ -38,10 +38,10 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents,setFilterLocation }) => {
     setStartDate(null);
     setEndDate(null);
     handleClear(true);
-    setFilterLocation([]); // This will trigger the useEffect in your context to clear locations
+    setFilterLocation([]);
 };
   return (
-    <div className="flex flex-wrap md:flex-nowrap items-center gap-4 w-full xl:gap-10">
+    <div className="flex flex-wrap md:flex-nowrap items-center gap-4 w-full xl:gap-12">
       <DatePicker
         selected={startDate}
         onChange={setStartDate}
