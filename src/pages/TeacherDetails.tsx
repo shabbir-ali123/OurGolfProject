@@ -19,9 +19,8 @@ const TeacherDetails: React.FC = () => {
     return (
         <div className="mx-20 md:mx-20">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                <div className="col-span-1 md:col-span-4">
-                    <div className="bg-gray-100 p-4 rounded">
-                    </div>
+                <div className="col-span-1 md:col-span-4 ">
+                  
                     <TeacherSlotss slots={slots} schedules={availableSlots} />
                 </div>
                 <div className="col-span-4 md:col-span-8">

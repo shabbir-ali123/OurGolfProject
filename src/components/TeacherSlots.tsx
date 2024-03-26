@@ -78,7 +78,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
         <DropDown timeSlots={uniqueDays} dayFilter={setDayFilter} />
       </div>
      
-      <div className="grid lg:grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-2 sm:grid-cols-3 gap-4 my-4">
         {filteredSlots?.map((slot: any, index: any) => (
           <button
             key={index}
