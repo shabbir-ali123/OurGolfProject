@@ -41,21 +41,21 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents,setFilterLocation }) => {
     setFilterLocation([]); // This will trigger the useEffect in your context to clear locations
 };
   return (
-    <div className="flex flex-wrap md:flex-nowrap items-center gap-2">
+    <div className="flex flex-wrap md:flex-nowrap items-center gap-4 w-full xl:gap-10">
       <DatePicker
         selected={startDate}
         onChange={setStartDate}
         placeholderText={t('START_DATE')}
-        className=" py-2.5 text-center rounded-md border border-solid border-green-500"
+        className=" py-4 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-full xl:w-[150px]"
       />
       <DatePicker
         selected={endDate}
         onChange={setEndDate}
         placeholderText={t('END_DATE')}
-        className=" py-2.5 text-center rounded-md border border-solid border-green-500"
+        className=" py-4 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-full xl:w-[150px]"
       />
       <button
-        className="bg-[#17b3a6] text-white font-bold py-3 w-full xl:w-[100px] rounded"
+        className="bg-[#17b3a6] text-white font-bold py-[19px] w-full xl:w-[150px] rounded"
         onClick={clearDates}
       >
         {t("CLEAR")}

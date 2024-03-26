@@ -199,7 +199,7 @@ const PostCard = () => {
           (like: any) => like.userId === loggedInUser && like.counter === 1
         );
         return (
-          <div className="">
+          <div className="w-full">
             <Link
               key={post.id}
               onMouseEnter={() => handleMouseEnter(index)}
@@ -444,7 +444,7 @@ const PostCard = () => {
         );
       })}
         </div>
-        <div className="row-span-2 lg:sticky top-0 col-span-12 px-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
+        <div className="row-span-2 mx-4 lg:mx-0 lg:sticky top-0 col-span-12 px-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
                 <div>
                   <h5>Top Liked Posts</h5>
                   <ul className="p-0">
