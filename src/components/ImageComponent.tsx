@@ -28,7 +28,7 @@ useEffect(()=>{
         <img
             src={src}
             alt =""
-            className={`${!imageLoading ? "hidden" : "rounded-lg  object-fit  h-[500px] w-full lg:w-full block"}`}
+            className={`${!imageLoading ? "hidden" : "rounded-lg  object-fit h-[300px] lg:h-[500px] w-full lg:w-full block"}`}
 
         /> 
      
