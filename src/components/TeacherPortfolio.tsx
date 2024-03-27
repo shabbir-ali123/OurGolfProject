@@ -13,7 +13,6 @@ const VideoPortfolio: React.FC = () => {
     return (
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-4">Video Portfolio</h2>
-        {/* Grid layout with responsive breakpoints */}
         <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 gap-4">
           {videos.map((video, index) => (
             <div key={index} className="bg-gray-200 rounded-lg shadow-md relative w-full">

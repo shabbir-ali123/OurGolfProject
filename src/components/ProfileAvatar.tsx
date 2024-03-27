@@ -53,9 +53,8 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
 
   return (
     <div>
-      <div className="relative h-20 mt-10 bg-gradient-to-r from-blue-400 to-red-800 ">
+      <div className="relative">
         <div
-          className="absolute left-60 bottom-[-60px] top-[-36px] "
           onClick={handleImageClick}
           style={{ cursor: "pointer" }}
         >
