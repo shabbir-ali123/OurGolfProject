@@ -17,6 +17,13 @@ import { ToastConfig, toastProperties } from "../constants/toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import UserProfile from "../components/TeacherProfile";
+import {
+  EnvelopeIcon,
+  PhoneArrowUpRightIcon,
+} from "@heroicons/react/24/outline";
+import AboutTeacher from "../components/AboutTeacher";
+import VideoPortfolio from "../components/TeacherPortfolio";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -24,8 +31,6 @@ const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
 
   return `${startHour}:00 to ${endHour}:00`;
 });
-
-
 
 const findHourIndex = (time: string): number => {
   return hoursOfDay.findIndex((hour) => hour.startsWith(time));
@@ -37,7 +42,8 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 
 const CreateTeacher: React.FC = () => {
   const { t, i18n } = useTranslation();
-  
+  const [videoVisible, setVideoVisible] = useState(false);
+
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     profileImg: [],
@@ -62,6 +68,8 @@ const CreateTeacher: React.FC = () => {
       },
     ],
   });
+
+  console.log(formData)
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
   const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
@@ -119,8 +127,8 @@ const CreateTeacher: React.FC = () => {
       ...prevFormData,
       location: location.value,
     }));
-  }
-  
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     console.log(files, "filessl");
@@ -132,10 +140,10 @@ const CreateTeacher: React.FC = () => {
         formData.append(`mediaFile${index}`, file);
       });
       setSelectedFiles([...selectedFiles, ...filesArray]);
-    setFormData((prevFormData: any) => ({
-      ...prevFormData,
-      mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
-    }));
+      setFormData((prevFormData: any) => ({
+        ...prevFormData,
+        mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
+      }));
     }
   };
 
@@ -190,11 +198,10 @@ const CreateTeacher: React.FC = () => {
         );
       }
     } catch (error) {
-      toast.error('Teacher Already Created')
+      toast.error("Teacher Already Created");
     }
   };
 
- 
   const handleWeekSelected = (date: Date) => {
     setSelectedWeekStart(date);
   };
@@ -283,207 +290,166 @@ const CreateTeacher: React.FC = () => {
     });
   };
 
-  
+  const videoSrc = "/video/video.mp4";
+  const posterSrc = "/img/user-06.png";
   // const user = JSON.parse(localStorage.getItem('user') || "");
   return (
-    <div className="py-8 ">
-      <div className="flex justify-start ml-16">
-        <Link to="/student-page" className="-m-1.5 p-1 cusor-pointer">
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            style={{
-              background: "#51ff85",
-              padding: "10px",
-              borderRadius: "50%",
-            }}
-          />
-        </Link>
+    <div className="py-8 ml-[60px]">
+      {/* ishdcnksjndckjsndc */}
+
+      <div className="bg-[#17b3a6] p-4 rounded">
+        <div className="p-6  rounded  text-white ">
+          <div className="flex items-center justify-around">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start ">
+              <div className="text-center">
+                <ProfileAvatar
+                  pname=""
+                  icon={<ShareIcon />}
+                  label={t("FIRST_NAME")}
+                  // imageUrl={user?.imageUrl}
+                  onChangeImage={(file: any) => {
+                    setFormData((prevFormData: any) => ({
+                      ...prevFormData,
+                      profileImg: [...prevFormData.mediaFiles, file],
+                    }));
+                  }}
+                  placeholder={t("FIRST_NAME")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+                <div className="mt-4">
+                  <div>
+                    <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
+                      Availble
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="ml-4 grid grid-cols-1 xl:grid-cols-2 gap-6 justify-center ">
+                <InputWithIcon
+                  pname="firstName"
+                  icon={<UserIcon />}
+                  label={t("FIRST_NAME")}
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder={t("ENTER_FIRST_NAME")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+                <InputWithIcon
+                  pname="hourlyRate"
+                  icon={<EnvelopeOpenIcon />}
+                  label={t("Hourly")}
+                  onChange={handleChange}
+                  placeholder={t("ENTER_RATE")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+
+                <div className="">
+                  <div className="flex flex-col gap-1">
+                    <InputWithIcon
+                      variant="dropdown"
+                      pname="location"
+                      icon={<MapPinIcon />}
+                      label={t("LOCATION")}
+                      value={formData.location}
+                      handleLocationChange={handleLocationChange}
+                      placeholder={t("ENTER_LOCATION")}
+                      colSpanSm={6}
+                      colSpanMd={4}
+                      colSpanLg={2}
+                    />
+                  </div>
+                </div>
+
+                <InputWithIcon
+                  pname="phoneNumber"
+                  icon={<PhoneIcon />}
+                  label={t("MOBILE")}
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder={t("ENTER_MOBILE")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <ProfileAvatar
-        pname=""
-        icon={<ShareIcon />}
-        label={t("FIRST_NAME")}
-        // imageUrl={user?.imageUrl}
-        onChangeImage={(file: any) => {
-          setFormData((prevFormData: any) => ({
-            ...prevFormData,
-            profileImg: [...prevFormData.mediaFiles, file],
-          }));
-        }}
-        placeholder={t("FIRST_NAME")}
-        colSpanSm={6}
-        colSpanMd={4}
-        colSpanLg={2}
-      />
-
-      <section className="h-full max-w-6xl mx-auto mt-6 text-center">
-        <div className=" mx-10 xl:mx-0 xl:w-full py-6 text-start">
-          <label className="text-lg font-bold" htmlFor="aboutMe">
-            {t("ABOUT")}
-          </label>
-          <textarea
-            id="aboutMyself"
-            name="aboutMyself"
-            value={formData.aboutMyself}
-            onChange={handleChange}
-            rows={4}
-            className="w-full border border-[#51ff85]"
-            placeholder={t("BIO")}
-          ></textarea>
-        </div>
-
-        <div className="py-2 xl:py-6">
-          <form onSubmit={handleFormSubmit}>
-            <div className="grid-cols-1 mx-10 xl:mx-0 xl:grid grid-cols-2 gap-4 text-start">
-              <InputWithIcon
-                pname="firstName"
-                icon={<UserIcon />}
-                label={t("FIRST_NAME")}
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder={t("ENTER_FIRST_NAME")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                pname="lastName"
-                icon={<UserIcon />}
-                label={t("LAST_NAME")}
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder={t("ENTER_LAST_NAME")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                pname="hourlyRate"
-                icon={<EnvelopeOpenIcon />}
-                label={t("Hourly")}
-                onChange={handleChange}
-                placeholder={t("ENTER_RATE")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                pname="phoneNumber"
-                icon={<PhoneIcon />}
-                label={t("MOBILE")}
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                placeholder={t("ENTER_MOBILE")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                variant="dropdown"
-                pname="location"
-                icon={<MapPinIcon />}
-                label={t("LOCATION")}
-                value={formData.location}
-                handleLocationChange={handleLocationChange}
-                placeholder={t("ENTER_LOCATION")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                pname="introduction"
-                icon={<MapPinIcon />}
-                label="Introduction Video URL"
-                value={formData.introduction}
-                onChange={handleChange}
-                placeholder="Enter Portfolio Video URL"
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-              <InputWithIcon
-                variant="video"
-                pname="videos"
-                icon={<MapPinIcon />}
-                label={"Portfolio Videos"}
-                value={formData.location}
-                handleImageChange={handleImageChange}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-            </div>
-            <div className="my-4 mx-10   xl:mx-0">
-              <CalendarSlider onWeekSelected={handleWeekSelected} />
-              <div className="grid grid-cols-8 gap-4 py-2 text-center ">
-                <div className="col-span-1 font-bold ">{t("TIME")}</div>
-                {selectedWeekStart &&
-                  Array.from({ length: 7 }, (_, i) => {
-                    const date = new Date(
-                      selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
-                    );
-                    return (
-                      <div
-                        key={date.toLocaleDateString()}
-                        className={`col-span-1 font-bold   ${
-                          date.getTime() === selectedTab?.getTime()
-                            ? "selected-tab"
-                            : ""
-                        }`}
-                        onClick={() => handleTabClick(date)}
-                      >
-                        {t(getDayName(date).toLocaleUpperCase())}
-                      </div>
-                    );
-                  })}
+      <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
+        <div className="col-span-1 md:col-span-5">
+          <div className="py-4  rounded  text-red ">
+            <div>
+              <div>
+                <h3 className="font-semibold mb-4 text-lg text-[#565656]">
+                  About Me
+                </h3>
+                <textarea
+                  className="leading-8 text-[#565656] w-full mr-4 h-[325px]"
+                  placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Aspernatur facilis hic repudiandae possimus tenetur,
+                  accusamus, eius fugit quis laboriosam alias, nemo debitis!
+                  Laudantium dignissimos pariatur, eaque, expedita perferendis
+                  debitis consequuntur sint, placeat doloribus voluptates optio
+                  culpa! Ipsam quae aperiam natus! Lorem ipsum dolor sit amet
+                  consectetur adipisicing elit. Ad tempore vero harum ut
+                  distinctio doloremque culpa molestias illo. Omnis nihil
+                  doloribus, praesentium provident sequi consectetur iusto eaque
+                  dignissimos fugit qui est quo placeat natus culpa deleniti,
+                  accusamus quas esse. Consequuntur? Lorem ipsum dolor sit amet
+                  consectetur adipisicing elit. Ullam dolores magnam rem ipsam
+                  blanditiis error vero corrupti ratione tenetur tempore."
+                ></textarea>
               </div>
-              <div
-                ref={scrollContainerRef}
-                className="grid grid-cols-8 gap-4 overflow-auto text-center"
-                style={{ maxHeight: "50vh" }}
-              >
-                {hoursOfDay.map((hour, hourIndex) => (
-                  <React.Fragment key={hour}>
-                    <div className="col-span-1 time-slot">{hour}</div>
-                    {selectedWeekStart &&
-                      Array.from({ length: 7 }, (_, dayIndex) => {
-                        const date = new Date(
-                          selectedWeekStart.getTime() +
-                            dayIndex * 24 * 60 * 60 * 1000
-                        );
-                        const dateKey = date.toISOString().split("T");
-                        const isActive = activeStates[hourIndex][dayIndex];
-
-                        return (
-                          <button
-                            key={dateKey + hour}
-                            type="button"
-                            className={`col-span-1 rounded-md py-2 time-slot ${
-                              isActive
-                                ? "bg-[#B2C3FD] shadow-lg"
-                                : "bg-[#F1F1F1]"
-                            }`}
-                            onClick={() =>
-                              handleTimeSlotClick(dateKey, hour, dayIndex)
-                            }
-                          >
-                            {isActive ? `${hour}` : hour}
-                          </button>
-                        );
-                      })}
-                  </React.Fragment>
-                ))}
-              </div>
+              <div></div>
             </div>
-            <button
-              type="submit"
-              className="px-16 py-4 mt-4 text-white glow-on-hover rounded-full text-[20px]"
-            >
-              {t("UPDATE")}
-            </button>
-          </form>
+          </div>
         </div>
-      </section>
+        <div className="col-span-1 md:col-span-3 my-4">
+          <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
+            Introduction Video
+          </h3>
+          <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
+            {!videoVisible && (
+              <>
+                <img
+                  className="rounded-lg"
+                  src={posterSrc}
+                  alt="Introduction"
+                  onClick={() => setVideoVisible(true)}
+                />
+                <button
+                  className="absolute inset-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+                  onClick={() => setVideoVisible(true)}
+                >
+                  <span className="text-white text-6xl">&#9658;</span>
+                </button>
+              </>
+            )}
+            {videoVisible && (
+              <iframe
+                className="rounded-lg w-full h-[260px]"
+                src={videoSrc}
+                title="Introduction Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="col-span-1">
+        <VideoPortfolio />
+      </div>
+              <button type="submit" >NEXT</button>
     </div>
   );
 };

@@ -3,14 +3,14 @@ import { HandThumbUpIcon, MapPinIcon, PhoneArrowUpRightIcon, EnvelopeIcon, StarI
 import React from 'react';
 
 interface UserProfileProps {
-    firstName: string;
-    location: string;
-    email: string;
-    phoneNumber: string;
-    hourlyRate: number;
-    rating: number;
-    ratingCount: number;
-    about: string;
+    firstName?: string;
+    location?: string;
+    email?: string;
+    phoneNumber?: string;
+    hourlyRate?: number;
+    rating?: number;
+    ratingCount?: number;
+    about?: string;
     lastName?: string
 }
 
@@ -38,7 +38,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                         <div className="mt-4">
                             <div>
                                 <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
-                                    Availble
+                                    AvailbleS
                                 </button>
                             </div>
                         </div>
