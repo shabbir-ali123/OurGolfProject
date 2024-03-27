@@ -1,5 +1,5 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { createPost, deletePost, fetchAllPosts, fetchMyPosts, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
+import { createPost, deletePost, fetchAllPosts, fetchMostCommentedPosts, fetchMostLikedPosts, fetchMyPosts, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -16,6 +16,8 @@ interface CreatePostType {
 export const PostContext = ({children}:any)=>{
     const [post, setPost] = useState<any[]>([]);
     const [singlePost, setSinglePost] = useState<any>();
+    const [mostLiked, setMostLiked] = useState<any>();
+    const [mostCommented, setMostCommented] = useState<any>();
     const [category, setCategory] = useState<string>('Public');
     const token = localStorage.getItem("token");
     const router = useNavigate();
@@ -68,8 +70,9 @@ export const PostContext = ({children}:any)=>{
         }
         if(category === 'Public' || category === 'Private'){
             fetchPosts(setPost, category, router);
-
         }
+        fetchMostLikedPosts(setMostLiked);
+        fetchMostCommentedPosts(setMostCommented);
 
      }, [category,message, postId]);
 
@@ -91,6 +94,9 @@ export const PostContext = ({children}:any)=>{
             fetchSinglePosts(handlePost, postId);
         }
     }, [message, handleMessage, setMessage]);
+
+
+
     const value =  {handleMessage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,formData, singlePost, category, post}
    
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>

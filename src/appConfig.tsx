@@ -49,7 +49,7 @@ export const API_ENDPOINTS = {
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
   UPDATETEACHERPROFILE: `${API_BASE_URL}/${API_VERSION}/update-teacher-profile`, 
-
+  
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
   GETPUBLICTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-public-teams-by-event/`, 
@@ -72,6 +72,9 @@ export const API_ENDPOINTS = {
   GETMYPOSTS: `${API_BASE_URL}/${API_VERSION}/get-my-posts`,
   EDITPOSTCOMMENTS: `${API_BASE_URL}/${API_VERSION}/edit-comment`,
   DELETECOMMENTBYID: `${API_BASE_URL}/${API_VERSION}/delete-comment/`,
+  GETMOSTCOMMENTSPOSTS: `${API_BASE_URL}/${API_VERSION}/get-top-commented-post`, 
+  GETMOSTLIKEDPOSTS: `${API_BASE_URL}/${API_VERSION}/get-top-liked-post`, 
+
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
   GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,
