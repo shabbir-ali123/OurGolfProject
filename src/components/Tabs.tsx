@@ -105,7 +105,7 @@ const Tabs: React.FC<TabsProps> = ({
       <div className="w-full  animate__animated animate__fadeInLeft">
         <Tab.Group>
           <div className="flex justify-between ">
-            <div className="  animate__animated animate__shakeY">
+            <div className="animate__animated animate__shakeY">
               <button
                 type="button"
                 onClick={() => setLocationPopupOpen(true)}

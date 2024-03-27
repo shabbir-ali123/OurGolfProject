@@ -255,7 +255,10 @@
     "DELETE":"削除",
     "EDIT_PROFILE":"プロファイル編集",
     "LIVE_VIDEO": "動画",
-    
+    "CANCELLATION_FEE":"解約料",
+    "TENDAYS_FEE":"解約料",
+    "THREEDAYS_FEE":"解約料",
+    "ON_THEDAY_FEE":"解約料",
     "PHOTO": "画像",
     "FEELING": "感情/活動",
     "BOOK_APPOINTMENT":"予約する",

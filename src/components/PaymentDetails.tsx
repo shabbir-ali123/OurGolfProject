@@ -183,29 +183,10 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({ onChange, formDataa }) 
             </div>
           </>
         )}
-        <div  className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 ">
-        <div className="col-span-8 py-2 lg:col-span-7  md:col-span-5 md:mr-0 md:mb-0 ">
-          <label
-            className="block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
-            htmlFor="grid-event-name"
-          >
-            {t('PARTICIPATION_FEE')}
-          </label>
-          <input
-            className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
-            id="participationFee"
-            type="number"
-            pattern="[0-9]*"
-            name="participationFee"
-            onChange={handleInputChange}
-            title="Please enter a valid number"
-            placeholder="$ Enter Amount"
-            min="0"
-          />
-        </div>
-        </div>
+       
        
       </div>
+     
     </div>
   );
 };

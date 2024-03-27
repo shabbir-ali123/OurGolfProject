@@ -388,7 +388,91 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
             </button>
           </div>
         </div>
+      
       </div>
+      <div  className="grid grid-cols-9 px-4 py-4 mx-auto lg:gap-x-16 my-10" style={{
+          boxShadow:
+            'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+        }}>
+        <div className="col-span-8 py-2 lg:col-span-7  md:col-span-5 md:mr-0 md:mb-0 ">
+          <label
+            className="block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
+            htmlFor="grid-event-name"
+          >
+            {t('PARTICIPATION_FEE')}
+          </label>
+          <input
+            className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+            id="participationFee"
+            type="number"
+            pattern="[0-9]*"
+            name="participationFee"
+            onChange={onChange}
+            title="Please enter a valid number"
+            placeholder="$ Enter Amount"
+            min="0"
+          />
+        </div>
+        </div>
+        <div  className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 my-10 py-6" style={{
+          boxShadow:
+            'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+        }}>
+        <div className="col-span-8 text-4xl text-[#626262]  lg:col-span-4  md:col-span-5 md:mr-0 md:mb-0 ">
+          <h4>{t('CANCELLATION_FEE')}</h4>
+          <label
+            className=" mt-6 block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
+            htmlFor="grid-event-name"
+          >
+            {t('TENDAYS_FEE')}
+          </label>
+          <input
+            className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+            id="participationFee"
+            type="number"
+            pattern="[0-9]*"
+            name="participationFee"
+            onChange={onChange}
+            title="Please enter a valid number"
+            placeholder="$ Enter Amount"
+            min="0"
+          />
+           <label
+            className=" mt-6 block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
+            htmlFor="grid-event-name"
+          >
+            {t('THREEDAYS_FEE')}
+          </label>
+          <input
+            className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+            id="participationFee"
+            type="number"
+            pattern="[0-9]*"
+            name="participationFee"
+            onChange={onChange}
+            title="Please enter a valid number"
+            placeholder="$ Enter Amount"
+            min="0"
+          />
+           <label
+            className=" mt-6 block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
+            htmlFor="grid-event-name"
+          >
+            {t('ON_THEDAY_FEE')}
+          </label>
+          <input
+            className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
+            id="participationFee"
+            type="number"
+            pattern="[0-9]*"
+            name="participationFee"
+            onChange={onChange}
+            title="Please enter a valid number"
+            placeholder="$ Enter Amount"
+            min="0"
+          />
+        </div>
+        </div>
     </motion.div>
   );
 };

@@ -305,14 +305,15 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
                             <div className="flex flex-col items-center gap-1 ">
                               <div
-                                className={`flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black bg-${liked ? "green" : "[#17B3A6]"
+                                className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
                                   } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleLike(event)}
                               >
-                                <HandThumbUpIcon className="w-4 h-4 text-[#17B3A6]" />
+                                <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
+                                  } `} />
                               </div>
-                              <div className="flex bg-white border-[#17B3A6]  cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md shadow-lg border border-solid border-white ">
-                                <div className="text-[12px] text-[#17B3A6]  ">
+                              <div className="flex bg-white  border-solid  border-[#17B3A6]  cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md shadow-lg border border-solid border-white ">
+                                <div className="text-[12px] border-solid  border-[#17B3A6] text-[#17B3A6]  ">
                                   {
                                     (event?.likes || []).filter(
                                       (like: any) => like.counter
