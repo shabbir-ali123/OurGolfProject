@@ -170,7 +170,7 @@ const Tabs: React.FC<TabsProps> = ({
                 </Tab>
               ))}
               <div className="col-span-2 flex">
-                <Calendar setEvents={setEvents} setFilterLocation={setFilterLocation} />
+                <Calendar startDate={startDate} endDate={endDate} setEndDate={setEndDate} setStartDate={setStartDate} setEvents={setEvents} setFilterLocation={setFilterLocation} />
               </div>
 
             </div>

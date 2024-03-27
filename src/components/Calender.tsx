@@ -8,13 +8,16 @@ import { eventContextStore } from "../contexts/eventContext";
 interface CalendarProps {
   setEvents: any;
   setFilterLocation:any;
+  setStartDate:any;
+  setEndDate:any;
+  endDate:any;
+  startDate:any;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ setEvents,setFilterLocation }) => {
+const Calendar: React.FC<CalendarProps> = ({ setFilterLocation, setStartDate, setEndDate, startDate, endDate}) => {
   const {t, i18n} = useTranslation();
   document.body.dir = i18n.dir();
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+
   
 
   const handleStartDateChange = (date: Date | null) => {
