@@ -321,47 +321,16 @@ const PostCard = () => {
                     </div>
                   </div>
                   <ImageComponent src={post.mediaFile?.[0]} />
-                  <div className="flex justify-between items-center mt-6  z-10 relative">
-                        <div
-                          className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
-                          onClick={(event) =>
-                            handleLikes(post?.id, userHasLiked, event)
-                          }
-                        >
-                          <div className="flex items-center "></div>{" "}
-                          <span className="flex items-center gap-2 text-[10px] cursor-pointer">
-                            {userHasLiked ? t("BY_YOU") : ""}
-                            {uId !== post?.PostLikes[0]?.userId &&
-                            post?.PostLikes.length > 1
-                              ? userHasLiked
-                                ? " &  "
-                                : post?.PostLikes[0]?.user?.nickName + " &"
-                              : " "}{" "}
-                            {post?.PostLikes.length > 0 &&
-                              (post?.PostLikes || []).filter(
-                                (like: any) => like.counter
-                              ).length +
-                                (userHasLiked ? -1 : 0) +
-                                t("OTHER")}
-                          </span>
-                        </div>
-                        <div className="flex item-center">
-                          <span
-                            className="flex items-center text-[10px] gap-0 hover:bg-black  rounded-lg"
-                            onClick={(e)=> handleCommentModel(e, post?.id)}
-                            data-interaction="comment"
-                          >
-                            {" "}
-                            {post.PostComments.length} {t("COMMENTS")}
-                          </span>
-                        </div>
+                  <div className="flex justify-between items-center mt-4  z-10 relative">
+                      
+                     
                         <div className="flex item-center">
                           <span
                             className="flex items-center gap-0 text-[10px] hover:bg-black p-1 rounded-lg"
                             onClick={handleInteraction}
                             data-interaction="share"
                           >
-                            <span className=""></span>0 {t("SHARE")}
+                            
                           </span>
                         </div>
                       </div>
@@ -373,7 +342,31 @@ const PostCard = () => {
                             handleLike(post.id, userHasLiked, event)
                           }
                         >
-                          <div className="flex items-center ">
+                          <div>
+                          <div
+                          className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
+                          onClick={(event) =>
+                            handleLikes(post?.id, userHasLiked, event)
+                          }
+                        >
+                          <div className="flex items-center "></div>{" "}
+                          <span className="flex items-center gap-2 text-[14px] cursor-pointer">
+                            {userHasLiked ? t("BY_YOU") : ""}
+                            {uId !== post?.PostLikes[0]?.userId &&
+                            post?.PostLikes.length > 1
+                              ? userHasLiked
+                                ? " &  "
+                                : post?.PostLikes[0]?.user?.nickName + " & "
+                              : "  "} {" "}
+                            {post?.PostLikes.length > 0 &&
+                              (post?.PostLikes || []).filter(
+                                (like: any) => like.counter
+                              ).length +
+                                (userHasLiked ? -1 : 0) + 
+                                t("OTHER")}
+                          </span>
+                        </div>
+                        <div className="flex items-center ">
                             <button className="flex items-center cursor-pointer bg-transparent">
                               {userHasLiked ? (
                                 <HandThumbUpIcon
@@ -393,8 +386,7 @@ const PostCard = () => {
                                 />
                               )}
                             </button>
-                          </div>{" "}
-                          <span
+                            <span
                             className={`flex items-center gap-2 cursor-pointer ${
                               hoveredIndex === index
                                 ? "text-white "
@@ -404,6 +396,21 @@ const PostCard = () => {
                             }`}
                           >
                             {t("LIKE")}
+                          </span>
+                          </div>{" "}
+                       
+                          </div>
+                         
+                        </div>
+                        <div>
+                        <div className="flex item-center">
+                          <span
+                            className="flex items-center text-[14px] gap-0 hover:bg-black  rounded-lg"
+                            onClick={(e)=> handleCommentModel(e, post?.id)}
+                            data-interaction="comment"
+                          >
+                            {" "}
+                            {post.PostComments.length} {t("COMMENTS")}
                           </span>
                         </div>
                         <span
@@ -418,6 +425,8 @@ const PostCard = () => {
                           />
                           {t("COMMENTS")}
                         </span>
+                        </div>
+                      
 
                         <span
                           className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
@@ -444,23 +453,77 @@ const PostCard = () => {
         );
       })}
         </div>
-        <div className="row-span-2 mx-4 lg:mx-0 lg:sticky top-0 col-span-12 px-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
+        <div className="hidden lg:block row-span-2 mx-4 lg:mx-0 lg:sticky top-0 col-span-12 px-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
                 <div>
                   <h5>Top Liked Posts</h5>
                   <ul className="p-0">
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
+                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
+                       
+                        className="flex items-center gap-2 m-0 p-0 "
+                      >
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src="/img/BG-GOLF.jpg"
+                        />
+                        <p className="text-black">Siraj khan</p>
+                      </div></li>
+                      <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
+                       
+                       className="flex items-center gap-2 m-0 p-0 "
+                     >
+                       <img
+                         className="w-10 h-10 rounded-full"
+                         src="/img/BG-GOLF.jpg"
+                       />
+                       <p className="text-black">Siraj khan</p>
+                     </div></li>
+                     <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
+                       
+                        className="flex items-center gap-2 m-0 p-0 "
+                      >
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src="/img/BG-GOLF.jpg"
+                        />
+                        <p className="text-black">Siraj khan</p>
+                      </div></li>
+                    
                   </ul>
                 </div>
                 <div>
                   <h5>Top Commented Posts</h5>
                   <ul className="p-0">
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>Post one Link</li>
+                  <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
+                       
+                       className="flex items-center gap-2 m-0 p-0 "
+                     >
+                       <img
+                         className="w-10 h-10 rounded-full"
+                         src="/img/BG-GOLF.jpg"
+                       />
+                       <p className="text-black">Siraj khan</p>
+                     </div></li>
+                     <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
+                       
+                        className="flex items-center gap-2 m-0 p-0 "
+                      >
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src="/img/BG-GOLF.jpg"
+                        />
+                        <p className="text-black">Siraj khan</p>
+                      </div></li>
+                      <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
+                       
+                       className="flex items-center gap-2 m-0 p-0 "
+                     >
+                       <img
+                         className="w-10 h-10 rounded-full"
+                         src="/img/BG-GOLF.jpg"
+                       />
+                       <p className="text-black">Siraj khan</p>
+                     </div></li>
+                    
                   </ul>
                 </div>
          </div>

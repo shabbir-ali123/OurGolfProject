@@ -97,8 +97,8 @@ export const EducatorCard = ({
 
   return (
     <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
-      <div className="grid grid-cols-1 xl:grid-cols-8 gap-4">
-        <div className="md:col-span-6">
+      <div className="grid grid-cols-1 xl:grid-cols-9 gap-4">
+        <div className="lg:col-span-6">
           <div className="flex flex-col lg:flex-row">
             <div className="text-center ">
               <img
@@ -159,7 +159,7 @@ export const EducatorCard = ({
               <p className="leading-6 text-[#5b5b5b] mt-4">{aboutMyself}</p>
             </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex items-center">
             <div className="grid lg:grid-cols-8 sm:grid-cols-3 gap-4">
               {shiftsData.map((shift: any, index: any) => (
                 <button
@@ -175,9 +175,11 @@ export const EducatorCard = ({
                 </button>
               ))}
             </div>
+           
+         
           </div>
         </div>
-        <div className="md:col-span-2">
+        <div className="md:col-span-3">
           <TeacherCalender
             startEndDates={schedules}
             shifts={schedules?.shifts}

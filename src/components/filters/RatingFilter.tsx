@@ -17,7 +17,7 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ onRatingChange }) => {
     return (
         <div>
             <h3 className='text-start'>Rating</h3>
-            <div className="flex space-x-2">
+            <div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2">
 
                 {[5, 4, 3, 2, 1].map((rating) => (
                     <button

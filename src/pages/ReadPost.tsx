@@ -282,7 +282,9 @@ const ReadPost: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        
         <div className="col-span-8  ">
+        <div className="mb-4" dangerouslySetInnerHTML={{ __html: singlePost?.text ?? "" }} />
           {singlePost?.mediaFile?.map((img: string, index: number) => {
             if (singlePost?.mediaFile?.length === 1) {
               return (
@@ -322,42 +324,8 @@ const ReadPost: React.FC = () => {
             })}
           </Slider>
 
-          <div dangerouslySetInnerHTML={{ __html: singlePost?.text ?? "" }} />
-          <div className="flex gap-2 items-center">
-            <div className="flex items-center gap-0">
-              <div className="flex items-center">
-                <button
-                  onClick={handleLike}
-                  className="flex items-center cursor-pointer bg-transparent"
-                >
-                  {userHasLiked ? (
-                    <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
-                  ) : (
-                    <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
-                  )}
-                </button>
-              </div>{" "}
-              {
-                (singlePost?.PostLikes || []).filter(
-                  (like: any) => like.counter
-                ).length
-              }{" "}
-              {t("LIKES")}
-            </div>
-
-            <span
-              className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-              data-interaction="share"
-            >
-              {" "}
-              <ShareIcon
-                className="w-4 h-4 cursor-pointer"
-                aria-hidden="true"
-                data-interaction="share"
-              />
-              {t("SHARE")}
-            </span>
-          </div>
+          
+       
         </div>
         <div className="col-span-4">
           <div>
@@ -523,6 +491,41 @@ const ReadPost: React.FC = () => {
                   </button>
                 </div>
               </form>
+              <div className="flex gap-4 items-center my-10">
+            <div className="flex items-center gap-0">
+              <div className="flex items-center">
+                <button
+                  onClick={handleLike}
+                  className="flex items-center cursor-pointer bg-transparent"
+                >
+                  {userHasLiked ? (
+                    <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
+                  ) : (
+                    <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+                  )}
+                </button>
+              </div>{" "}
+              {
+                (singlePost?.PostLikes || []).filter(
+                  (like: any) => like.counter
+                ).length
+              }{" "}
+              {t("LIKES")}
+            </div>
+
+            <span
+              className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
+              data-interaction="share"
+            >
+              {" "}
+              <ShareIcon
+                className="w-4 h-4 cursor-pointer"
+                aria-hidden="true"
+                data-interaction="share"
+              />
+              {t("SHARE")}
+            </span>
+          </div>
             </div>
           </div>
         </div>

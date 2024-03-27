@@ -41,25 +41,25 @@ const Calendar: React.FC<CalendarProps> = ({ setEvents,setFilterLocation }) => {
     setFilterLocation([]);
 };
   return (
-    <div className="flex flex-wrap md:flex-nowrap items-center gap-4 w-full xl:gap-12">
+    <div className="flex flex-wrap md:flex-nowrap items-center  w-full gap-12">
       <DatePicker
         selected={startDate}
         onChange={setStartDate}
         placeholderText={t('START_DATE')}
-        className=" py-4 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-full xl:w-[150px]"
+        className=" py-4 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0]  "
       />
       <DatePicker
         selected={endDate}
         onChange={setEndDate}
         placeholderText={t('END_DATE')}
-        className=" py-4 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-full xl:w-[150px]"
+        className=" py-4 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0]  "
       />
-      <button
-        className="bg-[#17b3a6] text-white font-bold py-[19px] w-full xl:w-[150px] rounded"
+      {/* <button
+        className="bg-[#17b3a6] text-white font-bold py-[19px] w-full  rounded"
         onClick={clearDates}
       >
         {t("CLEAR")}
-      </button>
+      </button> */}
     </div>
   );
 };
