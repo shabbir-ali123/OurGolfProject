@@ -139,7 +139,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   const userId = localStorage.getItem("id");
 
-
+  
+  let state = window.innerWidth < 768 ? true : false
 
   return (
     <div className="animate__animated animate__fadeInLeft">
@@ -153,238 +154,371 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           <div className="-my-2 overflow-x-auto xl:overflow-x-auto ">
             <div className="inline-block min-w-full py-0 align-middle ">
               <div className="overflow-hidden sm:rounded-lg">
-                <table
-                  className="relative min-w-full px-3 divide-y divide-gray-300 z-9"
-                  style={{
-                    borderCollapse: "separate",
-                    borderSpacing: "0 20px",
-                  }}
-                >
-                  <thead className="bg-[#F5F5F5] text-black  flex-col">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
-                      >
-                        {t("ORGANIZER")}
-                      </th>
-                     
-                      <th
-                        scope="col"
-                        className="px-3 py-2 text-sm font-semibold text-left"
-                      >
-                        {t("EVENTS_NAME")} / {t("EVENT_DETAILS")}
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-2 text-sm font-semibold text-left"
-                      >
-                        {t("TIME")}
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-2 text-sm font-semibold text-left"
-                      >
-                        {t("JOINED_MEMBER")}
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-3 py-2 text-sm text-left font-semibol"
-                      >
-                        {t("ACTIONS")}
-                      </th>
-                    </tr>
-                  </thead>
-
-                  {eventss.map((event: any, index: number) => {
-                    const likes = event.likes || [];
-                    const isFavorite = event.isFavorite || false;
-                    const liked = likes.find(
-                      (like: any) =>
-                        parseInt(`${like.userId}`) === parseInt(`${userId}`)
-                    )?.counter;
-
-                    return (
-                      <React.Fragment key={index}>
-                        <tr
-                          className="mt-4 rounded-lg cursor-pointer text-black hover:rounded-lg hover:bg-[#DDF4F2] hover:text-black"
-                          style={{
-                            width: "100%",
-                            borderRadius: "10px",
-                            border: "none",
-                            boxShadow:
-                              "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                          }}
+                {
+                  !state ? <table
+                    className="relative min-w-full px-3 divide-y divide-gray-300 z-9"
+                    style={{
+                      borderCollapse: "separate",
+                      borderSpacing: "0 20px",
+                    }}
+                  >
+                    <thead className="bg-[#F5F5F5] text-black  flex-col">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="py-2 pl-4 pr-3 text-sm font-semibold text-left sm:pl-6"
                         >
-                          <td
-                            className=""
-                            onClick={() => router(`/edit-team/${event.id}`)}
+                          {t("ORGANIZER")}
+                        </th>
+
+                        <th
+                          scope="col"
+                          className="px-3 py-2 text-sm font-semibold text-left"
+                        >
+                          {t("EVENTS_NAME")} / {t("EVENT_DETAILS")}
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-2 text-sm font-semibold text-left"
+                        >
+                          {t("TIME")}
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-2 text-sm font-semibold text-left"
+                        >
+                          {t("JOINED_MEMBER")}
+                        </th>
+
+                        <th
+                          scope="col"
+                          className="px-3 py-2 text-sm text-left font-semibol"
+                        >
+                          {t("ACTIONS")}
+                        </th>
+                      </tr>
+                    </thead>
+
+                    {eventss.map((event: any, index: number) => {
+                      const likes = event.likes || [];
+                      const isFavorite = event.isFavorite || false;
+                      const liked = likes.find(
+                        (like: any) =>
+                          parseInt(`${like.userId}`) === parseInt(`${userId}`)
+                      )?.counter;
+
+                      return (
+                        <React.Fragment key={index}>
+                          <tr
+                            className="mt-4 rounded-lg cursor-pointer text-black hover:rounded-lg hover:bg-[#DDF4F2] hover:text-black"
+                            style={{
+                              width: "100%",
+                              borderRadius: "10px",
+                              border: "none",
+                              boxShadow:
+                                "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                            }}
                           >
-                            <div className="flex-wrap text-start items-center justify-start mx-4">
-                              <img
-                                src={
-                                  event.imageUrl[0]
-                                    ? event.imageUrl[0]
+                            <td
+                              className=""
+                              onClick={() => router(`/edit-team/${event.id}`)}
+                            >
+                              <div className="flex-wrap text-start items-center justify-start mx-4">
+                                <img
+                                  src={
+                                    event.imageUrl[0]
+                                      ? event.imageUrl[0]
+                                      : "img/BG-GOLF.jpg"
+                                  }
+                                  alt=""
+                                  className="w-16 h-16 border border-indigo-600 border-solid rounded-full "
+                                />
+
+                                <div
+                                  className="text-lg font-medium leading-6 truncate tableText"
+                                  title={event.creator && event.creator.nickName ? event.creator.nickName : "N/A"}
+                                >
+                                  {event.creator && event.creator.nickName
+                                    ? event.creator.nickName.length > 10
+                                      ? `${event.creator.nickName.substring(0, 10)}...`
+                                      : event.creator.nickName
+                                    : "N/A"}
+                                </div>
+
+                              </div>
+                            </td>
+                            <td
+                              className="flex items-center justify-between ml-2 text-sm  text-center whitespace-pre-wrap xl:text-left"
+                              onClick={() => router(`/edit-team/${event.id}`)}
+                            >
+                              <div className="flex flex-col ">
+                                <p className="font-bold text-2xl  capitalize text-start">{event.eventName}</p>
+
+                                <span className="flex items-center gap-1 font-normal ">
+                                  <MapPinIcon
+                                    className={`-mr-0.5 h-4 w-4 ${event.type !== "full" && "text-[#33333]"
+                                      }`}
+                                    aria-hidden="true"
+                                  />
+                                  {event.place}
+                                </span>
+                                <p className="text-start m-0 my-1 text-sm ">
+                                  {event.eventDetails.length > 100 ? `${event.eventDetails.substring(0, 100)}...` : event.eventDetails}
+                                </p>
+                              </div>
+
+
+                            </td>
+                            <td
+                              className="px-3 py-0 text-sm whitespace-nowrap"
+                              onClick={() => router(`/edit-team/${event.id}`)}
+
+                            >
+                              <p>
+                                {event.eventStartDate}
+                              </p>
+
+                              {event.eventStartTime}
+                            </td>
+
+                            <td
+                              className="px-3 py-2 text-sm flex-wrap"
+                              onClick={() => router(`/edit-team/${event.id}`)}
+                            >
+                              <p className="my-1 p-0">
+                                <span className="font-bold m-0 p-0"> {t("CONFIRMED")}:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
+                              </p>
+                              <p className="m-0 p-0">
+                                <span className="font-bold ">
+                                  {t("WAITING")}:
+                                </span> {event.teamMemberCount} / {event.capacity * event.teamSize}
+
+                              </p>
+                              <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
+                                <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black" style={{
+
+                                  boxShadow:
+                                    "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                }} >Join</p>
+                              </span>
+                            </td>
+                            <div className="text-start flex items-center" >
+                              <div>
+                                <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
+                                  <div className="flex flex-col items-center gap-1 ">
+                                    <div
+                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
+                                        } cursor-pointer p-1 rounded-md`}
+                                      onClick={() => handleLike(event)}
+                                    >
+                                      <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
+                                        } `} />
+                                    </div>
+                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                      <div className="text-[12px]  text-[#17B3A6]  ">
+                                        {
+                                          (event?.likes || []).filter(
+                                            (like: any) => like.counter
+                                          ).length
+                                        }
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-1">
+                                    <div
+                                      onClick={() => handleComment(event.id)}
+                                      className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
+                                    >
+                                      <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
+                                    </div>
+                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                      <div className="text-[12px] text-[#17B3A6]">
+                                        {event.comments?.length}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-1">
+                                    <div
+                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
+                                        }  cursor-pointer p-1 rounded-md`}
+                                      onClick={() => handleFavoriteClick(event.id)}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
+                                          }`}
+                                      />
+                                    </div>
+                                    <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">
+                                      <ShareIcon className="w-4 h-4 text-[#17B3A6]" />
+                                    </div>
+                                  </div>
+                                </td>
+                                <div className="flex items-center justify-center py-2">
+                                  <button
+                                    className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
+                                    onClick={() => router(`/score-board/${event.id}`)}
+                                    style={{
+
+                                      boxShadow:
+                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                    }}
+                                  >
+                                    {t("VIEW")}
+                                  </button>
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </tr>
+
+                          {selectedEvent === event.id && (
+                            <tr>
+                              <SingleEventsContext>
+                                <CommentModel
+                                  closeModal={closeModal}
+                                  eventId={event.id}
+                                />
+                              </SingleEventsContext>
+                            </tr>
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
+                  </table> :
+                    (
+                      eventss?.map((item: any) => {
+                        const likes = item.likes || [];
+                        const isFavorite = item.isFavorite || false;
+                        const liked = likes.find(
+                          (like: any) =>
+                            parseInt(`${like.userId}`) === parseInt(`${userId}`)
+                        )?.counter;
+                        return (
+
+
+                          <div className="grid gap-4 p-4 border border-solid border-[#DCDCDC] mb-2 items-center">
+                            <div className="grid grid-cols-2 bg-[#F5F5F5] items-center ">
+                              <div className="p-2"><p className="m-0">Organizer</p></div>
+                              <div className="p-2"><p className="m-0">Event Name/ Detail</p></div>
+                            </div>
+                            <div className="grid grid-cols-2 bg-#ffffff items-center justify-center">
+                              <div className="flex justify-center ">
+                                <img src={
+                                  item.imageUrl[0]
+                                    ? item.imageUrl[0]
                                     : "img/BG-GOLF.jpg"
                                 }
-                                alt=""
-                                className="w-16 h-16 border border-indigo-600 border-solid rounded-full "
-                              />
+                                  alt=""
+                                  className="w-16 h-16 border border-indigo-600 border-solid rounded-full " /></div>
+                                  <div>
 
-                              <div
-                                className="text-lg font-medium leading-6 truncate tableText"
-                                title={event.creator && event.creator.nickName ? event.creator.nickName : "N/A"}
-                              >
-                                {event.creator && event.creator.nickName
-                                  ? event.creator.nickName.length > 10
-                                    ? `${event.creator.nickName.substring(0, 10)}...`
-                                    : event.creator.nickName
-                                  : "N/A"}
-                              </div>
-
-                            </div>
-                          </td>
-                          <td
-                            className="flex items-center justify-between ml-2 text-sm  text-center whitespace-pre-wrap xl:text-left"
-                            onClick={() => router(`/edit-team/${event.id}`)}
-                          >
-                            <div className="flex flex-col ">
-                              <p className="font-bold text-2xl  capitalize text-start">{event.eventName}</p>
-
-                              <span className="flex items-center gap-1 font-normal ">
-                                <MapPinIcon
-                                  className={`-mr-0.5 h-4 w-4 ${event.type !== "full" && "text-[#33333]"
-                                    }`}
-                                  aria-hidden="true"
-                                />
-                                {event.place}
-                              </span>
+                              <p className="font-bold text-2xl  capitalize text-start text-center">Event By: {item.eventName}</p>
                               <p className="text-start m-0 my-1 text-sm ">
-                                {event.eventDetails.length > 100 ? `${event.eventDetails.substring(0, 100)}...` : event.eventDetails}
+                                  {item.eventDetails.length > 100 ? `${item.eventDetails.substring(0, 100)}...` : item.eventDetails}
+                                </p>
+                                  </div>
+                              <div className="text-center"><p className="m-0 text-lg font-medium leading-6 truncate tableText">{item.creator && item.creator.nickName ? item.creator.nickName : "N/A"}</p></div>
+                            </div>
+
+                            <div className="grid grid-cols-3 bg-[#F5F5F5] items-center ">
+                              <div className="p-2">Date</div>
+                              <div className="p-2">Joined Members</div>
+                              <div className="p-2">Actions</div>
+                            </div>
+                            <div className="grid grid-cols-3 bg-[#ffffff] items-center">
+                              <div className="p-2">{item.eventStartDate}</div>
+                              <div className="p-2"><p className="my-1 p-0">
+                                <span className="font-bold text-sm m-0 p-0"> {t("CONFIRMED")}:</span>  {item.teamMemberCount} / {item.capacity * item.teamSize}
                               </p>
-                            </div>
+                              <p className="m-0 p-0">
+                                <span className="font-bold text-sm ">
+                                  {t("WAITING")}:
+                                </span> {item.teamMemberCount} / {item.capacity * item.teamSize}
 
-                            
-                          </td>
-                          <td
-                            className="px-3 py-0 text-sm whitespace-nowrap"
-                            onClick={() => router(`/edit-team/${event.id}`)}
+                              </p>
+                              <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
+                                <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black" style={{
 
-                          >
-                            <p>
-                              {event.eventStartDate}
-                            </p>
+                                  boxShadow:
+                                    "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                }} >Join</p>
+                              </span></div>
+                              <div className="p-2"><div className="text-start flex items-center" >
+                              <div>
+                                <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
+                                  <div className="flex flex-col items-center gap-1 ">
+                                    <div
+                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
+                                        } cursor-pointer p-1 rounded-md`}
+                                      onClick={() => handleLike(event)}
+                                    >
+                                      <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
+                                        } `} />
+                                    </div>
+                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                      <div className="text-[12px]  text-[#17B3A6]  ">
+                                        {
+                                          (item?.likes || []).filter(
+                                            (like: any) => like.counter
+                                          ).length
+                                        }
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-1">
+                                    <div
+                                      onClick={() => handleComment(item.id)}
+                                      className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
+                                    >
+                                      <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
+                                    </div>
+                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                      <div className="text-[12px] text-[#17B3A6]">
+                                        {item.comments?.length}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-1">
+                                    <div
+                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
+                                        }  cursor-pointer p-1 rounded-md`}
+                                      onClick={() => handleFavoriteClick(item.id)}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
+                                          }`}
+                                      />
+                                    </div>
+                                    <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">
+                                      <ShareIcon className="w-4 h-4 text-[#17B3A6]" />
+                                    </div>
+                                  </div>
+                                </td>
+                                <div className="flex items-center justify-center py-2">
+                                  <button
+                                    className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
+                                    onClick={() => router(`/score-board/${item.id}`)}
+                                    style={{
 
-                            {event.eventStartTime}
-                          </td>
-                         
-                          <td
-                            className="px-3 py-2 text-sm flex-wrap"
-                            onClick={() => router(`/edit-team/${event.id}`)}
-                          >
-                            <p className="my-1 p-0">
-                              <span className="font-bold m-0 p-0"> {t("CONFIRMED")}:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
-                            </p>
-                            <p className="m-0 p-0">
-                              <span className="font-bold ">
-                                {t("WAITING")}:
-                              </span> {event.teamMemberCount} / {event.capacity * event.teamSize}
-
-                            </p>
-                            <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
-                            <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black"  style={{
-                         
-                            boxShadow:
-                              "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                          }} >Join</p>
-                            </span>
-                          </td>
-                          <div className="text-start flex items-center" >
-                            <div>
-                            <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
-                            <div className="flex flex-col items-center gap-1 ">
-                              <div
-                                className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
-                                  } cursor-pointer p-1 rounded-md`}
-                                onClick={() => handleLike(event)}
-                              >
-                                <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
-                                  } `} />
-                              </div>
-                              <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
-                                <div className="text-[12px]  text-[#17B3A6]  ">
-                                  {
-                                    (event?.likes || []).filter(
-                                      (like: any) => like.counter
-                                    ).length
-                                  }
+                                      boxShadow:
+                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                    }}
+                                  >
+                                    {t("VIEW")}
+                                  </button>
                                 </div>
                               </div>
-                            </div>
-                            <div className="flex flex-col items-center gap-1">
-                              <div
-                                onClick={() => handleComment(event.id)}
-                                className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
-                              >
-                                <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
-                              </div>
-                              <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
-                                <div className="text-[12px] text-[#17B3A6]">
-                                  {event.comments?.length}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex flex-col items-center gap-1">
-                              <div
-                                className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
-                                  }  cursor-pointer p-1 rounded-md`}
-                                onClick={() => handleFavoriteClick(event.id)}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faHeart}
-                                  className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
-                                }`}
-                                />
-                              </div>
-                              <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">
-                                <ShareIcon className="w-4 h-4 text-[#17B3A6]" />
-                              </div>
-                            </div>
-                          </td>
-                          <div className="flex items-center justify-center py-2">
-                            <button
-                              className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
-                              onClick={() => router(`/score-board/${event.id}`)}
-                              style={{
-                         
-                                boxShadow:
-                                  "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                              }}
-                            >
-                              {t("VIEW")}
-                            </button>
-                          </div>
-                            </div>
-                        
-                          </div>
-                        
-                        </tr>
 
-                        {selectedEvent === event.id && (
-                          <tr>
-                            <SingleEventsContext>
-                            <CommentModel
-                              closeModal={closeModal}
-                              eventId={event.id}
-                            />
-                            </SingleEventsContext>
-                          </tr>
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </table>
+                            </div></div>
+                            </div>
+                          </div>
+                        )
+                      })
+                    )
+                }
               </div>
             </div>
           </div>

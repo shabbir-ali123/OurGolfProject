@@ -130,15 +130,15 @@ const Tabs: React.FC<TabsProps> = ({
             </div>
           </div>
 
-          <Tab.List className="  w-full xl:col-span-12 items-center pt-4 rounded-md  ">
-            <div className="flex flex-wrap gap-4 xl:gap-12 py-2 lg:flex-nowrap">
+          <Tab.List className="w-auto md:w-full xl:col-span-12 items-center pt-4 rounded-md sdsdcsdc ">
+            <div className="grid grid-cols-2 md:flex flex-wrap gap-4 xl:gap-12 py-2 lg:flex-nowrap">
 
               {Object.keys(categories).map((category) => (
                 <Tab
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "w-full xl:w-[150px] rounded-md  xl:px-6 text-base font-normal leading-5 cursor-pointer ",
+                      "sm:w-auto md:w-full xl:w-[150px] rounded-md  xl:px-6 text-base font-normal leading-5 cursor-pointer ",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
                         ? "bg-[#B1B1B1]  text-white flex items-center justify-center"
@@ -169,7 +169,7 @@ const Tabs: React.FC<TabsProps> = ({
                   )}
                 </Tab>
               ))}
-              <div className="flex justify-end ml-0 lg:ml-2 ">
+              <div className="col-span-2 flex">
                 <Calendar setEvents={setEvents} setFilterLocation={setFilterLocation} />
               </div>
 
@@ -184,6 +184,7 @@ const Tabs: React.FC<TabsProps> = ({
               sendDataToParent={handleFilterLocation}
             />
           )}
+          <div className="flex flex-wrap gap-4">
           <Tab.Panels>
             <Tab.Panel key="ALL">
               <AllEvents events={events} setEvents={setEvents} />
@@ -198,6 +199,7 @@ const Tabs: React.FC<TabsProps> = ({
               <PastEvents events={events} setEvents={setEvents} />
             </Tab.Panel>
           </Tab.Panels>
+          </div>
         </Tab.Group>
       </div>
     </div>
