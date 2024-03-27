@@ -37,8 +37,15 @@ interface Post {
 const PostCard = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { handleDeletePost, handleCategory, category, handlePosts, post } =
-    postContext();
+  const {
+    handleDeletePost,
+    mostCommented,
+    mostLiked,
+    handleCategory,
+    category,
+    handlePosts,
+    post,
+  } = postContext();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLikesModelOpen, setLikesModelOpen] = useState(false);
@@ -184,189 +191,187 @@ const PostCard = () => {
     const doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
   };
-  const handleCommentModel = (e:any, postId:any) => {
+  const handleCommentModel = (e: any, postId: any) => {
     e.preventDefault();
     setActiveCommentModel(activeCommentModel === postId ? null : postId);
     setCommentModelOpen(!commentModelOpen);
   };
+
+  console.log(mostLiked, "md ");
   return (
     <div className="relative flex flex-col-reverse lg:grid grid-flow-col bg-white mt-10 gap-8">
-        <div className="row-span-3 col-span-8">
+      <div className="row-span-3 col-span-8">
         <PostProfile />
         {sortedPosts.map((post: Post, index: any) => {
-        const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-        const userHasLiked = post.PostLikes.find(
-          (like: any) => like.userId === loggedInUser && like.counter === 1
-        );
-        return (
-          <div className="w-full">
-            <Link
-              key={post.id}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-              to={`/read-post/${post?.id}`}
-              className="text-black hover:rounded-lg "
-            >
-              {isLikesModelOpen && post?.id === postwId ? (
-                <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+          const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
+          const userHasLiked = post.PostLikes.find(
+            (like: any) => like.userId === loggedInUser && like.counter === 1
+          );
+          return (
+            <div className="w-full">
+              <Link
+                key={post.id}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+                to={`/read-post/${post?.id}`}
+                className="text-black hover:rounded-lg "
+              >
+                {isLikesModelOpen && post?.id === postwId ? (
+                  <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+                    <div
+                      className="w-full max-w-sm p-6 mx-auto bg-white rounded-lg "
+                      style={{
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+                      }}
+                    >
+                      <button
+                        onClick={closeLikesModel}
+                        className="p-2 rounded-full cursor-pointer"
+                      >
+                        <XMarkIcon className="w-6 h-6" aria-hidden="true" />
+                      </button>
+                      {post.PostLikes.filter(
+                        (item: any) => item.counter !== 0
+                      ).map((item: any) => (
+                        <div
+                          key={item.key}
+                          className="flex items-center gap-2 m-0 p-0 "
+                        >
+                          <img
+                            className="w-10 h-10 rounded-full"
+                            src={item.user?.imageUrl}
+                          />
+                          <p className="text-black">{item.user?.nickName}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                <div className="">
                   <div
-                    className="w-full max-w-sm p-6 mx-auto bg-white rounded-lg "
+                    className="col-span-8 mb-8 mx-4 lg:mx-0 lg:flex-col p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
                     style={{
-                      boxShadow:
-                        "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+                      boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
                     }}
                   >
-                    <button
-                      onClick={closeLikesModel}
-                      className="p-2 rounded-full cursor-pointer"
-                    >
-                      <XMarkIcon className="w-6 h-6" aria-hidden="true" />
-                    </button>
-                    {post.PostLikes.filter(
-                      (item: any) => item.counter !== 0
-                    ).map((item: any) => (
-                      <div
-                        key={item.key}
-                        className="flex items-center gap-2 m-0 p-0 "
-                      >
-                        <img
-                          className="w-10 h-10 rounded-full"
-                          src={item.user?.imageUrl}
-                        />
-                        <p className="text-black">{item.user?.nickName}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-              <div className="">
-                <div
-                  className="col-span-8 mb-8 mx-4 lg:mx-0 lg:flex-col p-4 relative rounded-lg hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
-                  style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
-                >
-                   <div className="p-4">
-                    <div className="flex items-center gap-2 justify-between">
-                      <div className="flex items-center  gap-2 ">
-                        <img
-                          className="w-8 h-8 rounded-full "
-                          src={post.posts?.imageUrl}
-                          alt="Post"
-                        />
+                    <div className="p-4">
+                      <div className="flex items-center gap-2 justify-between">
+                        <div className="flex items-center  gap-2 ">
+                          <img
+                            className="w-8 h-8 rounded-full "
+                            src={post.posts?.imageUrl}
+                            alt="Post"
+                          />
 
-                        <p className="p-0 text-sm flex gap-4 items-center">
-                          {post.posts?.nickName}{" "}
-                          <span className="text-[10px]">
-                            {getTimeAgo(new Date(post?.createdAt))}
-                          </span>
-                        </p>
-                      </div>
-                      {post.posts?.id === loggedInUser && (
-                        <div
-                          className="relative"
-                          onClick={(event) =>
-                            handleEllipsisClick(event, post?.id)
-                          }
-                        >
-                          <EllipsisVerticalIcon
-                            className="w-6 h-6 cursor-pointer "
-                            aria-hidden="true"
+                          <p className="p-0 text-sm flex gap-4 items-center">
+                            {post.posts?.nickName}{" "}
+                            <span className="text-[10px]">
+                              {getTimeAgo(new Date(post?.createdAt))}
+                            </span>
+                          </p>
+                        </div>
+                        {post.posts?.id === loggedInUser && (
+                          <div
+                            className="relative"
                             onClick={(event) =>
                               handleEllipsisClick(event, post?.id)
                             }
-                          />
-                          {activeDropdownPostId === post?.id && (
-                            <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
-                              <ul className="p-0 m-0">
-                                <Link
-                                  className="decoration-none text-[#43bcb0] hover:text-[#000] "
-                                  to={"/edit-post/" + post.id}
-                                >
-                                  <li className="list-none p-2 hover:shadow-lg  text-start">
-                                    {t("EDIT_POST")}
-                                  </li>
-                                </Link>
-                                <li className="list-none p-2 hover:shadow-lg text-start">
-                                  <a
-                                    className="decoration-none text-[#43bcb0] hover:text-[red]"
-                                    onClick={() => deletePost(post.id)}
-                                  >
-                                    {t("DELETE")}
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    <div
-                      className="p-0 text-sm comment-content overflow-hidden"
-                      dangerouslySetInnerHTML={{ __html: post?.text }}
-                    ></div>
-
-                    <div className="mt-2">
-                      <div className="flex space-x-2">
-                        <span
-                          className={`bg-[#17b3a6] ${
-                            hoveredIndex === index
-                              ? "bg-black text-white"
-                              : "bg-[#17b3a6] text-white"
-                          } hover:bg-black  text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full`}
-                        >
-                          {post.tags}
-                        </span>
-                      </div>
-
-                     
-                    </div>
-                  </div>
-                  <ImageComponent src={post.mediaFile?.[0]} />
-                  <div className="flex justify-between items-center mt-4  z-10 relative">
-                      
-                     
-                        <div className="flex item-center">
-                          <span
-                            className="flex items-center gap-0 text-[10px] hover:bg-black p-1 rounded-lg"
-                            onClick={handleInteraction}
-                            data-interaction="share"
                           >
-                            
+                            <EllipsisVerticalIcon
+                              className="w-6 h-6 cursor-pointer "
+                              aria-hidden="true"
+                              onClick={(event) =>
+                                handleEllipsisClick(event, post?.id)
+                              }
+                            />
+                            {activeDropdownPostId === post?.id && (
+                              <div className="absolute right-[20px] top-0  w-[100px] overflow-hidden bg-white">
+                                <ul className="p-0 m-0">
+                                  <Link
+                                    className="decoration-none text-[#43bcb0] hover:text-[#000] "
+                                    to={"/edit-post/" + post.id}
+                                  >
+                                    <li className="list-none p-2 hover:shadow-lg  text-start">
+                                      {t("EDIT_POST")}
+                                    </li>
+                                  </Link>
+                                  <li className="list-none p-2 hover:shadow-lg text-start">
+                                    <a
+                                      className="decoration-none text-[#43bcb0] hover:text-[red]"
+                                      onClick={() => deletePost(post.id)}
+                                    >
+                                      {t("DELETE")}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      <div
+                        className="p-0 text-sm comment-content overflow-hidden"
+                        dangerouslySetInnerHTML={{ __html: post?.text }}
+                      ></div>
+
+                      <div className="mt-2">
+                        <div className="flex space-x-2">
+                          <span
+                            className={`bg-[#17b3a6] ${
+                              hoveredIndex === index
+                                ? "bg-black text-white"
+                                : "bg-[#17b3a6] text-white"
+                            } hover:bg-black  text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full`}
+                          >
+                            {post.tags}
                           </span>
                         </div>
                       </div>
+                    </div>
+                    <ImageComponent src={post.mediaFile?.[0]} />
+                    <div className="flex justify-between items-center mt-4  z-10 relative">
+                      <div className="flex item-center">
+                        <span
+                          className="flex items-center gap-0 text-[10px] hover:bg-black p-1 rounded-lg"
+                          onClick={handleInteraction}
+                          data-interaction="share"
+                        ></span>
+                      </div>
+                    </div>
 
-                      <div className="flex  justify-between z-10 relative">
-                        <div
-                          className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
-                          onClick={(event) =>
-                            handleLike(post.id, userHasLiked, event)
-                          }
-                        >
-                          <div>
+                    <div className="flex  justify-between z-10 relative">
+                      <div
+                        className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
+                        onClick={(event) =>
+                          handleLike(post.id, userHasLiked, event)
+                        }
+                      >
+                        <div>
                           <div
-                          className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
-                          onClick={(event) =>
-                            handleLikes(post?.id, userHasLiked, event)
-                          }
-                        >
-                          <div className="flex items-center "></div>{" "}
-                          <span className="flex items-center gap-2 text-[14px] cursor-pointer">
-                            {userHasLiked ? t("BY_YOU") : ""}
-                            {uId !== post?.PostLikes[0]?.userId &&
-                            post?.PostLikes.length > 1
-                              ? userHasLiked
-                                ? " &  "
-                                : post?.PostLikes[0]?.user?.nickName + " & "
-                              : "  "} {" "}
-                            {post?.PostLikes.length > 0 &&
-                              (post?.PostLikes || []).filter(
-                                (like: any) => like.counter
-                              ).length +
-                                (userHasLiked ? -1 : 0) + 
-                                t("OTHER")}
-                          </span>
-                        </div>
-                        <div className="flex items-center ">
+                            className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
+                            onClick={(event) =>
+                              handleLikes(post?.id, userHasLiked, event)
+                            }
+                          >
+                            <div className="flex items-center "></div>{" "}
+                            <span className="flex items-center gap-2 text-[14px] cursor-pointer">
+                              {userHasLiked ? t("BY_YOU") : ""}
+                              {uId !== post?.PostLikes[0]?.userId &&
+                              post?.PostLikes.length > 1
+                                ? userHasLiked
+                                  ? " &  "
+                                  : post?.PostLikes[0]?.user?.nickName + " & "
+                                : "  "}{" "}
+                              {post?.PostLikes.length > 0 &&
+                                (post?.PostLikes || []).filter(
+                                  (like: any) => like.counter
+                                ).length +
+                                  (userHasLiked ? -1 : 0) +
+                                  t("OTHER")}
+                            </span>
+                          </div>
+                          <div className="flex items-center ">
                             <button className="flex items-center cursor-pointer bg-transparent">
                               {userHasLiked ? (
                                 <HandThumbUpIcon
@@ -387,26 +392,24 @@ const PostCard = () => {
                               )}
                             </button>
                             <span
-                            className={`flex items-center gap-2 cursor-pointer ${
-                              hoveredIndex === index
-                                ? "text-white "
-                                : "text-[#17b3a6]"
-                            } ${
-                              userHasLiked ? "text-[#17b3a6]" : "text-black"
-                            }`}
-                          >
-                            {t("LIKE")}
-                          </span>
+                              className={`flex items-center gap-2 cursor-pointer ${
+                                hoveredIndex === index
+                                  ? "text-white "
+                                  : "text-[#17b3a6]"
+                              } ${
+                                userHasLiked ? "text-[#17b3a6]" : "text-black"
+                              }`}
+                            >
+                              {t("LIKE")}
+                            </span>
                           </div>{" "}
-                       
-                          </div>
-                         
                         </div>
-                        <div>
+                      </div>
+                      <div>
                         <div className="flex item-center">
                           <span
                             className="flex items-center text-[14px] gap-0 hover:bg-black  rounded-lg"
-                            onClick={(e)=> handleCommentModel(e, post?.id)}
+                            onClick={(e) => handleCommentModel(e, post?.id)}
                             data-interaction="comment"
                           >
                             {" "}
@@ -415,7 +418,7 @@ const PostCard = () => {
                         </div>
                         <span
                           className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
-                          onClick={(e)=> handleCommentModel(e, post?.id)}
+                          onClick={(e) => handleCommentModel(e, post?.id)}
                           data-interaction="comment"
                         >
                           {" "}
@@ -425,108 +428,83 @@ const PostCard = () => {
                           />
                           {t("COMMENTS")}
                         </span>
-                        </div>
-                      
-
-                        <span
-                          className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
-                          onClick={handleInteraction}
-                          data-interaction="share"
-                        >
-                          <ShareIcon
-                            className="w-4 h-4 cursor-pointer"
-                            aria-hidden="true"
-                            data-interaction="share"
-                          />
-                          {t("SHARE")}
-                        </span>
                       </div>
-                 
-                </div>
-              </div>
-            </Link>
-            {
-              (commentModelOpen && activeCommentModel === post?.id) &&           <PostCardComments singlePost={post} />
 
-            }
-          </div>
-        );
-      })}
+                      <span
+                        className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
+                        onClick={handleInteraction}
+                        data-interaction="share"
+                      >
+                        <ShareIcon
+                          className="w-4 h-4 cursor-pointer"
+                          aria-hidden="true"
+                          data-interaction="share"
+                        />
+                        {t("SHARE")}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+              {commentModelOpen && activeCommentModel === post?.id && (
+                <PostCardComments singlePost={post} />
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <div
+        className="hidden lg:block row-span-2 mx-4 lg:mx-0 lg:sticky top-0 col-span-12 px-4 w-[260px]"
+        style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
+      >
+        <div>
+          <h5>Top Liked Posts</h5>
+          <ul className="p-0">
+            {mostLiked?.map((item: any) => {
+              return (
+                <li
+                  key={item.id}
+                  className="list-none cursor-pointer py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white"
+                  style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
+                  onClick={() => navigate(`/read-post/${item.id}`)}
+                >
+                  <div className="flex items-center gap-2 m-0 p-0 ">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={item.mediaFile[0]}
+                    />
+                    <p className="text-black">{item.text}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <div className="hidden lg:block row-span-2 mx-4 lg:mx-0 lg:sticky top-0 col-span-12 px-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
-                <div>
-                  <h5>Top Liked Posts</h5>
-                  <ul className="p-0">
-                    <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
-                       
-                        className="flex items-center gap-2 m-0 p-0 "
-                      >
-                        <img
-                          className="w-10 h-10 rounded-full"
-                          src="/img/BG-GOLF.jpg"
-                        />
-                        <p className="text-black">Siraj khan</p>
-                      </div></li>
-                      <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
-                       
-                       className="flex items-center gap-2 m-0 p-0 "
-                     >
-                       <img
-                         className="w-10 h-10 rounded-full"
-                         src="/img/BG-GOLF.jpg"
-                       />
-                       <p className="text-black">Siraj khan</p>
-                     </div></li>
-                     <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
-                       
-                        className="flex items-center gap-2 m-0 p-0 "
-                      >
-                        <img
-                          className="w-10 h-10 rounded-full"
-                          src="/img/BG-GOLF.jpg"
-                        />
-                        <p className="text-black">Siraj khan</p>
-                      </div></li>
-                    
-                  </ul>
-                </div>
-                <div>
-                  <h5>Top Commented Posts</h5>
-                  <ul className="p-0">
-                  <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
-                       
-                       className="flex items-center gap-2 m-0 p-0 "
-                     >
-                       <img
-                         className="w-10 h-10 rounded-full"
-                         src="/img/BG-GOLF.jpg"
-                       />
-                       <p className="text-black">Siraj khan</p>
-                     </div></li>
-                     <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
-                       
-                        className="flex items-center gap-2 m-0 p-0 "
-                      >
-                        <img
-                          className="w-10 h-10 rounded-full"
-                          src="/img/BG-GOLF.jpg"
-                        />
-                        <p className="text-black">Siraj khan</p>
-                      </div></li>
-                      <li className="list-none py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}> <div
-                       
-                       className="flex items-center gap-2 m-0 p-0 "
-                     >
-                       <img
-                         className="w-10 h-10 rounded-full"
-                         src="/img/BG-GOLF.jpg"
-                       />
-                       <p className="text-black">Siraj khan</p>
-                     </div></li>
-                    
-                  </ul>
-                </div>
-         </div>
+        <div>
+          <h5>Top Commented Posts</h5>
+          <ul className="p-0">
+            {mostCommented?.map((item: any) => {
+              return (
+                <li
+                onClick={() => navigate(`/read-post/${item.id}`)}
+
+                  className="list-none cursor-pointer py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white"
+                  style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
+                >
+                  {" "}
+                  <div className="flex items-center gap-2 m-0 p-0 ">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={item.mediaFile[0]}
+                    />
+                    <p className="text-black">{item.text}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

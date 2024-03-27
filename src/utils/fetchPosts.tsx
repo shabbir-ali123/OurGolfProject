@@ -173,3 +173,51 @@ export const createPost = async ( formData:any, setMessage:any ) => {
 
   }
 };
+
+
+export const fetchMostLikedPosts = async (setMostLiked: any) => {
+  try {
+    const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
+    const headers: any = {}
+    if (token && token !== "undefined") {
+      headers["Authorization"] = `Bearer ${token}`;
+      endpoint = API_ENDPOINTS.GETMOSTLIKEDPOSTS;
+    }
+    const response = await axios.get(endpoint, {
+      headers,
+    });
+    setMostLiked(response.data.topLikedPosts);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.clear();
+      toast.error("Session expired. Please log in again.");
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
+  }
+};
+
+
+export const fetchMostCommentedPosts = async (setMostLiked: any) => {
+  try {
+    const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
+    const headers: any = {}
+    if (token && token !== "undefined") {
+      headers["Authorization"] = `Bearer ${token}`;
+      endpoint = API_ENDPOINTS.GETMOSTCOMMENTSPOSTS;
+    }
+    const response = await axios.get(endpoint, {
+      headers,
+    });
+    setMostLiked(response.data.topCommentedPosts);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.clear();
+      toast.error("Session expired. Please log in again.");
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
+  }
+};

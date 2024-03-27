@@ -17,8 +17,7 @@ interface InputWithIconProps {
   onChange?: any;
   variant?: string;
   handleImageChange?: any;
-  handleLocationChange?: any
-
+  handleLocationChange?: any;
 }
 
 interface OptionType {
@@ -41,7 +40,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   onChange,
   variant,
   handleImageChange,
-  handleLocationChange
+  handleLocationChange,
 }) => {
   const { t, i18n } = useTranslation();
 
@@ -51,90 +50,87 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
 
   const JapanCities: any[] = [
     {
-      label: t('HOKKAIDO_TOHOKU'),
+      label: t("HOKKAIDO_TOHOKU"),
       options: [
-        { value: "Hokkaido", label: t('HOKKAIDO') },
-        { value: "Aomori Prefecture", label: t('AOMORI') },
-        { value: "Iwate Prefecture", label: t('IWATE') },
-        { value: "Miyagi Prefecture", label: t('MIYAGI') },
-        { value: "Akita", label: t('AKITA') },
-        { value: "Yamagata Prefecture", label: t('YAMAGATA') },
-        { value: "Fukushima Prefecture", label: t('FUKUSHIMA') },
-       
+        { value: "Hokkaido", label: t("HOKKAIDO") },
+        { value: "Aomori Prefecture", label: t("AOMORI") },
+        { value: "Iwate Prefecture", label: t("IWATE") },
+        { value: "Miyagi Prefecture", label: t("MIYAGI") },
+        { value: "Akita", label: t("AKITA") },
+        { value: "Yamagata Prefecture", label: t("YAMAGATA") },
+        { value: "Fukushima Prefecture", label: t("FUKUSHIMA") },
       ],
     },
     {
-      label: t('KANTO'),
+      label: t("KANTO"),
       options: [
-        { value: "Ibaraki Prefecture", label: t('IBARAKI') },
-        { value: "Tochigi Prefecture", label: t('TOCHIGI') },
-        { value: "Gunma Prefecture", label: t('GUNMA') },
-        { value: "Saitama", label: t('SAITAMA') },
-        { value: "Chiba prefecture", label: t('CHIBA') },
-        { value: "Tokyo", label: t('TOKYO') },
-        { value: "Kanagawa Prefecture", label: t('KANAGAWA') },
+        { value: "Ibaraki Prefecture", label: t("IBARAKI") },
+        { value: "Tochigi Prefecture", label: t("TOCHIGI") },
+        { value: "Gunma Prefecture", label: t("GUNMA") },
+        { value: "Saitama", label: t("SAITAMA") },
+        { value: "Chiba prefecture", label: t("CHIBA") },
+        { value: "Tokyo", label: t("TOKYO") },
+        { value: "Kanagawa Prefecture", label: t("KANAGAWA") },
       ],
     },
     {
-      label: t('CHUBU'),
+      label: t("CHUBU"),
       options: [
-        { value: "Niigata Prefecture", label: t('NIIGATA') },
-        { value: "Toyama Prefecture", label: t('TOYAMA') },
-        { value: "Ishikawa Prefecture", label: t('ISHIKAWA') },
-        { value: "Fukui prefecture", label: t('FUKUI') },
-        { value: "Yamanashi Prefecture", label: t('YAMANSHI') },
-        { value: "Nagano", label: t('NAGANO') },
+        { value: "Niigata Prefecture", label: t("NIIGATA") },
+        { value: "Toyama Prefecture", label: t("TOYAMA") },
+        { value: "Ishikawa Prefecture", label: t("ISHIKAWA") },
+        { value: "Fukui prefecture", label: t("FUKUI") },
+        { value: "Yamanashi Prefecture", label: t("YAMANSHI") },
+        { value: "Nagano", label: t("NAGANO") },
       ],
     },
     {
-      label: t('TOKAI'),
+      label: t("TOKAI"),
       options: [
-        { value: "Shizuoka Prefecture", label: t('SHIZUOKA') },
-        { value: "Aichi prefecture", label: t('AICHI') },
-        { value: "Mie Prefecture", label: t('MIE') },
-        { value: "Gifu Prefecture", label: t('GIFU') },
+        { value: "Shizuoka Prefecture", label: t("SHIZUOKA") },
+        { value: "Aichi prefecture", label: t("AICHI") },
+        { value: "Mie Prefecture", label: t("MIE") },
+        { value: "Gifu Prefecture", label: t("GIFU") },
       ],
     },
     {
-      label: t('KINKI'),
+      label: t("KINKI"),
       options: [
-        { value: "Shiga Prefecture", label: t('SHIGA') },
-        { value: "Kyoto", label: t('KYOTO') },
-        { value: "Osaka prefecture", label: t('OSAKA') },
-        { value: "Hyogo prefecture", label: t('HYOGO') },
-        { value: "Nara Prefecture", label: t('NARA') },
-        { value: "Wakayama Prefecture", label: t('WAKAYAMA') },
-  
+        { value: "Shiga Prefecture", label: t("SHIGA") },
+        { value: "Kyoto", label: t("KYOTO") },
+        { value: "Osaka prefecture", label: t("OSAKA") },
+        { value: "Hyogo prefecture", label: t("HYOGO") },
+        { value: "Nara Prefecture", label: t("NARA") },
+        { value: "Wakayama Prefecture", label: t("WAKAYAMA") },
       ],
     },
     {
-      label: t('SHIKOKU'),
+      label: t("SHIKOKU"),
       options: [
-        { value: "Tottori prefecture", label: t('TOTTORI') },
-        { value: "Shimane Prefecture", label: t('SHIMANE') },
-        { value: "Okayama Prefecture", label: t('OKAYAMA') },
-        { value: "Hiroshima", label: t('HIROSHIMA') },
-        { value: "Yamaguchi Prefecture", label: t('YAMAGUCHI') },
-        { value: "Tokushima", label: t('TOKUSHIMA') },
-        { value: "Kagawa Prefecture", label: t('KAGAWA') },
-        { value: "Ehime Prefecture", label: t('EHIME') },
-        { value: "Kochi Prefecture", label: t('KOCHI') },
+        { value: "Tottori prefecture", label: t("TOTTORI") },
+        { value: "Shimane Prefecture", label: t("SHIMANE") },
+        { value: "Okayama Prefecture", label: t("OKAYAMA") },
+        { value: "Hiroshima", label: t("HIROSHIMA") },
+        { value: "Yamaguchi Prefecture", label: t("YAMAGUCHI") },
+        { value: "Tokushima", label: t("TOKUSHIMA") },
+        { value: "Kagawa Prefecture", label: t("KAGAWA") },
+        { value: "Ehime Prefecture", label: t("EHIME") },
+        { value: "Kochi Prefecture", label: t("KOCHI") },
       ],
     },
     {
-      label: t('KYUSHU'),
+      label: t("KYUSHU"),
       options: [
-        { value: "Fukuoka Prefecture", label: t('FUKUOKA') },
-        { value: "Saga Prefecture", label: t('SAGA') },
-        { value: "Nagasaki Prefecture", label: t('NAGASAKI') },
-        { value: "Kumamoto Prefecture", label: t('KUMAMOTO') },
-        { value: "Oita Prefecture", label: t('OITA') },
-        { value: "Miyazaki prefecture", label: t('MIYAZAKI') },
-        { value: "Kagoshima prefecture", label: t('KAGOSHIMA') },
-        { value: "Okinawa Prefecture", label: t('OKINAWA') },
+        { value: "Fukuoka Prefecture", label: t("FUKUOKA") },
+        { value: "Saga Prefecture", label: t("SAGA") },
+        { value: "Nagasaki Prefecture", label: t("NAGASAKI") },
+        { value: "Kumamoto Prefecture", label: t("KUMAMOTO") },
+        { value: "Oita Prefecture", label: t("OITA") },
+        { value: "Miyazaki prefecture", label: t("MIYAZAKI") },
+        { value: "Kagoshima prefecture", label: t("KAGOSHIMA") },
+        { value: "Okinawa Prefecture", label: t("OKINAWA") },
       ],
     },
-  
   ];
   const removeSelectedFile = (index: number) => {
     const updatedFiles = [...selectedFiles];
@@ -162,9 +158,8 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
           </span>
           {label}
         </label>
-        {
-          variant == 'video' ? (
-            <>
+        {variant == "video" ? (
+          <>
             <div className="flex flex-wrap gap-4 mt-2  ">
               {selectedFiles.map((file: any, index: any) => (
                 <div key={index} className="relative ">
@@ -183,57 +178,53 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
               ))}
             </div>
             <input
-            id="file-upload"
-            name="mediaFiles"
-            ref={fileInputRef}
-            className="hidden "
-            type="file"
-            multiple
-            onChange={handleImageChange}
-            accept="video/*"
+              id="file-upload"
+              name="mediaFiles"
+              ref={fileInputRef}
+              className="hidden "
+              type="file"
+              multiple
+              onChange={handleImageChange}
+              accept="video/*"
+            />
+            <label
+              htmlFor="file-upload"
+              className="flex items-center justify-center p-4  border-2 border-dashed rounded-lg border-[#61cbc2] cursor-pointer"
+            >
+              <svg
+                className="w-6 h-6 text-gray-600"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M12 4v16m8-8H4"></path>
+              </svg>
+            </label>
+          </>
+        ) : variant === "dropdown" ? (
+          <Select
+            name="place"
+            required
+            options={
+              JapanCities as OptionsOrGroups<OptionType, GroupBase<OptionType>>
+            }
+            onChange={handleLocationChange}
+            className="w-full text-base border text-black border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
           />
-          <label
-                  htmlFor="file-upload"
-                  className="flex items-center justify-center p-4  border-2 border-dashed rounded-lg border-[#61cbc2] cursor-pointer"
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-600"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M12 4v16m8-8H4"></path>
-                  </svg>
-                </label>
-                </>
-          ) : variant === 'dropdown' ? (
-            <Select
-                name="place"
-                required
-                options={
-                  JapanCities as OptionsOrGroups<
-                    OptionType,
-                    GroupBase<OptionType>
-                  >
-                }
-                onChange={handleLocationChange}
-                className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-              />
-          ) :
-        
-        <input
-          className="appearance-none block w-full bg-white text-gray-700 border border-[#d9d9d9] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white "
-          id={pname}
-          type={ptype}
-          name={pname}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-        />
-          }
+        ) : (
+          <input
+            className="appearance-none block w-full bg-white text-gray-700 border border-[#d9d9d9] rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white "
+            id={pname}
+            type={ptype}
+            name={pname}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+          />
+        )}
       </div>
     </div>
   );
