@@ -165,3 +165,24 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
 
     }
 }
+
+
+export const updateTeacherProfile = async ( setTeachers:any, formdata:any) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.put(
+      API_ENDPOINTS.UPDATETEACHERPROFILE,
+      formdata,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setTeachers(response.data.teacher);
+    toast.success(response.data.message);
+  } catch (error) {
+    console.error("Error toggling favorite status:", error);
+  }
+};
