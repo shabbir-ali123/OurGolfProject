@@ -312,8 +312,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
                                   } `} />
                               </div>
-                              <div className="flex bg-white  border-solid  border-[#17B3A6]  cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md shadow-lg border border-solid border-white ">
-                                <div className="text-[12px] border-solid  border-[#17B3A6] text-[#17B3A6]  ">
+                              <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                <div className="text-[12px]  text-[#17B3A6]  ">
                                   {
                                     (event?.likes || []).filter(
                                       (like: any) => like.counter
@@ -329,7 +329,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               >
                                 <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
                               </div>
-                              <div className="flex bg-white border-[#17B3A6]   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md shadow-lg border border-solid border-white">
+                              <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
                                 <div className="text-[12px] text-[#17B3A6]">
                                   {event.comments?.length}
                                 </div>
