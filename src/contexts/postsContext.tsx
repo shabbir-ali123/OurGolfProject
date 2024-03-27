@@ -97,7 +97,7 @@ export const PostContext = ({children}:any)=>{
 
 
 
-    const value =  {handleMessage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,formData, singlePost, category, post}
+    const value =  {handleMessage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,mostLiked, mostCommented, formData, singlePost, category, post}
    
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }

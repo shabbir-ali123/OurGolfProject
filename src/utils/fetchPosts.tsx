@@ -187,7 +187,7 @@ export const fetchMostLikedPosts = async (setMostLiked: any) => {
     const response = await axios.get(endpoint, {
       headers,
     });
-    setMostLiked(response.data.posts);
+    setMostLiked(response.data.topLikedPosts);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
       localStorage.clear();
@@ -211,7 +211,7 @@ export const fetchMostCommentedPosts = async (setMostLiked: any) => {
     const response = await axios.get(endpoint, {
       headers,
     });
-    setMostLiked(response.data.posts);
+    setMostLiked(response.data.topCommentedPosts);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
       localStorage.clear();
