@@ -160,7 +160,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     borderSpacing: "0 20px",
                   }}
                 >
-                  <thead className="bg-[#006800] text-white ">
+                  <thead className="bg-[#F5F5F5] text-black  flex-col">
                     <tr>
                       <th
                         scope="col"
@@ -168,19 +168,19 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       >
                         {t("ORGANIZER")}
                       </th>
+                     
+                      <th
+                        scope="col"
+                        className="px-3 py-2 text-sm font-semibold text-left"
+                      >
+                        {t("EVENTS_NAME")} / {t("EVENT_DETAILS")}
+                      </th>
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
                       >
                         {t("TIME")}
                       </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-2 text-sm font-semibold text-left"
-                      >
-                        {t("EVENTS_NAME")}
-                      </th>
-
                       <th
                         scope="col"
                         className="px-3 py-2 text-sm font-semibold text-left"
@@ -208,7 +208,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     return (
                       <React.Fragment key={index}>
                         <tr
-                          className="mt-4 rounded-lg cursor-pointer text-black hover:rounded-lg hover:bg-[#17b3a6] hover:text-white"
+                          className="mt-4 rounded-lg cursor-pointer text-black hover:rounded-lg hover:bg-[#DDF4F2] hover:text-black"
                           style={{
                             width: "100%",
                             borderRadius: "10px",
@@ -245,18 +245,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                             </div>
                           </td>
-
-                          <td
-                            className="px-3 py-0 text-sm whitespace-nowrap"
-                            onClick={() => router(`/edit-team/${event.id}`)}
-
-                          >
-                            <p>
-                              {event.eventStartDate}
-                            </p>
-
-                            {event.eventStartTime}
-                          </td>
                           <td
                             className="flex items-center justify-between ml-2 text-sm  text-center whitespace-pre-wrap xl:text-left"
                             onClick={() => router(`/edit-team/${event.id}`)}
@@ -277,44 +265,54 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </p>
                             </div>
 
-                            <span className="md:whitespace-nowrap px-2 text-[#17b3a6] py-0 text-sm mx-0  sm:mx-2 cursor-pointer rounded-lg  ">
-                              <div
-                                rel="noopener noreferrer"
-                                className={`md:whitespace-nowrap rounded-lg px-0 text-[#17b3a6] py-1 text-sm mx-0 sm: cursor-pointer ${event.type === "full"
-                                  ? "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black cursor-pointer py-0 mt-[-10px] animate__animated animate__heartBeat animate__repeat-3  h-full rounded-lg"
-                                  : "shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] text-[#17b3a6] bg-white hover:bg-black py-0 mt-[10px] animate__animated animate__heartBeat   h-[100%] rounded-lg"
-                                  }`}
-                              >
-                                <p className="p-2 sm:text-lg xl:text-x">{t("JOIN")}</p>
-                              </div>
-                            </span>
+                            
                           </td>
                           <td
-                            className="px-3 py-0 text-sm flex-wrap"
+                            className="px-3 py-0 text-sm whitespace-nowrap"
                             onClick={() => router(`/edit-team/${event.id}`)}
+
                           >
                             <p>
-                              <span className="font-bold"> {t("CONFIRMED")}:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
+                              {event.eventStartDate}
                             </p>
-                            <p>
-                              <span className="font-bold">
+
+                            {event.eventStartTime}
+                          </td>
+                         
+                          <td
+                            className="px-3 py-2 text-sm flex-wrap"
+                            onClick={() => router(`/edit-team/${event.id}`)}
+                          >
+                            <p className="my-1 p-0">
+                              <span className="font-bold m-0 p-0"> {t("CONFIRMED")}:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
+                            </p>
+                            <p className="m-0 p-0">
+                              <span className="font-bold ">
                                 {t("WAITING")}:
                               </span> {event.teamMemberCount} / {event.capacity * event.teamSize}
 
                             </p>
-
+                            <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
+                            <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black"  style={{
+                         
+                            boxShadow:
+                              "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                          }} >Join</p>
+                            </span>
                           </td>
-                          <td className="flex gap-1 px-3 py-0 text-sm whitespace-nowrap ">
+                          <div className="text-start flex items-center" >
+                            <div>
+                            <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
                             <div className="flex flex-col items-center gap-1 ">
                               <div
-                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${liked ? "green" : "[#17B3A6]"
+                                className={`flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black bg-${liked ? "green" : "[#17B3A6]"
                                   } cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleLike(event)}
                               >
-                                <HandThumbUpIcon className="w-3 h-3 text-white" />
+                                <HandThumbUpIcon className="w-4 h-4 text-[#17B3A6]" />
                               </div>
-                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md shadow-lg border border-solid border-white ">
-                                <div className="text-[10px] text-white  ">
+                              <div className="flex bg-white border-[#17B3A6]  cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md shadow-lg border border-solid border-white ">
+                                <div className="text-[12px] text-[#17B3A6]  ">
                                   {
                                     (event?.likes || []).filter(
                                       (like: any) => like.counter
@@ -326,40 +324,50 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             <div className="flex flex-col items-center gap-1">
                               <div
                                 onClick={() => handleComment(event.id)}
-                                className="flex bg-[#17B3A6] cursor-pointer p-1 rounded-md shadow-lg border border-solid border-white hover:bg-black"
+                                className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
                               >
-                                <ChatBubbleBottomCenterIcon className="w-3 h-3 text-white " />
+                                <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
                               </div>
-                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md shadow-lg border border-solid border-white">
-                                <div className="text-[10px] text-white">
+                              <div className="flex bg-white border-[#17B3A6]   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md shadow-lg border border-solid border-white">
+                                <div className="text-[12px] text-[#17B3A6]">
                                   {event.comments?.length}
                                 </div>
                               </div>
                             </div>
                             <div className="flex flex-col items-center gap-1">
                               <div
-                                className={`flex shadow-lg border border-solid border-white hover:bg-black bg-${isFavorite ? "[red]" : "[#17B3A6]"
-                                  } cursor-pointer p-1 rounded-md`}
+                                className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
+                                  }  cursor-pointer p-1 rounded-md`}
                                 onClick={() => handleFavoriteClick(event.id)}
                               >
                                 <FontAwesomeIcon
                                   icon={faHeart}
-                                  className={`h-3 w-3 text-white`}
+                                  className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
+                                }`}
                                 />
                               </div>
-                              <div className="flex bg-[#17B3A6]  cursor-pointer text-center justify-center h-3 w-3 p-1 rounded-md shadow-lg border border-solid border-white">
-                                <ShareIcon className="w-3 h-3 text-white" />
+                              <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">
+                                <ShareIcon className="w-4 h-4 text-[#17B3A6]" />
                               </div>
                             </div>
                           </td>
-                          <div className="flex items-center justify-start my-1 ml-4">
+                          <div className="flex items-center justify-center py-2">
                             <button
-                              className="bg-[#52FF86] hover:bg-black text-white font-bold py-1 px-4 rounded cursor-pointer"
+                              className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
                               onClick={() => router(`/score-board/${event.id}`)}
+                              style={{
+                         
+                                boxShadow:
+                                  "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                              }}
                             >
                               {t("VIEW")}
                             </button>
                           </div>
+                            </div>
+                        
+                          </div>
+                        
                         </tr>
 
                         {selectedEvent === event.id && (

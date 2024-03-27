@@ -24,7 +24,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="flex items-center justify-center px-4 py-3 bg-transparent border-t border-gray-200 sm:px-6">
-      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center">
+      <div className=" sm:flex sm:flex-1 sm:items-center sm:justify-center">
         <div>
           <nav
             className="z-[-1] isolate inline-flex -space-x-px rounded-md shadow-sm"

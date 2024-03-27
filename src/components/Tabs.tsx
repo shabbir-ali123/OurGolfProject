@@ -50,7 +50,9 @@ const Tabs: React.FC<TabsProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
-  const { handleEventStatus, clearFilter, handleSearch } = eventContextStore();
+  const { handleEventStatus, clearFilter, handleSearch, handleClear } = eventContextStore();
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const itemsPerPage = 6;
 
   useEffect(() => {
@@ -92,27 +94,45 @@ const Tabs: React.FC<TabsProps> = ({
     // Set localEvents to all events
     handleEventStatus(currentTab);
   }, []);
+  const clearDates = () => {
+    setStartDate(null);
+    setEndDate(null);
+    handleClear(true);
+    setFilterLocation([]);
+  };
   return (
     <div className="flex flex-wrap gap-4 ">
       <div className="w-full  animate__animated animate__fadeInLeft">
         <Tab.Group>
-          <Tab.List className="  w-full xl:col-span-12 items-center px-2 rounded-md  ">
-            <div className="flex flex-wrap gap-4 xl:gap-12 py-2 lg:flex-nowrap">
-              <div className="w-full xl:w-auto animate__animated animate__shakeY">
-                <button
-                  type="button"
-                  onClick={() => setLocationPopupOpen(true)}
-                  className="py-[19px]  rounded-lg  flex justify-center  items-center gap-x-1.5 text-[18px] w-full xl:w-[150px]  bg-[#17B3A6] text-white"
-                >
-                  <MapPinIcon className=" h-5 w-5" aria-hidden="true" />
-                  {filterLocation && filterLocation.length
-                    ? filterLocation.length > 1
-                      ? `${filterLocation[0]}...`
-                      : filterLocation[0]
-                    : t("LOCATION")}
-                </button>
+          <div className="flex justify-between ">
+            <div className="  animate__animated animate__shakeY">
+              <button
+                type="button"
+                onClick={() => setLocationPopupOpen(true)}
+                className="py-[19px]  rounded-lg  flex justify-center  items-center text-[18px] w-full px-14  bg-[#DDF4F2] text-[#17B3A6]"
+              >
+                <MapPinIcon className=" h-5 w-5" aria-hidden="true" />
+                {filterLocation && filterLocation.length
+                  ? filterLocation.length > 1
+                    ? `${filterLocation[0]}...`
+                    : filterLocation[0]
+                  : t("LOCATION")}
+              </button>
 
-              </div>
+            </div>
+            <div>
+              <button
+                className="bg-[#DDF4F2] text-[#17B3A6] font-bold py-[19px] w-full px-20 rounded"
+                onClick={clearDates}
+              >
+                {t("CLEAR")}
+              </button>
+            </div>
+          </div>
+
+          <Tab.List className="  w-full xl:col-span-12 items-center pt-4 rounded-md  ">
+            <div className="flex flex-wrap gap-4 xl:gap-12 py-2 lg:flex-nowrap">
+
               {Object.keys(categories).map((category) => (
                 <Tab
                   key={category}

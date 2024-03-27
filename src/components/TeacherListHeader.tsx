@@ -21,7 +21,7 @@ export default function TeacherListHeader() {
 
       <div>
         <div>
-          <Link to="/teacher-page" className='flex justify-end my-4'>
+          <Link to="/teacher-page" className='flex justify-center xl:justify-end my-4'>
             <button className='flex cursor-pointer items-center justify-center gap-2 rounded bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded'>{t("BECOME_TEACHER")}</button>
           </Link>
         </div>
