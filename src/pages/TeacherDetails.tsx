@@ -66,7 +66,9 @@ const TeacherDetails: React.FC = () => {
               </div>
             </div>
           </div>
-         
+         <div>
+          <VideoPortfolio/>
+         </div>
         </div>
       </div>
     </div>
