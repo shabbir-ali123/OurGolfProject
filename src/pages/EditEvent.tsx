@@ -350,6 +350,9 @@ const EditEvent: React.FC = () => {
     setCheckboxValues(updatedValues)
   }
   console.log(checkboxValues)
+  const toggleScoringEnabled = (enabled: boolean) => {
+    setIsScoringEnabled(enabled);
+  };
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
@@ -369,6 +372,7 @@ const EditEvent: React.FC = () => {
             onChange={handleScoringTypeChange}
             onInputChange={handleChange}
             selectedHoles={formData.selectedHoles || []}
+           
           />
 
           <PaymentDetails onChange={handlePaymentDetailsChange} formDataa={formData}/>
@@ -402,4 +406,8 @@ const EditEvent: React.FC = () => {
 };
 
 export default EditEvent;
+
+function setIsScoringEnabled(enabled: boolean) {
+  throw new Error("Function not implemented.");
+}
 

@@ -424,20 +424,20 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
             className=" mt-6 block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
             htmlFor="grid-event-name"
           >
-            {t('TENDAYS_FEE')}
+            {t('CANCELLATION')}
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
-            id="participationFee"
+            id="cancellationFee"
             type="number"
             pattern="[0-9]*"
-            name="participationFee"
+            name="cancellationFee"
             onChange={onChange}
             title="Please enter a valid number"
             placeholder="$ Enter Amount"
             min="0"
           />
-           <label
+           {/* <label
             className=" mt-6 block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
             htmlFor="grid-event-name"
           >
@@ -445,16 +445,16 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
-            id="participationFee"
+            id="cancellaionFee"
             type="number"
             pattern="[0-9]*"
-            name="participationFee"
+            name="cancellaionFee"
             onChange={onChange}
             title="Please enter a valid number"
             placeholder="$ Enter Amount"
             min="0"
-          />
-           <label
+          /> */}
+           {/* <label
             className=" mt-6 block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
             htmlFor="grid-event-name"
           >
@@ -462,15 +462,15 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
-            id="participationFee"
+            id="cancellaionFee"
             type="number"
             pattern="[0-9]*"
-            name="participationFee"
+            name="cancellaionFee"
             onChange={onChange}
             title="Please enter a valid number"
             placeholder="$ Enter Amount"
             min="0"
-          />
+          /> */}
         </div>
         </div>
     </motion.div>

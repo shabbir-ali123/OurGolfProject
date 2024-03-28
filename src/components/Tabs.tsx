@@ -207,11 +207,4 @@ const Tabs: React.FC<TabsProps> = ({
 };
 
 export default Tabs;
-function handleStartDate(arg0: null) {
-  throw new Error("Function not implemented.");
-}
-
-function handleEndDate(arg0: null) {
-  throw new Error("Function not implemented.");
-}
 

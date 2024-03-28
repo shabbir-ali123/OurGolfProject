@@ -56,6 +56,7 @@ interface SingleEvent {
   shotsPerHoles: any;
   selectedHoles: any;
   participationFee: any
+  cancellationFee: any
 
 }
 
@@ -518,7 +519,7 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
             <div className=" items-center gap-10  ">
               <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('Cancel')}</div>
-              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">No Cancellation Fee</p>
+              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('CANCELLATION')} :  </span> ¥ {singleEvent?.cancellationFee}</p>
             </div>
           </div>
           <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
@@ -1151,7 +1152,7 @@ const EditTeamPage: FunctionComponent = () => {
             </Transition.Root>
           </div>
           <table className="w-full mt-8 mb-4">
-          <CommentModel eventId={singleEvent?.id} closeModal={()=>{} } />
+            <CommentModel eventId={singleEvent?.id} closeModal={() => { }} />
 
           </table>
         </div>

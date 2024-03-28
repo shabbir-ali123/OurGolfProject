@@ -150,6 +150,7 @@ const CreateEvent: React.FC = () => {
     const response = await fetch(imagePath);
     const blob = await response.blob();
     const imageName = imagePath.split("/").pop();
+    const [isScoringEnabled, setIsScoringEnabled] = useState(false);
     return new File([blob], imageName || "defaultName.png", {
       type: blob.type,
     }); 
@@ -283,6 +284,10 @@ const CreateEvent: React.FC = () => {
     setCheckboxValues(updatedValues)
   }
 
+  const toggleScoringEnabled = (enabled: boolean) => {
+    setIsScoringEnabled(enabled);
+  };
+
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
@@ -302,6 +307,7 @@ const CreateEvent: React.FC = () => {
             onChange={handleScoringTypeChange}
             onInputChange={handleChange}
             selectedHoles={formData.selectedHoles || []}
+           
           />
 
           <PaymentDetails onChange={handlePaymentDetailsChange} />
@@ -335,4 +341,8 @@ const CreateEvent: React.FC = () => {
 };
 
 export default CreateEvent;
+
+function setIsScoringEnabled(enabled: boolean) {
+  throw new Error("Function not implemented.");
+}
 

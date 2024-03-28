@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import ChampionShipName from "../components/ChampionShipName";
 import Slider from "../components/Slider";
 import LeaderBoardSection from "../components/LeaderBoardSection";
@@ -13,6 +13,7 @@ const ScoreBoard: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
+
   return (
     <div className="font-poppins">
       <div className="flex flex-col mx-[50px]">
@@ -22,12 +23,14 @@ const ScoreBoard: FunctionComponent = () => {
         <FinalEventGallery/>
         </div>
         
-        <div className="mt-4 xl:mt-[100px]">
-          <LeaderBoardTables/>
-        </div>
-        <IndiviualPlayerScore />
-        <TeamPerformance title={t("DRIVER_CONTEST")} />
-        <TeamPerformance title={t("PIN_CONTEST")} />
+    
+        <>
+          <LeaderBoardTables />
+          <IndiviualPlayerScore />
+          <TeamPerformance title={t("DRIVER_CONTEST")} />
+          <TeamPerformance title={t("PIN_CONTEST")} />
+        </>
+     
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">
             <img
@@ -54,3 +57,7 @@ const ScoreBoard: FunctionComponent = () => {
 };
 
 export default ScoreBoard;
+function onScoringToggle(newShowScoringType: boolean) {
+  throw new Error("Function not implemented.");
+}
+
