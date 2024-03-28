@@ -182,12 +182,17 @@ export const fetchMostLikedPosts = async (setMostLiked: any) => {
     const headers: any = {}
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
-      endpoint = API_ENDPOINTS.GETMOSTLIKEDPOSTS;
+      endpoint = API_ENDPOINTS.GETALLPOSTS;
     }
     const response = await axios.get(endpoint, {
       headers,
+      params: {
+        page: 1,
+        pageSize: 4,
+        topLiked: 1
+      }
     });
-    setMostLiked(response.data.topLikedPosts);
+    setMostLiked(response.data.posts);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
       localStorage.clear();
@@ -206,12 +211,17 @@ export const fetchMostCommentedPosts = async (setMostLiked: any) => {
     const headers: any = {}
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
-      endpoint = API_ENDPOINTS.GETMOSTCOMMENTSPOSTS;
+      endpoint = API_ENDPOINTS.GETALLPOSTS;
     }
     const response = await axios.get(endpoint, {
       headers,
+      params: {
+        page: 1,
+        pageSize: 4,
+        topCommented: 1
+      }
     });
-    setMostLiked(response.data.topCommentedPosts);
+    setMostLiked(response.data.posts);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
       localStorage.clear();

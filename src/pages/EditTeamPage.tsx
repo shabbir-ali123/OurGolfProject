@@ -695,15 +695,17 @@ const EditTeamPage: FunctionComponent = () => {
                     >
                       Remove Players List
                     </button>
+                    {singleEvent.scoringType !== "Normal" &&
                     <button
                       className="px-2 py-1 font-normal text-white bg-blue-500 rounded hover:bg-blue-700"
                       onClick={handleNavigateHome}
                     >
                       Add Players Score
                     </button>
+}
                   </div>
                 </>
-              ) : isJoined ? (
+              ) : isJoined && singleEvent.scoringType !== "Normal" ? (
                 <>
                   {/* Content for when isCreated is false and isJoined is true */}
                   <div className="flex items-center gap-4">
@@ -722,22 +724,7 @@ const EditTeamPage: FunctionComponent = () => {
               ) : (
                 <>
 
-                  {/* <div className="flex items-center gap-4">
-                    <div>
-                      <img src="/img/golfplyr.png" alt="" width="40px" />
-                      <b className=" text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                        {t("TEAM_MEMBERS")}
-                      </b>
-
-                    </div>
-                  </div> */}
-
-                  {/* <button
-                    className="p-4 px-10 w-[250px] font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
-                    onClick={() => router(`/pay-now/${singleEvent?.id}`)}
-                  >
-                    {t('JOIN_NOW')}
-                  </button> */}
+                 
                 </>
               )}
             </div>

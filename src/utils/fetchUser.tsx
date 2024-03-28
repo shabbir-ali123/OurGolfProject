@@ -19,20 +19,35 @@ export  const getUser = async ( setUser: any, navigate:any) => {
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
-          localStorage.removeItem('tokenTimestamp');
-          localStorage.removeItem('nickName');
-          localStorage.removeItem('teacher_id');
-          localStorage.removeItem('user');
-          localStorage.removeItem('id');
-          localStorage.removeItem('score');
-          localStorage.removeItem('par');
+        localStorage.clear();
         toast.error("Session expired. Please log in again.");
         navigate('/login-page'); 
       } else {
         toast.error("An error occurred. Please try again.");
       }
     }
+};
+export  const getSingleUser = async ( setSingleUser: any,  userId:any) => {
+  try {
+      const token = localStorage.getItem("token");
+
+    if (token && token !== "undefined") {
+      const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setSingleUser(response.data.user)
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.clear();
+      toast.error("Session expired. Please log in again.");
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
+  }
 };
 export const updateUser = async (formData:any, setUser:any) => {
     const userToken = localStorage.getItem("token");

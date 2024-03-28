@@ -8,13 +8,15 @@ export const API_ENDPOINTS = {
   REGISTER: `${API_BASE_URL}/${API_VERSION}/register`,
   LOGIN: `${API_BASE_URL}/${API_VERSION}/login`,
   UPDATEUSERPROFILE: `${API_BASE_URL}/${API_VERSION}/edit-user-profile/`, 
+  GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
+  UPDATEUSER: `${API_BASE_URL}/${API_VERSION}/update-profile`,
+
+
 
 
 
   //event
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
-  GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
-  UPDATEUSER: `${API_BASE_URL}/${API_VERSION}/update-profile`,
   GETALLEVENT: `${API_BASE_URL}/${API_VERSION}/getAllEvents`,
   PUBLICEVENTS: `${API_BASE_URL}/${API_VERSION}/get-public-events`,
   ADDCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-comment`,

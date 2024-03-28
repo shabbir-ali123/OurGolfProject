@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { getUser, updateUser } from "../utils/fetchUser";
-import { useNavigate } from "react-router-dom";
+import { getSingleUser, getUser, updateUser } from "../utils/fetchUser";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 
@@ -8,6 +8,7 @@ const UserAuthContext = React.createContext<any>({});
 
 export const AuthContext = ({ children }: any) => {
   const [user, setUser] = useState<any>("");
+
   const [message, setMessage] = useState<string>();
   const navigate = useNavigate();
   const [userFormData, setUserFormData] = useState({
@@ -19,6 +20,7 @@ export const AuthContext = ({ children }: any) => {
   });
   useEffect(() => {
     getUser(setUser, navigate);
+   
   }, [message]);
 
   useEffect(() => {
@@ -44,41 +46,54 @@ export const AuthContext = ({ children }: any) => {
       email: userFormData.email,
       password: userFormData.password,
       imageUrl: userFormData.imageUrl,
-
     };
-  
-    const authToken = localStorage.getItem('token');
-  
+
+    const authToken = localStorage.getItem("token");
+
     try {
-      const response = await fetch(`${API_ENDPOINTS.UPDATEUSERPROFILE}${userFormData.userId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
-        },
-        body: JSON.stringify(payload),
-      });
-  
+      const response = await fetch(
+        `${API_ENDPOINTS.UPDATEUSERPROFILE}${userFormData.userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       setMessage(data.message);
       toast.success(data.message);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.error('There was a problem with the fetch operation: ' + error.message);
+        console.error(
+          "There was a problem with the fetch operation: " + error.message
+        );
         toast.error("Update failed: " + error.message);
       } else {
-        console.error('An unexpected error occurred');
+        console.error("An unexpected error occurred");
         toast.error("An unexpected error occurred");
       }
     }
   };
-  
-  
-  const value = { handleUser,handleUpdateUser,setUserFormData, userFormData, user, message };
+
+ 
+
+  const value = {
+    handleUser,
+    handleUpdateUser,
+    setUserFormData,
+
+    userFormData,
+    user,
+    message,
+  };
   return (
     <UserAuthContext.Provider value={value}>
       {" "}
@@ -89,3 +104,34 @@ export const AuthContext = ({ children }: any) => {
 
 export const userAuthContext = () => React.useContext(UserAuthContext);
 
+
+
+const SingleUserContext = React.createContext<any>({});
+
+export const UserContext = ({ children }: any) => {
+  const params = useParams<{ id: string }>();
+  const userId = params.id;
+
+  const [singleUser, setSingleUser] = useState<any>("");
+  
+  console.log(singleUser)
+  useEffect(() => {
+ 
+      getSingleUser(setSingleUser, userId)
+
+  }, [userId]);
+
+  
+
+  const value = {
+    singleUser,
+  };
+  return (
+    <SingleUserContext.Provider value={value}>
+      {" "}
+      {children}
+    </SingleUserContext.Provider>
+  );
+};
+
+export const singleUserContext = () => React.useContext(SingleUserContext);

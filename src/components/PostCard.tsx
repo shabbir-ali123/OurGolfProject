@@ -27,6 +27,7 @@ interface Post {
   id: string;
   tags: string[];
   text: string;
+  userId:any;
   posts: any;
   mediaFile: string[];
   imageUrl: string[0];
@@ -237,6 +238,7 @@ const PostCard = () => {
                         <div
                           key={item.key}
                           className="flex items-center gap-2 m-0 p-0 "
+                          
                         >
                           <img
                             className="w-10 h-10 rounded-full"
@@ -257,7 +259,10 @@ const PostCard = () => {
                   >
                     <div className="p-4">
                       <div className="flex items-center gap-2 justify-between">
-                        <div className="flex items-center  gap-2 ">
+                        <div className="flex items-center  gap-2 hover:text-black" onClick={(e)=>{
+                            e.preventDefault();
+                            navigate('/user-page/' + post?.userId)
+                          }}>
                           <img
                             className="w-8 h-8 rounded-full "
                             src={post.posts?.imageUrl}
@@ -473,7 +478,14 @@ const PostCard = () => {
                       className="w-10 h-10 rounded-full"
                       src={item.mediaFile[0]}
                     />
-                    <p className="text-black">{item.text}</p>
+                    <div
+                      className="p-0 text-sm comment-content overflow-hidden"
+                      dangerouslySetInnerHTML={{
+                        __html: item?.text
+                          ? `${item.text.slice(0, 20).trim()}...`
+                          : "",
+                      }}
+                    ></div>
                   </div>
                 </li>
               );
@@ -486,8 +498,7 @@ const PostCard = () => {
             {mostCommented?.map((item: any) => {
               return (
                 <li
-                onClick={() => navigate(`/read-post/${item.id}`)}
-
+                  onClick={() => navigate(`/read-post/${item.id}`)}
                   className="list-none cursor-pointer py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white"
                   style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
                 >
@@ -497,7 +508,14 @@ const PostCard = () => {
                       className="w-10 h-10 rounded-full"
                       src={item.mediaFile[0]}
                     />
-                    <p className="text-black">{item.text}</p>
+                    <div
+                      className="p-0 text-sm comment-content overflow-hidden"
+                      dangerouslySetInnerHTML={{
+                        __html: item?.text
+                          ? `${item.text.slice(0, 20).trim()}...`
+                          : "",
+                      }}
+                    ></div>
                   </div>
                 </li>
               );

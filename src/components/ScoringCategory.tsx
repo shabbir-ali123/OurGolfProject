@@ -11,6 +11,7 @@ interface ScoringTypeProps {
 }
 
 enum Tab {
+  Normal = "Normal",
   Regular = "Regular",
   Single = "single",
   Double = "double",
@@ -18,6 +19,13 @@ enum Tab {
 }
 
 interface FormData {
+  [Tab.Normal]: {
+    field1: boolean;
+    field2: boolean;
+    selectedHoles: string[];
+    driverContest: { enabled: boolean; score: number };
+    nearPinContest: { enabled: boolean; score: number };
+  };
   [Tab.Regular]: {
     field1: boolean;
     field2: boolean;
@@ -74,6 +82,13 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   );
   const [activeTab, setActiveTab] = useState<Tab>(Tab.Single);
   const [formData, setFormData] = useState<FormData>({
+    [Tab.Normal]: {
+      field1: true,
+      field2: false,
+      selectedHoles: Array.from({ length: 0 }, (_, i) => String(i + 1)),
+      driverContest: { enabled: false, score: 0 },
+      nearPinContest: { enabled: false, score: 0 },
+    },
     [Tab.Regular]: {
       field1: true,
       field2: false,
@@ -105,11 +120,16 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   });
   const [showScoringType, setShowScoringType] = useState<any>(false);
   useEffect(() => {
-    handleTabClick(Tab.Regular);
-  }, []);
+    handleTabClick(Tab.Normal);
+    if(showScoringType){
+      handleTabClick(Tab.Regular);
+
+    }
+  }, [showScoringType]);
 
   const toggleScoringType = () => {
     setShowScoringType((prev: boolean) => !prev);
+    
   };
 
   const handleTabClick = (tab: Tab) => {
@@ -194,6 +214,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     }));
   };
 
+  console.log(formData, "sccore");
   return (
     <div className="px-2 py-10 mx-auto lg:max-w-7xl">
       <div
@@ -238,7 +259,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                 <input
                   className="rounded-full"
                   type="checkbox"
-                  checked={selectedScoringType === Tab.Regular}
+                  checked={showScoringType ? selectedScoringType === Tab.Regular : false}
                   name={Tab.Regular}
                   onChange={handleScoringTypeChange}
                 />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { addPostComment, fetchSinglePosts } from "../utils/fetchPosts";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
@@ -197,6 +197,7 @@ const ReadPost: React.FC = () => {
   //   }
   // }, [singlePost]);
 
+  const navigate = useNavigate();
   const handleEditForm = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -227,7 +228,7 @@ const ReadPost: React.FC = () => {
   const handleDeleteComment = async (commentId: any) => {
     try {
       const response = await axios.delete(
-        API_ENDPOINTS.DELETECOMMENTBYID + commentId, 
+        API_ENDPOINTS.DELETECOMMENTBYID + commentId,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -255,14 +256,20 @@ const ReadPost: React.FC = () => {
       }}
     >
       <div className="flex gap-2 items-center py-4 justify-between">
-        <div className="flex gap-2 items-center py-4">
+        <div
+          className="flex gap-2 items-center cursor-pointer  py-4"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/user-page/" + singlePost?.userId);
+          }}
+        >
           <img
             className="w-16 h-16 rounded-full "
             src={singlePost?.posts.imageUrl}
             alt="Post"
           />
           <div>
-            <h4 className="m-0 font-medium text-lg uppercase text-[#565656]">
+            <h4 className="m-0 font-medium text-lg hover:text-[#17b3a6]  uppercase text-[#565656]">
               {singlePost?.posts.nickName}
             </h4>
             <p className="m-0 p-0 text-sm">{timeAgo}</p>
@@ -282,9 +289,11 @@ const ReadPost: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        
         <div className="col-span-8  ">
-        <div className="mb-4" dangerouslySetInnerHTML={{ __html: singlePost?.text ?? "" }} />
+          <div
+            className="mb-4"
+            dangerouslySetInnerHTML={{ __html: singlePost?.text ?? "" }}
+          />
           {singlePost?.mediaFile?.map((img: string, index: number) => {
             if (singlePost?.mediaFile?.length === 1) {
               return (
@@ -323,9 +332,6 @@ const ReadPost: React.FC = () => {
               }
             })}
           </Slider>
-
-          
-       
         </div>
         <div className="col-span-4">
           <div>
@@ -340,13 +346,19 @@ const ReadPost: React.FC = () => {
                   return (
                     <div key={comment.id} className="py-4">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                        <div
+                          className="flex items-center gap-4 cursor-pointer"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate("/user-page/" + comment?.userId);
+                          }}
+                        >
                           <img
                             className="w-10 h-10 rounded-full"
                             src={comment.user.imageUrl}
                             alt=""
                           />
-                          <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 ">
+                          <h4 className="inline-flex items-center hover:text-[#17b3a6] mr-2 text-sm font-semibold text-gray-900 ">
                             {comment.user.nickName}
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -439,22 +451,24 @@ const ReadPost: React.FC = () => {
                                 value={comment.id}
                               />
                               <div className="flex gap-2">
-                              <button
-                                data-modal-hide="popup-modal"
-                                type="submit"
-                                onClick={handleEditForm}
-                                className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
-                              >
-                                {t("UPDATE_COMMENTS")}
-                              </button>
-                              <button
-                                data-modal-hide="popup-modal"
-                                type="submit"
-                                onClick={() => {setIsEdit({false:false})}}                                
-                                className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
-                              >
-                                {t("CLOSE_COMMENTS")}
-                              </button>
+                                <button
+                                  data-modal-hide="popup-modal"
+                                  type="submit"
+                                  onClick={handleEditForm}
+                                  className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+                                >
+                                  {t("UPDATE_COMMENTS")}
+                                </button>
+                                <button
+                                  data-modal-hide="popup-modal"
+                                  type="submit"
+                                  onClick={() => {
+                                    setIsEdit({ false: false });
+                                  }}
+                                  className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+                                >
+                                  {t("CLOSE_COMMENTS")}
+                                </button>
                               </div>
                             </form>
                           ) : (
@@ -492,40 +506,40 @@ const ReadPost: React.FC = () => {
                 </div>
               </form>
               <div className="flex gap-4 items-center my-10">
-            <div className="flex items-center gap-0">
-              <div className="flex items-center">
-                <button
-                  onClick={handleLike}
-                  className="flex items-center cursor-pointer bg-transparent"
-                >
-                  {userHasLiked ? (
-                    <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
-                  ) : (
-                    <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
-                  )}
-                </button>
-              </div>{" "}
-              {
-                (singlePost?.PostLikes || []).filter(
-                  (like: any) => like.counter
-                ).length
-              }{" "}
-              {t("LIKES")}
-            </div>
+                <div className="flex items-center gap-0">
+                  <div className="flex items-center">
+                    <button
+                      onClick={handleLike}
+                      className="flex items-center cursor-pointer bg-transparent"
+                    >
+                      {userHasLiked ? (
+                        <HandThumbUpIcon className="w-6 h-6 text-[#17b3a6]" />
+                      ) : (
+                        <HandThumbUpIcon className="w-6 h-6 text-gray-500" />
+                      )}
+                    </button>
+                  </div>{" "}
+                  {
+                    (singlePost?.PostLikes || []).filter(
+                      (like: any) => like.counter
+                    ).length
+                  }{" "}
+                  {t("LIKES")}
+                </div>
 
-            <span
-              className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-              data-interaction="share"
-            >
-              {" "}
-              <ShareIcon
-                className="w-4 h-4 cursor-pointer"
-                aria-hidden="true"
-                data-interaction="share"
-              />
-              {t("SHARE")}
-            </span>
-          </div>
+                <span
+                  className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
+                  data-interaction="share"
+                >
+                  {" "}
+                  <ShareIcon
+                    className="w-4 h-4 cursor-pointer"
+                    aria-hidden="true"
+                    data-interaction="share"
+                  />
+                  {t("SHARE")}
+                </span>
+              </div>
             </div>
           </div>
         </div>

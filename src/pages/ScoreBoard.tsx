@@ -9,11 +9,12 @@ import { useTranslation } from "react-i18next";
 import { ScoreContextProvider, useScoreContext } from "../contexts/scoreContext";
 import LeaderBoardTables from "../components/leaderBoard/leaderBoard";
 import FinalEventGallery from "../components/FinalEventGallery"
+import { singleEventContextStore } from "../contexts/eventContext";
 const ScoreBoard: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
-
+  const {singleEvent} =  singleEventContextStore();
   return (
     <div className="font-poppins">
       <div className="flex flex-col mx-[50px]">
@@ -23,13 +24,14 @@ const ScoreBoard: FunctionComponent = () => {
         <FinalEventGallery/>
         </div>
         
-    
+    {singleEvent?.scoringType !== "Normal" &&
         <>
           <LeaderBoardTables />
           <IndiviualPlayerScore />
           <TeamPerformance title={t("DRIVER_CONTEST")} />
           <TeamPerformance title={t("PIN_CONTEST")} />
         </>
+}
      
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">

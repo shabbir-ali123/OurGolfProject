@@ -61,6 +61,8 @@ import UpdatePost from "./components/UpdatePost";
 import EditEvent from "./pages/EditEvent";
 import UpdateProfilePage from "./pages/EditUserPage";
 import { NotificationsContext } from "./contexts/notificationContext";
+import UserPage from "./pages/UserPage";
+import { UserContext } from "./contexts/authContext";
 
 function App() {
   const params = useParams();
@@ -212,6 +214,10 @@ function App() {
         title = "";
         metaDescription = "";
         break;
+      case "/user-page/":
+          title = "";
+          metaDescription = "";
+          break;
     }
 
     if (title) {
@@ -291,8 +297,19 @@ function App() {
             path="/score-board/:id"
             element={
               <ScoreContextProvider>
-                <ScoreBoard />
+                <SingleEventsContext>
+                  <ScoreBoard />
+                </SingleEventsContext>
               </ScoreContextProvider>
+            }
+          />
+          <Route
+            path="/user-page/:id"
+            element={
+              <UserContext>
+                <UserPage />
+              </UserContext>
+                
             }
           />
           <Route

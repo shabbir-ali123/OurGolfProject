@@ -150,7 +150,6 @@ const CreateEvent: React.FC = () => {
     const response = await fetch(imagePath);
     const blob = await response.blob();
     const imageName = imagePath.split("/").pop();
-    const [isScoringEnabled, setIsScoringEnabled] = useState(false);
     return new File([blob], imageName || "defaultName.png", {
       type: blob.type,
     }); 
@@ -287,6 +286,7 @@ const CreateEvent: React.FC = () => {
   const toggleScoringEnabled = (enabled: boolean) => {
     setIsScoringEnabled(enabled);
   };
+  console.log(formData)
 
   return (
     <ToastProvider iconColor="white" textColor="white">
