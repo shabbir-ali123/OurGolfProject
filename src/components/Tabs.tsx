@@ -109,7 +109,7 @@ const Tabs: React.FC<TabsProps> = ({
               <button
                 type="button"
                 onClick={() => setLocationPopupOpen(true)}
-                className="py-[19px]  rounded-lg  flex justify-center  items-center text-[18px] w-full px-14  bg-[#DDF4F2] text-[#17B3A6]"
+                className="py-[17px]  rounded-lg  flex justify-center  items-center text-[18px] w-full px-10 xl:px-14  bg-[#DDF4F2] text-[#17B3A6]"
               >
                 <MapPinIcon className=" h-5 w-5" aria-hidden="true" />
                 {filterLocation && filterLocation.length
@@ -122,7 +122,7 @@ const Tabs: React.FC<TabsProps> = ({
             </div>
             <div>
               <button
-                className="bg-[#DDF4F2] text-[#17B3A6] font-bold py-[19px] w-full px-20 rounded"
+                className="bg-[#DDF4F2] text-[#17B3A6] font-bold py-[19px] w-full px-10 xl:px-20 rounded"
                 onClick={clearDates}
               >
                 {t("CLEAR")}
@@ -184,7 +184,7 @@ const Tabs: React.FC<TabsProps> = ({
               sendDataToParent={handleFilterLocation}
             />
           )}
-          <div className="flex flex-wrap gap-4">
+          <div >
           <Tab.Panels>
             <Tab.Panel key="ALL">
               <AllEvents events={events} setEvents={setEvents} />

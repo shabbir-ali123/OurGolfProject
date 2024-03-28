@@ -45,18 +45,21 @@ const Calendar: React.FC<CalendarProps> = ({ setFilterLocation, setStartDate, se
 };
   return (
     <>
-      <DatePicker
+    <div className="flex gap-0 xl:gap-8 xs:flex-col sm:flex-row items-center">
+    <DatePicker
         selected={startDate}
         onChange={setStartDate}
         placeholderText={t('START_DATE')}
-        className=" py-4 px-0 text-center rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0]  "
+        className=" py-4 px-0 text-center rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-[95%] xl:w-full"
       />
       <DatePicker
         selected={endDate}
         onChange={setEndDate}
         placeholderText={t('END_DATE')}
-        className="ml-6 py-4 px-0 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0]  "
+        className="ml-6 py-4 px-0 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-[88  %] xl:w-full  "
       />
+    </div>
+    
       {/* <button
         className="bg-[#17b3a6] text-white font-bold py-[19px] w-full  rounded"
         onClick={clearDates}
