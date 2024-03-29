@@ -65,7 +65,7 @@ const AllEvents: React.FC<AllEventsProps> = ({
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4">
       <div className="col-span-1 lg:col-span-3">
         <Table events={currentEvents} {...status} />
         <Pagination
