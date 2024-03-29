@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addPostComment, fetchSinglePosts } from "../utils/fetchPosts";
+import { addPostComment, fetchSinglePosts, handleDeleteComment } from "../utils/fetchPosts";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
@@ -109,7 +109,7 @@ const ReadPost: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await addPostComment(formData);
+      await addPostComment(formData, handleMessage);
       toast.success("Comment added successfully");
       fetchSinglePosts(handlePost, postId);
       setFormData({ ...formData, content: "" });
@@ -225,28 +225,6 @@ const ReadPost: React.FC = () => {
       toast.error(`Error updating likes: ${error}`);
     }
   };
-  const handleDeleteComment = async (commentId: any) => {
-    try {
-      const response = await axios.delete(
-        API_ENDPOINTS.DELETECOMMENTBYID + commentId,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      setIsEdit((prevState: any) => ({
-        false: false,
-      }));
-      if (response.status === 200) {
-        handleMessage(response.data.updatedComment.content);
-        handleMessage(response.data.message);
-      }
-    } catch (error) {
-      toast.error(`Error updating likes: ${error}`);
-    }
-  };
   return (
     <div
       className="mx-6 md:mx-auto max-w-7xl px-6  my-4 py-4"
@@ -298,7 +276,7 @@ const ReadPost: React.FC = () => {
             if (singlePost?.mediaFile?.length === 1) {
               return (
                 <img
-                  className="w-full h-[600px] rounded-lg"
+                  className="w-full h-[300px] xl:h-[600px] rounded-lg"
                   src={img}
                   alt="Blog Post Image"
                 />
@@ -316,14 +294,14 @@ const ReadPost: React.FC = () => {
                     {/* Ensure key is unique and at the top element */}
                     {hasImageExtension(img) ? (
                       <img
-                        className="w-full h-[600px] rounded-lg"
+                        className="w-full h-[300px] xl:h-[600px] rounded-lg"
                         src={img}
                         alt="Blog Post Image"
                       />
                     ) : (
                       <video
                         controls
-                        className="w-full h-[600px] rounded-lg"
+                        className="w-full h-[300px] xl:h-[600px] rounded-lg"
                         src={img}
                       />
                     )}
@@ -410,7 +388,8 @@ const ReadPost: React.FC = () => {
                                 <a
                                   type="button"
                                   onClick={() =>
-                                    handleDeleteComment(comment.id)
+                                    handleDeleteComment(comment.id, comment.userId, handleMessage, setIsEdit)
+
                                   }
                                   className="block px-4 cursor-pointer py-2 hover:bg-[#17b3a6] hover:text-white "
                                 >

@@ -50,13 +50,13 @@ const Calendar: React.FC<CalendarProps> = ({ setFilterLocation, setStartDate, se
         selected={startDate}
         onChange={setStartDate}
         placeholderText={t('START_DATE')}
-        className=" py-4 px-0 text-center rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-[95%] xl:w-full"
+        className=" py-4 px-0 text-center rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] h-4 xl:h-auto w-[97%] xl:w-full"
       />
       <DatePicker
         selected={endDate}
         onChange={setEndDate}
         placeholderText={t('END_DATE')}
-        className="ml-6 py-4 px-0 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] w-[88  %] xl:w-full  "
+        className="ml-3 py-4 px-0 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] h-4 xl:h-auto w-[92%] xl:w-full  "
       />
     </div>
     

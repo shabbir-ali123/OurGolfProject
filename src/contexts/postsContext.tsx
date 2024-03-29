@@ -24,6 +24,12 @@ export const PostContext = ({children}:any)=>{
     const [deletePostId, setDeletePostId] = useState<any>();
     const [postId, setPostId] = useState<any>();
     const [message, setMessage] = useState<any>();
+    const [pageSize, setPageSize] = useState<any>(6);
+    const [currentPage, setCurrentPage] = useState<any>(1);
+    const [count, setCount] = useState<any>(null);
+
+
+
     const [formData, setFormData] = useState<CreatePostType>({
         userId: "",
         text: "",
@@ -53,6 +59,9 @@ export const PostContext = ({children}:any)=>{
         setDeletePostId(postId);
         deletePost(postId, setMessage, router); 
     }, [router]);
+
+
+    
     const handleCreatePost = () => {
         createPost(formData, setMessage); 
     };
@@ -61,12 +70,18 @@ export const PostContext = ({children}:any)=>{
         setSinglePost(value)
     }, [singlePost])
 
+
+    const reqObj = {
+        currentPage,
+        pageSize
+    }
+
     useEffect(() => {
         if(category === 'MyPost'){
              fetchMyPosts(setPost, router);
         }
         if(category === 'All'){
-            fetchAllPosts(setPost,category, router);
+            fetchAllPosts(setPost, reqObj , router, setCount);
         }
         if(category === 'Public' || category === 'Private'){
             fetchPosts(setPost, category, router);
@@ -74,7 +89,7 @@ export const PostContext = ({children}:any)=>{
         fetchMostLikedPosts(setMostLiked);
         fetchMostCommentedPosts(setMostCommented);
 
-     }, [category,message, postId]);
+     }, [currentPage, category,message, postId]);
 
      const handlePosts = useCallback((post: any) => {
         return setPost(post);
@@ -88,7 +103,7 @@ export const PostContext = ({children}:any)=>{
         if (postId) {
             fetchSinglePosts(handlePost, postId);
         }
-    }, [ setSinglePost, postId]);
+    }, [ setSinglePost,message, postId]);
     useEffect(() => {
         if (message) {
             fetchSinglePosts(handlePost, postId);
@@ -96,8 +111,11 @@ export const PostContext = ({children}:any)=>{
     }, [message, handleMessage, setMessage]);
 
 
+    const handleCurrentPage =  useCallback((value: any) => {
+        return setCurrentPage(value);
+    }, [currentPage]);
 
-    const value =  {handleMessage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,mostLiked, mostCommented, formData, singlePost, category, post}
+    const value =  {handleMessage,handleCurrentPage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,currentPage,count, pageSize, mostLiked, mostCommented, formData, singlePost, category, post}
    
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }

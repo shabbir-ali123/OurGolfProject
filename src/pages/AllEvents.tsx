@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination";
 import EventMap from "../components/EventMap";
 import Table from "../components/Table";
 import { eventContextStore } from "../contexts/eventContext";
+import { useNavigate } from "react-router-dom";
 
 interface Event {
   id: string;
@@ -37,7 +38,6 @@ const AllEvents: React.FC<AllEventsProps> = ({
 }: AllEventsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [localEvents, setLocalEvents] = useState<any>([]);
-  const pageSize = 6;
   const itemsPerPage = 6;
 
   useEffect(() => {
@@ -49,10 +49,11 @@ const AllEvents: React.FC<AllEventsProps> = ({
   const indexOfLastEvent = currentPage * itemsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - itemsPerPage;
   const currentEvents = localEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+  const router = useNavigate();
 
-  const { eventsCount, handlePageChange, handlePageSize,handleStartDate,handleEndDate, handleEventStatus } = eventContextStore();
-  const totalPages = Math.ceil(eventsCount / 6); 
-  const onPageChange = (pageNumber: any) => {
+  const { eventsCount, handlePageChange,pageSize, handlePageSize,handleStartDate,handleEndDate, handleEventStatus } = eventContextStore();
+  const totalPages = Math.ceil(eventsCount / pageSize); 
+  let onPageChange = (pageNumber: any) => {
     setCurrentPage(pageNumber); 
     handlePageChange(pageNumber); 
   };
@@ -62,6 +63,8 @@ const AllEvents: React.FC<AllEventsProps> = ({
     handleEventStatus('All');
     handleStartDate('')
     handleEndDate('')
+    handlePageChange(1)
+    
   }, []);
 
   return (

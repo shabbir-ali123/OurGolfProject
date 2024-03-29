@@ -638,8 +638,8 @@ const EditTeamPage: FunctionComponent = () => {
             )}
           </div>
 
-          <div className="mr-4 lg:mr-0 lg:w-full  mt-10 ">
-            <div className="xl:flex items-center   gap-40">
+          <div className="mr-4 lg:mr-0 lg:w-full ">
+            <div className="xl:flex items-center   gap-40 py-8">
               {isCreated ? (
                 <>
                   <div className="flex gap-2 m-4 xl:m-0">
@@ -729,10 +729,10 @@ const EditTeamPage: FunctionComponent = () => {
               )}
             </div>
             {singleEvent?.eventType !== 'individual' && (
-              <div className="overflow-x-auto w-full shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10">
-                <div className="flex items-center gap-4">
+              <div className="overflow-x-scroll xl:w-full shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10 ">
+                <div className="flex items-center gap-4 pt-8">
                   <div>
-                    <img src="/img/golfplyr.png" alt="" width="40px" />
+                    
                     <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
                       {t("TEAM_MEMBERS")}
                     </b>

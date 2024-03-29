@@ -52,7 +52,7 @@ const PastEvents: React.FC<AllEventsProps> = ({
   // const isNextDisabled =
   //   indexOfLastEvent >= totalEvents || currentPage === totalPages;
 
-  const handlePageChange = (pageNumber: number) => {
+  const handlePageChanges = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
   useEffect(() => {
@@ -114,7 +114,7 @@ const PastEvents: React.FC<AllEventsProps> = ({
     }
   };
 
-  const { handleEventStatus, eventStatus, handleEndDate, handleStartDate} = eventContextStore();
+  const { handleEventStatus,handlePageChange, eventStatus, handleEndDate, handleStartDate} = eventContextStore();
 
   useEffect(() => {
     const currentDate = new Date();
@@ -122,6 +122,8 @@ const PastEvents: React.FC<AllEventsProps> = ({
     handleEventStatus('past')
     handleEndDate(currentDate)
     handleStartDate('')
+    handlePageChange(1)
+
   }, [eventStatus])
   const { eventsCount } = eventContextStore();
 const totalPages = Math.ceil(eventsCount / 6); 
@@ -129,6 +131,7 @@ const onPageChange = (pageNumber:any) => {
   setCurrentPage(pageNumber); 
   handlePageChange(pageNumber); 
 };
+
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3">
@@ -137,7 +140,7 @@ const onPageChange = (pageNumber:any) => {
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
-          pageSize={6}
+          pageSize={pageSize}
           isPreviousDisabled={currentPage === 1}
           isNextDisabled={currentPage === totalPages}
         />

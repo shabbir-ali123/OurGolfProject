@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
-import { MapPinIcon } from "@heroicons/react/24/outline";
+import { MapPinIcon,  } from "@heroicons/react/24/outline";
 import Calendar from "../components/Calender";
 import LocationSelectionPopup from "../components/LocationSelectionPopup";
 import LiveEvents from "../pages/LiveEvents";
@@ -109,7 +109,7 @@ const Tabs: React.FC<TabsProps> = ({
               <button
                 type="button"
                 onClick={() => setLocationPopupOpen(true)}
-                className="py-[17px]  rounded-lg  flex justify-center  items-center text-[18px] w-full px-10 xl:px-14  bg-[#DDF4F2] text-[#17B3A6]"
+                className="h-12 xl:h-14 rounded-lg  flex justify-center  items-center text-[18px] w-full px-10 xl:px-14  bg-[#DDF4F2] text-[#17B3A6] cursor-pointer"
               >
                 <MapPinIcon className=" h-5 w-5" aria-hidden="true" />
                 {filterLocation && filterLocation.length
@@ -122,7 +122,7 @@ const Tabs: React.FC<TabsProps> = ({
             </div>
             <div>
               <button
-                className="bg-[#DDF4F2] text-[#17B3A6] font-bold py-[19px] w-full px-10 xl:px-20 rounded"
+                className="bg-[#DDF4F2] text-[#17B3A6] font-bold h-12 xl:h-14 w-full px-10 xl:px-20 rounded cursor-pointer"
                 onClick={clearDates}
               >
                 {t("CLEAR")}
@@ -131,14 +131,14 @@ const Tabs: React.FC<TabsProps> = ({
           </div>
 
           <Tab.List className="w-auto md:w-full xl:col-span-12 items-center pt-4 rounded-md sdsdcsdc ">
-            <div className="grid grid-cols-2 md:flex flex-wrap gap-4 xl:gap-12 py-2 lg:flex-nowrap">
+            <div className="grid grid-cols-3 md:flex flex-wrap gap-4 xl:gap-12 py-2 lg:flex-nowrap">
 
               {Object.keys(categories).map((category) => (
                 <Tab
                   key={category}
                   className={({ selected }) =>
                     classNames(
-                      "sm:w-auto md:w-full xl:w-[150px] rounded-md  xl:px-6 text-base font-normal leading-5 cursor-pointer ",
+                      "sm:w-auto h-12 xl:h-auto md:w-full xl:w-[150px] rounded-md  xl:px-6 text-base font-normal leading-5 cursor-pointer ",
                       "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                       selected
                         ? "bg-[#B1B1B1]  text-white flex items-center justify-center"
@@ -148,21 +148,21 @@ const Tabs: React.FC<TabsProps> = ({
                   onClick={() => handleTabChange(category)} // Call handleTabChange on tab click
                 >
                   {category === "LIVE" ? (
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center text-start">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="red"
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="red"
-                        className="w-6 h-6 pr-2.5"
+                        className="w-6 h-6 ml-14 xl:ml-0"
                       >
                         <path
                           strokeLinecap="round"
                           d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                         />
                       </svg>
-                      <p className="w-[100px] xl:w-[50px]">{t(category)}</p>
+                      <p className="w-[100px] xl:w-[50px] text-start xl:text-center px-2 xl:px-0">{t(category)}</p>
                     </div>
                   ) : (
                     <p className="w-[100px] xl:w-[100px]">{t(category)}</p>

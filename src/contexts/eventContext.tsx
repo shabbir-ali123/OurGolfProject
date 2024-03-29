@@ -53,7 +53,7 @@ export const EventsContext = ({ children }: any) => {
         fetchFavoriteEvents(setEvents,setEventsCount, queryParams)
        }
        
-    }, [currentPage, pageSize, locations, startDate, endDate, eventStatus]);
+    }, [currentPage,eventsCount, pageSize, locations, startDate, endDate, eventStatus]);
     useEffect(() => {
         if(search){
             fetchSeachedEvents(search, setEvents);
@@ -116,7 +116,7 @@ export const EventsContext = ({ children }: any) => {
         setJoinedEvents(value);
     }, [joinedEvents]);
 
-    const value = { handleEvents, handlePageChange,handleJoinedEvents, handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,joinedEvents, eventsName, clearFilter, locations, eventss, eventsCount }
+    const value = { handleEvents, handlePageChange,handleJoinedEvents, handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,joinedEvents, eventsName, clearFilter, locations, eventss,pageSize, eventsCount }
 
     return <EventCreateContext.Provider value={value}> {children}</EventCreateContext.Provider>
 }
@@ -172,6 +172,7 @@ export const SingleEventsContext = ({ children }: any) => {
     const [singleEvent, setSingleEvent] = useState<any[]>([]);
     const [isCreated, setIsCreated] = useState<any>(false)
     const [selectedEventId,  setSelectedEventId] = useState<any>()
+    const [message,  setMessage] = useState<any>()
 
     if (selectedEventId) {
         eventId = selectedEventId;
@@ -193,7 +194,7 @@ export const SingleEventsContext = ({ children }: any) => {
         };
 
         fetchData();
-    }, [eventId]);
+    }, [eventId, message]);
 
     const handleSingleEvent = useCallback((value: any) => {
         return setSingleEvent(value);
@@ -206,7 +207,11 @@ export const SingleEventsContext = ({ children }: any) => {
         return setSelectedEventId(value);
     }, []);
 
-    const value = { handleSingleEvent, handleSingleEventID, isCreated, singleEvent }
+    const handleMessage  = useCallback((value: any) => {
+        return setMessage(value);
+    }, [message]);
+
+    const value = { handleSingleEvent,handleMessage, handleSingleEventID, isCreated, singleEvent }
 
     return <SingleEventContext.Provider value={value}> {children}</SingleEventContext.Provider>
 }
@@ -239,6 +244,7 @@ export const CreatedEventContext = ({ children }: any) => {
         return setCurrentPage(currentPage);
     }, []);
 
+   
 
     const updateEvent = createdEvents.find((event: CreateEventType) => event.id == id);
     console.log(updateEvent?.eventName, "xasdf")

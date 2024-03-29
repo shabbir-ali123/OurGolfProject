@@ -21,7 +21,7 @@ const EventMainPage: FunctionComponent = () => {
   const { handleLocationFilter, clearFilter, handleSearch } = eventContextStore();
   useEffect(() => {
     handleLocationFilter(selectedLocations);
-    if(clearFilter){
+    if (clearFilter) {
       handleLocationFilter([])
     }
   }, [selectedLocations, clearFilter]);
@@ -47,27 +47,29 @@ const EventMainPage: FunctionComponent = () => {
       prevSelectedLocations.filter((location) => location !== locationToRemove)
     );
   };
- 
+
   useEffect(() => {
-    if(clearFilter === true){
+    if (clearFilter === true) {
       setSelectedLocations([])
-  
-    }  }, [clearFilter]);
+
+    }
+  }, [clearFilter]);
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">
         <SearchEventContainer />
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap items-end gap-3">
-            <div className="animate__animated animate__rotateIn">
+            <div className="hidden md:block md:animate__animated md:animate__rotateIn xl:animate__animated xl:animate__rotateIn">
               <img
                 className="object-cover w-16 animate-pulse"
                 alt=""
                 src="/img/rectangle-1248@2x.png"
               />
             </div>
+
             <div className="flex flex-wrap items-center gap-4 my-2 xl:m-0">
-              <h1 className="text-[#193A8B] text-[3xl] font-semibold animate__animated animate__rubberBand animate__repeat-3">
+              <h1 className="text-[#193A8B] text-[xl] lg:text-[3xl] font-semibold animate__animated animate__rubberBand animate__repeat-3">
                 {t('EVENTS_IN')}
               </h1>
               {selectedLocations.map((location, index) => (

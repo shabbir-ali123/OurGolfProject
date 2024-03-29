@@ -47,7 +47,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const handleComment = (eventId: string) => {
     setSelectedEvent(eventId);
     setShowModal(!showModal);
@@ -139,8 +139,17 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
   const userId = localStorage.getItem("id");
 
-  
-  let state = window.innerWidth < 768 ? true : false
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className="animate__animated animate__fadeInLeft">
@@ -151,11 +160,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
       ) : (
 
         <div className="flow-root  ">
-          <div className="-my-2 overflow-x-auto xl:overflow-x-auto ">
+          <div className="-my-2  ">
             <div className="inline-block min-w-full py-0 align-middle ">
-              <div className="overflow-hidden sm:rounded-lg">
+              <div className="sm:rounded-lg">
                 {
-                  !state ? <table
+                  !isMobile ? <table
                     className="relative min-w-full px-3 divide-y divide-gray-300 z-9"
                     style={{
                       borderCollapse: "separate",
@@ -398,28 +407,28 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         return (
 
 
-                          <div className="grid gap-4 p-4 border border-solid border-[#DCDCDC] mb-2 items-center">
+                          <div className="grid gap-2 px-4 py-1 border border-solid border-[#DCDCDC] mb-2 items-center">
                             <div className="grid grid-cols-2 bg-[#F5F5F5] items-center ">
-                              <div className="p-2"><p className="m-0">Organizer</p></div>
-                              <div className="p-2"><p className="m-0">Event Name/ Detail</p></div>
+                              <div className="py-2"><p className="m-0">Organizer</p></div>
+                              <div className="py-2"><p className="m-0 text-start">Event Name/ Detail</p></div>
                             </div>
-                            <div className="grid grid-cols-2 bg-#ffffff items-center justify-center">
-                              <div className="flex justify-center ">
+                            <div className="grid grid-cols-2 bg-#ffffff  justify-center cursor-pointer" onClick={() => router(`/edit-team/${item.id}`)}>
+                              <div className="flex justify-start cursor-pointer h-[50px] w-[50px]">
                                 <img src={
                                   item.imageUrl[0]
                                     ? item.imageUrl[0]
                                     : "img/BG-GOLF.jpg"
                                 }
                                   alt=""
-                                  className="w-16 h-16 border border-indigo-600 border-solid rounded-full " /></div>
-                                  <div>
+                                  className="w-full h-full border border-indigo-600 border-solid rounded-full " /></div>
+                              <div>
 
-                              <p className="font-bold text-2xl  capitalize text-start text-center">Event By: {item.eventName}</p>
-                              <p className="text-start m-0 my-1 text-sm ">
+                                <p className="capitalize text-justify  p-0 m-0">Event By: <br /> {item.eventName}</p>
+                                <p className="text-start m-0 my-1 text-sm ">
                                   {item.eventDetails.length > 100 ? `${item.eventDetails.substring(0, 100)}...` : item.eventDetails}
                                 </p>
-                                  </div>
-                              <div className="text-center"><p className="m-0 text-lg font-medium leading-6 truncate tableText">{item.creator && item.creator.nickName ? item.creator.nickName : "N/A"}</p></div>
+                              </div>
+                              <div className="text-start"><p className="m-0 ">{item.creator && item.creator.nickName ? item.creator.nickName : "N/A"}</p></div>
                             </div>
 
                             <div className="grid grid-cols-3 bg-[#F5F5F5] items-center ">
@@ -427,60 +436,60 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <div className="p-2">Joined Members</div>
                               <div className="p-2">Actions</div>
                             </div>
-                            <div className="grid grid-cols-3 bg-[#ffffff] items-center">
-                              <div className="p-2">{item.eventStartDate}</div>
-                              <div className="p-2"><p className="my-1 p-0">
-                                <span className="font-bold text-sm m-0 p-0"> {t("CONFIRMED")}:</span>  {item.teamMemberCount} / {item.capacity * item.teamSize}
+                            <div className="grid grid-cols-3 bg-[#ffffff] cursor-pointer" >
+                              <div className="p-2" onClick={() => router(`/edit-team/${item.id}`)}>{item.eventStartDate}</div>
+                              <div className="p-2" onClick={() => router(`/edit-team/${item.id}`)}><p className="my-1 p-0">
+                                <span className="font-bold text-sm m-0 p-0"> {t("CONFIRMED")}:</span> <br /> {item.teamMemberCount} / {item.capacity * item.teamSize}
                               </p>
-                              <p className="m-0 p-0">
-                                <span className="font-bold text-sm ">
-                                  {t("WAITING")}:
-                                </span> {item.teamMemberCount} / {item.capacity * item.teamSize}
+                                <p className="m-0 p-0 " onClick={() => router(`/edit-team/${item.id}`)}>
+                                  <span className="font-bold text-sm ">
+                                    {t("WAITING")}:
+                                  </span> <br /> {item.teamMemberCount} / {item.capacity * item.teamSize}
 
-                              </p>
-                              <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
-                                <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black" style={{
+                                </p>
+                                <span className=" px-0 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  " onClick={() => router(`/edit-team/${item.id}`)}>
+                                  <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black" style={{
 
-                                  boxShadow:
-                                    "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                }} >Join</p>
-                              </span></div>
+                                    boxShadow:
+                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                  }} >Join</p>
+                                </span></div>
                               <div className="p-2"><div className="text-start flex items-center" >
-                              <div>
-                                <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
-                                  <div className="flex flex-col items-center gap-1 ">
-                                    <div
-                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
-                                        } cursor-pointer p-1 rounded-md`}
-                                      onClick={() => handleLike(event)}
-                                    >
-                                      <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
-                                        } `} />
-                                    </div>
-                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
-                                      <div className="text-[12px]  text-[#17B3A6]  ">
-                                        {
-                                          (item?.likes || []).filter(
-                                            (like: any) => like.counter
-                                          ).length
-                                        }
+                                <div>
+                                  <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
+                                    <div className="flex flex-col items-center gap-1 ">
+                                      <div
+                                        className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
+                                          } cursor-pointer p-1 rounded-md`}
+                                        onClick={() => handleLike(item)}
+                                      >
+                                        <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
+                                          } `} />
+                                      </div>
+                                      <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                        <div className="text-[12px]  text-[#17B3A6]  ">
+                                          {
+                                            (item?.likes || []).filter(
+                                              (like: any) => like.counter
+                                            ).length
+                                          }
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div className="flex flex-col items-center gap-1">
-                                    <div
-                                      onClick={() => handleComment(item.id)}
-                                      className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
-                                    >
-                                      <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
-                                    </div>
-                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
-                                      <div className="text-[12px] text-[#17B3A6]">
-                                        {item.comments?.length}
+                                    <div className="flex flex-col items-center gap-1">
+                                      <div
+                                        onClick={() => handleComment(item.id)}
+                                        className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
+                                      >
+                                        <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
+                                      </div>
+                                      <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                        <div className="text-[12px] text-[#17B3A6]">
+                                          {item.comments?.length}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div className="flex flex-col items-center gap-1">
+                                    <div className="flex flex-col items-center gap-1">
                                     <div
                                       className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
                                         }  cursor-pointer p-1 rounded-md`}
@@ -496,24 +505,36 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                       <ShareIcon className="w-4 h-4 text-[#17B3A6]" />
                                     </div>
                                   </div>
-                                </td>
-                                <div className="flex items-center justify-center py-2">
-                                  <button
-                                    className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
-                                    onClick={() => router(`/score-board/${item.id}`)}
-                                    style={{
+                                  </td>
+                                  <div className="flex items-center justify-center py-2 mt-4">
+                                    <button
+                                      className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
+                                      onClick={() => router(`/score-board/${item.id}`)}
+                                      style={{
 
-                                      boxShadow:
-                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                    }}
-                                  >
-                                    {t("VIEW")}
-                                  </button>
+                                        boxShadow:
+                                          "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                      }}
+                                    >
+                                      {t("VIEW")}
+                                    </button>
+                                  </div>
                                 </div>
-                              </div>
 
-                            </div></div>
+                              </div>
+                             </div>
+                            
                             </div>
+                            {selectedEvent === item.id && (
+                                <div className="flex justify-center">
+                                  <SingleEventsContext>
+                                    <CommentModel
+                                      closeModal={closeModal}
+                                      eventId={item.id}
+                                    />
+                                  </SingleEventsContext>
+                                </div>
+                              )}
                           </div>
                         )
                       })

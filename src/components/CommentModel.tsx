@@ -4,6 +4,8 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useToast } from "../utils/ToastProvider";
 import { eventContextStore, singleEventContextStore, SingleEventsContext } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { getTimeAgo } from "../pages/ReadPost";
 interface CommentModelProps {
   eventId: any;
   closeModal: () => void;
@@ -46,8 +48,7 @@ interface Event {
 }
 
 const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
-  const {eventss, handleEvents} = eventContextStore();
-  const {singleEvent, handleSingleEventID } = singleEventContextStore()
+  const {singleEvent, handleSingleEventID, handleMessage} = singleEventContextStore()
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -94,39 +95,19 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
       });
 
       if (response.status === 201) {
-        showToast(response.data.message, "green");
-
-        setCommentData({
-          userId: response.data.userId,
-          content: response.data.content,
-          createdAt: response.data.createdAt,
-        });
-        const updatedEvents = singleEvent.map((event: any) => {
-          if (event.id === eventId) {
-            return {
-              ...event,
-              comments: [
-                {
-                  id: response.data.comment.id,
-                  content: response.data.comment.content,
-                  userId: response.data.comment.userId,
-                  nickName: nickName,
-                  createdAt: response.data.comment.createdAt,
-                  eventId: response.data.comment.eventId,
-                },
-                ...event.comments,
-              ],
-            };
-          }
-          return event;
-        });
-        handleEvents(updatedEvents);
+        toast.success(response.data.message);
+        
+        handleMessage(response.data);
         setFormData({
           userId: uid,
           eventId: eventId,
           content: "",
-        });
+        })
       }
+    
+      // setFormData({ userId: uid,
+      //   eventId: eventId,
+      //   content: "",});
     } catch (error) {
       showToast("Getting error, please try again", "red");
     } finally {
@@ -216,7 +197,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                                   {comment.user?.nickname}
                                 </h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                                  {comment.createdAt}
+                                  {getTimeAgo(new Date(comment.createdAt))}
                                 </p>
                               </div>
                               <button

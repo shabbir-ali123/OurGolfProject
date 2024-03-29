@@ -22,6 +22,7 @@ import { getTimeAgo } from "../pages/ReadPost";
 import ImageComponent from "./ImageComponent";
 import PostCardComments from "./comments/PostComments";
 import PostProfile from "../components/PostProfilePrompt";
+import Pagination from "./Pagination";
 interface Post {
   createdAt: string | number | Date;
   id: string;
@@ -45,6 +46,10 @@ const PostCard = () => {
     handleCategory,
     category,
     handlePosts,
+    currentPage,
+    count,
+    pageSize,
+    handleCurrentPage,
     post,
   } = postContext();
   const navigate = useNavigate();
@@ -165,7 +170,7 @@ const PostCard = () => {
         if (!tt) {
           toast.success("Post Has been Liked");
         } else {
-          toast.error("Like has been removed");
+        
         }
       }
     } catch (error) {
@@ -195,8 +200,8 @@ const PostCard = () => {
   const handleCommentModel = (e: any, postId: any) => {
     e.preventDefault();
     setActiveCommentModel(activeCommentModel === postId ? null : postId);
-    setCommentModelOpen(!commentModelOpen);
   };
+  const totalPages = Math.ceil(count / pageSize); 
 
   console.log(mostLiked, "md ");
   return (
@@ -334,7 +339,7 @@ const PostCard = () => {
                         </div>
                       </div>
                     </div>
-                    <ImageComponent src={post.mediaFile?.[0]} />
+                    {post.mediaFile?.[0] && <ImageComponent src={post.mediaFile?.[0]} /> }
                     <div className="flex justify-between items-center mt-4  z-10 relative">
                       <div className="flex item-center">
                         <span
@@ -345,16 +350,16 @@ const PostCard = () => {
                       </div>
                     </div>
 
-                    <div className="flex  justify-between z-10 relative">
+                    <div className="flex  justify-between z-10 relative items-end	">
                       <div
-                        className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
+                        className="flex items-center gap-0   rounded-lg "
                         onClick={(event) =>
                           handleLike(post.id, userHasLiked, event)
                         }
                       >
                         <div>
                           <div
-                            className="flex items-center gap-0 hover:bg-black p-1 rounded-lg "
+                            className="flex items-center gap-0 hover:bg-black p-0 rounded-lg "
                             onClick={(event) =>
                               handleLikes(post?.id, userHasLiked, event)
                             }
@@ -422,7 +427,7 @@ const PostCard = () => {
                           </span>
                         </div>
                         <span
-                          className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
+                          className="flex items-center gap-0 hover:bg-black p-0 rounded-lg"
                           onClick={(e) => handleCommentModel(e, post?.id)}
                           data-interaction="comment"
                         >
@@ -436,7 +441,7 @@ const PostCard = () => {
                       </div>
 
                       <span
-                        className="flex items-center gap-0 hover:bg-black p-1 rounded-lg"
+                        className="flex items-center gap-0 hover:bg-black p-0 rounded-lg"
                         onClick={handleInteraction}
                         data-interaction="share"
                       >
@@ -448,18 +453,29 @@ const PostCard = () => {
                         {t("SHARE")}
                       </span>
                     </div>
+                    
                   </div>
+                  
                 </div>
               </Link>
-              {commentModelOpen && activeCommentModel === post?.id && (
+              { activeCommentModel == post?.id && (
                 <PostCardComments singlePost={post} />
               )}
             </div>
           );
         })}
+             <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handleCurrentPage}
+          pageSize={pageSize}
+          isPreviousDisabled={currentPage === 1}
+          isNextDisabled={currentPage === pageSize}
+        />
       </div>
+ 
       <div
-        className="hidden lg:block row-span-2 mx-4 lg:mx-0 lg:sticky top-0 col-span-12 px-4 w-[260px]"
+        className="hidden lg:block row-span-2 mx-4 lg:mx-0 lg:sticky top-0 col-span-12 px-4 w-[300px]  bg-[#F7F9F9] shadow-lg"
         style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
       >
         <div>
@@ -469,8 +485,8 @@ const PostCard = () => {
               return (
                 <li
                   key={item.id}
-                  className="list-none cursor-pointer py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white"
-                  style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
+                  className="list-none cursor-pointer py-2 text-[#43bcb0] my-2 px-2 hover:bg-[#EFEFEF] rounded-lg"
+                  // style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
                   onClick={() => navigate(`/read-post/${item.id}`)}
                 >
                   <div className="flex items-center gap-2 m-0 p-0 ">
@@ -485,7 +501,9 @@ const PostCard = () => {
                           ? `${item.text.slice(0, 20).trim()}...`
                           : "",
                       }}
-                    ></div>
+                    >
+                      
+                    </div>
                   </div>
                 </li>
               );
@@ -499,8 +517,8 @@ const PostCard = () => {
               return (
                 <li
                   onClick={() => navigate(`/read-post/${item.id}`)}
-                  className="list-none cursor-pointer py-2 bg-white shadow-lg text-[#43bcb0] my-2 px-2 hover:bg-[#43bcb0] hover:text-white"
-                  style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
+                  className="list-none cursor-pointer py-2 text-[#43bcb0] my-2 px-2 hover:bg-[#EFEFEF] rounded-lg"
+                  // style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
                 >
                   {" "}
                   <div className="flex items-center gap-2 m-0 p-0 ">
@@ -523,6 +541,7 @@ const PostCard = () => {
           </ul>
         </div>
       </div>
+     
     </div>
   );
 };

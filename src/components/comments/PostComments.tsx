@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../../appConfig";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { addPostComment, fetchSinglePosts } from "../../utils/fetchPosts";
+import { addPostComment, fetchSinglePosts, handleDeleteComment } from "../../utils/fetchPosts";
 import { postContext } from "../../contexts/postsContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -72,28 +72,7 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
           }));
         }
       };
-      const handleDeleteComment = async (commentId: any) => {
-        try {
-          const response = await axios.delete(
-            API_ENDPOINTS.DELETECOMMENTBYID + commentId,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          );
-  
-          setIsEdit((prevState: any) => ({
-            false: false,
-          }));
-          if (response.status === 200) {
-            handleMessage(response.data.updatedComment.content);
-            handleMessage(response.data.message);
-          }
-        } catch (error) {
-          toast.error(`Error updating likes: ${error}`);
-        }
-      };
+
       const handleEditForm = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -125,7 +104,7 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
       return (<>
       
           {/* comments */}
-          <div className="  ">
+          <div className=" px-4 ">
                   <form method="post" className=" ">
                     <input type="hidden" name="userId" />
                     <input type="hidden" name="eventId" />
@@ -196,7 +175,7 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
                                     <a
                                       type="button"
                                       onClick={() =>
-                                        handleDeleteComment(comment.id)
+                                        handleDeleteComment(comment.id, comment.userId, handleMessage, setIsEdit)
                                       }
                                       className="block px-4 cursor-pointer py-2 hover:bg-[#17b3a6] hover:text-white "
                                     >
@@ -285,7 +264,7 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
                         data-modal-hide="popup-modal"
                         type="submit"
                         onClick={handleSubmit}
-                        className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+                        className="mb-4 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
                       >
                         {t("POST_COMMENTS")}
                       </button>

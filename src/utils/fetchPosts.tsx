@@ -14,7 +14,7 @@ export const fetchPosts = async (setPosts: any, category: any, navigate:any) => 
     }
     const response = await axios.get(endpoint, {
       headers,
-      params: { category },
+      params: { category , page: 1, pageSize: 2 },
     });
     console.log(response);
     setPosts(response.data.posts);
@@ -52,7 +52,12 @@ export const fetchMyPosts = async (setPosts: any, navigate:any) => {
     }
   }
 };
-export const fetchAllPosts = async (setPosts: any,category:any, navigate:any) => {
+export const fetchAllPosts = async (setPosts: any,reqObj:any, navigate:any, setCount:any) => {
+
+
+  const {currentPage, pageSize, category,} = reqObj;
+
+
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
@@ -63,9 +68,13 @@ export const fetchAllPosts = async (setPosts: any,category:any, navigate:any) =>
     }
     const response = await axios.get(endpoint, {
       headers,
-      params: { category },
+      params: {
+        page: currentPage,
+        pageSize: pageSize,
+      }   
     });
     setPosts(response.data.posts);
+    setCount(response.data.count);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
       localStorage.clear();
@@ -229,5 +238,26 @@ export const fetchMostCommentedPosts = async (setMostLiked: any) => {
     } else {
       toast.error("An error occurred. Please try again.");
     }
+  }
+};
+
+
+export const handleDeleteComment = async (commentId: any, userId: any, handleMessage: any, setIsEdit: any) => {
+  try {
+    const response = await axios.delete(API_ENDPOINTS.DELETECOMMENTBYID + commentId, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      data: {
+        commentId: commentId,
+      },
+    });
+
+    setIsEdit(false);
+      handleMessage(response.data.message);
+      
+  
+  } catch (error) {
+    console.error(`Error: ${error}`);
   }
 };
