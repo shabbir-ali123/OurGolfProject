@@ -14,16 +14,19 @@ const TeacherDetails: React.FC = () => {
   const videoSrc = "/video/video.mp4";
   const posterSrc = "/img/user-06.png";
 
-  const availableSlots = teacher?.schedules?.map((schedules: any) => schedules);
+  const availableSlots = teacher?.schedules?.map((schedule: any) => schedule);
   const shifts = availableSlots?.map((item: any) => item.shifts);
   const slots = shifts?.flatMap((item: any) => item);
 
   return (
-    <div className="mx-20 md:mx-20">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <div className="col-span-1 md:col-span-4 ">
+    <div className="mx-4 md:mx-20">
+      <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
+        {/* TeacherSlots component - order changes based on screen size */}
+        <div className="col-span-1 md:col-span-4 order-last md:order-first">
           <TeacherSlotss slots={slots} schedules={availableSlots} />
         </div>
+
+        {/* Main content */}
         <div className="col-span-4 md:col-span-8">
           <div className="bg-[#17b3a6] p-4 rounded">
             <TeacherProfile {...teacher} />
@@ -33,10 +36,10 @@ const TeacherDetails: React.FC = () => {
               <AboutTeacher />
             </div>
             <div className="col-span-1 md:col-span-3 my-4">
-              <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
+              <h3 className="text-lg font-semibold mb-2 text-[#565656]">
                 Introduction Video
               </h3>
-              <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
+              <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md overflow-hidden">
                 {!videoVisible && (
                   <>
                     <img
@@ -66,9 +69,9 @@ const TeacherDetails: React.FC = () => {
               </div>
             </div>
           </div>
-         <div>
-          <VideoPortfolio/>
-         </div>
+          <div>
+            <VideoPortfolio />
+          </div>
         </div>
       </div>
     </div>

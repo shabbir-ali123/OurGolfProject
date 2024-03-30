@@ -47,8 +47,13 @@ interface Event {
   }>;
 }
 
+
 const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
+
+
+console.log(eventId, "evvn")
   const {singleEvent, handleSingleEventID, handleMessage} = singleEventContextStore()
+  const [isOpenMap, setIsOpenMap] = useState<{ [key: string]: boolean }>({});
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -188,6 +193,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                           <div key={comment.id} className="py-4">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-4">
+                                {comment?.userId}
                                 <img
                                   className="w-10 h-10"
                                   src="/img/ellipse-11@2x.png"
@@ -200,7 +206,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                                   {getTimeAgo(new Date(comment.createdAt))}
                                 </p>
                               </div>
-                              <button
+                              {
+                                isOpenMap[comment.id] && <button
                                 id="dropdownComment1Button"
                                 data-dropdown-toggle="dropdownComment1"
                                 className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg dark:text-gray-400 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -219,6 +226,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                                   Comment settings
                                 </span>
                               </button>
+                              }
                               <div
                                 id="dropdownComment1"
                                 className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-36 dark:bg-gray-700 dark:divide-gray-600"

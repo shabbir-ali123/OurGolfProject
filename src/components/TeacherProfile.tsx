@@ -27,7 +27,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
 }) => {
     return (
         <div className="p-6  rounded  text-white ">
-            <div className="flex items-center justify-around">
+            <div className="flex items-center lg:justify-around">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start ">
                     <div className='text-center'>
                         <img
@@ -44,11 +44,12 @@ const UserProfile: React.FC<UserProfileProps> = ({
                         </div>
                     </div>
 
-                    <div className="ml-4 grid grid-cols-1 xl:grid-cols-2 gap-6 justify-center ">
+                    <div className="ml-0 xl:ml-4 grid xl:grid-cols-2 gap-6  justify-center ">
                        
                             <h2 className="text-lg font-semibold text-white">{firstName} {lastName}</h2>
                             <h2 className="text-lg font-semibold text-white">{hourlyRate} <span className='text-sm font-normal'>Per/Hr</span></h2>
                      
+                        <div className="ml-0 col-span-2 xl:ml-4 grid grid-cols-2 xl:grid-cols-2 gap-6  justify-center ">
                         <div className=''>
                             <div className='flex flex-col gap-1'>
                                 <div className='flex gap-2 items-center'>
@@ -91,6 +92,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                                 <p className='m-0'>Rating</p>
                             </div>
                             <p className="text-sm text-white m-0 pl-[calc(1rem+1.5rem)]">{rating}/{ratingCount} ratings</p>
+                        </div>
                         </div>
                     </div>
 

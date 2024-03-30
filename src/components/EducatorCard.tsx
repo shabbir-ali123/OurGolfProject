@@ -115,18 +115,16 @@ export const EducatorCard = ({
                 <h3>
                   {firstName} {lastName}
                 </h3>
-                <div className="flex gap-4 mt-2 md:mt-0">
+                <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0">
                   <button
-                    className="bg-[#61cbc2] hover:bg-[#61cbc2] text-white font-bold py-2 px-4 rounded"
+                    className="w-full xl:w-auto my-2 text-sm bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
                     onClick={handleBookAppointment}
                   >
                     Book An Appointment
                   </button>
-                  <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
-                    Chat
-                  </button>
+              
                   <Link to={"/teacher-details/" + teacherId}>
-                    <button className="bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                    <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                       View Details
                     </button>
                   </Link>
@@ -159,12 +157,12 @@ export const EducatorCard = ({
               <p className="leading-6 text-[#5b5b5b] mt-4">{aboutMyself}</p>
             </div>
           </div>
-          <div className="mt-4 flex items-center">
-            <div className="grid lg:grid-cols-8 sm:grid-cols-3 gap-4">
+          <div className="mt-4 ">
+            <div className="grid grid-cols-3 lg:grid-cols-8 sm:grid-cols-3 gap-4">
               {shiftsData.map((shift: any, index: any) => (
                 <button
                   key={index}
-                  className={`text-[12px] text-center px-1 py-4 rounded-lg shadow-sm ${
+                  className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${
                     !shift.isBooked
                       ? "bg-teal-400 text-white"
                       : "bg-gray-100 text-gray-600 "
@@ -175,8 +173,13 @@ export const EducatorCard = ({
                 </button>
               ))}
             </div>
-           
+          
          
+          </div>
+          <div className="flex mt-10">
+          <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                    Chat
+                  </button>
           </div>
         </div>
         <div className="md:col-span-3">

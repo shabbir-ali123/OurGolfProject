@@ -441,8 +441,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <div className="p-2" onClick={() => router(`/edit-team/${item.id}`)}><p className="my-1 p-0">
                                 <span className="font-bold text-sm m-0 p-0"> {t("CONFIRMED")}:</span> <br /> {item.teamMemberCount} / {item.capacity * item.teamSize}
                               </p>
-                                <p className="m-0 p-0 " onClick={() => router(`/edit-team/${item.id}`)}>
-                                  <span className="font-bold text-sm ">
+                                <p className="m-0 p-0  pb-2 " onClick={() => router(`/edit-team/${item.id}`)}>
+                                  <span className="font-bold text-sm">
                                     {t("WAITING")}:
                                   </span> <br /> {item.teamMemberCount} / {item.capacity * item.teamSize}
 
@@ -506,7 +506,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     </div>
                                   </div>
                                   </td>
-                                  <div className="flex items-center justify-center py-2 mt-4">
+                                  <div className="flex items-center justify-center py-2 mt-[25px]">
                                     <button
                                       className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
                                       onClick={() => router(`/score-board/${item.id}`)}

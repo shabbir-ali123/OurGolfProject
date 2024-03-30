@@ -361,6 +361,11 @@ const EditTeamPage: FunctionComponent = () => {
   const handleNavigateHome = () => {
     navigate('/add-score-page/' + singleEvent?.id);
   };
+  // const toggleDropdown = (commentId: string) => {
+  //   setIsOpenMap((prevState) => ({
+  //     [commentId]: !prevState[commentId],
+  //   }));
+  // };
   return (
     <>
       <SliderStyles />
@@ -586,32 +591,32 @@ const EditTeamPage: FunctionComponent = () => {
                 </table>
               </div>
             </div>
-            <div className="w-full ">
-              <div className="bg-[#17b3a6] text-white rounded-sm ">
-                <h4 className="p-2">BookMarked Members</h4>
-              </div>
-              <table className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-full ">
+            <div className=" ">
+                <div className="bg-[#17b3a6] text-white rounded-sm ">
+                  <h4 className="p-2">Booked Mark Members</h4>
+                </div>
+                <table className=" ">
 
-                <tbody className="flex flex-wrap gap-4 p-1 py-2 ">
-                  {data.map((player, index) => (
-                    <tr key={index} className=" ">
-                      <td className="px-3 py-2 text-sm text-gray-500">
-                        <div className=" text-center ">
-                          <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
+                    {data.map((player, index) => (
+                      <tr key={index} className=" ">
+                        <td className="px-3 py-2 text-sm text-gray-500">
+                          <div className="text-center">
+                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
 
+                            </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
 
 
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
           </div>
 
           <div className="flex items-end gap-40">

@@ -396,12 +396,7 @@ const ReadPost: React.FC = () => {
                                   Remove
                                 </a>
 
-                                <a
-                                  href="#"
-                                  className="block px-4 cursor-pointer py-2 hover:bg-[#17b3a6] hover:text-white "
-                                >
-                                  Report
-                                </a>
+                                
                               </div>
                             </div>
                           )}
