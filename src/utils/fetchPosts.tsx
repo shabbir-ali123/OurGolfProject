@@ -242,22 +242,4 @@ export const fetchMostCommentedPosts = async (setMostLiked: any) => {
 };
 
 
-export const handleDeleteComment = async (commentId: any, userId: any, handleMessage: any, setIsEdit: any) => {
-  try {
-    const response = await axios.delete(API_ENDPOINTS.DELETECOMMENTBYID + commentId, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      data: {
-        commentId: commentId,
-      },
-    });
 
-    setIsEdit(false);
-      handleMessage(response.data.message);
-      
-  
-  } catch (error) {
-    console.error(`Error: ${error}`);
-  }
-};

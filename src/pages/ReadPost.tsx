@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addPostComment, fetchSinglePosts, handleDeleteComment } from "../utils/fetchPosts";
+import { addPostComment, fetchSinglePosts } from "../utils/fetchPosts";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
@@ -14,6 +14,7 @@ import Slider from "react-slick";
 import { hasImageExtension } from "../utils/imgExtension";
 import { Slide } from "react-slideshow-image";
 import { postContext } from "../contexts/postsContext";
+import { handleDeleteComment } from "../utils/fetchCommunication";
 export interface SinglePostProps {
   posts: any;
   category: string;

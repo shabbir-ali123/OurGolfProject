@@ -2,11 +2,12 @@ import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../../appConfig";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { addPostComment, fetchSinglePosts, handleDeleteComment } from "../../utils/fetchPosts";
+import { addPostComment, fetchSinglePosts } from "../../utils/fetchPosts";
 import { postContext } from "../../contexts/postsContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getTimeAgo } from "../../pages/ReadPost";
+import { handleDeleteComment } from "../../utils/fetchCommunication";
 
 
 
