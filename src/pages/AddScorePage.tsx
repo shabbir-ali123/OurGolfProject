@@ -16,8 +16,9 @@ interface UserScores {
   filteredSums: number[];
 }
 const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
+
   const { isCreated, singleEvent } = singleEventContextStore();
-  const { handleScore } = useScoreContext();
+  const { handleScore, score } = useScoreContext();
   const hole = singleEvent ? singleEvent.selectedHoles : [];
   const newArrayHole = hole?.split(",").map(Number);
 
@@ -162,6 +163,12 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       return acc;
     }, []);
 
+    const filterScore = score?.filter((score: any) => score.eventId == singleEvent.id)
+    console.log(filterScore, 'sss')
+    const filteredScores = filterScore?.filter((scores:any, index:any, self:any) => {
+    return self.findIndex((s: any) => s.userId === scores.userId) === index;});
+
+    console.log(filteredScores, 'sss')
   return (
     <div className="mx-auto max-w-7xl">
       <div className="flex items-center gap-10">
@@ -264,6 +271,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                       }
                     }
                     const netValue = totalPar - roundedValue;
+                    
                     return (
                       <tr
                         key={memberIndex}
@@ -283,6 +291,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                             <input
                               type="number"
                               min="1"
+                              // placeholder="sss"
                               onChange={(e) =>
                                 handleInputChange(
                                   member.userId,
@@ -368,6 +377,13 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                   }
 
                   const netValue = totalPar - roundedValue;
+                  const t = filteredScores?.map((u:any )=> {
+                    let arr = u.scorePerShot;
+            
+                     (u.userId === member.userId ? arr = JSON.parse(arr) : "")
+                  }
+                 );
+                  console.log(t);
                   return (
                     <tr
                       key={memberIndex}
@@ -382,11 +398,13 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         name={member.userId}
                         imageUrl={member.imageUrl}
                       />
-                      {holes.map((hole, holeIndex: number) => (
+                      {holes.map((hole, holeIndex: number) => {
+                        return (
                         <td key={holeIndex}>
                           <input
                             type="number"
                             min="1"
+
                             onChange={(e) =>
                               handleInputChange(
                                 member.userId,
@@ -394,10 +412,11 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                 parseInt(e.target.value)
                               )
                             }
+                            // placeholder={hole.toString()}
                             className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
                           />
                         </td>
-                      ))}
+                      )})}
                       <td className="px-2 py-3 text-center">
                         {totalScores[member.userId]}
                       </td>
