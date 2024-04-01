@@ -203,7 +203,7 @@ const PostCard = () => {
   };
   const totalPages = Math.ceil(count / pageSize); 
 
-  console.log(mostLiked, "md ");
+  console.log(count, "md ");
   return (
     <div className="relative flex flex-col-reverse lg:grid grid-flow-col bg-white mt-10 gap-8">
       <div className="row-span-3 col-span-8">
@@ -464,7 +464,7 @@ const PostCard = () => {
             </div>
           );
         })}
-             <Pagination
+      <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handleCurrentPage}

@@ -10,7 +10,10 @@ import {
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { getTimeAgo } from "../pages/ReadPost";
-import { handleDeleteComment, handleEditForm } from "../utils/fetchCommunication";
+import {
+  handleDeleteComment,
+  handleEditForm,
+} from "../utils/fetchCommunication";
 interface CommentModelProps {
   eventId: any;
   closeModal: () => void;
@@ -124,7 +127,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
   };
 
   const loadMoreComments = () => {
-    setCommentsToShow((prev) => prev + 2);
+    setCommentsToShow(singleEvent?.comments?.length);
   };
   const toggleDropdown = (commentId: string) => {
     setIsOpenMap((prevState) => ({
@@ -152,7 +155,6 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
       }));
     }
   };
-  
 
   return (
     <>
@@ -160,7 +162,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
         colSpan={8}
         id="popup-modal"
         tabIndex={-1}
-        className="p-2  bg-white rounded-lg shadow-lg dark:bg-gray-700 mt-[-10px]"
+        className="p-2  bg-white rounded-lg shadow-lgmt-[-10px]"
       >
         <div className="col-span-12">
           <div className="flex items-center justify-between mx-4">
@@ -208,163 +210,186 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
                   onChange={(e) =>
                     setFormData({ ...formData, content: e.target.value })
                   }
-                  className="w-full h-16 p-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
+                  className="w-full h-16 p-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 "
                 ></textarea>
                 <div className="flex justify-start">
                   <button
                     data-modal-hide="popup-modal"
                     type="submit"
                     onClick={handleSubmit}
-                    className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-500 hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+                    className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-500 hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800"
                   >
                     {t("POST_COMMENTS")}
                   </button>
                 </div>
               </form>
             )}
-            <div key={singleEvent.id}>
-              {singleEvent?.comments?.map((comment: any) => {
-                if (comment.eventId === eventId) {
-                  return (
-                    <div key={comment.id} className="py-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          {comment?.userId}
-                          <img
-                            className="w-10 h-10"
-                            src="/img/ellipse-11@2x.png"
-                            alt=""
-                          />
-                          <h4 className="inline-flex items-center mr-2 text-sm font-semibold text-gray-900 dark:text-white">
-                            {comment.user?.nickname}
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {getTimeAgo(new Date(comment.createdAt))}
-                          </p>
-                        </div>
-                        {currentUserId == comment.userId && (
-                          <button
-                            id="dropdownComment1Button"
-                            data-dropdown-toggle="dropdownComment1"
-                            onClick={() => toggleDropdown(comment.id)} // Pass comment ID to toggle function
-                            className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg dark:text-gray-400 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                            type="button"
-                          >
-                            <svg
-                              className="w-4 h-4"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="currentColor"
-                              viewBox="0 0 16 3"
-                            >
-                              <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                            </svg>
-                            <span className="sr-only">Comment settings</span>
-                          </button>
-                        )}
-                        {isOpenMap[comment.id] && (
-                          <div
-                            id="dropdownComment1"
-                            className="z-99 origin-top-right absolute right-0 mt-2 w-36 bg-white divide-y divide-gray-100 rounded shadow "
-                          >
-                            <div
-                              className="py-1 text-sm text-gray-700 "
-                              aria-labelledby="dropdownComment1Button"
-                            >
-                              <a
-                                type="button"
-                                onClick={() =>
-                                  handleEditComment(comment.id, comment.content)
-                                }
-                                className="block px-4 cursor-pointer py-2 hover:bg-[#17b3a6] hover:text-white "
-                              >
-                                Edit
-                              </a>
-
-                              <a
-                                type="button"
-                                onClick={() =>
-                                  handleDeleteComment(
-                                    comment.id,
-                                    comment.userId,
-                                    handleMessage,
-                                    setIsEdit
-                                  )
-                                }
-                                className="block px-4 cursor-pointer py-2 hover:bg-[#17b3a6] hover:text-white "
-                              >
-                                Remove
-                              </a>
+            <div key={singleEvent.id} className="p-2">
+              {singleEvent?.comments
+                ?.slice(0, commentsToShow)
+                .map((comment: any) => {
+                  if (comment.eventId === eventId) {
+                    return (
+                      <div key={comment.id} className="py-4">
+                        <div className="grid grid-cols-3 items-start gap-[25px]">
+                          <div className="flex col-span-2 items-start gap-4">
+                            <img
+                              className="w-10 h-10 rounded-full"
+                              src={comment.user?.imageUrl}
+                              alt=""
+                            />
+                            <div className="">
+                              <div className="grid grid-row-2 grid-cols-1 p-4 rounded-xl bg-slate-100">
+                                {!isEdit[comment.id] && (
+                                  <h3 className="inline-flex items-center m-0 font-semibold text-gray-900 text-[12px]">
+                                    {comment.user?.nickName}
+                                  </h3>
+                                )}
+                                {isEdit[comment.id] ? (
+                                  <form
+                                    className=""
+                                    onSubmit={(e) => {
+                                      handleEditForm(
+                                        e,
+                                        setIsEdit,
+                                        handleMessage,
+                                        updateFormData
+                                      );
+                                    }}
+                                  >
+                                    <textarea
+                                      name="editContent"
+                                      id=""
+                                      value={updateFormData?.content}
+                                      onChange={(e) => {
+                                        setUpdateFormData({
+                                          commentId: comment.id,
+                                          content: e.target.value,
+                                        });
+                                      }}
+                                      className="w-[90%] resize-none h-16 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300"
+                                    ></textarea>
+                                    <input
+                                      type="hidden"
+                                      name="commentId"
+                                      value={comment.id}
+                                    />
+                                    <div className="flex gap-2">
+                                      <button
+                                        data-modal-hide="popup-modal"
+                                        type="submit"
+                                        // onClick={handleEditForm}
+                                        className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200  hover:bg-primary-800"
+                                      >
+                                        {t("UPDATE_COMMENTS")}
+                                      </button>
+                                      <button
+                                        data-modal-hide="popup-modal"
+                                        type="submit"
+                                        onClick={() => {
+                                          setIsEdit({ false: false });
+                                        }}
+                                        className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800"
+                                      >
+                                        {t("CLOSE_COMMENTS")}
+                                      </button>
+                                    </div>
+                                  </form>
+                                ) : (
+                                  <p className="comment-content text-[12px] p-0 m-0 text-gray-500 ">
+                                    {comment.content}
+                                  </p>
+                                )}
+                              </div>
+                              <p className="col-start-2  text-[12px] text-gray-600 ">
+                                {getTimeAgo(new Date(comment.createdAt))}
+                              </p>
                             </div>
                           </div>
-                        )}
-                      </div>
+                          <div className="relative">
+                            {currentUserId == comment.userId && (
+                              <button
+                                id="dropdownComment1Button"
+                                data-dropdown-toggle="dropdownComment1"
+                                onClick={() => toggleDropdown(comment.id)} // Pass comment ID to toggle function
+                                className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg  hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50  "
+                                type="button"
+                              >
+                                <svg
+                                  className="w-4 h-4"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="currentColor"
+                                  viewBox="0 0 16 3"
+                                >
+                                  <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                                </svg>
+                                <span className="sr-only">
+                                  Comment settings
+                                </span>
+                              </button>
+                            )}
+                            {isOpenMap[comment.id] && (
+                              <div
+                                id="dropdownComment1"
+                                className="z-99 left-0 origin-top-right absolute right-0 mt-2 w-36 bg-white divide-y divide-gray-100 rounded shadow "
+                              >
+                                <div
+                                  className="py-1 text-sm text-gray-700 "
+                                  aria-labelledby="dropdownComment1Button"
+                                >
+                                  <a
+                                    type="button"
+                                    onClick={() =>
+                                      handleEditComment(
+                                        comment.id,
+                                        comment.content
+                                      )
+                                    }
+                                    className="block px-4 cursor-pointer py-2 hover:bg-[#17b3a6] hover:text-white "
+                                  >
+                                    Edit
+                                  </a>
 
-                      <div>
-                      {isEdit[comment.id] ? (
-                            <form onSubmit={(e)=>{handleEditForm(e, setIsEdit, handleMessage, updateFormData)}}>
-                            <textarea
-                                name="editContent"
-                                id=""
-                                value={updateFormData?.content}
-                                onChange={(e) => {
-                                  setUpdateFormData({
-                                    commentId: comment.id,
-                                    content: e.target.value,
-                                  });
-                                }}
-                                className="w-full px-1 h-16 px-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 dark:border-gray-500 dark:focus:border-gray-600"
-                              ></textarea>
-                              <input
-                                type="hidden"
-                                name="commentId"
-                                value={comment.id}
-                              />
-                              <div className="flex gap-2">
-                                <button
-                                  data-modal-hide="popup-modal"
-                                  type="submit"
-                                  // onClick={handleEditForm}
-                                  className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
-                                >
-                                  {t("UPDATE_COMMENTS")}
-                                </button>
-                                <button
-                                  data-modal-hide="popup-modal"
-                                  type="submit"
-                                  onClick={() => {
-                                    setIsEdit({ false: false });
-                                  }}
-                                  className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
-                                >
-                                  {t("CLOSE_COMMENTS")}
-                                </button>
+                                  <a
+                                    type="button"
+                                    onClick={() =>
+                                      handleDeleteComment(
+                                        comment.id,
+                                        comment.userId,
+                                        handleMessage,
+                                        setIsEdit
+                                      )
+                                    }
+                                    className="block px-4 cursor-pointer py-2 hover:bg-[#17b3a6] hover:text-white "
+                                  >
+                                    Remove
+                                  </a>
+                                </div>
                               </div>
-                            </form>
-                          ) : (
-                            <p className="comment-content p-0 m-0 text-gray-500 dark:text-gray-400">
-                              {comment.content}
-                            </p>
-                          )}
-                        
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  );
-                }
-                return null;
-              })}
-
-              {singleEvent?.comments?.length > commentsToShow && (
-                <div className="mt-4 text-center">
-                  <button
-                    className="text-blue-500 hover:underline"
-                    onClick={loadMoreComments}
-                  >
-                    Load more comments
-                  </button>
-                </div>
-              )}
+                    );
+                  }
+                  return null;
+                })}
             </div>
+            {singleEvent?.comments?.length > commentsToShow && (
+              <div className="grid grid-cols-2 justify-center">
+                <p
+                  className="text-blue-500 text-[12px] cursor-pointer text-left hover:underline"
+                  onClick={loadMoreComments}
+                >
+                  Load more comments
+                </p>
+
+                <p className="text-gray-500 text-[12px] cursor-pointer text-right hover:underline">
+                  2 of {singleEvent?.comments?.length}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </td>

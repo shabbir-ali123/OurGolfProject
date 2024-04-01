@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { set } from "date-fns";
 
-export const fetchPosts = async (setPosts: any, category: any, navigate:any) => {
+export const fetchPosts = async (setPosts: any, category: any, navigate:any, setCount:any) => {
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
@@ -18,6 +18,7 @@ export const fetchPosts = async (setPosts: any, category: any, navigate:any) => 
     });
     console.log(response);
     setPosts(response.data.posts);
+    setCount(response.data.count)
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
       localStorage.removeItem('token');

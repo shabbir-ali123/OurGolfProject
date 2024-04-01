@@ -84,7 +84,7 @@ export const PostContext = ({children}:any)=>{
             fetchAllPosts(setPost, reqObj , router, setCount);
         }
         if(category === 'Public' || category === 'Private'){
-            fetchPosts(setPost, category, router);
+            fetchPosts(setPost, category, router, setCount);
         }
         fetchMostLikedPosts(setMostLiked);
         fetchMostCommentedPosts(setMostCommented);

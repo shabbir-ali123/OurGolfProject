@@ -272,7 +272,6 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
                     </div>
                   </form>
                 </div>
-                {/* endcomment */}
       
       
       </>);
