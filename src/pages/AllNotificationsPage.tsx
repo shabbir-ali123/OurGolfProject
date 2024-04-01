@@ -5,7 +5,10 @@ import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notificationContext";
 import { getTimeAgo } from "./ReadPost";
 import { approveEvent } from "../utils/fetchEvents";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export default function AllNotification() {
+  const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -16,12 +19,15 @@ export default function AllNotification() {
     handleFormData({ userId: userId, eventId: eventId });
 
     if (formData.userId != '' && formData.eventId != '') {
-      console.log(formData);
 
       approveEvent(formData, handleMessage);
+      toast.success('Approved Successfully')
+      navigate(`/edit-team/${eventId}`)
     }
   };
 
+  const currentUserId = localStorage.getItem('id');
+  
   return (
     <>
       <div className="max-w-7xl mx-10 xl:mx-auto">
@@ -32,6 +38,7 @@ export default function AllNotification() {
         >
           <div className="w-full justify-center">
             {notificationData?.map((item: any, index: any) => {
+              if(item.eventId == currentUserId || item.teacherId == currentUserId){
               return (
                 <Transition
                   show={show}
@@ -56,6 +63,8 @@ export default function AllNotification() {
                           <p className="mt-1 text-sm text-gray-500">
                             {item.message}
                           </p>
+                          {
+                            !item.isRead &&
                           <div className="mt-4 flex">
                             <button
                               type="button"
@@ -73,6 +82,7 @@ export default function AllNotification() {
                               {t("DECLINE")}
                             </button>
                           </div>
+              }
                         </div>
                         <div className="ml-4 flex flex-shrink-0">
                           {getTimeAgo(new Date(item?.createdAt))}
@@ -82,6 +92,7 @@ export default function AllNotification() {
                   </div>
                 </Transition>
               );
+                            }
             })}
           </div>
         </div>

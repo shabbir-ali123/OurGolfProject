@@ -4,10 +4,11 @@ import { useTranslation } from "react-i18next";
 import { NotificationPop } from "./NotificationPop";
 import { userAuthContext } from "../contexts/authContext";
 import { NotificationsContext, notificationsContextStore } from "../contexts/notificationContext";
+import socket from "../socket";
 
 export default function ProfileButton() {
   const { user } = userAuthContext();
-  const { notifications } = notificationsContextStore();
+  const { notifications, notificationData } = notificationsContextStore();
   const { t, i18n } = useTranslation();
   let n = [];
   const token = localStorage.getItem('token');
@@ -47,7 +48,27 @@ export default function ProfileButton() {
     i18n.changeLanguage(lang);
     localStorage.setItem('lang', lang); // Save language preference to localStorage
   };
+  let userId = localStorage.getItem('id');
 
+  const [eventJoined, setEventJoined] = useState<any[]>([])
+  useEffect(() => {
+    const handleJoinEvent = (data: any) => {
+      console.log(data, 'data for sockets')
+      if (data?.organizerId == userId) {
+        setEventJoined((prev: any) =>[...prev, data]);
+      }
+    };
+    socket.on('joinRequest', handleJoinEvent);
+
+    return () => {
+      socket.off('joinRequest', handleJoinEvent);
+    };
+  }, []);
+  console.log(eventJoined, "http://:/pay-now/2")
+  const filteredNotifications = notificationData?.filter((item:any) => {
+    return item.eventId == userId || item.teacherId == userId;
+  });
+  
   return (
     <div className=" lg:flex lg:flex-1 lg:justify-end">
       <div className="relative flex-shrink-0 block">
@@ -269,6 +290,7 @@ export default function ProfileButton() {
             className="px-6"
           >
             <span>
+              
               <div className="relative cursor-pointer">
                 <svg
                   className="w-5 h-5 text-teal-600 animate-wiggle"
@@ -285,6 +307,7 @@ export default function ProfileButton() {
                 </svg>
                 <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full -top-3 -end-2">
                   {n.length > 0 && n.length}
+                  {filteredNotifications?.length + eventJoined?.length}
                   <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                 </div>
               </div>

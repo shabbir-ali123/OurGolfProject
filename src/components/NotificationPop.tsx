@@ -41,7 +41,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="w-full mt-2 max-w-sm overflow-hidden bg-white rounded-lg shadow-lg pointer-events-auto ring-1 ring-black ring-opacity-5">
+                <div className="w-full mt-2 max-w-sm overflow-hidden bg-white rounded-lg shadow-lg pointer-events-auto ring-1 ring-black ring-opacity-5 cursor-pointer" onClick={() => (navigate('/notification-page'))}>
                   <div className="p-4">
                     <div className="flex items-center">
                       <div className="flex-1 w-0 ml-3 ">
