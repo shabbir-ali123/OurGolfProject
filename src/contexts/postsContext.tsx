@@ -43,6 +43,7 @@ export const PostContext = ({children}:any)=>{
         if(!token){
             router("/login-page");
         }
+        setCurrentPage(1);
         setCategory(category)
         
     }, [category]);
@@ -75,16 +76,18 @@ export const PostContext = ({children}:any)=>{
         currentPage,
         pageSize
     }
-
+    useEffect(() => {
+        setCurrentPage(1);
+     }, []);
     useEffect(() => {
         if(category === 'MyPost'){
-             fetchMyPosts(setPost, router);
+            fetchMyPosts(setPost, router);
         }
         if(category === 'All'){
             fetchAllPosts(setPost, reqObj , router, setCount);
         }
         if(category === 'Public' || category === 'Private'){
-            fetchPosts(setPost, category, router, setCount);
+            fetchPosts(setPost, category, router, setCount, reqObj);
         }
         fetchMostLikedPosts(setMostLiked);
         fetchMostCommentedPosts(setMostCommented);

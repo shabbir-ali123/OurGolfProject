@@ -3,7 +3,9 @@ import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { set } from "date-fns";
 
-export const fetchPosts = async (setPosts: any, category: any, navigate:any, setCount:any) => {
+export const fetchPosts = async (setPosts: any, category: any, navigate:any, setCount:any, reqObj:any) => {
+
+  const {currentPage, pageSize} = reqObj
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
@@ -14,7 +16,7 @@ export const fetchPosts = async (setPosts: any, category: any, navigate:any, set
     }
     const response = await axios.get(endpoint, {
       headers,
-      params: { category , page: 1, pageSize: 2 },
+      params: { category , page: currentPage, pageSize: pageSize },
     });
     console.log(response);
     setPosts(response.data.posts);

@@ -205,7 +205,7 @@ const PostCard = () => {
 
   console.log(count, "md ");
   return (
-    <div className="relative flex flex-col-reverse lg:grid grid-flow-col bg-white mt-10 gap-8">
+    <div className="relative grid grid-cols-2 lg:grid grid-flow-col bg-white mt-10 gap-8">
       <div className="row-span-3 col-span-8">
         <PostProfile />
         {sortedPosts.map((post: Post, index: any) => {
@@ -464,14 +464,16 @@ const PostCard = () => {
             </div>
           );
         })}
-      <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handleCurrentPage}
-          pageSize={pageSize}
-          isPreviousDisabled={currentPage === 1}
-          isNextDisabled={currentPage === pageSize}
-        />
+      {
+        <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handleCurrentPage}
+        pageSize={pageSize}
+        isPreviousDisabled={currentPage === 1}
+        isNextDisabled={currentPage === pageSize}
+      />
+      }
       </div>
  
       <div
