@@ -29,7 +29,7 @@ export default function Register(): JSX.Element {
       const filesArray = Array.from(files).slice(0, 5);
       setFormData((prevFormData: any) => ({
         ...prevFormData,
-        profileImg: filesArray.length === 1 ? filesArray[0] : [...prevFormData.files, ...filesArray],
+        image: filesArray.length === 1 ? filesArray[0] : [...prevFormData.files, ...filesArray],
       }));
     }
   };
