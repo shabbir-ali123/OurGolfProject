@@ -11,7 +11,7 @@ const TeacherDetails: React.FC = () => {
   const { teacher } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
 
-  const videoSrc = "/video/video.mp4";
+  // const videoSrc = "/video/video.mp4";
   const posterSrc = "/img/user-06.png";
 
   const availableSlots = teacher?.schedules?.map((schedule: any) => schedule);
@@ -59,7 +59,7 @@ const TeacherDetails: React.FC = () => {
                 {videoVisible && (
                   <iframe
                     className="rounded-lg w-full h-[260px]"
-                    src={videoSrc}
+                    src={teacher.introductionVideo}
                     title="Introduction Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

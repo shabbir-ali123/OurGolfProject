@@ -1,5 +1,6 @@
 // VideoPortfolio.tsx
 import React from 'react';
+import { useTeacherContext } from '../contexts/teachersContext';
 
 const videos = [
   '/video/video.mp4', // Assuming your app is hosted at the root of the domain
@@ -9,19 +10,25 @@ const videos = [
   '/video/video.mp4',
 ];
 
-const VideoPortfolio: React.FC = () => {
+interface IProps {
+  videoSrc?: string
+}
+
+const VideoPortfolio: React.FC = ({video}: any) => {
+  const { teacher } = useTeacherContext();
+
     return (
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-4">Video Portfolio</h2>
         <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 gap-4">
-          {videos.map((video, index) => (
-            <div key={index} className="bg-gray-200 rounded-lg shadow-md relative w-full">
+          {/* {videos.map((video, index) => ( */}
+            <div key={Math.random()} className="bg-gray-200 rounded-lg shadow-md relative w-full">
               <video className="w-full h-[170px]" controls preload="none">
-                <source src={video} type="video/mp4" />
+                <source src={teacher.portfolioVideo} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
-          ))}
+          {/* ))} */}
         </div>
       </div>
     );

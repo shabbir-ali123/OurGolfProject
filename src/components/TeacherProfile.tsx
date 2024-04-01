@@ -12,6 +12,7 @@ interface UserProfileProps {
     ratingCount?: number;
     about?: string;
     lastName?: string
+    profileImage?: any
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({
@@ -23,7 +24,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
     rating,
     ratingCount,
     about,
-    lastName
+    lastName,
+    profileImage
 }) => {
     return (
         <div className="p-6  rounded  text-white ">
@@ -32,13 +34,13 @@ const UserProfile: React.FC<UserProfileProps> = ({
                     <div className='text-center'>
                         <img
                             className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full"
-                            src="/img/user-06.png"
+                            src={profileImage}
                             alt="Profile"
                         />
                         <div className="mt-4">
                             <div>
                                 <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
-                                    AvailbleS
+                                    Availble
                                 </button>
                             </div>
                         </div>
