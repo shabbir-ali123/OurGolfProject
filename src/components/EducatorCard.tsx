@@ -96,7 +96,8 @@ export const EducatorCard = ({
   };
 
   return (
-    <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
+    <Link to={"/teacher-details/" + teacherId}>
+ <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
       <div className="grid grid-cols-1 xl:grid-cols-9 gap-4">
         <div className="lg:col-span-6">
           <div className="flex flex-col lg:flex-row">
@@ -191,6 +192,8 @@ export const EducatorCard = ({
           />
         </div>
       </div>
-    </div>
+    </div>  
+    </Link>
+   
   );
 };

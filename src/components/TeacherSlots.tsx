@@ -4,7 +4,7 @@ import DropDown from "./DropDown";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
-
+import { useTranslation } from "react-i18next";
 interface TeacherSlots {
   startTime: string;
   endTime: string;
@@ -22,7 +22,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [dayFilter, setDayFilter] = useState<any>("All");
   const [selectedTime, setSelectedTime] = useState<any>()
-
+  const { t, i18n } = useTranslation();
   const day: (string | undefined)[] = (schedules || []).flatMap(
     (schedule: any) => schedule?.shifts.map((es: any) => es.day)
   );
@@ -85,7 +85,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
             className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
               activeIndex === index
                 ? "bg-[#17b3a6] text-white"
-                : "bg-gray-100 text-gray-600"
+                : "bg-[#DDF4F2] text-gray-600"
             }`}
             onClick={() => {setActiveIndex(index), setSelectedTime(slot)}}
             disabled={slot.isBooked}
@@ -97,6 +97,25 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
       <button className="bg-[#17b3a6] text-white text-lg px-4 py-4 cursor-pointer rounded hover:bg-green-600 w-full my-6" onClick={handleBookAppointment}>
         Book an Appointment
       </button>
+      <div>
+       
+        {/* <div className="flex items-center justify-end ">
+          <p className="my-1">{t("APPROVAL_WAITING")}-</p>
+          <div className=" h-4 w-8 md:w-10 lg:w-16 bg-[#CFEEFF]"></div>
+        </div>
+        <div className="flex items-center justify-end ">
+          <p className="my-1">{t("BOOKED_BY_YOU")}-</p>
+          <div className="h-4 w-8 md:w-10 lg:w-16  bg-[#00A4FE]"></div>
+        </div> */}
+        <div className="flex items-center justify-end ">
+          <p className="my-1">{t("AVAILABLE")}-</p>
+          <div className="h-4 w-8  md:w-10 lg:w-16  bg-[#DDF4F2]"></div>
+        </div>
+        <div className="flex items-center justify-end ">
+          <p className="my-1">{t("NOT_AVAILABLE")}-</p>
+          <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]"></div>
+        </div>
+      </div> 
     </div>
   );
 };
