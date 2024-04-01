@@ -12,7 +12,7 @@ function FinalEventGallery() {
    <h4>Event Gallery</h4>
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita dolorum iste officiis impedit fugiat enim tempore hic quas modi!</p>
             <Flickity
-                className="carousel-main2 mb-6"
+                className="carousel-main2 mb-6 "
                 options={{
                     accessibility: false,
                     prevNextButtons: false,

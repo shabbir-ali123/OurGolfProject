@@ -172,7 +172,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }, []);
 
   return (
-    <div className="mx-auto max-w-7xl">
+    <div className="">
       <div className="flex items-center gap-10">
         <div className="relative w-[90.5px] h-[147.5px]">
           <img

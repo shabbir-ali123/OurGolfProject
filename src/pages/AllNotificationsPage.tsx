@@ -24,7 +24,7 @@ export default function AllNotification() {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-10 xl:mx-auto">
         <h4>{t("ALL_NOTIFICATION")}</h4>
         <div
           aria-live="assertive"
@@ -46,12 +46,12 @@ export default function AllNotification() {
                   <div className="mt-2 pointer-events-auto w-full max-w-5xl rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="p-4">
                       <div className="flex items-start">
-                        <div className="flex items-center justify-center pt-0.5 border-2 border-solid border-[#17b3a6] rounded-full p-1 h-8 w-8">
-                          <BellIcon className="h-6 w-6    text-[#17b3a6]" />
+                        <div className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8">
+                          <img className="w-full h-full rounded-full" src={item.User.imageUrl} alt=""  />
                         </div>
                         <div className="ml-3 w-0 flex-1">
                           <p className="text-sm font-medium text-gray-900">
-                            Emilia Gates
+                            {item.User.nickname}
                           </p>
                           <p className="mt-1 text-sm text-gray-500">
                             {item.message}
@@ -59,7 +59,7 @@ export default function AllNotification() {
                           <div className="mt-4 flex">
                             <button
                               type="button"
-                              className="inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                              className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                               onClick={() =>
                                 handleApprove(item?.userId, item?.eventId)
                               }
@@ -68,7 +68,7 @@ export default function AllNotification() {
                             </button>
                             <button
                               type="button"
-                              className="ml-3 inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                              className="cursor-pointer ml-3 inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                             >
                               {t("DECLINE")}
                             </button>
