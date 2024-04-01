@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useScoreContext } from "../../contexts/scoreContext";
+import { useParams } from "react-router-dom";
 
 const LeaderBoard = (props: {
   title: string;
@@ -15,10 +16,14 @@ const LeaderBoard = (props: {
 };
 
 const LeaderBoardTables: FunctionComponent = () => {
+  const params = useParams<{ id?: string }>();
+
+  
   const { score } = useScoreContext();
 
   const { t } = useTranslation();
 
+  const filteredScore = score?.filter((item: any) => item.eventId == Number(params.id));
   return (
     <div className=" mx-5 md:mx-[80px] ">
       <div className="px-3 overflow-x-auto">
@@ -72,7 +77,8 @@ const LeaderBoardTables: FunctionComponent = () => {
               
             </tr>
           </thead>
-          {score?.map((scored: any, index: any) => {
+          {filteredScore?.map((scored: any, index: any) => {
+            console.log(scored.eventId);
             let arr = scored.scorePerShot;
             arr = JSON.parse(arr);
             return (

@@ -38,9 +38,9 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
   const uId = localStorage.getItem("id");
   const isCreator = uId == singleEvent?.creatorId;
-  const handleForm = (event: any) => {
 
-    event.preventDefault(); // Prevent the default form submission behavior
+  const handleForm = (event: any) => {
+    event.preventDefault(); 
 
     const userScoresMap: { [userId: string]: UserScores } = {};
 
@@ -62,9 +62,6 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
     const formDataArray = [];
     for (const [userId, userScores] of Object.entries(userScoresMap)) {
-      console.log(`UserID: ${userId}`);
-      console.log("Sums:", userScores.sums);
-      console.log("FilteredSums:", userScores.filteredSums);
 
       const totalScore = userScores.sums.reduce((acc, score) => acc + score, 0);
       const roundedValue = isHandicap[userId]
@@ -95,7 +92,6 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     handleScore(formData)
   };
 
-  console.log(formData, "form data");
 
   const handleInputChange = (
     userId: string,
@@ -131,11 +127,6 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     return selectedsum;
   };
   const selectedHoleSum = calculateTotalSelected();
-
-  console.log(selectedHoleSum, "sum selected holes");
-  console.log(filteredSums, "filter");
-
-  console.log(sums);
 
   const calculateTotalSum = () => {
     const totalSums: { [userId: string]: number } = {};
@@ -249,10 +240,8 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         memberr = member;
                       } else {
                         toast.error("Please join event");
-                        // navigate('/event-main-page')
                       }
                     }
-                    console.log(memberr, "uuuu");
                     let roundedValue = 0;
                     if (playerHandicap) {
                       if (singleEvent?.scoringType == "single") {
@@ -358,7 +347,6 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                       navigate("/event-main-page");
                     }
                   }
-                  console.log(memberr, "uuuu");
                   let roundedValue = 0;
                   if (playerHandicap) {
                     if (singleEvent?.scoringType == "single") {
