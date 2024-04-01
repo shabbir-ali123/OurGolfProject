@@ -74,6 +74,33 @@ export const fetchTeam = async (teamId: any) => {
           }
     }
 };
+export const fetchAllMembers = async (teamId: any) => {
+    try {
+        const token = localStorage.getItem("token");
+        const headers: any = {};
+        let url = API_ENDPOINTS.GETPUBLICTEAMSBYEVENT + teamId
+        if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+            url = API_ENDPOINTS.GETMEMBERSLIST + teamId
+        }
+        const response = await axios.get( url ,
+            {
+                headers
+            }
+        );
+        
+        return response.data;
+        
+
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+            localStorage.clear();
+            toast.error("Session expired. Please log in again.");
+          } else {
+            toast.error("An error occurred. Please try again.");
+          }
+    }
+};
 export const updateTeams = async (event: any, selectedUserId: any, selectedTeamId: any) => {
     event.preventDefault();
 

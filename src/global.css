@@ -113,7 +113,7 @@ a {
   button:disabled{
   
     color: grey;
-    background: white;
+    background: #f3f4f6;
   }
   .comment-content {
     white-space: pre-line;

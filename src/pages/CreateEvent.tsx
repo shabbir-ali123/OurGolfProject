@@ -107,12 +107,14 @@ const CreateEvent: React.FC = () => {
     shotsPerHoles: [],
     driverContest: 0,
     nearPinContest: 0,
-    fullNameCheckbox: checkboxValues?.fullNameCheckbox,
-    emailCheckbox: checkboxValues?.emailCheckbox,
-    telephoneCheckbox: checkboxValues?.telephoneCheckbox,
-    handicapCheckbox: checkboxValues?.handicapCheckbox,
+    fullNameCheckbox: false,
+    emailCheckbox: false,
+    telephoneCheckbox: false,
+    handicapCheckbox: false,
   });
 
+  console.log(formData, 'CBZ')
+  
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -280,7 +282,10 @@ const CreateEvent: React.FC = () => {
   };
 
   const itemInstructions = (updatedValues: any) => {
-    setCheckboxValues(updatedValues)
+    setFormData((prev: any) => ({
+      ...prev,
+      ...updatedValues,
+    }))
   }
 
   const toggleScoringEnabled = (enabled: boolean) => {

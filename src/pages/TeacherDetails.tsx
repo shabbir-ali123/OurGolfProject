@@ -6,12 +6,12 @@ import TeacherPortfolio from "../components/TeacherPortfolio";
 import TeacherSlotss from "../components/TeacherSlots";
 import { useTeacherContext } from "../contexts/teachersContext";
 import VideoPortfolio from "../components/TeacherPortfolio";
-
+import { useTranslation } from "react-i18next";
 const TeacherDetails: React.FC = () => {
   const { teacher } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
 
-  // const videoSrc = "/video/video.mp4";
+  const videoSrc = "/video/video.mp4";
   const posterSrc = "/img/user-06.png";
 
   const availableSlots = teacher?.schedules?.map((schedule: any) => schedule);
