@@ -65,7 +65,7 @@ const EditTeamPage: FunctionComponent = () => {
   const teamId = params.id;
   const { isCreated, singleEvent } = singleEventContextStore();
   console.log(singleEvent, 'sE')
-  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams } = singleTeamsContextStore()
+  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers, joinedUsers } = singleTeamsContextStore()
 
   const router = useNavigate();
   const { t, i18n } = useTranslation();
@@ -545,13 +545,13 @@ const EditTeamPage: FunctionComponent = () => {
                 <table className=" ">
 
                   <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] ">
-                    {data.map((player, index) => (
-                      <tr key={index} className="">
+                    {joinedUsers.length && joinedUsers?.map((player:any, index:any) => (
+                      <tr key={player.id} className="">
                         <td className="px-3 py-2 text-sm text-gray-500">
                           <div className="text-center">
-                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                            <img className="h-10 w-10 rounded-full" src={player.imageUrl} alt="" />
                             <div>
-                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+                              <div className="text-sm font-medium text-gray-900">{player.nickName}</div>
 
                             </div>
                           </div>
@@ -571,18 +571,18 @@ const EditTeamPage: FunctionComponent = () => {
                 <table className=" ">
 
                   <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
-                    {data.map((player, index) => (
-                      <tr key={index} className=" ">
+                    {waitingUsers.length && waitingUsers?.map((player:any, index:any) => (
+                      
+                        <tr key={player.id} className="">
                         <td className="px-3 py-2 text-sm text-gray-500">
                           <div className="text-center">
-                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                            <img className="h-10 w-10 rounded-full" src={player.imageUrl} alt="" />
                             <div>
-                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+                              <div className="text-sm font-medium text-gray-900">{player.nickName}</div>
 
                             </div>
                           </div>
                         </td>
-
 
 
                       </tr>
@@ -598,13 +598,13 @@ const EditTeamPage: FunctionComponent = () => {
                 <table className=" ">
 
                   <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
-                    {data.map((player, index) => (
-                      <tr key={index} className=" ">
+                    {waitingUsers.length && waitingUsers?.map((player:any, index:any) => (
+                        <tr key={player.id} className="">
                         <td className="px-3 py-2 text-sm text-gray-500">
                           <div className="text-center">
-                            <img className="h-10 w-10 rounded-full" src="/img/BG-GOLF.jpg" alt="" />
+                            <img className="h-10 w-10 rounded-full" src={player.imageUrl} alt="" />
                             <div>
-                              <div className="text-sm font-medium text-gray-900">{player.playerName}</div>
+                              <div className="text-sm font-medium text-gray-900">{player.nickName}</div>
 
                             </div>
                           </div>

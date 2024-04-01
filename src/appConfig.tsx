@@ -34,6 +34,11 @@ export const API_ENDPOINTS = {
   APPROVE_EVENT: `${API_BASE_URL}/${API_VERSION}/approve-join-request`,
   SEARCH_EVENT: `${API_BASE_URL}/${API_VERSION}/search-event-by-name`,
   SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/get-event-col-data`,
+  GETMEMBERSLIST: `${API_BASE_URL}/${API_VERSION}/get-joined-and-wait-list/`,
+
+
+
+  
  
  
   // teacher
