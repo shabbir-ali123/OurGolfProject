@@ -193,6 +193,5 @@ export const EducatorCard = ({
         </div>
       </div>
     </Link>
-
   );
 };

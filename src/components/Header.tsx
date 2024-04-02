@@ -21,7 +21,6 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  let userId = localStorage.getItem('id');
   const isActive = (path: any) => {
     return location.pathname === path;
   };
@@ -35,20 +34,6 @@ const Header: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const [eventJoined, setEventJoined] = useState<any>()
-  useEffect(() => {
-    const handleJoinEvent = (data: any) => {
-      console.log(data, 'data for sockets')
-      if (data?.organizerId === userId) {
-        setEventJoined(data);
-      }
-    };
-    socket.on('joinRequest', handleJoinEvent);
-
-    return () => {
-      socket.off('joinRequest', handleJoinEvent);
-    };
-  }, []);
 
   return (
     <div>
@@ -79,9 +64,7 @@ const Header: React.FC = () => {
                 {t(item.name.toLocaleUpperCase())}
               </Link>
             ))}
-            {eventJoined !== undefined &&
-              <p className="sdc">{eventJoined.organizerId}</p>
-            }
+          
           </div>
           <div className="hidden lg:block lg:flex-1 lg:justify-end">
             <ProfileButton />

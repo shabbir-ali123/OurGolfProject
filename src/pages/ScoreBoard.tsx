@@ -20,7 +20,7 @@ const ScoreBoard: FunctionComponent = () => {
       <div className="flex flex-col mx-[50px]">
         <ChampionShipName />
         <div className="grid self-center w-[1200px]"><Slider /></div>
-        <div className="mt-[400px] self-center">
+        <div className="mt-[400px] ">
         <FinalEventGallery/>
         </div>
         
