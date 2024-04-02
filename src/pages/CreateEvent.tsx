@@ -47,10 +47,10 @@ interface CreateEventType {
   hideParticipantName?: boolean;
   isRequiresApproval?: boolean;
   scoringType?: string;
-  fullNameCheckbox: boolean,
-  emailCheckbox: boolean,
-  telephoneCheckbox: boolean,
-  handicapCheckbox: boolean,
+  fullNameCheckbox: number,
+  emailCheckbox: number,
+  telephoneCheckbox: number,
+  handicapCheckbox: number,
   selectedHoles?: string[];
   shotsPerHoles?: string[];
   driverContest?: number;
@@ -107,10 +107,10 @@ const CreateEvent: React.FC = () => {
     shotsPerHoles: [],
     driverContest: 0,
     nearPinContest: 0,
-    fullNameCheckbox: false,
-    emailCheckbox: false,
-    telephoneCheckbox: false,
-    handicapCheckbox: false,
+    fullNameCheckbox: 0,
+    emailCheckbox: 0,
+    telephoneCheckbox: 0,
+    handicapCheckbox: 0,
   });
 
   console.log(formData, 'CBZ')
@@ -282,11 +282,19 @@ const CreateEvent: React.FC = () => {
   };
 
   const itemInstructions = (updatedValues: any) => {
+    const convertedValues = {
+        fullNameCheckbox: updatedValues.fullNameCheckbox ? 1 : 0,
+        emailCheckbox: updatedValues.emailCheckbox ? 1 : 0,
+        telephoneCheckbox: updatedValues.telephoneCheckbox ? 1 : 0,
+        handicapCheckbox: updatedValues.handicapCheckbox ? 1 : 0
+    };
+
     setFormData((prev: any) => ({
-      ...prev,
-      ...updatedValues,
-    }))
-  }
+        ...prev,
+        ...convertedValues,
+    }));
+};
+
 
   const toggleScoringEnabled = (enabled: boolean) => {
     setIsScoringEnabled(enabled);

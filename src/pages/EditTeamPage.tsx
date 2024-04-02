@@ -110,98 +110,6 @@ const EditTeamPage: FunctionComponent = () => {
     }
   };
 
-  const data = [
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-    {
-      position: 1,
-      change: '+3',
-      playerName: 'Esther Howard',
-      teamName: 'Team 1',
-      totalPar: 78,
-      scoredPar: 71,
-      score: 210,
-    },
-  ];
 
   const [open, setOpen] = useState(false);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState("");
@@ -220,7 +128,6 @@ const EditTeamPage: FunctionComponent = () => {
 
   const teamCapacity = singleEvent?.capacity;
 
-  // const [totalJoinedMembers, setTotalJoinedMembers] = useState("");
   const updateTeamLocal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSingleTeam((prev: Team[]) => {
@@ -305,22 +212,6 @@ const EditTeamPage: FunctionComponent = () => {
   };
   let previousIndex = centerIndex - 1;
   let nextIndex = centerIndex + 2;
-
-
-  // useEffect(() => {
-  //   const fetchAndUpdateTeams = async () => {
-  //     setIsLoading(true); 
-  //     await fetchTeams(setTeams, teamId, setTeamMembers, setTotalJoinedMembers);
-  //     setShouldRefetchTeams(false);
-
-  //     setIsLoading(false);
-  //   };
-  //   fetchAndUpdateTeams();
-  // }, [teamId]);
-
-  // useEffect(() => {
-  //   handleEventId(teamId)
-  // }, [])
 
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", open.toString());
@@ -501,14 +392,6 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
 
               </div>
-              {/* <div className=" items-center gap-10  w-full">
-                <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] w-full p-2"> {t('TOTAL_PARTICIPANT')}</div>
-                <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('TOTAL_PARTICIPANT')} : </span> {totalJoinedMembers}/{singleEvent?.capacity * singleEvent?.teamSize}</p>
-                <div className="flex items-center   ">
-
-                  <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 ">  <span className="text-gray-500 basis-[200px] font-bold">{t('TEAM_SIZE')} :</span>{singleEvent?.teamSize}</p>
-                </div>
-              </div> */}
 
 
 
