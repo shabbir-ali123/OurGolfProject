@@ -11,10 +11,6 @@ export const API_ENDPOINTS = {
   GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
   UPDATEUSER: `${API_BASE_URL}/${API_VERSION}/update-profile`,
 
-
-
-
-
   //event
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
   GETALLEVENT: `${API_BASE_URL}/${API_VERSION}/getAllEvents`,
@@ -36,10 +32,6 @@ export const API_ENDPOINTS = {
   SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/get-event-col-data`,
   GETMEMBERSLIST: `${API_BASE_URL}/${API_VERSION}/get-joined-and-wait-list/`,
 
-
-
-  
- 
  
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,

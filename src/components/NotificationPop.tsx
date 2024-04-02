@@ -15,6 +15,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
   const { notificationData } = notificationsContextStore();
   const navigate = useNavigate();
 
+  const currentUserId = localStorage.getItem('id')
   const handleButtonClick = () => {
     setShow(false);
     setNotification(false);
@@ -29,7 +30,9 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
       >
         <div className="w-full space-y-4 sm:items-end flex flex-col items-end">
           <div className="flex flex-col bg-white mt-4 w-1/5 p-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
-            {notificationData?.map((data: any) => (
+            {notificationData?.map((data: any) => {
+              if(data.organizerId == currentUserId || data.teacherId == currentUserId){
+              return (
               <Transition
                 key={data.id}
                 show={show}
@@ -66,7 +69,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
                   </div>
                 </div>
               </Transition>
-            ))}
+            )}})}
             {notificationData && notificationData.length > 0 && (
               <div className="flex justify-end">
                 <button onClick={handleButtonClick} className="bg-transparent mt-2">

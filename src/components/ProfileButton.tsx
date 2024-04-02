@@ -66,7 +66,8 @@ export default function ProfileButton() {
   }, []);
   console.log(eventJoined, "http://:/pay-now/2")
   const filteredNotifications = notificationData?.filter((item:any) => {
-    return item.eventId == userId || item.teacherId == userId;
+    
+    return item.organizerId == userId || item.teacherId == userId;
   });
   
   return (

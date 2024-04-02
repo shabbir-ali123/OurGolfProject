@@ -17,14 +17,15 @@ const LeaderBoard = (props: {
 
 const LeaderBoardTables: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
-
-  
-  const { score } = useScoreContext();
-
+  const { score } = useScoreContext()
   const { t } = useTranslation();
 
-  const filteredScore = score?.filter((item: any) => item.eventId == Number(params.id));
-  return (
+  const paramsFilter = score?.filter((id: any) => id.eventId == Number(params.id));
+  const filteredScores = paramsFilter?.filter((scores:any, index:any, self:any) => {
+    return self.findIndex((s: any) => s.userId === scores.userId) === index;
+});
+
+return (
     <div className=" mx-5 md:mx-[80px] ">
       <div className="px-3 overflow-x-auto">
       <div className="flex gap-4">
@@ -77,7 +78,7 @@ const LeaderBoardTables: FunctionComponent = () => {
               
             </tr>
           </thead>
-          {filteredScore?.map((scored: any, index: any) => {
+          {filteredScores?.map((scored: any, index: any) => {
             console.log(scored.eventId);
             let arr = scored.scorePerShot;
             arr = JSON.parse(arr);
