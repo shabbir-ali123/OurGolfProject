@@ -163,7 +163,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }, []);
 
   return (
-    <div className="">
+    <div className="mx-4 xl:mx-32 ">
       <div className="flex items-center gap-10">
         <div className="relative w-[90.5px] h-[147.5px]">
           <img
@@ -185,7 +185,8 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         Scoring Type:{" "}
         <span className="font-bold">{singleEvent?.scoringType} PERIA</span>{" "}
       </p>
-      <form action="" onSubmit={handleForm}>
+      <form  action="" onSubmit={handleForm}>
+        <div className="overflow-x-scroll">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px] text-white rounded-lg">
             <tr>
@@ -437,6 +438,8 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                 })}
           </thead>
         </table>
+        </div>
+       
         <button
           type="submit"
           className="mt-4 px-4 py-2 bg-[#17b3a6] text-white rounded hover:bg-blue-700"
