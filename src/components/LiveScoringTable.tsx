@@ -18,8 +18,7 @@ const ScoringTableColumn = (props: {
 };
 
 const ScoringTable: FunctionComponent = () => {
-    const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+    const {t } = useTranslation();
 
     return (
         <div className='mx-5 '>

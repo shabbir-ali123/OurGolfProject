@@ -10,16 +10,23 @@ import { ScoreContextProvider, useScoreContext } from "../contexts/scoreContext"
 import LeaderBoardTables from "../components/leaderBoard/leaderBoard";
 import FinalEventGallery from "../components/FinalEventGallery"
 import { singleEventContextStore } from "../contexts/eventContext";
+import { ScoreSlider } from "../components/sliders/ScoreSlider";
 const ScoreBoard: FunctionComponent = () => {
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
-
+  const { t } = useTranslation();
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3
+  };
   const {singleEvent} =  singleEventContextStore();
   return (
     <div className="font-poppins">
       <div className="flex flex-col mx-[50px]">
         <ChampionShipName />
         <div className="grid self-center w-[1200px]"><Slider /></div>
+        {/* <ScoreSlider/> */}
         <div className="mt-[400px] ">
         <FinalEventGallery/>
         </div>
@@ -59,7 +66,4 @@ const ScoreBoard: FunctionComponent = () => {
 };
 
 export default ScoreBoard;
-function onScoringToggle(newShowScoringType: boolean) {
-  throw new Error("Function not implemented.");
-}
 

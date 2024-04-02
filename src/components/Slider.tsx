@@ -1,64 +1,72 @@
 import { FunctionComponent, useState } from "react";
 import SliderBack from "./SliderBack";
 import FullScore from "./FullScore";
+import { useScoreContext } from "../contexts/scoreContext";
 
 const Slider: FunctionComponent = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showFullScore, setShowFullScore] = useState(false);
+  const { score } = useScoreContext()
 
-  const slidesData = [
-    {
-      position: "POS",
-      value: "1st",
-      driver: "John",
-      Drivers: "Robert",
-      name: "RoryMcIlroy",
-      TotalPar: "70",
-      TotalScore: "78",
-      image: "/img/ellipse-11@2x.png",
-    },
-    {
-      position: "POS",
-      value: "2nd",
-      driver: "Robert",
-      Drivers: "Jhon",
-      name: "ArleneMcCoy",
-      TotalPar: "70",
-      TotalScore: "74",
-      image: "/img/ellipse-14@2x.png",
-    },
-    {
-      position: "POS",
-      value: "3nd",
-      driver: "Alex",
-      Drivers: "Robin",
-      name: "KathrynMurphy",
-      TotalPar: "70",
-      TotalScore: "72",
-      image: "/img/ellipse-13@2x.png",
-    },
-  ];
+  // const slidesData = [
+  //   {
+  //     position: "POS",
+  //     value: "1st",
+  //     driver: "John",
+  //     Drivers: "Robert",
+  //     name: "RoryMcIlroy",
+  //     TotalPar: "70",
+  //     TotalScore: "78",
+  //     image: "/img/ellipse-11@2x.png",
+  //   },
+  //   {
+  //     position: "POS",
+  //     value: "2nd",
+  //     driver: "Robert",
+  //     Drivers: "Jhon",
+  //     name: "ArleneMcCoy",
+  //     TotalPar: "70",
+  //     TotalScore: "74",
+  //     image: "/img/ellipse-14@2x.png",
+  //   },
+  //   {
+  //     position: "POS",
+  //     value: "3nd",
+  //     driver: "Alex",
+  //     Drivers: "Robin",
+  //     name: "KathrynMurphy",
+  //     TotalPar: "70",
+  //     TotalScore: "72",
+  //     image: "/img/ellipse-13@2x.png",
+  //   },
+  // ];
 
   const prevSlide = () => {
     setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + slidesData.length) % slidesData.length
+      (prevSlide) => (prevSlide - 1 + score?.length) % score?.length
     );
   };
 
   const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % slidesData.length);
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % score?.length);
   };
 
-  const currentSlideData = slidesData[currentSlide];
 
   return (
     <div className=" text-black font-poppins  animate__animated animate__backInUp">
       <SliderBack />
       <SliderBack groupDivLeft="0px" />
+      
+  
       <div className="absolute top-[0px] left-[278px] w-[638px] h-[404px] text-xl">
         <div className="absolute top-[0px] left-[2px] w-[634.5px] h-[404px]">
           <div className="absolute top-[-4px] left-[-2.7px] w-[639.9px] h-[412px]">
-            <div className="absolute top-[19px] left-[29px] w-[576px] h-[367px]">
+       {score?.map((item:any)=>{
+          return <>
+          
+          <div className="absolute top-[19px] left-[29px] w-[576px] h-[367px]">
+     
+    
               <div className="absolute top-[0px] left-[0px] w-[576px] h-[367px]">
                 <div>
                   <img
@@ -74,29 +82,26 @@ const Slider: FunctionComponent = () => {
                     src="/img/rectangle-51.svg"
                   />
                   <div className="absolute top-[12px] left-[26px] tracking-[-0.17px] leading-[18px]">
-                    <span>{`${currentSlideData.position} / `}</span>
-                    <b className="text-5xl font-poppins text-lightseagreen-200">
-                      {currentSlideData.value}
-                    </b>
+                    <span className="ml-[-10px]">Event Id: {`${item?.eventId}`}</span>
                   </div>
                 </div>
                 <b className="absolute top-[119px] left-[61px] tracking-[-0.17px] leading-[18px] text-gray1-200">
-                  Driver: {currentSlideData.driver}
+                  HandiCap Value: {item?.handiCapValue}
                 </b>
                 <b className="absolute top-[159px] left-[61px] tracking-[-0.17px] leading-[18px] text-gray1-200">
-                  Drivers: {currentSlideData.Drivers}
+                  Drivers: {item?.Drivers}
                 </b>
                 <div className="absolute top-[202.2px] left-[60.4px] ">
                   <b className="absolute top-[5.4px] left-[0px]  leading-[12.2px] inline-block ">
                     Name:
                   </b>
                   <div className="absolute top-[10.4px] left-[132.4px] tracking-[-0.17px]  leading-[12.2px] font-semibold text-lightseagreen-100">
-                    {currentSlideData.name}
+                    {item?.userId}
                   </div>
                   <img
                     className="absolute top-[-10px] left-[75.4px] rounded-[50%] w-[50.9px] h-[50px] object-cover"
                     alt=""
-                    src={currentSlideData.image}
+                    src={score?.image}
                   />
                 </div>
                 <div className="absolute top-[276.2px] left-[59px] w-[140.3px] h-[33.9px] text-darkslategray-500">
@@ -110,7 +115,7 @@ const Slider: FunctionComponent = () => {
                           <div className="absolute top-[0px] left-[0px] w-[37.8px] h-[33.9px]">
                             <div className="absolute top-[0px] left-[0px] rounded-[3.39px] bg-firebrick-200 shadow-[0px_0px_2.71px_rgba(0,_0,_0,_0.25)] w-[50.8px] h-[50.9px]" />
                             <b className="absolute top-[20.8px] left-[10.4px]  leading-[12.2px] inline-block w-[46.9px]">
-                              {currentSlideData.TotalPar}
+                              {score?.totalScore}
                             </b>
                           </div>
                         </div>
@@ -336,18 +341,21 @@ const Slider: FunctionComponent = () => {
               <div className="absolute top-[189.1px] left-[201px] w-[140.3px] h-[33.9px] text-darkslategray-500">
                 <div className="absolute top-[10.8px] left-[0px] w-[91.6px] h-[13px]">
                   <b className=" text-xl absolute top-[10px] left-[0px]  leading-[12.2px] inline-block w-[101.6px]">
-                    Score Par:
+                    Net Value:
                   </b>
                 </div>
                 <div className="absolute top-[0px] left-[102.5px] w-[37.8px] h-[33.9px] text-[27.11px] text-white">
                   <div className="absolute top-[0px] left-[0px] rounded-[3.39px] bg-lightseagreen-200 shadow-[0px_0px_2.71px_rgba(0,_0,_0,_0.25)] w-[50.8px] h-[50.9px]" />
                   <b className="absolute top-[20.8px] left-[6.3px]  leading-[12.2px] inline-block w-[34.8px]">
-                    {currentSlideData.TotalScore}
+                    {item.netValue}
                   </b>
                 </div>
               </div>
             </div>
+          </>
+        })}
           </div>
+
         </div>
         <img
           style={{ cursor: "pointer" }}
@@ -364,6 +372,7 @@ const Slider: FunctionComponent = () => {
           src="/img/Next.png"
         />
       </div>
+      
     </div>
   );
 };

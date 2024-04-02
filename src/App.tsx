@@ -298,7 +298,9 @@ function App() {
             element={
               <ScoreContextProvider>
                 <SingleEventsContext>
+                  <SingleTeamsContext>
                   <ScoreBoard />
+                  </SingleTeamsContext>
                 </SingleEventsContext>
               </ScoreContextProvider>
             }
