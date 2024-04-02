@@ -76,11 +76,26 @@ const customStyles = `
   }
 `;
 
-const SliderStyles = () => {
+export const SliderStyles = () => {
   return (
   
       <style>{customStyles}</style>
   );
 };
 
-export default SliderStyles;
+
+const customResponsiveStyles = `
+  .slick-dots {
+    position: sticky !important;
+  }
+  
+  
+`;
+
+export const ResponsiveSliderStyles = () => {
+  return (
+  
+      <style>{customResponsiveStyles}</style>
+  );
+};
+

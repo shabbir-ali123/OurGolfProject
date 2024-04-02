@@ -13,10 +13,10 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import EditTeamScore from "../components/EditTeamScore";
-import SliderStyles from "../components/sliderStyles";
 import { singleEventContextStore } from "../contexts/eventContext";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 import CommentModel from "../components/CommentModel";
+import { ResponsiveSliderStyles, SliderStyles } from "../components/sliderStyles";
 
 interface Team {
   id: string;
@@ -98,7 +98,7 @@ const EditTeamPage: FunctionComponent = () => {
   const settings = {
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
-    dots: true,
+    dots: false,
     infinite: true,
     centerMode: true,
     centerPadding: '0px',
@@ -107,7 +107,20 @@ const EditTeamPage: FunctionComponent = () => {
     speed: 500,
     afterChange: (index: any) => {
       setCenterIndex(index);
-    }
+    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          centerMode: false,
+          infinite: true,
+          dots: true,
+          nextArrow: <></>,
+          prevArrow: <></>,
+        }
+      },
+    ]
   };
 
 
@@ -242,7 +255,6 @@ const EditTeamPage: FunctionComponent = () => {
   if (isLoading) {
     return <div className="flex justify-center items-center h-[100vh]">
       <div>
-
         <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
         <p>loading...</p>
       </div>
@@ -252,14 +264,10 @@ const EditTeamPage: FunctionComponent = () => {
   const handleNavigateHome = () => {
     navigate('/add-score-page/' + singleEvent?.id);
   };
-  // const toggleDropdown = (commentId: string) => {
-  //   setIsOpenMap((prevState) => ({
-  //     [commentId]: !prevState[commentId],
-  //   }));
-  // };
+
   return (
     <>
-      <SliderStyles />
+      {window.innerWidth > 1080 ? <SliderStyles /> : <ResponsiveSliderStyles/>}
       <div className="py-10 ml-12 ">
         <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
           <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">

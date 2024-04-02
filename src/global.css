@@ -189,27 +189,6 @@ a {
   border-radius: 5px;
 }
 
-/* Comment out or remove these styles to prevent numbers from showing */
-/*
-.carousel-cell:before {
-  display: block;
-  text-align: center;
-  content: counter(carousel-cell);
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
-}
-
-.carousel-cell-1:before {
-  display: block;
-  text-align: center;
-  content: counter(carousel-cell);
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
-}
-*/
-
 .carousel-nav .carousel-cell {
   height: 80px;
   width: 100%;
