@@ -8,7 +8,7 @@ import socket from "../socket";
 
 export default function ProfileButton() {
   const { user } = userAuthContext();
-  const { notifications, notificationData } = notificationsContextStore();
+  const { notifications, notificationData, } = notificationsContextStore();
   const { t, i18n } = useTranslation();
   let n = [];
   const token = localStorage.getItem('token');
@@ -64,7 +64,6 @@ export default function ProfileButton() {
       socket.off('joinRequest', handleJoinEvent);
     };
   }, []);
-  console.log(eventJoined, "http://:/pay-now/2")
   const filteredNotifications = notificationData?.filter((item:any) => {
     
     return item.organizerId == userId || item.teacherId == userId;
@@ -284,6 +283,10 @@ export default function ProfileButton() {
               </div>
             )}
           </div>
+          {
+            token && user && (
+
+            
           <div
             onClick={() => {
               setNotification(!notification);
@@ -308,12 +311,14 @@ export default function ProfileButton() {
                 </svg>
                 <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full -top-3 -end-2">
                   {n.length > 0 && n.length}
-                  {filteredNotifications?.length + eventJoined?.length}
+                  {filteredNotifications && eventJoined && (filteredNotifications.length + eventJoined.length)}
                   <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                 </div>
               </div>
             </span>
           </div>
+          )
+        }
         </div>
       </div>
       {notification && (

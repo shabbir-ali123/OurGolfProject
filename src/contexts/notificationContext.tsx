@@ -9,12 +9,12 @@ export const NotificationsContext = ({ children }: any) => {
   const [notificationData, setNotificationData] = useState<any>(null);
   const [message, setMessage] = useState('')
   const [formData, setFormData] = useState<any>({userId: '', eventId: ''});
-  
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   
   useEffect(() => {
     const fetchDataWithDelay = async () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
-      fetchNotifications(setNotificationData);
+      fetchNotifications(setNotificationData, setIsLoading);
     };
     fetchDataWithDelay();
     const handleAppointmentBooked = (data: any) => {
@@ -40,7 +40,7 @@ export const NotificationsContext = ({ children }: any) => {
   }, [])
 
 
-  const value = { handleNotification, handleMessage, handleFormData, formData, notifications,  notificationData }; 
+  const value = { handleNotification, handleMessage, handleFormData,isLoading, formData, notifications,  notificationData }; 
 
   return <NotiContext.Provider value={value}> {children}</NotiContext.Provider>
 }

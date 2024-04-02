@@ -79,7 +79,6 @@ return (
             </tr>
           </thead>
           {filteredScores?.map((scored: any, index: any) => {
-            console.log(scored.eventId);
             let arr = scored.scorePerShot;
             arr = JSON.parse(arr);
             return (

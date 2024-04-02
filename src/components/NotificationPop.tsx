@@ -12,7 +12,7 @@ interface NotificationProp {
 
 export const NotificationPop: React.FC<NotificationProp> = ({ setNotification }) => {
   const [show, setShow] = useState(true);
-  const { notificationData } = notificationsContextStore();
+  const { notificationData, isLoading } = notificationsContextStore();
   const navigate = useNavigate();
 
   const currentUserId = localStorage.getItem('id')
@@ -30,7 +30,8 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
       >
         <div className="w-full space-y-4 sm:items-end flex flex-col items-end">
           <div className="flex flex-col bg-white mt-4 w-1/5 p-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
-            {notificationData?.map((data: any) => {
+            {isLoading && <>Loading.....</>}
+            {!isLoading && notificationData?.map((data: any) => {
               if(data.organizerId == currentUserId || data.teacherId == currentUserId){
               return (
               <Transition
@@ -70,7 +71,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
                 </div>
               </Transition>
             )}})}
-            {notificationData && notificationData.length > 0 && (
+            {!isLoading && notificationData && notificationData.length > 0 && (
               <div className="flex justify-end">
                 <button onClick={handleButtonClick} className="bg-transparent mt-2">
                   See All
