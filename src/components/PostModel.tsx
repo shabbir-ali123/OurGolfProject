@@ -51,18 +51,32 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(formData);
-    // if (!formData?.userId || formData?.mediaFiles.length === 0) {
-    //   return;
-    // }
-
+  
+    // Check if text is effectively empty or if no files are selected
+    const isTextEmpty = !formData.text || !formData.text.replace(/<(.|\n)*?>/g, '').trim();
+    if (isTextEmpty && formData.mediaFiles.length === 0) {
+      alert(t("Please add some text or an image/video before posting."));
+      return;
+    }
+  
     setLoading(true);
-
     handleCreatePost(formData);
-
+  
+    // Reset form data
+    setFormData({
+      text: '',
+      category: '',
+      tags: '',
+      userId: userId,
+      mediaFiles: [],
+    });
+  
+    setSelectedFiles([]);
+    setSelectedCategory('');
     setLoading(false);
     closeModal();
   };
+  
 
   const handleInputوTextChange = (e: any) => {
     const { name, value } = e.target;
@@ -73,11 +87,14 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     }));
   };
   const handleInputTextChange = (content: string) => {
+    // Check if the content is effectively empty (ignoring HTML tags)
+    const isContentEmpty = !content.replace(/<(.|\n)*?>/g, '').trim();
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      text: content,
+      text: isContentEmpty ? '' : content,
     }));
   };
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -116,7 +133,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
-          <div style={{ height: '300px', overflow: 'hidden'}}>
+          <div style={{ height: '300px', overflow: 'hidden' }}>
             <ReactQuill
               theme="snow"
               value={formData.text}
@@ -125,7 +142,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               style={{ height: "220px" }}
 
             />{" "}
-          
+
           </div>
 
           <div>
@@ -185,9 +202,9 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             <option value="Private">{t("PRIVATE")}</option>
           </select>
           <div>
-            <label htmlFor="">{t("ADD_TAGS")}</label>
+            <label htmlFor="">{t("ADD_TAGS")}</label> <br />
             <input
-              className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
+              className="xs:w-[200px] sm:w-[300px] md:w-[400px] xl:w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder={t("ADD_TAGS")}
               name="tags"
               onChange={handleInputChange}
@@ -197,7 +214,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
           <button
             className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
-            disabled={isLoading}
+            disabled={isLoading || (!formData.text.trim() && formData.mediaFiles.length === 0)}
             type="submit"
             onClick={(event) => handlePost(event)}
           >
