@@ -8,7 +8,7 @@ import socket from "../socket";
 
 export default function ProfileButton() {
   const { user } = userAuthContext();
-  const { notifications, notificationData } = notificationsContextStore();
+  const { notifications, notificationData, } = notificationsContextStore();
   const { t, i18n } = useTranslation();
   let n = [];
   const token = localStorage.getItem('token');
