@@ -491,11 +491,17 @@ const PostCard = () => {
                   // style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
                   onClick={() => navigate(`/read-post/${item.id}`)}
                 >
-                  <div className="flex items-center gap-2 m-0 p-0 ">
-                    <img
+                  <div className="flex items-center gap-2">
+                  <img
                       className="w-10 h-10 rounded-full"
-                      src={item.mediaFile[0]}
+                      src={item.posts.imageUrl}
                     />
+                    <p className="p-0 m-0 text-black">{item.posts.nickName}</p>
+                  </div>
+                   
+                  <div className="flex items-center gap-2 m-0 p-0 ">
+                   
+                   
                     <div
                       className="p-0 text-sm comment-content overflow-hidden"
                       dangerouslySetInnerHTML={{
