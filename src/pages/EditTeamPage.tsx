@@ -436,7 +436,7 @@ const EditTeamPage: FunctionComponent = () => {
                 <table className=" ">
 
                   <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] ">
-                    {joinedUsers.length && joinedUsers?.map((player:any, index:any) => (
+                    {joinedUsers?.length && joinedUsers?.map((player:any, index:any) => (
                       <tr key={player.id} className="">
                         <td className="px-3 py-2 text-sm text-gray-500">
                           <div className="text-center">

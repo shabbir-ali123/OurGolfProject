@@ -26,7 +26,7 @@ function FinalEventGallery() {
                 <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/second-image.jpg" alt="Description" /></div>
                 <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/third.jpg" alt="Description" /></div>
                 <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/BG-GOLF.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/IMG/tournament.png" alt="Description" /></div>
+                <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/tournament.png" alt="Description" /></div>
             </Flickity>
 
             <Flickity
@@ -39,11 +39,11 @@ function FinalEventGallery() {
                 ref={navCarouselRef}
             >
                 {/* Navigation carousel images */}
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/IMG/BG-GOLF.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/IMG/second-image.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/IMG/third.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/IMG/BG-GOLF.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/IMG/tournament.png" alt="Thumbnail" /></div>
+                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/BG-GOLF.jpg" alt="Thumbnail" /></div>
+                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/second-image.jpg" alt="Thumbnail" /></div>
+                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/third.jpg" alt="Thumbnail" /></div>
+                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/BG-GOLF.jpg" alt="Thumbnail" /></div>
+                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/tournament.png" alt="Thumbnail" /></div>
             </Flickity>
         </div>
     );
