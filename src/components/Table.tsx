@@ -151,6 +151,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     };
   }, []);
 
+  console.log(eventss);
   return (
     <div className="animate__animated animate__fadeInLeft">
       {(eventss || []).length === 0 ? (
@@ -208,7 +209,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       </tr>
                     </thead>
 
-                    {eventss.map((event: any, index: number) => {
+                    {eventss?.map((event: any, index: number) => {
                       const likes = event.likes || [];
                       const isFavorite = event.isFavorite || false;
                       const liked = likes.find(

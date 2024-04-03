@@ -45,16 +45,21 @@ document.body.dir = i18n.dir();
   useEffect(() => {
     if (formDataa) {
         setSelfIncluded(formDataa?.selfIncluded);
-        setDateValues(prevState => ({
+        setFormData(prevState => ({
           ...prevState,
           startDate: formDataa?.eventStartDate,
+          startTime: formDataa?.eventStartime,
           endDate: formDataa?.eventEndDate,
-          deadlineDate: formDataa?.eventDeadlineDate
+          endTime: formDataa?.endTime,
+          deadlineDate: formDataa?.eventDeadlineDate,
+          deadlineTime: formDataa?.eventDeadlineTime
+          
         }));
     }
 }, [formDataa]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debugger
     const { name, value, type, checked } = e.target;
     const currentDate = new Date().toISOString().split("T")[0];
     const isCheckbox = type === "checkbox";
@@ -185,6 +190,7 @@ document.body.dir = i18n.dir();
             type="date"
             id="date"
             name="eventStartDate"
+            value={formData.startDate}
             onChange={handleInputChange}
             required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -212,6 +218,7 @@ document.body.dir = i18n.dir();
             type="date"
             id="date"
             name="eventEndDate"
+            value={formData.endDate}
             onChange={handleInputChange}
             required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -240,6 +247,7 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventDeadlineDate"
             onChange={handleInputChange}
+            value={formData.eventDeadlineDate}
             required
             placeholder="Enter Date"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -250,9 +258,9 @@ document.body.dir = i18n.dir();
             id="time"
             name="eventDeadlineTime"
             onChange={handleInputChange}
+            value={formData.eventDeadlineTime}
             required
             placeholder="Enter Time"
-            value={formDataa?.eventDeadlineTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
