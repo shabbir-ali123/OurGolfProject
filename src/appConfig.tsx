@@ -80,6 +80,7 @@ export const API_ENDPOINTS = {
 
   // Score Page
   GETALLSCORE: `${API_BASE_URL}/${API_VERSION}/get-all-score-cards`,
+  GETALLSCOREPUBLIC: `${API_BASE_URL}/${API_VERSION}/get-all-public-score-cards`,
   ADDSCORE: `${API_BASE_URL}/${API_VERSION}/add-score-card`,
   GETSCOREBYEVENTID: `${API_BASE_URL}/${API_VERSION}/get-score-card-by-event/`,
  
