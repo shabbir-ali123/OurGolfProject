@@ -16,7 +16,7 @@ document.body.dir = i18n.dir();
   const [formData, setFormData] = useState<Record<string, any>>({});
   const prevFormData = useRef<Record<string, any>>({});
   const [error, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     handleTabClick("individual");
   }, []); 
@@ -31,6 +31,28 @@ document.body.dir = i18n.dir();
     setActiveTab(tab);
     onChange(formData, tab);
   };
+  const [selfIncluded, setSelfIncluded] = useState(false);
+  const [dateValues, setDateValues] = useState({
+    startDate: '',
+    endDate: '',
+    deadlineDate: ''
+  });
+  const [timeValue, setTimeValue] = useState({
+    startTime: '',
+    endTime: '',
+    deadlineTime: ''
+  });
+  useEffect(() => {
+    if (formDataa) {
+        setSelfIncluded(formDataa?.selfIncluded);
+        setDateValues(prevState => ({
+          ...prevState,
+          startDate: formDataa?.eventStartDate,
+          endDate: formDataa?.eventEndDate,
+          deadlineDate: formDataa?.eventDeadlineDate
+        }));
+    }
+}, [formDataa]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -45,6 +67,13 @@ document.body.dir = i18n.dir();
       "eventDeadlineDate",
       "eventDeadlineTime",
     ];
+    if(name === "selfIncluded"){
+      setSelfIncluded(checked);
+      if(formDataa){
+        formDataa.selfIncluded = selfIncluded;
+      }
+
+    }
     if (name === "eventStartDate") {
       const isValidStartDate = value >= currentDate;
       if (!isValidStartDate) {
@@ -91,6 +120,7 @@ document.body.dir = i18n.dir();
     }
   };
 
+
   let isEdit = formDataa?.capacity >= 0 ? false : true
   return (
     <div className="py-8 mx-auto lg:max-w-7xl ">
@@ -134,6 +164,7 @@ document.body.dir = i18n.dir();
               type="checkbox"
               className="sr-only peer"
               name="selfIncluded"
+              checked={selfIncluded}
               onChange={handleInputChange}
               required
             />
@@ -155,7 +186,6 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventStartDate"
             onChange={handleInputChange}
-            value={formDataa?.eventStartDate}
             required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
@@ -184,7 +214,6 @@ document.body.dir = i18n.dir();
             name="eventEndDate"
             onChange={handleInputChange}
             required
-            value={formDataa?.eventStartDate}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
 
@@ -212,7 +241,6 @@ document.body.dir = i18n.dir();
             name="eventDeadlineDate"
             onChange={handleInputChange}
             required
-            value={formDataa?.eventDeadlineDate}
             placeholder="Enter Date"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />

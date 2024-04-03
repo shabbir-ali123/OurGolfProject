@@ -13,7 +13,7 @@ const ChampionShipName: FunctionComponent = () => {
           <img
             className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
             alt=""
-            src="/img/BG-GOLF.jpg"
+            src={singleEvent?.imageUrl[0] || "/img/BG-GOLF.jpg"}
           />
           <div className="flex flex-col items-start justify-center gap-4">
             <div className="relative w-[115px] h-[29px]">
@@ -29,7 +29,7 @@ const ChampionShipName: FunctionComponent = () => {
               <img
                 className="w-[22.5px] h-6"
                 alt=""
-                src="/img/group-1000008655.svg"
+                src={"/img/group-1000008655.svg"}
               />
               <div className="relative  leading-[18px]">
                 {singleEvent?.createdAt}

@@ -47,10 +47,10 @@ interface CreateEventType {
   hideParticipantName?: boolean;
   isRequiresApproval?: boolean;
   scoringType?: string;
-  fullNameCheckbox: number,
-  emailCheckbox: number,
-  telephoneCheckbox: number,
-  handicapCheckbox: number,
+  fullNameCheckBox: number,
+  emailCheckBox: number,
+  telephoneCheckBox: number,
+  handicapCheckBox: number,
   selectedHoles?: string[];
   shotsPerHoles?: string[];
   driverContest?: number;
@@ -107,10 +107,10 @@ const CreateEvent: React.FC = () => {
     shotsPerHoles: [],
     driverContest: 0,
     nearPinContest: 0,
-    fullNameCheckbox: 0,
-    emailCheckbox: 0,
-    telephoneCheckbox: 0,
-    handicapCheckbox: 0,
+    fullNameCheckBox: 0,
+    emailCheckBox: 0,
+    telephoneCheckBox: 0,
+    handicapCheckBox: 0,
   });
 
   console.log(formData, 'CBZ')
@@ -283,10 +283,10 @@ const CreateEvent: React.FC = () => {
 
   const itemInstructions = (updatedValues: any) => {
     const convertedValues = {
-        fullNameCheckbox: updatedValues.fullNameCheckbox ? 1 : 0,
-        emailCheckbox: updatedValues.emailCheckbox ? 1 : 0,
-        telephoneCheckbox: updatedValues.telephoneCheckbox ? 1 : 0,
-        handicapCheckbox: updatedValues.handicapCheckbox ? 1 : 0
+        fullNameCheckBox: updatedValues.fullNameCheckbox ? '1' : '0',
+        emailCheckBox: updatedValues.emailCheckbox ? '1' : '0',
+        telephoneCheckBox: updatedValues.telephoneCheckbox ? '1' : '0',
+        handicapCheckBox: updatedValues.handicapCheckbox ? '1' : '0'
     };
 
     setFormData((prev: any) => ({

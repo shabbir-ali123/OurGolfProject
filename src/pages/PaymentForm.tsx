@@ -81,7 +81,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
             <div>
               <div className="flex items-center">
                 <img
-                  src="/img/golfplyr.png"
+                  src= "/img/golfplyr.png"
                   alt="image"
                   className="w-10 h-16"
                 />
@@ -154,7 +154,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                             type="text"
                             name="Player"
                             id="teamname"
-                            value={singleEvent?.accountNumber}
+                            // value={singleEvent?.accountNumber}
                             className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
                         </div>
@@ -197,7 +197,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                             type="text"
                             name="Player"
                             id="teamname"
-                            value={singleEvent?.paypalId}
+                            // value={singleEvent?.paypalId}
                             className="w-full py-4 text-base font-normal text-gray-600 uppercase border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
                         </div>
@@ -229,7 +229,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                             type="text"
                             name="Player"
                             id="teamname"
-                            value={singleEvent?.accountHolderName}
+                            // value={singleEvent?.accountHolderName}
                             className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
                         </div>
@@ -262,7 +262,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                             type="text"
                             name="Player"
                             id="teamname"
-                            value={singleEvent?.participationFee}
+                            // value={singleEvent?.participationFee}
                             className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
                         </div>
