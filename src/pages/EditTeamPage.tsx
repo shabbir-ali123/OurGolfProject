@@ -429,7 +429,7 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
             <div className=" items-center gap-10  ">
               <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('Cancel')}</div>
-              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">10 days before: 10% <br />5 days before: 30% <br />
+              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">10 days before: 0% <br />5 days before: 30% <br />
               1 day before: 10%</p>
             </div>
           </div>
