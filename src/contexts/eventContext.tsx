@@ -173,28 +173,33 @@ export const SingleEventsContext = ({ children }: any) => {
     const [isCreated, setIsCreated] = useState<any>(false)
     const [selectedEventId,  setSelectedEventId] = useState<any>()
     const [message,  setMessage] = useState<any>()
+    const [loading, isLoading] = useState(true);
 
     if (selectedEventId) {
         eventId = selectedEventId;
     } 
 
-    console.log(eventId, selectedEventId)
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const eventData = await fetchSingleEvent(eventId);
                 setSingleEvent(eventData.event);
+                
+                console.log(eventData)
+
                 if (eventData.event.creatorId == localStorage.getItem('id')) {
                     handleisCreated(true);
-                    console.log(true);
                 }
             } catch (error) {
                 console.error("Error fetching single event:", error);
+
+            }finally{
+                isLoading(false);
             }
         };
 
         fetchData();
-    }, [eventId, message]);
+    }, [eventId, message, loading]);
 
     const handleSingleEvent = useCallback((value: any) => {
         return setSingleEvent(value);
@@ -211,7 +216,7 @@ export const SingleEventsContext = ({ children }: any) => {
         return setMessage(value);
     }, [message]);
 
-    const value = { handleSingleEvent,handleMessage, handleSingleEventID, isCreated, singleEvent }
+    const value = { handleSingleEvent,handleMessage, handleSingleEventID, isCreated,loading, singleEvent }
 
     return <SingleEventContext.Provider value={value}> {children}</SingleEventContext.Provider>
 }
