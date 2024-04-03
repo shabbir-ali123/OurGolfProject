@@ -113,7 +113,7 @@ document.body.dir = i18n.dir();
             id="grid-Event-Name"
             type="number"
             name="capacity"
-            min="0"
+            min="1"
             max="300"
             value={formDataa?.capacity}
             onChange={handleInputChange}
@@ -276,7 +276,7 @@ document.body.dir = i18n.dir();
                       type="number"
                       name="teamSize"
                       onChange={handleInputChange}
-                      min="0"
+                      min="1"
                       value={formDataa?.teamSize}
                     />
                       <button
