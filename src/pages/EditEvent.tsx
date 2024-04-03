@@ -294,6 +294,7 @@ const EditEvent: React.FC = () => {
         eventDetails: singleEvent?.eventDetails,
         eventVideoUrl: singleEvent?.eventVideoUrl,
         categories: singleEvent?.categories,
+        address: singleEvent?.address,
         place: singleEvent?.place,
         placeCoordinates: {
         lat: singleEvent?.lat,
@@ -326,6 +327,8 @@ const EditEvent: React.FC = () => {
         shotsPerHoles: singleEvent?.shotsPerHoles,
         driverContest:  singleEvent?.driverContest,
         nearPinContest:  singleEvent?.nearPinContest,
+        cancellationFee:  singleEvent?.cancellationFee,
+        
         creatorId: userId,
       });
     }
@@ -353,6 +356,7 @@ const EditEvent: React.FC = () => {
   const toggleScoringEnabled = (enabled: boolean) => {
     setIsScoringEnabled(enabled);
   };
+  console.log(formData);
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div

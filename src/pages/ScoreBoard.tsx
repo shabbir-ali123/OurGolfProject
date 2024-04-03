@@ -26,7 +26,7 @@ const ScoreBoard: FunctionComponent = () => {
       <div className="flex flex-col mx-[50px]">
         <ChampionShipName />
         <div className="grid self-center w-[1200px]"><Slider /></div>
-        {/* <ScoreSlider/> */}
+        <ScoreSlider/>
         <div className="mt-[400px] ">
         <FinalEventGallery/>
         </div>
