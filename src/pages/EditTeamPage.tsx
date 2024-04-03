@@ -415,7 +415,8 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
             <div className=" items-center gap-10  ">
               <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('Cancel')}</div>
-              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('CANCELLATION')} :  </span> ¥ {singleEvent?.cancellationFee}</p>
+              <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">10 days before: 10% <br />5 days before: 30% <br />
+              1 day before: 10%</p>
             </div>
           </div>
           <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
@@ -435,7 +436,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
                 <table className=" ">
 
-                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] ">
+                  <tbody className="flex flex-wrap gap-2  ">
                     {joinedUsers?.length && joinedUsers?.map((player:any, index:any) => (
                       <tr key={player.id} className="">
                         <td className="px-3 py-2 text-sm text-gray-500">
@@ -461,7 +462,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
                 <table className=" ">
 
-                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
+                  <tbody className="flex flex-wrap gap-2 ">
                     {waitingUsers?.length && waitingUsers?.map((player:any, index:any) => (
                       
                         <tr key={player.id} className="">
@@ -488,7 +489,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
                 <table className=" ">
 
-                  <tbody className="flex flex-wrap gap-2 p-1 py-2 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">
+                  <tbody className="flex flex-wrap gap-2 ">
                     {waitingUsers?.length && waitingUsers?.map((player:any, index:any) => (
                         <tr key={player.id} className="">
                         <td className="px-3 py-2 text-sm text-gray-500">
