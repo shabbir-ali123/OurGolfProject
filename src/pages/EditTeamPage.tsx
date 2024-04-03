@@ -17,6 +17,7 @@ import { singleEventContextStore } from "../contexts/eventContext";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 import CommentModel from "../components/CommentModel";
 import { ResponsiveSliderStyles, SliderStyles } from "../components/sliderStyles";
+import NotFound from "./404";
 
 interface Team {
   id: string;
@@ -268,6 +269,7 @@ const EditTeamPage: FunctionComponent = () => {
   return (
     <>
       {window.innerWidth > 1080 ? <SliderStyles /> : <ResponsiveSliderStyles/>}
+    {singleEvent?.id ?
       <div className="py-10 ml-12 ">
         <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
           <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
@@ -1040,6 +1042,7 @@ const EditTeamPage: FunctionComponent = () => {
           </table>
         </div>
       </div>
+      : <NotFound/>}
     </>
   );
 };

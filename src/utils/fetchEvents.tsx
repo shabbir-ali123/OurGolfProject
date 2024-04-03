@@ -121,10 +121,9 @@ export const fetchTeacherByID = async (setUser:any) => {
 };
 
 export const fetchSingleEvent = async (eventId: any) => {
-  try {
+  
       const token = localStorage.getItem("token");
       const headers: any = {};
-
       if (token) {
           headers["Authorization"] = `Bearer ${token}`;
       }
@@ -139,14 +138,7 @@ export const fetchSingleEvent = async (eventId: any) => {
       );
 
       return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
-      localStorage.clear();
-      toast.error("Session expired. Please log in again.");
-    } else {
-      toast.error("An error occurred. Please try again.");
-    }
-  }
+  
 };
 
 export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentPage: any, setTotalPage: any, setEvents: any  ) => {

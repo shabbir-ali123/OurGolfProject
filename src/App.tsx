@@ -329,7 +329,9 @@ function App() {
             path="/pay-now/:id"
             element={
               token ? (
-                <PaymentForm onSubmit={(values) => console.log(values)} />
+                <SingleEventsContext>
+                  <PaymentForm onSubmit={(values) => console.log(values)} />
+                </SingleEventsContext>
               ) : (
                 <LoginPage />
               )
