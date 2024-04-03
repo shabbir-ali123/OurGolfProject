@@ -17,15 +17,7 @@ export const fetchNotifications = async (
     });
     setNotificationData(response.data.notifications);
   } catch (error) {
-    if (
-      axios.isAxiosError(error) &&
-      error.response &&
-      error.response.status === 401
-    ) {
-      toast.error("error");
-    } else {
-      toast.error("error");
-    }
+    console.log(error) 
   } finally {
     setIsLoading(false);
   }

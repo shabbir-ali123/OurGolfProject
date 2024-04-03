@@ -90,7 +90,7 @@ const formSubmission = async ()=>{
     }else{
       setEvents(response.data.events || []); 
       toast.success(response.data.message);
-      router("/edit-team/:id");
+      router("/edit-team/" + eventID);
     }
   } catch (error) {
     toast.error(
