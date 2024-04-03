@@ -194,7 +194,7 @@ const EditTeamPage: FunctionComponent = () => {
 
 
     const formDataObj = {
-      eventId: singleEvent?.id,
+      s: singleEvent?.id,
       teamSize:
         currentTeamSize == undefined
           ? singleEvent?.teamSize
@@ -1050,7 +1050,7 @@ const EditTeamPage: FunctionComponent = () => {
             </Transition.Root>
           </div>
           <table className="w-full mt-8 mb-4">
-            <CommentModel eventId={singleEvent?.id} closeModal={() => { }} />
+            <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
 
           </table>
         </div>

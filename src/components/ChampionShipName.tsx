@@ -13,13 +13,13 @@ const ChampionShipName: FunctionComponent = () => {
           <img
             className="w-[123px] h-[123px] object-cover md:rounded-[50%]"
             alt=""
-            src={singleEvent?.imageUrl[0] || "/img/BG-GOLF.jpg"}
+            src={singleEvent?.imageUrl?.map((item:any)=>{item[0]}) ? singleEvent?.imageUrl[0] : "/img/BG-GOLF.jpg" }
           />
           <div className="flex flex-col items-start justify-center gap-4">
-            <div className="relative w-[115px] h-[29px]">
-              <div className="absolute top-[0px] left-[0px] rounded-8xs bg-seagreen-200 w-[115px] h-[29px]" />
-              <div className="absolute top-[6px] left-[9px] leading-[18px]">
-                {singleEvent?.eventType || t('OFFICIAL')}
+            <div className="relative w-[170px] h-[29px]">
+              <div className="absolute top-[0px] left-[0px] rounded-8xs bg-seagreen-200 w-[170px] h-[29px]" />
+              <div className="absolute top-[3px] left-[9px] leading-[28px]">
+                {singleEvent?.eventType || t('EVENT_DETAILS')}
               </div>
             </div>
             <div className="relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl  leading-[30px] font-semibold text-black">

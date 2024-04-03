@@ -15,7 +15,7 @@ import {
   handleEditForm,
 } from "../utils/fetchCommunication";
 interface CommentModelProps {
-  eventId: any;
+  eventIsd: any;
   closeModal: () => void;
 }
 
@@ -30,7 +30,7 @@ interface Comment {
   content: any;
   userId: any;
   createdAt: Date;
-  eventId: any;
+  eventIsd: any;
 }
 
 interface Event {
@@ -55,8 +55,7 @@ interface Event {
   }>;
 }
 
-const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
-  console.log(eventId, "evvn");
+const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => {
   const { singleEvent, handleSingleEventID, handleMessage } =
     singleEventContextStore();
   const [isOpenMap, setIsOpenMap] = useState<{ [key: string]: boolean }>({});
@@ -81,13 +80,20 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
   const uid = localStorage.getItem("id");
   const [formData, setFormData] = useState<AddComment>({
     userId: uid,
-    eventId: eventId,
+    eventId: eventIsd,
     content: "",
   });
+  console.log(formData);
 
   useEffect(() => {
-    handleSingleEventID(eventId);
-  }, [eventId]);
+    handleSingleEventID(eventIsd);
+    setFormData((prev:any)=>({
+      ...prev,
+      userId: uid,
+      eventId: eventIsd,
+      content: "",
+    }))
+  }, [eventIsd]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,7 +117,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
         handleMessage(response.data);
         setFormData({
           userId: uid,
-          eventId: eventId,
+          eventId: eventIsd,
           content: "",
         });
       }
@@ -196,7 +202,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
             </button>
           </div>
 
-          <div className="relative max-h-full p-4 overflow-y-auto">
+          <div className="relative max-h-full p-4 ">
             {token && (
               <form method="post" className="mx-4 ">
                 <input type="hidden" name="userId" />
@@ -228,7 +234,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventId }) => {
               {singleEvent?.comments
                 ?.slice(0, commentsToShow)
                 .map((comment: any) => {
-                  if (comment.eventId === eventId) {
+                  if (comment.eventId === eventIsd) {
                     return (
                       <div key={comment.id} className="py-4">
                         <div className="grid grid-cols-3 items-start gap-[25px]">

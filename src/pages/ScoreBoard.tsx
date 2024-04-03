@@ -12,6 +12,7 @@ import FinalEventGallery from "../components/FinalEventGallery"
 import { singleEventContextStore } from "../contexts/eventContext";
 import { ScoreSlider } from "../components/sliders/ScoreSlider";
 import AllMembers from "../components/AllMembers";
+import CommentModel from "../components/CommentModel";
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
   const settings = {
@@ -24,26 +25,28 @@ const ScoreBoard: FunctionComponent = () => {
   const { singleEvent } = singleEventContextStore();
   return (
     <div className="font-poppins">
-      <div className="flex flex-col mx-[150px]">
+      <div className="flex flex-col mx-1  xl:mx-[150px]">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" &&
-        <div className="grid self-center w-[1200px]"><Slider /></div>
-  }
-        {/* <ScoreSlider/> */}
+          <div className="grid self-center w-[1200px]"><Slider /></div>
+        }
+        {/* <ScoreSlider /> */}
         <div className={singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[400px] "}>
           <FinalEventGallery />
         </div>
-
+        <AllMembers />
         {singleEvent?.scoringType !== "Normal" &&
           <>
-            <AllMembers />
+            
             <LeaderBoardTables />
             <IndiviualPlayerScore />
             <TeamPerformance title={t("DRIVER_CONTEST")} />
             <TeamPerformance title={t("PIN_CONTEST")} />
           </>
         }
-
+        
+          <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
+      
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">
             <img
