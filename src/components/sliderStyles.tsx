@@ -22,6 +22,7 @@ const customStyles = `
     filter: brightness(0.5);
     margin-left: 2px;
     position: relative;
+
   }
   .slick-current + div {
     border-radius: 20px;

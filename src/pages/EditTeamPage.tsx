@@ -133,6 +133,7 @@ const EditTeamPage: FunctionComponent = () => {
   const [selectedTeamId, setSelectedTeamId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState<any>([]);
   const [showPlayerList, setShowPlayerList] = useState(false);
+  const [showWideSlider, setShowWideSlider] = useState(window.innerWidth > 1080);
   const navigate = useNavigate();
   const playerList = [
     { name: "John Doe" },
@@ -234,7 +235,18 @@ const EditTeamPage: FunctionComponent = () => {
   useEffect(() => {
     localStorage.setItem("showEditTeamDialog", opens.toString());
   }, [open]);
+  useEffect(() => {
+    const handleResize = () => {
+      setShowWideSlider(window.innerWidth > 1080);
+    };
 
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const cancelButtonRef = useRef(null);
   const totalCapacity = singleEvent?.capacity * singleEvent?.teamSize;
   const handleOpenPlayerList = () => {
@@ -268,7 +280,7 @@ const EditTeamPage: FunctionComponent = () => {
 
   return (
     <>
-      {window.innerWidth > 1080 ? <SliderStyles /> : <ResponsiveSliderStyles/>}
+      {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles/>}
     {singleEvent?.id ?
       <div className="py-10 ml-12 ">
         <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
