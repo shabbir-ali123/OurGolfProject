@@ -79,7 +79,9 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
   if (response.status === 401) {
     console.error("Unauthorized access - 401 error");
     return;
-  }    setEvents(response.data.events);
+  }   
+    setEvents(response.data.events);
+  
     setEventsCount(response.data.count)
   } catch (error) {
     if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
@@ -292,7 +294,7 @@ export const fetchJoinedEvents = async (setJoinedEvents:any, setEventsCount:any,
              
             });
     
-            setJoinedEvents(response.data || []); 
+            setJoinedEvents(response.data.joinedEvents);
             setEventsCount(response.data.count)
 
           } catch (error) {
