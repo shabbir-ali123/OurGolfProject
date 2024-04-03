@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useRef, useState } from "react";
 import ChampionShipName from "../components/ChampionShipName";
 import Slider from "../components/Slider";
 import LeaderBoardSection from "../components/LeaderBoardSection";
@@ -6,35 +6,56 @@ import IndiviualPlayerScore from "../components/LeaderBoardPlayerScore";
 import TeamPerformance from "../components/TeamPerformance";
 import ScoringTable from "../components/LiveScoringTable";
 import { useTranslation } from "react-i18next";
-import { ScoreContextProvider, useScoreContext } from "../contexts/scoreContext";
+import {
+  ScoreContextProvider,
+  useScoreContext,
+} from "../contexts/scoreContext";
 import LeaderBoardTables from "../components/leaderBoard/leaderBoard";
-import FinalEventGallery from "../components/FinalEventGallery"
+import FinalEventGallery from "../components/FinalEventGallery";
 import { singleEventContextStore } from "../contexts/eventContext";
 import { ScoreSlider } from "../components/sliders/ScoreSlider";
 import AllMembers from "../components/AllMembers";
+import Flickity from "react-flickity-component";
+import { FlexitySlider } from "../components/sliders/FlickitySlider";
+
 const ScoreBoard: FunctionComponent = () => {
+  const mainCarouselRef = useRef(null);
   const { t } = useTranslation();
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3
+    slidesToScroll: 3,
   };
   const { singleEvent } = singleEventContextStore();
   return (
     <div className="font-poppins">
       <div className="flex flex-col mx-[150px]">
         <ChampionShipName />
-        {singleEvent?.scoringType !== "Normal" &&
-        <div className="grid self-center w-[1200px]"><Slider /></div>
-  }
-        {/* <ScoreSlider/> */}
-        <div className={singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[400px] "}>
+        {singleEvent?.scoringType !== "Normal" && (
+          <div className="grid self-center w-[1200px]">
+             <FlexitySlider >
+              {[1,2,3].map((item) => {
+                return (
+          <ScoreSlider  />
+
+                )
+              })}
+          
+        </FlexitySlider>
+          </div>
+        )}
+        {/* <Slider/> */}
+        <div
+          className={
+            singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[400px] "
+          }
+        >
           <FinalEventGallery />
         </div>
 
-        {singleEvent?.scoringType !== "Normal" &&
+        {singleEvent?.scoringType !== "Normal" && (
           <>
             <AllMembers />
             <LeaderBoardTables />
@@ -42,7 +63,7 @@ const ScoreBoard: FunctionComponent = () => {
             <TeamPerformance title={t("DRIVER_CONTEST")} />
             <TeamPerformance title={t("PIN_CONTEST")} />
           </>
-        }
+        )}
 
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">
@@ -63,11 +84,8 @@ const ScoreBoard: FunctionComponent = () => {
           <ScoringTable />
         </div> */}
       </div>
-
-
     </div>
   );
 };
 
 export default ScoreBoard;
-

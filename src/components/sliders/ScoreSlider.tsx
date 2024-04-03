@@ -1,7 +1,7 @@
 export const ScoreSlider = () => {
   return (
-    <div className="relative left-[40%]  px-4">
-      <div className="absolute h-[200px] rounded-md	 transform scale-150 skew-x-[-6deg] p-2 w-[300px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] z-0" />
+    <div className="relative sajid px-4">
+      <div className="absolute h-[200px] transform scale-150 skew-x-[-6deg] p-2 w-[300px] left-[68px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] z-0" />
       <div className="relative z-1 bg-blue">
         <div className="flex gap-6">
           <div className="p-1">
