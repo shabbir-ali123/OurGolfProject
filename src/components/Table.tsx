@@ -165,7 +165,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
               <div className="sm:rounded-lg">
                 {
                   !isMobile ? <table
-                    className="relative min-w-full px-3 divide-y divide-gray-300 z-9"
+                    className="relative min-w-full  divide-y divide-gray-300 z-9"
                     style={{
                       borderCollapse: "separate",
                       borderSpacing: "0 20px",
