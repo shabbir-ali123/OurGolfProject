@@ -16,7 +16,12 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
       percentage = 50;
     }
     setCancellationFeePercentage(`${percentage}%`);
-    const calculatedFee = (percentage / 100) * (singleEvent?.cancellationFee ?? 0);
+
+    // Check if singleEvent?.cancellationFee is null, NaN, or undefined; if so, default to 0
+    const totalCancellationFee = Number(singleEvent?.cancellationFee);
+    const validTotalCancellationFee = !totalCancellationFee || isNaN(totalCancellationFee) ? 0 : totalCancellationFee;
+
+    const calculatedFee = (percentage / 100) * validTotalCancellationFee;
     setCalculatedCancellationFee(`¥${calculatedFee.toFixed(2)}`);
   }, [selectedDays, singleEvent?.cancellationFee]);
   return <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">

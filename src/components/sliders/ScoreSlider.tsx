@@ -30,13 +30,7 @@ export const ScoreSlider = ({ item }: any) => {
             }}
           >
             <div className="h-full">
-              <img
-                className="object-cover"
-                width="90px"
-                height="100%"
-                src="/img/rectangle-531@2x.png"
-                alt=""
-              />
+              <img className="object-fit border-solid border border-[#17b3a6]" width="90px" height="100%" src={item?.userScoreCard.imageUrl} alt="" />
             </div>
             <div className="px-1">
               <h4 className="m-0 text-[#00E7FA]">
