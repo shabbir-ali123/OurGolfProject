@@ -10,7 +10,8 @@ export const API_ENDPOINTS = {
   UPDATEUSERPROFILE: `${API_BASE_URL}/${API_VERSION}/edit-user-profile/`, 
   GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
   UPDATEUSER: `${API_BASE_URL}/${API_VERSION}/update-profile`,
-
+  ALLUSERS: `${API_BASE_URL}/${API_VERSION}/get-total-users`,
+  
   //event
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
   GETALLEVENT: `${API_BASE_URL}/${API_VERSION}/getAllEvents`,

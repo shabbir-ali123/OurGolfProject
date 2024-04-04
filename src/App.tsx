@@ -63,6 +63,9 @@ import UpdateProfilePage from "./pages/EditUserPage";
 import { NotificationsContext } from "./contexts/notificationContext";
 import UserPage from "./pages/UserPage";
 import { UserContext } from "./contexts/authContext";
+import Pubnub from "pubnub";
+import { PubNubProvider } from "pubnub-react";
+import ChatApp from "./pages/test";
 
 function App() {
   const params = useParams();
@@ -249,6 +252,11 @@ function App() {
   if (token === "undefined") {
     token = false;
   }
+  const pubnub = new Pubnub({
+    publishKey: 'pub-c-eafa8c74-d8e8-4b72-b5fe-8e83c98886ff',
+    subscribeKey: 'sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5',
+    uuid: localStorage.getItem('id') || "12`",
+  });
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="">
@@ -316,11 +324,7 @@ function App() {
           />
           <Route
             path="/score-board"
-            element={
-              <ScoreContextProvider>
-                <ScoreBoard />
-              </ScoreContextProvider>
-            }
+            element={<ChatApp />}
           />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
