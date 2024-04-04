@@ -18,7 +18,7 @@ export const ScoreSlider = ({item}:any) => {
 
                       }}>
             <div className="h-full">
-              <img className="object-cover" width="100px" height="100%" src="/img/rectangle-531@2x.png" alt="" />
+              <img className="object-cover" width="90px" height="100%" src="/img/rectangle-531@2x.png" alt="" />
             </div>
             <div className="px-1">
               <h4 className="m-0 text-[#00E7FA]">
@@ -33,7 +33,7 @@ export const ScoreSlider = ({item}:any) => {
 
                 </ul>
                 <ul className="flex gap-2  p-0 m-0 px-1 text-white">
-                  <li className="list-none text-[10px] tracking-wide" >1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16</li>
+                  <li className="list-none text-[10px] tracking-wide" >1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18</li>
                   
                 </ul>
               </div>
