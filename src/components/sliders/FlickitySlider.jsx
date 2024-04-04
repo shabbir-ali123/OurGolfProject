@@ -12,7 +12,8 @@ export const FlexitySlider = ({ children }) => {
         contain: true,
         percentPosition: false,
         initialIndex: 1,
-        wrapAround: true
+        wrapAround: true,
+      
     }}
     >
       {children}
