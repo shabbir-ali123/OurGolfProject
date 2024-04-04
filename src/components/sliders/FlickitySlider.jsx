@@ -10,8 +10,8 @@ export const FlexitySlider = ({ children }) => {
       className="carousel-main2 mb-6"
       options={{
         contain: true,
-        percentPosition: true,
-        initialIndex: 2,
+        percentPosition: false,
+        initialIndex: 1,
         wrapAround: true
     }}
     >

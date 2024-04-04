@@ -18,32 +18,22 @@ import AllMembers from "../components/AllMembers";
 import Flickity from "react-flickity-component";
 import { FlexitySlider } from "../components/sliders/FlickitySlider";
 
+import CommentModel from "../components/CommentModel";
 const ScoreBoard: FunctionComponent = () => {
-  const mainCarouselRef = useRef(null);
   const { t } = useTranslation();
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-  };
+  
   const { singleEvent } = singleEventContextStore();
   return (
     <div className="font-poppins">
-      <div className="flex flex-col mx-[150px]">
+      <div className="flex flex-col mx-1  xl:mx-[150px]">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid self-center w-[1200px]">
-             <FlexitySlider >
-              {[1,2,3].map((item) => {
-                return (
-          <ScoreSlider  />
-
-                )
+            <FlexitySlider>
+              {[1, 2, 3].map((item) => {
+                return <ScoreSlider />;
               })}
-          
-        </FlexitySlider>
+            </FlexitySlider>
           </div>
         )}
         {/* <Slider/> */}
@@ -54,16 +44,19 @@ const ScoreBoard: FunctionComponent = () => {
         >
           <FinalEventGallery />
         </div>
+        <AllMembers />
 
         {singleEvent?.scoringType !== "Normal" && (
           <>
-            <AllMembers />
             <LeaderBoardTables />
             <IndiviualPlayerScore />
             <TeamPerformance title={t("DRIVER_CONTEST")} />
             <TeamPerformance title={t("PIN_CONTEST")} />
           </>
         )}
+        {
+          singleEvent?.id &&
+        <CommentModel eventIsd={singleEvent?.id} closeModal={() => {}} />}
 
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">

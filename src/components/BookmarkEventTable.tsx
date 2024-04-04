@@ -365,7 +365,7 @@ const BookmarkEvent: React.FunctionComponent<TableProps> = ({ events }) => {
                           <tr>
                             <CommentModel
                               closeModal={closeModal}
-                              eventId={selectedEvent}
+                              eventIsd={selectedEvent}
                             />
                           </tr>
                         )}

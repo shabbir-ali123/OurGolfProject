@@ -388,7 +388,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <SingleEventsContext>
                                 <CommentModel
                                   closeModal={closeModal}
-                                  eventId={event.id}
+                                  eventIsd={event.id}
                                 />
                               </SingleEventsContext>
                             </tr>
@@ -531,7 +531,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   <SingleEventsContext>
                                     <CommentModel
                                       closeModal={closeModal}
-                                      eventId={item.id}
+                                      eventIsd={item.id}
                                     />
                                   </SingleEventsContext>
                                 </div>
