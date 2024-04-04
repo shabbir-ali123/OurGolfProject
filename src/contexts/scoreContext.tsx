@@ -13,13 +13,14 @@ export const ScoreContextProvider = ({children}:any)=>{
     const [eventScore, setEventScore] = useState<any>()
     const [eventId, setEventId] = useState<any>()
     const navigate = useNavigate();
+    const [scoreLoading, setScoreLoading] = useState<any>(true);
 
     useEffect(() => {
         const fetchScores = async () => {
-            await getAllScores(setScore, navigate);
+            await getAllScores(setScore,setScoreLoading, navigate);
         };
         fetchScores();    
-    }, []);
+    }, [scoreLoading]);
 
     useEffect( () => {
         const fetchEventScore = async () => {
@@ -39,7 +40,7 @@ export const ScoreContextProvider = ({children}:any)=>{
         setEventId(eventId);
     },[]);
 
-    const value =  {handleScore,handleEventId, score, eventScore}
+    const value =  {handleScore,handleEventId, score,scoreLoading, eventScore}
 
     return <ScoresContext.Provider  value={value}> {children}</ScoresContext.Provider>
 }

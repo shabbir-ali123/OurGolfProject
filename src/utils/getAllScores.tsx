@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 
-export const getAllScores = async ( setScore: any, navigate:any) => {
+export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) => {
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETALLSCOREPUBLIC;
@@ -27,6 +27,8 @@ export const getAllScores = async ( setScore: any, navigate:any) => {
       } else {
         toast.error("An error occurred. Please try again.");
       }
+    }finally{
+      setLoading(false);
     }
   };
 

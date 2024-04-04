@@ -26,17 +26,21 @@ const ScoreBoard: FunctionComponent = () => {
 
   const { singleEvent } = singleEventContextStore();
   const { totalJoinedMembers } = singleTeamsContextStore();
+  const { score, scoreLoading } = useScoreContext()
+
+  console.log(score)
   return (
     <div className="font-poppins p-4">
       <div className="flex flex-col mx-1 w-full items-center">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid self-center w-full p-4 xl:w-[1200px]">
-            <FlexitySlider>
-              {[1, 2, 3].map((item) => {
-                return <ScoreSlider />;
+            {scoreLoading ? <p>...loading</p> : <FlexitySlider>
+              {score?.map((item:any) => {
+                return <ScoreSlider item={item}/>;
               })}
             </FlexitySlider>
+}
           </div>
         )}
         {/* <Slider/> */}
