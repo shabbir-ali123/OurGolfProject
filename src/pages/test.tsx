@@ -54,26 +54,38 @@ export default function ChatApp() {
     );
   }, [channel]);
 
+  // console.log(channel)
+  async function handleMessage(message: Message){
+    if(chat && !users.find((user:any)=>user.id === message.userId)){
+      const user = await chat.getUser(message.userId);
+      if(user) setUsers((prev: any) => [...prev, user]);
+    }
+    setMessages((messages) => [...messages, message]);
+  }
   useEffect(() => {
     async function initalizeChat() {
       const chat = await Chat.init({
         publishKey: "pub-c-eafa8c74-d8e8-4b72-b5fe-8e83c98886ff",
         subscribeKey: "sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5",
-        userId: randomizedUsers[0]?.id,
+        userId: "3",
       });
-      const currentUser = await chat.currentUser.update(
-        randomizedUsers[0].data
-      );
+   
       const interlocutor =
-        (await chat.getUser(randomizedUsers[1].id)) ||
-        (await chat.createUser(randomizedUsers[1].id, randomizedUsers[1].data));
+        (await chat.getUser("2")) ||
+        (await chat.createUser("2", users.find((item:any)=> item.id == 2)));
       const { channel } = await chat.createDirectConversation({
         user: interlocutor,
-        channelData: { name: "Support Channel" },
+        channelData: { name: "direct.3705615641681"      },
       });
       setChat(chat);
       // setUsers([currentUser, interlocutor])
       setChannel(channel);
+
+      const channelHistory = await channel.getHistory({count:10})
+      setMessages([])
+      channelHistory.messages.forEach(async (histrocialMessage) =>{
+        await handleMessage(histrocialMessage);
+      })
     }
 
     initalizeChat();
@@ -120,7 +132,6 @@ export default function ChatApp() {
         <ol>
           {messages.map((message) => {
             const user = users.find((user: any) => user.id == message.userId);
-            console.log(user, message, "sdcsdc");
             return (
               <li key={message.timetoken}>
                 <div className="flex">
