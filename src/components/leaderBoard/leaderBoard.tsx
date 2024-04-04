@@ -33,6 +33,7 @@ const LeaderBoardTables: FunctionComponent = () => {
   );
 
   let shotsPerHoles = singleEvent?.shotsPerHoles?.split(",").map(Number);
+  let sum = shotsPerHoles?.reduce((accumulator: any, currentValue: any) => accumulator + currentValue, 0);
 
   return (
     <div className=" mx-5 w-[300px] md:w-[1200px] md:mx-[80px] ">
@@ -90,10 +91,14 @@ const LeaderBoardTables: FunctionComponent = () => {
                 className="rounded-s-[3px] font-bold text-[24px] text-start ml-4"
               />
               {shotsPerHoles?.map((shot: any) => {
+
                 return (
                   <td className="p-2 leading-[20px] text-center ">{shot}</td>
                 );
               })}
+              <td className="p-2 leading-[20px] text-center">{sum}</td>
+              <td className="p-2 leading-[20px] text-center">0</td>
+              <td className="p-2 leading-[20px] text-center">0</td>
             </tr>
           </thead>
           {filteredScores?.map((scored: any, index: any) => {
@@ -104,7 +109,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                 <tr className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  h-[69px] font-medium text-black">
                   <td className="whitespace-nowrap tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[13px]">
                     <div
-                      className="w-[135px] text-[24px] h-[69px] px-4 flex items-center justify-center font-normal leading-5 text-white bg-black overflow-hidden"
+                      className="w-[135px] text-[24px] h-[69px] px-4 flex items-center font-normal leading-5 text-white bg-black overflow-hidden"
                       style={{
                         boxShadow: " 0px 0px 5px 0px #CF24EB",
                       }}
