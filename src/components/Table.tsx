@@ -236,8 +236,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <div className="flex-wrap text-start items-center justify-start mx-4">
                                 <img
                                   src={
-                                    event.imageUrl[0]
-                                      ? event.imageUrl[0]
+                                    event.creator.imageUrl
+                                      ? event.creator.imageUrl
                                       : "img/BG-GOLF.jpg"
                                   }
                                   alt=""

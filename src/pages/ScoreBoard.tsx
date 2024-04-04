@@ -43,17 +43,18 @@ const ScoreBoard: FunctionComponent = () => {
 }
           </div>
         )}
-        {/* <Slider/> */}
-        <div className="lg:w-[1200px]">
-          <AboutEvent totalJoinedMembers={totalJoinedMembers} />
-        </div>
-        <div
+         <div
           className={
             singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[20px] "
           }
         >
           <FinalEventGallery />
         </div>
+        {/* <Slider/> */}
+        <div className="lg:w-[1200px]">
+          <AboutEvent totalJoinedMembers={totalJoinedMembers} />
+        </div>
+       
         <AllMembers />
 
         {singleEvent?.scoringType !== "Normal" && (

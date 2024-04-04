@@ -16,7 +16,7 @@ function FinalEventGallery() {
                 options={{
                     accessibility: false,
                     prevNextButtons: false,
-                    contain: false,
+                    contain: true,
                     pageDots: false,
                 }}
                 ref={mainCarouselRef}

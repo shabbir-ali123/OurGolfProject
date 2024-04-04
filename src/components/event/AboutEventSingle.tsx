@@ -25,10 +25,10 @@ return    <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center p
 <div className="grid grid-cols-1 gap-0 py-4 ">
   <div className=" items-center gap-10  ">
     <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('DATE')}</div>
-    <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">Event date :</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
+    <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_DATE')}:</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
       eventEndTime
     }</p>
-    <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">Deadline :</span> {singleEvent?.eventEndDate}</p>
+    <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('APPLICATION_DEADLINE')} :</span> {singleEvent?.eventEndDate}</p>
   </div>
   <div className=" items-center gap-10  ">
     <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_LOCATION')}</div>
@@ -53,7 +53,7 @@ return    <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center p
   </div>
   <div className=" items-center gap-10  ">
     <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_DETAILS')}</div>
-    <p className="py-0 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">About Event :</span> {singleEvent?.eventDetails}</p>
+    <p className="py-0 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
     <div className="flex items-center gap-10  ">
 
       <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
@@ -75,7 +75,7 @@ return    <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center p
   <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
 </div>
 <div className=" items-center gap-10  ">
-  <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('Cancel')}</div>
+  <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('CANCELLATION_FEE')}</div>
   <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200">10 days before: 0% <br />5 days before: 30% <br />
   1 day before: 10%</p>
 </div>
