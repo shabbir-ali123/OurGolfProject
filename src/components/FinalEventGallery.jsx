@@ -8,9 +8,9 @@ function FinalEventGallery() {
     const navCarouselRef = useRef();
 
     return (
-        <div className=" mt-10">
-   <h4>Event Gallery</h4>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita dolorum iste officiis impedit fugiat enim tempore hic quas modi!</p>
+        <div className="     mt-10">
+            <h4>Event Gallery</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita dolorum iste officiis impedit fugiat enim tempore hic quas modi!</p>
             <Flickity
                 className="carousel-main2 mb-6 "
                 options={{
@@ -22,11 +22,11 @@ function FinalEventGallery() {
                 ref={mainCarouselRef}
             >
                 {/* Main carousel images */}
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/BG-GOLF.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/second-image.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/third.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/BG-GOLF.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-cover' src="/img/tournament.png" alt="Description" /></div>
+                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/BG-GOLF.jpg" alt="Description" /></div>
+                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/second-image.jpg" alt="Description" /></div>
+                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/third.jpg" alt="Description" /></div>
+                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/BG-GOLF.jpg" alt="Description" /></div>
+                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/tournament.png" alt="Description" /></div>
             </Flickity>
 
             <Flickity

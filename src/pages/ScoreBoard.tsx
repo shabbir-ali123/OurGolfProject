@@ -31,7 +31,7 @@ const ScoreBoard: FunctionComponent = () => {
   console.log(score)
   return (
     <div className="font-poppins p-4">
-      <div className="flex flex-col mx-1 w-full items-center">
+      <div className="flex flex-col  items-center">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid self-center w-full p-4 xl:w-[1200px]">

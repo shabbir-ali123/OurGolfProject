@@ -55,7 +55,7 @@ const BookMarkedEvents: React.FC = () => {
 
 
   return (
-    <div className="grid grid-cols-1 gap-6 mx-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 mx-2 xl:mx-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-3 ">
       <Table />
       <Pagination
@@ -67,7 +67,7 @@ const BookMarkedEvents: React.FC = () => {
           isNextDisabled={currentPage === totalPages}
         />
       </div>
-      <div className="">
+      <div className="col-span-3 xl:col-span-1 ">
         <EventMap />
       </div>
     </div>
