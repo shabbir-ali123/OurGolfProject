@@ -7,7 +7,7 @@ import './styles.css'
 export const FlexitySlider = ({ children }) => {
   return (
     <Flickity
-      className="carousel-main2 mb-6"
+      className="carousel-main2 rank-score-slider mb-6"
       options={{
         contain: true,
         percentPosition: false,

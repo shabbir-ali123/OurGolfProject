@@ -26,7 +26,7 @@ const LeaderBoardTables: FunctionComponent = () => {
 });
 
 return (
-    <div className=" mx-5 md:mx-[80px] ">
+    <div className=" mx-5 w-[300px] md:w-[1200px] md:mx-[80px] ">
       <div className="px-3 overflow-x-auto">
       <div className="flex gap-4">
             <img

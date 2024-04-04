@@ -1,10 +1,10 @@
-.flickity-slider {
+.rank-score-slider .flickity-slider {
     height: 450px;
     display: flex;
     align-items: center;
 }
 
-.flickity-viewport {
+.rank-score-slider .flickity-viewport {
     height: 400px !important;
 }
 

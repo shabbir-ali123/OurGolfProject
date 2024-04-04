@@ -27,7 +27,7 @@ export const SingleTeamsContext = ({children}:any)=>{
 
                 setWaitingUsers(teamData.waitingUsers);
                 setJoinedUsers(teamData.joinedUsers);
-                
+                setTotalJoinedMembers(teamData.waitingCount + teamData.joinedCount)
             } catch (error) {
                 console.error("Error fetching single event:", error);
             }

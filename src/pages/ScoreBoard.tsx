@@ -19,16 +19,19 @@ import Flickity from "react-flickity-component";
 import { FlexitySlider } from "../components/sliders/FlickitySlider";
 
 import CommentModel from "../components/CommentModel";
+import { AboutEvent } from "../components/event/AboutEventSingle";
+import { singleTeamsContextStore } from "../contexts/teamContext";
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
-  
+
   const { singleEvent } = singleEventContextStore();
+  const { totalJoinedMembers } = singleTeamsContextStore();
   return (
-    <div className="font-poppins">
-      <div className="flex flex-col mx-1  xl:mx-[150px]">
+    <div className="font-poppins p-4">
+      <div className="flex flex-col mx-1 w-full items-center">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
-          <div className="grid self-center w-[1200px]">
+          <div className="grid self-center w-full p-4 xl:w-[1200px]">
             <FlexitySlider>
               {[1, 2, 3].map((item) => {
                 return <ScoreSlider />;
@@ -37,9 +40,12 @@ const ScoreBoard: FunctionComponent = () => {
           </div>
         )}
         {/* <Slider/> */}
+        <div className="lg:w-[1200px]">
+          <AboutEvent totalJoinedMembers={totalJoinedMembers} />
+        </div>
         <div
           className={
-            singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[400px] "
+            singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[20px] "
           }
         >
           <FinalEventGallery />
@@ -49,14 +55,17 @@ const ScoreBoard: FunctionComponent = () => {
         {singleEvent?.scoringType !== "Normal" && (
           <>
             <LeaderBoardTables />
-            <IndiviualPlayerScore />
-            <TeamPerformance title={t("DRIVER_CONTEST")} />
-            <TeamPerformance title={t("PIN_CONTEST")} />
+            {/* <IndiviualPlayerScore /> */}
+            {/* <TeamPerformance title={t("DRIVER_CONTEST")} /> */}
+            {/* <TeamPerformance title={t("PIN_CONTEST")} /> */}
           </>
         )}
-        {
-          singleEvent?.id &&
-        <CommentModel eventIsd={singleEvent?.id} closeModal={() => {}} />}
+
+        {singleEvent?.id && (
+          <table className="lg:w-[1200px]">
+            <CommentModel eventIsd={singleEvent?.id} closeModal={() => {}} />
+          </table>
+        )}
 
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">
