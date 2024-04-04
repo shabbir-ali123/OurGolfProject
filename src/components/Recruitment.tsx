@@ -59,7 +59,6 @@ document.body.dir = i18n.dir();
 }, [formDataa]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debugger
     const { name, value, type, checked } = e.target;
     const currentDate = new Date().toISOString().split("T")[0];
     const isCheckbox = type === "checkbox";

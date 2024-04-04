@@ -10,6 +10,7 @@ export const AuthContext = ({ children }: any) => {
   const [user, setUser] = useState<any>("");
 
   const [message, setMessage] = useState<string>();
+  const [chatUser, setChatUser] = useState<string>('4');
   const navigate = useNavigate();
   const [userFormData, setUserFormData] = useState({
     nickName: "",
@@ -38,6 +39,13 @@ export const AuthContext = ({ children }: any) => {
       return setUser(value);
     },
     [user]
+  );
+
+  const handleSelectedUser = useCallback(
+    (value: any) => {
+      return setChatUser(value);
+    },
+    [chatUser]
   );
 
   const handleUpdateUser = async () => {
@@ -89,7 +97,8 @@ export const AuthContext = ({ children }: any) => {
     handleUser,
     handleUpdateUser,
     setUserFormData,
-
+    handleSelectedUser,
+    chatUser,
     userFormData,
     user,
     message,

@@ -9,9 +9,12 @@ import {
 } from "@pubnub/chat";
 import "./app.css";
 import { getAllUsers } from "../utils/fetchUser";
+import { userAuthContext } from "../contexts/authContext";
 
 
 export default function ChatApp() {
+  const { chatUser} = userAuthContext();
+ 
   const [chat, setChat] = useState<Chat>();
   const [text, setText] = useState("");
   const [channel, setChannel] = useState<Channel>();
@@ -38,6 +41,7 @@ export default function ChatApp() {
     setText("");
   }
 
+  console.log(typeof(chatUser), 'chat user')
   useEffect(() => {
     getAllUsers(setUsers);
   }, []);
@@ -71,8 +75,8 @@ export default function ChatApp() {
       });
    
       const interlocutor =
-        (await chat.getUser("3")) ||
-        (await chat.createUser("3", users.find((item:any)=> item.id == 2)));
+        (await chat.getUser(chatUser)) ||
+        (await chat.createUser(chatUser, users.find((item:any)=> item.id == 2)));
       const { channel } = await chat.createDirectConversation({
         user: interlocutor,
         channelData: { name: "direct.3705615641681"      },
@@ -89,7 +93,7 @@ export default function ChatApp() {
     }
 
     initalizeChat();
-  }, []);
+  }, [chatUser]);
 
   const renderMessagePart = useCallback(
     (messagePart: MixedTextTypedElement) => {

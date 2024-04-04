@@ -66,6 +66,7 @@ import { UserContext } from "./contexts/authContext";
 import Pubnub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
 import ChatApp from "./pages/test";
+import { ChatSystem } from "./pages/Chat";
 
 function App() {
   const params = useParams();
@@ -324,7 +325,7 @@ function App() {
           />
           <Route
             path="/score-board"
-            element={<ChatApp />}
+            element={<ChatSystem />}
           />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
