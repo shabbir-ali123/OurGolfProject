@@ -67,12 +67,12 @@ export default function ChatApp() {
       const chat = await Chat.init({
         publishKey: "pub-c-eafa8c74-d8e8-4b72-b5fe-8e83c98886ff",
         subscribeKey: "sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5",
-        userId: "3",
+        userId: localStorage.getItem("id") || "",
       });
    
       const interlocutor =
-        (await chat.getUser("2")) ||
-        (await chat.createUser("2", users.find((item:any)=> item.id == 2)));
+        (await chat.getUser("3")) ||
+        (await chat.createUser("3", users.find((item:any)=> item.id == 2)));
       const { channel } = await chat.createDirectConversation({
         user: interlocutor,
         channelData: { name: "direct.3705615641681"      },

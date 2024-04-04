@@ -1,22 +1,4 @@
-* {
-    color: #585858;
-    line-height: normal;
-    margin: 0;
-  }
-  
-  html {
-    font-family:Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    height: 100%;
-  }
-  
-  body {
-    align-items: center;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-  }
-  
+
   main {
     background: #f0f3f7;
     border-radius: 15px;
