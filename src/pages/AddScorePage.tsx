@@ -112,7 +112,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     Object.entries(sums).map(([userId, scores]) => {
       const filteredScores = scores.filter((score: any, index: any) =>
         newArrayHole?.includes(index + 1)
-      ); // Keep only the scores for holes included in newArrayHole
+      );
       return [userId, filteredScores];
     })
   );
@@ -121,7 +121,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     for (const userId in filteredSums) {
       const totalScore = filteredSums[userId].reduce(
         (acc: number, score: number) => acc + score,
-        0 // Providing initial value of 0
+        0 
       );
       selectedsum[userId] = totalScore;
     }
@@ -384,11 +384,10 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                      (u.userId === member.userId ? arr = JSON.parse(arr) : "")
                   }
                  );
-                  console.log(t);
                   return (
                     <tr
                       key={memberIndex}
-                      className="py-4 pl-4 whitespace-nowrap"
+                      className="whitespace-nowrap "
                     >
                       <Player
                         isCreator={isCreated}
@@ -396,7 +395,7 @@ const GolfScoreInput: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         showNumber={false}
                         enableHover={true}
                         onDelete={() => {}}
-                        name={member.userId}
+                        name={member.nickName}
                         imageUrl={member.imageUrl}
                       />
                       {holes.map((hole, holeIndex: number) => {
