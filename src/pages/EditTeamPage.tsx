@@ -364,7 +364,7 @@ const EditTeamPage: FunctionComponent = () => {
               <div>
                 <img src="/img/golfplyr.png" alt="" width="40px" />
                 <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                  Members
+                {t("MEMBERS")}
                 </b>
               </div>
             </div>
@@ -372,7 +372,7 @@ const EditTeamPage: FunctionComponent = () => {
 
               <div className=" ">
                 <div className="bg-[#0d7168] text-white rounded-sm ">
-                  <h4 className="p-2">Confirmed Members</h4>
+                  <h4 className="p-2">{t("Confirmed Members")}</h4>
                 </div>
                 <table className=" ">
 

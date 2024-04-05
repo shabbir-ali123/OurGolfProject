@@ -309,7 +309,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                                   boxShadow:
                                     "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                }} >Join</p>
+                                }} >{t("JOIN")}</p>
                               </span>
                             </td>
                             <div className="text-start flex items-center" >

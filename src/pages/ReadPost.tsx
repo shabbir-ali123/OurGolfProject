@@ -26,7 +26,7 @@ export interface SinglePostProps {
   createdAt: any;
   id: any;
 }
-export const getTimeAgo = (pastTime: any) => {
+export const getTimeAgo = (pastTime: any, t:any) => {
   const currentTime: any = new Date();
 
   const msPerMinute = 60 * 1000;
@@ -38,17 +38,17 @@ export const getTimeAgo = (pastTime: any) => {
   const elapsed = currentTime - pastTime;
 
   if (elapsed < msPerMinute) {
-    return Math.round(elapsed / 1000) + " seconds ago";
+    return Math.round(elapsed / 1000)  + " " + t("SEC_AGO");
   } else if (elapsed < msPerHour) {
-    return Math.round(elapsed / msPerMinute) + " minutes ago";
+    return Math.round(elapsed / msPerMinute)  + " " +  t("MIN_AGO");
   } else if (elapsed < msPerDay) {
-    return Math.round(elapsed / msPerHour) + " hours ago";
+    return Math.round(elapsed / msPerHour) +  " " + t("HOUR_AGO");
   } else if (elapsed < msPerMonth) {
-    return "" + Math.round(elapsed / msPerDay) + " days ago";
+    return "" + Math.round(elapsed / msPerDay) + " " + t("DAYS_AGO")
   } else if (elapsed < msPerYear) {
-    return "" + Math.round(elapsed / msPerMonth) + " months ago";
+    return "" + Math.round(elapsed / msPerMonth) + " " +  t("MONTH_AGO");
   } else {
-    return "" + Math.round(elapsed / msPerYear) + " years ago";
+    return "" + Math.round(elapsed / msPerYear) +  " " + t("YEAR_AGO");
   }
 };
 const ReadPost: React.FC = () => {
@@ -179,7 +179,7 @@ const ReadPost: React.FC = () => {
   };
 
   const postTime = new Date(singlePost?.createdAt);
-  const timeAgo = getTimeAgo(postTime);
+  const timeAgo = getTimeAgo(postTime, t);
 
   var settings = {
     dots: true,
@@ -321,7 +321,7 @@ const ReadPost: React.FC = () => {
 
                 {singlePost?.PostComments.map((comment: any) => {
                   const commentTime = new Date(comment.createdAt);
-                  const timeAgo = getTimeAgo(commentTime);
+                  const timeAgo = getTimeAgo(commentTime, t);
                   return (
                     <div key={comment.id} className="py-4">
                       <div className="flex items-center justify-between">

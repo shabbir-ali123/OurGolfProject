@@ -286,7 +286,7 @@ const PostCard = () => {
                           <p className="p-0 text-sm flex gap-4 items-center">
                             {post.posts?.nickName}{" "}
                             <span className="text-[10px]">
-                              {getTimeAgo(new Date(post?.createdAt))}
+                              {getTimeAgo(new Date(post?.createdAt),t)}
                             </span>
                           </p>
                         </div>
@@ -405,7 +405,7 @@ const PostCard = () => {
                                   className={`w-6 h-6  ${
                                     hoveredIndex === index
                                       ? "text-white"
-                                      : "text-black"
+                                      : "text-black"  
                                   } `}
                                 />
                               )}
@@ -490,7 +490,7 @@ const PostCard = () => {
         style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
       >
         <div>
-          <h5>Top Liked Posts</h5>
+          <h5>{t("TOP_LIKED")}</h5>
           <ul className="p-0">
             {mostLiked?.map((item: any) => {
               return (

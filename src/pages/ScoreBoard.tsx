@@ -56,27 +56,28 @@ const ScoreBoard: FunctionComponent = () => {
         >
           <FinalEventGallery />
         </div>
+        <AllMembers />
+
+{singleEvent?.scoringType !== "Normal" && (
+  <>
+    <LeaderBoardTables />
+    {/* <IndiviualPlayerScore /> */}
+    {/* <TeamPerformance title={t("DRIVER_CONTEST")} /> */}
+    {/* <TeamPerformance title={t("PIN_CONTEST")} /> */}
+  </>
+)}
+
+{singleEvent?.id && (
+  <table className="lg:w-[1200px]">
+    <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
+  </table>
+)}
         {/* <Slider/> */}
         <div className="lg:w-[1200px]">
           <AboutEvent totalJoinedMembers={totalJoinedMembers} />
         </div>
 
-        <AllMembers />
-
-        {singleEvent?.scoringType !== "Normal" && (
-          <>
-            <LeaderBoardTables />
-            {/* <IndiviualPlayerScore /> */}
-            {/* <TeamPerformance title={t("DRIVER_CONTEST")} /> */}
-            {/* <TeamPerformance title={t("PIN_CONTEST")} /> */}
-          </>
-        )}
-
-        {singleEvent?.id && (
-          <table className="lg:w-[1200px]">
-            <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
-          </table>
-        )}
+       
 
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">

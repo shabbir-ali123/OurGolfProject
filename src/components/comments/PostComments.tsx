@@ -112,7 +112,7 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
 
                     {singlePost?.PostComments.map((comment: any) => {
                       const commentTime = new Date(comment.createdAt);
-                      const timeAgo = getTimeAgo(commentTime);
+                      const timeAgo = getTimeAgo(commentTime,t);
                       return (
                         <div key={comment.id} className="py-4">
                           <div className="flex items-center justify-between">

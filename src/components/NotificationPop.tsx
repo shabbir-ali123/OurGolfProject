@@ -1,24 +1,21 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { notificationsContextStore } from "../contexts/notificationContext";
-import socket from "../socket";
-import { fetchNotifications } from "../utils/fetchNotifications";
-
+import { useTranslation } from "react-i18next";
 interface NotificationProp {
   setNotification: any;
 }
 
 export const NotificationPop: React.FC<NotificationProp> = ({ setNotification }) => {
+  const { t, i18n } = useTranslation();
   const [show, setShow] = useState(true);
   const { notificationData, isLoading } = notificationsContextStore();
   const navigate = useNavigate();
 
-  const currentUserId = localStorage.getItem('id')
+  const currentUserId = localStorage.getItem('id');
   const handleButtonClick = () => {
-    setShow(false);
-    setNotification(false);
     navigate("/notification-page");
   };
 
@@ -30,15 +27,16 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
       >
         <div className="w-full space-y-4 sm:items-end flex flex-col items-end">
           <div className="flex flex-col bg-white mt-4 w-1/5 p-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>
-            {isLoading && <><div className="flex justify-center items-center ">
-              <div>
-                <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
-                <p>loading...</p>
+            {isLoading && (
+              <div className="flex justify-center items-center">
+                <div>
+                  <img className="w-10 h-10 animate__animated animate__bounce animate__infinite" src="/img/golfball.jpg" alt="" />
+                  <p>Loading...</p>
+                </div>
               </div>
-
-            </div></>}
-            {!isLoading && notificationData?.map((data: any) => {
-              if (data.organizerId == currentUserId || data.teacherId == currentUserId) {
+            )}
+            {!isLoading && notificationData?.slice(0, 4).map((data: any) => {
+              if (data.organizerId === currentUserId || data.teacherId === currentUserId) {
                 return (
                   <Transition
                     key={data.id}
@@ -51,12 +49,12 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="w-full mt-2 max-w-sm overflow-hidden bg-white rounded-lg shadow-lg pointer-events-auto ring-1 ring-black ring-opacity-5 cursor-pointer" onClick={() => (navigate('/notification-page'))}>
+                    <div className="w-full mt-2 max-w-sm overflow-hidden bg-white rounded-lg shadow-lg pointer-events-auto ring-1 ring-black ring-opacity-5 cursor-pointer" onClick={() => navigate('/notification-page')}>
                       <div className="p-4">
                         <div className="flex items-center">
                           <div className="flex-1 w-0 ml-3 ">
                             <p className="text-sm font-medium text-gray-900">
-                              {data.message}
+                              {data.message}ss
                             </p>
                           </div>
                           <div className="flex flex-shrink-0 ml-4">
@@ -78,11 +76,12 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
                   </Transition>
                 )
               }
+              return null;
             })}
-            {!isLoading && notificationData && notificationData.length > 0 && (
+            {!isLoading && notificationData && notificationData.length > 4 && (
               <div className="flex justify-end">
                 <button onClick={handleButtonClick} className="bg-transparent mt-2">
-                  See All
+                {t("SEE_ALL")}
                 </button>
               </div>
             )}

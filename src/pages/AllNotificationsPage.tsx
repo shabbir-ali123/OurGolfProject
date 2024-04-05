@@ -85,7 +85,7 @@ export default function AllNotification() {
               }
                         </div>
                         <div className="ml-4 flex flex-shrink-0">
-                          {getTimeAgo(new Date(item?.createdAt))}
+                          {getTimeAgo(new Date(item?.createdAt),t)}
                         </div>
                       </div>
                     </div>

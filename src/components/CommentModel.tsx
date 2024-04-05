@@ -308,7 +308,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                                 )}
                               </div>
                               <p className="col-start-2  text-[12px] text-gray-600 ">
-                                {getTimeAgo(new Date(comment.createdAt))}
+                                {getTimeAgo(new Date(comment.createdAt),t)}
                               </p>
                             </div>
                           </div>

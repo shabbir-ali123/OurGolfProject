@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-
+import { useTranslation } from "react-i18next";
 interface CreatedEventPaginationProps {
   currentPage: number;
   pageSize: number;
@@ -16,7 +16,7 @@ export function CreatedEventPagination({
   onPageChange,
 }: CreatedEventPaginationProps) {
   const totalPages = Math.ceil(totalEvents / pageSize);
-
+  const { t, i18n } = useTranslation();
   const next = () => {
     if (currentPage === totalPages) return;
     onPageChange(currentPage + 1);
@@ -55,7 +55,7 @@ export function CreatedEventPagination({
         onClick={prev}
         disabled={currentPage === 1}
       >
-        <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" /> Previous
+        <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" /> {t("PREV")}
       </Button>
       <div className="flex items-center gap-2 z-[-1]">{getPageNumbers()}</div>
       <Button
@@ -64,7 +64,7 @@ export function CreatedEventPagination({
         onClick={next}
         disabled={currentPage === totalPages}
       >
-        Next <ArrowRightIcon strokeWidth={2} className="w-4 h-4" />
+        {t("NEXT")}<ArrowRightIcon strokeWidth={2} className="w-4 h-4" />
       </Button>
     </div>
   );

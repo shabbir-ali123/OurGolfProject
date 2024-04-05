@@ -131,6 +131,10 @@
     "CONFIRMED":"Confirmed",
     "WAITING":"Waiting",
     "REMEMBER":"Remember Me",
+    "MEMBERS":"Members",
+    "Confirmed Members":"Confirmed Members",
+    "Waiting Members":"Waiting Members",
+    "Bookedmark Members":"Booked Mark Members",
     "FORGOT_PASSWORD":"Forgot Password?",
     "UPDATE": "Update",
     "WEEKLY_AVAILIBILTY": "Weekly Availibility",
@@ -180,6 +184,7 @@
     "SCORING_TABLE": "Scoring Table",
     "TEAM_PERFOMANCE": "Team Perfomance",
     "TOTAL": "Total",
+    "TOTAL_PLAYERS": "Total Players",
     "POSITION": "Position",
     "RESULT": "Result",
     "RATE": "Rate",
@@ -197,7 +202,12 @@
     "NO_OF_PLAYERS": "Number of Players",
     "INCLUDE_PLAYER": "Include you in the numbers of players",
     "START_TIME": "Start Date and Time",
+    "start_time":"Start Time",
     "END_TIME": "End Date and Time",
+    "End_Time": "End Time",
+    "SEE_ALL":"See All",
+    "TOP_LIKED":"Top Liked Posts",
+    "TOP_COMMENTS":"Top Commented Posts",
     "APPLICATION_DEADLINE": "Application Deadline",
     "MATCH_TYPE": "Match Type",
     "INDIVIDUAL": "Individual",
@@ -290,6 +300,7 @@
     "BEGINNER": "Beginner",
     "INTERMEDIATE": "Intermediate",
     "ADVANCED": "Advanced",
-    "AMBASSADOR": "TASKGOLF Amateur Ambassador"
+    "AMBASSADOR": "TASKGOLF Amateur Ambassador",
+    "NO_EVENT": "No Event"
 
 }
