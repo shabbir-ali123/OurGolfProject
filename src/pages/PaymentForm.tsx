@@ -279,14 +279,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                     <div className="flex items-center justify-end">
                       <h3 className="text-white">{t("CONTACT_HOST")}</h3>
                       <div>
-                        <div className="cursor-pointer">
-                          <img
-                            src="/img/line.png"
-                            alt=""
-                            width="70px"
-                            height="70px"
-                          />
-                        </div>
+                       
                         <div className="ml-1 cursor-pointer">
                           <svg
                             width="60"

@@ -257,30 +257,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
 
            
           </div>
-          <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
-            <label
-              className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
-              htmlFor="grid-short-video"
-            >
-              {t("ADDRESS")}
-            </label>
-            <input
-              className="block w-full  py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-inner focus:outline-none focus:bg-white "
-              style={{
-                boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
-              }}
-              id="grid-first-name"
-              type="text"
-              name="address"
-              placeholder={t("ADDRESS")}
-              value={formData?.address}
-              required
-              onChange={onChange}
-              
-            />
-          </div>
-         
-          <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
+          <div className="col-span-8 py-0  lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
               className="relative block mb-2 text-lg tracking-wide text-[#626262] captilize"
               htmlFor="grid-short-video"
@@ -304,7 +281,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
               <div className="flex items-center ">
                 
                 <input
-                  className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-16  mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform shadow-xl"
+                  className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-12 px-2  mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform shadow-xl"
                   style={{
                     boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
                   }}
@@ -325,7 +302,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
               </div>
             </div>
           </div>
-          <div className="relative w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
+          <div className="relative w-full col-span-8 mt-0 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-6">
               <label
                 className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
                 htmlFor="place"
@@ -352,7 +329,32 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
                   Please enter a location within Japan.
                 </p>
               )}
-            </div>
+            </div> 
+          <div className="col-span-8 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
+            <label
+              className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
+              htmlFor="grid-short-video"
+            >
+              {t("ADDRESS")}
+            </label>
+            <input
+              className="block w-full  py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded shadow-inner focus:outline-none focus:bg-white "
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
+              }}
+              id="grid-first-name"
+              type="text"
+              name="address"
+              placeholder={t("ADDRESS")}
+              value={formData?.address}
+              required
+              onChange={onChange}
+              
+            />
+          </div>
+         
+         
+         
         </div>
 
         <div className="relative col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
@@ -410,7 +412,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
             value={formData?.participationFee}
             onChange={onChange}
             title="Please enter a valid number"
-            placeholder="$ Enter Amount"
+            placeholder="¥ Enter Amount"
             min="0"
           />
         </div>

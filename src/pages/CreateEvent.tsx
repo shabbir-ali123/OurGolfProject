@@ -312,7 +312,7 @@ const CreateEvent: React.FC = () => {
 
         <form method="post" id="foirm" encType="multipart/form-data">
           <BasicInfo onChange={handleChange} setFormData={setFormData} />
-
+          <PaymentDetails onChange={handlePaymentDetailsChange} />
           <Recuitments onChange={handleRecruitmentTabsChange} />
 
           <ItemInstruction  handleChange={itemInstructions}/>
@@ -323,7 +323,7 @@ const CreateEvent: React.FC = () => {
            
           />
 
-          <PaymentDetails onChange={handlePaymentDetailsChange} />
+          
           <div className="p-2 ">
             <div className="">
               <div className="flex justify-center gap-2 mx-4">
