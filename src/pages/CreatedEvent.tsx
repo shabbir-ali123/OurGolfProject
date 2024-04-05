@@ -24,7 +24,7 @@ interface Event {
 
 const CreatedEvents: React.FC = () => {
     const { t, i18n } = useTranslation();
-    const { handleActiveTab, handleCurrentPage, activeTab, currentPage, totalPages, createdEvents,handleStartDateChange, handleEndDateChange, startDate, endDate } = createdEventsStore();
+    const { handleActiveTab, handleCurrentPage, activeTab, currentPage, totalPages, createdEvents, } = createdEventsStore();
     const tabs = [t('LIVE'), t('UPCOMING'), t('PAST')];
 
     console.log(createdEvents, 'CE')

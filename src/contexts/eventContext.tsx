@@ -234,21 +234,13 @@ export const CreatedEventContext = ({ children }: any) => {
     const [activeTab, setActiveTab] = useState<any>('past');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1)
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+
 
 
     useEffect(() => {
-        // Call fetchCreatedEvents with additional parameters for start and end dates
-        fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents, startDate, endDate);
-    }, [activeTab, currentPage, startDate, endDate]);
-    const handleStartDateChange = useCallback((newStartDate:any) => {
-        setStartDate(newStartDate);
-    }, []);
-    
-    const handleEndDateChange = useCallback((newEndDate:any) => {
-        setEndDate(newEndDate);
-    }, []);
+        fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents)
+    }, [activeTab])
+
     const handleActiveTab = useCallback((value: any) => {
         return setActiveTab(value);
     }, []);
