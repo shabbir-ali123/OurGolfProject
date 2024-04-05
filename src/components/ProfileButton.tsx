@@ -55,7 +55,7 @@ export default function ProfileButton() {
     const handleJoinEvent = (data: any) => {
       console.log(data, 'data for sockets')
       if (data?.organizerId == userId) {
-        setEventJoined((prev: any) =>[...prev, data]);
+        setEventJoined((prev: any) =>[...prev, data]  );
       }
     };
     socket.on('joinRequest', handleJoinEvent);
@@ -65,7 +65,7 @@ export default function ProfileButton() {
     };
   }, []);
   const filteredNotifications = notificationData?.filter((item:any) => {
-    if(item.organizerId == userId && item.isRead !== true || item.teacherId == userId && item.isRead !== true || item.userId == userId && item.isRead !== true){
+    if(item.organizerId == userId && item.isRead !== true || item.teacherId == userId && item.isRead !== true ){
        console.log(item);    
      return true;
     }
