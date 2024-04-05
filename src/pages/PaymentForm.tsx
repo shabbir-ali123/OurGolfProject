@@ -70,7 +70,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
     }
   };
 
-  console.log(singleEvent, "asd")
+  console.log(singleEvent, "asd");
   return (
     <>
       {loading ? (
@@ -105,7 +105,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                       <div className="absolute inset-0 opacity-75 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-800"></div>
                       <div className="flex items-center justify-center">
                         <h2 className="relative z-10 pt-10 text-white">
-                          Join Now
+                         {t('JOIN_NOW')} 
                         </h2>
                       </div>
                       <img
@@ -121,9 +121,13 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                     style={{ boxShadow: "9px 9px 4px #00c5b5" }}
                   >
                     <div className="p-6">
-                      <p className="text-2xl text-white font-poppins-medium">
-                        {t("REQUIRED_INFO")}
-                      </p>
+                    
+                    {(singleEvent?.fullNameCheckBox == 1 || singleEvent?.telephoneCheckBox || singleEvent?.emailCheckBox || singleEvent?.handicapCheckBox  ) ? 
+                    <p className="text-2xl text-white font-poppins-medium">
+                    {t("REQUIRED_INFO")}
+                  </p> 
+                 : <img className="h-[500px] w-full overflow-hidden" src={singleEvent?.imageUrl[0]}  />
+                    }
                       {singleEvent?.fullNameCheckBox == 1 && (
                         <div className="relative w-full">
                           <label
@@ -162,82 +166,88 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                           </div>
                         </div>
                       )}
-                      <div className="relative w-full">
-                        <label
-                          htmlFor="team"
-                          className="text-xl font-medium text-white capitalize font-poppins"
-                        >
-                          {t("TELEPHONE")}
-                        </label>
-
-                        <div className="relative flex items-center w-full my-3">
-                          <svg
-                            width="26"
-                            height="24"
-                            viewBox="0 0 26 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="absolute transform -translate-y-1/2 left-2 top-1/2"
+                      {singleEvent?.telephoneCheckBox == 1 && (
+                        <div className="relative w-full">
+                          <label
+                            htmlFor="team"
+                            className="text-xl font-medium text-white capitalize font-poppins"
                           >
-                            <path
-                              d="M1 5C1 3.93913 1.42143 2.92172 2.17157 2.17157C2.92172 1.42143 3.93913 1 5 1H21C22.0609 1 23.0783 1.42143 23.8284 2.17157C24.5786 2.92172 25 3.93913 25 5V18.3333C25 19.3942 24.5786 20.4116 23.8284 21.1618C23.0783 21.9119 22.0609 22.3333 21 22.3333H5C3.93913 22.3333 2.92172 21.9119 2.17157 21.1618C1.42143 20.4116 1 19.3942 1 18.3333V5Z"
-                              stroke="#17B3A6"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M17 6.33337H19.6666M17 11.6667H19.6666M6.33331 17H19.6666M6.33331 9.00004C6.33331 9.70728 6.61426 10.3856 7.11436 10.8857C7.61446 11.3858 8.29274 11.6667 8.99998 11.6667C9.70722 11.6667 10.3855 11.3858 10.8856 10.8857C11.3857 10.3856 11.6666 9.70728 11.6666 9.00004C11.6666 8.2928 11.3857 7.61452 10.8856 7.11442C10.3855 6.61433 9.70722 6.33337 8.99998 6.33337C8.29274 6.33337 7.61446 6.61433 7.11436 7.11442C6.61426 7.61452 6.33331 8.2928 6.33331 9.00004Z"
-                              stroke="#17B3A6"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
+                            {t("TELEPHONE")}
+                          </label>
 
-                          <input
-                            type="tel"
-                            name="paymentTelPhone"
-                            id="paymentTelPhone"
-                            placeholder="telephoneCheckBox"
-                            // value={singleEvent?.paypalId}
-                            className="w-full py-4 text-base font-normal text-gray-600 uppercase border-none rounded-md pl-14 bg-gray-50 font-poppins"
-                          />
+                          <div className="relative flex items-center w-full my-3">
+                            <svg
+                              width="26"
+                              height="24"
+                              viewBox="0 0 26 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="absolute transform -translate-y-1/2 left-2 top-1/2"
+                            >
+                              <path
+                                d="M1 5C1 3.93913 1.42143 2.92172 2.17157 2.17157C2.92172 1.42143 3.93913 1 5 1H21C22.0609 1 23.0783 1.42143 23.8284 2.17157C24.5786 2.92172 25 3.93913 25 5V18.3333C25 19.3942 24.5786 20.4116 23.8284 21.1618C23.0783 21.9119 22.0609 22.3333 21 22.3333H5C3.93913 22.3333 2.92172 21.9119 2.17157 21.1618C1.42143 20.4116 1 19.3942 1 18.3333V5Z"
+                                stroke="#17B3A6"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M17 6.33337H19.6666M17 11.6667H19.6666M6.33331 17H19.6666M6.33331 9.00004C6.33331 9.70728 6.61426 10.3856 7.11436 10.8857C7.61446 11.3858 8.29274 11.6667 8.99998 11.6667C9.70722 11.6667 10.3855 11.3858 10.8856 10.8857C11.3857 10.3856 11.6666 9.70728 11.6666 9.00004C11.6666 8.2928 11.3857 7.61452 10.8856 7.11442C10.3855 6.61433 9.70722 6.33337 8.99998 6.33337C8.29274 6.33337 7.61446 6.61433 7.11436 7.11442C6.61426 7.61452 6.33331 8.2928 6.33331 9.00004Z"
+                                stroke="#17B3A6"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+
+                            <input
+                              type="tel"
+                              name="paymentTelPhone"
+                              id="paymentTelPhone"
+                              placeholder="telephoneCheckBox"
+                              // value={singleEvent?.paypalId}
+                              className="w-full py-4 text-base font-normal text-gray-600 uppercase border-none rounded-md pl-14 bg-gray-50 font-poppins"
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="relative w-full capitalize ">
-                        <label
-                          htmlFor="team"
-                          className="text-xl font-medium text-white font-poppins"
-                        >
-                          {t("EMAIL")}
-                        </label>
-
-                        <div className="relative flex items-center w-full my-3 ">
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="absolute transform -translate-y-1/2 left-2 top-1/2"
+                      )}
+                      {singleEvent?.emailCheckBox == 1 && (
+                        <div className="relative w-full capitalize ">
+                          <label
+                            htmlFor="team"
+                            className="text-xl font-medium text-white font-poppins"
                           >
-                            <path
-                              d="M12 0C13.5913 0 15.1174 0.632141 16.2426 1.75736C17.3679 2.88258 18 4.4087 18 6C18 7.5913 17.3679 9.11742 16.2426 10.2426C15.1174 11.3679 13.5913 12 12 12C10.4087 12 8.88258 11.3679 7.75736 10.2426C6.63214 9.11742 6 7.5913 6 6C6 4.4087 6.63214 2.88258 7.75736 1.75736C8.88258 0.632141 10.4087 0 12 0ZM12 15C18.63 15 24 17.685 24 21V24H0V21C0 17.685 5.37 15 12 15Z"
-                              fill="#17B3A6"
-                            />
-                          </svg>
+                            {t("EMAIL")}
+                          </label>
 
-                          <input
-                            type="email"
-                            name="paymentEmailAddress"
-                            id="paymentEmailAddress"
-                            placeholder="emailCheckBox"
-                            // value={singleEvent?.accountHolderName}
-                            className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
-                          />
+                          <div className="relative flex items-center w-full my-3 ">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="absolute transform -translate-y-1/2 left-2 top-1/2"
+                            >
+                              <path
+                                d="M12 0C13.5913 0 15.1174 0.632141 16.2426 1.75736C17.3679 2.88258 18 4.4087 18 6C18 7.5913 17.3679 9.11742 16.2426 10.2426C15.1174 11.3679 13.5913 12 12 12C10.4087 12 8.88258 11.3679 7.75736 10.2426C6.63214 9.11742 6 7.5913 6 6C6 4.4087 6.63214 2.88258 7.75736 1.75736C8.88258 0.632141 10.4087 0 12 0ZM12 15C18.63 15 24 17.685 24 21V24H0V21C0 17.685 5.37 15 12 15Z"
+                                fill="#17B3A6"
+                              />
+                            </svg>
+
+                            <input
+                              type="email"
+                              name="paymentEmailAddress"
+                              id="paymentEmailAddress"
+                              placeholder="emailCheckBox"
+                              // value={singleEvent?.accountHolderName}
+                              className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
+                            />
+                          </div>
                         </div>
-                      </div>
+                      )}
+                      {singleEvent?.handicapCheckBox == 1 && (
+
                       <div className="relative w-full">
                         <label
                           htmlFor="team"
@@ -272,19 +282,18 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                           />
                         </div>
                       </div>
-
+)}
                       <button
                         onClick={formSubmission}
-                        className="px-8 py-4 mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+                        className="px-8 py-4 w-full mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
                       >
-                        {t("SUBMIT")}
+                        {t("JOIN_NOW")}
                       </button>
                     </div>
 
                     <div className="flex items-center justify-end">
                       <h3 className="text-white">{t("CONTACT_HOST")}</h3>
                       <div>
-                       
                         <div className="ml-1 cursor-pointer">
                           <svg
                             width="60"

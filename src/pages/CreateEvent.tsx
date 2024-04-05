@@ -62,12 +62,7 @@ const CreateEvent: React.FC = () => {
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const [checkboxValues, setCheckboxValues] = useState({
-    fullNameCheckbox: false,
-    emailCheckbox: false,
-    telephoneCheckbox: false,
-    handicapCheckbox: false,
-  });
+
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
     eventName: "",

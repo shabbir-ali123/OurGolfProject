@@ -23,12 +23,7 @@ const EditEvent: React.FC = () => {
     const router = useNavigate();
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
-    const [checkboxValues, setCheckboxValues] = useState({
-      fullNameCheckbox: false,
-      emailCheckbox: false,
-      telephoneCheckbox: false,
-      handicapCheckbox: false,
-    });
+
     const [formData, setFormData] = useState<any>({
         eventType: singleEvent?.eventType,
         eventName: singleEvent?.eventName,
@@ -70,13 +65,14 @@ const EditEvent: React.FC = () => {
         driverContest:  singleEvent?.driverContest,
         nearPinContest:  singleEvent?.nearPinContest,
         creatorId: userId,
-        fullNameCheckbox: singleEvent?.fullNameCheckbox,
-        emailCheckbox: singleEvent?.emailCheckbox,
-        telephoneCheckbox: singleEvent?.telephoneCheckbox,
-        handicapCheckbox: singleEvent?.handicapCheckbox,
+        fullNameCheckBox: "",
+        emailCheckBox: "",
+        telephoneCheckBox: "",
+        handicapCheckBox: "",
 
   });
 
+  console.log(formData, "sajid")
   const { showToast } = useToast();
 
 //   const handleChange = (
@@ -287,10 +283,6 @@ const EditEvent: React.FC = () => {
         driverContest:  singleEvent?.driverContest,
         nearPinContest:  singleEvent?.nearPinContest,
         cancellationFee:  singleEvent?.cancellationFee,
-        fullNameCheckbox: singleEvent?.fullNameCheckbox,
-        emailCheckbox: singleEvent?.emailCheckbox,
-        telephoneCheckbox: singleEvent?.telephoneCheckbox,
-        handicapCheckbox: singleEvent?.handicapCheckbox,
         creatorId: userId,
       });
       
@@ -312,7 +304,18 @@ const EditEvent: React.FC = () => {
   
 
   const itemInstructions = (updatedValues: any) => {
-    setCheckboxValues(updatedValues)
+    const convertedValues = {
+        fullNameCheckBox: updatedValues?.fullNameCheckbox ? '1' : '0',
+        emailCheckBox: updatedValues.emailCheckbox ? '1' : '0',
+        telephoneCheckBox: updatedValues.telephoneCheckbox ? '1' : '0',
+        handicapCheckBox: updatedValues.handicapCheckbox ? '1' : '0'
+    };
+    console.log(updatedValues?.fullNameCheckbox, "asdasd");
+
+    setFormData((prev: any) => ({
+        ...prev,
+        ...convertedValues,
+    }));
   }
   const toggleScoringEnabled = (enabled: boolean) => {
     setIsScoringEnabled(enabled);
