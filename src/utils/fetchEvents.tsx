@@ -143,7 +143,7 @@ export const fetchSingleEvent = async (eventId: any) => {
   
 };
 
-export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentPage: any, setTotalPage: any, setEvents: any  ) => {
+export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentPage: any, setTotalPage: any, setEvents: any, setStartDate:any, setEndDate:any  ) => {
   try {
     const userID = localStorage.getItem('id');
     const token = localStorage.getItem('token');
@@ -157,6 +157,8 @@ export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentP
                 pageSize,
                 page: currentPage,
                 status,
+                setStartDate,
+                setEndDate
             },
         });
 
