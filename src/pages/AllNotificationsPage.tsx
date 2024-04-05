@@ -39,8 +39,7 @@ export default function AllNotification() {
             {notificationData?.map((item: any, index: any) => {
               if (
                 (item.organizerId == currentUserId) ||
-                (item.teacherId == currentUserId) ||
-                (item.userId == currentUserId)
+                (item.teacherId == currentUserId)
               ) {
                 return (
                   <Transition
@@ -59,13 +58,13 @@ export default function AllNotification() {
                           <div className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8">
                             <img
                               className="w-full h-full rounded-full"
-                              src={item.User.imageUrl}
+                              src={item?.User?.imageUrl}
                               alt=""
                             />
                           </div>
                           <div className="ml-3 w-0 flex-1">
                             <p className="text-sm font-medium text-gray-900">
-                              {item.User.nickname}
+                              {item.User?.nickname}
                             </p>
                             <p className="mt-1 text-sm text-gray-500">
                               {item.message}
