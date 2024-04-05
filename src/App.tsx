@@ -317,9 +317,7 @@ function App() {
           <Route
             path="/user-page/:id"
             element={
-              <UserContext>
                 <UserPage />
-              </UserContext>
                 
             }
           />

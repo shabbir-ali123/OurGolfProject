@@ -11,11 +11,12 @@ export const UsersList = () => {
     },[chatUser])
 
     return (
-        <div>
-            {users?.map((user: any) => {
+        <div className="h-[80vh] overflow-auto">
+            <h1>Online Users</h1>
+        {users?.map((user: any) => {
                 return (
-                    <li key={user.id}>
-                        <div className="flex" onClick={() => handleSelectedUser(user.id.toString())}>
+                    <li className="list-none " key={user.id} >
+                        <div className="flex cursor-pointer" onClick={() => handleSelectedUser(user.id.toString())}>
                             <div >
                             <img src={user?.imageUrl} className="rounded-full w-10 h-10" alt="" />
                             </div>

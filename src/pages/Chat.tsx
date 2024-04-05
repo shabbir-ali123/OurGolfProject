@@ -3,9 +3,10 @@ import ChatApp from "./test"
 
 export const ChatSystem = () => {
     return (
-        <div className="flex ml-[200px]" >
+        <div className="flex justify-center gap-3" >
             <ChatApp/>
-            <UsersList/>
+             <UsersList/>
+                
         </div>
     )
 }

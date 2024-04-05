@@ -11,10 +11,9 @@ import "./app.css";
 import { getAllUsers } from "../utils/fetchUser";
 import { userAuthContext } from "../contexts/authContext";
 
-
 export default function ChatApp() {
-  const { chatUser} = userAuthContext();
- 
+  const { chatUser } = userAuthContext();
+
   const [chat, setChat] = useState<Chat>();
   const [text, setText] = useState("");
   const [channel, setChannel] = useState<Channel>();
@@ -33,7 +32,6 @@ export default function ChatApp() {
   });
   const randomizedUsers = Math.random() < 0.5 ? userData : userData.reverse();
 
-  
   async function handleSend(event: React.SyntheticEvent) {
     event.preventDefault();
     if (!text || !channel) return;
@@ -41,7 +39,7 @@ export default function ChatApp() {
     setText("");
   }
 
-  console.log(typeof(chatUser), 'chat user')
+  console.log(typeof chatUser, "chat user");
   useEffect(() => {
     getAllUsers(setUsers);
   }, []);
@@ -59,10 +57,10 @@ export default function ChatApp() {
   }, [channel]);
 
   // console.log(channel)
-  async function handleMessage(message: Message){
-    if(chat && !users.find((user:any)=>user.id === message.userId)){
+  async function handleMessage(message: Message) {
+    if (chat && !users.find((user: any) => user.id === message.userId)) {
       const user = await chat.getUser(message.userId);
-      if(user) setUsers((prev: any) => [...prev, user]);
+      if (user) setUsers((prev: any) => [...prev, user]);
     }
     setMessages((messages) => [...messages, message]);
   }
@@ -73,23 +71,26 @@ export default function ChatApp() {
         subscribeKey: "sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5",
         userId: localStorage.getItem("id") || "",
       });
-   
+
       const interlocutor =
         (await chat.getUser(chatUser)) ||
-        (await chat.createUser(chatUser, users.find((item:any)=> item.id == 2)));
+        (await chat.createUser(
+          chatUser,
+          users.find((item: any) => item.id == 2)
+        ));
       const { channel } = await chat.createDirectConversation({
         user: interlocutor,
-        channelData: { name: "direct.3705615641681"      },
+        channelData: { name: "direct.3705615641681" },
       });
       setChat(chat);
-      // setUsers([currentUser, interlocutor])
+      // setUsers([chatUser, interlocutor])
       setChannel(channel);
 
-      const channelHistory = await channel.getHistory({count:10})
-      setMessages([])
-      channelHistory.messages.forEach(async (histrocialMessage) =>{
+      const channelHistory = await channel.getHistory({ count: 10 });
+      setMessages([]);
+      channelHistory.messages.forEach(async (histrocialMessage) => {
         await handleMessage(histrocialMessage);
-      })
+      });
     }
 
     initalizeChat();
@@ -126,28 +127,35 @@ export default function ChatApp() {
   if (!chat || !channel) return <p>Loading...</p>;
 
   return (
-    <main className="ml-[200px]">
-      <header>
+    <main className="bg-gray-200 flex flex-col rounded-sm w-[70%] h-[80vh]">
+      <header className="flex bg-red justify-between p-4">
         <h3>{channel.name}</h3>
         <h3>{chat.currentUser.name}</h3>
       </header>
 
-      <section className="message-list" ref={messageListRef}>
-        <ol>
+      <section
+        className="flex flex-col h-full justify-end overflow-y-auto border border-red message-list"
+        ref={messageListRef}
+      >
+        <ol className="max-h-full p-4 ml-6">
           {messages.map((message) => {
             const user = users.find((user: any) => user.id == message.userId);
             return (
-              <li key={message.timetoken}>
-                <div className="flex">
-                  <div >
-                  <img src={user?.imageUrl} className="rounded-full w-10 h-10" alt="" />
+              <li className={`flex items-center ${localStorage.getItem('id') == user.id ? "" : "justify-end"} gap-2`} key={message.timetoken}>
+                {localStorage.getItem('id') == user.id && <div className="">
+                  <div>
+                    <img
+                      src={user?.imageUrl}
+                      className="rounded-full w-10 h-10"
+                      alt=""
+                    />
                   </div>
                   {user?.nickName}
-                </div>
+                </div>}
                 <article>
                   <h3>
                     {user?.name}
-                    <time>
+                    <time className="text-sm font-light">
                       {TimetokenUtils.timetokenToDate(
                         message.timetoken
                       ).toLocaleTimeString([], {
@@ -164,23 +172,36 @@ export default function ChatApp() {
                         </span>
                       ))}
                   </p>
+                  
                 </article>
+                {localStorage.getItem('id') != user.id && <div className="">
+                  <div>
+                    <img
+                      src={user?.imageUrl}
+                      className="rounded-full w-10 h-10"
+                      alt=""
+                    />
+                  </div>
+                  {user?.nickName}
+                </div>}
               </li>
             );
           })}
         </ol>
       </section>
 
-      <form className="message-input" onSubmit={handleSend}>
+      <form className="flex p-8 message-input" onSubmit={handleSend}>
         <input
           type="text"
           value={text}
+          className="bg-gray-300 w-full rounded-md border-none p-3"
           onChange={(e) => setText(e.target.value)}
           placeholder="Send message"
         />
         <input
           type="submit"
           value="➔"
+          className="cursor-pointer ml-2 w-auto"
           onClick={handleSend}
           style={{ color: text && "#de2440" }}
         />
