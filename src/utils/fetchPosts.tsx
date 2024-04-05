@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { set } from "date-fns";
 
-export const fetchPosts = async (setPosts: any, category: any, navigate:any, setCount:any, reqObj:any) => {
+export const fetchPosts = async (setPosts: any, category: any, navigate:any, setCount:any,setpostLoading:any, reqObj:any) => {
 
   const {currentPage, pageSize} = reqObj
   try {
@@ -30,9 +30,11 @@ export const fetchPosts = async (setPosts: any, category: any, navigate:any, set
     } else {
       toast.error("An error occurred. Please try again.");
     }
+  }finally{
+    setpostLoading(false)
   }
 };
-export const fetchMyPosts = async (setPosts: any, navigate:any) => {
+export const fetchMyPosts = async (setPosts: any,setpostLoading:any, navigate:any) => {
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETMYPOSTS;
@@ -53,9 +55,11 @@ export const fetchMyPosts = async (setPosts: any, navigate:any) => {
     } else {
       toast.error("An error occurred. Please try again.");
     }
+  }finally{
+    setpostLoading(false)
   }
 };
-export const fetchAllPosts = async (setPosts: any,reqObj:any, navigate:any, setCount:any) => {
+export const fetchAllPosts = async (setPosts: any,reqObj:any,setpostLoading:any, navigate:any, setCount:any) => {
 
 
   const {currentPage, pageSize, category,} = reqObj;
@@ -86,6 +90,8 @@ export const fetchAllPosts = async (setPosts: any,reqObj:any, navigate:any, setC
     } else {
       toast.error("An error occurred. Please try again.");
     }
+  }finally{
+    setpostLoading(false)
   }
 };
 

@@ -51,6 +51,7 @@ const PostCard = () => {
     pageSize,
     handleCurrentPage,
     post,
+    postLoading,
   } = postContext();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -204,7 +205,15 @@ const PostCard = () => {
   const totalPages = Math.ceil(count / pageSize); 
 
   console.log(count, "md ");
-  return (
+  return <>
+  {postLoading ? (<div className="flex justify-center items-center h-[100vh]">
+      <div>
+        <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
+        <p>loading...</p>
+      </div>
+
+    </div>) : (
+    
     <div className="relative grid grid-cols-2 lg:grid grid-flow-col bg-white mt-10 gap-8">
       <div className="row-span-3 col-span-8">
         <PostProfile />
@@ -551,7 +560,10 @@ const PostCard = () => {
       </div>
      
     </div>
-  );
+  )}
+  
+  
+  </>
 };
 
 export default PostCard;

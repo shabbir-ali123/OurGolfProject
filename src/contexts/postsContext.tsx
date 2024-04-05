@@ -15,6 +15,7 @@ interface CreatePostType {
 
 export const PostContext = ({children}:any)=>{
     const [post, setPost] = useState<any[]>([]);
+    const [postLoading, setpostLoading]=useState(true)
     const [singlePost, setSinglePost] = useState<any>();
     const [mostLiked, setMostLiked] = useState<any>();
     const [mostCommented, setMostCommented] = useState<any>();
@@ -81,13 +82,13 @@ export const PostContext = ({children}:any)=>{
      }, []);
     useEffect(() => {
         if(category === 'MyPost'){
-            fetchMyPosts(setPost, router);
+            fetchMyPosts(setPost,setpostLoading, router);
         }
         if(category === 'All'){
-            fetchAllPosts(setPost, reqObj , router, setCount);
+            fetchAllPosts(setPost, reqObj ,setpostLoading, router, setCount);
         }
         if(category === 'Public' || category === 'Private'){
-            fetchPosts(setPost, category, router, setCount, reqObj);
+            fetchPosts(setPost, category, router, setCount,setpostLoading, reqObj);
         }
         fetchMostLikedPosts(setMostLiked);
         fetchMostCommentedPosts(setMostCommented);
@@ -118,7 +119,7 @@ export const PostContext = ({children}:any)=>{
         return setCurrentPage(value);
     }, [currentPage]);
 
-    const value =  {handleMessage,handleCurrentPage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,currentPage,count, pageSize, mostLiked, mostCommented, formData, singlePost, category, post}
+    const value =  {handleMessage,handleCurrentPage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,postLoading, currentPage,count, pageSize, mostLiked, mostCommented, formData, singlePost, category, post}
    
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }

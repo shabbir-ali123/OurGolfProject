@@ -35,15 +35,21 @@ const ScoreBoard: FunctionComponent = () => {
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid self-center w-full p-4 xl:w-[1200px]">
-            {scoreLoading ? <p>...loading</p> : <FlexitySlider>
-              {score?.map((item:any) => {
-                return <ScoreSlider item={item}/>;
+            {scoreLoading ? <div className="flex justify-center items-center ">
+              <div>
+                <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
+                <p>loading...</p>
+              </div>
+
+            </div> : <FlexitySlider>
+              {score?.map((item: any) => {
+                return <ScoreSlider item={item} />;
               })}
             </FlexitySlider>
-}
+            }
           </div>
         )}
-         <div
+        <div
           className={
             singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[20px] "
           }
@@ -54,7 +60,7 @@ const ScoreBoard: FunctionComponent = () => {
         <div className="lg:w-[1200px]">
           <AboutEvent totalJoinedMembers={totalJoinedMembers} />
         </div>
-       
+
         <AllMembers />
 
         {singleEvent?.scoringType !== "Normal" && (
@@ -68,7 +74,7 @@ const ScoreBoard: FunctionComponent = () => {
 
         {singleEvent?.id && (
           <table className="lg:w-[1200px]">
-            <CommentModel eventIsd={singleEvent?.id} closeModal={() => {}} />
+            <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
           </table>
         )}
 
