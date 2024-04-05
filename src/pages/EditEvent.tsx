@@ -14,53 +14,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CreatedEventContext, createdEventsStore, eventContextStore, singleEventContextStore } from "../contexts/eventContext";
 import { toast } from "react-toastify";
 
-interface CreateEventType {
-  id?: number;
-  eventType?: string;
-  eventName?: string;
-  files?: File[] | null;
-  video?: string;
-  eventDetails?: string;
-  address?: string;
-  eventVideoUrl?: string;
-  categories?: string;
-  place?: string;
-  placeCoordinates?: { lat: string; lng: string };
-  capacity?: number;
-  selfIncluded?: boolean;
-  eventStartDate?: string;
-  eventStartTime?: string;
-  eventEndDate?: string;
-  eventEndTime?: string;
-  recruitmentStartDate?: string;
-  recruitmentStartTime?: string;
-  eventDeadlineDate?: string;
-  eventDeadlineTime?: string;
-  matchType?: string;
-  paymentType?: string;
-  bankName?: string;
-  branchName?: string;
-  accountHolderName?: string;
-  accountNumber?: number;
-  paypalId?: string;
-  teamSize?: number;
-  participationFee?: number;
-  isEventPublished?: boolean;
-  hideParticipantName?: boolean;
-  isRequiresApproval?: boolean;
-  scoringType?: string;
-  selectedHoles?: string[];
-  shotsPerHoles?: string[];
-  driverContest?: number;
-  nearPinContest?: number;
-  creatorId?: any
-}
+
 
 const EditEvent: React.FC = () => {
     const { id } = createdEventsStore();
     const {singleEvent} = singleEventContextStore();
     const userId = localStorage.getItem('id');
-    console.log({singleEvent})
     const router = useNavigate();
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
@@ -111,10 +70,10 @@ const EditEvent: React.FC = () => {
         driverContest:  singleEvent?.driverContest,
         nearPinContest:  singleEvent?.nearPinContest,
         creatorId: userId,
-        fullNameCheckbox: checkboxValues?.fullNameCheckbox,
-        emailCheckbox: checkboxValues?.emailCheckbox,
-        telephoneCheckbox: checkboxValues?.telephoneCheckbox,
-        handicapCheckbox: checkboxValues?.handicapCheckbox,
+        fullNameCheckbox: singleEvent?.fullNameCheckbox,
+        emailCheckbox: singleEvent?.emailCheckbox,
+        telephoneCheckbox: singleEvent?.telephoneCheckbox,
+        handicapCheckbox: singleEvent?.handicapCheckbox,
 
   });
 
@@ -328,16 +287,19 @@ const EditEvent: React.FC = () => {
         driverContest:  singleEvent?.driverContest,
         nearPinContest:  singleEvent?.nearPinContest,
         cancellationFee:  singleEvent?.cancellationFee,
-        
+        fullNameCheckbox: singleEvent?.fullNameCheckbox,
+        emailCheckbox: singleEvent?.emailCheckbox,
+        telephoneCheckbox: singleEvent?.telephoneCheckbox,
+        handicapCheckbox: singleEvent?.handicapCheckbox,
         creatorId: userId,
       });
+      
     }
   }, [singleEvent]);
-  console.log(formData.eventName, "assadasd")
+  console.log(singleEvent, "assadasd")
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log({e})
     const { name, value } = e.target;
     
     if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
@@ -352,11 +314,9 @@ const EditEvent: React.FC = () => {
   const itemInstructions = (updatedValues: any) => {
     setCheckboxValues(updatedValues)
   }
-  console.log(checkboxValues)
   const toggleScoringEnabled = (enabled: boolean) => {
     setIsScoringEnabled(enabled);
   };
-  console.log(formData);
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
@@ -371,7 +331,7 @@ const EditEvent: React.FC = () => {
 
           <Recuitments onChange={handleRecruitmentTabsChange} formDataa={formData}/>
 
-          <ItemInstruction formData={formData} handleChange={itemInstructions}/>
+          <ItemInstruction handleChange={itemInstructions}/>
           <ScoringCategory
             onChange={handleScoringTypeChange}
             onInputChange={handleChange}

@@ -32,27 +32,18 @@ document.body.dir = i18n.dir();
     onChange(formData, tab);
   };
   const [selfIncluded, setSelfIncluded] = useState(false);
-  const [dateValues, setDateValues] = useState({
-    startDate: '',
-    endDate: '',
-    deadlineDate: ''
-  });
-  const [timeValue, setTimeValue] = useState({
-    startTime: '',
-    endTime: '',
-    deadlineTime: ''
-  });
+ 
   useEffect(() => {
     if (formDataa) {
         setSelfIncluded(formDataa?.selfIncluded);
         setFormData(prevState => ({
           ...prevState,
           startDate: formDataa?.eventStartDate,
-          startTime: formDataa?.eventStartime,
+          startTime: formatTime(formDataa?.eventStartTime),
           endDate: formDataa?.eventEndDate,
-          endTime: formDataa?.endTime,
+          endTime: formatTime(formDataa?.eventEndTime),
           deadlineDate: formDataa?.eventDeadlineDate,
-          deadlineTime: formDataa?.eventDeadlineTime
+          deadlineTime: formatTime(formDataa?.eventDeadlineTime)
           
         }));
     }
@@ -86,7 +77,7 @@ document.body.dir = i18n.dir();
       }
     }
 
-    if (name === "eventEndDate") {
+    if (name === "eventEndDate" && formDataa?.eventEndDate == "") {
       const startDate = formData["eventStartDate"];
       const isValidEndDate = startDate && value >= startDate;
       if (!isValidEndDate) {
@@ -118,6 +109,8 @@ document.body.dir = i18n.dir();
         [name]: stringFields.includes(name) ? value : numericValue,
       }));
     }
+    onChange(formData, activeTab);
+
   
     if (formData[name] !== prevFormData.current[name]) {
       onChange(formData, activeTab);
@@ -125,7 +118,18 @@ document.body.dir = i18n.dir();
   };
 
 
-  let isEdit = formDataa?.capacity >= 0 ? false : true
+  let isEdit = formDataa?.capacity >= 0 ? false : true;
+  function formatTime(timeString:any) {
+    if (!timeString) return ''; 
+    const [time, period] = timeString.split(' ');
+    let [hours, minutes] = time.split(':');
+    if (period === 'PM') {
+        hours = parseInt(hours, 10) + 12;
+    }
+    hours = String(hours).padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
+
   return (
     <div className="py-8 mx-auto lg:max-w-7xl ">
       <div className="p-4 mt-4 rounded-md "style={{
@@ -202,7 +206,7 @@ document.body.dir = i18n.dir();
             onChange={handleInputChange}
             placeholder="Select Time:"
             required
-            value={formDataa?.eventStartTime}
+            value={formData?.startTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -217,7 +221,7 @@ document.body.dir = i18n.dir();
             type="date"
             id="date"
             name="eventEndDate"
-            value={formData.endDate}
+            value={formData?.endDate}
             onChange={handleInputChange}
             required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -230,7 +234,7 @@ document.body.dir = i18n.dir();
             onChange={handleInputChange}
             required
             placeholder="Select Time:"
-            value={formDataa?.eventEndTime}
+            value={formData?.endTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -246,7 +250,7 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventDeadlineDate"
             onChange={handleInputChange}
-            value={formData.eventDeadlineDate}
+            value={formData?.deadlineDate}
             required
             placeholder="Enter Date"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -257,7 +261,7 @@ document.body.dir = i18n.dir();
             id="time"
             name="eventDeadlineTime"
             onChange={handleInputChange}
-            value={formData.eventDeadlineTime}
+            value={formData?.deadlineTime}
             required
             placeholder="Enter Time"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
