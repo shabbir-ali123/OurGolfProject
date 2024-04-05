@@ -70,6 +70,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
     }
   };
 
+  console.log(singleEvent, "asd")
   return (
     <>
       {loading ? (
@@ -81,7 +82,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
             <div>
               <div className="flex items-center">
                 <img
-                  src= "/img/golfplyr.png"
+                  src="/img/golfplyr.png"
                   alt="image"
                   className="w-10 h-16"
                 />
@@ -123,43 +124,44 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                       <p className="text-2xl text-white font-poppins-medium">
                         {t("REQUIRED_INFO")}
                       </p>
-                      <div className="relative w-full">
-                        <label
-                          htmlFor="team"
-                          className="text-xl font-medium text-white capitalize font-poppins"
-                        >
-                          {t("FULL_NAME")}
-                        </label>
-
-                        <div className="relative flex items-center w-full my-3">
-                          <svg
-                            width="28"
-                            height="24"
-                            viewBox="0 0 28 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="absolute transform -translate-y-1/2 left-2 top-1/2"
+                      {singleEvent?.fullNameCheckBox == 1 && (
+                        <div className="relative w-full">
+                          <label
+                            htmlFor="team"
+                            className="text-xl font-medium text-white capitalize font-poppins"
                           >
-                            <path
-                              d="M6 10H17V12H6V10ZM6 15H19V17H6V15Z"
-                              fill="#17B3A6"
-                            />
-                            <path
-                              d="M26 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V22C0 22.5304 0.210714 23.0391 0.585786 23.4142C0.960859 23.7893 1.46957 24 2 24H26C26.5304 24 27.0391 23.7893 27.4142 23.4142C27.7893 23.0391 28 22.5304 28 22V2C28 1.46957 27.7893 0.960859 27.4142 0.585786C27.0391 0.210714 26.5304 0 26 0ZM26 2V4H2V2H26ZM2 22V6H26V22H2Z"
-                              fill="#17B3A6"
-                            />
-                          </svg>
+                            {t("FULL_NAME")}
+                          </label>
 
-                          <input
-                            type="text"
-                            name="Player"
-                            id="teamname"
-                            // value={singleEvent?.accountNumber}
-                            className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
-                          />
+                          <div className="relative flex items-center w-full my-3">
+                            <svg
+                              width="28"
+                              height="24"
+                              viewBox="0 0 28 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="absolute transform -translate-y-1/2 left-2 top-1/2"
+                            >
+                              <path
+                                d="M6 10H17V12H6V10ZM6 15H19V17H6V15Z"
+                                fill="#17B3A6"
+                              />
+                              <path
+                                d="M26 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V22C0 22.5304 0.210714 23.0391 0.585786 23.4142C0.960859 23.7893 1.46957 24 2 24H26C26.5304 24 27.0391 23.7893 27.4142 23.4142C27.7893 23.0391 28 22.5304 28 22V2C28 1.46957 27.7893 0.960859 27.4142 0.585786C27.0391 0.210714 26.5304 0 26 0ZM26 2V4H2V2H26ZM2 22V6H26V22H2Z"
+                                fill="#17B3A6"
+                              />
+                            </svg>
+                            <input
+                              type="text"
+                              name="paymentFullName"
+                              id="paymentFullName"
+                              placeholder="fullNameCheckBox"
+                              // value={singleEvent?.accountNumber}
+                              className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
+                            />
+                          </div>
                         </div>
-                      </div>
-
+                      )}
                       <div className="relative w-full">
                         <label
                           htmlFor="team"
@@ -194,9 +196,10 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                           </svg>
 
                           <input
-                            type="text"
-                            name="Player"
-                            id="teamname"
+                            type="tel"
+                            name="paymentTelPhone"
+                            id="paymentTelPhone"
+                            placeholder="telephoneCheckBox"
                             // value={singleEvent?.paypalId}
                             className="w-full py-4 text-base font-normal text-gray-600 uppercase border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
@@ -226,9 +229,10 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                           </svg>
 
                           <input
-                            type="text"
-                            name="Player"
-                            id="teamname"
+                            type="email"
+                            name="paymentEmailAddress"
+                            id="paymentEmailAddress"
+                            placeholder="emailCheckBox"
                             // value={singleEvent?.accountHolderName}
                             className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
@@ -260,8 +264,9 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
 
                           <input
                             type="text"
-                            name="Player"
-                            id="teamname"
+                            name="PaymentHandiCap"
+                            id="PaymentHandiCap"
+                            placeholder="handicapCheckBox"
                             // value={singleEvent?.participationFee}
                             className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
