@@ -65,8 +65,10 @@ export default function ProfileButton() {
     };
   }, []);
   const filteredNotifications = notificationData?.filter((item:any) => {
-    
-    return item.organizerId == userId || item.teacherId == userId;
+    if(item.organizerId == userId && item.isRead !== true || item.teacherId == userId && item.isRead !== true || item.userId == userId && item.isRead !== true){
+       console.log(item);    
+     return true;
+    }
   });
   
   return (

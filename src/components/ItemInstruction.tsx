@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { singleEventContextStore } from "../contexts/eventContext";
 
 interface IProps {
   formData?: any
   handleChange?: any
 }
 
-const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
+const ItemInstruction: React.FC<IProps> = ({ handleChange }) => {
+  const {singleEvent} = singleEventContextStore();
+
   const { t } = useTranslation();
   const [checkboxValues, setCheckboxValues] = useState({
     fullNameCheckbox: false,
@@ -15,6 +18,17 @@ const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
     handicapCheckbox: false,
   });
 
+  useEffect(()=>{
+    setCheckboxValues({
+      fullNameCheckbox: singleEvent?.fullNameCheckBox == 1  && true,
+      emailCheckbox: singleEvent?.emailCheckBox == 1  && true,
+      telephoneCheckbox: singleEvent?.telephoneCheckBox == 1 && true,
+      handicapCheckbox: singleEvent?.handicapCheckBox == 1  && true
+    })
+    console.log(singleEvent, "sadassasd"); 
+    console.log(singleEvent?.telephoneCheckBox, "sadassasd"); 
+
+  },[singleEvent])
   const handleInputChange = (e: any) => {
     const { id, checked } = e.target;
     setCheckboxValues(prev => {
@@ -24,7 +38,6 @@ const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
     });
   }
 
-  console.log(checkboxValues); 
 
   return (
     <div className="px-2 mx-auto lg:max-w-7xl">
@@ -41,7 +54,7 @@ const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
                 id="fullNameCheckbox"
                 className="w-6 h-6 rounded-full border-2 border-solid border-[#17b3a6] cursor-pointer"
                 onChange={handleInputChange}
-                checked={checkboxValues.fullNameCheckbox}
+                checked={checkboxValues?.fullNameCheckbox}
               />
               <label htmlFor="fullNameCheckbox" className="ml-2">
                 <h4 className="py-1 m-0 text-[#626262]">{t('FULL_NAME')}</h4>
@@ -54,7 +67,7 @@ const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
                 id="emailCheckbox"
                 className="w-6 h-6 rounded-full border-2 border-solid border-[#17b3a6] cursor-pointer"
                 onChange={handleInputChange}
-                checked={checkboxValues.emailCheckbox}
+                checked={checkboxValues?.emailCheckbox}
               />
               <label htmlFor="emailCheckbox" className="ml-2">
                 <h4 className="py-1 m-0 text-[#626262]">{t('EMAIL')}</h4>
@@ -67,9 +80,10 @@ const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
               <input
                 type="checkbox"
                 id="telephoneCheckbox"
+                
                 className="w-6 h-6 rounded-full border-2 border-solid border-[#17b3a6] cursor-pointer"
                 onChange={handleInputChange}
-                checked={checkboxValues.telephoneCheckbox}
+                checked={checkboxValues?.telephoneCheckbox}
               />
               <label htmlFor="telephoneCheckbox" className="ml-2">
                 <h4 className="py-1 m-0 text-[#626262]">{t('TELEPHONE')}</h4>
@@ -82,7 +96,7 @@ const ItemInstruction: React.FC<IProps> = ({ formData, handleChange }) => {
                 id="handicapCheckbox"
                 className="w-6 h-6 rounded-full border-2 border-solid border-[#17b3a6] cursor-pointer"
                 onChange={handleInputChange}
-                checked={checkboxValues.handicapCheckbox}
+                checked={checkboxValues?.handicapCheckbox}
               />
               <label htmlFor="handicapCheckbox" className="ml-2">
                 <h4 className="py-1 m-0 text-[#626262]">{t('HANDICAP_SCORE')}</h4>

@@ -34,9 +34,11 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
                   <p>Loading...</p>
                 </div>
               </div>
-            )}
-            {!isLoading && notificationData?.slice(0, 4).map((data: any) => {
-              if (data.organizerId === currentUserId || data.teacherId === currentUserId) {
+
+           )}
+            {!isLoading && notificationData?.map((data: any) => {
+                if(data.organizerId == currentUserId && data.isRead !== true || data.teacherId == currentUserId && data.isRead !== true || data.userId == currentUserId && data.isRead !== true){
+
                 return (
                   <Transition
                     key={data.id}
