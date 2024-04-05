@@ -299,7 +299,7 @@ const CreateEvent: React.FC = () => {
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div
-        className="p-10 rounded-2x"
+        className="p-2 xl:p-10 rounded-2x"
       >
         <div className=" animate__animated animate__lightSpeedInRight">
           <TournamentBg />

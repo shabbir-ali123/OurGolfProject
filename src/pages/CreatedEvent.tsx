@@ -26,8 +26,8 @@ const CreatedEvents: React.FC = () => {
     const { t, i18n } = useTranslation();
     const { handleActiveTab, handleCurrentPage, activeTab, currentPage, totalPages, createdEvents, } = createdEventsStore();
     const tabs = [t('LIVE'), t('UPCOMING'), t('PAST')];
+    const sendTab = ['live', 'upcoming', 'past'];
 
-    console.log(createdEvents, 'CE')
     // const [events, setEvents] = useState<Event[]>([]);
     // const [activeTab, setActiveTab] = useState<typeof tabs[number]>('past');
     // const [currentPage, setCurrentPage] = useState<number>(1);
@@ -37,8 +37,10 @@ const CreatedEvents: React.FC = () => {
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     const navigate = useNavigate();
 
-    const handleTabClick = (tab: any) => {
-        handleActiveTab(tab);
+    const handleTabClick = (tab: string) => {
+        // Normalize tab to ensure consistent comparison
+        const normalizedTab = tab.toLowerCase();
+        handleActiveTab(normalizedTab);
     };
 
     const handlePageChange = (newPage: number) => {
@@ -62,7 +64,7 @@ const CreatedEvents: React.FC = () => {
         deleteEvent(id);
     }
 
-    // console.log({events})
+    console.log({ activeTab })
     return (
         <div className='mx-8 xl:max-w-7xl xl:mx-auto flex justify-center py-10 px-10  my-10  ' style={{
             boxShadow:
@@ -71,15 +73,15 @@ const CreatedEvents: React.FC = () => {
             <div className="overflow-x-auto w-full">
                 <h4>{t("CREATED_EVENTS")}</h4>
                 <div className="flex justify-start space-x-2 mb-4">
-                    {tabs.map(tab => (
-                        <button
-                            key={tab}
-                            onClick={() => handleTabClick(tab)}
-                            className={`px-10 py-4 text-sm font-medium rounded-md transition-colors duration-300 ${activeTab === tab ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-blue-400 hover:text-white'
-                                }`}
-                        >
-                            {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                        </button>
+                    {tabs.map((tab, index) => (<button
+                        key={tab}
+                        onClick={() => handleTabClick(sendTab[index])}
+                        className={`px-10 py-4 text-sm font-medium rounded-md transition-colors duration-300 ${
+                            activeTab === sendTab[index] ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-blue-400 hover:text-white'
+                        }`}
+                    >
+                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                    </button>
                     ))}
                 </div>
                 <table className="min-w-full">

@@ -254,7 +254,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
               01{" "}
               <span className="ml-4 text-[#626262]">{t("SCORING_TYPE")}</span>
             </h4>
-            <div className="flex gap-10">
+            <div className="flex-wrap xl:flex-nowrap xl:flex gap-0 xl:gap-10">
               <div>
                 <input
                   className="rounded-full"
@@ -338,9 +338,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             </div>
             {selectedScoringType === Tab.Regular && (
               <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                <div className="col-span-8  py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
                   <h4 className="text-[#626262]">{t("PLEASE_HOLE")} </h4>
-                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center my-2" key={index + 1}>
                         <div className="flex items-center gap-3">
@@ -389,9 +389,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             )}
             {selectedScoringType === Tab.Single && (
               <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                <div className="col-span-8 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
                   <h4 className="text-[#626262]">06 {t("SELECT_HOLE")} </h4>
-                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center gap-5" key={index + 1}>
                         <div className="flex items-center my-2">
@@ -442,9 +442,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 
             {selectedScoringType === Tab.Double && (
               <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
-                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                <div className="col-span-8 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
                   <h4 className="text-[#626262]">12 {t("SELECT_HOLE")} </h4>
-                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center gap-3" key={index + 1}>
                         <div className="flex items-center my-2">
@@ -494,9 +494,9 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 
             {selectedScoringType === Tab.Triple && (
               <div className="grid grid-cols-9 mx-auto text-[#626262] lg:gap-x-16 ">
-                <div className="col-span-12 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
+                <div className="col-span-8 py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
                   <h4>09 {t("SELECT_HOLE")} </h4>
-                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center gap-3" key={index + 1}>
                         <div className="flex items-center my-2">

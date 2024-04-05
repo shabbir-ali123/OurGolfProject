@@ -97,6 +97,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const trimmedContent = formData.content.trim();
     if (submitting || !formData.content.trim()) {
       return;
     }
@@ -104,7 +105,9 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
     setSubmitting(true);
 
     try {
-      const response = await axios.post(API_ENDPOINTS.ADDCOMMENT, formData, {
+      const response = await axios.post(API_ENDPOINTS.ADDCOMMENT, {
+        ...formData,
+        content: trimmedContent,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

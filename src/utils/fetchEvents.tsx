@@ -157,7 +157,9 @@ export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentP
                 pageSize,
                 page: currentPage,
                 status,
-                
+                eventStartDate: "",
+eventEndDate: "",
+
             },
         });
 

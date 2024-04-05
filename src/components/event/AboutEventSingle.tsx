@@ -101,7 +101,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
       <div className="grid grid-cols-9  py-0 mx-auto  my-2 py-2">
         <div className="col-span-8 text-4xl text-[#626262] lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
           <p className="flex gap-2 text-red">Cancellation Fee : <span>{singleEvent?.cancellationFee}</span></p> 
-          <select
+          {/* <select
             className="block appearance-none w-full bg-gray-200 border border-[#51ff85] text-[#626262] py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="daySelection"
             value={selectedDays}
@@ -110,7 +110,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
             <option value="10">Cancel 10 days before</option>
             <option value="5"> Cancel 5 days before</option>
             <option value="1"> Cancel 1 day before</option>
-          </select>
+          </select> */}
 
 
           <input
@@ -118,8 +118,8 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
             id="cancellationFee"
             type="text"
             name="cancellationFee"
-            readOnly
-            value={calculatedCancellationFee}
+           
+            // value={calculatedCancellationFee}
             placeholder="Cancellation Fee"
           />
         </div>
