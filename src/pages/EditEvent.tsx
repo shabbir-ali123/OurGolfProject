@@ -205,14 +205,14 @@ const EditEvent: React.FC = () => {
         },
       });
 
-      if (response.status === 201) {
-        showToast("Event created successfully", "green");
+      if (response.status === 200) {
+        toast.success(response.data.message);
         localStorage.removeItem("score");
         localStorage.removeItem("selected");
         localStorage.removeItem("par");
-        router("/event-main-page");
+        router('/created-events')
       } else {
-        toast.error("Error occurred while updating the event");
+        toast.error(response.data.message);
       }
     } catch (error) {
       toast.error("Error occurred while creating the event");
