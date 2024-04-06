@@ -3,17 +3,27 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 export type Tab = "individual" | "team" | "message";
-
+export function formatTimeCreateForm(timeString:any) {
+  if (!timeString) return ''; 
+  const [time, period] = timeString.split(' ');
+  let [hours, minutes] = time.split(':');
+  if (period === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+  }
+  hours = String(hours).padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
 interface RecuitmentsProps {
   onChange: (formData: Record<string, any>, eventType: Tab) => void;
-  formDataa?: any,
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+  formData?: any,
 }
 
-const Recuitments: React.FC<RecuitmentsProps> = ({ onChange, formDataa }) => {
+const Recuitments: React.FC<RecuitmentsProps> = ({ onChange,setFormData, formData }) => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
   const [activeTab, setActiveTab] = useState<Tab>("individual");
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  // const [formData, setFormData] = useState<Record<string, any>>({});
   const prevFormData = useRef<Record<string, any>>({});
   const [error, setError] = useState<string | null>(null);
 
@@ -33,22 +43,6 @@ document.body.dir = i18n.dir();
   };
   const [selfIncluded, setSelfIncluded] = useState(false);
  
-  useEffect(() => {
-    if (formDataa) {
-        setSelfIncluded(formDataa?.selfIncluded);
-        setFormData(prevState => ({
-          ...prevState,
-          startDate: formDataa?.eventStartDate,
-          startTime: formatTime(formDataa?.eventStartTime),
-          endDate: formDataa?.eventEndDate,
-          endTime: formatTime(formDataa?.eventEndTime),
-          deadlineDate: formDataa?.eventDeadlineDate,
-          deadlineTime: formatTime(formDataa?.eventDeadlineTime)
-          
-        }));
-    }
-}, [formDataa]);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const currentDate = new Date().toISOString().split("T")[0];
@@ -64,8 +58,8 @@ document.body.dir = i18n.dir();
     ];
     if(name === "selfIncluded"){
       setSelfIncluded(checked);
-      if(formDataa){
-        formDataa.selfIncluded = selfIncluded;
+      if(formData){
+        formData.selfIncluded = selfIncluded;
       }
 
     }
@@ -77,7 +71,7 @@ document.body.dir = i18n.dir();
       }
     }
 
-    if (name === "eventEndDate" && formDataa?.eventEndDate == "") {
+    if (name === "eventEndDate" && formData?.eventEndDate == "") {
       const startDate = formData["eventStartDate"];
       const isValidEndDate = startDate && value >= startDate;
       if (!isValidEndDate) {
@@ -86,22 +80,20 @@ document.body.dir = i18n.dir();
       }
     }
     setError(null);
-
+    debugger
     if (name === "teamSize" || name === "capacity") {
-      const teamSizeValue = parseInt(formData["teamSize" || ''], 1);
+      const teamSizeValue = 1;
       if (!isNaN(teamSizeValue) && typeof numericValue === 'number' && numericValue < teamSizeValue) {
         setError("Number of players cannot be less than Team Size.");
         return;
       }
     }
+    
     if (name === "eventStartTime" || name === "eventEndTime" || name === "eventDeadlineTime") {
-      const [hours, minutes] = value.split(":");
-      const twelveHourFormat = parseInt(hours, 10) > 12 ? parseInt(hours, 10) - 12 : parseInt(hours, 10);
-      const ampm = parseInt(hours, 10) >= 12 ? "PM" : "AM";
-  
+
       setFormData((prevData: any) => ({
         ...prevData,
-        [name]: `${twelveHourFormat}:${minutes} ${ampm}`,
+        [name]: formatTimeCreateForm(value),
       }));
     } else {
       setFormData((prevData: any) => ({
@@ -109,26 +101,13 @@ document.body.dir = i18n.dir();
         [name]: stringFields.includes(name) ? value : numericValue,
       }));
     }
-    onChange(formData, activeTab);
 
   
-    if (formData[name] !== prevFormData.current[name]) {
-      onChange(formData, activeTab);
-    }
   };
 
 
-  let isEdit = formDataa?.capacity >= 0 ? false : true;
-  function formatTime(timeString:any) {
-    if (!timeString) return ''; 
-    const [time, period] = timeString.split(' ');
-    let [hours, minutes] = time.split(':');
-    if (period === 'PM') {
-        hours = parseInt(hours, 10) + 12;
-    }
-    hours = String(hours).padStart(2, '0');
-    return `${hours}:${minutes}`;
-}
+  let isEdit = formData?.capacity >= 0 ? false : true;
+
 
   return (
     <div className="py-8 mx-auto lg:max-w-7xl ">
@@ -153,7 +132,7 @@ document.body.dir = i18n.dir();
             name="capacity"
             min="1"
             max="300"
-            value={formDataa?.capacity}
+            value={formData?.capacity}
             onChange={handleInputChange}
             required
           />
@@ -172,7 +151,7 @@ document.body.dir = i18n.dir();
               type="checkbox"
               className="sr-only peer"
               name="selfIncluded"
-              checked={selfIncluded}
+              checked={formData?.selfIncluded}
               onChange={handleInputChange}
               required
             />
@@ -193,7 +172,7 @@ document.body.dir = i18n.dir();
             type="date"
             id="date"
             name="eventStartDate"
-            value={formData.startDate}
+            value={formData?.eventStartDate}
             onChange={handleInputChange}
             required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -206,7 +185,7 @@ document.body.dir = i18n.dir();
             onChange={handleInputChange}
             placeholder="Select Time:"
             required
-            value={formData?.startTime}
+            value={formData?.eventStartTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -221,7 +200,7 @@ document.body.dir = i18n.dir();
             type="date"
             id="date"
             name="eventEndDate"
-            value={formData?.endDate}
+            value={formData?.eventEndDate}
             onChange={handleInputChange}
             required
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -234,7 +213,7 @@ document.body.dir = i18n.dir();
             onChange={handleInputChange}
             required
             placeholder="Select Time:"
-            value={formData?.endTime}
+            value={formData?.eventEndTime}
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -250,7 +229,7 @@ document.body.dir = i18n.dir();
             id="date"
             name="eventDeadlineDate"
             onChange={handleInputChange}
-            value={formData?.deadlineDate}
+            value={formData?.eventDeadlineDate}
             required
             placeholder="Enter Date"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -261,7 +240,7 @@ document.body.dir = i18n.dir();
             id="time"
             name="eventDeadlineTime"
             onChange={handleInputChange}
-            value={formData?.deadlineTime}
+            value={formData?.eventDeadlineTime}
             required
             placeholder="Enter Time"
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
@@ -316,7 +295,7 @@ document.body.dir = i18n.dir();
                       name="teamSize"
                       onChange={handleInputChange}
                       min="1"
-                      value={formDataa?.teamSize}
+                      value={formData?.teamSize}
                     />
                       <button
                   className="text-white bg-blue-500 border-none cursor-pointer"

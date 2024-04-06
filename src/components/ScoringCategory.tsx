@@ -8,6 +8,7 @@ interface ScoringTypeProps {
   ) => void;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectedHoles: string[];
+  formdataa?:any;
 }
 
 enum Tab {
@@ -60,6 +61,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
   onChange,
   onInputChange,
   selectedHoles,
+  formdataa
 }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -129,8 +131,12 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
 
   const toggleScoringType = () => {
     setShowScoringType((prev: boolean) => !prev);
-    
   };
+  // useEffect(()=>{
+  //   if(formdataa?.scoringType){
+  //     setShowScoringType(true)
+  //   }
+  // },[formdataa])
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
@@ -232,6 +238,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                 type="checkbox"
                 className="sr-only"
                 checked={showScoringType}
+                onChange={toggleScoringType}
               />
             </div>
 

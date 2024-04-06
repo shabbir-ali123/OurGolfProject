@@ -18,6 +18,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { notificationsContextStore } from "../contexts/notificationContext";
+import socket from "../socket";
+ 
 export const menuItems: MenuItem[] = [
   {
       name: "HOME",
@@ -29,6 +32,7 @@ export const menuItems: MenuItem[] = [
       name: "NOTIFICATIONS",
       icon: faBell,
       path: "/notification-page",
+      properties: "1",
       active: false
   },
   {
@@ -105,6 +109,7 @@ interface MenuItem {
   path: string;
   active?: boolean;
   subItems?: MenuItem[];
+  properties?:any;
 }
 
 const SideMenu: React.FC = () => {
@@ -217,6 +222,29 @@ const SideMenu: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const { notifications, notificationData } = notificationsContextStore();
+  let userId = localStorage.getItem('id');
+  const [eventJoined, setEventJoined] = useState<any[]>([])
+  useEffect(() => {
+    const handleJoinEvent = (data: any) => {
+      console.log(data, 'data for sockets')
+      if (data?.organizerId == userId) {
+        setEventJoined((prev: any) =>[...prev, data]  );
+      }
+    };
+    socket.on('joinRequest', handleJoinEvent);
+
+    return () => {
+      socket.off('joinRequest', handleJoinEvent);
+    };
+  }, []);
+  const filteredNotifications = notificationData?.filter((item:any) => {
+    if(item.organizerId == userId && item.isRead !== true || item.teacherId == userId && item.isRead !== true ){
+       console.log(item);    
+     return true;
+    }
+  });
+  
   return (
     <>
       <div
@@ -260,7 +288,7 @@ const SideMenu: React.FC = () => {
             <ul key={item.name} className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-0" : ""}`} >
               <Link
                 to={item.path}
-                className={` ${item.active ? "active" : ""}`}
+                className={`relative ${item.active ? "active" : ""}`}
                 style={
                   item.active
                     ? {
@@ -273,6 +301,15 @@ const SideMenu: React.FC = () => {
                 }
                 onClick={() => handleMenuItemClick(item.name)}
               >
+                 {
+                          item.properties  && (
+                            <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
+                  {/* {n.length > 0 && n.length} */}
+                  {filteredNotifications && eventJoined && (filteredNotifications.length + eventJoined.length)}
+                  <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
+                </div>
+                          )
+                        }
                 <div style={{ ...getMenuItemStyles(item.name, item.path), ...(isMenuOpen ? big : small) }}>
                   <FontAwesomeIcon icon={item.icon} style={iconStyles(item.name, item.path)} />
                   <span className={` ${isMenuOpen ? "block" : "hidden"}`} style={textStyles(item.name, item.path)}>{t(item.name)}</span>
@@ -289,6 +326,7 @@ const SideMenu: React.FC = () => {
                           boxShadow: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
                         }}
                         >
+                       
                           <span style={{ marginLeft: "30px" }}>{t(subItem.name)}</span>
                         </div>
                       </Link>

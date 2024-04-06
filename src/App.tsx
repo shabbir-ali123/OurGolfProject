@@ -323,6 +323,10 @@ function App() {
           />
           <Route
             path="/score-board"
+            element={<ScoreBoard />}
+          />
+          <Route
+            path="/message-page"
             element={<ChatSystem />}
           />
           <Route path="/login-page" element={<LoginPage />} />

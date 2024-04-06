@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TournamentBg from "../components/TournamentBg";
 import BasicInfo from "../components/BasicInfo";
-import Recuitments, { Tab } from "../components/Recruitment";
+import Recuitments, { Tab, formatTimeCreateForm } from "../components/Recruitment";
 import ItemInstruction from "../components/ItemInstruction";
 import ScoringCategory from "../components/ScoringCategory";
 import { API_ENDPOINTS } from "../appConfig";
@@ -39,8 +39,8 @@ const EditEvent: React.FC = () => {
         },
         capacity:singleEvent?.capacity,
         selfIncluded: singleEvent?.selfIncluded,
-        eventStartDate: singleEvent?.eventStartDate,
-        eventStartTime: singleEvent?.eventStartTime,
+        eventStartDate: "",
+        eventStartTime: "",
         eventEndDate: singleEvent?.eventEndDate,
         eventEndTime: singleEvent?.eventEndTime,
         recruitmentStartDate: singleEvent?.recruitmentStartDate,
@@ -258,13 +258,13 @@ const EditEvent: React.FC = () => {
         capacity:singleEvent?.capacity,
         selfIncluded: singleEvent?.selfIncluded,
         eventStartDate: singleEvent?.eventStartDate,
-        eventStartTime: singleEvent?.eventStartTime,
+        eventStartTime: formatTimeCreateForm(singleEvent?.eventStartTime),
         eventEndDate: singleEvent?.eventEndDate,
-        eventEndTime: singleEvent?.eventEndTime,
+        eventEndTime: formatTimeCreateForm(singleEvent?.eventEndTime),
         recruitmentStartDate: singleEvent?.recruitmentStartDate,
-        recruitmentStartTime: singleEvent?.recruitmentStartTime,
+        recruitmentStartTime: formatTimeCreateForm(singleEvent?.recruitmentStartTime),
         eventDeadlineDate: singleEvent?.eventDeadlineDate,
-        eventDeadlineTime: singleEvent?.eventDeadlineTime,
+        eventDeadlineTime: formatTimeCreateForm(singleEvent?.eventDeadlineTime),
         matchType: singleEvent?.matchType,
         paymentType: singleEvent?.paymentType,
         bankName: singleEvent?.bankName,
@@ -332,17 +332,17 @@ const EditEvent: React.FC = () => {
         <form method="post" id="foirm" encType="multipart/form-data">
           <BasicInfo onChange={handleChange} setFormData={setFormData} formData={formData}/>
 
-          <Recuitments onChange={handleRecruitmentTabsChange} formDataa={formData}/>
+          <Recuitments setFormData={setFormData} onChange={handleRecruitmentTabsChange} formData={formData}/>
 
           <ItemInstruction handleChange={itemInstructions}/>
           <ScoringCategory
             onChange={handleScoringTypeChange}
             onInputChange={handleChange}
             selectedHoles={formData.selectedHoles || []}
-           
+            formdataa={formData}
           />
 
-          <PaymentDetails onChange={handlePaymentDetailsChange} formDataa={formData}/>
+          <PaymentDetails setFormData={setFormData} onChange={handlePaymentDetailsChange} formData={formData}/>
           <div className="p-2 ">
             <div className="">
               <div className="flex justify-center gap-2 mx-4">
