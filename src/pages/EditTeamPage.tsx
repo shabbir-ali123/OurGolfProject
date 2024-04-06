@@ -195,7 +195,7 @@ const EditTeamPage: FunctionComponent = () => {
 
 
     const formDataObj = {
-      s: singleEvent?.id,
+      eventId: singleEvent?.id,
       teamSize:
         currentTeamSize == undefined
           ? singleEvent?.teamSize
