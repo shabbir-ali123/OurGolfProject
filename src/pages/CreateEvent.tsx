@@ -307,7 +307,7 @@ const CreateEvent: React.FC = () => {
 
         <form method="post" id="foirm" encType="multipart/form-data">
           <BasicInfo onChange={handleChange} setFormData={setFormData} />
-          <PaymentDetails onChange={handlePaymentDetailsChange} />
+          <PaymentDetails setFormData={setFormData} onChange={handlePaymentDetailsChange} formData={formData}/>
           <Recuitments setFormData={setFormData} onChange={handleRecruitmentTabsChange} />
 
           <ItemInstruction  handleChange={itemInstructions}/>
