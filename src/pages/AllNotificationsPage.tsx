@@ -12,18 +12,7 @@ export default function AllNotification() {
   const [show, setShow] = useState(true);
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { notificationData, handleMessage, formData, handleFormData } =
-    notificationsContextStore();
-
-  const handleApprove = (userId: any, eventId: any) => {
-    handleFormData({ userId: userId, eventId: eventId });
-
-    if (formData.userId != "" && formData.eventId != "") {
-      approveEvent(formData, handleMessage);
-      toast.success("Approved Successfully");
-      navigate(`/edit-team/${eventId}`);
-    }
-  };
+  const { notificationData, handleFormData } = notificationsContextStore();
 
   const currentUserId = localStorage.getItem("id");
 
@@ -72,16 +61,16 @@ export default function AllNotification() {
                             {!item.isRead && (
                               <div className="mt-4 flex">
                                 <button
-                                  type="button"
+                                  type="submit"
                                   className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                  onClick={() =>
-                                    handleApprove(item?.userId, item?.eventId)
+                                  onClick={(e) =>
+                                    handleFormData( item?.userId, item?.eventId)
                                   }
                                 >
                                   {t("ACCEPT")}
                                 </button>
                                 <button
-                                  type="button"
+                                  type="reset"
                                   className="cursor-pointer ml-3 inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                 >
                                   {t("DECLINE")}

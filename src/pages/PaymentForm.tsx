@@ -32,7 +32,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
 
   useEffect(() => {}, []);
 
-  const formSubmission = async () => {
+  const formSubmission = async (e:any) => {
+    e.preventDefault();
     try {
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("id") ?? "";
@@ -90,7 +91,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                   {t("PROVIDE_INFO")}
                 </h2>
               </div>
-
+            <form                         onSubmit={formSubmission}
+>
               <div className="flex items-center justify-center py-4 ml-10">
                 <div className="grid grid-cols-10 gap-6 ">
                   <div className="relative col-span-3">
@@ -160,6 +162,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                               name="paymentFullName"
                               id="paymentFullName"
                               placeholder="fullNameCheckBox"
+                              required
                               // value={singleEvent?.accountNumber}
                               className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                             />
@@ -205,6 +208,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                               name="paymentTelPhone"
                               id="paymentTelPhone"
                               placeholder="telephoneCheckBox"
+                              required
                               // value={singleEvent?.paypalId}
                               className="w-full py-4 text-base font-normal text-gray-600 uppercase border-none rounded-md pl-14 bg-gray-50 font-poppins"
                             />
@@ -240,6 +244,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                               name="paymentEmailAddress"
                               id="paymentEmailAddress"
                               placeholder="emailCheckBox"
+                              required
                               // value={singleEvent?.accountHolderName}
                               className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                             />
@@ -277,6 +282,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                             name="PaymentHandiCap"
                             id="PaymentHandiCap"
                             placeholder="handicapCheckBox"
+                            required
                             // value={singleEvent?.participationFee}
                             className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
                           />
@@ -284,8 +290,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                       </div>
 )}
                       <button
-                        onClick={formSubmission}
-                        className="px-8 py-4 w-full mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+                          type="submit"
+                          className="px-8 py-4 w-full mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
                       >
                         {t("JOIN_NOW")}
                       </button>
@@ -322,7 +328,10 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                     </div>
                   </div>
                 </div>
+                
               </div>
+              </form>
+
             </div>
           </div>
         </div>
