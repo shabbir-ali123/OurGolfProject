@@ -1,43 +1,44 @@
 import React, { useCallback, useEffect, useState } from "react";
 import socket from "../socket";
 import { fetchNotifications } from "../utils/fetchNotifications";
+import { approveEvent } from "../utils/fetchEvents";
 
 const NotiContext = React.createContext<any>({});
 
 export const NotificationsContext = ({ children }: any) => {
   const [notifications, setNotifications] = useState<any>([])
   const [notificationData, setNotificationData] = useState<any>(null);
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState(null)
   const [formData, setFormData] = useState<any>({userId: '', eventId: ''});
   const [isLoading, setIsLoading] = useState<boolean>(true);
   
   useEffect(() => {
-    const fetchDataWithDelay = async () => {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      fetchNotifications(setNotificationData, setIsLoading);
-    };
-    fetchDataWithDelay();
+    fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
       setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
-    };    
+    };   
+    console.log(formData); 
+    if (formData.userId != "" && formData.eventId != "") {
+      approveEvent(formData, handleMessage);
+    }
     socket.on('appointmentBooked', handleAppointmentBooked);
 
     return () => {
       socket.off('appointmentBooked', handleAppointmentBooked);
     };
-  }, []); 
+  }, [formData]); 
 
   const handleNotification = useCallback((value: any) => {
     setNotifications(value);
-  }, [message]);
+  }, [notifications]);
 
   const handleMessage = useCallback((value: any) => {
     setMessage(value);
-  }, []);
+  }, [message]);
 
   const handleFormData = useCallback((value: any) => {
     setFormData(value)
-  }, [])
+  }, [formData])
 
 
   const value = { handleNotification, handleMessage, handleFormData,isLoading, formData, notifications,  notificationData }; 

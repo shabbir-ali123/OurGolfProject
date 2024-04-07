@@ -136,7 +136,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                     id="grid-first-name"
                     type="text"
                     name="branchName"
-                    value={formData.branchName}
+                    value={formData?.branchName}
                     onChange={handleInputChange}
                     placeholder={t("BRANCH")}
                   />
@@ -153,7 +153,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                     id="grid-first-name"
                     type="text"
                     name="accountNumber"
-                    value={formData.accountNumber}
+                    value={formData?.accountNumber}
                     onChange={handleInputChange}
                     placeholder={t("ACCOUNT_NUMBER")}
                   />
@@ -170,7 +170,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                     id="grid-first-name"
                     type="text"
                     name="accountHolderName"
-                    value={formData.accountHolderName}
+                    value={formData?.accountHolderName}
                     onChange={handleInputChange}
                     placeholder={t("ACCOUNT_HOLDER_NAME")}
                   />
@@ -195,7 +195,7 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                     id="grid-Event-Name"
                     type="text"
                     name="paypalId"
-                    value={formData.paypalId}
+                    value={formData?.paypalId}
                     onChange={handleInputChange}
                     placeholder={t("PAYPA_ID")}
                     min="0"
