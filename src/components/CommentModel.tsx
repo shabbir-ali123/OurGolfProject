@@ -105,9 +105,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
     setSubmitting(true);
 
     try {
-      const response = await axios.post(API_ENDPOINTS.ADDCOMMENT, {
-        ...formData,
-        content: trimmedContent,
+      const response = await axios.post(API_ENDPOINTS.ADDCOMMENT,formData, {
+        
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -207,7 +206,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
 
           <div className="relative max-h-full p-4 ">
             {token && (
-              <form method="post" className="mx-4 ">
+              <form method="post" className="mx-4 " onSubmit={handleSubmit}
+            >
                 <input type="hidden" name="userId" />
                 <input type="hidden" name="eventId" />
 
@@ -219,13 +219,13 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                   onChange={(e) =>
                     setFormData({ ...formData, content: e.target.value })
                   }
+                  required
                   className="w-full h-16 p-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 "
                 ></textarea>
                 <div className="flex justify-start">
                   <button
                     data-modal-hide="popup-modal"
                     type="submit"
-                    onClick={handleSubmit}
                     className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-500 hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800"
                   >
                     {t("POST_COMMENTS")}

@@ -432,13 +432,13 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
           <input
             className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
             id="cancellationFee"
-            type="number"
+            type="text"
             pattern="[0-9]*"
             name="cancellationFee"
             onChange={onChange}
             value={formData?.cancellationFee}
             title="Please enter a valid number"
-            placeholder="$ Enter Amount"
+            placeholder="¥ Enter Amount"
             min="0"
           />
            {/* <label
