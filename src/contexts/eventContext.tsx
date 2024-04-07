@@ -185,7 +185,6 @@ export const SingleEventsContext = ({ children }: any) => {
                 const eventData = await fetchSingleEvent(eventId);
                 setSingleEvent(eventData.event);
                 
-                console.log(eventData)
 
                 if (eventData.event.creatorId == localStorage.getItem('id')) {
                     handleisCreated(true);

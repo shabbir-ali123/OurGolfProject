@@ -16,17 +16,13 @@ export const NotificationsContext = ({ children }: any) => {
     fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
       setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
-    };   
-    console.log(formData); 
-    if (formData.userId != "" && formData.eventId != "") {
-      approveEvent(formData, handleMessage);
-    }
+    };    
     socket.on('appointmentBooked', handleAppointmentBooked);
 
     return () => {
       socket.off('appointmentBooked', handleAppointmentBooked);
     };
-  }, [formData]); 
+  }, []); 
 
   const handleNotification = useCallback((value: any) => {
     setNotifications(value);
@@ -39,9 +35,12 @@ export const NotificationsContext = ({ children }: any) => {
   const handleFormData = useCallback((value: any) => {
     setFormData(value)
   }, [formData])
+  // const approveEvents = useCallback((value: any) => {
+  //   approveEvent(formData, handleMessage);
+  //   }, [formData])
 
 
-  const value = { handleNotification, handleMessage, handleFormData,isLoading, formData, notifications,  notificationData }; 
+  const value = { handleNotification, handleMessage, handleFormData, isLoading, formData, notifications,  notificationData }; 
 
   return <NotiContext.Provider value={value}> {children}</NotiContext.Provider>
 }
