@@ -56,8 +56,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
   const filteredNotifications = notificationData?.filter((item: any) => {
     if (
-      (item.organizerId == userId && item.isRead !== true) ||
-      (item.teacherId == userId && item.isRead !== true)
+      ( item.isRead !== true)
     ) {
       return true;
     }

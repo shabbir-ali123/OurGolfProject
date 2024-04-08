@@ -128,7 +128,10 @@ export default function ChatApp() {
 
   return (
     <main className="bg-gray-200 flex flex-col rounded-sm w-[70%] h-[80vh]">
-      <header className="flex bg-red justify-between p-4">
+      <header className="flex bg-white justify-between p-4" style={{
+          boxShadow:
+            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+        }}>
         <h3>{channel.name}</h3>
         <h3>{chat.currentUser.name}</h3>
       </header>
@@ -194,7 +197,7 @@ export default function ChatApp() {
         <input
           type="text"
           value={text}
-          className="bg-gray-300 w-full rounded-md border-none p-3"
+          className="bg-white w-full rounded-md border-none p-3"
           onChange={(e) => setText(e.target.value)}
           placeholder="Send message"
         />

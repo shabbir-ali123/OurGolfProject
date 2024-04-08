@@ -254,8 +254,7 @@ const SideMenu: React.FC = () => {
   }, []);
   const filteredNotifications = notificationData?.filter((item: any) => {
     if (
-      (item.organizerId == userId && item.isRead !== true) ||
-      (item.teacherId == userId && item.isRead !== true)
+      (item.isRead !== true)
     ) {
       return true;
     }

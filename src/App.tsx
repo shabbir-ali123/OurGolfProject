@@ -65,7 +65,7 @@ import UserPage from "./pages/UserPage";
 import { UserContext } from "./contexts/authContext";
 import Pubnub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
-import ChatApp from "./pages/test";
+import ChatApp from "./pages/ChatBox";
 import { ChatSystem } from "./pages/Chat";
 
 function App() {

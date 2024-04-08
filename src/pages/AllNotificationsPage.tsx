@@ -65,11 +65,11 @@ export default function AllNotification() {
             >
               <div className="w-full justify-center">
                 {notificationData?.map((item: any, index: any) => {
-                  if (
-                    (item.organizerId == currentUserId) ||
-                    (item.teacherId == currentUserId) ||
-                    (item.userId == currentUserId)
-                  ) {
+                  // if (
+                  //   (item.organizerId == currentUserId) ||
+                  //   (item.teacherId == currentUserId) ||
+                  //   (item.userId == currentUserId)
+                  // ) {
                     return (
                       <Transition
                         show={show}
@@ -126,7 +126,7 @@ export default function AllNotification() {
                         </div>
                       </Transition>
                     );
-                  }
+                  
                 })}
               </div>
             </div>

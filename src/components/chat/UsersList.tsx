@@ -12,7 +12,7 @@ export const UsersList = () => {
 
     return (
         <div className="h-[80vh] overflow-auto">
-            <h1>Online Users</h1>
+            <h1>All Users</h1>
         {users?.map((user: any) => {
                 return (
                     <li className="list-none " key={user.id} >
