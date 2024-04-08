@@ -13,94 +13,94 @@ import {
   faSignOutAlt,
   faChevronDown,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notificationContext";
 import socket from "../socket";
- 
+
 export const menuItems: MenuItem[] = [
   {
-      name: "HOME",
-      icon: faHome,
-      path: "/score-board",
-      active: false
+    name: "HOME",
+    icon: faHome,
+    path: "/score-board",
+    active: false,
   },
   {
-      name: "NOTIFICATIONS",
-      icon: faBell,
-      path: "/notification-page",
-      properties: "1",
-      active: false
+    name: "NOTIFICATIONS",
+    icon: faBell,
+    path: "/notification-page",
+    properties: true,
+    active: false,
   },
   {
-      name: "POSTS",
-      icon: faGlobe,
-      path: "/post-page",
-      active: false
+    name: "POSTS",
+    icon: faGlobe,
+    path: "/post-page",
+    active: false,
   },
   {
-      name: "EVENTS",
-      icon: faPeopleGroup,
-      path: "/event-main-page",
-      active: false,
-      subItems: [
-          {
-              name: "CREATED_EVENTS",
-              icon: faSearch,
-              path: "/created-events",
-              active: false
-          },
-          {
-              name: "JOINED_EVENTS",
-              icon: faSearch,
-              path: "/joined-events",
-              active: false
-          },
-          {
-              name: "BOOKMARKED_EVENTS",
-              icon: faSearch,
-              path: "/booked-mark",
-              active: false
-          },
-      ],
+    name: "EVENTS",
+    icon: faPeopleGroup,
+    path: "/event-main-page",
+    active: false,
+    subItems: [
+      {
+        name: "CREATED_EVENTS",
+        icon: faSearch,
+        path: "/created-events",
+        active: false,
+      },
+      {
+        name: "JOINED_EVENTS",
+        icon: faSearch,
+        path: "/joined-events",
+        active: false,
+      },
+      {
+        name: "BOOKMARKED_EVENTS",
+        icon: faSearch,
+        path: "/booked-mark",
+        active: false,
+      },
+    ],
   },
   {
-      name: "FIND_TEACHER",
-      icon: faSearch,
-      path: "/student-page",
-      active: false
+    name: "FIND_TEACHER",
+    icon: faSearch,
+    path: "/student-page",
+    active: false,
   },
   {
-      name: "CALENDER",
-      icon: faCalendar,
-      path: "/activities-page",
+    name: "CALENDER",
+    icon: faCalendar,
+    path: "/activities-page",
   },
   {
-      name: "PROFILE",
-      icon: faUser,
-      path: "/profile-page",
-      active: false
+    name: "PROFILE",
+    icon: faUser,
+    path: "/profile-page",
+    active: false,
   },
   {
-      name: "MESSAGE",
-      icon: faMessage,
-      path: "/message-page",
-      active: false
+    name: "MESSAGE",
+    icon: faMessage,
+    path: "/message-page",
+    active: false,
   },
   {
-      name: "SETTING",
-      icon: faGear,
-      path: "/setting-page",
-      active: false
+    name: "SETTING",
+    icon: faGear,
+    path: "/setting-page",
+    active: false,
   },
   {
-      name: "LOGOUT",
-      icon: faSignOutAlt,
-      path: "/logout",
-      active: false
+    name: "LOGOUT",
+    icon: faSignOutAlt,
+    path: "/logout",
+    active: false,
   },
 ];
 interface MenuItem {
@@ -109,7 +109,7 @@ interface MenuItem {
   path: string;
   active?: boolean;
   subItems?: MenuItem[];
-  properties?:any;
+  properties?: any;
 }
 
 const SideMenu: React.FC = () => {
@@ -118,8 +118,12 @@ const SideMenu: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [subMenuVisibility, setSubMenuVisibility] = useState<{ [key: string]: boolean }>({});
-  const [isDesktopScreen, setIsDesktopScreen] = useState(window.innerWidth > 768);
+  const [subMenuVisibility, setSubMenuVisibility] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [isDesktopScreen, setIsDesktopScreen] = useState(
+    window.innerWidth > 768
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -169,26 +173,39 @@ const SideMenu: React.FC = () => {
     }));
   };
 
-
-  const getMenuItemStyles = (itemName: string, itemPath: string): React.CSSProperties => ({
+  const getMenuItemStyles = (
+    itemName: string,
+    itemPath: string
+  ): React.CSSProperties => ({
     display: "flex",
     cursor: "pointer",
     borderBottom: "1px solid #ffff",
-    background: window.location.pathname === itemPath ? "linear-gradient(14deg, rgb(23 179 166), rgb(23 179 166 / 58%))" : "transparent",
+    background:
+      window.location.pathname === itemPath
+        ? "linear-gradient(14deg, rgb(23 179 166), rgb(23 179 166 / 58%))"
+        : "transparent",
     borderRadius: window.location.pathname === itemPath ? "4px" : "",
-    boxShadow: window.location.pathname === itemPath ? "0 0 10px 1px rgb(94 243 231)" : "",
+    boxShadow:
+      window.location.pathname === itemPath
+        ? "0 0 10px 1px rgb(94 243 231)"
+        : "",
     alignItems: "center",
     color: "#fff",
     marginBottom: isMenuOpen && subMenuVisibility[itemName] ? "10px" : "0", // Adjust this value as needed
-
   });
 
-  const iconStyles = (itemName: string, itemPath: string): React.CSSProperties => ({
+  const iconStyles = (
+    itemName: string,
+    itemPath: string
+  ): React.CSSProperties => ({
     fontSize: "20px",
     color: window.location.pathname === itemPath ? "#fff" : "#565656",
   });
 
-  const textStyles = (itemName: string, itemPath: string): React.CSSProperties => ({
+  const textStyles = (
+    itemName: string,
+    itemPath: string
+  ): React.CSSProperties => ({
     fontSize: "15px",
     color: window.location.pathname === itemPath ? "#fff" : "#626262",
     visibility: isMenuOpen ? "visible" : "hidden",
@@ -206,10 +223,7 @@ const SideMenu: React.FC = () => {
   const big: React.CSSProperties = {
     padding: "10px 0px 10px 10px",
     margin: "10px 10px 50px 10px",
-
   };
-
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -223,28 +237,30 @@ const SideMenu: React.FC = () => {
     };
   }, []);
   const { notifications, notificationData } = notificationsContextStore();
-  let userId = localStorage.getItem('id');
-  const [eventJoined, setEventJoined] = useState<any[]>([])
+  let userId = localStorage.getItem("id");
+  const [eventJoined, setEventJoined] = useState<any[]>([]);
   useEffect(() => {
     const handleJoinEvent = (data: any) => {
-      console.log(data, 'data for sockets')
+      console.log(data, "data for sockets");
       if (data?.organizerId == userId) {
-        setEventJoined((prev: any) =>[...prev, data]  );
+        setEventJoined((prev: any) => [...prev, data]);
       }
     };
-    socket.on('joinRequest', handleJoinEvent);
+    socket.on("joinRequest", handleJoinEvent);
 
     return () => {
-      socket.off('joinRequest', handleJoinEvent);
+      socket.off("joinRequest", handleJoinEvent);
     };
   }, []);
-  const filteredNotifications = notificationData?.filter((item:any) => {
-    if(item.organizerId == userId && item.isRead !== true || item.teacherId == userId && item.isRead !== true ){
-       console.log(item);    
-     return true;
+  const filteredNotifications = notificationData?.filter((item: any) => {
+    if (
+      (item.organizerId == userId && item.isRead !== true) ||
+      (item.teacherId == userId && item.isRead !== true)
+    ) {
+      return true;
     }
   });
-  
+
   return (
     <>
       <div
@@ -261,7 +277,7 @@ const SideMenu: React.FC = () => {
           top: 0,
           transition: "width 0.3s ease",
           height: "150vh",
-          overflowY: isDesktopScreen ? "hidden" : "auto"
+          overflowY: isDesktopScreen ? "hidden" : "auto",
         }}
         className=""
         onMouseEnter={handleMenuMouseEnter}
@@ -283,51 +299,91 @@ const SideMenu: React.FC = () => {
             />
           </svg>
         </div>
-        <div className="mt-24 w-full" style={{ width: isMenuOpen ? "" : "10px" }}>
+        <div
+          className="mt-24 w-full"
+          style={{ width: isMenuOpen ? "" : "10px" }}
+        >
           {menuItems.map((item) => (
-            <ul key={item.name} className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-0" : ""}`} >
+            <ul
+              key={item.name}
+              className={`p-0 ${item.active ? "active w-full" : ""} ${
+                subMenuVisibility ? "mb-0" : ""
+              }`}
+            >
               <Link
                 to={item.path}
                 className={`relative ${item.active ? "active" : ""}`}
                 style={
                   item.active
                     ? {
-                      backgroundColor: "#000",
-                      color: "#fff",
-                      fontWeight: "900",
-                      borderRadius: "2px",
-                    }
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        fontWeight: "900",
+                        borderRadius: "2px",
+                      }
                     : {}
                 }
                 onClick={() => handleMenuItemClick(item.name)}
               >
-                 {
-                          item.properties  && (
-                            <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
-                  {/* {n.length > 0 && n.length} */}
-                  {filteredNotifications && eventJoined && (filteredNotifications.length + eventJoined.length)}
-                  <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
-                </div>
-                          )
-                        }
-                <div style={{ ...getMenuItemStyles(item.name, item.path), ...(isMenuOpen ? big : small) }}>
-                  <FontAwesomeIcon icon={item.icon} style={iconStyles(item.name, item.path)} />
-                  <span className={` ${isMenuOpen ? "block" : "hidden"}`} style={textStyles(item.name, item.path)}>{t(item.name)}</span>
-                  {item.subItems && <FontAwesomeIcon icon={subMenuVisibility[item.name] && item.subItems ? faChevronDown   : faChevronRight} style={iconStyles(item.name, item.path)} className={`h-3 ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"}`}/>}
+                {item.properties && (
+                  <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
+                    {/* {n.length > 0 && n.length} */}
+                    {filteredNotifications &&
+                      eventJoined &&
+                      filteredNotifications.length + eventJoined.length}
+                    <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
+                  </div>
+                )}
+                <div
+                  style={{
+                    ...getMenuItemStyles(item.name, item.path),
+                    ...(isMenuOpen ? big : small),
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    style={iconStyles(item.name, item.path)}
+                  />
+                  <span
+                    className={` ${isMenuOpen ? "block" : "hidden"}`}
+                    style={textStyles(item.name, item.path)}
+                  >
+                    {t(item.name)}
+                  </span>
+                  {item.subItems && (
+                    <FontAwesomeIcon
+                      icon={
+                        subMenuVisibility[item.name] && item.subItems
+                          ? faChevronDown
+                          : faChevronRight
+                      }
+                      style={iconStyles(item.name, item.path)}
+                      className={`h-3 ml-auto mr-6 ${
+                        isMenuOpen ? "block" : "hidden"
+                      }`}
+                    />
+                  )}
                 </div>
               </Link>
               {subMenuVisibility[item.name] && item.subItems && (
-                <div  className={`${isMenuOpen ? "block" : "hidden"}`}>
+                <div className={`${isMenuOpen ? "block" : "hidden"}`}>
                   {item.subItems.map((subItem) => (
                     <li className="mx-2">
-                      <Link to={subItem.path} className="w-full" key={subItem.name}>
-                        <div className="bg-white rounded-md shadow-lg mt-2 p-6 text-[#626262]"
-                         style={{
-                          boxShadow: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
-                        }}
+                      <Link
+                        to={subItem.path}
+                        className="w-full"
+                        key={subItem.name}
+                      >
+                        <div
+                          className="bg-white rounded-md shadow-lg mt-2 p-6 text-[#626262]"
+                          style={{
+                            boxShadow:
+                              "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+                          }}
                         >
-                       
-                          <span style={{ marginLeft: "30px" }}>{t(subItem.name)}</span>
+                          <span style={{ marginLeft: "30px" }}>
+                            {t(subItem.name)}
+                          </span>
                         </div>
                       </Link>
                     </li>
@@ -336,7 +392,6 @@ const SideMenu: React.FC = () => {
               )}
             </ul>
           ))}
-
         </div>
       </div>
     </>

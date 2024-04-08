@@ -293,7 +293,7 @@ export default function ProfileButton() {
             onClick={() => {
               setNotification(!notification);
             }}
-            className="px-6"
+            className="hidden md:block px-6"
           >
             <span>
               

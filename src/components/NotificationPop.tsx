@@ -23,7 +23,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
     <>
       <div
         aria-live="assertive"
-        className="pointer-events-none left-0 right-[100px] top-[50px] z-[999] absolute inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+        className="hidden pointer-events-none left-0 right-[100px] top-[50px] z-[999] absolute inset-0 md:flex items-end px-4 py-6 sm:items-start sm:p-6"
       >
         <div className="w-full space-y-4 sm:items-end flex flex-col items-end">
           <div className="flex flex-col bg-white mt-4 w-1/5 p-4" style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}>

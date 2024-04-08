@@ -12,24 +12,39 @@ export default function AllNotification() {
   const [show, setShow] = useState(true);
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { notificationData, handleMessage, formData, handleFormData } =
+  const [formData,setFormData] = useState({
+    userId: "",
+    eventId: "",
+  });
+  const { notificationData,isloading, handleMessage } =
     notificationsContextStore();
 
-  const handleApprove = (userId: any, eventId: any) => {
-    handleFormData({ userId: userId, eventId: eventId });
+  const handleApprove = (e:any, userId:any, eventId:any ) => {
+    e.preventDefault();
 
-    if (formData.userId != "" && formData.eventId != "") {
-      approveEvent(formData, handleMessage);
+     const obj = {
+        userId: userId,
+        eventId: eventId,
+      }
+      approveEvent(obj, handleMessage);
       toast.success("Approved Successfully");
       navigate(`/edit-team/${eventId}`);
-    }
+    
   };
 
   const currentUserId = localStorage.getItem("id");
-
   return (
     <>
-      <div className="max-w-7xl mx-10 xl:mx-auto">
+    {
+      isloading ?   <div className="flex justify-center items-center h-[100vh]">
+      <div>
+        <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
+        <p>loading...</p>
+      </div>
+
+    </div>  :
+    
+     <div className="max-w-7xl mx-10 xl:mx-auto">
         <h4>{t("ALL_NOTIFICATION")}</h4>
         <div
           aria-live="assertive"
@@ -75,8 +90,8 @@ export default function AllNotification() {
                                 <button
                                   type="button"
                                   className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                  onClick={() =>
-                                    handleApprove(item?.userId, item?.eventId)
+                                  onClick={(e) =>
+                                    handleApprove(e, item?.userId, item?.eventId)
                                   }
                                 >
                                   {t("ACCEPT")}
@@ -103,6 +118,7 @@ export default function AllNotification() {
           </div>
         </div>
       </div>
+}
     </>
   );
 }

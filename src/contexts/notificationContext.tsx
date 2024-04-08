@@ -11,7 +11,6 @@ export const NotificationsContext = ({ children }: any) => {
   const [message, setMessage] = useState(null)
   const [formData, setFormData] = useState<any>({userId: '', eventId: ''});
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  
   useEffect(() => {
     fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
@@ -22,7 +21,7 @@ export const NotificationsContext = ({ children }: any) => {
     return () => {
       socket.off('appointmentBooked', handleAppointmentBooked);
     };
-  }, []); 
+  }, [isLoading]); 
 
   const handleNotification = useCallback((value: any) => {
     setNotifications(value);

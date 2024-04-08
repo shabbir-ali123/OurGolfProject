@@ -219,9 +219,9 @@ function App() {
         metaDescription = "";
         break;
       case "/user-page/":
-          title = "";
-          metaDescription = "";
-          break;
+        title = "";
+        metaDescription = "";
+        break;
     }
 
     if (title) {
@@ -254,9 +254,9 @@ function App() {
     token = false;
   }
   const pubnub = new Pubnub({
-    publishKey: 'pub-c-eafa8c74-d8e8-4b72-b5fe-8e83c98886ff',
-    subscribeKey: 'sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5',
-    uuid: localStorage.getItem('id') || "12`",
+    publishKey: "pub-c-eafa8c74-d8e8-4b72-b5fe-8e83c98886ff",
+    subscribeKey: "sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5",
+    uuid: localStorage.getItem("id") || "12`",
   });
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -308,27 +308,15 @@ function App() {
               <ScoreContextProvider>
                 <SingleEventsContext>
                   <SingleTeamsContext>
-                  <ScoreBoard />
+                    <ScoreBoard />
                   </SingleTeamsContext>
                 </SingleEventsContext>
               </ScoreContextProvider>
             }
           />
-          <Route
-            path="/user-page/:id"
-            element={
-                <UserPage />
-                
-            }
-          />
-          <Route
-            path="/score-board"
-            element={<ScoreBoard />}
-          />
-          <Route
-            path="/message-page"
-            element={<ChatSystem />}
-          />
+          <Route path="/user-page/:id" element={<UserPage />} />
+          <Route path="/score-board" element={<ScoreBoard />} />
+          <Route path="/message-page" element={<ChatSystem />} />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
           <Route path="/logout" element={<Logout />} />
@@ -422,7 +410,15 @@ function App() {
           />
           <Route
             path="/notification-page"
-            element={token ? <AllNotificationPage /> : <LoginPage />}
+            element={
+              token ? (
+                <NotificationsContext>
+                  <AllNotificationPage />
+                </NotificationsContext>
+              ) : (
+                <LoginPage />
+              )
+            }
           />
           <Route
             path="/profile-page"

@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { menuItems } from './SideIconMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NotificationsContext } from '../contexts/notificationContext';
+import { NotificationsContext, notificationsContextStore } from '../contexts/notificationContext';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import socket from '../socket';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -36,7 +37,31 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const handleSubItemClick = (itemName: string) => {
     setActiveSubMenu(activeSubMenu === itemName ? null : itemName);
   };
+  let userId = localStorage.getItem("id");
+  const [eventJoined, setEventJoined] = useState<any[]>([]);
+  useEffect(() => {
+    const handleJoinEvent = (data: any) => {
+      console.log(data, "data for sockets");
+      if (data?.organizerId == userId) {
+        setEventJoined((prev: any) => [...prev, data]);
+      }
+    };
+    socket.on("joinRequest", handleJoinEvent);
 
+    return () => {
+      socket.off("joinRequest", handleJoinEvent);
+    };
+  }, []);
+  const { notifications, notificationData } = notificationsContextStore();
+
+  const filteredNotifications = notificationData?.filter((item: any) => {
+    if (
+      (item.organizerId == userId && item.isRead !== true) ||
+      (item.teacherId == userId && item.isRead !== true)
+    ) {
+      return true;
+    }
+  });
 
   return (
     <>
@@ -47,25 +72,35 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               <XMarkIcon className="w-6 h-6" />
             </button>
             <NotificationsContext>
-              <ProfileButton />
+              <ProfileButton />          
             </NotificationsContext>
 
             <ul className=''>
               {menuItems.map((item) => (
-                <li key={item.name} className='list-none py-3   items-center hover:text-[#17b3a6]'>
+                <li key={item.name} className='relative list-none py-3   items-center hover:text-[#17b3a6]'>
                   <FontAwesomeIcon icon={item.icon} className="mr-2" />
                   <Link
                     to={item.path}
-                    className="text-lg no-underline font-normal leading-6 text-[#717171] hover:text-[#17b3a6] mx-4 "
+                    className="relative text-lg no-underline font-normal leading-6 text-[#717171] hover:text-[#17b3a6] mx-4 "
                     onClick={onClose} 
                   >
                     {t(item.name.toUpperCase())}
                   </Link>
                   {item.subItems && (
                     <button onClick={() => handleSubItemClick(item.name)} className="ml-2 bg-transparent">
+           
                       <FontAwesomeIcon icon={activeSubMenu === item.name ? faChevronUp : faChevronDown} />
                     </button>
                   )}
+                       {item.properties && (
+                  <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[6px] left-[5px]">
+                    
+                    {filteredNotifications &&
+                      eventJoined &&
+                      filteredNotifications.length + eventJoined.length}
+                    <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
+                  </div>
+                )}
                   {activeSubMenu === item.name && item.subItems && (
                     <ul className="mr-10">
                       {item.subItems.map(subItem => (
