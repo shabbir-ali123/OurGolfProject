@@ -76,7 +76,7 @@ export const menuItems: MenuItem[] = [
   {
     name: "CALENDER",
     icon: faCalendar,
-    path: "/activities-page",
+    path: "/activties-page",
   },
   {
     name: "PROFILE",
