@@ -38,10 +38,24 @@ const CreatedEvents: React.FC = () => {
     const navigate = useNavigate();
 
     const handleTabClick = (tab: string) => {
-        // Normalize tab to ensure consistent comparison
         const normalizedTab = tab.toLowerCase();
         handleActiveTab(normalizedTab);
+        localStorage.setItem('activeTab', normalizedTab);
     };
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const tabParam = searchParams.get('tab');
+        if (tabParam && ['live', 'upcoming', 'past'].includes(tabParam)) {
+            handleActiveTab(tabParam);
+        }
+    }, [handleActiveTab]);
+    useEffect(() => {
+        const storedTab = localStorage.getItem('activeTab');
+        if (storedTab && ['live', 'upcoming', 'past'].includes(storedTab)) {
+            handleActiveTab(storedTab);
+        }
+    }, [handleActiveTab]);
 
     const handlePageChange = (newPage: number) => {
         handleCurrentPage(newPage);
@@ -59,10 +73,26 @@ const CreatedEvents: React.FC = () => {
     const handleCancelEvent = () => {
         setShowPopup(false);
     };
+    // function handleCreatedEventsUpdate(updatedEvents) {
+    //     // This function should update the state with the new events list
+    //     // Replace this with the actual state update logic
+    //     setCreatedEvents(updatedEvents); // Assuming setCreatedEvents is your state updater function
+    // }
+    const { removeDeletedEvent } = createdEventsStore();
+    const handleDeleteEvent = async (eventId: any, e: any) => {
+        e.preventDefault(); // This should prevent any default action like form submission or link navigation.
+        console.log("Deleting event with ID:", eventId);
+        try {
+            await deleteEvent(eventId);
+            removeDeletedEvent(eventId);
+            console.log("Event deleted and state updated.");
+        } catch (error) {
+            console.error('Error deleting event:', error);
+        }
+    };
 
-    const handleDeleteEvent = (id: any) => {
-        deleteEvent(id);
-    }
+
+
 
     console.log({ activeTab })
     return (
@@ -76,9 +106,8 @@ const CreatedEvents: React.FC = () => {
                     {tabs.map((tab, index) => (<button
                         key={tab}
                         onClick={() => handleTabClick(sendTab[index])}
-                        className={`px-10 py-4 text-sm font-medium rounded-md transition-colors duration-300 ${
-                            activeTab === sendTab[index] ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-blue-400 hover:text-white'
-                        }`}
+                        className={`px-10 py-4 text-sm font-medium rounded-md transition-colors duration-300 ${activeTab === sendTab[index] ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-blue-400 hover:text-white'
+                            }`}
                     >
                         {tab.charAt(0).toUpperCase() + tab.slice(1)}
                     </button>
@@ -132,8 +161,18 @@ const CreatedEvents: React.FC = () => {
                                         <Link className='flex items-center gap-1 hover:text-[#054a51]' to={`/edit-team/${event.id}`}>
                                             <EyeIcon className="w-6 h-6 text-[#17b3a6] hover:text-[#054a51]" onClick={() => handleCogIconClick(event)} /> View
                                         </Link>
-                                        <p className='cursor-pointer flex items-center gap-1 hover:text-red' onClick={() => handleDeleteEvent(event.id)}><TrashIcon className='w-6 h-6' /> Delete</p>
-                                        <Link className='flex items-center gap-1  hover:text-green' to={`/edit-event/${event.id}`}><PencilSquareIcon className='w-6 h-6' />Edit</Link>
+                                        <button
+                                            className='bg-transparent flex items-center cursor-pointer  gap-1 hover:text-red'
+                                            type="button"
+                                            onClick={(e) => {
+                                                handleDeleteEvent(event.id, e);
+                                            }}>
+                                            <TrashIcon className='w-6 h-6' /> Delete
+                                        </button>
+
+
+
+                                        <Link className='cursor-pointer flex items-center gap-1  hover:text-green' to={`/edit-event/${event.id}`}><PencilSquareIcon className='w-6 h-6 cursor-pointer' />Edit</Link>
                                     </td>
                                 </tr>
                             ))
@@ -179,3 +218,7 @@ const CreatedEvents: React.FC = () => {
 };
 
 export default CreatedEvents;
+function handleCreatedEventsUpdate(updatedEvents: any) {
+    throw new Error('Function not implemented.');
+}
+

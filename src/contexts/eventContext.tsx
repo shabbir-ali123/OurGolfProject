@@ -237,16 +237,19 @@ export const CreatedEventContext = ({ children }: any) => {
 
 
     useEffect(() => {
-        fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents)
-    }, [activeTab])
+        fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents);
+    }, [activeTab, currentPage, pageSize]);
 
     const handleActiveTab = useCallback((value: any) => {
-        return setActiveTab(value);
+        setActiveTab(value);
     }, []);
-
     const handleCurrentPage = useCallback((currentPage: any) => {
         return setCurrentPage(currentPage);
     }, []);
+    const removeDeletedEvent = useCallback((eventId:any) => {
+        setCreatedEvents((prevEvents) => prevEvents.filter(event => event.id !== eventId));
+    }, [setCreatedEvents]);
+    
 
    
 
@@ -254,7 +257,7 @@ export const CreatedEventContext = ({ children }: any) => {
     console.log(updateEvent?.eventName, "xasdf")
 
 
-    const value = { handleActiveTab, handleCurrentPage, id, activeTab, totalPages, currentPage, createdEvents, updateEvent }
+    const value = { handleActiveTab, handleCurrentPage, removeDeletedEvent, activeTab, totalPages, currentPage, createdEvents };
     return <CreatedEventsContext.Provider value={value}> {children}</CreatedEventsContext.Provider>
 
 }

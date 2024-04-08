@@ -42,7 +42,7 @@ export const deleteEvent = async (eventId: any) => {
       }
       let response = await axios.delete(endpoint, { headers });
       if (response.status === 200 ) {
-        window.location.reload();
+        
         toast.success('Event Deleted Successfully')
       }
   } catch (error) {
