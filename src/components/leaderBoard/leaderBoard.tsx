@@ -45,7 +45,7 @@ const LeaderBoardTables: FunctionComponent = () => {
             src="/img/rectangle-1248@2x.png"
           />
           <b className="relative left-[-24px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-            {"Leader Board"}
+          {t("LEADER_BOARD")}
           </b>
         </div>
         <table className="w-full border-spacing-y-5 ">
@@ -120,7 +120,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                         alt="user"
                       />
                       <p className="text-[10px]">
-                        {scored.userScoreCard.nickName}
+                        {scored.userScoreCard?.nickName}
                       </p>
                     </div>
                   </td>

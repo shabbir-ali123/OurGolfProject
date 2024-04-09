@@ -72,7 +72,6 @@ const EditEvent: React.FC = () => {
 
   });
 
-  console.log(formData, "sajid")
   const { showToast } = useToast();
 
 //   const handleChange = (
@@ -198,7 +197,7 @@ const EditEvent: React.FC = () => {
     });
 
     try {
-      const response = await axios.put(API_ENDPOINTS.UPDATE_EVENT + id, formdata, {
+      const response = await axios.put(API_ENDPOINTS.UPDATE_EVENT + singleEvent?.id, formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token") ?? ""}`,

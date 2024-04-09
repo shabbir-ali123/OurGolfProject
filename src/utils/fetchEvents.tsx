@@ -178,7 +178,7 @@ eventEndDate: "",
 };
 
 
-export const approveEvent = async (formData:any, setMessage: any  ) => {
+export const approveEvent = async (formData:any) => {
   try {
     const userID = localStorage.getItem('id');
     const token = localStorage.getItem('token');
@@ -194,7 +194,7 @@ export const approveEvent = async (formData:any, setMessage: any  ) => {
         });
 
         const data = response.data;
-        setMessage(data);
+        // setMessage(data);
         
     } else {
         console.error('apprive error');

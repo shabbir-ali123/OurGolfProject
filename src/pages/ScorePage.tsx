@@ -12,13 +12,15 @@ const ScorePage = () => {
   const hole = singleEvent ? singleEvent.selectedHoles : [];
   const newArrayHole = hole?.split(",").map(Number);
 
-  const { handleEventId, eventScore } = useScoreContext();
-  useEffect(() => {
-    if (singleEvent) {
-      handleEventId(singleEvent.id);
-    }
-  }, [singleEvent, handleEventId]);
-  console.log(eventScore, "assdas");
+  const { score } = useScoreContext();
+
+
+
+
+
+
+
+
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
 
@@ -97,7 +99,7 @@ const ScorePage = () => {
               </>
             )}
           </tr>
-          {eventScore?.map((member: any, memberIndex: number) => {
+          {score?.map((member: any, memberIndex: number) => {
             return (
               <tr key={memberIndex} className="py-4 pl-4 whitespace-nowrap">
                 <Player

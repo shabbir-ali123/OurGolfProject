@@ -1,9 +1,9 @@
 export const ScoreSlider = ({ item }: any) => {
   const scorePerShot = item?.scorePerShot?.slice(1, -1);
   const handiCapPerShot = item?.handiCapPerShot?.slice(1, -1);
-  const nickName = item?.userScoreCard.nickName;
+  const nickName = item?.userScoreCard?.nickName;
   const displayNickName =
-    nickName && nickName.length > 6 ? `${nickName.substring(0, 6)}` : nickName;
+    nickName && nickName?.length > 6 ? `${nickName.substring(0, 6)}` : nickName;
   return (
     <div className="relative sajid px-4">
       <div className="absolute h-[200px] transform scale-150 skew-x-[-6deg] p-2 w-[300px] left-[68px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] z-0" />
@@ -16,7 +16,7 @@ export const ScoreSlider = ({ item }: any) => {
             <h4 className="m-0 mb-2 flex items-center gap-1">
               <img
                 className="w-10 h-10 rounded-full"
-                src={item?.userScoreCard.imageUrl}
+                src={item?.userScoreCard?.imageUrl}
                 alt=""
               />{" "}
               {displayNickName}
@@ -30,11 +30,11 @@ export const ScoreSlider = ({ item }: any) => {
             }}
           >
             <div className="h-full">
-              <img className="object-fit border-solid border border-[#17b3a6]" width="90px" height="100%" src={item?.userScoreCard.imageUrl} alt="" />
+              <img className="object-fit border-solid border border-[#17b3a6]" width="90px" height="100%" src={item?.userScoreCard?.imageUrl} alt="" />
             </div>
             <div className="px-1">
               <h4 className="m-0 text-[#00E7FA]">
-                {item?.userScoreCard.nickName}
+                {item?.userScoreCard?.nickName}
               </h4>
               <div>
                 <ul className="bg-white p-0 m-0 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]">

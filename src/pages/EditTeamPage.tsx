@@ -8,7 +8,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
-import { fetchSingleEvent } from "../utils/fetchEvents";
+import { approveEvent, fetchSingleEvent } from "../utils/fetchEvents";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -19,6 +19,7 @@ import CommentModel from "../components/CommentModel";
 import { ResponsiveSliderStyles, SliderStyles } from "../components/sliderStyles";
 import NotFound from "./404";
 import { AboutEvent } from "../components/event/AboutEventSingle";
+import { CheckBadgeIcon,XMarkIcon } from "@heroicons/react/24/solid";
 
 interface Team {
   id: string;
@@ -67,7 +68,7 @@ const EditTeamPage: FunctionComponent = () => {
   const teamId = params.id;
   const { isCreated, singleEvent } = singleEventContextStore();
   console.log(singleEvent, 'sE')
-  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers, joinedUsers } = singleTeamsContextStore()
+  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers, joinedUsers,handleIsLoading } = singleTeamsContextStore()
 
   const router = useNavigate();
   const { t, i18n } = useTranslation();
@@ -279,6 +280,18 @@ const EditTeamPage: FunctionComponent = () => {
     navigate('/add-score-page/' + singleEvent?.id);
   };
 
+  const handleApprove = (e:any, id:any)=>{
+    e.preventDefault();
+    handleIsLoading(true);
+    const obj={
+      userId: id,
+      eventId: singleEvent?.id,
+    }
+    approveEvent(obj);
+    toast.success("Approved Successfully");
+    navigate(`/edit-team/${singleEvent?.id}`);
+
+  }
   return (
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}
@@ -411,6 +424,14 @@ const EditTeamPage: FunctionComponent = () => {
                               <img className="h-10 w-10 rounded-full" src={player.imageUrl} alt="" />
                               <div>
                                 <div className="text-sm font-medium text-gray-900">{player.nickName}</div>
+                                {isCreated &&
+                                <div>
+                                  
+                                  
+                                  <button className="flex items-center gap-1 cursor-pointer bg-[#17b3a6] text-white rounded-lg my-2" onClick={(e)=>{handleApprove(e, player.id)}}><CheckBadgeIcon className="w-6 h-6 text-white"/>{t("ACCEPT")}</button>
+                                <button className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#17b3a6]  rounded-lg my-2 py-1 text-[#17b3a6]" onClick={(e)=>{}}><XMarkIcon className="w-5 h-5 text-[#17b3a6]"/>{t("DECLINE")}</button>
+                                </div>
+                                }
 
                               </div>
                             </div>
@@ -452,15 +473,7 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
 
             <div className="flex items-end gap-40">
-              {isCreated ? (
-                <>
-
-                </>
-              ) : isJoined ? (
-                <>
-
-                </>
-              ) : (
+              {(!isCreated && !isJoined) && (
                 <>
                   <div className="flex justify-center text-center w-full ">
                     <button
@@ -546,11 +559,12 @@ const EditTeamPage: FunctionComponent = () => {
                           onClick={handleNavigateHome}
                         >
                           Add Players Score
+                          
                         </button>
                       }
                     </div>
                   </>
-                ) : isJoined && singleEvent.scoringType !== "Normal" ? (
+                ) : isJoined && singleEvent?.scoringType !== "Normal" ? (
                   <>
               
                     <div className="flex items-center gap-4">
@@ -568,7 +582,7 @@ const EditTeamPage: FunctionComponent = () => {
                   </>
                 ) : (
                   <>
-
+<p>{ singleEvent?.scoringType}</p>
 
                   </>
                 )}

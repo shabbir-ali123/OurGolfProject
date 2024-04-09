@@ -32,7 +32,7 @@ export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) 
     }
   };
 
-export const getScoreById = async ( setEventScore: any, eventId: any ) => {
+export const getScoreById = async ( setEventScore: any,setScoreLoading:any, eventId: any ) => {
     try {
         const token = localStorage.getItem("token");
 
@@ -46,6 +46,8 @@ export const getScoreById = async ( setEventScore: any, eventId: any ) => {
       }
     } catch (error) {
       throw console.log(error);
+    }finally{
+      setScoreLoading(false)
     }
   };
 

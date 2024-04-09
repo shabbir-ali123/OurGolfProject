@@ -135,6 +135,7 @@
     "Confirmed Members":"Confirmed Members",
     "Waiting Members":"Waiting Members",
     "Bookedmark Members":"Booked Mark Members",
+    "IS_READ":"Mark as Read",
     "FORGOT_PASSWORD":"Forgot Password?",
     "UPDATE": "Update",
     "WEEKLY_AVAILIBILTY": "Weekly Availibility",

@@ -86,4 +86,8 @@ export const API_ENDPOINTS = {
   GETSCOREBYEVENTID: `${API_BASE_URL}/${API_VERSION}/get-score-card-by-event/`,
  
 
+  //notification hanlder
+  UPDATENOTIFICATIONSTATUS: `${API_BASE_URL}/${API_VERSION}/update-notification-response`,
+  
+
 };

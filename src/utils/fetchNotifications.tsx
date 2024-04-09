@@ -26,3 +26,23 @@ export const fetchNotifications = async (
     setIsLoading(false);
   }
 };
+export const updateNotificationsStatus = async (
+  setIsLoading:any,
+  formData: any,
+) => {
+  try {
+    const token = localStorage.getItem("token");
+    const headers: any = {};
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+    const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, formData, {
+      headers
+    });
+
+  } catch (error) {
+    console.log(error) 
+  } finally {
+    setIsLoading(false);
+  }
+};
