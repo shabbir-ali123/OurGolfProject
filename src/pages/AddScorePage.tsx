@@ -331,7 +331,7 @@ console.log(a);
                           showNumber={false}
                           enableHover={true}
                           onDelete={() => { }}
-                          name={member.userId}
+                          name={member.nickName}
                           imageUrl={member.imageUrl}
                         />
                         {holes.map((hole, holeIndex: number) => (
@@ -339,7 +339,7 @@ console.log(a);
                             <input
                               type="number"
                               min="1"
-                              placeholder={formData.scorePerShot[holeIndex] !== undefined ? formData.scorePerShot[holeIndex] : ""}
+                              // placeholder={formData.scorePerShot[holeIndex] !== undefined ? formData.scorePerShot[holeIndex] : ""}
                               onChange={(e) =>
                                 handleInputChange(
                                   member.userId,

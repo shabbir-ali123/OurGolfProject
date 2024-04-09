@@ -416,8 +416,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                             <div className="grid grid-cols-2 bg-#ffffff  justify-center cursor-pointer" onClick={() => router(`/edit-team/${item.id}`)}>
                               <div className="flex justify-start cursor-pointer h-[50px] w-[50px]">
                                 <img src={
-                                  item.imageUrl[0]
-                                    ? item.imageUrl[0]
+                                  item.creator.imageUrl
+                                    ?  item.creator.imageUrl
                                     : "img/BG-GOLF.jpg"
                                 }
                                   alt=""

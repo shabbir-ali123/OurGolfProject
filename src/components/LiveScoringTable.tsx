@@ -21,7 +21,7 @@ const ScoringTable: FunctionComponent = () => {
     const {t } = useTranslation();
 
     return (
-        <div className='mx-5 '>
+        <div className='mx-5 mt-10'>
             <div className='px-3 overflow-x-auto'>
                 <table className='w-full border-spacing-y-5 '>
                     <thead className='text-left text-white '>
