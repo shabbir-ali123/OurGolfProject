@@ -12,6 +12,7 @@ function DropDown({ timeSlots, dayFilter }: DropDownProps) {
   const [selectedOption, setSelectedOption] = useState('All'); // Set initial state to 'All'
 
   const handleFilterDays = (data: any) => {
+    console.log(data)
     setSelectedOption(data);
     dayFilter(data);
   };
