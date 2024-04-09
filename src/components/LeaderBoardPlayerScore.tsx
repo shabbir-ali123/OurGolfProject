@@ -7,8 +7,8 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   return (
-    <div className="mx-5 w-[300px] md:w-[1200px]  md:mx-[80px] ">
-      <div className="my-20">
+    <div className=" my-10 xl:my-[200px] w-[300px] md:w-[1200px]  md:mx-[80px] ">
+      {/* <div className="my-20">
         <div className="flex items-center ">
           <div className="relative w-[90.5px] h-[147.5px]">
             <img
@@ -26,7 +26,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
             {t("INDIVIUAL_SCORE")}
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="relative flex flex-col gap-8 lg:flex-row">
         <div className="basis-1/2 ">
           <div className="flex  items-center justify-center basis-1/2 h-[80px] bg-[#0AA3BC]">

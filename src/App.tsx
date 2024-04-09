@@ -469,8 +469,11 @@ function App() {
             element={
               <SingleTeamsContext>
                 <SingleEventsContext>
-                  {" "}
-                  <AddScorePage />{" "}
+                <ScoreContextProvider>
+
+                  <AddScorePage />
+                  </ScoreContextProvider>
+
                 </SingleEventsContext>
               </SingleTeamsContext>
             }
@@ -482,7 +485,7 @@ function App() {
                 <SingleEventsContext>
                   <ScoreContextProvider>
                     <ScorePage />
-                  </ScoreContextProvider>{" "}
+                  </ScoreContextProvider>
                 </SingleEventsContext>
               </SingleTeamsContext>
             }

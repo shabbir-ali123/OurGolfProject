@@ -50,7 +50,7 @@ export const SingleTeamsContext = ({children}:any)=>{
         };
 
         fetchData();
-    }, [teamId]);
+    }, [teamId, isLoading]);
     
     const uniqueMembers = teams.flatMap((team: any) => team.members || [])
     .reduce((acc: any, member: any) => {
@@ -64,14 +64,14 @@ export const SingleTeamsContext = ({children}:any)=>{
     const handleSingleTeam =  useCallback((value: any) => {
         return setTeams(value);
     }, []);
-
+    const handleIsLoading =  useCallback((value: any) => {
+        return setIsLoading(value);
+    }, [isLoading]);
     const uId = localStorage.getItem('id');
-
-    const memberrr = uniqueMembers?.map((member: any) => member.userId).toString();
-    const isJoined = memberrr?.includes(uId); 
+    const isJoined = uniqueMembers?.some((member: any) => member.userId == uId);
     
     console.log(waitingUsers)
-    const value =  { handleSingleTeam,waitingUsers, joinedUsers,  teamMembers, isJoined, uniqueMembers, totalJoinedMembers,isLoading, teams}
+    const value =  { handleSingleTeam, handleIsLoading, waitingUsers, joinedUsers,  teamMembers, isJoined, uniqueMembers, totalJoinedMembers,isLoading, teams}
 
     return <SingleTeamContext.Provider  value={value}> {children}</SingleTeamContext.Provider>
 }

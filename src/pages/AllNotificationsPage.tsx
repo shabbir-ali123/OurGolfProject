@@ -7,7 +7,7 @@ import { getTimeAgo } from "./ReadPost";
 import { approveEvent } from "../utils/fetchEvents";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { fetchNotifications } from "../utils/fetchNotifications";
+import { fetchNotifications, updateNotificationsStatus } from "../utils/fetchNotifications";
 
 export default function AllNotification() {
   const navigate = useNavigate();
@@ -16,23 +16,20 @@ export default function AllNotification() {
   const [notificationData, setNotificationData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   document.body.dir = i18n.dir();
-  const [formData, setFormData] = useState({
-    userId: "",
-    eventId: "",
-  });
-  const {  isloading, handleMessage } =
+
+  const { isloading, handleMessage } =
     notificationsContextStore();
 
-  const handleApprove = (e: any, userId: any, eventId: any) => {
+  const handleApprove = (e: any, eventId: any, message: any) => {
     e.preventDefault();
 
     const obj = {
-      userId: userId,
-      eventId: eventId,
+      notificationId: eventId,
+      message: message,
     }
-    approveEvent(obj, handleMessage);
-    toast.success("Approved Successfully");
-    navigate(`/edit-team/${eventId}`);
+    updateNotificationsStatus(handleMessage, obj);
+    toast.success("Marked as Read Successfully");
+    // navigate(`/edit-team/${eventId}`);
 
   };
   useEffect(() => {
@@ -70,63 +67,93 @@ export default function AllNotification() {
                   //   (item.teacherId == currentUserId) ||
                   //   (item.userId == currentUserId)
                   // ) {
-                    return (
-                      <Transition
-                        show={show}
-                        as={Fragment}
-                        enter="transform ease-out duration-300 transition"
-                        enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-                        enterTo="translate-y-0 opacity-100 sm:translate-x-0"
-                        leave="transition ease-in duration-100"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                      >
-                        <div className="mt-2 pointer-events-auto w-full max-w-5xl rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-                          <div className="p-4">
-                            <div className="flex items-start">
-                              <div className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8">
-                                <img
-                                  className="w-full h-full rounded-full"
-                                  src={item?.User.imageUrl}
-                                  alt=""
-                                />
-                              </div>
-                              <div className="ml-3 w-0 flex-1">
-                                <p className="text-sm font-medium text-gray-900">
-                                  {item.User.nickname}
-                                </p>
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {item.message}
-                                </p>
-                                {!item.isRead && (
-                                  <div className="mt-4 flex">
-                                    <button
-                                      type="button"
-                                      className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                      onClick={(e) =>
-                                        handleApprove(e, item?.userId, item?.eventId)
-                                      }
-                                    >
-                                      {t("ACCEPT")}
-                                    </button>
-                                    <button
-                                      type="button"
-                                      className="cursor-pointer ml-3 inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                    >
-                                      {t("DECLINE")}
-                                    </button>
-                                  </div>
-                                )}
-                              </div>
-                              <div className="ml-4 flex flex-shrink-0">
+                  return (
+                    <Transition
+                      show={show}
+                      as={Fragment}
+                      enter="transform ease-out duration-300 transition"
+                      enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                      enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <div className={`mt-2 pointer-events-auto w-full max-w-5xl rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ${!item.isRead ? 'bg-[#f3f3f3]' : 'bg-white'
+                        }`} onClick={(e) => {
+
+
+
+                          if (item?.eventId !== null) {
+                            handleApprove(e, item?.id, item?.message)
+                            navigate('/edit-team/' + item?.eventId);
+
+                          } else if (item?.teacherId !== null) {
+                            navigate('/' + item?.eventId);
+
+                          }
+
+
+
+
+
+                        }}>
+                        <div className="p-4">
+                          <div className="flex items-start">
+                            <div className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8">
+                              <img
+                                className="w-full h-full rounded-full"
+                                src={item?.User.imageUrl}
+                                alt=""
+                              />
+                            </div>
+                            <div className="ml-3 w-0 flex-1">
+                              <p className="text-sm font-medium text-gray-900">
+                                {item.User.nickname}
+                              </p>
+                              <p className="mt-1 text-sm text-gray-500">
+                                {item.message}
+                              </p>
+                              {/* {!item.isRead && (
+                                <div className="mt-4 flex">
+                                  <button
+                                    type="button"
+                                    className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    onClick={(e) =>
+                                      handleApprove(e, item?.id, item?.message)
+                                    }
+                                  >
+                                    {t("IS_READ")}
+                                  </button>
+                              
+                                </div>
+                              )} */}
+                            </div>
+                            <div className="text-start flex-col mb-2">
+                              {!item.isRead && (
+                                <div className=" text-left">
+                                  <button
+                                    type="button"
+                                    className="text-[11px] cursor-pointer text-black bg-transparent text-xs"
+                                    onClick={(e) =>
+                                      handleApprove(e, item?.id, item?.message)
+                                    }
+                                  >
+                                    {t("IS_READ")}
+                                  </button>
+
+                                </div>
+                              )}
+                              <p className="text-[12px]">
                                 {getTimeAgo(new Date(item?.createdAt), t)}
-                              </div>
+                              </p>
+
                             </div>
                           </div>
                         </div>
-                      </Transition>
-                    );
-                  
+                      </div>
+                    </Transition>
+                  );
+
                 })}
               </div>
             </div>
