@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MapPinIcon, StarIcon } from "@heroicons/react/24/outline";
 // import TeacherCalender from "../components/TeacherCalender";
 import TeacherListSlots from "./TeacherListSlots";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { teacherContext } from "../contexts/teachersContext";
 import { TeacherCalender } from "./TeacherCalender";
 import { useTranslation } from "react-i18next";
@@ -20,6 +20,7 @@ export const EducatorCard = ({
   hourlyRate,
   teacherId,
 }: any) => {
+  const navigate = useNavigate()
   const { t } = useTranslation();
   const [shiftsData, setShiftsData] = useState([]);
   const [tap, setTaped] = useState<boolean>(false);
@@ -96,10 +97,9 @@ export const EducatorCard = ({
   };
 
   return (
-    <Link to={"/teacher-details/" + teacherId}>
       <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
         <div className="grid grid-cols-1 xl:grid-cols-9 gap-4">
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6" onClick={() => navigate(`/teacher-details/${teacherId}`)}>
             <div className="flex flex-col lg:flex-row">
               <div className="text-center ">
                 <img
@@ -192,6 +192,5 @@ export const EducatorCard = ({
           </div>
         </div>
       </div>
-    </Link>
   );
 };
