@@ -80,7 +80,6 @@ document.body.dir = i18n.dir();
       }
     }
     setError(null);
-    debugger
     if (name === "teamSize" || name === "capacity") {
       const teamSizeValue = 1;
       if (!isNaN(teamSizeValue) && typeof numericValue === 'number' && numericValue < teamSizeValue) {

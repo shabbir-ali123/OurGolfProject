@@ -37,14 +37,41 @@ const isDayDisabled = (day:any, startEndDates:any) => {
   );
 };
 
-export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:any) => {
+export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFilter }:any) => {
+  const findFirstActiveMonth = () => {
+    if (!Array.isArray(startEndDates) || startEndDates.length === 0) {
+      return new Date();
+    }
+
+    for (let period of startEndDates) {
+      const { startDate, endDate } = period;
+      if (startDate && endDate) {
+        const start = parseISO(startDate);
+        const end = parseISO(endDate);
+        const daysInRange = eachDayOfInterval({ start, end });
+
+        for (let day of daysInRange) {
+          if (!isDayDisabled(day, startEndDates)) {
+            return startOfMonth(day);
+          }
+        }
+      }
+    }
+
+    return new Date();
+  };
+
+
   const { handleShift, shift } = teacherContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(findFirstActiveMonth());
   const [matchedShifts, setMatchedShifts] = useState([]);
   const [click, setClick] = useState<boolean>(false);
 
-  console.log(matchedShifts, "double");
+  useEffect(() => {
+    const firstActiveMonth = findFirstActiveMonth();
+    setCurrentMonth(firstActiveMonth);
+  }, [startEndDates]);
 
   const startDay = startOfWeek(startOfMonth(currentMonth));
   const endDay = endOfWeek(endOfMonth(currentMonth));
@@ -52,15 +79,20 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
 
   useEffect(() => {
     const formattedMonth = format(selectedDate, "EEEE");
-    const matchedShifts = startEndDates.flatMap(({ shifts }:any) =>
+    const matchedShifts = startEndDates?.flatMap(({ shifts }:any) =>
       shifts.filter((shift:any) => shift.day.toLowerCase() === formattedMonth.toLowerCase())
     );
     setMatchedShifts(matchedShifts);
     onClicked(click)
     onMatchedShifts(matchedShifts);
+    if (dayFilter) {
+    dayFilter(formattedMonth)
+
+    }
   }, [selectedDate, startEndDates]);
 
   const handleDateClick = (date:any) => {
+    console.log(date,'sdsd')
     if (isDayDisabled(date, startEndDates) === false) {
       setSelectedDate(date);
       setClick(true)
@@ -74,7 +106,7 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked }:an
   const handlePrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
-
+  
   return (
     <>
       <div className=" w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2 ">

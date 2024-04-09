@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../../utils/fetchUser"
+import { getAllUsers } from "../../utils/fetchUser";
 import { userAuthContext } from "../../contexts/authContext";
 
 export const UsersList = () => {
-    const {handleSelectedUser, chatUser} = userAuthContext();
-    const [users, setUsers] = useState<any[]>([]);
+  const { handleSelectedUser, chatUser } = userAuthContext();
+  const [users, setUsers] = useState<any[]>([]);
 
-    useEffect(() => {
-        getAllUsers(setUsers )
-    },[chatUser])
+  useEffect(() => {
+    getAllUsers(setUsers);
+  }, [chatUser]);
 
     return (
         <div className="h-[80vh] overflow-auto">
