@@ -10,28 +10,21 @@ export const UsersList = () => {
     getAllUsers(setUsers);
   }, [chatUser]);
 
-  return (
-    <div className="h-[80vh] overflow-auto">
-      <h1>Online Users</h1>
-      {users?.map((user: any) => {
-        return (
-          <li className="list-none " key={user.id}>
-            <div
-              className="flex cursor-pointer"
-              onClick={() => handleSelectedUser(user.id.toString())}
-            >
-              <div>
-                <img
-                  src={user?.imageUrl}
-                  className="rounded-full w-10 h-10"
-                  alt=""
-                />
-              </div>
-              {user?.nickName}
-            </div>
-          </li>
-        );
-      })}
-    </div>
-  );
-};
+    return (
+        <div className="h-[80vh] overflow-auto">
+            <h1>All Users</h1>
+        {users?.map((user: any) => {
+                return (
+                    <li className="list-none " key={user.id} >
+                        <div className="flex cursor-pointer" onClick={() => handleSelectedUser(user.id.toString())}>
+                            <div >
+                            <img src={user?.imageUrl} className="rounded-full w-10 h-10" alt="" />
+                            </div>
+                            {user?.nickName}
+                        </div>
+                    </li>
+                );
+            })}
+        </div>
+    )
+}

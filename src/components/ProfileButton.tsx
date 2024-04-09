@@ -65,7 +65,7 @@ export default function ProfileButton() {
     };
   }, []);
   const filteredNotifications = notificationData?.filter((item:any) => {
-    if(item.organizerId == userId && item.isRead !== true || item.teacherId == userId && item.isRead !== true ){
+    if( item.isRead !== true ){
        console.log(item);    
      return true;
     }

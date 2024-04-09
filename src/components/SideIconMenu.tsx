@@ -76,7 +76,7 @@ export const menuItems: MenuItem[] = [
   {
     name: "CALENDER",
     icon: faCalendar,
-    path: "/activities-page",
+    path: "/activties-page",
   },
   {
     name: "PROFILE",
@@ -254,8 +254,7 @@ const SideMenu: React.FC = () => {
   }, []);
   const filteredNotifications = notificationData?.filter((item: any) => {
     if (
-      (item.organizerId == userId && item.isRead !== true) ||
-      (item.teacherId == userId && item.isRead !== true)
+      (item.isRead !== true)
     ) {
       return true;
     }

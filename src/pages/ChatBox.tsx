@@ -10,6 +10,7 @@ import {
 import "./app.css";
 import { getAllUsers } from "../utils/fetchUser";
 import { userAuthContext } from "../contexts/authContext";
+import PubNub from "pubnub";
 
 export default function ChatApp() {
   const { chatUser } = userAuthContext();
@@ -64,11 +65,23 @@ export default function ChatApp() {
     }
     setMessages((messages) => [...messages, message]);
   }
+  const hash = document.location.hash.split("?")[1];
+    const params = new URLSearchParams(hash);
+    const uuid = params.get("uuid");
+
+  const pubnubKeys = {
+    publishKey: params.get("pubkey") || (process.env.REACT_APP_PUB_KEY),
+    subscribeKey: params.get("subkey") || (process.env.REACT_APP_SUB_KEY),
+};
+
   useEffect(() => {
+   
+
     async function initalizeChat() {
+    
       const chat = await Chat.init({
-        publishKey: "pub-c-eafa8c74-d8e8-4b72-b5fe-8e83c98886ff",
-        subscribeKey: "sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5",
+        publishKey: pubnubKeys.publishKey,
+        subscribeKey: pubnubKeys.subscribeKey || "",
         userId: localStorage.getItem("id") || "",
       });
 
@@ -76,11 +89,11 @@ export default function ChatApp() {
         (await chat.getUser(chatUser)) ||
         (await chat.createUser(
           chatUser,
-          users.find((item: any) => item.id == 2)
+          users.find((item: any) => item.id == chatUser)
         ));
       const { channel } = await chat.createDirectConversation({
         user: interlocutor,
-        channelData: { name: "direct.3705615641681" },
+        channelData: { name: chatUser },
       });
       setChat(chat);
       // setUsers([chatUser, interlocutor])
@@ -128,7 +141,10 @@ export default function ChatApp() {
 
   return (
     <main className="bg-gray-200 flex flex-col rounded-sm w-[70%] h-[80vh]">
-      <header className="flex bg-red justify-between p-4">
+      <header className="flex bg-white justify-between p-4" style={{
+          boxShadow:
+            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+        }}>
         <h3>{channel.name}</h3>
         <h3>{chat.currentUser.name}</h3>
       </header>
@@ -194,7 +210,7 @@ export default function ChatApp() {
         <input
           type="text"
           value={text}
-          className="bg-gray-300 w-full rounded-md border-none p-3"
+          className="bg-white w-full rounded-md border-none p-3"
           onChange={(e) => setText(e.target.value)}
           placeholder="Send message"
         />

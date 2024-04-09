@@ -12,7 +12,7 @@ const TeamPerformance: FunctionComponent<TeamPerformanceProps> = ({
     const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
     return (
-        <div className='mt-20 mx-5 md:mx-[80px]'>
+        <div className='mt-20 mx-5 md:mx-[0px]'>
             <div className='flex overflow-hidden'>
                 <img
                     className='rounded-[50%] w-[71px] h-[71px] object-cover'

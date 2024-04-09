@@ -1,5 +1,5 @@
 import { UsersList } from "../components/chat/UsersList"
-import ChatApp from "./test"
+import ChatApp from "./ChatBox"
 
 export const ChatSystem = () => {
     return (

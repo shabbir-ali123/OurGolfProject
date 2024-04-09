@@ -133,7 +133,7 @@ const CreatedEvents: React.FC = () => {
                             </th>
                             <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
                                 {t("END_DATE")}
-                            </th>
+                            </th> 
                             <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
                                 {t("ACTIONS")}
                             </th>

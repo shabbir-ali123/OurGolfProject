@@ -64,7 +64,7 @@ const UserProfile = () => {
           </div>
           <div className="mt-16">
             <h3 className="mb-1.5 text-2xl font-semibold text-black ">
-              {singleUser.nickName}
+              {singleUser?.nickName}
             </h3>
             <p className="font-medium">{singleUser?.email}</p>
             <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-4 rounded-md border border-stroke py-4 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
