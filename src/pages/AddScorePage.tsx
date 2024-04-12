@@ -306,6 +306,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                       }
                     }
                     const netValue = totalPar - roundedValue;
+                    const playerData = formData?.find((data:any) => data.userId == member.userId);
 
 
                     return (
@@ -329,7 +330,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                             <input
                               type="number"
                               min="1"
-                              // placeholder={formData.scorePerShot[holeIndex] !== undefined ? formData.scorePerShot[holeIndex] : ""}#17b3a6
+                              value={playerData && playerData.scorePerShot?.[holeIndex]}
                               onChange={(e) =>
                                 handleInputChange(
                                   member.userId,
@@ -342,8 +343,8 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                           </td>}
                         )}
                         <td className="px-2 py-3 text-center">
-                          {totalScores[member.userId]}
-                        </td>
+{                          playerData?.totalScore  || formData ? playerData?.totalScore :  totalScores[member.userId] 
+}                        </td>
                         {isCreator && (
                           <>
                             <td className="px-2 py-3 text-center">
