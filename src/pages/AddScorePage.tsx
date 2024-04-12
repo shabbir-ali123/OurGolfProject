@@ -164,7 +164,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       );
       totalSums[userId] = totalScore;
     }
-
+   
     return totalSums;
   };
 
@@ -188,8 +188,29 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }, []);
 
 
-
+    useEffect(() => {
+      debugger
+      // Prepare the new form data array
+      const newFormData = score?.reduce((acc:any, item:any) => {
+        // Check if the current score item's user is in the uniqueMembers list
+        const isMember = uniqueMembers?.some((member:any) => member.userId === item.userId);
+        if (isMember) {
+          // Parse scorePerShot only if it's a string
+          const scorePerShot = typeof item.scorePerShot === 'string' ? JSON.parse(item.scorePerShot) : item.scorePerShot;
+          acc.push({
+            scorePerShot: scorePerShot,
+            totalScore: item.totalScore,
+            userId: item.userId
+          });
+        }
+        return acc;
+      }, []);
   
+      // Update the formData state once with all new entries
+      setFormData(newFormData);
+      console.log(formData, "hdghg");
+    }, [score]);
+
   return (
     <div className="mx-4 xl:mx-32 ">
       <div className="flex items-center gap-10">
@@ -383,7 +404,9 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                   }
 
                   const netValue = totalPar - roundedValue;
-                
+                  const playerData = formData?.find((data:any) => data.userId == member.userId);
+
+                  console.log(playerData?.[0]?.totalScore, "sadasdasd");
                   return (
                     <tr
                       key={memberIndex}
@@ -398,14 +421,19 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         name={member.nickName}
                         imageUrl={member.imageUrl}
                       />
-                      {holes.map((hole, holeIndex: number) => {
+                      {holes.map((hole, holeIndex: number) =>
+                      
+
+                      {
+
                         return (
                           <td key={holeIndex}>
                             <input
                               type="number"
                               min="0"
-                              required
-                              // placeholder={formData.scorePerShot[holeIndex] !== undefined ? formData?.scorePerShot[holeIndex] : ""}
+                              value={playerData && playerData.scorePerShot?.[holeIndex]}
+                              
+                              // placeholder={formData?.scorePerShot[holeIndex] !== "" ? formData?.scorePerShot[holeIndex] : ""}
                               onChange={(e) =>
                                 handleInputChange(
                                   member.userId,
@@ -430,7 +458,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                               type="text"
                               min="1"
                               name="nearPinContest"
-                              // placeholder={hole.toString()}
                               className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
                             />
                             }
@@ -438,7 +465,10 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         )
                       })}
                       <td className="px-2 py-3 text-center">
-                        {totalScores[member.userId]}
+                        {
+                          playerData?.totalScore  || formData ? playerData?.totalScore :  totalScores[member.userId] 
+                        }
+                        
                       </td>
                       {isCreator && (
                         <>
