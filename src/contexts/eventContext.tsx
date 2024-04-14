@@ -116,7 +116,7 @@ export const EventsContext = ({ children }: any) => {
         setJoinedEvents(value);
     }, [joinedEvents]);
 
-    const value = { handleEvents, handlePageChange,handleJoinedEvents, handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,joinedEvents, eventsName, clearFilter, locations, eventss,pageSize, eventsCount }
+    const value = { handleEvents, handlePageChange,handleJoinedEvents, handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,joinedEvents,eventStatus, eventsName, clearFilter, locations, eventss,pageSize, eventsCount }
 
     return <EventCreateContext.Provider value={value}> {children}</EventCreateContext.Provider>
 }
