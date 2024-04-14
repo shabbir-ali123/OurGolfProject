@@ -15,6 +15,7 @@ import {
 } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { teacherContext } from "../contexts/teachersContext";
+import i18n from "../locale";
 
 function classNames(...classes:any) {
   return classes.filter(Boolean).join(" ");
@@ -106,7 +107,13 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked, day
   const handlePrevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
-  
+  const formatDate = (date:any) => {
+    const formatter = new Intl.DateTimeFormat(i18n.language, {
+      year: 'numeric',
+      month: 'long',
+    });
+    return formatter.format(date);
+  };
   return (
     <>
       <div className=" w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2 ">
@@ -114,7 +121,7 @@ export const TeacherCalender = ({ startEndDates, onMatchedShifts, onClicked, day
           <div className="lg:col-span-8 xl:col-span-9 px-4">
             <div className="flex items-center justify-between mx-2 my-2 text-gray-900 ">
               <div className="font-inter font-semibold text-[#009C2F]">
-                {format(currentMonth, "MMMM yyyy")}
+                {formatDate(currentMonth)}
               </div>
               <div className="flex gap-2 py-2">
                 <button onClick={handlePrevMonth} className="cursor-pointer rounded-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  hover:bg-[#2dd4bf] hover:text-white p-2 flex justify-center items-center" >

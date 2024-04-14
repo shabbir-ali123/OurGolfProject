@@ -371,6 +371,7 @@ const EditTeamPage: FunctionComponent = () => {
                 </Slider>
               )}
             </div>
+            <div className="max-w-5xl mx-auto">
             <AboutEvent totalJoinedMembers={totalJoinedMembers} />
             <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
               <div className="flex gap-2 ">
@@ -489,13 +490,13 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
 
             <div className="mr-4 lg:mr-0 lg:w-full ">
-              <div className="xl:flex items-center   gap-40 py-8">
+              <div className="xl:flex items-center justify-between   gap-40 py-8">
                 {isCreated ? (
                   <>
                     <div className="flex gap-2 m-4 xl:m-0">
                       <div>
                         <img src="/img/golfplyr.png" alt="" width="40px" />
-                        <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                        <b className="text-xl lg:text-10xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
                           Edit Teams
                         </b>
                       </div>
@@ -582,7 +583,7 @@ const EditTeamPage: FunctionComponent = () => {
                   </>
                 ) : (
                   <>
-<p>{ singleEvent?.scoringType}</p>
+
 
                   </>
                 )}
@@ -1001,6 +1002,8 @@ const EditTeamPage: FunctionComponent = () => {
               <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
 
             </table>
+            </div>
+           
           </div>
         </div>
         : <NotFound />}

@@ -83,7 +83,7 @@ const ScoringTable: FunctionComponent = () => {
                                         boxShadow: ' 0px 0px 5px 0px #CF24EB',
                                     }}
                                 >
-                                    {t('Individual')}
+                                    {t('TEAMS')}
                                 </div>
                                 <div className='pl-3 text-lg font-semibold first-line:leading-5'>
                                     Par

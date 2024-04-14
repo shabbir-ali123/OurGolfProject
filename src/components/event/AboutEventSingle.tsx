@@ -24,7 +24,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     const calculatedFee = (percentage / 100) * validTotalCancellationFee;
     setCalculatedCancellationFee(`¥${calculatedFee.toFixed(2)}`);
   }, [selectedDays, singleEvent?.cancellationFee]);
-  return <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+  return <div className="max-w-5xl mx-auto  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
     <div className="flex items-center gap-10">
       <div className="relative w-[90.5px] h-[147.5px]">
         <img
@@ -45,17 +45,17 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     <div className="grid grid-cols-1 gap-0 py-4 ">
       <div className=" items-center gap-10  ">
         <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('DATE')}</div>
-        <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_DATE')}:</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
+        <p className="py-2  capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_DATE')}:</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
           eventEndTime
         }</p>
-        <p className="py-0 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('APPLICATION_DEADLINE')} :</span> {singleEvent?.eventEndDate}</p>
+        <p className="py-2 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</span> {singleEvent?.eventEndDate}</p>
       </div>
       <div className=" items-center gap-10  ">
         <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_LOCATION')}</div>
-        <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
+        <p className="py-2 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
+          <p className="py-2 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
         </div>
         <div className=" col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
           <iframe
@@ -73,10 +73,10 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
       </div>
       <div className=" items-center gap-10  ">
         <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_DETAILS')}</div>
-        <p className="py-0 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
+        <p className="py-2 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
+          <p className="py-2 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
             eventType}</p>
         </div>
 
@@ -86,19 +86,19 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
       <div className="flex items-center gap-10  ">
 
-        <p className="py-0 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 basis-[200px] font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
+        <p className="py-2 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
       </div>
     </div>
 
     <div className=" items-center gap-10  ">
       <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('PRICE')}</div>
-      <p className="py-0 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px] font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
+      <p className="py-2 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
     </div>
     <div className="items-center gap-10">
       <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] p-2">
         {t('CANCELLATION_FEE')}
       </div>
-      <div className="grid grid-cols-9  py-0 mx-auto  my-2 py-2">
+      <div className="grid grid-cols-9  py-2 mx-auto  my-2 py-2">
         <div className="col-span-8 text-4xl text-[#626262] lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
           <p className="flex gap-2 text-red">Cancellation Fee : <span>{singleEvent?.cancellationFee}</span></p> 
           {/* <select

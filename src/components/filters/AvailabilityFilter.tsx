@@ -15,7 +15,7 @@ const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange 
   return (
     < >
     <div className='py-4'>
-    <h3 className='text-start'>Availability</h3>
+    <h3 className='text-start'>Today’s Availability</h3>
      <div className="flex border-b">
       <button
         className={`flex-1 py-2 text-center ${

@@ -20,7 +20,7 @@ const UpdateProfilePage: React.FC = () => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files?.[0];
 
-    console.log(files);
+    console.log(files ,"myyy");
     if (files) {
       const reader = new FileReader();
     
@@ -105,7 +105,7 @@ const UpdateProfilePage: React.FC = () => {
                 <InputWithIcon
                   pname="nickName"
                   icon={<UserIcon />}
-                  label={t("LAST_NAME")}
+                  label={t("NICK_NAME")}
                   value={userFormData.nickName}
                   onChange={handleChanges}
                   placeholder={t("ENTER_LAST_NAME")}

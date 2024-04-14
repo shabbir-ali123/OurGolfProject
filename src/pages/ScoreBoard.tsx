@@ -21,6 +21,7 @@ import { FlexitySlider } from "../components/sliders/FlickitySlider";
 import CommentModel from "../components/CommentModel";
 import { AboutEvent } from "../components/event/AboutEventSingle";
 import { singleTeamsContextStore } from "../contexts/teamContext";
+import ScoringTabs from "../components/ScoringTabs";
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
 
@@ -65,7 +66,7 @@ const ScoreBoard: FunctionComponent = () => {
               <div>
                 <IndiviualPlayerScore />
 
-                <ScoringTable />
+                <ScoringTabs/>
               </div>
 
 

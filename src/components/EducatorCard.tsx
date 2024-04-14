@@ -109,7 +109,7 @@ export const EducatorCard = ({
                   className="rounded-full"
                   alt=""
                 />
-                <h4>¥ {hourlyRate} Per/Hr </h4>
+                <h4>¥ {hourlyRate} {t('Per/Hr')} </h4>
               </div>
               <div className="mt-4 md:mt-0 md:mx-4 flex-1">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
@@ -117,16 +117,13 @@ export const EducatorCard = ({
                     {firstName} {lastName}
                   </h3>
                   <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0">
-                    <button
-                      className="w-full xl:w-auto my-2 text-sm bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
-                      onClick={handleBookAppointment}
-                    >
-                      Book An Appointment
-                    </button>
+                  <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                  {t('CHAT')} 
+              </button>
 
                     <Link to={"/teacher-details/" + teacherId}>
                       <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
-                        View Details
+                      {t('VIEW_DETAILS')} 
                       </button>
                     </Link>
                   </div>
@@ -138,7 +135,7 @@ export const EducatorCard = ({
                       aria-hidden="true"
                     />
                     <div>
-                      <h4 className="m-0 my-1 p-0">Location</h4>
+                      <h4 className="m-0 my-1 p-0">{t('LOCATION')}</h4>
                       <p className="m-0 p-0">{location}</p>
                     </div>
                   </div>
@@ -148,7 +145,7 @@ export const EducatorCard = ({
                       aria-hidden="true"
                     />
                     <div>
-                      <h4 className="m-0 my-1 p-0">Rating</h4>
+                      <h4 className="m-0 my-1 p-0"> {t('RATING')} </h4>
                       <p className="m-0 p-0">
                         {rating ? `${rating} (130 ratings)` : "No ratings yet"}
                       </p>
@@ -159,7 +156,7 @@ export const EducatorCard = ({
               </div>
             </div>
             <div className="mt-4 ">
-              <div className="grid grid-cols-3 lg:grid-cols-8 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-8 sm:grid-cols-3 gap-4">
                 {shiftsData.map((shift: any, index: any) => (
                   <button
                     key={index}
@@ -172,15 +169,20 @@ export const EducatorCard = ({
                     {shift.startTime} - {shift.endTime}
                   </button>
                 ))}
+                <div className="w-full xl:w-[200px] ">
+                <button
+                     className="w-full py-4 xl:w-full text-sm bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
+                     onClick={handleBookAppointment}
+                   >
+                     {t('BOOK_APPOINTMENT')} 
+                   </button>
+                </div>
+                
               </div>
-
+            
 
             </div>
-            <div className="flex mt-10 justify-end">
-              <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
-                Chat
-              </button>
-            </div>
+           
           </div>
           <div className="md:col-span-3">
             <TeacherCalender
