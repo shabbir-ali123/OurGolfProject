@@ -189,7 +189,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
 
     useEffect(() => {
-      debugger
       // Prepare the new form data array
       const newFormData = score?.reduce((acc:any, item:any) => {
         // Check if the current score item's user is in the uniqueMembers list

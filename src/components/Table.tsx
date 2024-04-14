@@ -13,7 +13,10 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import { eventContextStore, SingleEventsContext } from "../contexts/eventContext";
+import {
+  eventContextStore,
+  SingleEventsContext,
+} from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
 import { deleteEvent } from "../utils/fetchEvents";
 import socket from "../socket";
@@ -43,7 +46,7 @@ interface TableProps {
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { eventss, handleEvents } = eventContextStore();
+  const { eventss, handleEvents, eventStatus } = eventContextStore();
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
@@ -52,7 +55,18 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     setSelectedEvent(eventId);
     setShowModal(!showModal);
   };
+  const [checkedJoined, setCheckedJoined] = useState(false);
 
+  useEffect(() => {
+    if (eventStatus === "joined") {
+      setCheckedJoined(true);
+    } else {
+      setCheckedJoined(false);
+    }
+    console.log(eventStatus);
+  }, [checkedJoined, eventStatus]);
+
+  console.log(checkedJoined);
   const handleFavoriteClick = async (eventId: string) => {
     try {
       const token = localStorage.getItem("token");
@@ -71,9 +85,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prevs.map((e: any) =>
             e.id === eventId
               ? {
-                ...e,
-                isFavorite: !e.isFavorite,
-              }
+                  ...e,
+                  isFavorite: !e.isFavorite,
+                }
               : e
           )
         );
@@ -109,45 +123,41 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prev.map((e: any) =>
             e.id === event.id
               ? {
-                ...e,
-                likes: userEvent
-                  ? likes.map((like: any) =>
-                    like.userId === loggedInUser
-                      ? { ...like, counter: newCounter }
-                      : like
-                  )
-                  : [
-                    ...likes,
-                    {
-                      counter: newCounter,
-                      userId: loggedInUser,
-                      id: Math.floor(Math.random() * 10),
-                    },
-                  ],
-              }
+                  ...e,
+                  likes: userEvent
+                    ? likes.map((like: any) =>
+                        like.userId === loggedInUser
+                          ? { ...like, counter: newCounter }
+                          : like
+                      )
+                    : [
+                        ...likes,
+                        {
+                          counter: newCounter,
+                          userId: loggedInUser,
+                          id: Math.floor(Math.random() * 10),
+                        },
+                      ],
+                }
               : e
           )
         );
       }
     } catch (error) {
-      toast.error(
-        `Please Login`,
-        toastProperties as ToastConfig
-      );
+      toast.error(`Please Login`, toastProperties as ToastConfig);
     }
   };
 
   const userId = localStorage.getItem("id");
-
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -159,13 +169,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           <span className="text-lg font-medium">No events yet</span>
         </div>
       ) : (
-
         <div className="flow-root  ">
           <div className="-my-2  ">
             <div className="inline-block min-w-full py-0 align-middle ">
               <div className="sm:rounded-lg">
-                {
-                  !isMobile ? <table
+                {!isMobile ? (
+                  <table
                     className="relative min-w-full  divide-y divide-gray-300 z-9"
                     style={{
                       borderCollapse: "separate",
@@ -246,15 +255,21 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                                 <div
                                   className="text-lg font-medium leading-6 truncate tableText"
-                                  title={event.creator && event.creator.nickName ? event.creator.nickName : "N/A"}
+                                  title={
+                                    event.creator && event.creator.nickName
+                                      ? event.creator.nickName
+                                      : "N/A"
+                                  }
                                 >
                                   {event.creator && event.creator.nickName
                                     ? event.creator.nickName.length > 10
-                                      ? `${event.creator.nickName.substring(0, 10)}...`
+                                      ? `${event.creator.nickName.substring(
+                                          0,
+                                          10
+                                        )}...`
                                       : event.creator.nickName
                                     : "N/A"}
                                 </div>
-
                               </div>
                             </td>
                             <td
@@ -262,67 +277,104 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               onClick={() => router(`/edit-team/${event.id}`)}
                             >
                               <div className="flex flex-col ">
-                                <p className="font-bold text-2xl  capitalize text-start">{event.eventName}</p>
+                                <p className="font-bold text-2xl  capitalize text-start">
+                                  {event.eventName}
+                                </p>
 
                                 <span className="flex items-center gap-1 font-normal ">
                                   <MapPinIcon
-                                    className={`-mr-0.5 h-4 w-4 ${event.type !== "full" && "text-[#33333]"
-                                      }`}
+                                    className={`-mr-0.5 h-4 w-4 ${
+                                      event.type !== "full" && "text-[#33333]"
+                                    }`}
                                     aria-hidden="true"
                                   />
                                   {event.place}
                                 </span>
                                 <p className="text-start m-0 my-1 text-sm ">
-                                  {event.eventDetails.length > 100 ? `${event.eventDetails.substring(0, 100)}...` : event.eventDetails}
+                                  {event.eventDetails.length > 100
+                                    ? `${event.eventDetails.substring(
+                                        0,
+                                        100
+                                      )}...`
+                                    : event.eventDetails}
                                 </p>
                               </div>
-
-
                             </td>
                             <td
                               className="px-3 py-0 text-sm whitespace-nowrap"
                               onClick={() => router(`/edit-team/${event.id}`)}
-
                             >
-                              <p>
-                                {event.eventStartDate}
-                              </p>
+                              <p>{event.eventStartDate}</p>
 
                               {event.eventStartTime}
                             </td>
 
                             <td
                               className="px-3 py-2 text-sm flex-wrap"
-                              onClick={() => router(`/edit-team/${event.id}`)}
+                            
                             >
                               <p className="my-1 p-0">
-                                <span className="font-bold m-0 p-0"> {t("CONFIRMED")}:</span>  {event.teamMemberCount} / {event.capacity * event.teamSize}
+                                <span className="font-bold m-0 p-0">
+                                  {" "}
+                                  {t("CONFIRMED")}:
+                                </span>{" "}
+                                {event.teamMemberCount} /{" "}
+                                {event.capacity * event.teamSize}
                               </p>
                               <p className="m-0 p-0">
                                 <span className="font-bold ">
                                   {t("WAITING")}:
-                                </span> {event.teamMemberCount} / {event.capacity * event.teamSize}
-
+                                </span>{" "}
+                                {event.teamMemberCount} /{" "}
+                                {event.capacity * event.teamSize}
                               </p>
-                              <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
-                                <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black" style={{
 
-                                  boxShadow:
-                                    "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                }} >{t("JOIN")}</p>
-                              </span>
+                            {checkedJoined && event.eventType !== "normal" ? (
+                                <span className=" px-1 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  " onClick={
+                                  (e)=>{
+                                    e.preventDefault();
+                                    router('/add-score-page/' + event.id);                                  }
+
+                                }>
+                                  <p
+                                    className="bg-[#DDF4F2] w-[50%] py-2 text-center rounded-lg m-0 hover:bg-black"
+                                    style={{
+                                      boxShadow:
+                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                    }}
+                                  >
+                                    {t("ADD_SCORE")}
+                                  </p>
+                                </span>
+                              ) : (
+                                <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
+                                  <p
+                                    className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black"
+                                    style={{
+                                      boxShadow:
+                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                    }}
+                                  >
+                                    {t("JOIN")}
+                                  </p>
+                                </span>
+                              )}
                             </td>
-                            <div className="text-start flex items-center" >
+                            <div className="text-start flex items-center">
                               <div>
                                 <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
                                   <div className="flex flex-col items-center gap-1 ">
                                     <div
-                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
-                                        } cursor-pointer p-1 rounded-md`}
+                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${
+                                        liked ? "white" : "[white]"
+                                      } cursor-pointer p-1 rounded-md`}
                                       onClick={() => handleLike(event)}
                                     >
-                                      <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
-                                        } `} />
+                                      <HandThumbUpIcon
+                                        className={`w-4 h-4 text-${
+                                          liked ? "red" : "[#17B3A6]"
+                                        } `}
+                                      />
                                     </div>
                                     <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
                                       <div className="text-[12px]  text-[#17B3A6]  ">
@@ -349,14 +401,18 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </div>
                                   <div className="flex flex-col items-center gap-1">
                                     <div
-                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
-                                        }  cursor-pointer p-1 rounded-md`}
-                                      onClick={() => handleFavoriteClick(event.id)}
+                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${
+                                        isFavorite ? "[white]" : "[white]"
+                                      }  cursor-pointer p-1 rounded-md`}
+                                      onClick={() =>
+                                        handleFavoriteClick(event.id)
+                                      }
                                     >
                                       <FontAwesomeIcon
                                         icon={faHeart}
-                                        className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
-                                          }`}
+                                        className={`h-4 w-4 text-${
+                                          isFavorite ? "[red]" : "[#17B3A6]"
+                                        }`}
                                       />
                                     </div>
                                     <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">
@@ -367,9 +423,10 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 <div className="flex items-center justify-center py-2">
                                   <button
                                     className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
-                                    onClick={() => router(`/score-board/${event.id}`)}
+                                    onClick={() =>
+                                      router(`/score-board/${event.id}`)
+                                    }
                                     style={{
-
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                     }}
@@ -378,9 +435,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </button>
                                 </div>
                               </div>
-
                             </div>
-
                           </tr>
 
                           {selectedEvent === event.id && (
@@ -396,151 +451,201 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         </React.Fragment>
                       );
                     })}
-                  </table> :
-                    (
-                      eventss?.map((item: any) => {
-                        const likes = item.likes || [];
-                        const isFavorite = item.isFavorite || false;
-                        const liked = likes.find(
-                          (like: any) =>
-                            parseInt(`${like.userId}`) === parseInt(`${userId}`)
-                        )?.counter;
-                        return (
+                  </table>
+                ) : (
+                  eventss?.map((item: any) => {
+                    const likes = item.likes || [];
+                    const isFavorite = item.isFavorite || false;
+                    const liked = likes.find(
+                      (like: any) =>
+                        parseInt(`${like.userId}`) === parseInt(`${userId}`)
+                    )?.counter;
+                    return (
+                      <div className="grid gap-2 px-4 py-1 border border-solid border-[#DCDCDC] mb-2 items-center">
+                        <div className="grid grid-cols-2 bg-[#F5F5F5] items-center ">
+                          <div className="py-2">
+                            <p className="m-0">Organizer</p>
+                          </div>
+                          <div className="py-2">
+                            <p className="m-0 text-start">Event Name/ Detail</p>
+                          </div>
+                        </div>
+                        <div
+                          className="grid grid-cols-2 bg-#ffffff  justify-center cursor-pointer"
+                          onClick={() => router(`/edit-team/${item.id}`)}
+                        >
+                          <div className="flex justify-start cursor-pointer h-[50px] w-[50px]">
+                            <img
+                              src={
+                                item.creator.imageUrl
+                                  ? item.creator.imageUrl
+                                  : "img/BG-GOLF.jpg"
+                              }
+                              alt=""
+                              className="w-full h-full border border-indigo-600 border-solid rounded-full "
+                            />
+                          </div>
+                          <div>
+                            <p className="capitalize text-justify  p-0 m-0">
+                              Event By: <br /> {item.eventName}
+                            </p>
+                            <p className="text-start m-0 my-1 text-sm ">
+                              {item.eventDetails.length > 100
+                                ? `${item.eventDetails.substring(0, 100)}...`
+                                : item.eventDetails}
+                            </p>
+                          </div>
+                          <div className="text-start">
+                            <p className="m-0 ">
+                              {item.creator && item.creator.nickName
+                                ? item.creator.nickName
+                                : "N/A"}
+                            </p>
+                          </div>
+                        </div>
 
-
-                          <div className="grid gap-2 px-4 py-1 border border-solid border-[#DCDCDC] mb-2 items-center">
-                            <div className="grid grid-cols-2 bg-[#F5F5F5] items-center ">
-                              <div className="py-2"><p className="m-0">Organizer</p></div>
-                              <div className="py-2"><p className="m-0 text-start">Event Name/ Detail</p></div>
-                            </div>
-                            <div className="grid grid-cols-2 bg-#ffffff  justify-center cursor-pointer" onClick={() => router(`/edit-team/${item.id}`)}>
-                              <div className="flex justify-start cursor-pointer h-[50px] w-[50px]">
-                                <img src={
-                                  item.creator.imageUrl
-                                    ?  item.creator.imageUrl
-                                    : "img/BG-GOLF.jpg"
-                                }
-                                  alt=""
-                                  className="w-full h-full border border-indigo-600 border-solid rounded-full " /></div>
-                              <div>
-
-                                <p className="capitalize text-justify  p-0 m-0">Event By: <br /> {item.eventName}</p>
-                                <p className="text-start m-0 my-1 text-sm ">
-                                  {item.eventDetails.length > 100 ? `${item.eventDetails.substring(0, 100)}...` : item.eventDetails}
-                                </p>
-                              </div>
-                              <div className="text-start"><p className="m-0 ">{item.creator && item.creator.nickName ? item.creator.nickName : "N/A"}</p></div>
-                            </div>
-
-                            <div className="grid grid-cols-3 bg-[#F5F5F5] items-center ">
-                              <div className="p-2">Date</div>
-                              <div className="p-2">Joined Members</div>
-                              <div className="p-2">Actions</div>
-                            </div>
-                            <div className="grid grid-cols-3 bg-[#ffffff] cursor-pointer" >
-                              <div className="p-2" onClick={() => router(`/edit-team/${item.id}`)}>{item.eventStartDate}</div>
-                              <div className="p-2" onClick={() => router(`/edit-team/${item.id}`)}><p className="my-1 p-0">
-                                <span className="font-bold text-sm m-0 p-0"> {t("CONFIRMED")}:</span> <br /> {item.teamMemberCount} / {item.capacity * item.teamSize}
+                        <div className="grid grid-cols-3 bg-[#F5F5F5] items-center ">
+                          <div className="p-2">Date</div>
+                          <div className="p-2">Joined Members</div>
+                          <div className="p-2">Actions</div>
+                        </div>
+                        <div className="grid grid-cols-3 bg-[#ffffff] cursor-pointer">
+                          <div
+                            className="p-2"
+                            onClick={() => router(`/edit-team/${item.id}`)}
+                          >
+                            {item.eventStartDate}
+                          </div>
+                          <div
+                            className="p-2"
+                            onClick={() => router(`/edit-team/${item.id}`)}
+                          >
+                            <p className="my-1 p-0">
+                              <span className="font-bold text-sm m-0 p-0">
+                                {" "}
+                                {t("CONFIRMED")}:
+                              </span>{" "}
+                              <br /> {item.teamMemberCount} /{" "}
+                              {item.capacity * item.teamSize}
+                            </p>
+                            <p
+                              className="m-0 p-0  pb-2 "
+                              onClick={() => router(`/edit-team/${item.id}`)}
+                            >
+                              <span className="font-bold text-sm">
+                                {t("WAITING")}:
+                              </span>{" "}
+                              <br /> {item.teamMemberCount} /{" "}
+                              {item.capacity * item.teamSize}
+                            </p>
+                            <span
+                              className=" px-0 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
+                              onClick={() => router(`/edit-team/${item.id}`)}
+                            >
+                              <p
+                                className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black"
+                                style={{
+                                  boxShadow:
+                                    "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                }}
+                              >
+                                Join
                               </p>
-                                <p className="m-0 p-0  pb-2 " onClick={() => router(`/edit-team/${item.id}`)}>
-                                  <span className="font-bold text-sm">
-                                    {t("WAITING")}:
-                                  </span> <br /> {item.teamMemberCount} / {item.capacity * item.teamSize}
-
-                                </p>
-                                <span className=" px-0 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  " onClick={() => router(`/edit-team/${item.id}`)}>
-                                  <p className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black" style={{
-
-                                    boxShadow:
-                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                  }} >Join</p>
-                                </span></div>
-                              <div className="p-2"><div className="text-start flex items-center" >
-                                <div>
-                                  <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
-                                    <div className="flex flex-col items-center gap-1 ">
-                                      <div
-                                        className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
-                                          } cursor-pointer p-1 rounded-md`}
-                                        onClick={() => handleLike(item)}
-                                      >
-                                        <HandThumbUpIcon className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
-                                          } `} />
-                                      </div>
-                                      <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
-                                        <div className="text-[12px]  text-[#17B3A6]  ">
-                                          {
-                                            (item?.likes || []).filter(
-                                              (like: any) => like.counter
-                                            ).length
-                                          }
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-1">
-                                      <div
-                                        onClick={() => handleComment(item.id)}
-                                        className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
-                                      >
-                                        <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
-                                      </div>
-                                      <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
-                                        <div className="text-[12px] text-[#17B3A6]">
-                                          {item.comments?.length}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-1">
+                            </span>
+                          </div>
+                          <div className="p-2">
+                            <div className="text-start flex items-center">
+                              <div>
+                                <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
+                                  <div className="flex flex-col items-center gap-1 ">
                                     <div
-                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
-                                        }  cursor-pointer p-1 rounded-md`}
-                                      onClick={() => handleFavoriteClick(item.id)}
+                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${
+                                        liked ? "white" : "[white]"
+                                      } cursor-pointer p-1 rounded-md`}
+                                      onClick={() => handleLike(item)}
+                                    >
+                                      <HandThumbUpIcon
+                                        className={`w-4 h-4 text-${
+                                          liked ? "red" : "[#17B3A6]"
+                                        } `}
+                                      />
+                                    </div>
+                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                      <div className="text-[12px]  text-[#17B3A6]  ">
+                                        {
+                                          (item?.likes || []).filter(
+                                            (like: any) => like.counter
+                                          ).length
+                                        }
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-1">
+                                    <div
+                                      onClick={() => handleComment(item.id)}
+                                      className="flex shadow-lg border border-solid bg-white border-[#17B3A6] hover:bg-black p-1 rounded-md"
+                                    >
+                                      <ChatBubbleBottomCenterIcon className="w-4 h-4 text-[#17B3A6] " />
+                                    </div>
+                                    <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
+                                      <div className="text-[12px] text-[#17B3A6]">
+                                        {item.comments?.length}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-1">
+                                    <div
+                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${
+                                        isFavorite ? "[white]" : "[white]"
+                                      }  cursor-pointer p-1 rounded-md`}
+                                      onClick={() =>
+                                        handleFavoriteClick(item.id)
+                                      }
                                     >
                                       <FontAwesomeIcon
                                         icon={faHeart}
-                                        className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
-                                          }`}
+                                        className={`h-4 w-4 text-${
+                                          isFavorite ? "[red]" : "[#17B3A6]"
+                                        }`}
                                       />
                                     </div>
                                     <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">
                                       <ShareIcon className="w-4 h-4 text-[#17B3A6]" />
                                     </div>
                                   </div>
-                                  </td>
-                                  <div className="flex items-center justify-center py-2 mt-[25px]">
-                                    <button
-                                      className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
-                                      onClick={() => router(`/score-board/${item.id}`)}
-                                      style={{
-
-                                        boxShadow:
-                                          "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                      }}
-                                    >
-                                      {t("VIEW")}
-                                    </button>
-                                  </div>
+                                </td>
+                                <div className="flex items-center justify-center py-2 mt-[25px]">
+                                  <button
+                                    className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-8 rounded cursor-pointer"
+                                    onClick={() =>
+                                      router(`/score-board/${item.id}`)
+                                    }
+                                    style={{
+                                      boxShadow:
+                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                    }}
+                                  >
+                                    {t("VIEW")}
+                                  </button>
                                 </div>
-
                               </div>
-                             </div>
-                            
                             </div>
-                            {selectedEvent === item.id && (
-                                <div className="flex justify-center">
-                                  <SingleEventsContext>
-                                    <CommentModel
-                                      closeModal={closeModal}
-                                      eventIsd={item.id}
-                                    />
-                                  </SingleEventsContext>
-                                </div>
-                              )}
                           </div>
-                        )
-                      })
-                    )
-                }
+                        </div>
+                        {selectedEvent === item.id && (
+                          <div className="flex justify-center">
+                            <SingleEventsContext>
+                              <CommentModel
+                                closeModal={closeModal}
+                                eventIsd={item.id}
+                              />
+                            </SingleEventsContext>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })
+                )}
               </div>
             </div>
           </div>
