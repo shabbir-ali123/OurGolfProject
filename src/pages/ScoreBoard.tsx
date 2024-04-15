@@ -35,7 +35,7 @@ const ScoreBoard: FunctionComponent = () => {
  <div className="">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
-          <div className="grid self-center w-full p-4 xl:w-[1200px]">
+          <div className="grid self-center w-full p-4 xl:w-[1200px] mx-auto">
             {scoreLoading ? <div className="flex justify-center items-center ">
               <div>
                 <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
@@ -64,16 +64,17 @@ const ScoreBoard: FunctionComponent = () => {
 
         {singleEvent?.scoringType !== "Normal" && (
           <>
-            <LeaderBoardTables />
-            <div className="lg:w-[1200px] flex justify-center ">
-              <div>
-                <IndiviualPlayerScore />
+          <div className="max-w-6xl mx-auto">
+          <LeaderBoardTables />
+            
+            <IndiviualPlayerScore />
+            <ScoringTabs/>
+          </div>
+            
+           
 
-                <ScoringTabs/>
-              </div>
 
-
-            </div>
+          
 
 
           </>

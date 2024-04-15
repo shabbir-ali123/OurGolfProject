@@ -27,13 +27,13 @@ document.body.dir = i18n.dir();
 
   return (
     <div className="p-2 ">
-      <div className="">
+      <div className=" ">
         <div className="flex justify-end gap-2 mx-8 ">
           <div className="flex justify-end gap-2">
             <button
               className={` ${
                 activeTab === "team"
-                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer animate-bounce border-none py-4 px-20 text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
+                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
               } px-4 py-2 border rounded-full`}
               onClick={() => handleTabClick("team")}
             >
@@ -42,7 +42,7 @@ document.body.dir = i18n.dir();
             <button
               className={`${
                 activeTab === "individual"
-                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer animate-bounce border-none py-4  text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4  text-[#17b3a6]  text-lg font-bold"
+                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4  text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4  text-[#17b3a6]  text-lg font-bold"
               } px-4 py-2   rounded-full`}
               onClick={() => handleTabClick("individual")}
             >
@@ -51,8 +51,8 @@ document.body.dir = i18n.dir();
           </div>
         
         </div>
-
-        {activeTab === "team" && (
+<div className="overflow-x-scroll">
+{activeTab === "team" && (
           <div>
              <div className='mx-5 '>
             <div className='px-3 '>
@@ -198,6 +198,8 @@ document.body.dir = i18n.dir();
             <ScoringTable />
           </div>
         )}
+</div>
+     
       </div>
     </div>
   );
