@@ -31,8 +31,8 @@ const ScoreBoard: FunctionComponent = () => {
 
   console.log(score)
   return (
-    <div className="font-poppins p-4">
-      <div className="flex flex-col  items-center">
+    <div>
+ <div className="flex flex-col  items-center">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid self-center w-full p-4 xl:w-[1200px]">
@@ -52,17 +52,20 @@ const ScoreBoard: FunctionComponent = () => {
         )}
         <div
           className={
-            singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[20px] "
+            singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[20px] xl:w-[1200px] mx-auto "
           }
         >
           <FinalEventGallery />
         </div>
+        <div className="xl:w-[1200px] mx-auto">
         <AllMembers />
+        </div>
+       
 
         {singleEvent?.scoringType !== "Normal" && (
           <>
             <LeaderBoardTables />
-            <div className="lg:w-full flex justify-center ">
+            <div className="lg:w-[1200px] flex justify-center ">
               <div>
                 <IndiviualPlayerScore />
 

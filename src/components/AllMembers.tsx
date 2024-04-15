@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { singleTeamsContextStore } from '../contexts/teamContext';
+import { useTranslation } from "react-i18next";
 const people = [
     {
       name: 'Lindsay Walton',
@@ -37,90 +38,111 @@ const people = [
   export default function AllMembers() {
     const [visibleCount, setVisibleCount] = useState(5);
     const {waitingUsers, joinedUsers } = singleTeamsContextStore();
+    const { t, i18n } = useTranslation();
     const loadMore = () => {
         setVisibleCount((prevCount) => prevCount + 5);
       };
     return (
-      <div className="px-4 xl:w-[1200px] mx-10 sm:px-6 lg:px-8 py-4  rounded-lg my-10">
-        <div className="sm:flex sm:items-center">
-          <div className="sm:flex-auto">
-            <h1 className="text-base font-semibold leading-6 text-gray-900">All Members</h1>
-            <p className="mt-2 text-sm text-gray-700">
-              A list of all the users in your account including their name, title, email and role.
-            </p>
-          </div>
-   
-        </div>
-        <div className="mt-8 flow-root ">
-          <div className="-mx-4 -my-2  sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-              <table className="min-w-full divide-y divide-gray-300 bg-transparent">
-                <thead>
-                  <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                      Name
-                    </th>
-                 
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Status
-                    </th>
-                  
-                 
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 ">
-                {waitingUsers?.slice(0, visibleCount).map((person:any) => (
-                    <tr key={person.email}>
-                      <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                        <div className="flex items-center">
-                          <div className="h-11 w-11 flex-shrink-0">
-                            <img className="h-11 w-11 rounded-full" src={person.imageUrl} alt="" />
+      <div className="px-4  sm:px-6 lg:px-8 py-4  rounded-lg my-10">
+         <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+              <div className="flex gap-2 ">
+                <div>
+                  <img src="/img/golfplyr.png" alt="" width="40px" />
+                  <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+                    {t("ALL_MEMBERS")}
+                  </b>
+                </div>
+              </div>
+              <div className="">
+
+                <div className=" ">
+                  <div className="bg-[#0d7168] text-white rounded-sm ">
+                    <h4 className="p-2">{t("Confirmed Members")}</h4>
+                  </div>
+                  <table className=" ">
+
+                    <tbody className="flex flex-wrap gap-2  ">
+                      {joinedUsers?.length && joinedUsers?.map((player: any, index: any) => (
+                        <tr key={player.id} className="">
+                          <td className="px-3 py-2 text-sm text-gray-500">
+                            <div className="text-center">
+                              <img className="h-10 w-10 rounded-full" src={player.imageUrl} alt="" />
+                              <div>
+                                <div className="text-sm font-medium text-gray-900">{player.nickName}</div>
+
+                              </div>
+                            </div>
+                          </td>
+
+
+
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className=" ">
+                  <div className="bg-[#17b3a6] text-white rounded-sm ">
+                    <h4 className="p-2">{t("Waiting Members")}</h4>
+                  </div>
+                  <table className=" ">
+
+                    <tbody className="flex flex-wrap gap-2 ">
+                      {waitingUsers?.length && waitingUsers?.map((player: any, index: any) => (
+
+                        <tr key={player.id} className="">
+                          <td className="px-3 py-2 text-sm text-gray-500">
+                            <div className="text-center">
+                              <img className="h-10 w-10 rounded-full" src={player.imageUrl} alt="" />
+                              <div>
+                                <div className="text-sm font-medium text-gray-900">{player.nickName}</div>
+                                {/* {isCreated &&
+                                <div>
+                                  
+                                  
+                                  <button className="flex items-center gap-1 cursor-pointer bg-[#17b3a6] text-white rounded-lg my-2" onClick={(e)=>{handleApprove(e, player.id)}}><CheckBadgeIcon className="w-6 h-6 text-white"/>{t("ACCEPT")}</button>
+                                <button className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#17b3a6]  rounded-lg my-2 py-1 text-[#17b3a6]" onClick={(e)=>{}}><XMarkIcon className="w-5 h-5 text-[#17b3a6]"/>{t("DECLINE")}</button>
+                                </div>
+                                } */}
+
+                              </div>
+                            </div>
+                          </td>
+
+
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {/* <div className=" ">
+                <div className="bg-[#17b3a6] text-white rounded-sm ">
+                  <h4 className="p-2">{t("Bookedmark Members")}</h4>
+                </div>
+                <table className=" ">
+
+                  <tbody className="flex flex-wrap gap-2 ">
+                    {waitingUsers?.length && waitingUsers?.map((player: any, index: any) => (
+                      <tr key={player.id} className="">
+                        <td className="px-3 py-2 text-sm text-gray-500">
+                          <div className="text-center">
+                            <img className="h-10 w-10 rounded-full" src={player.imageUrl} alt="" />
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{player.nickName}</div>
+
+                            </div>
                           </div>
-                          <div className="ml-4">
-                            <div className="font-medium text-gray-900">{person.nickName}</div>
-                            <div className="mt-1 text-gray-500">{person.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                  
-                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                          Waiting List
-                        </span>
-                      </td>
-                  
-                    
-                    </tr>
-                  ))}
-                  {joinedUsers?.slice(0, visibleCount).map((person:any) => (
-                    <tr key={person.email}>
-                      <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                        <div className="flex items-center">
-                          <div className="h-11 w-11 flex-shrink-0">
-                            <img className="h-11 w-11 rounded-full" src={person.imageUrl} alt="" />
-                          </div>
-                          <div className="ml-4">
-                            <div className="font-medium text-gray-900">{person.nickName}</div>
-                            <div className="mt-1 text-gray-500">{person.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                  
-                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                          Joined
-                        </span>
-                      </td>
-                  
-                    
-                    </tr>
-                  ))}
-                </tbody>
-                
-              </table>
+                        </td>
+
+
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div> */}
             </div>
-          </div>
-        </div>
         {visibleCount < people.length && (
         <div className="flex justify-center mt-4">
           <button onClick={loadMore} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -36,7 +36,7 @@ const LeaderBoardTables: FunctionComponent = () => {
   let sum = shotsPerHoles?.reduce((accumulator: any, currentValue: any) => accumulator + currentValue, 0);
 
   return (
-    <div className=" mx-5 w-[300px] md:w-[1200px] md:mx-[80px] ">
+    <div className=" px-4 xl:w-[1200px] mx-auto sm:px-6 lg:px-8 py-4  rounded-lg my-10 ">
       <div className="px-3 overflow-x-auto">
         <div className="flex gap-4">
           <img

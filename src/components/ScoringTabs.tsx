@@ -38,7 +38,7 @@ document.body.dir = i18n.dir();
               } px-4 py-2 border rounded-full`}
               onClick={() => handleTabClick("team")}
             >
-              REGULAR
+              {t("REGULAR")}
             </button>
             <button
               className={`${
@@ -48,7 +48,7 @@ document.body.dir = i18n.dir();
               } px-4 py-2   rounded-full`}
               onClick={() => handleTabClick("individual")}
             >
-              HANDICAP
+             {t("HANDICAP_SCORE")}
             </button>
           </div>
         

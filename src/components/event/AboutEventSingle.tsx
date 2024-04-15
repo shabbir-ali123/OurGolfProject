@@ -44,20 +44,20 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
     <div className="grid grid-cols-1 gap-0 py-4 ">
       <div className=" items-center gap-10  ">
-        <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('DATE')}</div>
-        <p className="py-2  capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_DATE')}:</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
+        <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('DATE')}</div>
+        <p className="py-2 ml-0 xl:ml-10 capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_DATE')}:</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
           eventEndTime
         }</p>
-        <p className="py-2 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</span> {singleEvent?.eventEndDate}</p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</span> {singleEvent?.eventEndDate}</p>
       </div>
       <div className=" items-center gap-10  ">
-        <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_LOCATION')}</div>
-        <p className="py-2 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
+        <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_LOCATION')}</div>
+        <p className="py-2 ml-0 xl:ml-10 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
+          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
         </div>
-        <div className=" col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
+        <div className="my-6 col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
           <iframe
             className="col-span-4 sm:col-span-4 rounded-2xl"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8181116.269949623!2d130.64039243803072!3d36.56179855912495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34674e0fd77f192f%3A0xf54275d47c665244!2sJapan!5e0!3m2!1sen!2s!4v1700468556527!5m2!1sen!2s"
@@ -72,11 +72,11 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
         </div>
       </div>
       <div className=" items-center gap-10  ">
-        <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_DETAILS')}</div>
-        <p className="py-2 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
+        <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_DETAILS')}</div>
+        <p className="py-2 ml-0 xl:ml-10 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
+          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
             eventType}</p>
         </div>
 
@@ -86,21 +86,21 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
       <div className="flex items-center gap-10  ">
 
-        <p className="py-2 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
       </div>
     </div>
 
     <div className=" items-center gap-10  ">
-      <div className="text-white basis-[200px] basis-4 bg-[#17b3a6]  p-2"> {t('PRICE')}</div>
-      <p className="py-2 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
+      <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('PRICE')}</div>
+      <p className="py-2 ml-0 xl:ml-10 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
     </div>
     <div className="items-center gap-10">
-      <div className="text-white basis-[200px] basis-4 bg-[#17b3a6] p-2">
+      <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2">
         {t('CANCELLATION_FEE')}
       </div>
       <div className="grid grid-cols-9  py-2 mx-auto  my-2 py-2">
         <div className="col-span-8 text-4xl text-[#626262] lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
-          <p className="flex gap-2 text-red">Cancellation Fee : <span>{singleEvent?.cancellationFee}</span></p> 
+          <p className="flex ml-0 xl:ml-10 gap-2 text-red">Cancellation Fee : <span>{singleEvent?.cancellationFee}</span></p> 
           {/* <select
             className="block appearance-none w-full bg-gray-200 border border-[#51ff85] text-[#626262] py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="daySelection"
@@ -114,7 +114,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
 
           <input
-            className="mt-4 appearance-none block  bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none"
+            className="mt-4 ml-0 xl:ml-10 appearance-none block  bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none"
             id="cancellationFee"
             type="text"
             name="cancellationFee"

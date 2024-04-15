@@ -243,7 +243,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                   let bgColor = "";
                   if (isCreator) {
                     const match = newArrayHole?.includes(hole);
-                    bgColor = match ? "bg-red" : "";
+                    bgColor = match ? "bg-black" : "";
                   }
 
                   return (
