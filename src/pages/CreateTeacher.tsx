@@ -216,39 +216,13 @@ const CreateTeacher: React.FC = () => {
     };
     
     try {
-      const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, JSON.stringify(payload), {
+      const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
-      if (response.status === 201) {
-        localStorage.setItem("teacher_id", response.data.teacher.id);
-        const formDataToSend = new FormData();
-        formDataToSend.append("text", formData.firstName);
-        formDataToSend.append("introductionVideo", nextformData.introductionVideo[0]);
-        formDataToSend.append("portfolioVideo", nextformData.portfolioVideo[0]);
-        formDataToSend.append("profileImage", nextformData.profileImage[0]);
-
-        const res = await axios.put(
-          API_ENDPOINTS.UPDATETEACHERPROFILE,
-          formDataToSend,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        // 
-        );
-        if(res.status === 200){
-          toast.success(
-              "Teacher Created Successfully",
-              toastProperties as ToastConfig
-            );
-        }
-      }
+      
     } catch (error) {
       toast.error("Teacher Already Created");
     }
