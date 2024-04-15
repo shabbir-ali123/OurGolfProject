@@ -158,11 +158,9 @@ const CalendarSlider: React.FC<CalendarSliderProps> = ({ onWeekSelected }) => {
 };
 
 const fetchAvailabilityData = async (startDate: Date): Promise<AvailabilityData[]> => {
-  console.log("Start Date:", startDate);
 
   return Array.from({ length: 7 }, (_, dayIndex) => {
     const dayDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + dayIndex);
-    console.log(`Day ${dayIndex}:`, dayDate);
 
     return {
       date: dayDate,

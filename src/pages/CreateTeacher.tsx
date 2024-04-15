@@ -53,14 +53,13 @@ const CreateTeacher: React.FC = () => {
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
-    profileImg: [],
+    userId: 47,
     aboutMyself: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
     location: "",
-    introduction: "",
-    mediaFiles: [],
+    hourlyRate: "",
     schedules: [
       {
         startDate: "",
@@ -215,9 +214,9 @@ const CreateTeacher: React.FC = () => {
       ...formData,
       schedules: onfitmData,
     };
-
+    
     try {
-      const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
+      const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, JSON.stringify(payload), {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

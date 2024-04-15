@@ -277,7 +277,7 @@ function App() {
             element={token ? <ActivtiesPage /> : <LoginPage />}
           />
           <Route
-            path="/teacher-page/:id"
+            path={isTeacher ? "/teacher-page/:id" : '/teacher-page'}
             element={
               token ? (
                 isTeacher ? (
