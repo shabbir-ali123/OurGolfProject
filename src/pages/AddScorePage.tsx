@@ -3,12 +3,11 @@ import { useTranslation } from "react-i18next";
 import { singleEventContextStore } from "../contexts/eventContext";
 import Player from "../components/Player";
 import { singleTeamsContextStore } from "../contexts/teamContext";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useScoreContext } from "../contexts/scoreContext";
 
 interface GolfScoreProps {
-  onSaveScores?: (scores: number[]) => void; // Optional, implement if needed
+  onSaveScores?: (scores: number[]) => void;
 }
 
 interface UserScores {
@@ -16,7 +15,6 @@ interface UserScores {
   filteredSums: number[];
 }
 const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
-
   const { isCreated, singleEvent } = singleEventContextStore();
   const { handleScore, score } = useScoreContext();
   const { teams, isJoined } = singleTeamsContextStore();
@@ -26,9 +24,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
-  const navigate = useNavigate();
-  console.log(score, teams, "assdas");
-
 
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -43,15 +38,14 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       handiCapPerShot: [],
       handiCapValue: "",
       netValue: "",
-      scorePerShot : [],
-      totalScore:"",
+      scorePerShot: [],
+      totalScore: "",
       userId: "",
       nearPinContest: "",
       longDriveContest: "",
       teamId: "",
-      teamName: ""
+      teamName: "",
     },
-
   ]);
 
   const totalPar = par?.reduce((acc: number, curr: number) => acc + curr, 0);
@@ -61,26 +55,19 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
   const handleForm = (event: any) => {
     event.preventDefault();
-
-    
-
-    // setFormData(formDataArray);
-    handleScore(formData)
+    handleScore(formData);
   };
-
 
   const handleInputChange = (
     userId: string,
     holeIndex: number,
     value: number
   ) => {
-    const key = userId + "-" + holeIndex;
     const updatedSums = { ...sums };
     if (!updatedSums[userId]) {
       updatedSums[userId] = Array.from({ length: holes.length }, () => 0);
     }
     updatedSums[userId][holeIndex] = value;
-
 
     //
     const userScoresMap: { [userId: string]: UserScores } = {};
@@ -103,18 +90,18 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
     const formDataArray = [];
     for (const [userId, userScores] of Object.entries(userScoresMap)) {
-
       const totalScore = userScores.sums.reduce((acc, score) => acc + score, 0);
       const roundedValue = isHandicap[userId]
         ? Math.round(
-          (totalScore *
-            (singleEvent?.scoringType === "single"
-              ? 3
-              : singleEvent?.scoringType === "double"
+            (totalScore *
+              (singleEvent?.scoringType === "single"
+                ? 3
+                : singleEvent?.scoringType === "double"
                 ? 1.5
                 : 2) -
-            totalPar) * 0.8
-        )
+              totalPar) *
+              0.8
+          )
         : 0;
       const netValue = totalPar - roundedValue;
 
@@ -125,10 +112,22 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         totalScore: totalScore,
         handiCapValue: roundedValue,
         netValue: netValue,
-        eventId: singleEvent.id
+        eventId: singleEvent.id,
+        nearPinContest: "",
+        longDriveContest: "",
+        teamId: "singleEvent.teamId",
+        teamName: "singleEvent.teamName",
       });
     }
-    setFormData(formDataArray);
+    const updatedFormData = formData.map((data: any) => {
+      if (data.userId === userId) {
+        // Update only the scorePerShot for the specified holeIndex
+        data.scorePerShot[holeIndex] = value;
+      }
+      return data;
+    });
+    setFormData(updatedFormData);
+
     setSums(updatedSums);
   };
 
@@ -145,7 +144,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     for (const userId in filteredSums) {
       const totalScore = filteredSums[userId].reduce(
         (acc: number, score: number) => acc + score,
-        0 
+        0
       );
       selectedsum[userId] = totalScore;
     }
@@ -153,7 +152,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   };
   const selectedHoleSum = calculateTotalSelected();
 
- 
   const calculateTotalSum = () => {
     const totalSums: { [userId: string]: number } = {};
 
@@ -164,7 +162,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       );
       totalSums[userId] = totalScore;
     }
-   
+
     return totalSums;
   };
 
@@ -187,28 +185,35 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       return acc;
     }, []);
 
+  useEffect(() => {
+    const newFormData = score?.reduce((acc: any, item: any) => {
+      const isMember = uniqueMembers?.find(
+        (member: any) => member.userId === item.userId
+      );
+      if (isMember) {
+        const scorePerShot =
+          typeof item.scorePerShot === "string"
+            ? JSON.parse(item.scorePerShot)
+            : item.scorePerShot;
+        acc.push({
+          scorePerShot: scorePerShot,
+          totalScore: item.totalScore,
+          userId: item.userId,
+          handiCapPerShot: item.handiCapPerShot,
+          handiCapValue: item.handiCapValue,
+          netValue: item.netValue,
+          eventId: item.eventId,
+          nearPinContest: "",
+          longDriveContest: "",
+          teamId: "singleEvent.teamId",
+          teamName: "singleEvent.teamName",
+        });
+      }
+      return acc;
+    }, []);
 
-    useEffect(() => {
-      // Prepare the new form data array
-      const newFormData = score?.reduce((acc:any, item:any) => {
-        // Check if the current score item's user is in the uniqueMembers list
-        const isMember = uniqueMembers?.some((member:any) => member.userId === item.userId);
-        if (isMember) {
-          // Parse scorePerShot only if it's a string
-          const scorePerShot = typeof item.scorePerShot === 'string' ? JSON.parse(item.scorePerShot) : item.scorePerShot;
-          acc.push({
-            scorePerShot: scorePerShot,
-            totalScore: item.totalScore,
-            userId: item.userId
-          });
-        }
-        return acc;
-      }, []);
-  
-      // Update the formData state once with all new entries
-      setFormData(newFormData);
-      console.log(formData, "hdghg");
-    }, [score]);
+    setFormData(newFormData);
+  }, [score]);
 
   return (
     <div className="mx-4 xl:mx-32 ">
@@ -247,7 +252,10 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                   }
 
                   return (
-                    <th className={`text-center px-2 py-3 ${bgColor}`} key={hole}>
+                    <th
+                      className={`text-center px-2 py-3 ${bgColor}`}
+                      key={hole}
+                    >
                       {hole}
                     </th>
                   );
@@ -279,71 +287,227 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
               </tr>
               {isJoined && !isCreator
                 ? uniqueMembers
-                  .filter((member: any) => member.userId == uId)
-                  .map((member: any, memberIndex: number) => {
+                    .filter((member: any) => member.userId == uId)
+                    .map((member: any, memberIndex: number) => {
+                      const playerHandicap = isHandicap[member.userId] || false;
+
+                      let roundedValue = 0;
+                      if (playerHandicap) {
+                        if (singleEvent?.scoringType == "single") {
+                          roundedValue = Math.round(
+                            (selectedHoleSum[member.userId] * 3 - totalPar) *
+                              0.8
+                          );
+                        }
+                        if (singleEvent?.scoringType == "double") {
+                          roundedValue = Math.round(
+                            (selectedHoleSum[member.userId] * 1.5 - totalPar) *
+                              0.8
+                          );
+                        }
+                        if (singleEvent?.scoringType == "triple") {
+                          roundedValue = Math.round(
+                            (selectedHoleSum[member.userId] * 2 - totalPar) *
+                              0.8
+                          );
+                        }
+                      }
+                      const netValue = totalPar - roundedValue;
+                      const playerData = formData?.find(
+                        (data: any) => data.userId == member.userId
+                      );
+
+                      return (
+                        <tr
+                          key={memberIndex}
+                          className="py-4 pl-4 whitespace-nowrap"
+                        >
+                          <Player
+                            isCreator={isCreated}
+                            key={memberIndex}
+                            showNumber={false}
+                            enableHover={true}
+                            onDelete={() => {}}
+                            name={member.nickName}
+                            imageUrl={member.imageUrl}
+                          />
+                          {holes.map((hole, holeIndex: number) => {
+                            return (
+                              <td key={holeIndex}>
+                                
+                                 
+
+                                
+                                  <input
+                                  type="number"
+                                  value={
+                                   
+                                    formData?.find(
+                                      (data: any) => data.userId == member.userId
+                                    )?.scorePerShot?.[holeIndex]
+                                  }
+                                  placeholder={
+                                   
+                                    formData?.find(
+                                      (data: any) => data.userId == member.userId
+                                    )?.scorePerShot?.[holeIndex]
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      member.userId,
+                                      holeIndex,
+                                      parseInt(e.target.value)
+                                    )
+                                  }
+                                  className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                                />
+                                {holeIndex + 1 ==
+                                  singleEvent?.driverContest && (
+                                  <input
+                                    type="text"
+                                    name="driverContest"
+                                    className="w-10 bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
+                                  />
+                                )}
+                                {holeIndex + 1 ==
+                                  singleEvent?.nearPinContest && (
+                                  <input
+                                    type="text"
+                                    name="nearPinContest"
+                                    className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
+                                  />
+                                )}
+                              </td>
+                            );
+                          })}
+                          <td className="px-2 py-3 text-center">
+                            {playerData?.totalScore || formData
+                              ? playerData?.totalScore
+                              : totalScores[member.userId]}{" "}
+                          </td>
+                          {isCreator && (
+                            <>
+                              <td className="px-2 py-3 text-center">
+                                {roundedValue}
+                              </td>
+                              <td className="px-2 py-3 text-center">
+                                {netValue}
+                              </td>
+                            </>
+                          )}
+
+                          {isCreator && (
+                            <td className="px-2 py-3 text-center">
+                              <div className="relative">
+                                <input
+                                  type="checkbox"
+                                  className="sr-only"
+                                  checked={playerHandicap}
+                                />
+                                <div
+                                  onClick={() => handleHandicap(member.userId)}
+                                  className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                                    playerHandicap ? "bg-[green]" : ""
+                                  }`}
+                                ></div>
+                                <div
+                                  className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
+                                    playerHandicap
+                                      ? "transform translate-x-6"
+                                      : ""
+                                  }`}
+                                ></div>
+                              </div>
+                            </td>
+                          )}
+                        </tr>
+                      );
+                    })
+                : uniqueMembers.map((member: any, memberIndex: number) => {
                     const playerHandicap = isHandicap[member.userId] || false;
 
                     let roundedValue = 0;
                     if (playerHandicap) {
                       if (singleEvent?.scoringType == "single") {
                         roundedValue = Math.round(
-                          (selectedHoleSum[member.userId] * 3 - totalPar) *
-                          0.8
+                          (selectedHoleSum[member.userId] * 3 - totalPar) * 0.8
                         );
                       }
                       if (singleEvent?.scoringType == "double") {
                         roundedValue = Math.round(
                           (selectedHoleSum[member.userId] * 1.5 - totalPar) *
-                          0.8
+                            0.8
                         );
                       }
                       if (singleEvent?.scoringType == "triple") {
                         roundedValue = Math.round(
-                          (selectedHoleSum[member.userId] * 2 - totalPar) *
-                          0.8
+                          (selectedHoleSum[member.userId] * 2 - totalPar) * 0.8
                         );
                       }
                     }
-                    const netValue = totalPar - roundedValue;
-                    const playerData = formData?.find((data:any) => data.userId == member.userId);
 
+                    const netValue = totalPar - roundedValue;
+                    const playerData = formData?.find(
+                      (data: any) => data.userId == member.userId
+                    );
 
                     return (
-                      <tr
-                        key={memberIndex}
-                        className="py-4 pl-4 whitespace-nowrap"
-                      >
+                      <tr key={memberIndex} className="whitespace-nowrap ">
                         <Player
                           isCreator={isCreated}
                           key={memberIndex}
                           showNumber={false}
                           enableHover={true}
-                          onDelete={() => { }}
+                          onDelete={() => {}}
                           name={member.nickName}
                           imageUrl={member.imageUrl}
                         />
-                        {holes.map((hole, holeIndex: number) => 
-                         
-                         
-                         {  return <td key={holeIndex}>
-                            <input
-                              type="number"
-                              min="1"
-                              value={playerData && playerData.scorePerShot?.[holeIndex]}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  member.userId,
-                                  holeIndex,
-                                  parseInt(e.target.value)
-                                )
-                              }
-                              className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
-                            />
-                          </td>}
-                        )}
+                        {holes.map((hole, holeIndex: number) => {
+                          return (
+                            <td key={holeIndex}>
+                              <input
+                                type="number"
+                                min="0"
+                                value={
+                                  playerData &&
+                                  playerData.scorePerShot?.[holeIndex]
+                                }
+                                // placeholder={formData?.scorePerShot[holeIndex] !== "" ? formData?.scorePerShot[holeIndex] : ""}
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    member.userId,
+                                    holeIndex,
+                                    parseInt(e.target.value)
+                                  )
+                                }
+                                // placeholder={hole.toString()}
+                                className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                              />
+                              {holeIndex + 1 == singleEvent?.driverContest && (
+                                <input
+                                  type="text"
+                                  min="1"
+                                  name="driverContest"
+                                  // placeholder={hole.toString()}
+                                  className="w-10 bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
+                                />
+                              )}
+                              {holeIndex + 1 == singleEvent?.nearPinContest && (
+                                <input
+                                  type="text"
+                                  min="1"
+                                  name="nearPinContest"
+                                  className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
+                                />
+                              )}
+                            </td>
+                          );
+                        })}
                         <td className="px-2 py-3 text-center">
-{                          playerData?.totalScore  || formData ? playerData?.totalScore :  totalScores[member.userId] 
-}                        </td>
+                          {playerData?.totalScore || formData
+                            ? playerData?.totalScore
+                            : totalScores[member.userId]}
+                        </td>
                         {isCreator && (
                           <>
                             <td className="px-2 py-3 text-center">
@@ -365,143 +529,23 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                               />
                               <div
                                 onClick={() => handleHandicap(member.userId)}
-                                className={`block bg-gray-600 w-14 h-8 rounded-full ${playerHandicap ? "bg-[green]" : ""
-                                  }`}
+                                className={`block bg-gray-600 w-14 h-8 rounded-full ${
+                                  playerHandicap ? "bg-[green]" : ""
+                                }`}
                               ></div>
                               <div
-                                className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${playerHandicap
+                                className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
+                                  playerHandicap
                                     ? "transform translate-x-6"
                                     : ""
-                                  }`}
+                                }`}
                               ></div>
                             </div>
                           </td>
                         )}
                       </tr>
                     );
-                  })
-                : uniqueMembers.map((member: any, memberIndex: number) => {
-                  const playerHandicap = isHandicap[member.userId] || false;
-
-                  let roundedValue = 0;
-                  if (playerHandicap) {
-                    if (singleEvent?.scoringType == "single") {
-                      roundedValue = Math.round(
-                        (selectedHoleSum[member.userId] * 3 - totalPar) * 0.8
-                      );
-                    }
-                    if (singleEvent?.scoringType == "double") {
-                      roundedValue = Math.round(
-                        (selectedHoleSum[member.userId] * 1.5 - totalPar) *
-                        0.8
-                      );
-                    }
-                    if (singleEvent?.scoringType == "triple") {
-                      roundedValue = Math.round(
-                        (selectedHoleSum[member.userId] * 2 - totalPar) * 0.8
-                      );
-                    }
-                  }
-
-                  const netValue = totalPar - roundedValue;
-                  const playerData = formData?.find((data:any) => data.userId == member.userId);
-
-                  console.log(playerData?.[0]?.totalScore, "sadasdasd");
-                  return (
-                    <tr
-                      key={memberIndex}
-                      className="whitespace-nowrap "
-                    >
-                      <Player
-                        isCreator={isCreated}
-                        key={memberIndex}
-                        showNumber={false}
-                        enableHover={true}
-                        onDelete={() => {}}
-                        name={member.nickName}
-                        imageUrl={member.imageUrl}
-                      />
-                      {holes.map((hole, holeIndex: number) =>
-                      
-
-                      {
-
-                        return (
-                          <td key={holeIndex}>
-                            <input
-                              type="number"
-                              min="0"
-                              value={playerData && playerData.scorePerShot?.[holeIndex]}
-                              
-                              // placeholder={formData?.scorePerShot[holeIndex] !== "" ? formData?.scorePerShot[holeIndex] : ""}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  member.userId,
-                                  holeIndex,
-                                  parseInt(e.target.value)
-                                )
-                              }
-                              // placeholder={hole.toString()}
-                              className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
-                            />
-                            {
-                              holeIndex+1 == singleEvent?.driverContest &&  <input
-                              type="text"
-                              min="1"
-                              name="driverContest"
-                              // placeholder={hole.toString()}
-                              className="w-10 bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
-                            />
-                            }
-                             {
-                              holeIndex+1 == singleEvent?.nearPinContest &&  <input
-                              type="text"
-                              min="1"
-                              name="nearPinContest"
-                              className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
-                            />
-                            }
-                          </td>
-                        )
-                      })}
-                      <td className="px-2 py-3 text-center">
-                        {
-                          playerData?.totalScore  || formData ? playerData?.totalScore :  totalScores[member.userId] 
-                        }
-                        
-                      </td>
-                      {isCreator && (
-                        <>
-                          <td className="px-2 py-3 text-center">
-                            {roundedValue}
-                          </td>
-                          <td className="px-2 py-3 text-center">{netValue}</td>
-                        </>
-                      )}
-
-                      {isCreator && (
-                        <td className="px-2 py-3 text-center">
-                          <div className="relative">
-                            <input
-                              type="checkbox"
-                              className="sr-only"
-                              checked={playerHandicap}
-                            />
-                            <div
-                              onClick={() => handleHandicap(member.userId)}
-                              className={`block bg-gray-600 w-14 h-8 rounded-full ${playerHandicap ? "bg-[green]" : ""
-                                }`}
-                            ></div>
-                            <div
-                              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${playerHandicap ? "transform translate-x-6" : ""
-                                }`}
-                            ></div>
-                          </div>
-                        </td>
-                      )}
-                    </tr>
-                  );
-                })}
+                  })}
             </thead>
           </table>
         </div>
@@ -514,7 +558,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         </button>
       </form>
       <div className="">
-      <div className="flex items-center justify-end ">
+        <div className="flex items-center justify-end ">
           <p className="my-1">{t("DRIVER_CONTEST")}-</p>
           <div className="h-4 w-8  md:w-10 lg:w-16  bg-[#17b3a6]"></div>
         </div>
