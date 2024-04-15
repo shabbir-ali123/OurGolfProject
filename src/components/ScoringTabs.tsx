@@ -27,14 +27,13 @@ document.body.dir = i18n.dir();
 
   return (
     <div className="p-2 ">
-      <div className="">
-        <div className="flex justify-between gap-2 mx-8 ">
-          <div className="flex gap-2">
+      <div className=" ">
+        <div className="flex justify-end gap-2 mx-8 ">
+          <div className="flex justify-end gap-2">
             <button
               className={` ${
                 activeTab === "team"
-                  ? "bg-purple-600 rounded-md p-4 cursor-pointer animate-bounce border-none py-4 px-20 text-white text-lg"
-                  : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-purple-600  text-lg font-bold"
+                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
               } px-4 py-2 border rounded-full`}
               onClick={() => handleTabClick("team")}
             >
@@ -43,8 +42,7 @@ document.body.dir = i18n.dir();
             <button
               className={`${
                 activeTab === "individual"
-                  ? "bg-purple-600 rounded-md p-4 cursor-pointer animate-bounce border-none py-4 px-20 text-white text-lg"
-                  : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-purple-600  text-lg font-bold"
+                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4  text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4  text-[#17b3a6]  text-lg font-bold"
               } px-4 py-2   rounded-full`}
               onClick={() => handleTabClick("individual")}
             >
@@ -53,11 +51,11 @@ document.body.dir = i18n.dir();
           </div>
         
         </div>
-
-        {activeTab === "team" && (
+<div className="overflow-x-scroll">
+{activeTab === "team" && (
           <div>
              <div className='mx-5 '>
-            <div className='px-3 overflow-x-auto'>
+            <div className='px-3 '>
                 <table className='w-full border-spacing-y-5 '>
                     <thead className='text-left text-white '>
                         <tr className=' bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]'>
@@ -200,6 +198,8 @@ document.body.dir = i18n.dir();
             <ScoringTable />
           </div>
         )}
+</div>
+     
       </div>
     </div>
   );

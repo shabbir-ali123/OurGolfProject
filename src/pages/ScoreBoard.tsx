@@ -32,10 +32,10 @@ const ScoreBoard: FunctionComponent = () => {
   console.log(score)
   return (
     <div>
- <div className="flex flex-col  items-center">
+ <div className="">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
-          <div className="grid self-center w-full p-4 xl:w-[1200px]">
+          <div className="grid self-center w-full p-4 xl:w-[1200px] mx-auto">
             {scoreLoading ? <div className="flex justify-center items-center ">
               <div>
                 <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
@@ -57,35 +57,36 @@ const ScoreBoard: FunctionComponent = () => {
         >
           <FinalEventGallery />
         </div>
-        <div className="xl:w-[1200px] mx-auto">
+        
         <AllMembers />
-        </div>
+    
        
 
         {singleEvent?.scoringType !== "Normal" && (
           <>
-            <LeaderBoardTables />
-            <div className="lg:w-[1200px] flex justify-center ">
-              <div>
-                <IndiviualPlayerScore />
+          <div className="max-w-6xl mx-auto">
+          <LeaderBoardTables />
+            
+            <IndiviualPlayerScore />
+            <ScoringTabs/>
+          </div>
+            
+           
 
-                <ScoringTabs/>
-              </div>
 
-
-            </div>
+          
 
 
           </>
         )}
 
         {singleEvent?.id && (
-          <table className="lg:w-[1200px]">
+          <table className="lg:w-[1200px] mx-auto">
             <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
           </table>
         )}
         {/* <Slider/> */}
-        <div className="lg:w-[1200px]">
+        <div className="w-full lg:w-[1200px] lg:mx-auto">
           <AboutEvent totalJoinedMembers={totalJoinedMembers} />
         </div>
 
