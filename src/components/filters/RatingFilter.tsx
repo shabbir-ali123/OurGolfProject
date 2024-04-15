@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useTranslation } from "react-i18next";
 interface RatingFilterProps {
     onRatingChange: (rating: number | null) => void;
 }
@@ -7,7 +7,7 @@ interface RatingFilterProps {
 
 const RatingFilter: React.FC<RatingFilterProps> = ({ onRatingChange }) => {
     const [selectedRating, setSelectedRating] = useState<number | null>(null);
-
+    const { t, i18n } = useTranslation();
     const handleRatingSelect = (rating: number) => {
         const newRating = selectedRating === rating ? null : rating;
         setSelectedRating(newRating);
@@ -16,7 +16,7 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ onRatingChange }) => {
 
     return (
         <div>
-            <h3 className='text-start'>Rating</h3>
+            <h3 className='text-start'>{t("RATING")}</h3>
             <div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2 flex-wrap gap-4">
 
                 {[5, 4, 3, 2, 1].map((rating) => (

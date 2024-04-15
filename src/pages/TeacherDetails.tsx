@@ -17,7 +17,7 @@ const TeacherDetails: React.FC = () => {
   const availableSlots = teacher?.schedules?.map((schedule: any) => schedule);
   const shifts = availableSlots?.map((item: any) => item.shifts);
   const slots = shifts?.flatMap((item: any) => item);
-
+  const { t } = useTranslation();
   return (
     <div className="mx-4 md:mx-20">
       <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
@@ -37,7 +37,7 @@ const TeacherDetails: React.FC = () => {
             </div>
             <div className="col-span-1 md:col-span-3 my-4">
               <h3 className="text-lg font-semibold mb-2 text-[#565656]">
-                Introduction Video
+              {t("MAIN_VIDEO")}
               </h3>
               <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md overflow-hidden">
                 {!videoVisible && (

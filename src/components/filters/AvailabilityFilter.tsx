@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-
+import { useTranslation } from "react-i18next";
 interface AvailabilityFilterProps {
   onFilterChange: (availability: 'available' | 'not-available') => void;
 }
 
 const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange }) => {
   const [selectedTab, setSelectedTab] = useState<'available' | 'not-available'>('available');
-
+  const { t, i18n } = useTranslation();
   const handleTabChange = (tab: 'available' | 'not-available') => {
     setSelectedTab(tab);
     onFilterChange(tab);
@@ -15,7 +15,7 @@ const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange 
   return (
     < >
     <div className='py-4'>
-    <h3 className='text-start'>Today’s Availability</h3>
+    <h3 className='text-start'>{t("Today_Availability")}</h3>
      <div className="flex border-b">
       <button
         className={`flex-1 py-2 text-center ${
@@ -23,7 +23,7 @@ const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange 
         }`}
         onClick={() => handleTabChange('available')}
       >
-        Available
+       {t("AVAILABLE")}
       </button>
       <button
         className={`flex-1 py-2 text-center ${
@@ -31,7 +31,7 @@ const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange 
         }`}
         onClick={() => handleTabChange('not-available')}
       >
-        Not Available
+         {t("NOT_AVAILABLE")}
       </button>
     </div>
     </div>

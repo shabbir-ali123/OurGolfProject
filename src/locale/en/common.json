@@ -142,6 +142,7 @@
     "WEEKLY_AVAILIBILTY": "Weekly Availibility",
     "AVAILIBILTY": "Availibility",
     "Today_Availability":"Today’s Availability",
+    "LEVEL": "Level",
     "SUNDAY": "Sunday",
     "MONDAY": "Monday",
     "TUESDAY": "Tuesday",
@@ -150,6 +151,8 @@
     "FRIDAY": "Friday",
     "SATURDAY": "Saturday",
     "ABOUT": "About Us",
+    "ABOUT_ME": "About Me",
+    "MAIN_VIDEO": " Main Video/ Image",
     "BIO": "Tell us about yourself...",
     "COMPLETED": "Completed",
     "PENDING": "Pending",
@@ -158,7 +161,7 @@
     "CHAT":"Chat",
     "BOOK_APPOINTMENT": "Book an Appointment",
     "AVAILABLE": "Available",
-    "NOT_AVAILABLE": "Not Available",
+    "NOT_AVAILABLE": "Not Available Today",
     "BOOKED_BY_YOU": "Booked By You",
     "APPROVAL_WAITING": "Waiting for teacher approval",
     "STUDENT": "Student",
@@ -305,7 +308,7 @@
     "BEGINNER": "Beginner",
     "INTERMEDIATE": "Intermediate",
     "ADVANCED": "Advanced",
-    "AMBASSADOR": "TASKGOLF Amateur Ambassador",
+    "AMBASSADOR": "TASKGOLF<br>Amateur Ambassador",
     "NO_EVENT": "No Event"
 
 }

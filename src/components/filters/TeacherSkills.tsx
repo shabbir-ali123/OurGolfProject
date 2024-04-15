@@ -1,14 +1,12 @@
-import { t } from 'i18next';
 import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
+
 interface SkillFilterProps {
   onSkillChange: (selectedSkills: string[]) => void;
 }
 
-
-
 const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const skillKeys = ["ENTRY", "BEGINNER", "INTERMEDIATE", "ADVANCED", "AMBASSADOR"];
   const skills = skillKeys.map(key => t(key));
  
@@ -26,9 +24,8 @@ const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
   };
 
   return (
-    <>
     <div className='py-4'>
-    <h3 className='text-start'>Category</h3>
+      <h3 className='text-start'>{t("LEVEL")}</h3>
       <div className="flex flex-col">
         {skills.map(skill => (
           <label key={skill} className={`inline-flex items-center mt-3 cursor-pointer ${selectedSkills.includes(skill) ? 'bg-[#2bb9ad] text-white' : 'bg-white text-gray-700'}`}>
@@ -39,13 +36,11 @@ const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
               checked={selectedSkills.includes(skill)}
               onChange={e => handleSkillChange(skill, e.target.checked)}
             />
-            <span className="ml-2">{skill}</span>
+            <span className="ml-2 text-left" dangerouslySetInnerHTML={{ __html: t(skill) }}></span>
           </label>
         ))}
       </div>
     </div>
-     
-    </>
   );
 };
 
