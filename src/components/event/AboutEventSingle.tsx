@@ -39,7 +39,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
         />
       </div>
       <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl  xl:text-21xl"> {t('ABOUT_EVENT')}</h2>
-      <h2 className=" text-lightseagreen-200 text-21xl">{singleEvent?.eventName}</h2>
+      <h2 className=" text-lightseagreen-200 text-xl xl:text-21xl">{singleEvent?.eventName}</h2>
     </div>
 
     <div className="grid grid-cols-1 gap-0 py-4 ">
