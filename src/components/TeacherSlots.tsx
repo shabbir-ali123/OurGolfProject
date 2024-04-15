@@ -110,20 +110,20 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
 
       <div className="grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-3 gap-4 my-4">
       {filteredSlots?.slice(0, visibleItems)?.map((slot: any, index: any) => {
-        console.log(selectedTime, 'hello')
         return (
         <button
           key={index}
           className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
             slot.isBooked ? "bg-[#DDF4F2] text-gray-600" : "bg-[#17b3a6] text-white"
-          } ${slot?.startTime == selectedTime?.startTime && slot?.endTime == selectedTime?.endTime ? 'bg-black' : ''}`}
+          } ${selectedTime === slot ? "bg-black" : ""}`}
           onClick={() => setSelectedTime(slot)}
           disabled={slot.isBooked}
+          
         >
           {slot.startTime} - {slot.endTime}
         </button>
       )})}
-      
+      {/* ${slot?.startTime == selectedTime?.startTime && slot?.endTime == selectedTime?.endTime ? 'bg-black' : ''} */}
       </div>
       {filteredSlots?.length > visibleItems && (
         <div>

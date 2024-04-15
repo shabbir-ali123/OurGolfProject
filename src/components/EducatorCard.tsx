@@ -167,12 +167,7 @@ export const EducatorCard = ({
               {shiftsData.map((shift: any, index: any) => (
                 <button
                   key={index}
-                  className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${
-                    shift?.startTime == bookingsData?.startTime &&
-                    shift?.endTime == bookingsData?.endTime
-                      ? "!bg-black"
-                      : ""
-                  } ${
+                  className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${bookingsData === shift && '!bg-black'} ${
                     !shift.isBooked
                       ? "bg-teal-400 text-white"
                       : "bg-gray-100 text-gray-600 "
