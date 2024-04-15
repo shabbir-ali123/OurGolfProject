@@ -108,7 +108,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       formDataArray.push({
         userId: userId,
         scorePerShot: userScores.sums,
-        handiCapPerShot: userScores.filteredSums,
+        handiCapPerShot:  typeof singleEvent?.scorePerShot === "string" ? JSON.parse(singleEvent?.scorePerShot) : singleEvent?.scorePerShot,
         totalScore: totalScore,
         handiCapValue: roundedValue,
         netValue: netValue,
@@ -120,9 +120,31 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       });
     }
     const updatedFormData = formData.map((data: any) => {
+      const sums = data.scorePerShot; 
+      
       if (data.userId === userId) {
-        // Update only the scorePerShot for the specified holeIndex
+        const totalScore = sums.reduce(
+          (acc: any, score: any) => acc + score,
+          0
+        );
+
+        const roundedValue = isHandicap[data.userId]
+          ? Math.round(
+              (totalScore *
+                (singleEvent?.scoringType === "single"
+                  ? 3
+                  : singleEvent?.scoringType === "double"
+                  ? 1.5
+                  : 2) -
+                totalPar) *
+                0.8
+            )
+          : 0;
+
+      
         data.scorePerShot[holeIndex] = value;
+        data.totalScore = totalScore;
+     
       }
       return data;
     });
@@ -195,11 +217,14 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           typeof item.scorePerShot === "string"
             ? JSON.parse(item.scorePerShot)
             : item.scorePerShot;
+        const handiCapPerShot = typeof item.handiCapPerShot === "string"
+        ? JSON.parse(item.handiCapPerShot)
+        : item.handiCapPerShot;
         acc.push({
           scorePerShot: scorePerShot,
           totalScore: item.totalScore,
           userId: item.userId,
-          handiCapPerShot: item.handiCapPerShot,
+          handiCapPerShot: handiCapPerShot,
           handiCapValue: item.handiCapValue,
           netValue: item.netValue,
           eventId: item.eventId,
@@ -334,22 +359,18 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                           {holes.map((hole, holeIndex: number) => {
                             return (
                               <td key={holeIndex}>
-                                
-                                 
-
-                                
-                                  <input
+                                <input
                                   type="number"
                                   value={
-                                   
                                     formData?.find(
-                                      (data: any) => data.userId == member.userId
+                                      (data: any) =>
+                                        data.userId == member.userId
                                     )?.scorePerShot?.[holeIndex]
                                   }
                                   placeholder={
-                                   
                                     formData?.find(
-                                      (data: any) => data.userId == member.userId
+                                      (data: any) =>
+                                        data.userId == member.userId
                                     )?.scorePerShot?.[holeIndex]
                                   }
                                   onChange={(e) =>
