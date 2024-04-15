@@ -55,7 +55,7 @@ document.body.dir = i18n.dir();
         {activeTab === "team" && (
           <div>
              <div className='mx-5 '>
-            <div className='px-3 overflow-x-auto'>
+            <div className='px-3 '>
                 <table className='w-full border-spacing-y-5 '>
                     <thead className='text-left text-white '>
                         <tr className=' bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]'>

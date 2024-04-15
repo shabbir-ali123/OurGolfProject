@@ -8,7 +8,7 @@ function FinalEventGallery() {
     const navCarouselRef = useRef();
 
     return (
-        <div className="     mt-10">
+        <div className=" max-w-5xl mx-6 xl:mx-auto    mt-10">
             <h4>Event Gallery</h4>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita dolorum iste officiis impedit fugiat enim tempore hic quas modi!</p>
             <Flickity

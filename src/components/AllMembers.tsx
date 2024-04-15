@@ -43,8 +43,8 @@ const people = [
         setVisibleCount((prevCount) => prevCount + 5);
       };
     return (
-      <div className="px-4  sm:px-6 lg:px-8 py-4  rounded-lg my-10">
-         <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+      <div className="px-4 max-w-5xl mx-auto sm:px-6 lg:px-8 py-4  rounded-lg my-10">
+         <div className=" flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
               <div className="flex gap-2 ">
                 <div>
                   <img src="/img/golfplyr.png" alt="" width="40px" />

@@ -24,7 +24,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     const calculatedFee = (percentage / 100) * validTotalCancellationFee;
     setCalculatedCancellationFee(`¥${calculatedFee.toFixed(2)}`);
   }, [selectedDays, singleEvent?.cancellationFee]);
-  return <div className="max-w-5xl mx-auto  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+  return <div className="max-w-5xl mx-6 xl:mx-auto     py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
     <div className="flex items-center gap-10">
       <div className="relative w-[90.5px] h-[147.5px]">
         <img
