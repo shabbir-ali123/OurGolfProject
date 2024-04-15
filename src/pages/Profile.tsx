@@ -39,7 +39,7 @@ const Profile = () => {
     <>
       <div className="max-w-6xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative  h-35 md:h-65">
-          {openEditTeacher && <UpdateTeacher closeModal={handleClick} />}
+          {/* {openEditTeacher && <UpdateTeacher closeModal={handleClick} />} */}
           {isTeacher ? (
             <div
               className="absolute bottom-1 left-1 z-10 xsm:bottom-4 xsm:right-4 my-2"
@@ -72,7 +72,10 @@ const Profile = () => {
                     />
                   </svg>
                 </span>
+                <Link to={`/teacher-page/${tId}`}>
                 <span>Edit Teacher</span>
+
+                </Link>
               </label>
             </div>
           ) : (

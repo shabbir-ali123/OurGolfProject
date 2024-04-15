@@ -7,6 +7,7 @@ import TeacherSlotss from "../components/TeacherSlots";
 import { useTeacherContext } from "../contexts/teachersContext";
 import VideoPortfolio from "../components/TeacherPortfolio";
 import { useTranslation } from "react-i18next";
+import CommentModel from "../components/CommentModel";
 const TeacherDetails: React.FC = () => {
   const { teacher } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
@@ -72,6 +73,10 @@ const TeacherDetails: React.FC = () => {
           <div>
             <VideoPortfolio />
           </div>
+          {/* <div className="">
+          <CommentModel eventIsd={2} closeModal={() => { }} />
+
+          </div> */}
         </div>
       </div>
     </div>

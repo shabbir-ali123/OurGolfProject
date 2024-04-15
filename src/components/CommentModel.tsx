@@ -15,7 +15,7 @@ import {
   handleEditForm,
 } from "../utils/fetchCommunication";
 interface CommentModelProps {
-  eventIsd: any;
+  eventIsd?: any;
   closeModal: () => void;
 }
 

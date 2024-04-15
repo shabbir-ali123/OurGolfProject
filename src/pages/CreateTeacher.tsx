@@ -179,7 +179,6 @@ const CreateTeacher: React.FC = () => {
       profileImage: event,
     }));
   };
-  console.log(nextformData)
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
