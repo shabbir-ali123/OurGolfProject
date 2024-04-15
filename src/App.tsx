@@ -67,6 +67,7 @@ import Pubnub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
 import ChatApp from "./pages/ChatBox";
 import { ChatSystem } from "./pages/Chat";
+import UpdateTeacher from "./pages/UpdateTeacher";
 
 function App() {
   const params = useParams();
@@ -276,11 +277,13 @@ function App() {
             element={token ? <ActivtiesPage /> : <LoginPage />}
           />
           <Route
-            path="/teacher-page"
+            path="/teacher-page/:id"
             element={
               token ? (
                 isTeacher ? (
-                  <TeacherPage />
+                  <TeacherDetailsContext>
+                  <UpdateTeacher />
+                  </TeacherDetailsContext>
                 ) : (
                   <CreateTeacher />
                 )
@@ -508,10 +511,8 @@ function App() {
             element={
               token ? (
                 <CreatedEventContext>
-                  {" "}
                   <SingleEventsContext>
-                    {" "}
-                    <EditEvent />{" "}
+                    <EditEvent />
                   </SingleEventsContext>
                 </CreatedEventContext>
               ) : (

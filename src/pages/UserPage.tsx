@@ -41,7 +41,7 @@ const UserProfile = () => {
     <>
       <div className="max-w-6xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative  h-35 md:h-65">
-          {openEditTeacher && <UpdateTeacher closeModal={handleClick} />}
+          {/* {openEditTeacher && <UpdateTeacher closeModal={handleClick} />} */}
         
           <img
             src="/img/cover-01.png"

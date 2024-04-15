@@ -123,7 +123,6 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
           {slot.startTime} - {slot.endTime}
         </button>
       )})}
-      {/* ${slot?.startTime == selectedTime?.startTime && slot?.endTime == selectedTime?.endTime ? 'bg-black' : ''} */}
       </div>
       {filteredSlots?.length > visibleItems && (
         <div>
@@ -142,14 +141,6 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
         Book an Appointment
       </button>
       <div>
-        {/* <div className="flex items-center justify-end ">
-          <p className="my-1">{t("APPROVAL_WAITING")}-</p>
-          <div className=" h-4 w-8 md:w-10 lg:w-16 bg-[#CFEEFF]"></div>
-        </div>
-        <div className="flex items-center justify-end ">
-          <p className="my-1">{t("BOOKED_BY_YOU")}-</p>
-          <div className="h-4 w-8 md:w-10 lg:w-16  bg-[#00A4FE]"></div>
-        </div> */}
         <div className="flex items-center justify-end ">
           <p className="my-1">{t("AVAILABLE")}-</p>
           <div className="h-4 w-8  md:w-10 lg:w-16  bg-[#DDF4F2]"></div>

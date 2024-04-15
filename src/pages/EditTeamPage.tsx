@@ -373,7 +373,7 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
             <div className="max-w-5xl mx-auto">
             <AboutEvent totalJoinedMembers={totalJoinedMembers} />
-            <div className="mr-4  lg:mr-0 lg:w-full flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+            <div className="max-w-5xl mx-6 xl:mx-auto py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
               <div className="flex gap-2 ">
                 <div>
                   <img src="/img/golfplyr.png" alt="" width="40px" />
@@ -489,7 +489,7 @@ const EditTeamPage: FunctionComponent = () => {
               )}
             </div>
 
-            <div className="mr-4 lg:mr-0 lg:w-full ">
+            <div className="max-w-5xl mx-6 xl:mx-auto ">
               <div className="xl:flex items-center justify-between   gap-40 py-8">
                 {isCreated ? (
                   <>
@@ -589,7 +589,7 @@ const EditTeamPage: FunctionComponent = () => {
                 )}
               </div>
               {singleEvent?.eventType !== 'individual' && (
-                <div className="overflow-x-scroll xl:w-full shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10 ">
+                <div className="overflow-x-scroll  shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10 ">
                   <div className="flex items-center gap-4 pt-8">
                     <div>
 
