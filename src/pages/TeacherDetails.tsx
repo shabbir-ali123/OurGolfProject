@@ -24,7 +24,7 @@ const TeacherDetails: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
         {/* TeacherSlots component - order changes based on screen size */}
         <div className="col-span-1 md:col-span-4 order-last md:order-first">
-          <TeacherSlotss slots={slots} schedules={availableSlots} />
+          <TeacherSlotss slots={slots} schedules={availableSlots} teacherId={teacher?.id}/>
         </div>
 
         {/* Main content */}

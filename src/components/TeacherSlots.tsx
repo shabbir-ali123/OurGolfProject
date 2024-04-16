@@ -6,19 +6,23 @@ import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { TeacherCalender } from "./TeacherCalender";
+import { teacherContext } from "../contexts/teachersContext";
 interface TeacherSlots {
   startTime: string;
   endTime: string;
+  
 }
 
 interface TeacherSlotsProps {
   slots: TeacherSlots[];
   schedules?: any;
+  teacherId?: any
 }
 
 const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
   slots,
   schedules,
+  teacherId
 }: any) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [dayFilter, setDayFilter] = useState<any>("All");
@@ -34,6 +38,8 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
   const day: (string | undefined)[] = (schedules || []).flatMap(
     (schedule: any) => schedule?.shifts.map((es: any) => es.day)
   );
+
+  const tId = localStorage.getItem('teacher_id');
 
   const filteredSlots =
     dayFilter === "All"
@@ -94,6 +100,8 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
   useEffect(() => {
     handleMatchedShift;
   }, [tap]);
+
+  console.log(tId, teacherId)
   return (
     <div className="mt-10">
       <h3 className="font-semibold mb-4 text-lg">Availability</h3>
@@ -107,6 +115,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
           dayFilter={setDayFilter}
         />
       </div>
+      {tId == teacherId && <h2 className="font-semibold my-8 text-lg text-center">Your Available Slots!</h2>}
 
       <div className="grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-3 gap-4 my-4">
       {filteredSlots?.slice(0, visibleItems)?.map((slot: any, index: any) => {
@@ -134,6 +143,9 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
         </button>
         </div>
       )}
+      {
+        tId != teacherId && <>
+        
       <button
         className="bg-[#17b3a6] text-white text-lg px-4 py-4 cursor-pointer rounded hover:bg-green-600 w-full my-6"
         onClick={handleBookAppointment}
@@ -150,6 +162,8 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
           <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]"></div>
         </div>
       </div>
+      </>
+      }
     </div>
   );
 };
