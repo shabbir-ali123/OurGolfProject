@@ -86,7 +86,7 @@ const TeacherDetails: React.FC = () => {
                         4.9 Overall rating
                       </p>
                       <p className="text-base text-gray-600 lg:text-lg">
-                        Serving 3000 companies world wide
+                        Serving 3000 students in Japan
                       </p>
                     </div>
                     <div className="flex space-x-2 text-yellow-400">
