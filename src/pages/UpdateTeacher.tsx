@@ -398,7 +398,7 @@ const UpdateTeacher: React.FC = () => {
                   icon={<ShareIcon />}
                   // imageUrl={user?.imageUrl}
                   onChangeImage={(event:any) => handleImageChanges(event)}
-                  
+                  defaultImageUrl={teacher?.profileImage}
                   placeholder={t("FIRST_NAME")}
                   colSpanSm={6}
                   colSpanMd={4}
@@ -519,6 +519,7 @@ const UpdateTeacher: React.FC = () => {
                   onChange={(event) =>
                     handleImageChange(event, "introductionVideo")
                   }
+                  accept="video/*"
                 />
                 <label
                   htmlFor="introductionVideo"

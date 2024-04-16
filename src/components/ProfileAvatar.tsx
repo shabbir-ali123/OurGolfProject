@@ -24,10 +24,11 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   iconWidth = "24px",
   iconHeight = "24px",
   pname,
-  defaultImageUrl = "/img/profile1.png",
+  defaultImageUrl,
   onChangeImage,
 }) => {
-  const [imageUrl, setImageUrl] = useState(defaultImageUrl);
+  console.log(defaultImageUrl);
+  const [imageUrl, setImageUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
@@ -35,6 +36,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
       fileInputRef.current.click();
     }
   };
+
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -60,7 +62,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
         >
           <img
             className="rounded-full"
-            src={imageUrl}
+            src={imageUrl ||  defaultImageUrl}
             width="150px"
             height="150px"
             alt={pname}
