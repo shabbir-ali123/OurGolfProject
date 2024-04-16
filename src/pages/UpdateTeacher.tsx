@@ -54,15 +54,11 @@ const UpdateTeacher: React.FC = () => {
   const [videoPortfolioVisible, setVideoPortfolioVisible] = useState(false);
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<UpdatePostType>({
     profileImage: [],
-    portFolioVideo: [],
-    aboutMyself: "",
+    portfolioVideo: [],
     firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    location: "",
-    hourlyRate: "",
+ 
     introductionVideo: [],
     // schedules: [
     //   {
@@ -85,7 +81,7 @@ const UpdateTeacher: React.FC = () => {
   //   introductionVideo: [],
   // });
   const [urls, setUrls] = useState<any>('');
-  const [portfolioVideos, setPortfolioVideo] = useState<any>('');
+  const [portfolioVideo, setPortfolioVideo] = useState<any>('');
   const handleImageChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     type: string
@@ -124,35 +120,44 @@ const UpdateTeacher: React.FC = () => {
   const [activeStates, setActiveStates] =
     useState<boolean[][]>(initialActiveStates);
 
+    console.log(formData)
+  // useEffect(() => {
+  //   setFormData((prev: any) => (
+  //     {
+  //      ...prev, 
+  //       profileImage: teacher?.profileImage,
+  //       portfolioVideo: teacher?.portfolioVideo,
+  //       firstName: teacher?.firstName,
+  //       introductionVideo: teacher?.introductionVideo,
+        
+  //     }
+  //   ))
+  // }, [teacher])
   useEffect(() => {
-    setFormData((prev: any) => (
-      {
-       ...prev, 
-        profileImage: [],
-        portFolioVideo: ['https://file-examples.com/storage/fef545ae0b661d470abe676/2017/04/file_example_MP4_480_1_5MG.mp4'],
-        aboutMyself: teacher?.aboutMyself,
-        firstName: teacher?.firstName,
-        lastName: teacher?.lastName,
-        phoneNumber: teacher?.phoneNumber,
-        location: teacher?.location,
-        hourlyRate: teacher?.hourlyRate,
-        introductionVideo: ['https://file-examples.com/storage/fef545ae0b661d470abe676/2017/04/file_example_MP4_480_1_5MG.mp4'],
-        // schedules: [
-        //   {
-        //     startDate: "",
-        //     endDate: "",
-        //     shifts: [
-        //       {
-        //         day: "",
-        //         startTime: "",
-        //         endTime: "",
-        //       },
-        //     ],
-        //   },
-        // ],
-      }
-    ))
-  }, [teacher])
+    const downloadFile = (url:any, fileName:any) => {
+      fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+          const file = new File([blob], fileName);
+          setFormData(prevFormData => ({
+            ...prevFormData,
+            [fileName]: file,
+            firstName: teacher?.firstName,
+          }));
+        })
+        .catch(error => console.error('Error downloading file:', error));
+    };
+
+    if (teacher.profileImage) {
+      downloadFile(teacher.profileImage, 'profileImage.jpg');
+    }
+    if (teacher.portfolioVideo) {
+      downloadFile(teacher.portfolioVideo, 'portfolioVideo.mp4');
+    }
+    if (teacher.introductionVideo) {
+      downloadFile(teacher.introductionVideo, 'introductionVideo.mp4');
+    }
+  }, [teacher]);
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer && selectedWeekStart) {
@@ -206,16 +211,18 @@ const UpdateTeacher: React.FC = () => {
   };
 
   const handleImageChanges = (event: any) => {
-    console.log()
-    setFormData((prevFormData) => ({
+
+    setFormData((prevFormData:any) => ({
       ...prevFormData,
-      profileImage: event,
+      profileImage: [event],
     }));
+    
+    console.log("File", formData);
+
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
     const onfitmData = selectedTimeSlots.map((timeSlot) => {
       const [timeRange, , date] = timeSlot.split(" on ");
       const [startTime, endTime] = timeRange.split(" to ");
@@ -251,18 +258,18 @@ const UpdateTeacher: React.FC = () => {
 
     try {
         // const formDataToSend = new FormData();
-        // formDataToSend.append("text", formData.firstName);
-        // formDataToSend.append("introductionVideo", nextformData.introductionVideo[0]);
-        // formDataToSend.append("portfolioVideo", nextformData.portfolioVideo[0]);
-        // formDataToSend.append("profileImage", nextformData.profileImage[0]);
-
+        const newFormData = new FormData();
+        newFormData.append("profileImage", formData.profileImage[0]);
+        newFormData.append("firstName", formData.firstName);
+        newFormData.append("portfolioVideo", formData.portfolioVideo[0]);
+        newFormData.append("introductionVideo", formData.introductionVideo[0]);
+        
         const res = await axios.put(
           API_ENDPOINTS.UPDATETEACHERPROFILE,
-          formData,
+          newFormData,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "multipart/form-data",
             },
           }
         // 
@@ -377,12 +384,21 @@ const UpdateTeacher: React.FC = () => {
           <div className="flex items-center justify-around">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start ">
               <div className="text-center">
+              {/* <input
+                  id="profileImage"
+                  name="profileImage"
+                  ref={profileImageInputRef}
+                  type="file"
+                  onChange={(event) =>
+                    handleImageChange(event, "profileImage")
+                  }
+                /> */}
                 <ProfileAvatar
                   pname=""
                   icon={<ShareIcon />}
-                  label={t("FIRST_NAME")}
                   // imageUrl={user?.imageUrl}
                   onChangeImage={(event:any) => handleImageChanges(event)}
+                  
                   placeholder={t("FIRST_NAME")}
                   colSpanSm={6}
                   colSpanMd={4}
@@ -413,7 +429,7 @@ const UpdateTeacher: React.FC = () => {
                   pname="hourlyRate"
                   icon={<EnvelopeOpenIcon />}
                   label={t("Hourly")}
-                  value={formData?.hourlyRate}
+                  // value={formData?.hourlyRate}
                   onChange={handleChange}
                   placeholder={t("ENTER_RATE")}
                   colSpanSm={6}
@@ -428,7 +444,7 @@ const UpdateTeacher: React.FC = () => {
                       pname="location"
                       icon={<MapPinIcon />}
                       label={t("LOCATION")}
-                      value={formData.location}
+                      // value={formData.location}
                       handleLocationChange={handleLocationChange}
                       placeholder={t("ENTER_LOCATION")}
                       colSpanSm={6}
@@ -442,7 +458,7 @@ const UpdateTeacher: React.FC = () => {
                   pname="phoneNumber"
                   icon={<PhoneIcon />}
                   label={t("MOBILE")}
-                  value={formData.phoneNumber}
+                  // value={formData.phoneNumber}
                   onChange={handleChange}
                   placeholder={t("ENTER_MOBILE")}
                   colSpanSm={6}
@@ -464,7 +480,7 @@ const UpdateTeacher: React.FC = () => {
               <textarea
                 onChange={handleChange}
                 name="aboutMyself"
-                value={formData?.aboutMyself}
+                // value={formData?.aboutMyself}
                 className="resize-none leading-8 text-[#565656] w-[90%] mr-4 h-[325px]"
                 placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Aspernatur facilis hic repudiandae possimus tenetur,
@@ -492,7 +508,7 @@ const UpdateTeacher: React.FC = () => {
             {!videoVisible && (
               <>
                 <div>
-                {formData?.introductionVideo ? <video src={formData?.introductionVideo[0] } controls></video> : ''}
+                {teacher?.introductionVideo ? <video src={teacher?.introductionVideo } controls></video> : ''}
               <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
               
                 <input
@@ -503,7 +519,6 @@ const UpdateTeacher: React.FC = () => {
                   onChange={(event) =>
                     handleImageChange(event, "introductionVideo")
                   }
-                  accept="video/*"
                 />
                 <label
                   htmlFor="introductionVideo"
@@ -544,9 +559,13 @@ const UpdateTeacher: React.FC = () => {
           <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
             Portfolio Video
           </h3>
+          {teacher?.introductionVideo ? <video src={teacher?.introductionVideo } controls></video> : ''}
+
           <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
+            
             {!videoPortfolioVisible && (
               <>
+              
                 <div>
               <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
                 <input
@@ -557,7 +576,8 @@ const UpdateTeacher: React.FC = () => {
                   onChange={(event) =>
                     handleImageChange(event, "portfolioVideo")
                   }
-                  accept="video/*"
+                                    accept="video/*"
+
                 />
                 <label
                   htmlFor="portfolioVideo"
@@ -582,7 +602,7 @@ const UpdateTeacher: React.FC = () => {
             {videoPortfolioVisible && (
               <video
                 className="rounded-lg w-full h-[260px]"
-                src={portfolioVideos}
+                src={portfolioVideo}
                 title="Introduction Video"
                 controls
               ></video>
