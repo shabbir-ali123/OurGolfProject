@@ -26,7 +26,7 @@ document.body.dir = i18n.dir();
   };
 
   return (
-    <div className="p-2 ">
+    <div className=" ">
       <div className=" ">
         <div className="flex justify-end gap-2 mx-8 ">
           <div className="flex justify-end gap-2">
@@ -51,7 +51,7 @@ document.body.dir = i18n.dir();
           </div>
         
         </div>
-<div className="overflow-x-scroll">
+<div className="overflow-x-scroll sm:overflow-x-auto">
 {activeTab === "team" && (
           <div>
              <div className='mx-5 '>

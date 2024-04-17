@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { API_ENDPOINTS } from "../appConfig";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchTeams } from "../utils/fetchTeams";
@@ -372,6 +372,8 @@ const EditTeamPage: FunctionComponent = () => {
               )}
             </div>
             <div className="max-w-5xl mx-auto">
+          
+            
             <AboutEvent totalJoinedMembers={totalJoinedMembers} />
             <div className="max-w-5xl mx-6 xl:mx-auto py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
               <div className="flex gap-2 ">
@@ -473,12 +475,12 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
             </div>
 
-            <div className="flex items-end gap-40">
+            <div className="flex items-start gap-40">
               {(!isCreated && !isJoined) && (
                 <>
-                  <div className="flex justify-center text-center w-full ">
+                  <div className="flex justify-start text-center w-full ">
                     <button
-                      className="py-4  lg:text-[30px]  lg:py-8 w-[150px] mt-10 lg:w-[450px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                      className="py-4 text-xl  lg:py-6 w-[130px] mt-10 lg:w-[280px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                       onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                     >
                       {t('JOIN_NOW')}
@@ -487,8 +489,25 @@ const EditTeamPage: FunctionComponent = () => {
 
                 </>
               )}
-            </div>
+               <Link to="/message-page">
+              <div className="flex items-end gap-40">
+              {(!isCreated ) && (
+                <>
+                  <div className=" ">
+                    <button
+                      className="py-4 text-xl  lg:py-6 w-[130px] mt-10 lg:w-[280px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                      onClick={() => router(`/pay-now/${singleEvent?.id}`)}
+                    >
+                      {t('CHAT_ORGANIZER')}
+                    </button>
+                  </div>
 
+                </>
+              )}
+            </div>
+              </Link>
+            </div>
+           
             <div className="max-w-5xl mx-6 xl:mx-auto ">
               <div className="xl:flex items-center justify-between   gap-40 py-8">
                 {isCreated ? (
@@ -589,7 +608,7 @@ const EditTeamPage: FunctionComponent = () => {
                 )}
               </div>
               {singleEvent?.eventType !== 'individual' && (
-                <div className="overflow-x-scroll  shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10 ">
+                <div className="overflow-x-hidden sm:overflow-x-scroll xl:overflow-x-auto  shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10 ">
                   <div className="flex items-center gap-4 pt-8">
                     <div>
 
