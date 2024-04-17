@@ -217,6 +217,8 @@
     "SEE_ALL":"See All",
     "TOP_LIKED":"Top Liked Posts",
     "TOP_COMMENTS":"Top Commented Posts",
+    "UPDATE_COMMENT":"Update Comment",
+    "CLOSE_COMMENT":"Close Comment",
     "APPLICATION_DEADLINE": "Application Deadline",
     "MATCH_TYPE": "Match Type",
     "INDIVIDUAL": "Individual",

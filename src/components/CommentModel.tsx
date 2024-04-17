@@ -290,7 +290,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                                         // onClick={handleEditForm}
                                         className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200  hover:bg-primary-800"
                                       >
-                                        {t("UPDATE_COMMENTS")}
+                                        {t("UPDATE_COMMENT")}
                                       </button>
                                       <button
                                         data-modal-hide="popup-modal"
@@ -300,7 +300,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                                         }}
                                         className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800"
                                       >
-                                        {t("CLOSE_COMMENTS")}
+                                        {t("CLOSE_COMMENT")}
                                       </button>
                                     </div>
                                   </form>
