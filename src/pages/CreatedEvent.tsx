@@ -106,7 +106,7 @@ const CreatedEvents: React.FC = () => {
                     {tabs.map((tab, index) => (<button
                         key={tab}
                         onClick={() => handleTabClick(sendTab[index])}
-                        className={`px-10 py-4 text-sm font-medium rounded-md transition-colors duration-300 ${activeTab === sendTab[index] ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-blue-400 hover:text-white'
+                        className={`sm:w-auto h-12 xl:h-16 md:w-full xl:w-[150px] rounded-md  xl:px-6 text-base font-normal leading-5 cursor-pointer ${activeTab === sendTab[index] ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-blue-400 hover:text-white'
                             }`}
                     >
                         {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -116,7 +116,7 @@ const CreatedEvents: React.FC = () => {
                 <table className="min-w-full">
                     <thead>
                         <tr className='bg-[#fffff]'>
-                            <th className="px-4 py-2 xl:px-6 xl:py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
+                            <th className="px-4  py-2 xl:px-6 xl:py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
                                 {t("EVENT_NAME")}
                             </th>
                             <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
