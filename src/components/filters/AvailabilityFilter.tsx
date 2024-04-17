@@ -12,7 +12,6 @@ const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange 
     onFilterChange(tab);
   };
 
-  console.log(selectedTab)
   return (
     < >
     <div className='py-4'>
