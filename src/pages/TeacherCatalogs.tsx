@@ -1,5 +1,9 @@
+import CatalogModal from "../components/catalogs/CatalogModal";
+
 export const TeacherCatalog = () => {
-    return (
-        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem aliquid suscipit, similique cupiditate sed eaque id. Sunt, iste quisquam. Deleniti beatae itaque quos illum ea inventore sint rem, tenetur corporis.</h2>
-    )
-}
+  return (
+    <div className="ml-16 p-10">
+        <CatalogModal/>
+    </div>
+  );
+};
