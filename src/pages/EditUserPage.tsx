@@ -4,12 +4,18 @@ import InputWithIcon from "../components/FormComponents";
 import { MapPinIcon, PhoneIcon, UserIcon } from "@heroicons/react/24/outline";
 import { userAuthContext } from "../contexts/authContext";
 import { toast } from "react-toastify";
+import { resizeFile } from "../utils/resizeImage";
+
 
 const UpdateProfilePage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { userFormData, setUserFormData, handleUpdateUser, message } =
     userAuthContext(); // Use useContext to access context values
+   
+    
 
+    
+    
   const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserFormData((prev: any) => {
@@ -17,17 +23,17 @@ const UpdateProfilePage: React.FC = () => {
       return updatedValues;
     });
   };
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files?.[0];
-
-    console.log(files ,"myyy");
+    const image = await resizeFile(files);
+    console.log(image ,"hello world");
     if (files) {
       const reader = new FileReader();
     
       reader.onloadend = () => {
         setUserFormData((prevFormData: any) => ({
           ...prevFormData,
-          imageUrl: reader.result,
+          imageUrl: image,
         }));
       };
     
