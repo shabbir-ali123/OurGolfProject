@@ -16,8 +16,8 @@ const AllTeacherFilters: React.FC = () => {
     handleRating(rating);
   };
 
-  const handleAvailabilityChange = (availability: 'available' | 'not-available') => {
-    const isAvailable = (availability === 'available' ? true : false);
+  const handleAvailabilityChange = (availability: string) => {
+    const isAvailable = (availability && availability === 'available' ? true : false);
     handleAvailability(isAvailable);
   };
   const handleSkillChange = (selectedSkills: string[]) => {
