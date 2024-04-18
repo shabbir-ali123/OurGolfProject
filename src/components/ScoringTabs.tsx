@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import ScoringTable from "./LiveScoringTable";
 import ScoringTableRow from './ScoringTableRow';
 import { useTranslation } from 'react-i18next';
-type Tab = "team" | "individual";
+type Tab = "REGULAR" | "HANDICAP";
 const ScoringTableColumn = (props: {
     title: string;
     className: string;
@@ -18,7 +18,7 @@ const ScoringTableColumn = (props: {
     );
 };
 const ScoringTabs = () => {
-    const [activeTab, setActiveTab] = useState<Tab>("team");
+    const [activeTab, setActiveTab] = useState<Tab>("REGULAR");
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
     const handleTabClick = (tab: Tab) => {
@@ -27,22 +27,22 @@ const ScoringTabs = () => {
 
     return (
         <div className=" ">
-            <div className=" ">
-                <div className="flex justify-end gap-2 mx-8 ">
+            <div className=" mx-6 xl:mx-0">
+                <div className="flex justify-end gap-2 ">
                     <div className="flex justify-end gap-2">
                         <button
-                            className={` ${activeTab === "team"
-                                    ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
+                            className={` ${activeTab === "REGULAR"
+                                ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
                                 } px-4 py-2 border rounded-full`}
-                            onClick={() => handleTabClick("team")}
+                            onClick={() => handleTabClick("REGULAR")}
                         >
                             {t("REGULAR")}
                         </button>
                         <button
-                            className={`${activeTab === "individual"
-                                    ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4  text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4  text-[#17b3a6]  text-lg font-bold"
+                            className={`${activeTab === "HANDICAP"
+                                ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4  text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4  text-[#17b3a6]  text-lg font-bold"
                                 } px-4 py-2   rounded-full`}
-                            onClick={() => handleTabClick("individual")}
+                            onClick={() => handleTabClick("HANDICAP")}
                         >
                             {t("HANDICAP_SCORE")}
                         </button>
@@ -50,7 +50,7 @@ const ScoringTabs = () => {
 
                 </div>
                 <div className="overflow-x-scroll sm:overflow-x-auto">
-                    {activeTab === "team" && (
+                    {activeTab === "REGULAR" && (
                         <div>
                             <div className='mx-5 '>
                                 <div className='px-3 '>
@@ -191,7 +191,7 @@ const ScoringTabs = () => {
                         </div>
                     )}
 
-                    {activeTab === "individual" && (
+                    {activeTab === "HANDICAP" && (
                         <div>
                             <ScoringTable />
                         </div>

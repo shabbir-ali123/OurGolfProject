@@ -212,6 +212,7 @@ const CreatedEvents: React.FC = () => {
                     </div>
                 </div>
             )}
+            
         </div>
 
     );

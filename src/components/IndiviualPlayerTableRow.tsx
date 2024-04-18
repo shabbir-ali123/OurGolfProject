@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 const IndiviualPlayerTableRow: FunctionComponent = () => {
   return (
-    <div className="mt-9 flex relative items-center gap-3 box-border p-3 rounded-10xs  bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)]  h-[105px]">
+    <div className="mt-12 flex relative items-center gap-3 box-border p-3 rounded-10xs  bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] py-10">
       <div className="basis-1/2 min-w-[120px] ">
         <div className="absolute top-[-10px] w-[99px] h-32 left-[0px]">
           <img
@@ -24,8 +24,6 @@ const IndiviualPlayerTableRow: FunctionComponent = () => {
         <div> Esther Howard</div>
       </div>
       <div className="basis-1/2 min-w-[111px]">Team 1</div>
-      <div className="text-center basis-1/3">78 </div>
-      <div className="text-center basis-1/3">71</div>
       <div className="basis-1/3 text-center leading-[9.22px] text-5xl font-bold text-seagreen-100">
         210
       </div>

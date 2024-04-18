@@ -32,24 +32,34 @@ export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) 
     }
   };
 
-export const getScoreById = async ( setEventScore: any,setScoreLoading:any, eventId: any ) => {
+  export const getScoreById = async (setEventScore: any, setScoreLoading: any, eventId: any) => {
     try {
         const token = localStorage.getItem("token");
+        let endpoint = API_ENDPOINTS.GETSCOREBYEVENTID + eventId;
 
-      if (token && token !== "undefined") {
-        const response = await axios.get(`${API_ENDPOINTS.GETSCOREBYEVENTID}${eventId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        if (!token || token === "undefined") {
+            // Use public endpoint if token doesn't exist or is undefined
+            endpoint = API_ENDPOINTS.GETPUBLICSCOREBYEVENTID + eventId;
+        }
+
+        const headers: any = {};
+        if (token && token !== "undefined") {
+            headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        const response = await axios.get(endpoint, {
+            headers,
         });
-        setEventScore(response.data)
-      }
+
+        setEventScore(response.data);
     } catch (error) {
-      throw console.log(error);
-    }finally{
-      setScoreLoading(false)
+        console.error(error);
+        // Handle error appropriately
+    } finally {
+        setScoreLoading(false);
     }
-  };
+};
+
 
   export const postScores = async (score: any,) => {
     try {

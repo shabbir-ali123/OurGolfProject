@@ -7,7 +7,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   return (
-    <div className=" my-10 xl:my-[200px]   ">
+    <div className=" my-10 mx-6 xl:mx-0 xl:my-[200px]   ">
       {/* <div className="my-20">
         <div className="flex items-center ">
           <div className="relative w-[90.5px] h-[147.5px]">
@@ -27,7 +27,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
           </div>
         </div>
       </div> */}
-      <div className="relative flex flex-col gap-8 lg:flex-row">
+      <div className="relative flex flex-col gap-8 lg:flex-row ">
         <div className="basis-1/2 ">
           <div className="flex  items-center justify-center basis-1/2 h-[80px] bg-[#0AA3BC]">
             <div className="font-medium text-white text-13xl">

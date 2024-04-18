@@ -84,6 +84,7 @@ export const API_ENDPOINTS = {
   GETALLSCOREPUBLIC: `${API_BASE_URL}/${API_VERSION}/get-all-public-score-cards`,
   ADDSCORE: `${API_BASE_URL}/${API_VERSION}/add-score-card`,
   GETSCOREBYEVENTID: `${API_BASE_URL}/${API_VERSION}/get-score-card-by-event/`,
+  GETPUBLICSCOREBYEVENTID: `${API_BASE_URL}/${API_VERSION}/get-public-score-card-by-event/`,
  
 
   //notification hanlder

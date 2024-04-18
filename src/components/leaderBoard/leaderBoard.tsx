@@ -138,7 +138,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                         src={scored?.userScoreCard?.imageUrl}
                         alt="user"
                       />
-                      <p className="text-[10px]">
+                      <p className="text-[14px]">
                         {scored.userScoreCard?.nickName}
                       </p>
                     </div>
