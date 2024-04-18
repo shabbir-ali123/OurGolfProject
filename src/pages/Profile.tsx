@@ -42,7 +42,7 @@ const Profile = () => {
           {/* {openEditTeacher && <UpdateTeacher closeModal={handleClick} />} */}
           {isTeacher ? (
             <div
-              className="absolute bottom-1 left-1 z-10 xsm:bottom-4 xsm:right-4 my-2"
+              className="absolute bottom-1 left-1 z-10 xsm:bottom-4 xsm:right-4 my-2 flex"
               onClick={handleClick}
             >
               <label
@@ -74,9 +74,12 @@ const Profile = () => {
                 </span>
                 <Link to={`/teacher-page/${tId}`}>
                 <span>Edit Teacher</span>
-
                 </Link>
+                
               </label>
+              <Link to={`/create-catalogs/${tId}`} className="ml-8 bg-[#17b3a6] flex items-center justify-center p-2 rounded">
+                <span>Create Catalogs</span>
+                </Link>
             </div>
           ) : (
             <Link

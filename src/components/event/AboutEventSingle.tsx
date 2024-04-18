@@ -38,21 +38,21 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
           src="/img/rectangle-1249@2x.png"
         />
       </div>
-      <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl  xl:text-21xl"> {t('ABOUT_EVENT')}</h2>
+      <h2 className="leading-[20px] xl:leading-[32px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl  xl:text-21xl"> {t('ABOUT_EVENT')}</h2>
       <h2 className=" text-lightseagreen-200 text-xl xl:text-21xl">{singleEvent?.eventName}</h2>
     </div>
 
     <div className="grid grid-cols-1 gap-0 py-4 ">
       <div className=" items-center gap-10  ">
         <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('DATE')}</div>
-        <p className="py-2 ml-0 xl:ml-10 capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_DATE')}:</span> {singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')} {singleEvent?.
+        <p className="py-2 ml-0 xl:ml-10 capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px] font-bold ">{t('EVENT_DATE')}:</span> <span className="xl:text-[26px] font-bold">{singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')}   <span className="text-[#02ac9e]">{singleEvent?.
           eventEndTime
-        }</p>
-        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</span> {singleEvent?.eventEndDate}</p>
+        }  {singleEvent?.eventEndDate}</span></span> </p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</span> <span className="xl:text-[26px] font-bold">{singleEvent?.eventEndDate}</span> </p>
       </div>
       <div className=" items-center gap-10  ">
         <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_LOCATION')}</div>
-        <p className="py-2 ml-0 xl:ml-10 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 basis-[200px]">{t('LOCATION')} :</span> {singleEvent?.place}</p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg  capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px] font-bold">{t('LOCATION')} :</span> <span className="xl:text-[26px] font-bold">{singleEvent?.place}</span></p>
         <div className="flex items-center gap-10  ">
 
           <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
@@ -76,8 +76,8 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
         <p className="py-2 ml-0 xl:ml-10 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> {singleEvent?.
-            eventType}</p>
+          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> <span className="xl:text-[26px] font-bold">{singleEvent?.
+            eventType}</span> </p>
         </div>
 
       </div>
@@ -86,21 +86,21 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
       <div className="flex items-center gap-10  ">
 
-        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('JOINED_MEMBER')} :</span> {totalJoinedMembers}</p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('JOINED_MEMBER')} :</span> <span className="xl:text-[26px] font-bold">{totalJoinedMembers}</span> </p>
       </div>
     </div>
 
     <div className=" items-center gap-10  ">
       <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('PRICE')}</div>
-      <p className="py-2 ml-0 xl:ml-10 text-lg font-bold capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('PARTICIPATION_FEE')} :</span>{singleEvent?.participationFee}</p>
+      <p className="py-2 ml-0 xl:ml-10 text-lg font-bold capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('PARTICIPATION_FEE')} :</span><span className="xl:text-[26px] font-bold">{singleEvent?.participationFee}</span></p>
     </div>
     <div className="items-center gap-10">
       <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2">
         {t('CANCELLATION_FEE')}
       </div>
-      <div className="grid grid-cols-9  py-2 mx-auto  my-2 py-2">
-        <div className="col-span-8 text-4xl text-[#626262] lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
-          <p className="flex ml-0 xl:ml-10 gap-2 text-red">Cancellation Fee : <span>{singleEvent?.cancellationFee}</span></p> 
+      <div className="grid  py-2 mx-auto  my-2 py-2">
+        <div className="col-span-8 text-4xl text-gray-500 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
+          <p className="flex ml-0 xl:ml-10   w-full flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">Cancellation Fee :</span>  <span className="xl:text-[26px] font-bold text-lightseagreen-200">{singleEvent?.cancellationFee}</span></p>
           {/* <select
             className="block appearance-none w-full bg-gray-200 border border-[#51ff85] text-[#626262] py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="daySelection"
@@ -118,7 +118,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
             id="cancellationFee"
             type="text"
             name="cancellationFee"
-           
+
             // value={calculatedCancellationFee}
             placeholder="Cancellation Fee"
           />

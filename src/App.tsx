@@ -68,6 +68,7 @@ import { PubNubProvider } from "pubnub-react";
 import ChatApp from "./pages/ChatBox";
 import { ChatSystem } from "./pages/Chat";
 import UpdateTeacher from "./pages/UpdateTeacher";
+import { TeacherCatalog } from "./pages/TeacherCatalogs";
 
 function App() {
   const params = useParams();
@@ -436,6 +437,14 @@ function App() {
               ) : (
                 <LoginPage />
               )
+            }
+          />
+          <Route
+            path="/create-catalogs/:id"
+            element={
+              <TeacherDetailsContext>
+                <TeacherCatalog />{" "}
+              </TeacherDetailsContext>
             }
           />
           <Route

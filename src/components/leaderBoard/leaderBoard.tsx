@@ -36,7 +36,7 @@ const LeaderBoardTables: FunctionComponent = () => {
   let sum = shotsPerHoles?.reduce((accumulator: any, currentValue: any) => accumulator + currentValue, 0);
 
   return (
-    <div className=" px-4 xl:w-[1200px] mx-auto sm:px-6 lg:px-8 py-4  rounded-lg my-10 ">
+    <div className=" px-4 xl:max-w-5xl mx-auto sm:px-6 lg:px-8 py-4  rounded-lg my-10 ">
       <div className="px-3 overflow-x-auto">
         <div className="flex gap-4">
           <img
@@ -61,7 +61,7 @@ const LeaderBoardTables: FunctionComponent = () => {
           className={`px-4 py-2 ${
             !showRegularScores ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer animate-bounce border-none py-4 px-20 text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
           }`}
-          onClick={() => setShowRegularScores(false)} // Set handicap scores tab active
+          onClick={() => setShowRegularScores(false)} 
         >
            {t("HANDICAP_SCORE")}
         </button>

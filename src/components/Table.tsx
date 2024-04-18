@@ -347,7 +347,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </p>
                                 </span>
                               ) : (
-                                <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  ">
+                                <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  " onClick={() => router(`/edit-team/${event.id}`)}>
                                   <p
                                     className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black"
                                     style={{
