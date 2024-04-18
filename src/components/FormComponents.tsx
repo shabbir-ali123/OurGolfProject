@@ -42,7 +42,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   handleImageChange,
   handleLocationChange,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 

@@ -234,8 +234,6 @@ export const CreatedEventContext = ({ children }: any) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1)
 
-
-
     useEffect(() => {
         fetchCreatedEvents(activeTab, pageSize, currentPage, setTotalPages, setCreatedEvents);
     }, [activeTab, currentPage, pageSize]);
@@ -249,13 +247,9 @@ export const CreatedEventContext = ({ children }: any) => {
     const removeDeletedEvent = useCallback((eventId:any) => {
         setCreatedEvents((prevEvents) => prevEvents.filter(event => event.id !== eventId));
     }, [setCreatedEvents]);
-    
 
-   
 
     const updateEvent = createdEvents.find((event: CreateEventType) => event.id == id);
-    console.log(updateEvent?.eventName, "xasdf")
-
 
     const value = { handleActiveTab, handleCurrentPage, removeDeletedEvent, activeTab, totalPages, currentPage, createdEvents };
     return <CreatedEventsContext.Provider value={value}> {children}</CreatedEventsContext.Provider>
