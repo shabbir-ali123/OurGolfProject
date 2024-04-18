@@ -7,16 +7,11 @@ const ScoresContext = React.createContext<any>({});
 
 export const ScoreContextProvider = ({ children }: any) => {
 
-
     const [score, setScore] = useState<any>();
     const navigate = useNavigate();
     const [scoreLoading, setScoreLoading] = useState<any>(true);
     const params = useParams<{ id: string }>();
     const eventId = params.id;
-
-
-    console.log(eventId)
-
     useEffect(() => {
         if (eventId) {
             const fetchEventScore = async () => {
@@ -30,12 +25,7 @@ export const ScoreContextProvider = ({ children }: any) => {
                 await getAllScores(setScore, setScoreLoading, navigate);
             }
             fetchScores();
-
         }
-
-
-
-
 
     }, [eventId, scoreLoading]);
 

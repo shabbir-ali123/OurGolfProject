@@ -69,6 +69,7 @@ import ChatApp from "./pages/ChatBox";
 import { ChatSystem } from "./pages/Chat";
 import UpdateTeacher from "./pages/UpdateTeacher";
 import { TeacherCatalog } from "./pages/TeacherCatalogs";
+import { TeacherGigsProvider } from "./contexts/gigsContext";
 
 function App() {
   const params = useParams();
@@ -451,7 +452,9 @@ function App() {
             path="/teacher-details/:id"
             element={
               <TeacherDetailsContext>
-                <TeacherDetails />{" "}
+                <TeacherGigsProvider>
+                  <TeacherDetails />
+                </TeacherGigsProvider>
               </TeacherDetailsContext>
             }
           />

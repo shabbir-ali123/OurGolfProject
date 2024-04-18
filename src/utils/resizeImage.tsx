@@ -1,7 +1,7 @@
 import Resizer from "react-image-file-resizer";
 
 
-export  const resizeFile = (file:any) => 
+export const resizeFile = (file:any) => 
     new Promise((resolve, reject) => {
       let quality = 100;
       const maxWidth = 300; 

@@ -7,23 +7,13 @@ import {
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
-import { ShareIcon, ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { ShareIcon } from "@heroicons/react/20/solid";
 import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { ToastConfig, toastProperties } from "../constants/toast";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import UserProfile from "../components/TeacherProfile";
-import {
-  EnvelopeIcon,
-  PhoneArrowUpRightIcon,
-} from "@heroicons/react/24/outline";
-import AboutTeacher from "../components/AboutTeacher";
-import VideoPortfolio from "../components/TeacherPortfolio";
+
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -47,11 +37,9 @@ interface UpdatePostType {
   introductionVideo: File[];
 }
 const CreateTeacher: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [videoVisible, setVideoVisible] = useState(false);
   const [videoPortfolioVisible, setVideoPortfolioVisible] = useState(false);
-
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     userId: 47,
     aboutMyself: "",
@@ -60,6 +48,7 @@ const CreateTeacher: React.FC = () => {
     phoneNumber: "",
     location: "",
     hourlyRate: "",
+    level: '',
     schedules: [
       {
         startDate: "",
@@ -369,6 +358,7 @@ const CreateTeacher: React.FC = () => {
                   colSpanMd={4}
                   colSpanLg={2}
                 />
+                
 
                 <div className="">
                   <div className="flex flex-col gap-1">

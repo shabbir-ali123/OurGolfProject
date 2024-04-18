@@ -146,7 +146,7 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
   export const fetchSingleTeacher = async (setTeacher: any, teacherId: any) => {
     try {
         const token = localStorage.getItem("token");
-        let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
+        let endpoint = API_ENDPOINTS.GETPUBLICTEACHERBYID + teacherId;
         if (token && token !== "undefined") {
             endpoint = API_ENDPOINTS.GETTEACHERBYID + teacherId;
         }

@@ -1,6 +1,6 @@
 // http://18.216.79.130:5000
 // http://localhost:5000
-const API_BASE_URL = "http://18.216.79.130:5000"
+const API_BASE_URL = "https://0271-18-216-79-130.ngrok-free.app"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -39,6 +39,7 @@ export const API_ENDPOINTS = {
   GETALLTEACHERS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers`,
   GETALLTEACHERSPUBLIC: `${API_BASE_URL}/${API_VERSION}/get-all-teachers-public`,
   GETTEACHERBYID: `${API_BASE_URL}/${API_VERSION}/get-teacher-by-id/`,
+  GETPUBLICTEACHERBYID: `${API_BASE_URL}/${API_VERSION}/get-public-teacher-by-id/`,
   UPDATEPROFILE: `${API_BASE_URL}/${API_VERSION}/update-profile`,
   BOOKAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/book-appointment`,
   GETTEACHERBOOKEDAPPOINTMENTS: `${API_BASE_URL}/${API_VERSION}/get-teacher-booked-appointments`,
@@ -49,6 +50,9 @@ export const API_ENDPOINTS = {
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
   UPDATETEACHERPROFILE: `${API_BASE_URL}/${API_VERSION}/update-teacher-profile`, 
+  ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,
+  GETGIGSBYID: `${API_BASE_URL}/${API_VERSION}/get-gigs-by-teacher/`,
+  GETPUBLICGIGSBYID: `${API_BASE_URL}/${API_VERSION}/get-public-gigs-by-teacher/`,
   
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 

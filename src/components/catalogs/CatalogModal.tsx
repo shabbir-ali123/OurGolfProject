@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { API_ENDPOINTS } from "../../appConfig";
 interface CreateCatalogType {
   title: string;
   description: string;
@@ -12,7 +11,7 @@ interface CreateCatalogType {
 }
 
 const CatalogModal: React.FC<any> = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const userId = localStorage.getItem("id");
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -60,8 +59,21 @@ const CatalogModal: React.FC<any> = () => {
     }
 
     setLoading(true);
-    console.log(formData)
-    // Reset form data
+    try {
+
+    const response = await axios.post(
+      API_ENDPOINTS.ADDGIGS,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  }
+  catch (error) {
+    console.log(error)
+  }
     setFormData({
       title: "",
       description: "",
@@ -165,7 +177,6 @@ const CatalogModal: React.FC<any> = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path d="M12 4v16m8-8H4"></path>
