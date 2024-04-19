@@ -69,6 +69,7 @@ export const API_ENDPOINTS = {
   GETPUBLICPOSTS: `${API_BASE_URL}/${API_VERSION}/get-public-posts`, 
   GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/`, 
   GETALLPOSTS: `${API_BASE_URL}/${API_VERSION}/get-all-posts`, 
+  GETPUBLICALLPOSTS: `${API_BASE_URL}/${API_VERSION}/get-public-all-posts`, 
   ADDPOSTCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-post-comment`,
   ADDPOSTLIKE: `${API_BASE_URL}/${API_VERSION}/add-post-like`,
   DELETEPOST: `${API_BASE_URL}/${API_VERSION}/delete-post/`,

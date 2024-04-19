@@ -12,6 +12,8 @@ export const fetchGigsById = async ( setGigs: any, tId: any) => {
         const response = await axios.get(endpoint, {
             headers: {
                 Authorization: token ? `Bearer ${token}` : '',
+                "ngrok-skip-browser-warning": "69420"
+
             },
            
         });

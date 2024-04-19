@@ -321,7 +321,7 @@ function App() {
           />
           <Route path="/user-page/:id" element={<UserPage />} />
           <Route path="/score-board" element={<ScoreBoard />} />
-          <Route path="/message-page" element={<ChatSystem />} />
+          <Route path="/message-page" element={token ? <ChatSystem /> :  <LoginPage />} />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
           <Route path="/logout" element={<Logout />} />

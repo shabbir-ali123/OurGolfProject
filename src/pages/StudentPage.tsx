@@ -50,6 +50,8 @@ import socket from "../socket";
         const response = await axios.get(endpoint, {
           headers: {
               Authorization: token ? `Bearer ${token}` : '',
+              "ngrok-skip-browser-warning": "69420"
+
             },
             params: {
               page: 1,

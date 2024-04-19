@@ -145,7 +145,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                   </td>
                   {arr?.map((scores: any) => (
                     <LeaderBoard
-                      key={scores.hole}
+                      key={scores?.hole}
                       title={`${scores}`}
                       className="text-[18px] font-medium text-center"
                     />

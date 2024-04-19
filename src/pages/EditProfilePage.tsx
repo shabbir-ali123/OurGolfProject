@@ -25,7 +25,9 @@ const EditProfilePage: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const id = localStorage.getItem("id");
-      const headers: any = {};
+      const headers: any = {
+        "ngrok-skip-browser-warning": "69420"
+      };
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
       }

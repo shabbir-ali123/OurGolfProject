@@ -36,7 +36,9 @@ export const fetchTeams = async (setTeams: any, eventId: any, setTeamMembers: an
 export const fetchTeam = async (teamId: any) => {
     try {
         const token = localStorage.getItem("token");
-        const headers: any = {};
+        const headers: any = {
+        "ngrok-skip-browser-warning": "69420"
+      };
         let url = API_ENDPOINTS.GETPUBLICTEAMSBYEVENT + teamId
         if (token) {
             headers["Authorization"] = `Bearer ${token}`;
@@ -70,7 +72,9 @@ export const fetchTeam = async (teamId: any) => {
 export const fetchAllMembers = async (teamId: any) => {
     try {
         const token = localStorage.getItem("token");
-        const headers: any = {};
+        const headers: any = {
+        "ngrok-skip-browser-warning": "69420"
+      };
         let url = API_ENDPOINTS.GETPUBLICTEAMSBYEVENT + teamId
         if (token) {
             headers["Authorization"] = `Bearer ${token}`;

@@ -4,9 +4,12 @@ import { toast } from "react-toastify";
 
 export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) => {
   try {
+    
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETALLSCOREPUBLIC;
-    const headers: any = {}
+    const headers: any = {
+      "ngrok-skip-browser-warning": "69420"
+    };
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
       endpoint = API_ENDPOINTS.GETALLSCORE;
@@ -14,6 +17,8 @@ export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) 
     const response = await axios.get(endpoint, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "69420"
+
       },
     
     });
@@ -42,7 +47,9 @@ export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) 
             endpoint = API_ENDPOINTS.GETPUBLICSCOREBYEVENTID + eventId;
         }
 
-        const headers: any = {};
+        const headers: any = {
+        "ngrok-skip-browser-warning": "69420"
+      };
         if (token && token !== "undefined") {
             headers["Authorization"] = `Bearer ${token}`;
         }

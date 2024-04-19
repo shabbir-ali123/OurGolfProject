@@ -2,14 +2,15 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { set } from "date-fns";
-
+export let headers:any = {
+  "ngrok-skip-browser-warning": "69420"
+};
 export const fetchPosts = async (setPosts: any, category: any, navigate:any, setCount:any,setpostLoading:any, reqObj:any) => {
 
   const {currentPage, pageSize} = reqObj
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
-    const headers: any = {}
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
       endpoint = API_ENDPOINTS.GETPOSTS;
@@ -38,7 +39,6 @@ export const fetchMyPosts = async (setPosts: any,setpostLoading:any, navigate:an
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETMYPOSTS;
-    const headers: any = {}
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
       endpoint = API_ENDPOINTS.GETMYPOSTS;
@@ -59,6 +59,7 @@ export const fetchMyPosts = async (setPosts: any,setpostLoading:any, navigate:an
     setpostLoading(false)
   }
 };
+
 export const fetchAllPosts = async (setPosts: any,reqObj:any,setpostLoading:any, navigate:any, setCount:any) => {
 
 
@@ -68,7 +69,7 @@ export const fetchAllPosts = async (setPosts: any,reqObj:any,setpostLoading:any,
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
-    const headers: any = {}
+    
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
       endpoint = API_ENDPOINTS.GETALLPOSTS;
@@ -99,7 +100,6 @@ export const fetchSinglePosts = async (setSinglePosts: any, id: any) => {
   try {
     const token = localStorage.getItem("token");
     let endpoint = API_ENDPOINTS.GETPOSTBYID + id;
-    const headers: any = {}
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
       endpoint = API_ENDPOINTS.GETPOSTBYID + id;
@@ -139,7 +139,9 @@ export const deletePost = async (postId: any,setMessage:any, navigate: any) => {
   try {
       const token = localStorage.getItem("token");
       let endpoint = API_ENDPOINTS.DELETEPOST + postId;
-      const headers: any = {};
+      const headers: any = {
+        "ngrok-skip-browser-warning": "69420"
+      };
       if (token && token !== "undefined") {
           headers["Authorization"] = `Bearer ${token}`;
       }
@@ -196,8 +198,7 @@ export const createPost = async ( formData:any, setMessage:any ) => {
 export const fetchMostLikedPosts = async (setMostLiked: any) => {
   try {
     const token = localStorage.getItem("token");
-    let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
-    const headers: any = {}
+    let endpoint = API_ENDPOINTS.GETPUBLICALLPOSTS;
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
       endpoint = API_ENDPOINTS.GETALLPOSTS;
@@ -225,8 +226,7 @@ export const fetchMostLikedPosts = async (setMostLiked: any) => {
 export const fetchMostCommentedPosts = async (setMostLiked: any) => {
   try {
     const token = localStorage.getItem("token");
-    let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
-    const headers: any = {}
+    let endpoint = API_ENDPOINTS.GETPUBLICALLPOSTS;
     if (token && token !== "undefined") {
       headers["Authorization"] = `Bearer ${token}`;
       endpoint = API_ENDPOINTS.GETALLPOSTS;

@@ -1,12 +1,13 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
+import { headers } from "./fetchPosts";
 
 export const fetchPaymentDetails = async (setPosts:any, category:any) => {
     try {
       const token = localStorage.getItem("token");
       let endpoint = API_ENDPOINTS.GETPUBLICPOSTS;
-      const headers:any= {}
+  
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
         endpoint = API_ENDPOINTS.GETPOSTS; 

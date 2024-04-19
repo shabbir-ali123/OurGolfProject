@@ -34,6 +34,7 @@ export  const getUser = async ( setUser: any, navigate:any) => {
         const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "69420"
           },
         });
 
@@ -58,6 +59,7 @@ export  const getSingleUser = async ( setSingleUser: any,  userId:any) => {
       const response = await axios.get(`${API_ENDPOINTS.GET_USER}${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "69420"
         },
       });
 
@@ -94,6 +96,7 @@ export const updateUser = async (formData:any, setUser:any) => {
           headers: {
             Authorization: `Bearer ${userToken}`,
             "Content-Type": "multipart/form-data",
+            "ngrok-skip-browser-warning": "69420"
           },
         }
       );

@@ -2,11 +2,11 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { rating } from "@material-tailwind/react";
+import { headers } from "./fetchPosts";
 
 export const fetchTeacherCounts = async (setAppointsCount:any) => {
     try {
       const token = localStorage.getItem("token");
-      const headers:any= {}
       let endpoint = API_ENDPOINTS.GETTEACHERAPPPOINTMENTPUBLICCOUNT;
 
       if (token && token !== null)  {
@@ -36,6 +36,8 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
           ? {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420"
+
           }
           : {},
         params: {
@@ -70,6 +72,8 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
     const response = await axios.get(endpoint, {
       headers: {
           Authorization: token ? `Bearer ${token}` : '',
+          "ngrok-skip-browser-warning": "69420"
+
         },
         params: {
           page: 1,
@@ -104,6 +108,8 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420"
+
           },
         }
       );
@@ -153,6 +159,8 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
         const response = await axios.get(endpoint, {
             headers: {
                 Authorization: token ? `Bearer ${token}` : '',
+                "ngrok-skip-browser-warning": "69420"
+
             },
            
         });

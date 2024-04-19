@@ -6,12 +6,17 @@ import { toast } from "react-toastify";
 export const fetchEvents = async ( startDate:any, endDate:any,setEvents:any,  location?:any, status?:any) => {
   try {
     const token = localStorage.getItem("token");
-    const headers:any= {}
-    if (token) {
-      headers["Authorization"]=  `Bearer ${token}`
+    const headers: any = {
+      "ngrok-skip-browser-warning": "69420"
+    };    if (token) {
+      headers["Authorization"] =  `Bearer ${token}`;
+
+    
+
     }
     const response = await axios.get(token && token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
-      headers,
+      headers
+      ,
       params: {
         page: 1,
         pageSize: 50000,
@@ -36,7 +41,9 @@ export const deleteEvent = async (eventId: any) => {
   try {
       const token = localStorage.getItem("token");
       let endpoint = API_ENDPOINTS.DELETE_EVENT + eventId;
-      const headers: any = {};
+      const headers: any = {
+        "ngrok-skip-browser-warning": "69420"
+      };
       if (token && token !== "undefined") {
           headers["Authorization"] = `Bearer ${token}`;
       }
@@ -59,9 +66,11 @@ export const fetchEventss = async (setEvents:any, setEventsCount:any, queryParam
 
   const { store_token,currentPage, locations, startDate, endDate,pageSize, eventStatus} = queryParams;
   try {
-    const headers:any= {}
-    if (store_token) {
-      headers["Authorization"]=  `Bearer ${store_token}`
+    const headers: any = {
+      "ngrok-skip-browser-warning": "69420"
+    };    if (store_token) {
+      headers["Authorization"]=  `Bearer ${store_token}`;
+
     }
     
     const response = await axios.get(store_token && store_token !== "undefined" ? API_ENDPOINTS.GETALLEVENT: API_ENDPOINTS.PUBLICEVENTS, {
@@ -100,10 +109,13 @@ export const fetchTeacherByID = async (setUser:any) => {
     const token = localStorage.getItem("token");
     const id = localStorage.getItem("id");
     const teacher_id = localStorage.getItem("teacher_id");
-    const headers:any= {}
+    const headers: any = {
+      "ngrok-skip-browser-warning": "69420"
+    };
     if (token) {
       console.error("User not authenticated");
       headers["Authorization"]=  `Bearer ${token}`
+
     }
     const response = await axios.get(token ? API_ENDPOINTS.GETTEACHERBYID + teacher_id : API_ENDPOINTS.PUBLICEVENTS, {
       headers,
@@ -125,7 +137,9 @@ export const fetchTeacherByID = async (setUser:any) => {
 export const fetchSingleEvent = async (eventId: any) => {
   
       const token = localStorage.getItem("token");
-      const headers: any = {};
+      const headers: any = {
+        "ngrok-skip-browser-warning": "69420"
+      };
       if (token) {
           headers["Authorization"] = `Bearer ${token}`;
       }
@@ -151,7 +165,8 @@ export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentP
 
     if (userID && token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
+        axios.defaults.headers.common['ngrok-skip-browser-warning'] = `69420`;
+     
         const response = await axios.get(API_ENDPOINTS.GETEVENTSBYID, {
             params: {
                 pageSize,

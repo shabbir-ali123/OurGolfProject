@@ -28,6 +28,9 @@ const CompleteLessonsPage: React.FC = () => {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "ngrok-skip-browser-warning": "69420"
+
           },
           params: {
             page: 1,
