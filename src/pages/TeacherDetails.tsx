@@ -12,8 +12,9 @@ import { useNavigate } from "react-router-dom";
 import { gigsContextStore, TeacherGigsProvider } from "../contexts/gigsContext";
 const TeacherDetails: React.FC = () => {
   const router = useNavigate();
-
+  const tId = localStorage.getItem("teacher_id");
   const { teacher } = useTeacherContext();
+  const { gigs } = gigsContextStore();
   // const { handleTeacherId } = gigsContextStore();
 
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
@@ -29,7 +30,7 @@ const TeacherDetails: React.FC = () => {
   //   handleTeacherId(teacher?.id);
   // }, [teacher])
 
-  console.log(teacher?.id, 'sds')
+  console.log(teacher?.id, "sds");
   return (
     <div className="mx-4 md:mx-20">
       <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
@@ -90,15 +91,34 @@ const TeacherDetails: React.FC = () => {
           </div>
           <div className="my-8">
             <h2 className="text-xl font-semibold mb-4">Gigs:</h2>
-            <div className="flex flex-col items-center">
-              <h2>
-                Oops! You dont have{" "}
-                <span className="text-[#17b3a6]">GIGS!</span>
-              </h2>
-              <button className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base" onClick={() => router(`/create-catalogs/${teacher?.id}`)}>
-                Create GIG
-              </button>
-            </div>
+
+            {tId == teacher?.id ? (
+              <div className="flex flex-col items-center">
+                {gigs ? (
+                  <div>hello gigs</div>
+                ) : (
+                  <>
+                    <h2>
+                      Oops! You dont have{" "}
+                      <span className="text-[#17b3a6]">GIGS!</span>
+                    </h2>
+                    <button
+                      className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
+                      onClick={() => router(`/create-catalogs/${teacher?.id}`)}
+                    >
+                      Create GIG
+                    </button>
+                  </>
+                )}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center">
+                <h2>
+                  Oops! This Teacher doesn't have{" "}
+                  <span className="text-[#17b3a6]">GIGS!</span>
+                </h2>
+              </div>
+            )}
           </div>
           <div>
             <h2 className="text-xl font-semibold mb-4">Ratings:</h2>

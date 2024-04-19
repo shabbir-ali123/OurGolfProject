@@ -80,6 +80,7 @@ function App() {
   const pathname = location.pathname;
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
+  const tId = localStorage.getItem("teacher_id");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -443,9 +444,13 @@ function App() {
           <Route
             path="/create-catalogs/:id"
             element={
+                token && tId ? (
               <TeacherDetailsContext>
                 <TeacherCatalog />{" "}
               </TeacherDetailsContext>
+                ) : (
+                  <LoginPage />
+                )
             }
           />
           <Route
