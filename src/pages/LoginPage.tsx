@@ -6,6 +6,7 @@ import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import { useTranslation } from "react-i18next";
+
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -154,6 +155,7 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
+     
     </section>
   );
 };
