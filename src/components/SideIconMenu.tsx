@@ -67,17 +67,38 @@ export const menuItems: MenuItem[] = [
       },
     ],
   },
+  // {
+  //   name: "FIND_TEACHER",
+  //   icon: faSearch,
+  //   path: "/student-page",
+  //   active: false,
+  // },
   {
     name: "FIND_TEACHER",
     icon: faSearch,
     path: "/student-page",
     active: false,
+    subItems: [
+      {
+        name: "TEACHER",
+        icon: faSearch,
+        path: "/all-teachers",
+        active: false,
+      },
+      {
+        name: "APPOINTMENTS",
+        icon: faSearch,
+        path: "/activties-page",
+        active: false,
+      },
+   
+    ],
   },
-  {
-    name: "CALENDER",
-    icon: faCalendar,
-    path: "/activties-page",
-  },
+  // {
+  //   name: "CALENDER",
+  //   icon: faCalendar,
+  //   path: "/activties-page",
+  // },
   {
     name: "PROFILE",
     icon: faUser,
@@ -108,9 +129,10 @@ interface MenuItem {
   icon: any;
   path: string;
   active?: boolean;
-  subItems?: MenuItem[];
+  subItems?: Array<MenuItem>;
   properties?: any;
 }
+
 
 const SideMenu: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -374,7 +396,7 @@ const SideMenu: React.FC = () => {
                         key={subItem.name}
                       >
                         <div
-                          className="bg-white rounded-md shadow-lg mt-2 p-6 text-[#626262]"
+                          className="bg-white rounded-md shadow-lg mt-2 px-6 py-4 text-[#626262]"
                           style={{
                             boxShadow:
                               "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",

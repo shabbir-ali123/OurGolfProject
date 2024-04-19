@@ -292,6 +292,7 @@ const EditTeamPage: FunctionComponent = () => {
     navigate(`/edit-team/${singleEvent?.id}`);
 
   }
+  
   return (
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}

@@ -1,6 +1,7 @@
 // http://18.216.79.130:5000
 // http://localhost:5000
-const API_BASE_URL = "https://0271-18-216-79-130.ngrok-free.app"
+// https://0271-18-216-79-130.ngrok-free.app
+const API_BASE_URL = "http://18.216.79.130:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {

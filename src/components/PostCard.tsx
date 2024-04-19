@@ -528,7 +528,7 @@ const PostCard = () => {
           </ul>
         </div>
         <div>
-          <h5>Top Commented Posts</h5>
+          <h5>{t("TOP_COMMENTS")}</h5>
           <ul className="p-0">
             {mostCommented?.map((item: any) => {
               return (

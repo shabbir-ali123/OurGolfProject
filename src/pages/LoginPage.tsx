@@ -142,12 +142,12 @@ const Login: React.FC = () => {
                 {t("SIGN_IN")}
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
+              {t("HAVE_ACCOUNT")}
                 <Link
                   to="/register-page"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Sign Up
+                 {t("SIGN_UP")}
                 </Link>
               </p>
             </form>
