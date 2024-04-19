@@ -101,7 +101,6 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
     handleMatchedShift;
   }, [tap]);
 
-  console.log(tId, teacherId)
   return (
     <div className="mt-10">
       <h3 className="font-semibold mb-4 text-lg">Availability</h3>
