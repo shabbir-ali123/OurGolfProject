@@ -101,11 +101,17 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
     handleMatchedShift;
   }, [tap]);
 
+  const handleSlotClick = (clickedSlot: any) => {
+    if (selectedTime === clickedSlot) {
+      setSelectedTime(null);
+    } else {
+      setSelectedTime(clickedSlot);
+    }
+  };
   return (
     <div className="mt-10">
       <h3 className="font-semibold mb-4 text-lg">Availability</h3>
       <div className="div">
-        {/* <DropDown timeSlots={uniqueDays} dayFilter={setDayFilter} /> */}
         <TeacherCalender
           startEndDates={schedules}
           shifts={schedules?.shifts}
@@ -124,7 +130,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
           className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
             slot.isBooked ? "bg-[#DDF4F2] text-gray-600" : "bg-[#17b3a6] text-white"
           } ${selectedTime === slot ? "bg-black" : ""}`}
-          onClick={() => setSelectedTime(slot)}
+          onClick={() => handleSlotClick(slot)}
           disabled={slot.isBooked}
           
         >
