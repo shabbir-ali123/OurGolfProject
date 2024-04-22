@@ -56,7 +56,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
                         <div className="flex items-center">
                           <div className="flex-1 w-0 ml-3 ">
                             <p className="text-sm font-medium text-gray-900">
-                              {data.message}ss
+                              {data.message}
                             </p>
                           </div>
                           <div className="flex flex-shrink-0 ml-4">

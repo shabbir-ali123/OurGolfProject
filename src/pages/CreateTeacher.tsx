@@ -4,6 +4,7 @@ import {
   UserIcon,
   PhoneIcon,
   MapPinIcon,
+  VideoCameraIcon
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
@@ -49,6 +50,7 @@ const CreateTeacher: React.FC = () => {
     location: "",
     hourlyRate: "",
     level: '',
+    movieUrl: "",
     schedules: [
       {
         startDate: "",
@@ -472,7 +474,20 @@ const CreateTeacher: React.FC = () => {
             )}
             
           </div>
-          
+            <div className="mt-4">
+              <h3 className="text-center mb-0">OR</h3>
+              <InputWithIcon
+                  pname="movieURL"
+                  icon={<VideoCameraIcon />}
+                  label={t("MOVIE_URL")}
+                  value={formData.movieUrl}
+                  onChange={handleChange}
+                  placeholder={t("MOVIE_URL")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+            </div>
         </div>
       </div>
       <div className="col-span-1">

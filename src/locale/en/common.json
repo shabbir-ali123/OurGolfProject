@@ -315,6 +315,7 @@
     "INTERMEDIATE": "Intermediate",
     "ADVANCED": "Advanced",
     "AMBASSADOR": "TASKGOLF<br>Amateur Ambassador",
-    "NO_EVENT": "No Event"
+    "NO_EVENT": "No Event",
+    "MOVIE_URL": "Movie URL"
 
 }

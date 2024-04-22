@@ -316,5 +316,7 @@
     "INTERMEDIATE": "中級者",
     "ADVANCED": "上級者",
     "AMBASSADOR": "TASKGOLF<br>アマチュアアンバサダー",
-    "NO_EVENT": "イベントはありません"
+    "NO_EVENT": "イベントはありません",
+    "MOVIE_URL": "映画のURL"
+
 }

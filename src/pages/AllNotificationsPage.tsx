@@ -15,7 +15,6 @@ export default function AllNotification() {
   const { t, i18n } = useTranslation();
   const [notificationData, setNotificationData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  document.body.dir = i18n.dir();
 
   const { isloading, handleMessage } =
     notificationsContextStore();
@@ -29,19 +28,17 @@ export default function AllNotification() {
     }
     updateNotificationsStatus(handleMessage, obj);
     toast.success("Marked as Read Successfully");
-    // navigate(`/edit-team/${eventId}`);
 
   };
+
   useEffect(() => {
     const updateNotifications = () => {
       fetchNotifications(setNotificationData, setIsLoading);
     };
-
     updateNotifications();
-
-    const intervalId = setInterval(updateNotifications, 10000);
-    return () => clearInterval(intervalId);
-  }, [i18n.dir]);
+    // const intervalId = setInterval(updateNotifications, 10000);
+    // return () => clearInterval(intervalId);
+  }, []);
   const currentUserId = localStorage.getItem("id");
   return (
     <>
@@ -88,7 +85,12 @@ export default function AllNotification() {
                             navigate('/edit-team/' + item?.eventId);
 
                           } else if (item?.teacherId !== null) {
-                            navigate('/' + item?.eventId);
+                            navigate('/' + item?.teacherId);
+
+                          } else if (item?.postId !== null) {
+                            handleApprove(e, item?.id, "")
+
+                            navigate('/read-post/' + item?.postId);
 
                           }
 
