@@ -10,21 +10,37 @@ interface PlayerProps {
   onDelete?: () => void;  
 }
 
-const Player: React.FC<PlayerProps> = ({ showNumber, name,imageUrl, enableHover, onEdit, onDelete, isCreator }) => {
+const Player: React.FC<PlayerProps> = ({ showNumber, name, imageUrl, enableHover, onEdit, onDelete, isCreator }) => {
   const [isHovered, setIsHovered] = useState(false);
   const defaultImageUrl = '/img/ellipse-1310@2x.png';
+  const [displayName, setDisplayName] = useState(name.substring(0, 6) + '..');
+
+  // Function to handle mouse enter and leave
+  const handleMouseEnter = () => {
+    if (enableHover) {
+      setIsHovered(true);
+      setDisplayName(name); 
+    }
+  };
+  const handleMouseLeave = () => {
+    if (enableHover) {
+      setIsHovered(false);
+      setDisplayName(name.substring(0, 6) + '');  
+    }
+  };
+
   return (
     <div className='flex w-full items-center h-[55px] px-2'
-      onMouseEnter={() => enableHover && setIsHovered(true)}
-      onMouseLeave={() => enableHover && setIsHovered(false)}>
-      <div className='flex items-center'>
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
+      <div className='flex-col text-center items-center'>
         <img
           className='rounded-[50%] w-9 h-[35.7px] object-cover'
           alt=''
           src={imageUrl || defaultImageUrl}
         />
         <div className='pl-1 tracking-[1.45px] leading-[9.22px]'>
-          {name}
+          {displayName}
         </div>
       </div>
 
