@@ -542,7 +542,20 @@ const CreateTeacher: React.FC = () => {
             )}
             
           </div>
-          
+            <div className="my-4">
+              <h3 className="text-center mb-0">OR</h3>
+            <InputWithIcon
+                  pname="movieURL"
+                  icon={<VideoCameraIcon />}
+                  label='Enter Portfolio URLs (seperate with commas if multiple URLS)'
+                  value={formData.movieUrl}
+                  onChange={handleChange}
+                  placeholder={'Enter Portfolio URLs (seperate with commas if multiple URLS'}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+            </div>
         </div>
       </div>
       <div className="my-4 mx-10   xl:mx-0">
