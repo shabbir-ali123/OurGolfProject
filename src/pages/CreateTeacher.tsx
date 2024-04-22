@@ -4,7 +4,8 @@ import {
   UserIcon,
   PhoneIcon,
   MapPinIcon,
-  VideoCameraIcon
+  VideoCameraIcon,
+  ArrowDownIcon
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
@@ -39,8 +40,10 @@ interface UpdatePostType {
 }
 const CreateTeacher: React.FC = () => {
   const { t } = useTranslation();
-  const [videoVisible, setVideoVisible] = useState(false);
-  const [videoPortfolioVisible, setVideoPortfolioVisible] = useState(false);
+  const [videoVisible, setVideoVisible] = useState<boolean>(false);
+  const [videoPortfolioVisible, setVideoPortfolioVisible] = useState<boolean>(false);
+  const [showMediaUrl, setShowMediaUrl] = useState<boolean>(false);
+  const [showPortfolioUrl, setShowPortfolioUrl] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     userId: 47,
     aboutMyself: "",
@@ -462,6 +465,7 @@ const CreateTeacher: React.FC = () => {
                 </label>
               </div>
             </div>
+            <ArrowDownIcon className="h-[40px]" onClick={() => setShowMediaUrl(!showMediaUrl)}/> 
               </>
             )}
             {videoVisible && (
@@ -474,6 +478,8 @@ const CreateTeacher: React.FC = () => {
             )}
             
           </div>
+          {
+            showMediaUrl && (
             <div className="mt-4">
               <h3 className="text-center mb-0">OR</h3>
               <InputWithIcon
@@ -488,6 +494,7 @@ const CreateTeacher: React.FC = () => {
                   colSpanLg={2}
                 />
             </div>
+            )}
         </div>
       </div>
       <div className="col-span-1">
@@ -528,8 +535,12 @@ const CreateTeacher: React.FC = () => {
                     <path d="M12 4v16m8-8H4"></path>
                   </svg>
                 </label>
+                
               </div>
+
             </div>
+            <ArrowDownIcon className="h-[40px]" onClick={() => setShowPortfolioUrl(!showPortfolioUrl)}/> 
+
               </>
             )}
             {videoPortfolioVisible && (
@@ -542,20 +553,26 @@ const CreateTeacher: React.FC = () => {
             )}
             
           </div>
+          {
+            showPortfolioUrl && (
+              
+            
             <div className="my-4">
               <h3 className="text-center mb-0">OR</h3>
             <InputWithIcon
-                  pname="movieURL"
+                  pname="portfolioUrl"
                   icon={<VideoCameraIcon />}
-                  label='Enter Portfolio URLs (seperate with commas if multiple URLS)'
+                  label={t('PORTFOLIO_URL')}
                   value={formData.movieUrl}
                   onChange={handleChange}
-                  placeholder={'Enter Portfolio URLs (seperate with commas if multiple URLS'}
+                  placeholder={t('PORTFOLIO_URL')}
                   colSpanSm={6}
                   colSpanMd={4}
                   colSpanLg={2}
                 />
             </div>
+            )
+          }
         </div>
       </div>
       <div className="my-4 mx-10   xl:mx-0">

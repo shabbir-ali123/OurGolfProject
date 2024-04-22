@@ -95,7 +95,7 @@ const TeacherDetails: React.FC = () => {
             {tId == teacher?.id ? (
               <div className="flex flex-col items-center">
                 {gigs ? (
-                  <div>hello gigs</div>
+                  <>hello</>
                 ) : (
                   <>
                     <h2>

@@ -317,6 +317,8 @@
     "ADVANCED": "上級者",
     "AMBASSADOR": "TASKGOLF<br>アマチュアアンバサダー",
     "NO_EVENT": "イベントはありません",
-    "MOVIE_URL": "映画のURL"
+    "MOVIE_URL": "映画のURL",
+    "PORTFOLIO_URL": "ポートフォリオの URL を入力します (URL が複数ある場合はカンマで区切ってください)"
+
 
 }
