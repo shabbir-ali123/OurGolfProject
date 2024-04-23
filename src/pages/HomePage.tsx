@@ -5,6 +5,7 @@ import HomeCardSec from "../components/home/HomeCardSec";
 import RecommendedTeachers from "../components/home/RecommendTeac";
 import RecommendEvent from "../components/home/RecommendEvent"
 import RecommendedPosts from "../components/home/RecommendPosts";
+import { PostContext } from "../contexts/postsContext";
 
 const HomePage: React.FC = () => {
 
@@ -18,7 +19,10 @@ const HomePage: React.FC = () => {
             </div>
             <RecommendedTeachers/>
             <RecommendEvent/>
+            <PostContext>
             <RecommendedPosts/>
+            </PostContext>
+           
         </div>
 
     );

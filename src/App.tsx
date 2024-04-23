@@ -328,7 +328,7 @@ function App() {
               </ScoreContextProvider>
             }
           />
-          <Route path="/user-page/:id" element={<UserPage />} />
+          <Route path="/user-page/:id" element={<UserContext> <UserPage /> </UserContext>} />
           <Route path="/score-board" element={<ScoreBoard />} />
           <Route path="/message-page" element={token ? <ChatSystem /> : <LoginPage />} />
           <Route path="/login-page" element={<LoginPage />} />
