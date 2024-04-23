@@ -15,7 +15,7 @@ const UserProfile = () => {
   const { post, handleCategory } = postContext();
   const { createdEvents } = createdEventsStore();
 
-  console.log(singleUser)
+  console.log(singleUser, "sajid")
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",

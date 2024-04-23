@@ -1,5 +1,6 @@
 // RecommendedPosts.tsx
-import React from 'react';
+import React, { useContext } from 'react';
+import {postContext} from '../../contexts/postsContext';
 import HomeTeacher from './HomeTeacher'; 
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -7,34 +8,10 @@ import "slick-carousel/slick/slick-theme.css";
 import "./home.css"
 import TopLikes from './TopLikes';
 import TopComments from './TopComments';
+
 const RecommendedPosts: React.FC = () => {
-    const likes = [
-        {
-            imageUrl: "/img/second-image.jpg",
-            name: "Hil Golf Event",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/third.jpg",
-            name: "Joshika Nain",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/second-image.jpg",
-            name: "Hil Golf Event",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/third.jpg",
-            name: "Joshika Nain",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/teacher1.png",
-            name: "Oliver Brown",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        }
-    ];
+    const {mostLiked, mostCommented}=postContext()
+
     const comments = [
         {
             imageUrl: "/img/teacher1.png",
@@ -107,8 +84,8 @@ const RecommendedPosts: React.FC = () => {
             <h3 className='text-[24px] font-semibold text-[#17B3A6] ml-8 xl:ml-24 xl:pt-20 pt-10'>Top Liked Posts</h3>
            
            <Slider {...settings} className='mx-2 xl:mx-20'>
-               {likes.map((teacher, index) => (
-                   <TopLikes key={index} imageUrl={teacher.imageUrl} name={teacher.name} description={teacher.description} />
+               {mostLiked?.map((teacher: any, index: React.Key | null | undefined) => (
+                   <TopLikes key={index} id={teacher?.id} imageUrl={teacher?.mediaFile[0]} name={teacher?.posts?.nickName}  />
                ))}
                </Slider>
             </div>
@@ -116,8 +93,8 @@ const RecommendedPosts: React.FC = () => {
             <h3 className='text-[24px] font-semibold text-[#17B3A6] ml-8 xl:ml-24 xl:pt-20 pt-10'>Top Commented Posts</h3>
            
            <Slider {...settings} className='mx-2 xl:mx-20'>
-               {comments.map((teacher, index) => (
-                   <TopComments key={index} imageUrl={teacher.imageUrl} name={teacher.name} description={teacher.description} />
+              {mostCommented?.map((teacher: any, index: React.Key | null | undefined) => (
+                   <TopComments key={index}  id={teacher?.id} imageUrl={teacher?.mediaFile[0]} name={teacher?.posts?.nickName}  />
                ))}
                </Slider>
             </div>

@@ -1,14 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface TopLikesProps {
     imageUrl: string;
     name: string;
-    description: string;
+    id: any;
+    // description: string;
 }
 
-const TopLikes: React.FC<TopLikesProps> = ({ imageUrl, name, description }) => {
+const TopLikes: React.FC<TopLikesProps> = ({ imageUrl, name ,id}) => {
+    const router = useNavigate();
     return (
-        <div className="mx-6 mt-20 bg-white border-2 border-[#17B3A6] border-solid rounded-lg shadow overflow-hidden relative text-center transition duration-300 hover:bg-[#17B3A6] hover:text-white">
+        <div className="mx-6 mt-20 bg-white border-2 border-[#17B3A6] border-solid rounded-lg shadow overflow-hidden relative text-center transition duration-300 hover:bg-[#17B3A6] hover:text-white"
+         onClick={()=>{
+
+             router('/read-post/'+ id)
+         }
+        }>
             <img src={imageUrl} alt={name} className="w-full h-64 object-cover" />
 
           
@@ -23,7 +31,7 @@ const TopLikes: React.FC<TopLikesProps> = ({ imageUrl, name, description }) => {
                 </svg>
             </div>
 
-        </div>
+        </div> 
     );
 };
 
