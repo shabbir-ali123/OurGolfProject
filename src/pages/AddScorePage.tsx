@@ -25,6 +25,8 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
   const [contests, setContests] = useState<any[]>([]);
+  const [pinContests, setPinContests] = useState<any[]>([]);
+
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
@@ -123,11 +125,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
     const updatedFormData = formData.map((data: any) => {
       const sums = data.scorePerShot;
-      const oldContests = contests?.reduce((acc: any, contest: any) => {
-        acc[contest.userId] = contest.newValue;
-        return acc;
-      }, {});
-
+    
       if (data.userId === userId) {
         const totalScore = sums.reduce(
           (acc: any, score: any) => acc + score,
@@ -136,23 +134,15 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         const newValueObj = contests.find(
           (newValue) => newValue.userId === data.userId
         );
-        const roundedValue = isHandicap[data.userId]
-          ? Math.round(
-              (totalScore *
-                (singleEvent?.scoringType === "single"
-                  ? 3
-                  : singleEvent?.scoringType === "double"
-                  ? 1.5
-                  : 2) -
-                totalPar) *
-                0.8
-            )
-          : 0;
-
+        const newPinValueObj = pinContests.find(
+          (newValue) => newValue.userId === data.userId
+        );
+     
         data.scorePerShot[holeIndex] = value;
         data.totalScore = totalScore;
-        data.driverContest = newValueObj.newValue;
-        
+        data.driverContest = newValueObj?.newValue;
+        data.nearPinContest = newPinValueObj?.newValue;
+
       }
       return data;
     });
@@ -166,8 +156,30 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
     setSums(updatedSums);
   };
-  console.log(contests);
+  const handlePinContests = (
+    userId: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const existingIndex = pinContests.findIndex(
+      (contest) => contest.userId === userId
+    );
 
+    if (existingIndex !== -1) {
+      setPinContests((prevContests) => [
+        ...prevContests.slice(0, existingIndex),
+        { newValue: e.target.value, userId: userId },
+        ...prevContests.slice(existingIndex + 1),
+      ]);
+    } else {
+      setPinContests((prevContests) => [
+        ...prevContests,
+        { newValue: e.target.value, userId: userId },
+      ]);
+    }
+  
+
+    
+  };
   const filteredSums = Object.fromEntries(
     Object.entries(sums).map(([userId, scores]) => {
       const filteredScores = scores.filter((score: any, index: any) =>
@@ -245,7 +257,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           handiCapValue: item.handiCapValue,
           netValue: item.netValue,
           eventId: item.eventId,
-          nearPinContest: "",
+          nearPinContest: item.nearPinContest,
           longDriveContest: "",
           driverContest: item.driverContest,
           teamId: item.teamId,
@@ -256,7 +268,11 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }, []);
 
     setFormData(newFormData);
-  }, [score, contests]);
+  
+
+
+
+  }, [score, contests, pinContests]);
 
   const handleContests = (
     userId: number,
@@ -279,6 +295,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       ]);
     }
   };
+
   return (
     <div className="mx-4 xl:mx-32 ">
       <div className="flex items-center gap-10">
@@ -525,7 +542,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                           imageUrl={member.imageUrl}
                         />
                         {holes.map((hole, holeIndex: number) => {
-                                              console.log(playerData?.driverContest);
 
                           return (
                             <td key={holeIndex}>
@@ -569,6 +585,13 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   type="text"
                                   min="1"
                                   name="nearPinContest"
+                                  placeholder={
+                                    playerData &&
+                                    playerData?.nearPinContest + " yrd"
+                                  }
+                                  onChange={(e: any) => {
+                                    handlePinContests(member.userId, e);
+                                  }}
                                   className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
                                 />
                               )}
