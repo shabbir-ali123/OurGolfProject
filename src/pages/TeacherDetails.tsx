@@ -17,6 +17,7 @@ const TeacherDetails: React.FC = () => {
   const { gigs } = gigsContextStore();
   // const { handleTeacherId } = gigsContextStore();
 
+  console.log(gigs.gigs, 'sd')
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
 
   const posterSrc = "/img/user-06.png";
@@ -93,9 +94,20 @@ const TeacherDetails: React.FC = () => {
             <h2 className="text-xl font-semibold mb-4">Gigs:</h2>
 
             {tId == teacher?.id ? (
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col">
                 {gigs ? (
-                  <>Map GIGS here(TODO)</>
+                  gigs.gigs?.map((item: any) => (
+                    <div className="flex mb-2 flex-col w-full p-2 space-y-4 text-white border border-yellow-400 rounded-lg bg-[#2dd4bf] lg:py-8 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12">
+                      <div className="flex gap-4 items-center">
+                        <img className="h-[40px] w-[40px]" src={item?.imageUrl} alt="" />
+                        <div className="flex flex-col">
+
+                        <h3>{item.title}</h3>
+                        <p>{item.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
                 ) : (
                   <>
                     <h2>

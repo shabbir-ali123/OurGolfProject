@@ -18,9 +18,7 @@ export const fetchGigsById = async ( setGigs: any, tId: any) => {
            
         });
       
-      if (response.status === 201) {
         setGigs(response.data)  
-      } 
     } catch (error) {
       console.log(error);
     }
