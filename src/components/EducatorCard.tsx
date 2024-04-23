@@ -45,7 +45,13 @@ export const EducatorCard = ({
   }, [tap]);
 
   const handleSelectedShifts = (shift: any) => {
-    setBookingsData(shift);
+    if (bookingsData == shift) {
+      // If the clicked shift is already selected, deselect it
+      setBookingsData(null);
+    } else {
+      // Otherwise, select the clicked shift
+      setBookingsData(shift);
+    }
   };
 
   console.log(bookingsData, "bd");

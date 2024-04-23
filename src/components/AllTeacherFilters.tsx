@@ -32,9 +32,7 @@ const AllTeacherFilters: React.FC = () => {
     <div className="text-center p-4  bg-white shadow-lg">
       <h2 className='text-start'>{t("FILTER_BY")}</h2>
       <div>
-        
         <LocationFilter handleLocationChange={handleLocationChange}/>
-        
         <AvailabilityFilter onFilterChange={handleAvailabilityChange} />
         <RatingFilter onRatingChange={handleRatingChange} />
         <TeacherSkills onSkillChange={handleSkillChange}/>

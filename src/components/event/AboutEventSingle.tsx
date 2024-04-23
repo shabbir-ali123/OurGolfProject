@@ -45,17 +45,17 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     <div className="grid grid-cols-1 gap-0 py-4 ">
       <div className=" items-center gap-10  ">
         <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('DATE')}</div>
-        <p className="py-2 ml-0 xl:ml-10 capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px] font-bold ">{t('EVENT_DATE')}:</span> <span className="xl:text-[26px] font-bold">{singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')}   <span className="text-[#02ac9e]">{singleEvent?.
+        <p className="py-2 ml-0 xl:ml-10 capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px] font-bold ">{t('EVENT_DATE')}:</span> <span className="xl:text-[26px] ">{singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')}   <span className="text-[#02ac9e]">{singleEvent?.
           eventEndTime
         }  {singleEvent?.eventEndDate}</span></span> </p>
-        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</span> <span className="xl:text-[26px] font-bold">{singleEvent?.eventEndDate}</span> </p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</span> <span className="xl:text-[26px] ">{singleEvent?.eventEndDate}</span> </p>
       </div>
       <div className=" items-center gap-10  ">
         <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_LOCATION')}</div>
-        <p className="py-2 ml-0 xl:ml-10 text-lg  capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px] font-bold">{t('LOCATION')} :</span> <span className="xl:text-[26px] font-bold">{singleEvent?.place}</span></p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg  capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px] font-bold">{t('LOCATION')} :</span> <span className="xl:text-[26px] ">{singleEvent?.place}</span></p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
+          <p className="py-2 ml-0 xl:ml-10 xl:text-[26px] capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_ADDRESS')} :</span>{singleEvent?.address}</p>
         </div>
         <div className="my-6 col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
           <iframe
@@ -73,10 +73,10 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
       </div>
       <div className=" items-center gap-10  ">
         <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_DETAILS')}</div>
-        <p className="py-2 ml-0 xl:ml-10 text-lg font-medium capitalize text-lightseagreen-200"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
+        <p className="py-2 ml-0 xl:ml-10  capitalize text-lightseagreen-200 flex items-center gap-4 xl:text-[26px]"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> <span className="xl:text-[26px] font-bold">{singleEvent?.
+          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> <span className="xl:text-[26px] ">{singleEvent?.
             eventType}</span> </p>
         </div>
 
@@ -86,13 +86,13 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
       <div className="flex items-center gap-10  ">
 
-        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('JOINED_MEMBER')} :</span> <span className="xl:text-[26px] font-bold">{totalJoinedMembers}</span> </p>
+        <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('JOINED_MEMBER')} :</span> <span className="xl:text-[26px] ">{totalJoinedMembers}</span> </p>
       </div>
     </div>
 
     <div className=" items-center gap-10  ">
       <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('PRICE')}</div>
-      <p className="py-2 ml-0 xl:ml-10 text-lg font-bold capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('PARTICIPATION_FEE')} :</span><span className="xl:text-[26px] font-bold">{singleEvent?.participationFee}</span></p>
+      <p className="py-2 ml-0 xl:ml-10 text-lg  capitalize text-lightseagreen-200 flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">{t('PARTICIPATION_FEE')} :</span><span className="xl:text-[26px] ">{singleEvent?.participationFee}</span></p>
     </div>
     <div className="items-center gap-10">
       <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2">
@@ -100,7 +100,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
       </div>
       <div className="grid  py-2 mx-auto  my-2 py-2">
         <div className="col-span-8 text-4xl text-gray-500 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
-          <p className="flex ml-0 xl:ml-10   w-full flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">Cancellation Fee :</span>  <span className="xl:text-[26px] font-bold text-lightseagreen-200">{singleEvent?.cancellationFee}</span></p>
+          <p className="flex ml-0 xl:ml-10   w-full flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">Cancellation Fee :</span>  <span className="xl:text-[26px]  text-lightseagreen-200">{singleEvent?.cancellationFee}</span></p>
           {/* <select
             className="block appearance-none w-full bg-gray-200 border border-[#51ff85] text-[#626262] py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="daySelection"

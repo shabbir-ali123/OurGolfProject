@@ -210,6 +210,14 @@ module.exports = {
       inherit: "inherit",
     },
   },
+  variants: {
+    extend: {
+      textColor: ['hover'],
+      borderColor: ['hover'],
+      borderWidth: ['hover'],
+      backgroundColor: ['hover']
+    },
+  },
   corePlugins: {
     preflight: false,
   },

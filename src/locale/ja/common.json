@@ -256,7 +256,7 @@
     "ACCOUNT_HOLDER_NAME": "口座名義",
     "PAYPAL_DETAILS": "ペイパルの詳細",
     "PAYPA_ID": "ペイパルID",    
-    "PARTICIPATION_FEE": "参加費（お一人様の目安）",
+    "PARTICIPATION_FEE": "参加費",
     "HIDE_NAME": "参加者名を非表示にする",
     "YOUR_MIND": "今の気持ちをシェアしましょう?",
     "PUBLIC": "一般公開",
@@ -281,7 +281,7 @@
     "DELETE":"削除",
     "EDIT_PROFILE":"プロファイル編集",
     "LIVE_VIDEO": "動画",
-    "CANCELLATION_FEE":"解約料",
+    "CANCELLATION_FEE":"キャンセル料",
     "CANCELLATION":"解約料",
     "PHOTO": "画像",
     "FEELING": "感情/活動",
@@ -316,5 +316,9 @@
     "INTERMEDIATE": "中級者",
     "ADVANCED": "上級者",
     "AMBASSADOR": "TASKGOLF<br>アマチュアアンバサダー",
-    "NO_EVENT": "イベントはありません"
+    "NO_EVENT": "イベントはありません",
+    "MOVIE_URL": "映画のURL",
+    "PORTFOLIO_URL": "ポートフォリオの URL を入力します (URL が複数ある場合はカンマで区切ってください)"
+
+
 }

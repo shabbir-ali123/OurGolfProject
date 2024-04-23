@@ -8,6 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import ScoreBoard from "./pages/ScoreBoard";
+import HomePage from "./pages/HomePage";
 import OngoingIndiviualScore from "./pages/OngoingIndiviualScore";
 import { ToastProvider } from "./utils/ToastProvider";
 import StudentPage from "./pages/StudentPage";
@@ -111,6 +112,10 @@ function App() {
         metaDescription = "";
         break;
       case "/ongoing-indiviual-score":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/home-page":
         title = "";
         metaDescription = "";
         break;
@@ -273,7 +278,10 @@ function App() {
             path="/ongoing-indiviual-score"
             element={token ? <OngoingIndiviualScore /> : <LoginPage />}
           />
-
+          <Route
+            path="/home-page"
+            element={<HomePage />}
+          />
           <Route path="/event-main-page" element={<EventMainPage />} />
           <Route
             path="/activties-page"
@@ -285,7 +293,7 @@ function App() {
               token ? (
                 isTeacher ? (
                   <TeacherDetailsContext>
-                  <UpdateTeacher />
+                    <UpdateTeacher />
                   </TeacherDetailsContext>
                 ) : (
                   <CreateTeacher />
@@ -322,7 +330,7 @@ function App() {
           />
           <Route path="/user-page/:id" element={<UserPage />} />
           <Route path="/score-board" element={<ScoreBoard />} />
-          <Route path="/message-page" element={token ? <ChatSystem /> :  <LoginPage />} />
+          <Route path="/message-page" element={token ? <ChatSystem /> : <LoginPage />} />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
           <Route path="/logout" element={<Logout />} />
@@ -444,13 +452,13 @@ function App() {
           <Route
             path="/create-catalogs/:id"
             element={
-                token && tId ? (
-              <TeacherDetailsContext>
-                <TeacherCatalog />{" "}
-              </TeacherDetailsContext>
-                ) : (
-                  <LoginPage />
-                )
+              token && tId ? (
+                <TeacherDetailsContext>
+                  <TeacherCatalog />{" "}
+                </TeacherDetailsContext>
+              ) : (
+                <LoginPage />
+              )
             }
           />
           <Route
@@ -489,9 +497,9 @@ function App() {
             element={
               <SingleTeamsContext>
                 <SingleEventsContext>
-                <ScoreContextProvider>
+                  <ScoreContextProvider>
 
-                  <AddScorePage />
+                    <AddScorePage />
                   </ScoreContextProvider>
 
                 </SingleEventsContext>

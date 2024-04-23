@@ -48,5 +48,6 @@ export const updateNotificationsStatus = async (
     console.log(error) 
   } finally {
     setIsLoading(false);
+    toast.success('response')
   }
 };
