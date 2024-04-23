@@ -17,6 +17,7 @@ export const TeacherGigsProvider = ({ children }: any) => {
 
     const value = { gigs }
 
+    console.log(gigs, 'cd')
     return <TeacherGigsContext.Provider value={value}> {children}</TeacherGigsContext.Provider>
 }
 

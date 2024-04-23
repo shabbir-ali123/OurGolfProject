@@ -19,13 +19,15 @@ const CatalogModal: React.FC<any> = () => {
   const [formData, setFormData] = useState<CreateCatalogType>({
     title: "",
     description: "",
-    mediaFiles: [],
+    mediaFiles: FileList,
     price: "",
   });
+
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    debugger
     const files = event.target.files;
 
     if (files && files.length > 0) {
@@ -33,11 +35,11 @@ const CatalogModal: React.FC<any> = () => {
       setSelectedFiles([...selectedFiles, ...filesArray]);
       setFormData((prevFormData: CreateCatalogType) => ({
         ...prevFormData,
-        mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
+        mediaFiles: [ ...filesArray],
       }));
     }
   };
-
+  console.log(formData, 'for')
   const removeSelectedFile = (index: number) => {
     const updatedFiles = [...selectedFiles];
     updatedFiles.splice(index, 1);
@@ -59,11 +61,21 @@ const CatalogModal: React.FC<any> = () => {
     }
 
     setLoading(true);
+    const formDataToSend = new FormData();
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("description", formData.description);
+    if (formData.mediaFiles) {
+      // Append each file in the mediaFiles array to formDataToSend
+      for (let i = 0; i < formData.mediaFiles.length; i++) {
+        formDataToSend.append("mediaFiles", formData.mediaFiles[i]);
+      }
+    }
+    formDataToSend.append("price", formData.price);
     try {
 
     const response = await axios.post(
       API_ENDPOINTS.ADDGIGS,
-      formData,
+      formDataToSend,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
