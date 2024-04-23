@@ -522,7 +522,7 @@ const CreateTeacher: React.FC = () => {
                             handleInputClick={() => handleButtonClick(index)}
                           />
                           {showInputIndexes.includes(index) && (
-                            <div className="my-4">
+                            <div className="my-4 mr-2">
                               <h3 className="text-center mb-0">OR</h3>
                               <InputWithIcon
                                 pname="portfolioUrl"
