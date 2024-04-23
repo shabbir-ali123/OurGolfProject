@@ -11,21 +11,18 @@ import { Link } from "react-router-dom";
 export default function TeacherListHeader() {
   const tId = localStorage.getItem("teacher_id");
   const {
-    handleAvailability,
-    handleRating,
-    handleSubjects,
-    handleLocationSearch,
     handleNameSearch,
   } = teacherContext();
   const { t } = useTranslation();
   const handleNameChange = (e: any) => {
     handleNameSearch(e.target.value);
   };
+    
   return (
     <>
       <div>
         <div>
-          {!tId && (
+          {tId == 'null' && (
             <Link
               to="/teacher-page"
               className="flex justify-center xl:justify-end my-4"

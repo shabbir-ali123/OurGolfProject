@@ -5,7 +5,7 @@ import {
   PhoneIcon,
   MapPinIcon,
   VideoCameraIcon,
-  ArrowDownIcon
+  ArrowDownIcon,
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
@@ -15,7 +15,7 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-
+import { UploaderInput } from "../components/uploaderInput/UploaderInput";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -41,7 +41,8 @@ interface UpdatePostType {
 const CreateTeacher: React.FC = () => {
   const { t } = useTranslation();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
-  const [videoPortfolioVisible, setVideoPortfolioVisible] = useState<boolean>(false);
+  const [videoPortfolioVisible, setVideoPortfolioVisible] =
+    useState<boolean>(false);
   const [showMediaUrl, setShowMediaUrl] = useState<boolean>(false);
   const [showPortfolioUrl, setShowPortfolioUrl] = useState<boolean>(false);
   const [formData, setFormData] = useState({
@@ -52,7 +53,7 @@ const CreateTeacher: React.FC = () => {
     phoneNumber: "",
     location: "",
     hourlyRate: "",
-    level: '',
+    level: "",
     movieUrl: "",
     schedules: [
       {
@@ -74,8 +75,8 @@ const CreateTeacher: React.FC = () => {
     portfolioVideo: [],
     introductionVideo: [],
   });
-  const [urls, setUrls] = useState<any>('');
-  const [portfolioVideos, setPortfolioVideo] = useState<any>('');
+  const [urls, setUrls] = useState<any>("");
+  const [portfolioVideos, setPortfolioVideo] = useState<any>("");
   const handleImageChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     type: string
@@ -88,15 +89,15 @@ const CreateTeacher: React.FC = () => {
         [type]: [file],
       }));
     }
-    if(type === "introductionVideo" && files && files.length > 0){
-      setVideoVisible(true);    
+    if (type === "introductionVideo" && files && files.length > 0) {
+      setVideoVisible(true);
       const objectURL = URL.createObjectURL(files[0]);
       setUrls(objectURL);
     }
-    if(type === "portfolioVideo" && files && files.length > 0){
+    if (type === "portfolioVideo" && files && files.length > 0) {
       const objectURL = URL.createObjectURL(files[0]);
       setPortfolioVideo(objectURL);
-      setVideoPortfolioVisible(true)
+      setVideoPortfolioVisible(true);
     }
     console.log(formData);
   };
@@ -105,11 +106,12 @@ const CreateTeacher: React.FC = () => {
   const portfolioVideoInputRef = useRef<HTMLInputElement>(null);
   const introductionVideoInputRef = useRef<HTMLInputElement>(null);
 
-
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
   const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
+  const [showInputIndexes, setShowInputIndexes] = useState<any>([]);
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeStates, setActiveStates] =
     useState<boolean[][]>(initialActiveStates);
@@ -166,7 +168,7 @@ const CreateTeacher: React.FC = () => {
   };
 
   const handleImageChanges = (event: any) => {
-    console.log()
+    console.log();
     setNextFormData((prevFormData) => ({
       ...prevFormData,
       profileImage: event,
@@ -208,15 +210,13 @@ const CreateTeacher: React.FC = () => {
       ...formData,
       schedules: onfitmData,
     };
-    
+
     try {
       const response = await axios.post(API_ENDPOINTS.BECOMETEACHER, payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
-      
     } catch (error) {
       toast.error("Teacher Already Created");
     }
@@ -310,10 +310,14 @@ const CreateTeacher: React.FC = () => {
     });
   };
 
-  const videoSrc = "/video/video.mp4";
-  const posterSrc = "/img/user-06.png";
-  // const user = JSON.parse(localStorage.getItem('user') || "");
-  console.log(nextformData)
+
+  const handleButtonClick = (index: any) => {
+    if (showInputIndexes.includes(index)) {
+      setShowInputIndexes(showInputIndexes.filter((i: any) => i !== index));
+    } else {
+      setShowInputIndexes([...showInputIndexes, index]);
+    }
+  };
   return (
     <div className="py-8 ml-[60px] ">
       <div className="bg-[#17b3a6] p-4 rounded">
@@ -326,7 +330,7 @@ const CreateTeacher: React.FC = () => {
                   icon={<ShareIcon />}
                   label={t("FIRST_NAME")}
                   // imageUrl={user?.imageUrl}
-                  onChangeImage={(event:any) => handleImageChanges(event)}
+                  onChangeImage={(event: any) => handleImageChanges(event)}
                   placeholder={t("FIRST_NAME")}
                   colSpanSm={6}
                   colSpanMd={4}
@@ -363,7 +367,6 @@ const CreateTeacher: React.FC = () => {
                   colSpanMd={4}
                   colSpanLg={2}
                 />
-                
 
                 <div className="">
                   <div className="flex flex-col gap-1">
@@ -435,37 +438,40 @@ const CreateTeacher: React.FC = () => {
             {!videoVisible && (
               <>
                 <div>
-              <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
-                <input
-                  id="introductionVideo"
-                  name="introductionVideo"
-                  ref={introductionVideoInputRef}
-                  type="file"
-                  multiple
-                  onChange={(event) =>
-                    handleImageChange(event, "introductionVideo")
-                  }
-                  accept="video/*"
+                  <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
+                    <input
+                      id="introductionVideo"
+                      name="introductionVideo"
+                      ref={introductionVideoInputRef}
+                      type="file"
+                      multiple
+                      onChange={(event) =>
+                        handleImageChange(event, "introductionVideo")
+                      }
+                      accept="video/*"
+                    />
+                    <label
+                      htmlFor="introductionVideo"
+                      className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
+                    >
+                      <svg
+                        className="w-6 h-6 text-gray-600"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M12 4v16m8-8H4"></path>
+                      </svg>
+                    </label>
+                  </div>
+                </div>
+                <ArrowDownIcon
+                  className="h-[40px]"
+                  onClick={() => setShowMediaUrl(!showMediaUrl)}
                 />
-                <label
-                  htmlFor="introductionVideo"
-                  className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-600"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M12 4v16m8-8H4"></path>
-                  </svg>
-                </label>
-              </div>
-            </div>
-            <ArrowDownIcon className="h-[40px]" onClick={() => setShowMediaUrl(!showMediaUrl)}/> 
               </>
             )}
             {videoVisible && (
@@ -476,71 +482,66 @@ const CreateTeacher: React.FC = () => {
                 controls
               ></video>
             )}
-            
           </div>
-          {
-            showMediaUrl && (
+          {showMediaUrl && (
             <div className="mt-4">
               <h3 className="text-center mb-0">OR</h3>
               <InputWithIcon
-                  pname="movieURL"
-                  icon={<VideoCameraIcon />}
-                  label={t("MOVIE_URL")}
-                  value={formData.movieUrl}
-                  onChange={handleChange}
-                  placeholder={t("MOVIE_URL")}
-                  colSpanSm={6}
-                  colSpanMd={4}
-                  colSpanLg={2}
-                />
+                pname="movieURL"
+                icon={<VideoCameraIcon />}
+                label={t("MOVIE_URL")}
+                value={formData.movieUrl}
+                onChange={handleChange}
+                placeholder={t("MOVIE_URL")}
+                colSpanSm={6}
+                colSpanMd={4}
+                colSpanLg={2}
+              />
             </div>
-            )}
+          )}
         </div>
       </div>
       <div className="col-span-1">
-
-      <div className="col-span-1 md:col-span-3 my-4">
+        <div className="col-span-1 md:col-span-3 my-4">
           <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
             Portfolio Video
           </h3>
           <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
             {!videoPortfolioVisible && (
               <>
-                <div>
-              <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
-                <input
-                  id="portfolioVideo"
-                  name="portfolioVideo"
-                  ref={portfolioVideoInputRef}
-                  type="file"
-                  multiple
-                  onChange={(event) =>
-                    handleImageChange(event, "portfolioVideo")
-                  }
-                  accept="video/*"
-                />
-                <label
-                  htmlFor="portfolioVideo"
-                  className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-600"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M12 4v16m8-8H4"></path>
-                  </svg>
-                </label>
-                
-              </div>
-
-            </div>
-            <ArrowDownIcon className="h-[40px]" onClick={() => setShowPortfolioUrl(!showPortfolioUrl)}/> 
-
+                <div className="flex gap-2">
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((index) => (
+                      <div className="flex flex-col gap-2" key={index}>
+                        <>
+                          <UploaderInput
+                            handleUploadChange={(event: any) =>
+                              handleImageChange(event, "portfolioVideo")
+                            }
+                            ref={portfolioVideoInputRef}
+                            handleInputClick={() => handleButtonClick(index)}
+                          />
+                          {showInputIndexes.includes(index) && (
+                            <div className="my-4">
+                              <h3 className="text-center mb-0">OR</h3>
+                              <InputWithIcon
+                                pname="portfolioUrl"
+                                icon={<VideoCameraIcon />}
+                                label={"Portfolio URL"}
+                                value={formData.movieUrl}
+                                onChange={handleChange}
+                                placeholder={"Portfolio URL"}
+                                colSpanSm={6}
+                                colSpanMd={4}
+                                colSpanLg={2}
+                              />
+                            </div>
+                          )}
+                        </>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </>
             )}
             {videoPortfolioVisible && (
@@ -551,28 +552,23 @@ const CreateTeacher: React.FC = () => {
                 controls
               ></video>
             )}
-            
           </div>
-          {
-            showPortfolioUrl && (
-              
-            
+          {showPortfolioUrl && (
             <div className="my-4">
               <h3 className="text-center mb-0">OR</h3>
-            <InputWithIcon
-                  pname="portfolioUrl"
-                  icon={<VideoCameraIcon />}
-                  label={t('PORTFOLIO_URL')}
-                  value={formData.movieUrl}
-                  onChange={handleChange}
-                  placeholder={t('PORTFOLIO_URL')}
-                  colSpanSm={6}
-                  colSpanMd={4}
-                  colSpanLg={2}
-                />
+              <InputWithIcon
+                pname="portfolioUrl"
+                icon={<VideoCameraIcon />}
+                label={t("PORTFOLIO_URL")}
+                value={formData.movieUrl}
+                onChange={handleChange}
+                placeholder={t("PORTFOLIO_URL")}
+                colSpanSm={6}
+                colSpanMd={4}
+                colSpanLg={2}
+              />
             </div>
-            )
-          }
+          )}
         </div>
       </div>
       <div className="my-4 mx-10   xl:mx-0">
