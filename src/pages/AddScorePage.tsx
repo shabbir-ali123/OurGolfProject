@@ -24,7 +24,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
-
+  const [contests, setContests] = useState<any[]>([]);
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
@@ -42,6 +42,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       totalScore: "",
       userId: "",
       nearPinContest: "",
+      driverContest: "",
       longDriveContest: "",
       teamId: "",
       teamName: "",
@@ -57,22 +58,20 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     event.preventDefault();
     handleScore(formData);
   };
-  console.log(formData);
 
   const handleInputChange = (
     userId: string,
     teamId: any,
-    teamName:any,
+    teamName: any,
     holeIndex: number,
     value: number
-    
   ) => {
     const updatedSums = { ...sums };
     if (!updatedSums[userId]) {
       updatedSums[userId] = Array.from({ length: holes.length }, () => 0);
     }
     updatedSums[userId][holeIndex] = value;
-    
+
     const userScoresMap: { [userId: string]: UserScores } = {};
 
     for (const [userId, userSums] of Object.entries(sums)) {
@@ -111,26 +110,32 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       formDataArray.push({
         userId: Number(userId),
         scorePerShot: userScores.sums,
-        handiCapPerShot:  singleEvent?.selectedHoles,
+        handiCapPerShot: singleEvent?.selectedHoles,
         totalScore: totalScore,
         handiCapValue: roundedValue,
         netValue: netValue,
         eventId: singleEvent.id,
         nearPinContest: "0",
         driverContest: "0",
-        teamId: teamId 
+        teamId: teamId,
       });
     }
-    
+
     const updatedFormData = formData.map((data: any) => {
-      const sums = data.scorePerShot; 
-      
+      const sums = data.scorePerShot;
+      const oldContests = contests?.reduce((acc: any, contest: any) => {
+        acc[contest.userId] = contest.newValue;
+        return acc;
+      }, {});
+
       if (data.userId === userId) {
         const totalScore = sums.reduce(
           (acc: any, score: any) => acc + score,
           0
         );
-
+        const newValueObj = contests.find(
+          (newValue) => newValue.userId === data.userId
+        );
         const roundedValue = isHandicap[data.userId]
           ? Math.round(
               (totalScore *
@@ -144,25 +149,24 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
             )
           : 0;
 
-      
         data.scorePerShot[holeIndex] = value;
         data.totalScore = totalScore;
-     
+        data.driverContest = newValueObj.newValue;
+        
       }
       return data;
     });
+     
 
-    console.log( formData.length == formDataArray.length)
-
-    if( formData.length == uniqueMembers.length) {
+    if (formData.length == uniqueMembers.length) {
       setFormData(updatedFormData);
-    }else{
+    } else {
       setFormData(formDataArray);
-
     }
 
     setSums(updatedSums);
   };
+  console.log(contests);
 
   const filteredSums = Object.fromEntries(
     Object.entries(sums).map(([userId, scores]) => {
@@ -218,8 +222,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       return acc;
     }, []);
 
-
-  console.log(uniqueMembers);
   useEffect(() => {
     const newFormData = score?.reduce((acc: any, item: any) => {
       const isMember = uniqueMembers?.find(
@@ -230,9 +232,11 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           typeof item.scorePerShot === "string"
             ? JSON.parse(item.scorePerShot)
             : item.scorePerShot;
-        const handiCapPerShot = typeof item.handiCapPerShot === "string"
-        ? JSON.parse(item.handiCapPerShot)
-        : item.handiCapPerShot;
+        const handiCapPerShot =
+          typeof item.handiCapPerShot === "string"
+            ? JSON.parse(item.handiCapPerShot)
+            : item.handiCapPerShot;
+
         acc.push({
           scorePerShot: scorePerShot,
           totalScore: item.totalScore,
@@ -243,6 +247,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           eventId: item.eventId,
           nearPinContest: "",
           longDriveContest: "",
+          driverContest: item.driverContest,
           teamId: item.teamId,
           teamName: item.name,
         });
@@ -251,8 +256,29 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }, []);
 
     setFormData(newFormData);
-  }, [score]);
+  }, [score, contests]);
 
+  const handleContests = (
+    userId: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const existingIndex = contests.findIndex(
+      (contest) => contest.userId === userId
+    );
+
+    if (existingIndex !== -1) {
+      setContests((prevContests) => [
+        ...prevContests.slice(0, existingIndex),
+        { newValue: e.target.value, userId: userId },
+        ...prevContests.slice(existingIndex + 1),
+      ]);
+    } else {
+      setContests((prevContests) => [
+        ...prevContests,
+        { newValue: e.target.value, userId: userId },
+      ]);
+    }
+  };
   return (
     <div className="mx-4 xl:mx-32 ">
       <div className="flex items-center gap-10">
@@ -388,7 +414,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   }
                                   onChange={(e) =>
                                     handleInputChange(
-                            
                                       member.userId,
                                       member.teamId,
                                       member.name,
@@ -500,6 +525,8 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                           imageUrl={member.imageUrl}
                         />
                         {holes.map((hole, holeIndex: number) => {
+                                              console.log(playerData?.driverContest);
+
                           return (
                             <td key={holeIndex}>
                               <input
@@ -520,15 +547,21 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   )
                                 }
                                 // placeholder={hole.toString()}
-                                className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                                className="w-6 text-sm text-center border border-solid border-[#054a51] bg-white shadow-lg"
                               />
                               {holeIndex + 1 == singleEvent?.driverContest && (
                                 <input
                                   type="text"
                                   min="1"
                                   name="driverContest"
-                                  // placeholder={hole.toString()}
-                                  className="w-10 bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
+                                  placeholder={
+                                    playerData &&
+                                    playerData?.driverContest + " yrd"
+                                  }
+                                  onChange={(e: any) => {
+                                    handleContests(member.userId, e);
+                                  }}
+                                  className="w-12 text-sm bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
                                 />
                               )}
                               {holeIndex + 1 == singleEvent?.nearPinContest && (
