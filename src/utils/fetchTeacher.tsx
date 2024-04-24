@@ -194,3 +194,31 @@ export const updateTeacherProfile = async ( setTeachers:any, formdata:any) => {
     console.error("Error toggling favorite status:", error);
   }
 };
+
+export const fetchTeachersAppointments = async (setAppointments: any, setIsLoading: any) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      API_ENDPOINTS.GETTEACHERBOOKEDAPPOINTMENTS,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          page: 1,
+          pageSize: 20,
+          userId: 2,
+          status: "PENDING",
+        },
+      }
+    );
+
+    setAppointments(response.data.bookedAppointments);
+    
+  } catch (error: any) {
+    toast.error("You are Not Login! Please Login");
+  } finally {
+    setIsLoading(false);
+  }
+};

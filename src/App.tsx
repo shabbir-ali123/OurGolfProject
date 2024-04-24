@@ -72,6 +72,7 @@ import UpdateTeacher from "./pages/UpdateTeacher";
 import { TeacherCatalog } from "./pages/TeacherCatalogs";
 import { TeacherGigsProvider } from "./contexts/gigsContext";
 import UserPosts from "./pages/UserPosts";
+import { TeacherAppointments } from "./pages/Appointments";
 
 function App() {
   const params = useParams();
@@ -528,6 +529,18 @@ function App() {
                   {" "}
                   <ReadPost />
                 </PostContext>
+              ) : (
+                <LoginPage />
+              )
+            }
+          />
+          <Route
+            path="/appointments"
+            element={
+              token ? (
+                <TeacherDetailsContext>
+                <TeacherAppointments/>
+                </TeacherDetailsContext>
               ) : (
                 <LoginPage />
               )
