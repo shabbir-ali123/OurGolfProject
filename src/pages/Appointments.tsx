@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 export const TeacherAppointments = () => {
     const {t} = useTranslation();
     const router  = useNavigate()
-    const { bookedAppointments } = useTeacherContext();
+    const { bookedAppointments, isLoading } = useTeacherContext();
 
     return (
         <>
       {
-        false ? <div className="flex justify-center items-center h-[100vh]">
+        isLoading ? <div className="flex justify-center items-center h-[100vh]">
           <div>
             <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
             <p>loading...</p>

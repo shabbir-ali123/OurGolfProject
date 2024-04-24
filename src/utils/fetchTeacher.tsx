@@ -195,7 +195,7 @@ export const updateTeacherProfile = async ( setTeachers:any, formdata:any) => {
   }
 };
 
-export const fetchTeachersAppointments = async (setAppointments: any) => {
+export const fetchTeachersAppointments = async (setAppointments: any, setIsLoading: any) => {
   try {
     const token = localStorage.getItem("token");
     const response = await axios.get(
@@ -218,5 +218,7 @@ export const fetchTeachersAppointments = async (setAppointments: any) => {
     
   } catch (error: any) {
     toast.error("You are Not Login! Please Login");
+  } finally {
+    setIsLoading(false);
   }
 };

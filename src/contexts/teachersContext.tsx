@@ -85,7 +85,7 @@ export const TeacherDetailsContext = ({children}:any)=>{
     const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
     const [schedules, setSchedules] = useState<any[]>([]);
     const [bookedAppointments, setBookedAppointments] = useState<any[]>([])
-
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     useEffect(() => {
         if (teacherId !== 'null') {
             fetchSingleTeacher(handleTeacher, teacherId);
@@ -93,7 +93,7 @@ export const TeacherDetailsContext = ({children}:any)=>{
     }, [teacherId]);
 
     useEffect(() => {
-        fetchTeachersAppointments(setBookedAppointments)
+        fetchTeachersAppointments(setBookedAppointments, setIsLoading)
     }, [])
 
     const handleTeacher = useCallback((value: any) => {
@@ -108,7 +108,7 @@ export const TeacherDetailsContext = ({children}:any)=>{
 
  
 
-    const value =  {handleSchedules, schedules, teacher, selectedTeacher, bookedAppointments}
+    const value =  {handleSchedules, schedules, teacher, selectedTeacher, isLoading, bookedAppointments}
 
     return <SingleTeacherContext.Provider  value={value}> {children} </SingleTeacherContext.Provider>
 }
