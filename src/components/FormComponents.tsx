@@ -141,19 +141,22 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
     
   };
   const levelOptions: readonly any[] = [
+    { value: "entry", label: "Entry" },
     { value: "beginner", label: "Beginner" },
     { value: "intermediate", label: "Intermediate" },
-    { value: "expert", label: "Expert" },
+    { value: "advanced", label: "Advanced" },
+    { value: "taskgolf", label: "TASKGOLF Amateur Ambassador" },
   ];
   
   if (variant == "levelDropdown") {
     return (
+      
       <Select
         name="level"
         required
         onChange={handleLevelChange}
         options={levelOptions}
-        className="w-full text-base border text-black border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        className="w-full text-base border text-black border-gray-300 rounded  hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
       />
     );
   }
@@ -167,7 +170,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
           htmlFor={pname}
         >
           <span
-            className="p-1 rounded-full  inline-block text-[#52FF86]  my-2"
+            className="p-1 rounded-full  inline-block text-white  my-2"
             style={{ width: iconWidth, height: iconHeight }}
           >
             {icon}

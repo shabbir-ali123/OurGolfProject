@@ -15,7 +15,7 @@ interface ProfileAvatarProps {
 }
 
 const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
-  icon,
+icon,
   label,
   placeholder,
   colSpanSm = 8,
@@ -54,27 +54,38 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   };
 
   return (
-    <div>
-      <div className="relative">
-        <div
-          onClick={handleImageClick}
-          style={{ cursor: "pointer" }}
-        >
+    <div className="relative">
+      <div
+        onClick={handleImageClick}
+        style={{ cursor: "pointer", width: "150px", height: "150px" }}
+        className="rounded-full bg-gray-200 flex items-center justify-center"
+      >
+        {!imageUrl && !defaultImageUrl ? (
+          <svg
+            className="w-6 h-6 text-gray-600" // This sets the icon size and color
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path d="M12 4v16m8-8H4"></path>
+          </svg>
+        ) : (
           <img
-            className="rounded-full"
-            src={imageUrl ||  defaultImageUrl}
-            width="150px"
-            height="150px"
+            className="rounded-full w-40 h-40"
+            src={imageUrl || defaultImageUrl}
             alt={pname}
           />
-          <input
-            type="file"
-            ref={fileInputRef}
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleFileInputChange}
-          />
-        </div>
+        )}
+        <input
+          type="file"
+          ref={fileInputRef}
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={handleFileInputChange}
+        />
       </div>
     </div>
   );

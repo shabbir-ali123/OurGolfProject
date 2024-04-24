@@ -6,6 +6,7 @@ import {
   MapPinIcon,
   VideoCameraIcon,
   ArrowDownIcon,
+  ArrowTrendingUpIcon
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
@@ -16,6 +17,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
+import { button } from "@material-tailwind/react";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -255,16 +257,15 @@ const CreateTeacher: React.FC = () => {
       const newActiveStates = prev.map((dayStates, index) =>
         index === hourIndex
           ? dayStates.map((isActive, i) =>
-              i === dayIndex ? !isActive : isActive
-            )
+            i === dayIndex ? !isActive : isActive
+          )
           : [...dayStates]
       );
       return newActiveStates;
     });
 
-    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${
-      selectedWeekStart?.toLocaleDateString() || ""
-    }`;
+    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${selectedWeekStart?.toLocaleDateString() || ""
+      }`;
 
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
@@ -327,29 +328,28 @@ const CreateTeacher: React.FC = () => {
 
   console.log(formData);
   return (
-    <div className="py-8 ml-[60px] ">
+    <div className="py-8 mx-4 xl:mx-0 ">
       <div className="bg-[#17b3a6] p-4 rounded">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start ">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4 items-start justify-center">
               <div className="text-center">
-                <ProfileAvatar
-                  pname=""
-                  icon={<ShareIcon />}
-                  label={t("FIRST_NAME")}
-                  // imageUrl={user?.imageUrl}
-                  onChangeImage={(event: any) => handleImageChanges(event)}
-                  placeholder={t("FIRST_NAME")}
-                  colSpanSm={6}
-                  colSpanMd={4}
-                  colSpanLg={2}
-                />
-                <div className="mt-4">
-                  <div>
-                    <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
-                      Availble
-                    </button>
-                  </div>
+                <div className="flex justify-center">
+                  <ProfileAvatar
+                    pname=""
+                    icon={<ShareIcon />}
+                    label={t("FIRST_NAME")}
+                    // imageUrl={user?.imageUrl}
+                    onChangeImage={(event: any) => handleImageChanges(event)}
+                    placeholder={t("FIRST_NAME")}
+                    colSpanSm={6}
+                    colSpanMd={4}
+                    colSpanLg={2}
+                  />
+                </div>
+                <p>Profile Picture</p>
+                <div>
+
                 </div>
               </div>
 
@@ -376,18 +376,7 @@ const CreateTeacher: React.FC = () => {
                   colSpanLg={2}
                 />
 
-                <InputWithIcon
-                  variant="levelDropdown" // Assuming there's a way to specify the component type
-                  pname="level"
-                  icon={<ArrowDownIcon />}
-                  label={t("LEVEL")}
-                  value={formData.level}
-                  handleLevelChange={handleLevelChange}
-                  placeholder={t("SELECT_LEVEL")}
-                  colSpanSm={6}
-                  colSpanMd={4}
-                  colSpanLg={2}
-                />
+
                 <div className="">
                   <div className="flex flex-col gap-1">
                     <InputWithIcon
@@ -416,160 +405,158 @@ const CreateTeacher: React.FC = () => {
                   colSpanMd={4}
                   colSpanLg={2}
                 />
+                <div className="w-full xl:ml-4">
+                  <div className="flex items-center gap-4 text-white">
+                    <ArrowTrendingUpIcon className="w-8 h-8" />
+                    <label htmlFor="" className=" font-bold tracking-wide text-gray-700 text-xs">Level</label>
+                  </div>
+
+                  <InputWithIcon
+                    variant="levelDropdown" // Assuming there's a way to specify the component type
+                    pname="level"
+                    icon={<ArrowDownIcon />}
+                    label={t("LEVEL")}
+                    value={formData.level}
+                    handleLevelChange={handleLevelChange}
+                    placeholder={t("SELECT_LEVEL")}
+                    colSpanSm={6}
+                    colSpanMd={4}
+                    colSpanLg={2}
+                  />
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
-        <div className="col-span-1 md:col-span-5">
-          <div className="py-4  rounded  text-red ">
-            <div className="p-2 pl-5">
-              <h3 className="font-semibold mb-4 text-lg text-[#565656]">
-                About Me
-              </h3>
-              <textarea
-                onChange={handleChange}
-                name="aboutMyself"
-                className="resize-none leading-8 text-[#565656] w-[90%] mr-4 h-[325px]"
-                placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aspernatur facilis hic repudiandae possimus tenetur,
-                  accusamus, eius fugit quis laboriosam alias, nemo debitis!
-                  Laudantium dignissimos pariatur, eaque, expedita perferendis
-                  debitis consequuntur sint, placeat doloribus voluptates optio
-                  culpa! Ipsam quae aperiam natus! Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ad tempore vero harum ut
-                  distinctio doloremque culpa molestias illo. Omnis nihil
-                  doloribus, praesentium provident sequi consectetur iusto eaque
-                  dignissimos fugit qui est quo placeat natus culpa deleniti,
-                  accusamus quas esse. Consequuntur? Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ullam dolores magnam rem ipsam
-                  blanditiis error vero corrupti ratione tenetur tempore."
-              ></textarea>
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
+          <div className="col-span-1 md:col-span-5">
+            <div className="py-4  rounded  text-red ">
+              <div className="p-2 pl-5">
+                <h3 className="font-semibold mb-4 text-lg text-[#565656]">
+                  About Me
+                </h3>
+                <textarea
+                  onChange={handleChange}
+                  name="aboutMyself"
+                  className="resize-none leading-8 text-[#e5e7eb] w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
+                  placeholder="Tell about your self"
+                ></textarea>
+              </div>
+              <div></div>
             </div>
-            <div></div>
           </div>
-        </div>
-        <div className="col-span-1 md:col-span-3 my-4">
-          <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
-            Introduction Video
-          </h3>
-          <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
-            {!videoVisible && (
-              <>
-                <div>
-                  <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
-                    <input
-                      id="introductionVideo"
-                      name="introductionVideo"
-                      ref={introductionVideoInputRef}
-                      type="file"
-                      multiple
-                      onChange={(event) =>
-                        handleImageChange(event, "introductionVideo")
-                      }
-                      accept="video/*"
-                    />
-                    <label
-                      htmlFor="introductionVideo"
-                      className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
-                    >
-                      <svg
-                        className="w-6 h-6 text-gray-600"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+          <div className="col-span-1 md:col-span-3 my-4">
+            <h3 className="text-lg font-semibold mb-2 text-[#565656]">
+              Introduction Video
+            </h3>
+            <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
+              {!videoVisible && (
+                <>
+                  <div>
+                    <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
+                      <input
+                        id="introductionVideo"
+                        name="introductionVideo"
+                        ref={introductionVideoInputRef}
+                        type="file"
+                        multiple
+                        onChange={(event) => handleImageChange(event, "introductionVideo")}
+                        accept="video/*"
+                        className="hidden xl:block" // Hide the actual input element
+                      />
+                      <label
+                        htmlFor="introductionVideo"
+                        className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
                       >
-                        <path d="M12 4v16m8-8H4"></path>
-                      </svg>
-                    </label>
+                        <svg
+                          className="w-6 h-6 text-gray-600" // Standard size across all devices
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path d="M12 4v16m8-8H4"></path>
+                        </svg>
+                      </label>
+                    </div>
                   </div>
-                </div>
-                <ArrowDownIcon
-                  className="h-[40px]"
-                  onClick={() => setShowMediaUrl(!showMediaUrl)}
+                  <ArrowDownIcon
+                    className="h-6" // Standard size across all devices
+                    onClick={() => setShowMediaUrl(!showMediaUrl)}
+                  />
+                </>
+              )}
+              {videoVisible && (
+                <video
+                  className="rounded-lg w-full h-[260px]"
+                  src={urls}
+                  title="Introduction Video"
+                  controls
+                ></video>
+              )}
+            </div>
+            {showMediaUrl && (
+              <div className="mt-4">
+                <h3 className="text-center mb-0">OR</h3>
+                <InputWithIcon
+                  pname="movieURL"
+                  icon={<VideoCameraIcon />}
+                  label={t("MOVIE_URL")}
+                  value={formData.movieUrl}
+                  onChange={handleChange}
+                  placeholder={t("MOVIE_URL")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
                 />
-              </>
-            )}
-            {videoVisible && (
-              <video
-                className="rounded-lg w-full h-[260px]"
-                src={urls}
-                title="Introduction Video"
-                controls
-              ></video>
+              </div>
             )}
           </div>
-          {showMediaUrl && (
-            <div className="mt-4">
-              <h3 className="text-center mb-0">OR</h3>
-              <InputWithIcon
-                pname="movieURL"
-                icon={<VideoCameraIcon />}
-                label={t("MOVIE_URL")}
-                value={formData.movieUrl}
-                onChange={handleChange}
-                placeholder={t("MOVIE_URL")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
-              />
-            </div>
-          )}
+
+
         </div>
-      </div>
-      <div className="col-span-1">
         <div className="col-span-1 md:col-span-3 my-4">
-          <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
+          <h3 className="text-lg font-semibold mb-2 text-[#565656]">
             Portfolio Video
           </h3>
-          <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
+          <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
             {!videoPortfolioVisible && (
-              <>
-                <div className="flex gap-2">
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((index) => (
-                      <div className="flex flex-col gap-2" key={index}>
-                        <>
-                          <UploaderInput
-                            isOpen={showInputIndexes.includes(index)}
-                            handleUploadChange={(event: any) =>
-                              handleImageChange(event, "portfolioVideo")
-                            }
-                            ref={portfolioVideoInputRef}
-                            handleInputClick={() => handleButtonClick(index)}
-                          />
-                          {showInputIndexes.includes(index) && (
-                            <div className="my-4 mr-2">
-                              <h3 className="text-center mb-0">OR</h3>
-                              <InputWithIcon
-                                pname="portfolioUrl"
-                                icon={<VideoCameraIcon />}
-                                label={"Portfolio URL"}
-                                value={formData.movieUrl}
-                                onChange={handleChange}
-                                placeholder={"Portfolio URL"}
-                                colSpanSm={6}
-                                colSpanMd={4}
-                                colSpanLg={2}
-                              />
-                            </div>
-                          )}
-                        </>
+              <div className="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-3 xs:grid-cols-2 xxs:grid-cols-1 gap-2">
+                {[1, 2, 3, 4, 5].map((index) => (
+                  <div key={index} className="flex flex-col gap-2">
+                    <UploaderInput
+                      isOpen={showInputIndexes.includes(index)}
+                      handleUploadChange={(event: any) => handleImageChange(event, "portfolioVideo")}
+                      ref={portfolioVideoInputRef}
+                      handleInputClick={() => handleButtonClick(index)}
+                    />
+                    {showInputIndexes.includes(index) && (
+                      <div className="my-4">
+                        <h3 className="text-center mb-0">OR</h3>
+                        <InputWithIcon
+                          pname="portfolioUrl"
+                          icon={<VideoCameraIcon />}
+                          label={"Portfolio URL"}
+                          value={formData.movieUrl}
+                          onChange={handleChange}
+                          placeholder={"Portfolio URL"}
+                        />
                       </div>
-                    ))}
+                    )}
                   </div>
-                </div>
-              </>
+                ))}
+              </div>
             )}
             {videoPortfolioVisible && (
               <video
                 className="rounded-lg w-full h-[260px]"
                 src={portfolioVideos}
-                title="Introduction Video"
+                title="Portfolio Video"
                 controls
               ></video>
             )}
@@ -584,73 +571,73 @@ const CreateTeacher: React.FC = () => {
                 value={formData.movieUrl}
                 onChange={handleChange}
                 placeholder={t("PORTFOLIO_URL")}
-                colSpanSm={6}
-                colSpanMd={4}
-                colSpanLg={2}
               />
             </div>
           )}
         </div>
-      </div>
-      <div className="my-4 mx-10   xl:mx-0">
-        <CalendarSlider onWeekSelected={handleWeekSelected} />
-        <div className="grid grid-cols-8 gap-4 py-2 text-center ">
-          <div className="col-span-1 font-bold ">{t("TIME")}</div>
-          {selectedWeekStart &&
-            Array.from({ length: 7 }, (_, i) => {
-              const date = new Date(
-                selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
-              );
-              return (
-                <div
-                  key={date.toLocaleDateString()}
-                  className={`col-span-1 font-bold   ${
-                    date.getTime() === selectedTab?.getTime()
+
+
+        <div className="my-4 mx-10   xl:mx-0">
+          <CalendarSlider onWeekSelected={handleWeekSelected} />
+          <div className="grid grid-cols-8 gap-4 py-2 text-center overflow-scroll">
+            <div className="col-span-1 font-bold ">{t("TIME")}</div>
+            {selectedWeekStart &&
+              Array.from({ length: 7 }, (_, i) => {
+                const date = new Date(
+                  selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
+                );
+                return (
+                  <div
+                    key={date.toLocaleDateString()}
+                    className={`col-span-1 font-bold   ${date.getTime() === selectedTab?.getTime()
                       ? "selected-tab"
                       : ""
-                  }`}
-                  onClick={() => handleTabClick(date)}
-                >
-                  {t(getDayName(date).toLocaleUpperCase())}
-                </div>
-              );
-            })}
-        </div>
-        <div
-          ref={scrollContainerRef}
-          className="grid grid-cols-8 gap-4 overflow-auto text-center"
-          style={{ maxHeight: "50vh" }}
-        >
-          {hoursOfDay.map((hour, hourIndex) => (
-            <React.Fragment key={hour}>
-              <div className="col-span-1 time-slot">{hour}</div>
-              {selectedWeekStart &&
-                Array.from({ length: 7 }, (_, dayIndex) => {
-                  const date = new Date(
-                    selectedWeekStart.getTime() + dayIndex * 24 * 60 * 60 * 1000
-                  );
-                  const dateKey = date.toISOString().split("T");
-                  const isActive = activeStates[hourIndex][dayIndex];
-                  return (
-                    <button
-                      key={dateKey + hour}
-                      type="button"
-                      className={`col-span-1 rounded-md py-2 time-slot ${
-                        isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
                       }`}
-                      onClick={() =>
-                        handleTimeSlotClick(dateKey, hour, dayIndex)
-                      }
-                    >
-                      {isActive ? `${hour}` : hour}
-                    </button>
-                  );
-                })}
-            </React.Fragment>
-          ))}
+                    onClick={() => handleTabClick(date)}
+                  >
+                    {t(getDayName(date).toLocaleUpperCase())}
+                  </div>
+                );
+              })}
+          </div>
+          <div
+            ref={scrollContainerRef}
+            className="grid grid-cols-8 gap-4 overflow-auto text-center"
+            style={{ maxHeight: "50vh" }}
+          >
+            {hoursOfDay.map((hour, hourIndex) => (
+              <React.Fragment key={hour}>
+                <div className="col-span-1 time-slot">{hour}</div>
+                {selectedWeekStart &&
+                  Array.from({ length: 7 }, (_, dayIndex) => {
+                    const date = new Date(
+                      selectedWeekStart.getTime() + dayIndex * 24 * 60 * 60 * 1000
+                    );
+                    const dateKey = date.toISOString().split("T");
+                    const isActive = activeStates[hourIndex][dayIndex];
+                    return (
+                      <button
+                        key={dateKey + hour}
+                        type="button"
+                        className={`col-span-1 rounded-md py-2 time-slot ${isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
+                          }`}
+                        onClick={() =>
+                          handleTimeSlotClick(dateKey, hour, dayIndex)
+                        }
+                      >
+                        {isActive ? `${hour}` : hour}
+                      </button>
+                    );
+                  })}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
-      <button onClick={handleFormSubmit}>Submit</button>
+      <div className="flex justify-center">
+        <button className="p-4 bg-[#17b3a6] text-white rounded-md" onClick={handleFormSubmit}>Submit</button>
+      </div>
+
     </div>
   );
 };
