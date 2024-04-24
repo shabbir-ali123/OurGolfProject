@@ -8,7 +8,7 @@ export const UploaderInput = ({
   isOpen
 }: any) => {
   return (
-    <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2] ml-2">
+    <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2] ml-2 cursor-pointer">
       <input
         className="w-[106px]"
         id="portfolioVideo"
@@ -36,7 +36,7 @@ export const UploaderInput = ({
         </svg>
       </label>
       {
-        isOpen ? (<ArrowUpIcon  className="h-[40px]" onClick={handleInputClick}/>) : (<ArrowDownIcon className="h-[40px]" onClick={handleInputClick} />)
+        isOpen ? (<ArrowUpIcon  className="h-[30px]" onClick={handleInputClick}/>) : (<ArrowDownIcon className="h-[30px]" onClick={handleInputClick} />)
       }
     </div>
   );
