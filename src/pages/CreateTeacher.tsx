@@ -16,6 +16,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
+import Select from "react-select";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -167,6 +168,13 @@ const CreateTeacher: React.FC = () => {
     }));
   };
 
+  const handleLevelChange = (level: any) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      level: level.value,
+    }));
+  };
+
   const handleImageChanges = (event: any) => {
     console.log();
     setNextFormData((prevFormData) => ({
@@ -310,7 +318,6 @@ const CreateTeacher: React.FC = () => {
     });
   };
 
-
   const handleButtonClick = (index: any) => {
     if (showInputIndexes.includes(index)) {
       setShowInputIndexes(showInputIndexes.filter((i: any) => i !== index));
@@ -318,6 +325,8 @@ const CreateTeacher: React.FC = () => {
       setShowInputIndexes([...showInputIndexes, index]);
     }
   };
+
+  console.log(formData);
   return (
     <div className="py-8 ml-[60px] ">
       <div className="bg-[#17b3a6] p-4 rounded">
@@ -368,6 +377,18 @@ const CreateTeacher: React.FC = () => {
                   colSpanLg={2}
                 />
 
+                <InputWithIcon
+                  variant="levelDropdown" // Assuming there's a way to specify the component type
+                  pname="level"
+                  icon={<ArrowDownIcon />}
+                  label={t("LEVEL")}
+                  value={formData.level}
+                  handleLevelChange={handleLevelChange}
+                  placeholder={t("SELECT_LEVEL")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
                 <div className="">
                   <div className="flex flex-col gap-1">
                     <InputWithIcon
@@ -515,7 +536,7 @@ const CreateTeacher: React.FC = () => {
                       <div className="flex flex-col gap-2" key={index}>
                         <>
                           <UploaderInput
-                          isOpen={showInputIndexes.includes(index)}
+                            isOpen={showInputIndexes.includes(index)}
                             handleUploadChange={(event: any) =>
                               handleImageChange(event, "portfolioVideo")
                             }

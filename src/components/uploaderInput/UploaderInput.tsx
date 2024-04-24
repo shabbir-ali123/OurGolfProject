@@ -38,7 +38,6 @@ export const UploaderInput = ({
       {
         isOpen ? (<ArrowUpIcon  className="h-[40px]" onClick={handleInputClick}/>) : (<ArrowDownIcon className="h-[40px]" onClick={handleInputClick} />)
       }
-      {/* <ArrowDownIcon className="h-[40px]" onClick={handleInputClick} /> */}
     </div>
   );
 };

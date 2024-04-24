@@ -18,6 +18,7 @@ interface InputWithIconProps {
   variant?: string;
   handleImageChange?: any;
   handleLocationChange?: any;
+  handleLevelChange?: any;
 }
 
 interface OptionType {
@@ -41,6 +42,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
   variant,
   handleImageChange,
   handleLocationChange,
+  handleLevelChange,
 }) => {
   const { t } = useTranslation();
 
@@ -136,11 +138,24 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
     const updatedFiles = [...selectedFiles];
     updatedFiles.splice(index, 1);
     setSelectedFiles(updatedFiles);
-    // setFormData((prevFormData: CreatePostType) => ({
-    //   ...prevFormData,
-    //   mediaFiles: updatedFiles,
-    // }));
+    
   };
+  const levelOptions: readonly any[] = [
+    { value: "ocean", label: "Ocean" },
+    { value: "blue", label: "Blue" },
+    { value: "purple", label: "Purple" },
+  ];
+  if (variant == "levelDropdown") {
+    return (
+      <Select
+        name="level"
+        required
+        onChange={handleLevelChange}
+        options={levelOptions}
+        className="w-full text-base border text-black border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    );
+  }
   return (
     <div>
       <div
@@ -251,8 +266,6 @@ export const CustomTextArea: React.FC<TextAreaProp> = ({
   colSpanSm = 8,
   colSpanMd = 5,
   colSpanLg = 4,
-  iconWidth = "24px",
-  iconHeight = "24px",
   value,
 }) => {
   return (
