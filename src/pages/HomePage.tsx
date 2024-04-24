@@ -11,7 +11,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="bg-white">
-            <HeroSection videoSrc="/video/video.mp4" />
+            <HeroSection videoSrc="/video/golf-video.mp4" />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
 
                 <HomeCardSec />

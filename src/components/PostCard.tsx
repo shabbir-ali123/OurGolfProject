@@ -53,6 +53,7 @@ const PostCard = () => {
     post,
     postLoading,
   } = postContext();
+  
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLikesModelOpen, setLikesModelOpen] = useState(false);
@@ -432,7 +433,7 @@ const PostCard = () => {
                             data-interaction="comment"
                           >
                             {" "}
-                            {post.PostComments.length} {t("COMMENTS")}
+                            {post.PostComments?.length} {t("COMMENTS")}
                           </span>
                         </div>
                         <span

@@ -3,6 +3,7 @@ import { getSingleUser, getUser, updateUser } from "../utils/fetchUser";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
+import { fetchUserPosts } from "../utils/fetchPosts";
 
 const UserAuthContext = React.createContext<any>({});
 
@@ -122,18 +123,19 @@ export const UserContext = ({ children }: any) => {
   const userId = params.id;
 
   const [singleUser, setSingleUser] = useState<any>("");
+  const [postCount, setPostsCount] = useState<any>("");
   
   console.log(singleUser)
   useEffect(() => {
- 
-      getSingleUser(setSingleUser, userId)
+      getSingleUser(setSingleUser, userId);
+      fetchUserPosts(userId, setPostsCount);
 
   }, [userId]);
 
   
 
   const value = {
-    singleUser,
+    singleUser,postCount
   };
   return (
     <SingleUserContext.Provider value={value}>

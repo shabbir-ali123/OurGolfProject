@@ -1,7 +1,8 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { createPost, deletePost, fetchAllPosts, fetchMostCommentedPosts, fetchMostLikedPosts, fetchMyPosts, fetchPosts, fetchSinglePosts } from '../utils/fetchPosts';
-import { useNavigate } from 'react-router-dom';
+import { createPost, deletePost, fetchAllPosts, fetchMostCommentedPosts, fetchMostLikedPosts, fetchMyPosts, fetchPosts, fetchSinglePosts,fetchUserPosts } from '../utils/fetchPosts';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 
 const PostsContext = React.createContext<any>({});
@@ -72,28 +73,45 @@ export const PostContext = ({children}:any)=>{
         setSinglePost(value)
     }, [singlePost])
 
-
+    const { id } = useParams<{ id: string }>();
     const reqObj = {
         currentPage,
         pageSize
     }
+    const handleFetchUserPosts = useCallback((userId: any) => {
+        setpostLoading(true);
+        fetchUserPosts(userId, setpostLoading, navigator);
+    }, [reqObj]);
     useEffect(() => {
         setCurrentPage(1);
      }, []);
-    useEffect(() => {
-        if(category === 'MyPost'){
-            fetchMyPosts(setPost,setpostLoading, router);
+     useEffect(() => {
+        switch (category) {
+            case 'MyPost':
+                fetchMyPosts(setPost, setpostLoading, navigator);
+                break;
+            case 'UserPosts': 
+               fetchUserPosts(postId, setPost, setpostLoading, navigator);
+                break;
+            case 'All':
+                fetchAllPosts(setPost, reqObj, setpostLoading, navigator, setCount);
+                break;
+            case 'Public':
+            case 'Private':
+                fetchPosts(setPost, category, navigator, setCount, setpostLoading, reqObj);
+                break;
+            default:
+                break;
         }
-        if(category === 'All'){
-            fetchAllPosts(setPost, reqObj ,setpostLoading, router, setCount);
+        if(id){
+
+            fetchUserPosts(id, setPost, setpostLoading, navigator);
         }
-        if(category === 'Public' || category === 'Private'){
-            fetchPosts(setPost, category, router, setCount,setpostLoading, reqObj);
-        }
+
+        console.log(category);
         fetchMostLikedPosts(setMostLiked);
         fetchMostCommentedPosts(setMostCommented);
-
-     }, [currentPage, category,message, postId]);
+    }, [category, currentPage, message]);
 
      const handlePosts = useCallback((post: any) => {
         return setPost(post);
@@ -119,7 +137,7 @@ export const PostContext = ({children}:any)=>{
         return setCurrentPage(value);
     }, [currentPage]);
 
-    const value =  {handleMessage,handleCurrentPage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,postLoading, currentPage,count, pageSize, mostLiked, mostCommented, formData, singlePost, category, post}
+    const value =  {handleMessage,handleCurrentPage, handlePostId,setPostId, handlePosts,handlePost, handleDeletePost, handleCategory,handleCreatePost,setFormData,postLoading, currentPage,count, pageSize, mostLiked, mostCommented, formData, singlePost, category, post,handleFetchUserPosts }
    
     return <PostsContext.Provider  value={value}> {children}</PostsContext.Provider>
 }
