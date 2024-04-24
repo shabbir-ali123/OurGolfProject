@@ -141,10 +141,11 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
     
   };
   const levelOptions: readonly any[] = [
-    { value: "ocean", label: "Ocean" },
-    { value: "blue", label: "Blue" },
-    { value: "purple", label: "Purple" },
+    { value: "beginner", label: "Beginner" },
+    { value: "intermediate", label: "Intermediate" },
+    { value: "expert", label: "Expert" },
   ];
+  
   if (variant == "levelDropdown") {
     return (
       <Select
