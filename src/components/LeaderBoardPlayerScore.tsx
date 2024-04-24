@@ -2,10 +2,12 @@ import { FunctionComponent } from "react";
 import IndiviualPlayerTableHeader from "./IndiviualPlayerTableHeader";
 import IndiviualPlayerTableRow from "./IndiviualPlayerTableRow";
 import { useTranslation } from "react-i18next";
+import { useScoreContext } from "../contexts/scoreContext";
 
 const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+  const { t } = useTranslation();
+  const { score } = useScoreContext();
+
   return (
     <div className=" my-10 mx-6 xl:mx-0 xl:my-[200px]   ">
       {/* <div className="my-20">
@@ -35,9 +37,16 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
             </div>
           </div>
           <IndiviualPlayerTableHeader />
-          <IndiviualPlayerTableRow />
-          <IndiviualPlayerTableRow />
-          <IndiviualPlayerTableRow />
+          {
+            score?.map((item: any) => {
+              return (
+                  item?.driverContest !== "" && (
+                      <IndiviualPlayerTableRow item={item} type="driverContest"/>
+                  )
+
+              )
+            })
+          }
         </div>
 
         <div className="basis-1/2">
@@ -47,9 +56,16 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
             </div>
           </div>
           <IndiviualPlayerTableHeader />
-          <IndiviualPlayerTableRow />
-          <IndiviualPlayerTableRow />
-          <IndiviualPlayerTableRow />
+          {
+            score?.map((item: any) => {
+              return (
+                  item?.nearPinContest !== "" && (
+                      <IndiviualPlayerTableRow item={item}/>
+                  )
+
+              )
+            })
+          }
         </div>
         
         <div className="right-0 absolute top-1/8 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[170.7px] h-[229.6px] hidden lg:block">
