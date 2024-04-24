@@ -5,10 +5,11 @@ interface TopLikesProps {
     imageUrl: string;
     name: string;
     id: any;
+    PostimageUrl:string;
     // description: string;
 }
 
-const TopLikes: React.FC<TopLikesProps> = ({ imageUrl, name ,id}) => {
+const TopLikes: React.FC<TopLikesProps> = ({ imageUrl, name ,id,PostimageUrl}) => {
     const router = useNavigate();
     return (
         <div className="mx-6 mt-20 bg-white border-2 border-[#17B3A6] border-solid rounded-lg shadow overflow-hidden relative text-center transition duration-300 hover:bg-[#17B3A6] hover:text-white"
@@ -21,7 +22,11 @@ const TopLikes: React.FC<TopLikesProps> = ({ imageUrl, name ,id}) => {
 
           
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white py-2">
+                <div className='flex items-center justify-center gap-10'>
+                <img src={PostimageUrl}  alt="image" className='w-10 h-10 rounded-full' />
                 <h3 className="text-[22px] font-semibold">{name}</h3>
+                </div>
+                
             </div>
 
             {/* Heart icon in the top right corner */}

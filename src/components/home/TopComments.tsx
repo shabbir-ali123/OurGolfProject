@@ -5,10 +5,11 @@ interface TopCommentsProps {
     imageUrl: string;
     name: string;
     id: any;
+    PostimageUrl:string;
 
 }
 
-const TopComments: React.FC<TopCommentsProps> = ({ imageUrl, name, id}) => {
+const TopComments: React.FC<TopCommentsProps> = ({ imageUrl, name ,id,PostimageUrl})=> {
     const router = useNavigate();
 
     return (
@@ -21,7 +22,11 @@ const TopComments: React.FC<TopCommentsProps> = ({ imageUrl, name, id}) => {
 
           
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white py-2">
+                <div className='flex items-center justify-center gap-10'>
+                <img src={PostimageUrl}  alt="image" className='w-10 h-10 rounded-full' />
                 <h3 className="text-[22px] font-semibold">{name}</h3>
+                </div>
+                
             </div>
 
             {/* Heart icon in the top right corner */}

@@ -85,7 +85,7 @@ const RecommendedPosts: React.FC = () => {
            
            <Slider {...settings} className='mx-2 xl:mx-20'>
                {mostLiked?.map((teacher: any, index: React.Key | null | undefined) => (
-                   <TopLikes key={index} id={teacher?.id} imageUrl={teacher?.mediaFile[0]} name={teacher?.posts?.nickName}  />
+                   <TopLikes key={index} id={teacher?.id} imageUrl={teacher?.mediaFile[0]} name={teacher?.posts?.nickName} PostimageUrl={teacher?.posts?.imageUrl}   />
                ))}
                </Slider>
             </div>
@@ -94,7 +94,7 @@ const RecommendedPosts: React.FC = () => {
            
            <Slider {...settings} className='mx-2 xl:mx-20'>
               {mostCommented?.map((teacher: any, index: React.Key | null | undefined) => (
-                   <TopComments key={index}  id={teacher?.id} imageUrl={teacher?.mediaFile[0]} name={teacher?.posts?.nickName}  />
+                   <TopComments key={index}  id={teacher?.id} imageUrl={teacher?.mediaFile[0]} name={teacher?.posts?.nickName} PostimageUrl={teacher?.posts?.imageUrl}  />
                ))}
                </Slider>
             </div>

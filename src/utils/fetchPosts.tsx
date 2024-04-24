@@ -252,3 +252,38 @@ export const fetchMostCommentedPosts = async (setMostLiked: any) => {
 
 
 
+// getUserAllPosts
+export const fetchUserPosts = async (userId?: string, setPosts?: any,  setPageLoading?: any, navigate?: any) => {
+  const reqObj = {
+    currentPage: 1,
+    pageSize: 10
+  };
+  const { currentPage, pageSize } = reqObj;
+  try {
+    const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS. GETUSERALLPOSTS + userId; 
+    if (token && token !== "undefined") {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+    const response = await axios.get(endpoint, {
+      headers,
+      params: {
+        page: currentPage,
+        pageSize: pageSize,
+      }
+    });
+    // setCount(response.data.count)
+    setPosts(response.data.posts);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.clear();
+      toast.error("Session expired. Please log in again.");
+      navigate('/login-page');
+    } else {
+      toast.error("An error occurred. Please try again.");
+    }
+  }
+};
+
+

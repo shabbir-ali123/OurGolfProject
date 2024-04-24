@@ -8,7 +8,7 @@ import socket from "../socket";
 import MobileMenu from "./MobileMenu";
 
 export const navigation = [
-  { name: "Home", to: "/score-board", icon: HomeIcon },
+  { name: "Home", to: "/home-page", icon: HomeIcon },
   { name: "Find_teacher", to: "/all-teachers", icon: UserGroupIcon },
   { name: "Events", to: "/event-main-page", icon: CalendarIcon },
   { name: "Posts", to: "/post-page", icon: ClipboardIcon },

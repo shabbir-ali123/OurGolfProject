@@ -71,6 +71,7 @@ import { ChatSystem } from "./pages/Chat";
 import UpdateTeacher from "./pages/UpdateTeacher";
 import { TeacherCatalog } from "./pages/TeacherCatalogs";
 import { TeacherGigsProvider } from "./contexts/gigsContext";
+import UserPosts from "./pages/UserPosts";
 import { TeacherAppointments } from "./pages/Appointments";
 
 function App() {
@@ -329,7 +330,8 @@ function App() {
               </ScoreContextProvider>
             }
           />
-          <Route path="/user-page/:id" element={<UserContext> <UserPage /> </UserContext>} />
+          <Route path="/user-page/:id" element={<UserContext> <UserPage />  </UserContext>} />
+          <Route path="/user-posts/:id" element={<PostContext> <UserPosts />  </PostContext>} />
           <Route path="/score-board" element={<ScoreBoard />} />
           <Route path="/message-page" element={token ? <ChatSystem /> : <LoginPage />} />
           <Route path="/login-page" element={<LoginPage />} />
