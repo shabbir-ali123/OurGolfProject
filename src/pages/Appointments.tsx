@@ -3,12 +3,41 @@ import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINTS } from "../appConfig";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export const TeacherAppointments = () => {
     const {t} = useTranslation();
     const router  = useNavigate()
     const { bookedAppointments, isLoading } = useTeacherContext();
 
+    const handleAcceptClick = async (e: any, item: any) => {
+        const { scheduleId, day, startTime, endTime, status, notificationId ='', bookedBy } = item;
+        let studentId = bookedBy;
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          const response = await axios.post(
+            API_ENDPOINTS.ACCEPTAPPOINTMENT,
+            { studentId, scheduleId, day, startTime, endTime, status, notificationId },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+    
+              
+            }
+          );
+          if (response.status === 200) {
+            toast.success("Accepted Successfully");
+          }
+        } catch (error) {
+          toast.error(
+            (error as any)?.response?.data?.message || "We are not able to Accept"
+          );
+        } 
+      };
     return (
         <>
       {
@@ -58,13 +87,17 @@ export const TeacherAppointments = () => {
                               <p className="mt-1 text-sm text-gray-500">
                                 {item?.bookedShifts?.nickName} wants to book appointment from {item?.startTime} to {item?.endTime} on {item?.day}
                               </p>
+                              {
+                                item?.status == 'PENDING' ? (
+
+                               
                               <div className="mt-4 flex gap-2">
                                   <button
                                     type="button"
                                     className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    // onClick={(e) =>
-                                    //   handleApprove(e, item?.id, item?.message)
-                                    // }
+                                    onClick={(e) =>
+                                        handleAcceptClick(e, item)
+                                    }
                                   >
                                     {'Approve'}
                                   </button>
@@ -79,6 +112,11 @@ export const TeacherAppointments = () => {
                                   </button>
                               
                                 </div>
+                                 ) :
+                                 (
+                                    <h3>You have booked the appointment</h3>
+                                 )
+                                }
                             </div>
                             
                           </div>
