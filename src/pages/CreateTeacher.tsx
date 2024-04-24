@@ -515,6 +515,7 @@ const CreateTeacher: React.FC = () => {
                       <div className="flex flex-col gap-2" key={index}>
                         <>
                           <UploaderInput
+                          isOpen={showInputIndexes.includes(index)}
                             handleUploadChange={(event: any) =>
                               handleImageChange(event, "portfolioVideo")
                             }

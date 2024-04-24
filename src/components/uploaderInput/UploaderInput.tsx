@@ -1,10 +1,11 @@
-import { ArrowDownIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
+import { ArrowDownIcon, ArrowUpIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import InputWithIcon from "../FormComponents";
 
 export const UploaderInput = ({
   handleUploadChange,
   ref,
   handleInputClick,
+  isOpen
 }: any) => {
   return (
     <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2] ml-2">
@@ -34,7 +35,10 @@ export const UploaderInput = ({
           <path d="M12 4v16m8-8H4"></path>
         </svg>
       </label>
-      <ArrowDownIcon className="h-[40px]" onClick={handleInputClick} />
+      {
+        isOpen ? (<ArrowUpIcon  className="h-[40px]" onClick={handleInputClick}/>) : (<ArrowDownIcon className="h-[40px]" onClick={handleInputClick} />)
+      }
+      {/* <ArrowDownIcon className="h-[40px]" onClick={handleInputClick} /> */}
     </div>
   );
 };
