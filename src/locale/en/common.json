@@ -317,6 +317,7 @@
     "AMBASSADOR": "TASKGOLF<br>Amateur Ambassador",
     "NO_EVENT": "No Event",
     "MOVIE_URL": "Movie URL",
-    "PORTFOLIO_URL": "Enter Portfolio URLs (Seperate With Commas If Multiple URLS)"
+    "PORTFOLIO_URL": "Enter Portfolio URLs (Seperate With Commas If Multiple URLS)",
+    "ALL_APPOINTMENTS": "All Appointments"
 
 }
