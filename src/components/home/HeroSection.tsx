@@ -5,7 +5,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ videoSrc }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const togglePlay = () => {
@@ -20,12 +20,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ videoSrc }) => {
   };
 
   return (
-    <div className="relative mx-4 xl:mx-20 h-[60vh] overflow-hidden">
+    <div className="relative mx-4 xl:mx-20 h-[72vh] overflow-hidden">
       <video
         ref={videoRef}
         src={videoSrc}
         loop
         controls
+        autoPlay
         className="w-full h-full object-cover"
       />
      <button
