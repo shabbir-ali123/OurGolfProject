@@ -434,7 +434,7 @@ const CreateTeacher: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
           <div className="col-span-1 md:col-span-5">
             <div className="py-4  rounded  text-red ">
-              <div className="p-2 pl-5">
+              <div className="">
                 <h3 className="font-semibold mb-4 text-lg text-[#565656]">
                   About Me
                 </h3>
@@ -579,8 +579,9 @@ const CreateTeacher: React.FC = () => {
 
         <div className="my-4 mx-10   xl:mx-0">
           <CalendarSlider onWeekSelected={handleWeekSelected} />
-          <div className="grid grid-cols-8 gap-4 py-2 text-center overflow-scroll">
+          <div className="grid grid-cols-1 gap-4 py-2 text-center ">
             <div className="col-span-1 font-bold ">{t("TIME")}</div>
+            <div className="w-full flex justify-center gap-4 xl:gap-24 ml-0 xl:ml-10  overflow-x-scroll xl:overflow-auto">
             {selectedWeekStart &&
               Array.from({ length: 7 }, (_, i) => {
                 const date = new Date(
@@ -599,6 +600,8 @@ const CreateTeacher: React.FC = () => {
                   </div>
                 );
               })}
+            </div>
+           
           </div>
           <div
             ref={scrollContainerRef}

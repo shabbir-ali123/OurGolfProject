@@ -25,7 +25,7 @@ export const menuItems: MenuItem[] = [
   {
     name: "HOME",
     icon: faHome,
-    path: "/score-board",
+    path: "/home-page",
     active: false,
   },
   {

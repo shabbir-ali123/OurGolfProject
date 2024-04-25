@@ -19,7 +19,7 @@ interface CalendarSliderProps {
 const CustomNextArrow: React.FC = ({ onClick }: any) => (
   <div
     className="slick-arrow"
-    style={{ right: "-24px", top: "0%", zIndex: 1, position: "absolute" }}
+    style={{ right: "4px", top: "0%", zIndex: 1, position: "absolute" }}
     onClick={onClick}
   >
     <FontAwesomeIcon
@@ -32,7 +32,7 @@ const CustomNextArrow: React.FC = ({ onClick }: any) => (
 const CustomPrevArrow: React.FC = ({ onClick }: any) => (
   <div
     className="slick-arrow"
-    style={{ position: "absolute", left: "-24px", zIndex: 1 }}
+    style={{ position: "absolute", left: "4px", zIndex: 1 }}
     onClick={onClick}
   >
     <FontAwesomeIcon

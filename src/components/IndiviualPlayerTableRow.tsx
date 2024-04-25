@@ -15,7 +15,7 @@ const IndiviualPlayerTableRow = ({item, type}: any) => {
           
         </div>
       </div>
-      <div className="flex gap-3 items-center basis-1/2 min-w-[180px]">
+      <div className="flex gap-3 items-center basis-1/2 ">
         
         <div>{item?.userScoreCard.nickName}</div>
       </div>
