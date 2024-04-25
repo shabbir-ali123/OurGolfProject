@@ -11,7 +11,7 @@ export default function AllNotification() {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const { t } = useTranslation();
-  const [notificationData, setNotificationData] = useState([]);
+  const { notificationData } = notificationsContextStore()
   const [isLoading, setIsLoading] = useState(true);
 
   const { isloading, handleMessage } =
@@ -28,15 +28,6 @@ export default function AllNotification() {
     toast.success("Marked as Read Successfully");
 
   };
-
-  useEffect(() => {
-    const updateNotifications = () => {
-      fetchNotifications(setNotificationData, setIsLoading);
-    };
-    updateNotifications();
-
-  }, []);
-
   return (
     <>
       {
@@ -45,9 +36,7 @@ export default function AllNotification() {
             <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
             <p>loading...</p>
           </div>
-
         </div> :
-
           <div className="max-w-7xl mx-10 xl:mx-auto">
             <h4>{t("ALL_NOTIFICATION")}</h4>
             <div

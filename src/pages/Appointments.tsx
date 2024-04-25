@@ -26,8 +26,6 @@ export const TeacherAppointments = () => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
-    
-              
             }
           );
           if (response.status === 200) {

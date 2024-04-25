@@ -260,7 +260,9 @@ const SideMenu: React.FC = () => {
   }, []);
   const { notifications, notificationData } = notificationsContextStore();
   let userId = localStorage.getItem("id");
+  let tId = localStorage.getItem("teacher_id");
   const [eventJoined, setEventJoined] = useState<any[]>([]);
+  const [teacherNotification, setTeacherNotification] = useState<any[]>([]);
   useEffect(() => {
     const handleJoinEvent = (data: any) => {
       console.log(data, "data for sockets");
@@ -274,6 +276,18 @@ const SideMenu: React.FC = () => {
       socket.off("joinRequest", handleJoinEvent);
     };
   }, []);
+  useEffect(() => {
+    const handleTeacherNotification = (data: any) => {
+      if (data?.teacherId == tId) {
+        setTeacherNotification((prev: any) => [...prev, data]);
+      }
+    };
+    socket.on("appointmentBooked", handleTeacherNotification);
+
+    return () => {
+      socket.off("appointmentBooked", handleTeacherNotification);
+    };
+  }, []);
   const filteredNotifications = notificationData?.filter((item: any) => {
     if (
       (item.isRead !== true)
@@ -282,6 +296,7 @@ const SideMenu: React.FC = () => {
     }
   });
 
+  console.log(teacherNotification, 'tic')
   return (
     <>
       <div
