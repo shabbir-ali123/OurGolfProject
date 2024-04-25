@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
 import { button } from "@material-tailwind/react";
+import { SlotsCalender } from "../components/calender/SlotsCalender";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -578,6 +579,7 @@ const CreateTeacher: React.FC = () => {
 
 
         <div className="my-4 mx-10   xl:mx-0">
+          <SlotsCalender/>
           <CalendarSlider onWeekSelected={handleWeekSelected} />
           <div className="grid grid-cols-1 gap-4 py-2 text-center ">
             <div className="col-span-1 font-bold ">{t("TIME")}</div>

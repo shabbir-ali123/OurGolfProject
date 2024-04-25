@@ -444,7 +444,9 @@ function App() {
                 <PostContext>
                   <CreatedEventContext>
                     {" "}
-                    <ProfilePage />{" "}
+                    <TeacherDetailsContext>
+                      <ProfilePage />{" "}
+                    </TeacherDetailsContext>
                   </CreatedEventContext>
                 </PostContext>
               ) : (

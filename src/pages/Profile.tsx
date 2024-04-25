@@ -1,16 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import { userAuthContext } from "../contexts/authContext";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { postContext } from "../contexts/postsContext";
 import { createdEventsStore } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
 import UpdateTeacher from "./UpdateTeacher";
+import { useTeacherContext } from "../contexts/teachersContext";
+import { Transition } from "@headlessui/react";
 
 const Profile = () => {
   const { t } = useTranslation();
   const { user } = userAuthContext();
   const { post, handleCategory } = postContext();
   const { createdEvents } = createdEventsStore();
+  const {studentAppointments, isLoading} = useTeacherContext();
+  console.log(studentAppointments)
   const router = useNavigate();
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
@@ -241,6 +245,71 @@ const Profile = () => {
               </p>
             </div>
           </div>
+        </div>
+        <div>
+          <h3>Appointment Status:</h3>
+          <>
+      {
+        isLoading ? <div className="flex justify-center items-center h-[100vh]">
+          <div>
+            <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
+            <p>loading...</p>
+          </div>
+
+        </div> :
+
+          <div className="max-w-7xl mx-10 xl:mx-auto">
+            <div
+              aria-live="assertive"
+              className=" h-screen animate__animated animate__fadeInLeft "
+            >
+              <div className="w-full justify-center">
+                {studentAppointments?.map((item: any, index: any) => {
+                
+                  return (
+                    <Transition
+                      show={true}
+                      as={Fragment}
+                      enter="transform ease-out duration-300 transition"
+                      enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                      enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <div className={`mt-2 pointer-events-auto w-full max-w-5xl rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ${!item.isRead ? 'bg-[#f3f3f3]' : 'bg-white'
+                        }`} >
+                        <div className="p-4">
+                          <div className="flex items-start">
+                            <div className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8" onClick={() => router('/user-page/'+item?.bookedBy)}>
+                              <img
+                                className="w-full h-full rounded-full"
+                                src={ ''}
+                                alt=""
+                              />
+                            </div>
+                            <div className="ml-3 w-0 flex-1">
+                              <p className="text-sm font-medium text-gray-900">
+                                {item?.bookedShifts?.nickName}
+                              </p>
+                              <p className="mt-1 text-sm text-gray-500">
+                                {item?.bookedShifts?.nickName} wants to book appointment from {item?.startTime} to {item?.endTime} on {item?.day}
+                              </p>
+                              <p>{item?.status == "" ? "PENDING" : item?.status}</p>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </Transition>
+                  );
+
+                })}
+              </div>
+            </div>
+          </div>
+      }
+    </>
         </div>
       </div>
     </>
