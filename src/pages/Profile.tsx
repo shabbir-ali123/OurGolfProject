@@ -255,7 +255,6 @@ const Profile = () => {
             <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
             <p>loading...</p>
           </div>
-
         </div> :
 
           <div className="max-w-7xl mx-10 xl:mx-auto">

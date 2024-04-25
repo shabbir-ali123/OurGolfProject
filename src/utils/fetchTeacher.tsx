@@ -225,7 +225,7 @@ export const fetchStudentAppointments = async (setStudentAppointments: any, setI
   try {
     const token = localStorage.getItem("token");
     const response = await axios.get(
-      API_ENDPOINTS.GETTEACHERBOOKEDAPPOINTMENTS,
+      API_ENDPOINTS.GETUSERBOOKEDAPPOINTMENTS,
       {
         headers: {
           Authorization: `Bearer ${token}`,
