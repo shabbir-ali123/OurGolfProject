@@ -1,7 +1,6 @@
 import React, { Children, useCallback, useEffect, useState } from 'react';
 import { fetchCreatedEvents, fetchEventss, fetchFavoriteEvents, fetchJoinedEvents, fetchSeachedEvents, fetchSeachedEventsNames, fetchSingleEvent } from '../utils/fetchEvents';
 import { useNavigate, useParams } from 'react-router-dom';
-import { API_ENDPOINTS } from '../appConfig';
 
 const EventCreateContext = React.createContext<any>({});
 
@@ -9,9 +8,6 @@ export const EventsContext = ({ children }: any) => {
     const [eventss, setEvents] = useState<any[]>([]);
     const [eventsName, setEventsName] = useState<any>(null);
     const [joinedEvents, setJoinedEvents] = useState<any[]>([])
-    const [favoriteEvents, setFavoriteEvents] = useState<any[]>([])
-
-    
     const store_token: string = localStorage.getItem('token') || '';
     const [eventsCount, setEventsCount] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);

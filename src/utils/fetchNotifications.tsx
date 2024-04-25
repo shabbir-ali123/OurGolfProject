@@ -28,6 +28,7 @@ export const fetchNotifications = async (
     setIsLoading(false);
   }
 };
+
 export const updateNotificationsStatus = async (
   setIsLoading:any,
   formData: any,

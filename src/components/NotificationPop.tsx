@@ -9,12 +9,11 @@ interface NotificationProp {
 }
 
 export const NotificationPop: React.FC<NotificationProp> = ({ setNotification }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [show, setShow] = useState(true);
   const { notificationData, isLoading } = notificationsContextStore();
   const navigate = useNavigate();
 
-  const currentUserId = localStorage.getItem('id');
   const handleButtonClick = () => {
     navigate("/notification-page");
   };

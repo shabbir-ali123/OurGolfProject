@@ -21,9 +21,6 @@ export const TeacherAppointments = () => {
           const response = await axios.post(
             API_ENDPOINTS.ACCEPTAPPOINTMENT,
             { studentId, scheduleId, day, startTime, endTime, status, notificationId },
-          // const response = await axios.put(
-          //   API_ENDPOINTS.UPDATEAPPOINTMENTSTATUS,
-          //   {  scheduleId, day, startTime, endTime, status },
             {
               headers: {
                 "Content-Type": "application/json",
