@@ -329,7 +329,7 @@ const CreateTeacher: React.FC = () => {
   console.log(formData);
   return (
     <div className="py-8 mx-4 xl:mx-0 ">
-      <div className="bg-[#17b3a6] p-4 rounded">
+      <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4 items-start justify-center">
@@ -526,7 +526,7 @@ const CreateTeacher: React.FC = () => {
           </h3>
           <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
             {!videoPortfolioVisible && (
-              <div className="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-3 xs:grid-cols-2 xxs:grid-cols-1 gap-2">
+              <div className="grid   md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1  gap-2">
                 {[1, 2, 3, 4, 5].map((index) => (
                   <div key={index} className="flex flex-col gap-2">
                     <UploaderInput
