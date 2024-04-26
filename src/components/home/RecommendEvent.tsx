@@ -68,9 +68,9 @@ const RecommendedEvents: React.FC = () => {
 
     return (
         <div className="px-4 py-10"  style={{ 
-            backgroundImage: "url('/img/triangle.png')", // Ensure the path is correct
-            backgroundSize: 'cover', // Cover the entire area of the div
-            backgroundPosition: 'center' // Center the background image
+            backgroundImage: "url('/img/triangle.png')", 
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center' 
           }}>
             <div>
                 <img src="/img/colorarrow.png" width="230px" className='absolute right-[66%]' alt="" />

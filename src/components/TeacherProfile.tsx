@@ -7,7 +7,7 @@ import {
   StarIcon,
 } from "@heroicons/react/24/outline";
 import React from "react";
-
+import { useTranslation } from "react-i18next";
 interface UserProfileProps {
   firstName?: string;
   location?: string;
@@ -33,6 +33,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
   lastName,
   profileImage,
 }) => {
+  const { t, i18n } = useTranslation();
   return (
     <div className="p-6  rounded  text-white ">
       <div className="flex items-center lg:justify-around">
@@ -50,16 +51,17 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 </h2>
                 <h2 className="text-lg font-semibold text-white">
                   {hourlyRate}{" "}
-                  <span className="text-sm font-normal">Per/Hr</span>
+                  <span className="text-sm font-normal">  {t("Per/Hr")}</span>
                 </h2>
+                <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
+                  {t("AVAILABLE")}
+                </button>
               </div>
             </div>
           </div>
 
           <div className="ml-0 xl:ml-4 grid xl:grid-cols-2 gap-6  justify-center ">
-            <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
-              Availble
-            </button>
+
             <div className="ml-0 col-span-2 xl:ml-4 grid grid-cols-2 xl:grid-cols-2 gap-6  justify-center ">
               <div className="">
                 <div className="flex flex-col gap-1">
@@ -68,7 +70,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                       className="w-4 h-4 text-white border-[1px] border-white border-solid rounded-full p-1"
                       aria-hidden="true"
                     />
-                    <p className="m-0 font-bold">Location</p>
+                    <p className="m-0 font-bold">{t("Prefectures")}</p>
                   </div>
                   <p className="text-sm text-white m-0 pl-[calc(1rem+1.2rem)] w-full">
                     {location}
@@ -82,7 +84,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                     className="w-4 h-4 text-white border-[1px] border-white border-solid rounded-full p-1"
                     aria-hidden="true"
                   />
-                  <p className="m-0">Email</p>
+                  <p className="m-0">{t("EMAIL")}</p>
                 </div>
                 <p className="text-sm text-white m-0 pl-[calc(1rem+1.5rem)]">
                   {email}
@@ -94,7 +96,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                     className="w-4 h-4 text-white border-[1px] border-white border-solid rounded-full p-1"
                     aria-hidden="true"
                   />
-                  <p className="m-0">Mobile N.o</p>
+                  <p className="m-0">{t("TEl_NUM")}</p>
                 </div>
                 <p className="text-sm text-white m-0 pl-[calc(1rem+1.5rem)]">
                   {phoneNumber}
@@ -106,10 +108,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
                     className="w-4 h-4 text-white border-[1px] border-white border-solid rounded-full p-1"
                     aria-hidden="true"
                   />
-                  <p className="m-0">Rating</p>
+                  <p className="m-0">{t("RATING")}</p>
                 </div>
                 <p className="text-sm text-white m-0 pl-[calc(1rem+1.5rem)]">
-                  {rating}/{ratingCount} ratings
+                  {rating}/{ratingCount} {t("RATING")}
                 </p>
               </div>
             </div>
@@ -119,7 +121,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
 
       <div className="mt-4 flex justify-end">
         <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 ">
-          Chat
+        {t("CHAT")}
         </button>
       </div>
     </div>

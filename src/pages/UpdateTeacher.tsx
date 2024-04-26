@@ -383,7 +383,7 @@ const UpdateTeacher: React.FC = () => {
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start ">
-              <div className="text-center">
+              <div className="flex-col items-center text-center">
               {/* <input
                   id="profileImage"
                   name="profileImage"
@@ -399,7 +399,7 @@ const UpdateTeacher: React.FC = () => {
                   // imageUrl={user?.imageUrl}
                   onChangeImage={(event:any) => handleImageChanges(event)}
                   defaultImageUrl={teacher?.profileImage}
-                  placeholder={t("FIRST_NAME")}
+                  placeholder={t("NAME")}
                   colSpanSm={6}
                   colSpanMd={4}
                   colSpanLg={2}
@@ -407,17 +407,17 @@ const UpdateTeacher: React.FC = () => {
                 <div className="mt-4">
                   <div>
                     <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
-                      Availble
+                    {t("AVAILABLE ")} 
                     </button>
                   </div>
-                </div>
+                </div> 
               </div>
 
               <div className="ml-4 grid grid-cols-1 xl:grid-cols-2 gap-6 justify-center ">
                 <InputWithIcon
                   pname="firstName"
                   icon={<UserIcon />}
-                  label={t("FIRST_NAME")}
+                  label={t("NAME")}
                   value={formData?.firstName}
                   onChange={handleChange}
                   placeholder={t("ENTER_FIRST_NAME")}
@@ -428,7 +428,7 @@ const UpdateTeacher: React.FC = () => {
                 <InputWithIcon
                   pname="hourlyRate"
                   icon={<EnvelopeOpenIcon />}
-                  label={t("Hourly")}
+                  label={t("LessonFee")}
                   // value={formData?.hourlyRate}
                   onChange={handleChange}
                   placeholder={t("ENTER_RATE")}
@@ -443,10 +443,10 @@ const UpdateTeacher: React.FC = () => {
                       variant="dropdown"
                       pname="location"
                       icon={<MapPinIcon />}
-                      label={t("LOCATION")}
+                      label={t("Prefectures")}
                       // value={formData.location}
                       handleLocationChange={handleLocationChange}
-                      placeholder={t("ENTER_LOCATION")}
+                      placeholder={t("Prefectures")}
                       colSpanSm={6}
                       colSpanMd={4}
                       colSpanLg={2}
@@ -457,7 +457,7 @@ const UpdateTeacher: React.FC = () => {
                 <InputWithIcon
                   pname="phoneNumber"
                   icon={<PhoneIcon />}
-                  label={t("MOBILE")}
+                  label={t("TEl_NUM")}
                   // value={formData.phoneNumber}
                   onChange={handleChange}
                   placeholder={t("ENTER_MOBILE")}
@@ -475,26 +475,14 @@ const UpdateTeacher: React.FC = () => {
           <div className="py-4  rounded  text-red ">
             <div className="p-2 pl-5">
               <h3 className="font-semibold mb-4 text-lg text-[#565656]">
-                About Me
+              {t("ABOUT_ME")}
               </h3>
               <textarea
                 onChange={handleChange}
                 name="aboutMyself"
                 // value={formData?.aboutMyself}
-                className="resize-none leading-8 text-[#565656] w-[90%] mr-4 h-[325px]"
-                placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aspernatur facilis hic repudiandae possimus tenetur,
-                  accusamus, eius fugit quis laboriosam alias, nemo debitis!
-                  Laudantium dignissimos pariatur, eaque, expedita perferendis
-                  debitis consequuntur sint, placeat doloribus voluptates optio
-                  culpa! Ipsam quae aperiam natus! Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ad tempore vero harum ut
-                  distinctio doloremque culpa molestias illo. Omnis nihil
-                  doloribus, praesentium provident sequi consectetur iusto eaque
-                  dignissimos fugit qui est quo placeat natus culpa deleniti,
-                  accusamus quas esse. Consequuntur? Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ullam dolores magnam rem ipsam
-                  blanditiis error vero corrupti ratione tenetur tempore."
+                className="resize-none leading-8 text-[#565656] w-[90%] mr-4 h-[125px]"
+                placeholder="Tell Us About Your self"
               ></textarea>
             </div>
             <div></div>
