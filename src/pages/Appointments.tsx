@@ -13,8 +13,9 @@ export const TeacherAppointments = () => {
     const { bookedAppointments, isLoading } = useTeacherContext();
 
     const handleAcceptClick = async (e: any, item: any) => {
-        const { scheduleId, day, startTime, endTime, status, notificationId ='', bookedBy } = item;
+        const { scheduleId, day, startTime, endTime, notificationId ='', bookedBy } = item;
         let studentId = bookedBy;
+        let status = "BOOKED"
         try {
           await new Promise((resolve) => setTimeout(resolve, 2000));
           const response = await axios.post(
@@ -25,8 +26,6 @@ export const TeacherAppointments = () => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
-    
-              
             }
           );
           if (response.status === 200) {

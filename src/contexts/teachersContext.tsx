@@ -1,5 +1,5 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { fetchSingleTeacher, fetchTeachersAppointments, fetchTeacherss } from '../utils/fetchTeacher';
+import { fetchSingleTeacher, fetchStudentAppointments, fetchTeachersAppointments, fetchTeacherss } from '../utils/fetchTeacher';
 import { useParams } from 'react-router-dom';
 
 
@@ -86,6 +86,7 @@ export const TeacherDetailsContext = ({children}:any)=>{
     const [schedules, setSchedules] = useState<any[]>([]);
     const [bookedAppointments, setBookedAppointments] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [studentAppointments, setStudentAppointments] = useState<any[]>([])
     useEffect(() => {
         if (teacherId !== 'null') {
             fetchSingleTeacher(handleTeacher, teacherId);
@@ -94,6 +95,7 @@ export const TeacherDetailsContext = ({children}:any)=>{
 
     useEffect(() => {
         fetchTeachersAppointments(setBookedAppointments, setIsLoading)
+        fetchStudentAppointments(setStudentAppointments, setIsLoading)
     }, [])
 
     const handleTeacher = useCallback((value: any) => {
@@ -108,7 +110,7 @@ export const TeacherDetailsContext = ({children}:any)=>{
 
  
 
-    const value =  {handleSchedules, schedules, teacher, selectedTeacher, isLoading, bookedAppointments}
+    const value =  {handleSchedules, schedules, teacher, selectedTeacher, studentAppointments, isLoading, bookedAppointments}
 
     return <SingleTeacherContext.Provider  value={value}> {children} </SingleTeacherContext.Provider>
 }

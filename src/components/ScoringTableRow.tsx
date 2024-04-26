@@ -20,6 +20,11 @@ interface ScoringTableRowProps {
     teamName: string;
     background: string;
     teamBG: string;
+    score1?: any;
+    score2?: any;
+    total?:any;
+    rank?:any;
+    netValue?:any
 }
 
 const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
@@ -27,6 +32,11 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
     teamName,
     background,
     teamBG,
+    score1,
+    score2,
+    total,
+    rank,
+    netValue
 }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const toggleDropdown = () => {
@@ -71,34 +81,55 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
                 </div>
             </td>
             </td>
-            {Array.from({ length: 9 }, (_, index) => (
-                <ScoringTableColumn
-                    key={index}
-                    title={`${index}`}
+            {
+                score1?.map((s:any) => (
+                    <ScoringTableColumn
+                    title={`${s}`}
                     className='text-[18px] text-center font-medium border-solid border-l-[1px] border-white '
                 />
-            ))}
+                ))
+            }
             <td
                 className={`text-white leading-[20px] text-[18px] text-center font-medium  box-border`}
             >
                 <div className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  text-[18px] font-medium text-center text-black h-[60px] flex items-center justify-center'>
-                    39
+                    {score1?.reduce((acc:any, val:any) => acc + val, 0)}
                 </div>
             </td>
-            {Array.from({ length: 13 }, (_, index) => (
-                <ScoringTableColumn
-                    key={index}
-                    title={`${index}`}
+           
+
+            {
+                score2?.map((s:any) => (
+                    <ScoringTableColumn
+                    title={`${s}`}
                     className='text-[18px] text-center font-medium border-solid border-l-[1px] border-white '
                 />
-            ))}
-
+                ))
+            }
+             <td
+                className={`text-white leading-[20px] text-[18px] text-center font-medium  box-border`}
+            >
+                <div className='bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]  text-[18px] font-medium text-center text-black h-[60px] flex items-center justify-center'>
+                    {score2?.reduce((acc:any, val:any) => acc + val, 0)}
+                </div>
+            </td>
+            <td
+            className={` p-2 leading-[20px] text-[18px] text-center font-medium border-solid border-l-[1px] border-white `}
+        >
+            {total}
+        </td>
+        <td
+            className={` p-2 leading-[20px] text-[18px] text-center font-medium border-solid border-l-[1px] border-white `}
+        >
+            {netValue}
+        </td>
+          
             <td
                 className={`leading-[20px] text-[18px]text-center font-medium  box-border rounded-s-[3px]`}
                 dir='rtl'
             >
                 <div className='  mx-auto rounded-md  w-20 h-[41px] border-solid border-[2px] border-[#585858] flex items-center justify-center'>
-                    1st
+                       {rank} 
                 </div>
             </td>
         </tr>

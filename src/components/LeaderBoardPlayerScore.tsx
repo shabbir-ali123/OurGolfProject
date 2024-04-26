@@ -10,25 +10,7 @@ const LeaderBoardIndiviualPlayerScore: FunctionComponent = () => {
 
   return (
     <div className=" my-10 mx-6 xl:mx-0 xl:my-[200px]   ">
-      {/* <div className="my-20">
-        <div className="flex items-center ">
-          <div className="relative w-[90.5px] h-[147.5px]">
-            <img
-              className="absolute top-[60px] left-[0px] w-[90.5px] h-[87.5px]"
-              alt=""
-              src="/img/ellipse-2303.svg"
-            />
-            <img
-              className="absolute top-[0px] left-[22.5px] w-[58px] h-[108px] object-cover"
-              alt=""
-              src="/img/rectangle-1249@2x.png"
-            />
-          </div>
-          <div className="text-21xl text-darkslateblue-300 uppercase font-semibold [text-shadow:0px_7px_4px_#b8e4fd]">
-            {t("INDIVIUAL_SCORE")}
-          </div>
-        </div>
-      </div> */}
+     
       <div className="relative flex flex-col gap-8 lg:flex-row ">
         <div className="basis-1/2 ">
           <div className="flex  items-center justify-center basis-1/2 h-[80px] bg-[#0AA3BC]">

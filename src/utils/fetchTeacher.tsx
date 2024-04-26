@@ -208,13 +208,37 @@ export const fetchTeachersAppointments = async (setAppointments: any, setIsLoadi
         params: {
           page: 1,
           pageSize: 20,
-          userId: 2,
-          status: "PENDING",
         },
       }
     );
 
     setAppointments(response.data.bookedAppointments);
+    
+  } catch (error: any) {
+    toast.error("You are Not Login! Please Login");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+export const fetchStudentAppointments = async (setStudentAppointments: any, setIsLoading: any) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      API_ENDPOINTS.GETUSERBOOKEDAPPOINTMENTS,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          page: 1,
+          pageSize: 20,
+        },
+      }
+    );
+
+    setStudentAppointments(response.data.bookedAppointments);
     
   } catch (error: any) {
     toast.error("You are Not Login! Please Login");

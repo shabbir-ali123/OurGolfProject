@@ -1,5 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
-import InputWithIcon from "../FormComponents";
+import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/solid";
 
 export const UploaderInput = ({
   handleUploadChange,

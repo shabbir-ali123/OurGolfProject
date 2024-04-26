@@ -1,10 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
-import { BellIcon } from "@heroicons/react/20/solid";
 import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notificationContext";
 import { getTimeAgo } from "./ReadPost";
-import { approveEvent } from "../utils/fetchEvents";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fetchNotifications, updateNotificationsStatus } from "../utils/fetchNotifications";
@@ -12,11 +10,10 @@ import { fetchNotifications, updateNotificationsStatus } from "../utils/fetchNot
 export default function AllNotification() {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
-  const { t, i18n } = useTranslation();
-  const [notificationData, setNotificationData] = useState([]);
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { isloading, handleMessage } =
+  const { isloading, handleMessage, notificationData } =
     notificationsContextStore();
 
   const handleApprove = (e: any, eventId: any, message: any) => {
@@ -30,16 +27,6 @@ export default function AllNotification() {
     toast.success("Marked as Read Successfully");
 
   };
-
-  useEffect(() => {
-    const updateNotifications = () => {
-      fetchNotifications(setNotificationData, setIsLoading);
-    };
-    updateNotifications();
-    // const intervalId = setInterval(updateNotifications, 10000);
-    // return () => clearInterval(intervalId);
-  }, []);
-  const currentUserId = localStorage.getItem("id");
   return (
     <>
       {
@@ -48,9 +35,7 @@ export default function AllNotification() {
             <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
             <p>loading...</p>
           </div>
-
         </div> :
-
           <div className="max-w-7xl mx-10 xl:mx-auto">
             <h4>{t("ALL_NOTIFICATION")}</h4>
             <div
@@ -59,11 +44,6 @@ export default function AllNotification() {
             >
               <div className="w-full justify-center">
                 {notificationData?.map((item: any, index: any) => {
-                  // if (
-                  //   (item.organizerId == currentUserId) ||
-                  //   (item.teacherId == currentUserId) ||
-                  //   (item.userId == currentUserId)
-                  // ) {
                   return (
                     <Transition
                       show={show}
@@ -115,20 +95,7 @@ export default function AllNotification() {
                               <p className="mt-1 text-sm text-gray-500">
                                 {item.message}
                               </p>
-                              {/* {!item.isRead && (
-                                <div className="mt-4 flex">
-                                  <button
-                                    type="button"
-                                    className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    onClick={(e) =>
-                                      handleApprove(e, item?.id, item?.message)
-                                    }
-                                  >
-                                    {t("IS_READ")}
-                                  </button>
-                              
-                                </div>
-                              )} */}
+                            
                             </div>
                             <div className="text-start flex-col mb-2">
                               {!item.isRead && (

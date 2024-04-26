@@ -258,29 +258,9 @@ const SideMenu: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const { notifications, notificationData } = notificationsContextStore();
-  let userId = localStorage.getItem("id");
-  const [eventJoined, setEventJoined] = useState<any[]>([]);
-  useEffect(() => {
-    const handleJoinEvent = (data: any) => {
-      console.log(data, "data for sockets");
-      if (data?.organizerId == userId) {
-        setEventJoined((prev: any) => [...prev, data]);
-      }
-    };
-    socket.on("joinRequest", handleJoinEvent);
+  const { notifications,filteredNotifications } = notificationsContextStore();
 
-    return () => {
-      socket.off("joinRequest", handleJoinEvent);
-    };
-  }, []);
-  const filteredNotifications = notificationData?.filter((item: any) => {
-    if (
-      (item.isRead !== true)
-    ) {
-      return true;
-    }
-  });
+
 
   return (
     <>
@@ -348,10 +328,8 @@ const SideMenu: React.FC = () => {
               >
                 {item.properties && (
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
-                    {/* {n.length > 0 && n.length} */}
-                    {filteredNotifications &&
-                      eventJoined &&
-                      filteredNotifications.length + eventJoined.length}
+                      {/* {n.length > 0 && n.length} */}
+                  {filteredNotifications?.length + notifications?.length}
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                   </div>
                 )}

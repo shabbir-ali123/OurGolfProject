@@ -9,6 +9,7 @@ export const fetchNotifications = async (
   try {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("id");
+    const tId = localStorage.getItem("teacher_id");
     const headers: any = {
         "ngrok-skip-browser-warning": "69420"
       };
@@ -18,7 +19,8 @@ export const fetchNotifications = async (
     const response = await axios.get(API_ENDPOINTS.GET_NOTIFICATION, {
       headers,
       params:{
-        organizerId:userId
+        organizerId: userId,
+        // teacherId: tId
       }
     });
     setNotificationData(response.data.notifications);
@@ -28,6 +30,7 @@ export const fetchNotifications = async (
     setIsLoading(false);
   }
 };
+
 export const updateNotificationsStatus = async (
   setIsLoading:any,
   formData: any,
@@ -35,19 +38,17 @@ export const updateNotificationsStatus = async (
   try {
     const token = localStorage.getItem("token");
     const headers: any = {
-        "ngrok-skip-browser-warning": "69420"
-      };
+        };
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
     const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, formData, {
       headers
     });
+    
+    setIsLoading(response.data);
 
   } catch (error) {
     console.log(error) 
-  } finally {
-    setIsLoading(false);
-    toast.success('response')
-  }
+  } 
 };
