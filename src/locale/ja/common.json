@@ -297,6 +297,8 @@
     "JOINED_MEMBER":"加入メンバー",
     "JOIN_NOW":"今すぐ参加",
     "JOIN":"参加",
+    "JOINED":"参加しました",
+    "EDITSCORE":"スコアを編集する",
     "UPDATE_TEAM":"今すぐ参加",
     "VIEW_FULL":"フルスコアを表示",
     "ALL_NOTIFICATION":"すべての通知",

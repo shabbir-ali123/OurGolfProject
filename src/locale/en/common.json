@@ -294,6 +294,8 @@
     "JOINED_MEMBER":"Joined Members",
     "JOIN_NOW":"Join Now",
     "JOIN":"Join",
+    "JOINED":"Joined",
+    "EDITSCORE":"Edit Score",
     "CANCELLATION_FEE":"About the cancellations",
     "CANCELLATION":"Cancellation Fee",
     "UPDATE_TEAM":"Update Team",

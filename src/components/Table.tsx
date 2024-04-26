@@ -225,7 +225,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         (like: any) =>
                           parseInt(`${like.userId}`) === parseInt(`${userId}`)
                       )?.counter;
-
+                      const isUserIdMatched = event?.teams.some((team: any) =>
+                        team.members.some(
+                          (member: any) => member.userId == userId
+                        )
+                      );
                       return (
                         <React.Fragment key={index}>
                           <tr
@@ -309,10 +313,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               {event.eventStartTime}
                             </td>
 
-                            <td
-                              className="px-3 py-2 text-sm flex-wrap"
-                            
-                            >
+                            <td className="px-3 py-2 text-sm flex-wrap">
                               <p className="my-1 p-0">
                                 <span className="font-bold m-0 p-0">
                                   {" "}
@@ -329,13 +330,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 {event.capacity * event.teamSize}
                               </p>
 
-                            {checkedJoined && event.eventType !== "normal" ? (
-                                <span className=" px-1 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  " onClick={
-                                  (e)=>{
+                              {checkedJoined && event.eventType !== "normal" ? (
+                                <span
+                                  className=" px-1 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
+                                  onClick={(e) => {
                                     e.preventDefault();
-                                    router('/add-score-page/' + event.id);                                  }
-
-                                }>
+                                    router("/add-score-page/" + event.id);
+                                  }}
+                                >
                                   <p
                                     className="bg-[#DDF4F2] w-[50%] py-2 text-center rounded-lg m-0 hover:bg-black"
                                     style={{
@@ -347,15 +349,38 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </p>
                                 </span>
                               ) : (
-                                <span className=" px-2 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  " onClick={() => router(`/edit-team/${event.id}`)}>
+                                <span
+                                  className={` ${
+                                    isUserIdMatched
+                                      ? "text-[#fff]"
+                                      : "text-[#17B3A6]"
+                                  } px-2  font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer `}
+                                  onClick={() => {
+                                    isUserIdMatched &&
+                                    event.scoringType != "Normal"
+                                      ? router(`/add-score-page/${event.id}`)
+                                      : event.scoringType == "Normal"
+                                      ? router(`/edit-team/${event.id}`)
+                                      : router(`/pay-now/${event.id}`);
+                                  }}
+                                >
                                   <p
-                                    className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black"
+                                    className={` ${
+                                      isUserIdMatched
+                                        ? "bg-[#ff373a]"
+                                        : "bg-[#DDF4F2]"
+                                    }   w-[50%] px-6 py-2 text-center rounded-lg m-0 hover:bg-black`}
                                     style={{
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                     }}
                                   >
-                                    {t("JOIN")}
+                                    {isUserIdMatched &&
+                                    event.scoringType != "Normal"
+                                      ? t("EDITSCORE")
+                                      : event.scoringType == "Normal"
+                                      ? t("JOINED")
+                                      : t("JOIN")}
                                   </p>
                                 </span>
                               )}
