@@ -4,7 +4,9 @@ import HomeEventCard from './HomeEventCard';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./home.css"
+import { eventContextStore } from '../../contexts/eventContext';
 const RecommendedEvents: React.FC = () => {
+  const {eventss} =eventContextStore()
     const Events = [
         {
             imageUrl: "/img/teacher1.png",
@@ -75,8 +77,8 @@ const RecommendedEvents: React.FC = () => {
             </div>
             <h2 className="text-center text-2xl font-bold my-8 text-white bg-[#17B3A6] shadow-lg max-w-2xl py-4 border-2 border-white border-solid mx-auto">Recommended Events Around You</h2>
             <Slider {...settings} className='mx-2 xl:mx-20'>
-                {Events.map((teacher, index) => (
-                    <HomeEventCard key={index} imageUrl={teacher.imageUrl} name={teacher.name} description={teacher.description} />
+                {eventss.map((teacher:any, index:any) => (
+                    <HomeEventCard key={index} imageUrl={teacher?.imageUrl[0]} id={teacher?.id} name={teacher?.eventName} description={teacher?.eventDetails} />
                 ))}
             </Slider>
         </div>

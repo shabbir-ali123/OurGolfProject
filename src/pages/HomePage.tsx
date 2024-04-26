@@ -6,6 +6,7 @@ import RecommendedTeachers from "../components/home/RecommendTeac";
 import RecommendEvent from "../components/home/RecommendEvent"
 import RecommendedPosts from "../components/home/RecommendPosts";
 import { PostContext } from "../contexts/postsContext";
+import { EventsContext } from "../contexts/eventContext";
 
 const HomePage: React.FC = () => {
 
@@ -18,7 +19,10 @@ const HomePage: React.FC = () => {
 
             </div>
             <RecommendedTeachers/>
+            <EventsContext>
             <RecommendEvent/>
+            </EventsContext>
+            
             <PostContext>
             <RecommendedPosts/>
             </PostContext>
