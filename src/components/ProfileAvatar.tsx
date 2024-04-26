@@ -54,7 +54,7 @@ icon,
   };
 
   return (
-    <div className="relative">
+    <div className="flex justify-center">
       <div
         onClick={handleImageClick}
         style={{ cursor: "pointer", width: "150px", height: "150px" }}

@@ -103,11 +103,11 @@ export default function LocationFilter({handleLocationChange}: any) {
 
 
       const handleChange = (selectedOption: OptionType | null) => {
-        handleLocationChange(selectedOption); // Pass the selected option to the provided function
+        handleLocationChange(selectedOption);
       };
 
     return (
-        <div className="relative w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
+        <div className="relative text-start w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
               <label
                 className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
                 htmlFor="place"

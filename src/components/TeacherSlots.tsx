@@ -110,7 +110,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
   };
   return (
     <div className="mt-10">
-      <h3 className="font-semibold mb-4 text-lg">Availability</h3>
+      <h3 className="font-semibold mb-4 text-lg">{t("AVAILIBILTY")}</h3>
       <div className="div">
         <TeacherCalender
           startEndDates={schedules}
@@ -144,7 +144,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
           className="text-sm w-full cursor-pointer text-center px-1 py-4 rounded-lg shadow-sm bg-[#17b3a6] text-white mt-2"
           onClick={handleShowMore}
         >
-          Show More
+          {t("SHOW_MORE")}
         </button>
         </div>
       )}
@@ -155,7 +155,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
         className="bg-[#17b3a6] text-white text-lg px-4 py-4 cursor-pointer rounded hover:bg-green-600 w-full my-6"
         onClick={handleBookAppointment}
       >
-        Book an Appointment
+        {t("BOOK_APPOINTMENT")}
       </button>
       <div>
         <div className="flex items-center justify-end ">
