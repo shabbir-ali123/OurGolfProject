@@ -37,30 +37,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const handleSubItemClick = (itemName: string) => {
     setActiveSubMenu(activeSubMenu === itemName ? null : itemName);
   };
-  let userId = localStorage.getItem("id");
-  const [eventJoined, setEventJoined] = useState<any[]>([]);
-  useEffect(() => {
-    const handleJoinEvent = (data: any) => {
-      console.log(data, "data for sockets");
-      if (data?.organizerId == userId) {
-        setEventJoined((prev: any) => [...prev, data]);
-      }
-    };
-    socket.on("joinRequest", handleJoinEvent);
 
-    return () => {
-      socket.off("joinRequest", handleJoinEvent);
-    };
-  }, []);
-  const { notifications, notificationData } = notificationsContextStore();
+  const { notifications, filteredNotifications } = notificationsContextStore();
 
-  const filteredNotifications = notificationData?.filter((item: any) => {
-    if (
-      ( item.isRead !== true)
-    ) {
-      return true;
-    }
-  });
+
 
   return (
     <>
@@ -94,9 +74,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                        {item.properties && (
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[6px] left-[5px]">
                     
-                    {filteredNotifications &&
-                      eventJoined &&
-                      filteredNotifications.length + eventJoined.length}
+                    {
+                      filteredNotifications?.length + notifications?.length}
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                   </div>
                 )}

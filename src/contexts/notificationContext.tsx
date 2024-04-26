@@ -11,17 +11,26 @@ export const NotificationsContext = ({ children }: any) => {
   const [message, setMessage] = useState(null)
   const [formData, setFormData] = useState<any>({userId: '', eventId: ''});
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  let userId = localStorage.getItem("id");
+  let tId = localStorage.getItem("teacher_id");
+
+  
   useEffect(() => {
     fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
-      setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
+      const check = (data.teacherId == tId || data.organizer == userId)
+      if(check){
+        setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
+      }
     };    
     socket.on('appointmentBooked', handleAppointmentBooked);
+    socket.on('joinRequest', handleAppointmentBooked);
 
     return () => {
       socket.off('appointmentBooked', handleAppointmentBooked);
+      socket.off('joinRequest', handleAppointmentBooked);
     };
-  }, [isLoading]); 
+  }, [isLoading, message]); 
 
   const handleNotification = useCallback((value: any) => {
     setNotifications(value);
@@ -33,13 +42,17 @@ export const NotificationsContext = ({ children }: any) => {
 
   const handleFormData = useCallback((value: any) => {
     setFormData(value)
-  }, [formData])
-  // const approveEvents = useCallback((value: any) => {
-  //   approveEvent(formData, handleMessage);
-  //   }, [formData])
+  }, [formData]);
+  const filteredNotifications = notificationData?.filter((item: any) => {
+    if (
+      (item.isRead !== true)
+    ) {
+      console.log("asdasd")
+      return true;
+    }
+  });
 
-
-  const value = { handleNotification, handleMessage, handleFormData, isLoading, formData, notifications,  notificationData }; 
+  const value = { handleNotification, handleMessage, handleFormData, isLoading, formData, notifications,filteredNotifications,  notificationData }; 
 
   return <NotiContext.Provider value={value}> {children}</NotiContext.Provider>
 }

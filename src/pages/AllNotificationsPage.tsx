@@ -11,10 +11,9 @@ export default function AllNotification() {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const { t } = useTranslation();
-  const { notificationData } = notificationsContextStore()
   const [isLoading, setIsLoading] = useState(true);
 
-  const { isloading, handleMessage } =
+  const { isloading, handleMessage, notificationData } =
     notificationsContextStore();
 
   const handleApprove = (e: any, eventId: any, message: any) => {
