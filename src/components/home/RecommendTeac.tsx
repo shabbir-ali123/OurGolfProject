@@ -5,7 +5,10 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./home.css"
+import { useTranslation } from "react-i18next";
+import { Link } from 'react-router-dom';
 const RecommendedTeachers: React.FC = () => {
+  const { t, i18n } = useTranslation();
     const teachers = [
         {
             imageUrl: "/img/teacher1.png",
@@ -68,7 +71,10 @@ const RecommendedTeachers: React.FC = () => {
             <div>
                 <img src="/img/arrowss.png" width="230px" className='absolute right-[66%]' alt="" />
             </div>
-            <h2 className="text-center text-2xl font-bold my-8 text-white bg-[#17B3A6] shadow-lg max-w-2xl py-4  border-2 border-white border-solid mx-auto">Recommended Teachers Around You</h2>
+            <Link to="/all-teachers">
+            <h2 className="cursor-pointer text-center text-2xl font-bold my-8 text-white bg-[#17B3A6] shadow-lg max-w-2xl py-4  border-2 border-white border-solid mx-auto">{t("RECOMMENDED_TEACHER")}</h2>
+            </Link>
+            
            
             <Slider {...settings} className='mx-2 xl:mx-20'>
                 {teachers.map((teacher, index) => (
