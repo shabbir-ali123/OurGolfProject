@@ -332,14 +332,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                               {checkedJoined && event.eventType !== "normal" ? (
                                 <span
-                                  className=" px-1 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
+                                  className=" px-1 w-[50%]  text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
                                   onClick={(e) => {
                                     e.preventDefault();
                                     router("/add-score-page/" + event.id);
                                   }}
                                 >
                                   <p
-                                    className="bg-[#DDF4F2] w-[50%] py-2 text-center rounded-lg m-0 hover:bg-black"
+                                    className="bg-[#DDF4F2] py-2 text-center rounded-lg m-0 hover:bg-black"
                                     style={{
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
@@ -369,7 +369,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                       isUserIdMatched
                                         ? "bg-[#ff373a]"
                                         : "bg-[#DDF4F2]"
-                                    }   w-[50%] px-6 py-2 text-center rounded-lg m-0 hover:bg-black`}
+                                    }   w-[70%] py-2 text-center rounded-lg m-0 hover:bg-black`}
                                     style={{
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
@@ -485,6 +485,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       (like: any) =>
                         parseInt(`${like.userId}`) === parseInt(`${userId}`)
                     )?.counter;
+                    const isUserIdMatched = item?.teams.some((team: any) =>
+                    team.members.some(
+                      (member: any) => member.userId == userId
+                    )
+                  );
                     return (
                       <div className="grid gap-2 px-4 py-1 border border-solid border-[#DCDCDC] mb-2 items-center">
                         <div className="grid grid-cols-2 bg-[#F5F5F5] items-center ">
@@ -564,17 +569,22 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               {item.capacity * item.teamSize}
                             </p>
                             <span
-                              className=" px-0 text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
+                              className={` ${isUserIdMatched ? "text-[#fff]":"text-[#17B3A6] "}  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
                               onClick={() => router(`/edit-team/${item.id}`)}
                             >
                               <p
-                                className="bg-[#DDF4F2] w-10 px-6 py-2 text-center rounded-lg m-0 hover:bg-black"
+                                className={`${isUserIdMatched ? "bg-[#ff3b41]":"bg-[#DDF4F2]"}  w-[50%] px-2 py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
                                 style={{
                                   boxShadow:
                                     "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                 }}
                               >
-                                Join
+                               {isUserIdMatched &&
+                                    item.scoringType != "Normal"
+                                      ? t("EDITSCORE")
+                                      : item.scoringType == "Normal"
+                                      ? t("JOINED")
+                                      : t("JOIN")}
                               </p>
                             </span>
                           </div>
