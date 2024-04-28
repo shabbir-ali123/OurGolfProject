@@ -275,13 +275,13 @@ function App() {
         <Header />
         <SideIconMenu />
         <Routes>
-          <Route path="/" element={<EventMainPage />} index />
+          <Route path="/event-main-page" element={<EventMainPage />} index />
           <Route
             path="/ongoing-indiviual-score"
             element={token ? <OngoingIndiviualScore /> : <LoginPage />}
           />
           <Route
-            path="/home-page"
+            path="/"
             element={<HomePage />}
           />
           <Route path="/event-main-page" element={<EventMainPage />} />

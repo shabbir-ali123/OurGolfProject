@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon, HomeIcon, UserGroupIcon, CalendarIcon, ClipboardIcon } from "@heroicons/react/24/solid";
+import { Bars3Icon, XMarkIcon, HomeIcon, UserGroupIcon, CalendarIcon, ClipboardIcon,LockClosedIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
 import { useTranslation } from "react-i18next";
@@ -8,10 +8,12 @@ import socket from "../socket";
 import MobileMenu from "./MobileMenu";
 
 export const navigation = [
-  { name: "Home", to: "/home-page", icon: HomeIcon },
+  { name: "Home", to: "/", icon: HomeIcon },
   { name: "Find_teacher", to: "/all-teachers", icon: UserGroupIcon },
   { name: "Events", to: "/event-main-page", icon: CalendarIcon },
   { name: "Posts", to: "/post-page", icon: ClipboardIcon },
+  { name: "PRIVACY_POLICY", to: "https://info.golf-encounters.com/%e3%83%97%e3%83%a9%e3%82%a4%e3%83%90%e3%82%b7%e3%83%bc%e3%83%9d%e3%83%aa%e3%82%b7%e3%83%bc/", icon: LockClosedIcon },
+  { name: "COMPANY_INFO", to: "https://info.golf-encounters.com/%e7%89%b9%e5%ae%9a%e5%95%86%e5%8f%96%e5%bc%95%e6%b3%95%e3%81%ab%e5%9f%ba%e3%81%a5%e3%81%8f%e8%a1%a8%e8%a8%98/", icon: InformationCircleIcon },
 ];
 
 const Header: React.FC = () => {
@@ -46,7 +48,7 @@ const Header: React.FC = () => {
             {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
           </button>
 
-          <div className="hidden gap-x-6 lg:flex items-center xl:gap-x-16">
+          <div className="hidden gap-x-6 lg:flex items-center xl:gap-x-20">
             {navigation.map((item) => (
               <Link
                 key={item.name}

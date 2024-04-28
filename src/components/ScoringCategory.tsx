@@ -547,7 +547,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                 </div>
               </div>
             )}
-            <p className="text-[#626262]">Optional</p>
+            <p className="text-[#626262]">{t("OPTIONAL")}</p>
 
             <div className="flex items-center col-span-12 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
               <label

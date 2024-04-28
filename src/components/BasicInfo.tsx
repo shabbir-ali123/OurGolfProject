@@ -412,7 +412,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
             value={formData?.participationFee}
             onChange={onChange}
             title="Please enter a valid number"
-            placeholder="¥ Enter Amount"
+            placeholder={t("ENTER_AMOUNT")}
             min="0"
           />
         </div>

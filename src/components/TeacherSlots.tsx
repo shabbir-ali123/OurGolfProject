@@ -152,7 +152,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
         tId != teacherId && <>
         
       <button
-        className="bg-[#17b3a6] text-white text-lg px-4 py-4 cursor-pointer rounded hover:bg-green-600 w-full my-6"
+        className="bg-[#4f46e5] text-white text-lg px-4 py-4 cursor-pointer rounded hover:bg-green-600 w-full my-6"
         onClick={handleBookAppointment}
       >
         {t("BOOK_APPOINTMENT")}

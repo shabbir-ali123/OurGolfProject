@@ -39,7 +39,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
       const userId = localStorage.getItem("id") ?? "";
 
       if (!token) {
-        toast.error(`You are Not Login! Please Login`);
+        toast.error(`ログインされていません`);
         return;
       }
       const formdata = new FormData();

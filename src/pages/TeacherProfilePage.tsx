@@ -47,7 +47,7 @@ const TeacherProfile: React.FC = () => {
 
       setFormData(formData); 
     } catch (error) {
-      toast.error(          `You are Not Login! Please Login`)        ;
+      toast.error( `ログインされていません`)        ;
     }
   };
 

@@ -8,8 +8,10 @@ import "slick-carousel/slick/slick-theme.css";
 import "./home.css"
 import TopLikes from './TopLikes';
 import TopComments from './TopComments';
-
+import { useTranslation } from "react-i18next";
+import { Link } from 'react-router-dom';
 const RecommendedPosts: React.FC = () => {
+  const { t, i18n } = useTranslation();
     const {mostLiked, mostCommented}=postContext()
 
     const comments = [
@@ -74,14 +76,17 @@ const RecommendedPosts: React.FC = () => {
              <div>
                 <img src="/img/colorarrow.png" width="230px" className='absolute right-[66%]' alt="" />
             </div>
-            <h2 className="text-center text-2xl font-bold my-8 text-white bg-[#17B3A6] shadow-lg max-w-2xl py-4  border-2 border-white border-solid mx-4 xl:mx-auto">News are always posted in here.</h2>
+            <Link to="/post-page">
+            <h2 className="cursor-pointer text-center text-2xl font-bold my-8 text-white bg-[#17B3A6] shadow-lg max-w-2xl py-4  border-2 border-white border-solid mx-4 xl:mx-auto">{t("RECOMMENDED_POST")}</h2>
+            </Link>
+            
             <div className=" px-4 py-10 xl:py-20 "style={{ 
             backgroundImage: "url('/img/shape.png')",
             backgroundSize: 'cover', 
             // Center the background image
           }}>
             <div>
-            <h3 className='text-[24px] font-semibold text-[#17B3A6] ml-8 xl:ml-24 xl:pt-20 pt-10'>Top Liked Posts</h3>
+            <h3 className='text-[24px] font-semibold text-[#17B3A6] ml-8 xl:ml-24 xl:pt-20 pt-10'>{t("TOP_LIKED")}</h3>
            
            <Slider {...settings} className='mx-2 xl:mx-20'>
                {mostLiked?.map((teacher: any, index: React.Key | null | undefined) => (
@@ -90,7 +95,7 @@ const RecommendedPosts: React.FC = () => {
                </Slider>
             </div>
             <div>
-            <h3 className='text-[24px] font-semibold text-[#17B3A6] ml-8 xl:ml-24 xl:pt-20 pt-10'>Top Commented Posts</h3>
+            <h3 className='text-[24px] font-semibold text-[#17B3A6] ml-8 xl:ml-24 xl:pt-20 pt-10'>{t("TOP_COMMENTS")}</h3>
            
            <Slider {...settings} className='mx-2 xl:mx-20'>
               {mostCommented?.map((teacher: any, index: React.Key | null | undefined) => (

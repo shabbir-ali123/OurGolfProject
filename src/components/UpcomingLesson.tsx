@@ -67,7 +67,7 @@ const UpcomimgLessonsPage: React.FC = () => {
         // }
         setUpcomingLessons(response.data.bookedAppointments);
       } catch (error: any) {
-        toast.error("You are Not Login! Please Login");
+        toast.error("ログインされていません");
       }
     };
   

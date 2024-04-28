@@ -129,7 +129,7 @@ const Profile = () => {
                     />
                   </svg>
                 </span>
-                <span>Edit Profile</span>
+                <span>{t("EDIT_PROFILE")}</span>
                 </div>
                 {
                   tId !== 'null' && (
@@ -217,37 +217,37 @@ const Profile = () => {
                 <span className="font-semibold text-black dark:text-white">
                   {post.length}
                 </span>
-                <span className="text-sm">Posts</span>
+                <span className="text-sm">{t("POSTS")}</span>
               </div>
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
                   {createdEvents.length}
                 </span>
-                <span className="text-sm">Events</span>
+                <span className="text-sm">{t("EVENTS")}</span>
               </div>
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
                   259
                 </span>
-                <span className="text-sm">Joined Events</span>
+                <span className="text-sm">{t("JOINED_EVENTS")}</span>
               </div>
 
               <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
                   2K
                 </span>
-                <span className="text-sm">Created Events</span>
+                <span className="text-sm">{t("CREATED_EVENTS")}</span>
               </div>
             </div>
             <div className="text-center md:mt-20 sm:mt-0">
               <p className="font-bold">
-                Member Since : {formatDate(user.createdAt)}
+              {t("MEMBERS_SINCE")} : {formatDate(user.createdAt)}
               </p>
             </div>
           </div>
         </div>
         <div>
-          <h3>Appointment Status:</h3>
+          <h3>{t("APPOINTMENTS_STATUS")}:</h3>
           <>
       {
         isLoading ? <div className="flex justify-center items-center h-[100vh]">

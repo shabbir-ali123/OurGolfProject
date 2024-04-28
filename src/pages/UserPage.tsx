@@ -80,7 +80,7 @@ const UserProfile = () => {
                 <span className="font-semibold text-black dark:text-white">
                   {postCount?.length} 
                 </span>
-                <span className="text-sm">Posts</span>
+                <span className="text-sm">{t("POSTS")}</span>
               </div>
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row cursor-pointer" >
                 <span className="font-semibold text-black dark:text-white">

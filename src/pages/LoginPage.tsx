@@ -42,7 +42,7 @@ const Login: React.FC = () => {
         localStorage.setItem("teacher_id", response.data.teacherId);
         localStorage.setItem('tokenTimestamp', tokenTimestamp);
 
-        router("/event-main-page");
+        router("/");
         window.location.reload();
       }
       setError(null);
