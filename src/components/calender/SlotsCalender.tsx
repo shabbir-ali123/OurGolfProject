@@ -21,7 +21,7 @@ function classNames(...classes:any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFilter }:any) => {
+export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFilter, onWeekSelected }:any) => {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [click, setClick] = useState<boolean>(false);
@@ -36,6 +36,7 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
     const matchedShifts = startEndDates?.flatMap(({ shifts }:any) =>
       shifts.filter((shift:any) => shift.day.toLowerCase() === formattedMonth.toLowerCase())
     );
+    onWeekSelected(selectedDate)
   }, [selectedDate, startEndDates]);
 
   const handleDateClick = (date:any) => {

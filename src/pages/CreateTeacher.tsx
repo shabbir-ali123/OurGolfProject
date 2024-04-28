@@ -102,7 +102,6 @@ const CreateTeacher: React.FC = () => {
       setPortfolioVideo(objectURL);
       setVideoPortfolioVisible(true);
     }
-    console.log(formData);
   };
 
   const profileImageInputRef = useRef<HTMLInputElement>(null);
@@ -234,6 +233,7 @@ const CreateTeacher: React.FC = () => {
 
   const handleWeekSelected = (date: Date) => {
     setSelectedWeekStart(date);
+    
   };
 
   const handleTabClick = (date: Date) => {
@@ -579,8 +579,8 @@ const CreateTeacher: React.FC = () => {
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender/>
-          <CalendarSlider onWeekSelected={handleWeekSelected} />
+          <SlotsCalender onWeekSelected={handleWeekSelected}/>
+          {/* <CalendarSlider onWeekSelected={handleWeekSelected} /> */}
           <div className="grid grid-cols-1 gap-4 py-2 text-center ">
             <div className="col-span-1 font-bold ">{t("TIME")}</div>
             <div className="w-full flex justify-center gap-4 xl:gap-24 ml-0 xl:ml-10  overflow-x-scroll xl:overflow-auto">
