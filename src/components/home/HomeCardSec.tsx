@@ -39,7 +39,7 @@ const additionalOfferings = [
 ];
 
     return (
-        <div className="xl:container mx-auto px-4 py-10">
+        <div className=" mx-auto px-10 py-10">
             <h2 className="text-center text-[#17B3A6] text-[32px] font-medium my-8">{t("THIS_GOLF")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
                 {offerings.map((offering, index) => (

@@ -170,17 +170,93 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
     onChange(scoringType, event);
   };
 
+  // const handleHoleSelection = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  //   scoretype:any,
+  //   index: number
+  // ) => {
+  //   console.log(scoretype, "handleholeselection");
+  //   const hole = String(index + 1);
+  //   const updatedSelectedHoles = formData[
+  //     selectedScoringType
+  //   ].selectedHoles.includes(hole)
+  //     ? formData[selectedScoringType].selectedHoles.filter((h) => h !== hole)
+  //     : [...formData[selectedScoringType].selectedHoles, hole];
+
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [selectedScoringType]: {
+  //       ...prevFormData[selectedScoringType],
+  //       selectedHoles: updatedSelectedHoles,
+  //     },
+  //   }));
+  // };
+
   const handleHoleSelection = (
     event: React.ChangeEvent<HTMLInputElement>,
+    scoretype: any,
     index: number
   ) => {
+    console.log(scoretype, "handleholeselection");
     const hole = String(index + 1);
-    const updatedSelectedHoles = formData[
-      selectedScoringType
-    ].selectedHoles.includes(hole)
-      ? formData[selectedScoringType].selectedHoles.filter((h) => h !== hole)
-      : [...formData[selectedScoringType].selectedHoles, hole];
+    let updatedSelectedHoles:any;
+  
+    //peria
+    if (scoretype === "single" && formData[selectedScoringType].selectedHoles.length >= 6) {
+      if (formData[selectedScoringType].selectedHoles.includes(hole)) {
+        updatedSelectedHoles = formData[selectedScoringType].selectedHoles.filter((h) => h !== hole);
+      } else {
+        alert("6 " + t("SELECT_HOLE"));
+        updatedSelectedHoles = formData[selectedScoringType].selectedHoles;
+      }
+    }else if(scoretype === "double" && formData[selectedScoringType].selectedHoles.length >= 12) {
+      if (formData[selectedScoringType].selectedHoles.includes(hole)) {
+        updatedSelectedHoles = formData[selectedScoringType].selectedHoles.filter((h) => h !== hole);
+      } else {
+        alert("12 " + t("SELECT_HOLE"));
+        updatedSelectedHoles = formData[selectedScoringType].selectedHoles;
+      }
+    }else if (scoretype === "triple" && formData[selectedScoringType].selectedHoles.length >= 9) {
+        if (formData[selectedScoringType].selectedHoles.includes(hole)) {
+          updatedSelectedHoles = formData[selectedScoringType].selectedHoles.filter((h) => h !== hole);
+        } else {
+          alert("9 " + t("SELECT_HOLE"));
+          updatedSelectedHoles = formData[selectedScoringType].selectedHoles;
+        }
+      }   
+    else { 
+      updatedSelectedHoles = formData[selectedScoringType].selectedHoles.includes(hole)
+        ? formData[selectedScoringType].selectedHoles.filter((h) => h !== hole)
+        : [...formData[selectedScoringType].selectedHoles, hole];
+    }
+  
 
+    // //double
+    // if (scoretype === "double" && formData[selectedScoringType].selectedHoles.length >= 12) {
+    //   if (formData[selectedScoringType].selectedHoles.includes(hole)) {
+    //     updatedSelectedHoles = formData[selectedScoringType].selectedHoles.filter((h) => h !== hole);
+    //   } else {
+    //     alert("You have already selected 12 holes for the double score type. Please deselect another hole to select this one.");
+    //     updatedSelectedHoles = formData[selectedScoringType].selectedHoles;
+    //   }
+    // } else { 
+    //   updatedSelectedHoles = formData[selectedScoringType].selectedHoles.includes(hole)
+    //     ? formData[selectedScoringType].selectedHoles.filter((h) => h !== hole)
+    //     : [...formData[selectedScoringType].selectedHoles, hole];
+    // }
+    // //tripe
+    // if (scoretype === "tripe" && formData[selectedScoringType].selectedHoles.length >= 9) {
+    //   if (formData[selectedScoringType].selectedHoles.includes(hole)) {
+    //     updatedSelectedHoles = formData[selectedScoringType].selectedHoles.filter((h) => h !== hole);
+    //   } else {
+    //     alert("You have already selected 9 holes for the double score type. Please deselect another hole to select this one.");
+    //     updatedSelectedHoles = formData[selectedScoringType].selectedHoles;
+    //   }
+    // } else {
+    //   updatedSelectedHoles = formData[selectedScoringType].selectedHoles.includes(hole)
+    //     ? formData[selectedScoringType].selectedHoles.filter((h) => h !== hole)
+    //     : [...formData[selectedScoringType].selectedHoles, hole];
+    // }
     setFormData((prevFormData) => ({
       ...prevFormData,
       [selectedScoringType]: {
@@ -189,7 +265,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
       },
     }));
   };
-
+  
   useEffect(() => {
     localStorage.setItem("score", selectedScoringType);
     localStorage.setItem(
@@ -346,8 +422,8 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
             {selectedScoringType === Tab.Regular && (
               <div className="grid grid-cols-9 mx-auto lg:gap-x-16">
                 <div className="col-span-8  py-2 lg:col-span-12 md:col-span-5 md:mr-0 md:mb-3">
-                  <h4 className="text-[#626262]">{t("PLEASE_HOLE")} </h4>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+                  <h4 className="text-[#626262] hidden">{t("PLEASE_HOLE")} </h4>
+                  <div className="grid grid-cols-1 hidden gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
                     {Array.from({ length: 18 }, (_, index) => (
                       <div className="flex items-center my-2" key={index + 1}>
                         <div className="flex items-center gap-3">
@@ -356,7 +432,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                             checked={formData[
                               selectedScoringType
                             ].selectedHoles.includes(String(index + 1))}
-                            onChange={(e) => handleHoleSelection(e, index)}
+                            onChange={(e) => handleHoleSelection(e,"regular", index)}
                             id={String(index + 1)}
                             className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                           />
@@ -407,7 +483,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                             checked={formData[
                               selectedScoringType
                             ].selectedHoles.includes(String(index + 1))}
-                            onChange={(e) => handleHoleSelection(e, index)}
+                            onChange={(e) => handleHoleSelection(e,"single", index)}
                             id={String(index + 1)}
                             className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                           />
@@ -460,7 +536,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                             checked={formData[
                               selectedScoringType
                             ].selectedHoles.includes(String(index + 1))}
-                            onChange={(e) => handleHoleSelection(e, index)}
+                            onChange={(e) => handleHoleSelection(e,"double", index)}
                             id={"double" + String(index + 1)}
                             className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                           />
@@ -512,7 +588,7 @@ const ScoringCategory: React.FC<ScoringTypeProps> = ({
                             checked={formData[
                               selectedScoringType
                             ].selectedHoles.includes(String(index + 1))}
-                            onChange={(e) => handleHoleSelection(e, index)}
+                            onChange={(e) => handleHoleSelection(e,"triple", index)}
                             id={String(index + 1)}
                             className="p-3 shadow-lg border-solid border-2 border-[#51ff85] rounded-full"
                           />

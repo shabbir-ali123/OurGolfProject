@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 interface HeroSectionProps {
   videoSrc: string;
@@ -8,42 +8,62 @@ const HeroSection: React.FC<HeroSectionProps> = ({ videoSrc }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
 
+
+  const words = ["GOLF ENCOUNTERS "];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const typingSpeed = 150; // Adjust typing speed as needed
+
+
+  useEffect(() => {
+    const type = () => {
+      const fullText = words[currentWordIndex];
+      let newText = currentText;
+      let currentIndex = currentText.length;
+  
+      if (isDeleting) {
+        newText = fullText.substring(0, currentIndex - 1);
+      } else {
+        newText = fullText.substring(0, currentIndex + 1);
+      }
+  
+      setCurrentText(newText);
+  
+      if (!isDeleting && newText === fullText) {
+        setIsDeleting(true);
+      } else if (isDeleting && newText === '') {
+        setIsDeleting(false);
+        setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+      }
+    };
+  
+    const typingTimeout = setTimeout(type, typingSpeed);
+    return () => clearTimeout(typingTimeout);
+  }, [words, currentWordIndex, currentText, isDeleting, typingSpeed]);
+  
   return (
-    <div className="relative mx-4 xl:mx-20 h-[72vh] overflow-hidden">
+    <div className="mx-4 relative h-[72vh] flex justify-center items-center overflow-hidden z-0">
       <video
-        ref={videoRef}
-        src={videoSrc}
-        loop
-        controls
+        className="w-full"
         autoPlay
-        className="w-full h-full object-cover"
-      />
-     <button
-        onClick={togglePlay}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#17b3a6] bg-opacity-50 rounded-full  text-white py-[12px] px-[13px]"
-        aria-label={isPlaying ? 'Pause video' : 'Play video'}
-      >
-        {isPlaying ? (
-          <svg viewBox="0 0 24 24" fill="currentColor" width="32px" height="32px">
-            <path d="M6 6h12v12H6z"></path>
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="currentColor" width="32px" height="32px">
-            <path d="M8 5v14l11-7z"></path>
-          </svg>
-        )}
-      </button>
+        muted
+        loop
+        playsInline
+        src={videoSrc}
+        data-object-fit="cover"
+      ></video>
+
+      <div className="z-20 absolute  text-center">
+        <h2 className="text-center text-white">
+          ゴルフがもっと楽しくなる
+        </h2>
+        <h1 className="text-center text-9xl text-white ">
+         <span className="text-9xl" id="typewriter">{currentText}</span> 
+        </h1>  
+      
+      </div>
     </div>
   );
 };
