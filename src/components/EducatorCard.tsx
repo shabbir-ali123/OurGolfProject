@@ -160,7 +160,9 @@ export const EducatorCard = ({
                   <div>
                     <h4 className="m-0 my-1 p-0"> {t("RATING")} </h4>
                     <p className="m-0 p-0">
-                      {rating ? `${rating} (130 ratings)` : "No ratings yet"}
+                      {rating
+                        ? t("RATING_WITH_COUNT", { count: rating, numRatings: 130 })
+                        : t("NO_RATINGS_YET")}
                     </p>
                   </div>
                 </div>
@@ -173,11 +175,10 @@ export const EducatorCard = ({
               {shiftsData.map((shift: any, index: any) => (
                 <button
                   key={index}
-                  className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${bookingsData === shift && '!bg-black'} ${
-                    !shift.isBooked
+                  className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${bookingsData === shift && '!bg-black'} ${!shift.isBooked
                       ? "bg-teal-400 text-white"
                       : "bg-gray-100 text-gray-600 "
-                  } `}
+                    } `}
                   onClick={() => handleSelectedShifts(shift)}
                 >
                   {shift.startTime} - {shift.endTime}

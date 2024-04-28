@@ -43,7 +43,7 @@ const PendingLessonsPage: React.FC = () => {
           setSelectedStudentDetails(response.data.bookedAppointments[0]);
         }
       } catch (error: any) {
-        toast.error("You are Not Login! Please Login");
+        toast.error("ログインされていません");
       }
     };
 

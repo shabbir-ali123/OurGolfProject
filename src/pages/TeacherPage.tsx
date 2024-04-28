@@ -60,7 +60,7 @@ const TeacherProfile: React.FC = () => {
           setSelectedTeacher(teachers);
         }
       } catch (error: any) {
-        toast.error(          `You are Not Login! Please Login`)        ;
+        toast.error(`ログインされていません`)        ;
 
       }
     };

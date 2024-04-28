@@ -215,7 +215,7 @@ export const fetchTeachersAppointments = async (setAppointments: any, setIsLoadi
     setAppointments(response.data.bookedAppointments);
     
   } catch (error: any) {
-    toast.error("You are Not Login! Please Login");
+    toast.error("ログインされていません");
   } finally {
     setIsLoading(false);
   }
@@ -241,7 +241,7 @@ export const fetchStudentAppointments = async (setStudentAppointments: any, setI
     setStudentAppointments(response.data.bookedAppointments);
     
   } catch (error: any) {
-    toast.error("You are Not Login! Please Login");
+    toast.error("ログインされていません");
   } finally {
     setIsLoading(false);
   }

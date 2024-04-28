@@ -296,7 +296,7 @@ export const fetchJoinedEvents = async (setJoinedEvents: any, setEventsCount: an
   try {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error(`You are Not Login! Please Login`);
+      toast.error(`ログインされていません`);
       return;
     }
 
@@ -342,7 +342,7 @@ export const fetchFavoriteEvents = async (setFavoriteEvents: any, setEventsCount
     setFavoriteEvents(response.data.events);
     setEventsCount(response.data.count)
   } catch (error) {
-    toast.error(`You are Not Login! Please Login`);
+    toast.error(`ログインされていません`);
   }
 };
 

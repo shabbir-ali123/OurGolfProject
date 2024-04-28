@@ -53,7 +53,7 @@ const SingleTeacherBooked: React.FC<SingleTeacherBookedProps> = ({
         setTeachers(response.data.bookedAppointments);
         setLoading(false);
       } catch (error: any) {
-        toast.error(`You are Not Login! Please Login`)        ;
+        toast.error(`ログインされていません`)        ;
         setLoading(false);
       }
     };

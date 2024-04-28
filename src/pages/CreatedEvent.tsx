@@ -159,7 +159,7 @@ const CreatedEvents: React.FC = () => {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndDate}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4] text-start xl:flex gap-4 ">
                                         <Link className='flex items-center gap-1 hover:text-[#054a51]' to={`/edit-team/${event.id}`}>
-                                            <EyeIcon className="w-6 h-6 text-[#17b3a6] hover:text-[#054a51]" onClick={() => handleCogIconClick(event)} /> View
+                                            <EyeIcon className="w-6 h-6 text-[#17b3a6] hover:text-[#054a51]" onClick={() => handleCogIconClick(event)} /> {t("VIEW")}
                                         </Link>
                                         <button
                                             className='bg-transparent flex items-center cursor-pointer  gap-1 hover:text-red'
@@ -167,12 +167,12 @@ const CreatedEvents: React.FC = () => {
                                             onClick={(e) => {
                                                 handleDeleteEvent(event.id, e);
                                             }}>
-                                            <TrashIcon className='w-6 h-6' /> Delete
+                                            <TrashIcon className='w-6 h-6' /> {t("DELETE")}
                                         </button>
 
 
 
-                                        <Link className='cursor-pointer flex items-center gap-1  hover:text-green' to={`/edit-event/${event.id}`}><PencilSquareIcon className='w-6 h-6 cursor-pointer' />Edit</Link>
+                                        <Link className='cursor-pointer flex items-center gap-1  hover:text-green' to={`/edit-event/${event.id}`}><PencilSquareIcon className='w-6 h-6 cursor-pointer' />{t("EDIT")}</Link>
                                     </td>
                                 </tr>
                             ))
