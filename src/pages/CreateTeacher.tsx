@@ -11,13 +11,11 @@ import {
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { ShareIcon } from "@heroicons/react/20/solid";
-// import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
-import { button } from "@material-tailwind/react";
 import { SlotsCalender } from "../components/calender/SlotsCalender";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
