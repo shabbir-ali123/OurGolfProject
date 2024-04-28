@@ -83,7 +83,6 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
     eventId: eventIsd,
     content: "",
   });
-  console.log(formData);
 
   useEffect(() => {
     handleSingleEventID(eventIsd);

@@ -325,7 +325,6 @@ const CreateTeacher: React.FC = () => {
     }
   };
 
-  console.log(formData);
   return (
     <div className="py-8 mx-4 xl:mx-0 ">
       <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">

@@ -27,7 +27,6 @@ icon,
   defaultImageUrl,
   onChangeImage,
 }) => {
-  console.log(defaultImageUrl);
   const [imageUrl, setImageUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 

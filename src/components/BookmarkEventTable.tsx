@@ -139,9 +139,6 @@ const BookmarkEvent: React.FunctionComponent<TableProps> = ({ events }) => {
 
   const userId = localStorage.getItem("id");
 
-
-  console.log(joinedEvents, "joinedEvents")
-
   return (
     <div className="animate__animated animate__fadeInLeft">
       {(joinedEvents || []).length === 0 ? (
