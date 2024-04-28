@@ -8,23 +8,13 @@ import {
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { ShareIcon, ArrowLeftIcon } from "@heroicons/react/20/solid";
-import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import UserProfile from "../components/TeacherProfile";
-import {
-  EnvelopeIcon,
-  PhoneArrowUpRightIcon,
-} from "@heroicons/react/24/outline";
-import AboutTeacher from "../components/AboutTeacher";
-import VideoPortfolio from "../components/TeacherPortfolio";
 import { useTeacherContext } from "../contexts/teachersContext";
+import { SlotsCalender } from "../components/calender/SlotsCalender";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -602,7 +592,7 @@ const UpdateTeacher: React.FC = () => {
         </div>
       </div>
       <div className="my-4 mx-10   xl:mx-0">
-        <CalendarSlider onWeekSelected={handleWeekSelected} />
+      <SlotsCalender onWeekSelected={handleWeekSelected}/>
         <div className="grid grid-cols-8 gap-4 py-2 text-center ">
           <div className="col-span-1 font-bold ">{t("TIME")}</div>
           {selectedWeekStart &&

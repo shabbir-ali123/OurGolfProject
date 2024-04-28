@@ -11,7 +11,7 @@ import {
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { ShareIcon } from "@heroicons/react/20/solid";
-import CalendarSlider from "../components/CalendarSlider";
+// import CalendarSlider from "../components/CalendarSlider";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
@@ -580,7 +580,6 @@ const CreateTeacher: React.FC = () => {
 
         <div className="my-4 mx-10   xl:mx-0">
           <SlotsCalender onWeekSelected={handleWeekSelected}/>
-          {/* <CalendarSlider onWeekSelected={handleWeekSelected} /> */}
           <div className="grid grid-cols-1 gap-4 py-2 text-center ">
             <div className="col-span-1 font-bold ">{t("TIME")}</div>
             <div className="w-full flex justify-center gap-4 xl:gap-24 ml-0 xl:ml-10  overflow-x-scroll xl:overflow-auto">
