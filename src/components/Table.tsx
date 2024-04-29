@@ -359,7 +359,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     isUserIdMatched &&
                                     event.scoringType != "Normal"
                                       ? router(`/add-score-page/${event.id}`)
-                                      : event.scoringType == "Normal"
+                                      : isUserIdMatched && event.scoringType == "Normal"
                                       ? router(`/edit-team/${event.id}`)
                                       : router(`/pay-now/${event.id}`);
                                   }}
@@ -369,7 +369,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                       isUserIdMatched
                                         ? "bg-[#ff373a]"
                                         : "bg-[#DDF4F2]"
-                                    }   w-[50%] px-0 py-2 text-center rounded-lg m-0 hover:bg-black`}
+                                    }   w-[70%] px-0 py-2 text-center rounded-lg m-0 hover:bg-black`}
                                     style={{
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
@@ -378,7 +378,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     {isUserIdMatched &&
                                     event.scoringType != "Normal"
                                       ? t("EDITSCORE")
-                                      : event.scoringType == "Normal"
+                                      :isUserIdMatched && event.scoringType == "Normal"
                                       ? t("JOINED")
                                       : t("JOIN")}
                                   </p>
@@ -573,7 +573,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               onClick={() => router(`/edit-team/${item.id}`)}
                             >
                               <p
-                                className={`${isUserIdMatched ? "bg-[#ff3b41]":"bg-[#DDF4F2]"}  w-[50%] px-2 py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
+                                className={`${isUserIdMatched ? "bg-[#ff3b41]":"bg-[#DDF4F2]"}  w-[75%] px-2 py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
                                 style={{
                                   boxShadow:
                                     "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
@@ -582,7 +582,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                {isUserIdMatched &&
                                     item.scoringType != "Normal"
                                       ? t("EDITSCORE")
-                                      : item.scoringType == "Normal"
+                                      : isUserIdMatched && item.scoringType == "Normal"
                                       ? t("JOINED")
                                       : t("JOIN")}
                               </p>
