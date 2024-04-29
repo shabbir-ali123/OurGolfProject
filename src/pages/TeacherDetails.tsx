@@ -111,8 +111,8 @@ const TeacherDetails: React.FC = () => {
                 ) : (
                   <>
                     <h2>
-                      Oops! You dont have{" "}
-                      <span className="text-[#17b3a6]">GIGS!</span>
+                    {t("OPPS")}
+                      <span className="text-[#17b3a6]">GIGS!SS</span>
                     </h2>
                     <button
                       className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
@@ -126,26 +126,26 @@ const TeacherDetails: React.FC = () => {
             ) : (
               <div className="flex flex-col items-center">
                 <h2>
-                  Oops! This Teacher doesn't have{" "}
+                {t("OPPS")}
                   <span className="text-[#17b3a6]">GIGS!</span>
                 </h2>
               </div>
             )}
           </div>
           <div>
-            <h2 className="text-xl font-semibold mb-4">Ratings:</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("RATING")}:</h2>
             {teacher?.rating !== null ? (
-              <h2 className="text-center">No Ratings Yet!</h2>
+              <h2 className="text-center">{t("NO_RATINGS_YET")}</h2>
             ) : (
               <div className="max-w-screen-xl px-6 mx-auto mb-12 lg:px-8 xl:px-4 lg:mb-16 xl:mb-24">
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex flex-col w-full px-4 py-4 space-y-4 border border-yellow-400 rounded-lg bg-yellow-100/50 lg:py-8 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12">
                     <div>
                       <p className="text-lg font-bold text-gray-700 uppercase trakcing-wide lg:text-xl">
-                        4.9 Overall rating
+                        4.9 {t("OVERALL")}
                       </p>
                       <p className="text-base text-gray-600 lg:text-lg">
-                        Serving 3000 students in Japan
+                      {t("SERVING")} 3000 {t("STUDENTS_IN_JAPAN")}
                       </p>
                     </div>
                     <div className="flex space-x-2 text-yellow-400">

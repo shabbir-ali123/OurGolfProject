@@ -59,8 +59,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ videoSrc }) => {
         <h2 className="text-center text-white">
           ゴルフがもっと楽しくなる
         </h2>
-        <h1 className="text-center text-9xl text-white ">
-         <span className="text-9xl" id="typewriter">{currentText}</span> 
+        <h1 className="text-center text-[42px] text-white ">
+         <span className="text-[50px]" id="typewriter">{currentText}</span> 
         </h1>  
       
       </div>

@@ -48,7 +48,7 @@ const Header: React.FC = () => {
             {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
           </button>
 
-          <div className="hidden gap-x-6 lg:flex items-center">
+          <div className="hidden gap-x-12 lg:flex items-center">
             {navigation.map((item) => (
               <Link
                 key={item.name}
