@@ -126,8 +126,6 @@ const PostCard = () => {
         }
       );
       if (response.status === 200) {
-        // fetchPosts(handlePost, category, router);
-        console.log(post, "before");
 
         const userEvent = post.map((e: any) =>
           e.PostLikes?.find(
@@ -160,7 +158,6 @@ const PostCard = () => {
           });
         });
 
-        console.log(post);
         const tt = post.some((item: any) => {
           if (postId === item.id) {
             return item?.PostLikes.some(

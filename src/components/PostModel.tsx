@@ -15,8 +15,7 @@ interface CreatePostType {
 }
 
 const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+  const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const userId = localStorage.getItem("id");

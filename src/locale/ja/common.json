@@ -359,6 +359,8 @@
     "RECOMMENDED_EVENT":"ゴルフコンペやイベントに参加しよう。",
     "RECOMMENDED_POST":"最新のGOLF NEWSを今すぐチェック",
     "RATING_WITH_COUNT": "{{count}} ({{numRatings}} ベヴェルトゥンゲン)",
-    "NO_RATINGS_YET": "まだレビューはありません"
+    "NO_RATINGS_YET": "まだレビューはありません",
+    "COMPLETE_LESSON": "レッスンを完了する",
+    "WRITE_FEEDBACK": "フィードバックを書く"
 
 }
