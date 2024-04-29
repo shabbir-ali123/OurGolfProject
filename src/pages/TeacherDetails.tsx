@@ -127,7 +127,6 @@ const TeacherDetails: React.FC = () => {
               <div className="flex flex-col items-center">
                 <h2>
                 {t("OPPS")}
-                  <span className="text-[#17b3a6]">GIGS!</span>
                 </h2>
               </div>
             )}
