@@ -463,14 +463,14 @@ const CreateTeacher: React.FC = () => {
                         multiple
                         onChange={(event) => handleImageChange(event, "introductionVideo")}
                         accept="video/*"
-                        className="hidden xl:block" // Hide the actual input element
+                        className="hidden xl:block"
                       />
                       <label
                         htmlFor="introductionVideo"
                         className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
                       >
                         <svg
-                          className="w-6 h-6 text-gray-600" // Standard size across all devices
+                          className="w-6 h-6 text-gray-600" 
                           fill="none"
                           strokeLinecap="round"
                           strokeLinejoin="round"

@@ -25,7 +25,7 @@ export const menuItems: MenuItem[] = [
   {
     name: "HOME",
     icon: faHome,
-    path: "/home-page",
+    path: "/",
     active: false,
   },
   {
@@ -204,7 +204,7 @@ const SideMenu: React.FC = () => {
     borderBottom: "1px solid #ffff",
     background:
       window.location.pathname === itemPath
-        ? "linear-gradient(14deg, rgb(23 179 166), rgb(23 179 166 / 58%))"
+        ? "black "
         : "transparent",
     borderRadius: window.location.pathname === itemPath ? "4px" : "",
     boxShadow:
@@ -221,7 +221,7 @@ const SideMenu: React.FC = () => {
     itemPath: string
   ): React.CSSProperties => ({
     fontSize: "20px",
-    color: window.location.pathname === itemPath ? "#fff" : "#565656",
+    color: window.location.pathname === itemPath ? "#fff" : "#fff",
   });
 
   const textStyles = (
@@ -229,7 +229,7 @@ const SideMenu: React.FC = () => {
     itemPath: string
   ): React.CSSProperties => ({
     fontSize: "15px",
-    color: window.location.pathname === itemPath ? "#fff" : "#626262",
+    color: window.location.pathname === itemPath ? "#fff" : "#fff",
     visibility: isMenuOpen ? "visible" : "hidden",
     transition: "visibility 0.3s ease",
     marginLeft: "10px", // Adjust this value as needed
@@ -268,7 +268,8 @@ const SideMenu: React.FC = () => {
         style={{
           zIndex: "10",
           width: isMenuOpen ? "300px" : "50px",
-          backgroundColor: "white",
+          backgroundColor: "#17b3a6",
+          color: "white",
           boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.15)",
           display: isDesktopScreen ? "flex" : "none",
           flexDirection: "column",
@@ -290,7 +291,7 @@ const SideMenu: React.FC = () => {
             fill="white"
             viewBox="0 0 24 24"
             strokeWidth="1.5"
-            stroke="#565656"
+            stroke="#fff"
             className="w-10 h-10 border border-[#51ff85] p-2"
           >
             <path
@@ -374,7 +375,7 @@ const SideMenu: React.FC = () => {
                         key={subItem.name}
                       >
                         <div
-                          className="bg-white rounded-md shadow-lg mt-2 px-6 py-4 text-[#626262]"
+                          className="bg-white rounded-md shadow-lg mt-2 px-6 py-4 text-[black]"
                           style={{
                             boxShadow:
                               "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",

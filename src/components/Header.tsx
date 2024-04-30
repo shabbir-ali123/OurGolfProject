@@ -22,11 +22,19 @@ const Header: React.FC = () => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1670);
   const isActive = (path: any) => {
     return location.pathname === path;
   };
-
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1670);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -39,7 +47,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-[#717171] bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
+      <header className="mx-4 sm:mx-20 my-4 overflow-hidden text-[#fff] bg-[#17b3a6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)]">
         <nav
           className="flex justify-between  gap-x-12  px-4 py-2  lg:items-center xl:px-12 sm:justify-start"
           aria-label="Global"
@@ -53,17 +61,29 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.to}
-                className={`flex items-center text-2xl list-none no-underline font-normal leading-6 text-[#717171] hover:text-teal-400 ${isActive(item.to) ? "active" : ""}`}
+                className={`flex items-center text-2xl list-none no-underline font-normal leading-6 text-[#fff] hover:text-[black] ${isActive(item.to) ? "active" : ""}`}
                 style={isActive(item.to) ? {
-                  background: "rgb(67 188 176)",
+                  background: "black",
                   color: "#ffffff",
                   fontWeight: "400",
                   borderRadius: "5px",
                   padding: "2px 6px",
                 } : {}}
               >
-                <item.icon className="w-6 h-6 mr-2" />
-                {t(item.name.toLocaleUpperCase())}
+              {isSmallScreen ? (
+                  <>
+                    <div className="inline text-center">
+                      <item.icon className="w-6 h-6 mr-2" />
+                      <br />
+                      <span>{t(item.name.toLocaleUpperCase())}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <item.icon className="w-6 h-6 mr-2" />
+                    <span>{t(item.name.toLocaleUpperCase())}</span>
+                  </>
+                )}
               </Link>
             ))}
           

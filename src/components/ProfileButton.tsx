@@ -50,7 +50,7 @@ export default function ProfileButton() {
         <div className="flex items-center">
           {token && user ? (
             <>
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center mx-2">
                 <img
                   onClick={handleDotClick}
                   className="inline-block h-8 w-8 cursor-pointer border-solid border border-[#ffffff] rounded-full p-1"
@@ -59,14 +59,14 @@ export default function ProfileButton() {
                 />
               </div>
               <div className=" sm:gap-2">
-                <p className="m-0 text-base font-medium text-black group-hover:text-gray-900">
+                <p className="my-1 text-base font-medium text-[#fff] group-hover:text-gray-900">
                   {user.nickName ? user.nickName : user.email}
                 </p>
                 <div>
                   <button
                     onClick={() => handleChangeLanguage("ja")}
                     className={
-                      i18n.resolvedLanguage === "ja" ? "actives  rounded-l-full p-1 cursor-pointer" : "rounded-l-full p-1 cursor-pointer"
+                      i18n.resolvedLanguage === "ja" ? "actives  rounded-l-full p-1 cursor-pointer" : "rounded-l-full p-[3px] cursor-pointer bg-transparent border-[1px] border-solid border-white text-white"
                     }
                   >
                     {languages.ja.displayName}
@@ -76,7 +76,7 @@ export default function ProfileButton() {
                     className={
                       i18n.resolvedLanguage === "en"
                         ? "actives rounded-r-full  p-1 cursor-pointer"
-                        : "rounded-r-full p-1 cursor-pointer"
+                        : "rounded-r-full cursor-pointer p-[3px] cursor-pointer bg-transparent border-[1px] border-solid border-white text-white"
                     }
                   >
                     {languages.en.displayName}
@@ -98,7 +98,7 @@ export default function ProfileButton() {
                     className={
                       i18n.resolvedLanguage === "ja"
                         ? "actives rounded-l-full p-1 cursor-pointer"
-                        : "rounded-l-full p-1 cursor-pointer"
+                        : "rounded-l-full  cursor-pointer p-[3px] cursor-pointer bg-transparent border-[1px] border-solid border-white text-white"
                     }
                   >
                     {languages.ja.displayName}
@@ -108,7 +108,7 @@ export default function ProfileButton() {
                     className={
                       i18n.resolvedLanguage === "en"
                         ? "actives rounded-r-full p-1 cursor-pointer"
-                        : "rounded-r-full p-1 cursor-pointer"
+                        : "rounded-r-full  cursor-pointer p-[3px] cursor-pointer bg-transparent border-[1px] border-solid border-white text-white"
                     }
                   >
                     {languages.en.displayName}
@@ -127,7 +127,7 @@ export default function ProfileButton() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
-                stroke="black"
+                stroke="white"
                 className="w-6 h-6 cursor-pointer"
               >
                 <path
@@ -272,7 +272,7 @@ export default function ProfileButton() {
               
               <div className="relative cursor-pointer">
                 <svg
-                  className="w-5 h-5 text-teal-600 animate-wiggle"
+                  className="w-5 h-5 text-white animate-wiggle"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 21 21"
                 >
@@ -284,10 +284,10 @@ export default function ProfileButton() {
                     d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17"
                   />
                 </svg>
-                <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full -top-3 -end-2">
+                <div className="absolute px-1 text-sm text-center text-[#17b3a6] bg-white rounded-full -top-3 -end-2">
                   {/* {n.length > 0 && n.length} */}
                   {filteredNotifications && notifications && (filteredNotifications?.length + notifications.length)}
-                  <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
+                  <div className="absolute top-0 w-full h-full text-black rounded-full start-0 -z-10 animate-ping"></div>
                 </div>
               </div>
             </span>
