@@ -68,7 +68,7 @@ const ScoreBoard: FunctionComponent = () => {
           <LeaderBoardTables />
             
           <IndiviualPlayerScore />
-            <ScoringTabs/>
+            <ScoringTabs singleEvent={singleEvent}/>
           </div>
             
            
