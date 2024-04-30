@@ -4,6 +4,9 @@ import {
   UserIcon,
   PhoneIcon,
   MapPinIcon,
+  VideoCameraIcon,
+  ArrowTrendingUpIcon,
+  ArrowDownIcon,
 } from "@heroicons/react/24/solid";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
@@ -15,6 +18,7 @@ import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { SlotsCalender } from "../components/calender/SlotsCalender";
+import { UploaderInput } from "../components/uploaderInput/UploaderInput";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -36,19 +40,22 @@ interface UpdatePostType {
   profileImage: File[];
   portfolioVideo: File[];
   introductionVideo: File[];
+  level: string;
 }
 const UpdateTeacher: React.FC = () => {
   const {teacher} = useTeacherContext();
   const { t, i18n } = useTranslation();
   const [videoVisible, setVideoVisible] = useState(false);
   const [videoPortfolioVisible, setVideoPortfolioVisible] = useState(false);
+  const [showInputIndexes, setShowInputIndexes] = useState<any>([]);
+
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState<UpdatePostType>({
     profileImage: [],
     portfolioVideo: [],
     firstName: "",
- 
+    level: "",
     introductionVideo: [],
     // schedules: [
     //   {
@@ -367,12 +374,28 @@ const UpdateTeacher: React.FC = () => {
   const posterSrc = "/img/user-06.png";
   // const user = JSON.parse(localStorage.getItem('user') || "");
   // console.log(formData?.firstName)
+
+  const handleButtonClick = (index: any) => {
+    if (showInputIndexes.includes(index)) {
+      setShowInputIndexes(showInputIndexes.filter((i: any) => i !== index));
+    } else {
+      setShowInputIndexes([...showInputIndexes, index]);
+    }
+  };
+
+
+  const handleLevelChange = (level: any) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      level: level.value,
+    }));
+  };
   return (
-    <div className="py-8 ml-[60px] ">
-      <div className="bg-[#17b3a6] p-4 rounded">
+    <div className="py-8 mx-4 xl:mx-0 ">
+      <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start ">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start justify-center">
               <div className="flex-col items-center text-center">
               {/* <input
                   id="profileImage"
@@ -394,13 +417,8 @@ const UpdateTeacher: React.FC = () => {
                   colSpanMd={4}
                   colSpanLg={2}
                 />
-                <div className="mt-4">
-                  <div>
-                    <button className="bg-green-500 text-[#17b3a6] px-6 py-1 rounded hover:bg-green-600 text-sm md:text-base">
-                    {t("AVAILABLE ")} 
-                    </button>
-                  </div>
-                </div> 
+                <p>Profile Picture</p>
+                
               </div>
 
               <div className="ml-4 grid grid-cols-1 xl:grid-cols-2 gap-6 justify-center ">
@@ -455,6 +473,25 @@ const UpdateTeacher: React.FC = () => {
                   colSpanMd={4}
                   colSpanLg={2}
                 />
+                <div className="w-full xl:ml-4">
+                  <div className="flex items-center gap-4 text-white">
+                    <ArrowTrendingUpIcon className="w-8 h-8" />
+                    <label htmlFor="" className=" font-bold tracking-wide text-gray-700 text-xs">Level</label>
+                  </div>
+
+                  <InputWithIcon
+                    variant="levelDropdown" // Assuming there's a way to specify the component type
+                    pname="level"
+                    icon={<ArrowDownIcon />}
+                    label={t("LEVEL")}
+                    value={formData.level}
+                    handleLevelChange={handleLevelChange}
+                    placeholder={t("SELECT_LEVEL")}
+                    colSpanSm={6}
+                    colSpanMd={4}
+                    colSpanLg={2}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -535,62 +572,60 @@ const UpdateTeacher: React.FC = () => {
       <div className="col-span-1">
 
       <div className="col-span-1 md:col-span-3 my-4">
-          <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
+          <h3 className="text-lg font-semibold mb-2 text-[#565656]">
             Portfolio Video
           </h3>
-          {teacher?.introductionVideo ? <video src={teacher?.introductionVideo } controls></video> : ''}
-
-          <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
-            
+          <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
             {!videoPortfolioVisible && (
-              <>
-              
-                <div>
-              <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
-                <input
-                  id="portfolioVideo"
-                  name="portfolioVideo"
-                  ref={portfolioVideoInputRef}
-                  type="file"
-                  onChange={(event) =>
-                    handleImageChange(event, "portfolioVideo")
-                  }
-                                    accept="video/*"
-
-                />
-                <label
-                  htmlFor="portfolioVideo"
-                  className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-600"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M12 4v16m8-8H4"></path>
-                  </svg>
-                </label>
+              <div className="grid   md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1  gap-2">
+                {[1, 2, 3, 4, 5].map((index) => (
+                  <div key={index} className="flex flex-col gap-2">
+                    <UploaderInput
+                      isOpen={showInputIndexes.includes(index)}
+                      handleUploadChange={(event: any) => handleImageChange(event, "portfolioVideo")}
+                      ref={portfolioVideoInputRef}
+                      handleInputClick={() => handleButtonClick(index)}
+                    />
+                    {showInputIndexes.includes(index) && (
+                      <div className="my-4">
+                        <h3 className="text-center mb-0">OR</h3>
+                        <InputWithIcon
+                          pname="portfolioUrl"
+                          icon={<VideoCameraIcon />}
+                          label={"Portfolio URL"}
+                          // value={formData.movieUrl}
+                          onChange={handleChange}
+                          placeholder={"Portfolio URL"}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            </div>
-              </>
             )}
             {videoPortfolioVisible && (
               <video
                 className="rounded-lg w-full h-[260px]"
-                src={portfolioVideo}
-                title="Introduction Video"
+                // src={portfolioVideos}
+                title="Portfolio Video"
                 controls
               ></video>
             )}
-            
           </div>
-          
+          {false && (
+            <div className="my-4">
+              <h3 className="text-center mb-0">OR</h3>
+              <InputWithIcon
+                pname="portfolioUrl"
+                icon={<VideoCameraIcon />}
+                label={t("PORTFOLIO_URL")}
+                // value={formData.movieUrl}
+                onChange={handleChange}
+                placeholder={t("PORTFOLIO_URL")}
+              />
+            </div>
+          )}
         </div>
-      </div>
       <div className="my-4 mx-10   xl:mx-0">
       <SlotsCalender onWeekSelected={handleWeekSelected}/>
         <div className="grid grid-cols-8 gap-4 py-2 text-center ">
@@ -650,6 +685,7 @@ const UpdateTeacher: React.FC = () => {
         </div>
       </div>
       <button onClick={handleFormSubmit}>Submit</button>
+    </div>
     </div>
   );
 };
