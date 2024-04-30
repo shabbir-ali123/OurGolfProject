@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
+import { Rating } from "@material-tailwind/react";
 interface AddReview {
-    rating: string;
+  rating: string;
   feedback: string;
 }
 
@@ -21,16 +22,17 @@ const ReviewsModal = ({ closeModal }: any) => {
     }));
   };
 
-  console.log(formData)
+  console.log(formData);
 
   return (
     <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm ">
       <div
         className=" w-full max-w-xl p-6 mx-auto bg-white rounded-lg    mx-20 xl:mx-auto"
         style={{
-          boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
-          maxHeight: '90vh', 
-          overflowY: 'auto', 
+          boxShadow:
+            "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+          maxHeight: "90vh",
+          overflowY: "auto",
         }}
       >
         <form className="px-2">
@@ -45,10 +47,14 @@ const ReviewsModal = ({ closeModal }: any) => {
           </div>
           <div>
             <label className="mb-2">Rating:</label> <br />
-            <input
-              className="xs:w-[200px] sm:w-[300px] md:w-[400px] xl:w-[533px] p-3 mb-4 text-gray-700 border mt-2 border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
-              name="rating"
-              onChange={handleInputChange}
+            <Rating
+              className="my-2 flex items-center justify-center"
+              onChange={(value) =>
+                setFormData((prevFormData: any) => ({
+                  ...prevFormData,
+                  rating: value,
+                }))
+              }
             />
           </div>
           <div>
