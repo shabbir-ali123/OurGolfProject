@@ -16,7 +16,7 @@ const ScoringTableColumn = (props: {
     </td>
   );
 };
-const ScoringTabs = () => {
+const ScoringTabs = ({singleEvent}:any) => {
   const [activeTab, setActiveTab] = useState<Tab>("REGULAR");
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -81,6 +81,13 @@ const ScoringTabs = () => {
     }
   });
 
+  const shotsPar = singleEvent?.shotsPerHoles?.split(",").map(Number);
+  let firstNine = shotsPar?.slice(0, 9);
+  let afterNine = shotsPar?.slice(9);
+  let sumFirstNine = firstNine?.reduce((acc:any, curr:any) => acc + curr, 0);
+  let totalPar = shotsPar?.reduce((acc:any, curr:any) => acc + curr, 0);
+
+  // console.log(shotsPar);
   return (
     <div className=" ">
       <div className=" mx-6 xl:mx-0">
@@ -160,9 +167,38 @@ const ScoringTabs = () => {
                           dir="rtl"
                         />
                       </tr>
+                      <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+                        <ScoringTableColumn
+                          title={t("PAR")}
+                          className="rounded-s-[3px] font-bold text-[24px] text-center"
+                        />
+                          {firstNine?.map((index:any) => (
+                          <ScoringTableColumn
+                            key={index}
+                            title={`${index }`}
+                            className="text-[18px] text-white font-medium text-center "
+                          />
+                        ))}
+                        <ScoringTableColumn
+                          title={sumFirstNine}
+                          className="bg-black  text-white text-[18px] font-medium text-center"
+                        />
+                          {afterNine?.map((index:any) => (
+                          <ScoringTableColumn
+                            key={index}
+                            title={`${index }`}
+                            className="text-[18px] text-white font-medium text-center "
+                          />
+                        ))}
+                        <ScoringTableColumn
+                          title={totalPar}
+                          className="bg-black  text-white text-[18px] font-medium text-center"
+                        />
+</tr>
                     </thead>
 
                     <tbody>
+                   
                       {mergedScores?.map((item: any) => {
                         return (
                           item?.nearPinContest !== "" && (
@@ -189,7 +225,113 @@ const ScoringTabs = () => {
 
           {activeTab === "HANDICAP" && (
             <div>
-              <ScoringTable />
+               <div className='mx-5 mt-10 '>
+            <div className='px-3 '>
+                <table className='w-full border-spacing-y-5 '>
+                    <thead className='text-left text-white '>
+                        <tr className=' bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]'>
+                            <ScoringTableColumn
+                                title={t('HOLE')}
+                                className='rounded-s-[3px] font-bold text-[24px] text-center'
+                            />
+
+                            {Array.from({ length: 9 }, (_, index) => (
+                                <ScoringTableColumn
+                                    key={index}
+                                    title={`${index + 1}`}
+                                    className='text-[18px] font-medium text-center '
+                                />
+                            ))}
+
+                            <ScoringTableColumn
+                                title='Out'
+                                className='bg-black  text-[18px] font-medium text-center'
+                            />
+                            {Array.from({ length: 9 }, (_, index) => (
+                                <ScoringTableColumn
+                                    key={index}
+                                    title={`${index + 10}`}
+                                    className='text-[18px]  font-medium text-center'
+                                />
+                            ))}
+                            <ScoringTableColumn
+                                title='In'
+                                className='bg-black text-[18px] font-medium text-center min-w-[24px]'
+                            />
+                            <ScoringTableColumn
+                                title={t('TOTAL')}
+                                className=' text-[18px] font-medium text-center'
+                            />
+                            <ScoringTableColumn
+                                title={t('SLOPE')}
+                                className=' text-[18px] font-medium text-center'
+                            />
+                            <ScoringTableColumn
+                                title={t('HCP')}
+                                className='text-[18px] font-medium text-center'
+                            />
+                            <ScoringTableColumn
+                                title={t('RESULT')}
+                                className='text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]'
+                                dir='rtl'
+                            />
+                        </tr>
+                        <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+                        <ScoringTableColumn
+                          title={t("PAR")}
+                          className="rounded-s-[3px] font-bold text-[24px] text-center"
+                        />
+                          {firstNine?.map((index:any) => (
+                          <ScoringTableColumn
+                            key={index}
+                            title={`${index }`}
+                            className="text-[18px] text-white font-medium text-center "
+                          />
+                        ))}
+                        <ScoringTableColumn
+                          title={sumFirstNine}
+                          className="bg-black  text-white text-[18px] font-medium text-center"
+                        />
+                          {afterNine?.map((index:any) => (
+                          <ScoringTableColumn
+                            key={index}
+                            title={`${index }`}
+                            className="text-[18px] text-white font-medium text-center "
+                          />
+                        ))}
+                        <ScoringTableColumn
+                          title={totalPar}
+                          className="bg-black  text-white text-[18px] font-medium text-center"
+                        />
+</tr>
+                    </thead>
+                    <tbody>
+                      
+                      {mergedScores?.map((item: any) => {
+                        return (
+                          item?.nearPinContest !== "" && (
+                            <ScoringTableRow
+                              teamImageUrl="/img/ellipse-23114@2x.png"
+                              teamName={"team " + item?.teamId}
+                              background="#CDD5FF"
+                              teamBG="#D3D3D3"
+                              score1={item.scorePerShot1}
+                              score2={item.scorePerShot2}
+                              total={item.totalScore}
+                              handicape={item.handiCapValue}
+                              rank={item.rank}
+                              netValue={item.netValue}
+                              tab={"hcp"}
+                            />
+                          )
+                        );
+                      })}
+                    </tbody>
+                    
+                   
+                </table>
+            </div>
+        </div>
             </div>
           )}
         </div>

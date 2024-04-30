@@ -24,7 +24,10 @@ interface ScoringTableRowProps {
     score2?: any;
     total?:any;
     rank?:any;
-    netValue?:any
+    netValue?:any;
+    handicape?:any;
+    handicapeTotal?:any;
+    tab?:any
 }
 
 const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
@@ -36,7 +39,10 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
     score2,
     total,
     rank,
-    netValue
+    netValue,
+    handicape,
+    handicapeTotal,
+    tab
 }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const toggleDropdown = () => {
@@ -123,6 +129,16 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
         >
             {netValue}
         </td>
+       {
+        tab == "hcp" && 
+       
+        <td
+            className={` p-2 leading-[20px] text-[18px] text-center font-medium border-solid border-l-[1px] border-white `}
+        >
+            {handicape ? handicape : '0'}
+        </td>
+        }
+       
           
             <td
                 className={`leading-[20px] text-[18px]text-center font-medium  box-border rounded-s-[3px]`}
