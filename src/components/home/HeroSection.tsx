@@ -44,7 +44,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ videoSrc }) => {
   }, [words, currentWordIndex, currentText, isDeleting, typingSpeed]);
   
   return (
-    <div className="mx-4 relative h-[72vh] flex justify-center items-center overflow-hidden z-0">
+    <div className="mx-4 relative h-full xl:h-[72vh] flex justify-center items-center overflow-hidden z-0">
       <video
         className="w-full"
         autoPlay

@@ -71,12 +71,6 @@ const ScoreBoard: FunctionComponent = () => {
             <ScoringTabs singleEvent={singleEvent}/>
           </div>
             
-           
-
-
-          
-
-
           </>
         )}
 
@@ -85,13 +79,9 @@ const ScoreBoard: FunctionComponent = () => {
             <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
           </table>
         )}
-        {/* <Slider/> */}
         <div className="w-full lg:w-[1200px] lg:mx-auto">
           <AboutEvent totalJoinedMembers={totalJoinedMembers} />
         </div>
-
-
-
 
         {/* <div className="mt-20 mx-[60px]">
           <div className="flex gap-4">

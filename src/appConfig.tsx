@@ -4,7 +4,7 @@
 // https://shaggy-turtle-15.telebit.io
 // https://18.216.79.130:5000/api/login
 // https://18.216.79.130:5000
-const API_BASE_URL = "https://18.216.79.130:5000"
+const API_BASE_URL = "http://18.216.79.130:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
