@@ -76,7 +76,7 @@ export const menuItems: MenuItem[] = [
   {
     name: "FIND_TEACHER",
     icon: faSearch,
-    path: "/student-page",
+    path: "/all-teachers",
     active: false,
     subItems: [
       {

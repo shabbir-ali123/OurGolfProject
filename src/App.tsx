@@ -73,6 +73,7 @@ import { TeacherCatalog } from "./pages/TeacherCatalogs";
 import { TeacherGigsProvider } from "./contexts/gigsContext";
 import UserPosts from "./pages/UserPosts";
 import { TeacherAppointments } from "./pages/Appointments";
+import CheckoutForm from "./components/payment/PaymentForm";
 
 function App() {
   const params = useParams();
@@ -269,6 +270,14 @@ function App() {
     subscribeKey: "sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5",
     uuid: localStorage.getItem("id") || "12`",
   });
+
+
+const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB");
+
+
+
+
+
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="">
@@ -317,6 +326,10 @@ function App() {
           <Route
             path="/create-event"
             element={token ? <CreateEvent /> : <LoginPage />}
+          />
+            <Route
+            path="/pay"
+            element={token ? <CheckoutForm /> : <LoginPage />}
           />
           <Route
             path="/score-board/:id"

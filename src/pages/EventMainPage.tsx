@@ -98,7 +98,7 @@ const EventMainPage: FunctionComponent = () => {
             </div>
           </div>
           <div>
-            <Link to="/create-event">
+            <Link to="/pay">
               <button
                 type="button"
                 className="flex items-center  rounded-md bg-[#17B3A6] px-3 py-3 text-xs font-semibold text-white shadow-sm cursor-pointer animate__animated animate__jello animate__repeat-2 hover:animate-bounce"

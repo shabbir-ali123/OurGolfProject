@@ -11,6 +11,7 @@ import { ToastProvider } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB");
 
 interface CreateEventType {
   id?: number;
@@ -142,7 +143,14 @@ const CreateEvent: React.FC = () => {
     }
   };
   const [submitting, setSubmitting] = useState(false);
+  
+  
+  
+    
+    
 
+  
+    
   const getDefaultImageFile = async (imagePath: string): Promise<File> => {
     const response = await fetch(imagePath);
     const blob = await response.blob();
@@ -294,7 +302,53 @@ const CreateEvent: React.FC = () => {
   const toggleScoringEnabled = (enabled: boolean) => {
     setIsScoringEnabled(enabled);
   };
-  console.log(formData)
+  const handleCheckout = async (e:any) => {
+    e.preventDefault();
+
+    try {
+ 
+    const lineItems = [
+      {
+        price_data: {
+          currency: "JPY",
+          product_data: {
+            name: "Per Event", 
+          },
+          unit_amount: 550 , 
+        },
+        quantity: 1,
+      }
+    ];
+    var baseUrl = window.location.origin;
+    var createEvent = baseUrl + '/payment-status';
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: createEvent, // Add parameter indicating success
+      cancel_url: createEvent,
+      allow_promotion_codes: true
+    });
+    
+    const d = session.paymentStatus;
+    if(d == "paid"){
+      handleSubmit(e)
+    }else{
+      window.location.href = session.url;
+    }
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
+  };
+    const handleSuccessPageLoad = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('payment_success') === 'true') {
+          handleSubmit;
+      }
+  };
+  window.addEventListener('load', handleSuccessPageLoad);
+
 
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -330,7 +384,7 @@ const CreateEvent: React.FC = () => {
                     {t("PREV")}
                   </button>
                   <button
-                    onClick={handleSubmit}
+                    onClick={handleCheckout}
                     className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     {t("NEXT")}
