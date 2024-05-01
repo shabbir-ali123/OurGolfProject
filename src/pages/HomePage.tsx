@@ -7,11 +7,14 @@ import RecommendEvent from "../components/home/RecommendEvent"
 import RecommendedPosts from "../components/home/RecommendPosts";
 import { PostContext } from "../contexts/postsContext";
 import { EventsContext } from "../contexts/eventContext";
+import CheckoutForm from "../components/payment/PaymentForm";
 
 const HomePage: React.FC = () => {
 
     return (
         <div className="bg-white">
+            
+            
             <HeroSection videoSrc="/video/golf-video.mp4" />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
 
@@ -26,7 +29,8 @@ const HomePage: React.FC = () => {
             <PostContext>
             <RecommendedPosts/>
             </PostContext>
-           
+            <CheckoutForm/>
+
         </div>
 
     );
