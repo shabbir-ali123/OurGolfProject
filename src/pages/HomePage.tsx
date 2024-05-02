@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
             <PostContext>
             <RecommendedPosts/>
             </PostContext>
-            <CheckoutForm/>
+            {/* <CheckoutForm/> */}
 
         </div>
 
