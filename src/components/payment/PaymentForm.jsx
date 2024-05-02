@@ -39,9 +39,9 @@ const CheckoutForm = () => {
           price_data: {
             currency: "JPY",
             product_data: {
-              name: "Per Event", // Assuming eventName is sent in the request body
+              name: "Per Event", 
             },
-            unit_amount: 550, // Price in cents ($20 * 100)
+            unit_amount: 550,
           },
           quantity: 1,
         }

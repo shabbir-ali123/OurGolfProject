@@ -31,7 +31,6 @@ const EventMainPage: FunctionComponent = () => {
     setCurrentTab(lowerTab);
   };
 
-
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 1280);
