@@ -296,7 +296,7 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
           <Route path="/event-main-page" element={<EventMainPage />} />
           <Route
             path="/activties-page"
-            element={token ? <ActivtiesPage /> : <LoginPage />}
+            element={token ? <TeacherDetailsContext><ActivtiesPage /> </TeacherDetailsContext>: <LoginPage />}
           />
           <Route
             path={isTeacher ? "/teacher-page/:id" : '/teacher-page'}

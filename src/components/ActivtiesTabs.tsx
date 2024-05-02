@@ -2,13 +2,15 @@ import { Tab } from "@headlessui/react";
 import ActivtiesBox from "../components/ActivtiesBox";
 import { categories } from "../constants/activities";
 import { useTranslation } from "react-i18next";
+import { useTeacherContext } from "../contexts/teachersContext";
 
 export default function Activeties() {  
   const { t, i18n } = useTranslation();
-
+  const {studentAppointments} = useTeacherContext();
   const defaultTabIndex = Object.keys(categories).indexOf('TodayActivities');
   const tabNumbers = [29, 34, 32];
 
+  console.log(studentAppointments)
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full">
@@ -45,13 +47,10 @@ export default function Activeties() {
               <Tab.Panel key={category}>
                 <div className=" xl:h-[520px] xl:overflow-y-scroll scrollbar">
                  
-                  {categories[category].map((activity, index) => (
+                  {studentAppointments?.map((activity:any, index: any) => (
                     <ActivtiesBox
                       key={index}
-                      imageUrl={activity.imageUrl}
-                      description={activity.description}
-                      bgColor={activity.bgColor}
-                      borderColor={activity.borderColor}
+                      activity={activity}
                     />
 
                   ))}
