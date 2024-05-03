@@ -199,3 +199,22 @@ a {
   background: #ed2;
 }
 
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #17b3a6 #f4f4f4; /* scroll thumb and track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #c8c8c8; /* color of the scrollbar thumb */
+  border-radius: 10px; /* border radius of the scrollbar thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #f4f4f4; /* color of the scrollbar track */
+  border-radius: 10px; /* border radius of the scrollbar track */
+}
+

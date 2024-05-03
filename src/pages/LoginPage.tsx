@@ -6,10 +6,24 @@ import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import { useTranslation } from "react-i18next";
+import {
+  Channel,
+  Chat,
+  Message,
+  MixedTextTypedElement,
+  TimetokenUtils,
+  User,
+} from "@pubnub/chat";
+import "./app.css";
+import { getAllUsers } from "../utils/fetchUser";
+import { userAuthContext } from "../contexts/authContext";
+import PubNub from "pubnub";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+  const { chatUser } = userAuthContext();
+
   const router = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -17,6 +31,7 @@ const Login: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [pubnubUser, setPubNubUser] = useState<any>(null); // State for PubNub user
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,23 +40,55 @@ const Login: React.FC = () => {
       [name]: value,
     }));
   };
+  const hash = document.location.hash.split("?")[1];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const params = new URLSearchParams(hash);
+
+  const pubnubKeys = {
+    publishKey: params.get("pubkey") || (process.env.REACT_APP_PUB_KEY),
+    subscribeKey: params?.get("subkey") || (process.env.REACT_APP_SUB_KEY)?.toString(),
+};
+
+  const handleLogin = async (e:any) => {
     e.preventDefault();
-
     try {
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
+  
+      debugger;
       const response = await axios.post(API_ENDPOINTS.LOGIN, formData);
       const tokenTimestamp = new Date().getTime().toString();
-
+  
       if (response.status === 200) {
         localStorage.setItem("token", response.data.jwtToken);
         localStorage.setItem("id", response.data.id);
         localStorage.setItem("teacher_id", response.data.teacherId);
         localStorage.setItem('tokenTimestamp', tokenTimestamp);
-
+  
+        
+   
+        const chat = await Chat.init({
+          publishKey: pubnubKeys.publishKey,
+          subscribeKey: pubnubKeys.subscribeKey || "",
+          userId: localStorage.getItem("id") || "",
+        });
+        // const interlocutor =
+        // (await chat.getUser(chatUser)) ||
+        // (await chat.createUser(
+        //   chatUser,
+        //   users.find((item: any) => item.id == chatUser)
+        // ));
+      // const { channel } = await chat.createDirectConversation({
+      //   user: interlocutor,
+      //   channelData: { name: chatUser },
+      // });
+        // Create or Retrieve User in PubNub
+        const userId = response.data.id.toString(); // Assuming your user ID is a string
+        const user =  (await chat.getUser(chatUser)) || await chat.createUser(userId, { name: response.data.username });
+  
+        // Now you have the user object, you can store it in your application state or context
+        setPubNubUser(user);
+  
         router("/");
         window.location.reload();
       }
@@ -68,7 +115,7 @@ const Login: React.FC = () => {
             {t("LOGIN")}
             </h1>
 
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
               {error && (
                 <div className="text-[#F80202] text-sm mt-2">
                   {error}

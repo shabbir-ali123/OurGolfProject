@@ -140,8 +140,8 @@ export default function ChatApp() {
   if (!chat || !channel) return <p>Loading...</p>;
 
   return (
-    <main className="bg-gray-200 flex flex-col rounded-sm w-[70%] h-[80vh]">
-      <header className="flex bg-white justify-between p-4" style={{
+    <main className="bg-gray-200 flex flex-col rounded-sm w-[70%] h-[87vh]">
+      <header className="flex bg-white justify-between p-2 m-2" style={{
           boxShadow:
             "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
         }}>
