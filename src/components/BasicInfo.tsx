@@ -5,6 +5,10 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import { GroupBase, OptionsOrGroups } from "react-select";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { API_ENDPOINTS } from "../appConfig";
+import { useParams } from "react-router-dom";
 
 interface BasicInfoProps {
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -25,6 +29,9 @@ type GroupedOptionType = GroupBase<OptionType>;
 const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+  const params = useParams<{ id: string }>();
+  const eventId = params.id;
+
 
   const JapanCities: GroupedOptionType[] = [
     {
@@ -144,7 +151,60 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
       },
     } as React.ChangeEvent<HTMLInputElement>);
   };
+  //test
   
+  const [updateEventMedia, setUpdateEventMedia] = useState({
+    event: 23,
+    removedMediaUrls: "",
+    mediaFiles:""
+  });
+
+
+
+
+
+  const handleSelectedImage = (selectedImage:any)=>{
+    const url = new URL(selectedImage);
+
+// Convert URL to string
+const urlString = url.toString();
+
+    const xyz = selectedImage;
+
+
+
+    console.log(xyz ,"helloooo")
+    setUpdateEventMedia({
+      event: Number(eventId),
+      removedMediaUrls: urlString,
+      mediaFiles:""
+    });
+    handleUpdateEventMedia();
+  }
+   const handleUpdateEventMedia = async (  ) => {
+    const userToken = localStorage.getItem("token");
+  
+    try {
+    
+      const response = await axios.put(
+        API_ENDPOINTS.UPDATE_EVENT_MEDIA,
+        JSON.stringify(updateEventMedia),
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.status === 201) {
+  
+        toast.success(response.data.message);
+      }
+    } catch (error: unknown) {
+  
+    }
+  };
+  //test
   return (
     <motion.div
       className="px-2 mx-auto lg:max-w-7xl "
@@ -273,7 +333,13 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
 
             {
                   formData?.files?.length > 0 && formData?.files.map((item: any) => {return (
-                    <img className="h-[50px] w-[50px]" key={item} src={item} alt="scd"/>
+                    
+                    <div>
+<img className="h-[50px] w-[50px]" key={item} src={item} alt="scd"/>
+<p className="w-20" onClick={()=>{
+  handleSelectedImage(item)
+}}>hello</p>
+                    </div>
                   )})
                 }
               </div>
@@ -381,11 +447,11 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
               placeholder={t("SEARCH_LOCATION")}
               required
               value={formData?.place}
-            />
+            />  
             <button
               className="py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
               onClick={() => { }}
-            >
+            >1
               {t("SELECT")}
             </button>
           </div>

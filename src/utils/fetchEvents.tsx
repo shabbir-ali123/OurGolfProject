@@ -345,4 +345,37 @@ export const fetchFavoriteEvents = async (setFavoriteEvents: any, setEventsCount
     toast.error(`ログインされていません`);
   }
 };
+export const updateEventMedia = async ( formData:any, setMessage:any ) => {
+  const userToken = localStorage.getItem("token");
+
+  try {
+    const formDataToSend = new FormData();
+    formDataToSend.append("userId", formData.userId);
+    formDataToSend.append("text", formData.text);
+    formDataToSend.append("category", formData.category);
+    formDataToSend.append("tags", formData.tags);
+
+    formData.mediaFiles.forEach((file:any, index:any) => {
+      formDataToSend.append("mediaFiles", file);
+    });
+
+    const response = await axios.put(
+      API_ENDPOINTS.UPDATE_EVENT_MEDIA,
+      formDataToSend,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    if (response.status === 201) {
+
+      setMessage(response.data.message);
+      toast.success(response.data.message);
+    }
+  } catch (error: unknown) {
+
+  }
+};
 
