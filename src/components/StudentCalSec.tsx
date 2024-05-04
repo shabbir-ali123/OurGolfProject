@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import {
   CalendarIcon,
   ChevronLeftIcon,
@@ -73,7 +73,7 @@ function classNames(
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Example({selectedDatee}: any) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
@@ -81,15 +81,20 @@ export default function Example() {
     setSelectedDate(date);
   };
 
-  const handleNextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-    setSelectedDate(null);
-  };
+  useEffect(() => {
+    selectedDatee(selectedDate);
+  }, [selectedDate])
 
-  const handlePrevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
-    setSelectedDate(null);
-  };
+  const handleNextMonth = () => {
+  setCurrentMonth(addMonths(currentMonth, 1));
+  setSelectedDate(null);
+};
+
+const handlePrevMonth = () => {
+  setCurrentMonth(subMonths(currentMonth, 1));
+  setSelectedDate(null);
+};
+
   return (
     <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent">
        <Link to="/student-page" >

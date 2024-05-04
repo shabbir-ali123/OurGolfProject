@@ -3,14 +3,33 @@ import ActivtiesBox from "../components/ActivtiesBox";
 import { categories } from "../constants/activities";
 import { useTranslation } from "react-i18next";
 import { useTeacherContext } from "../contexts/teachersContext";
+import { useEffect, useState } from "react";
+import { fetchTeachersAppointments } from "../utils/fetchTeacher";
 
-export default function Activeties() {  
+export default function Activeties({ selectedDate }: any) {
   const { t, i18n } = useTranslation();
-  const {studentAppointments} = useTeacherContext();
-  const defaultTabIndex = Object.keys(categories).indexOf('TodayActivities');
+  const { studentAppointments } = useTeacherContext();
+  const defaultTabIndex = Object.keys(categories).indexOf("PreviousActivities");
   const tabNumbers = [29, 34, 32];
 
-  console.log(studentAppointments)
+  const [teacherAppointments, setTeacherAppointments] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState<any>(false);
+  const [filteredAppointments, setFilteredAppointments] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchTeachersAppointments(setTeacherAppointments, setIsLoading);
+  }, []);
+
+  useEffect(() => {
+    const filtered = studentAppointments.filter((appointment: any) => {
+      const createdAtDate = new Date(appointment.createdAt);
+      const createdAtDateString = createdAtDate.toISOString().split('T')[0]; // Extract YYYY-MM-DD
+      return createdAtDateString === selectedDate;
+    });
+    setFilteredAppointments(filtered);
+  }, [selectedDate, studentAppointments]);
+
+  console.log(filteredAppointments)
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full">
@@ -36,25 +55,24 @@ export default function Activeties() {
                     >
                       {tabNumbers[index]}
                     </div>
-                    <span className="ml-2">{  t(category.toLocaleUpperCase())}</span>
+                    <span className="ml-2">
+                      {t(category.toLocaleUpperCase())}
+                    </span>
                   </div>
                 </Tab>
               ))}
             </div>
           </Tab.List>
           <Tab.Panels>
-            {Object.keys(categories).map((category) => (
-              <Tab.Panel key={category}>
-                <div className=" xl:h-[520px] xl:overflow-y-scroll scrollbar">
-                 
-                  {studentAppointments?.map((activity:any, index: any) => (
-                    <ActivtiesBox
-                      key={index}
-                      activity={activity}
-                    />
-
-                  ))}
-              <style>{`
+            <Tab.Panel>
+              <div className="">
+                {filteredAppointments.map((activity: any, index: any) => (
+                  <ActivtiesBox key={index} activity={activity} />
+                ))}
+                {/* {teacherAppointments?.map((activity: any, index: any) => (
+                  <ActivtiesBox key={index} activity={activity} />
+                ))} */}
+                <style>{`
         
         @media screen and (min-width: 1300px) {
           .scrollbar {
@@ -77,9 +95,8 @@ export default function Activeties() {
                     background-color: transparent;
                 }
             `}</style>
-                </div>
-              </Tab.Panel>
-            ))}
+              </div>
+            </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
       </div>
