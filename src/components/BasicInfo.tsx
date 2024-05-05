@@ -173,7 +173,6 @@ const urlString = url.toString();
 
 
 
-    console.log(xyz ,"helloooo")
     setUpdateEventMedia({
       event: Number(eventId),
       removedMediaUrls: urlString,

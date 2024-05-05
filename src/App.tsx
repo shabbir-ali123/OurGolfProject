@@ -74,6 +74,7 @@ import { TeacherGigsProvider } from "./contexts/gigsContext";
 import UserPosts from "./pages/UserPosts";
 import { TeacherAppointments } from "./pages/Appointments";
 import CheckoutForm from "./components/payment/PaymentForm";
+import AllStripeSessions from "./components/payment/PaymentForm";
 
 function App() {
   const params = useParams();
@@ -324,12 +325,12 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             }
           />
           <Route
-            path="/create-event"
+            path="/create-event/:id"
             element={token ? <CreateEvent /> : <LoginPage />}
           />
             <Route
             path="/pay"
-            element={token ? <CheckoutForm /> : <LoginPage />}
+            element={token ? <AllStripeSessions /> : <LoginPage />}
           />
           <Route
             path="/score-board/:id"
