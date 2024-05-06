@@ -1,4 +1,4 @@
-import React, { useRef, ChangeEvent, useState } from "react";
+import React, { useRef, ChangeEvent, useState, useEffect } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
@@ -9,13 +9,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import { useParams } from "react-router-dom";
+import { singleEventContextStore } from "../contexts/eventContext";
 
 interface BasicInfoProps {
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
   formData?: any;
 }
-
 
 interface OptionType {
   label: string;
@@ -24,101 +26,99 @@ interface OptionType {
 
 type GroupedOptionType = GroupBase<OptionType>;
 
-
-
-const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }) => {
+const BasicInfo: React.FC<BasicInfoProps> = ({
+  onChange,
+  setFormData,
+  formData,
+}) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const params = useParams<{ id: string }>();
   const eventId = params.id;
 
-
   const JapanCities: GroupedOptionType[] = [
     {
-      label: t('HOKKAIDO_TOHOKU'),
+      label: t("HOKKAIDO_TOHOKU"),
       options: [
-        { value: "Hokkaido", label: t('Hokkaido') },
-        { value: "Aomori Prefecture", label: t('Aomori Prefecture') },
-        { value: "Iwate Prefecture", label: t('Iwate Prefecture') },
-        { value: "Miyagi Prefecture", label: t('Miyagi Prefecture') },
-        { value: "Akita", label: t('Akita') },
-        { value: "Yamagata Prefecture", label: t('Yamagata Prefecture') },
-        { value: "Fukushima Prefecture", label: t('Fukushima Prefecture') },
-       
+        { value: "Hokkaido", label: t("Hokkaido") },
+        { value: "Aomori Prefecture", label: t("Aomori Prefecture") },
+        { value: "Iwate Prefecture", label: t("Iwate Prefecture") },
+        { value: "Miyagi Prefecture", label: t("Miyagi Prefecture") },
+        { value: "Akita", label: t("Akita") },
+        { value: "Yamagata Prefecture", label: t("Yamagata Prefecture") },
+        { value: "Fukushima Prefecture", label: t("Fukushima Prefecture") },
       ],
     },
     {
-      label: t('KANTO'),
+      label: t("KANTO"),
       options: [
-        { value: "Ibaraki Prefecture", label: t('Ibaraki Prefecture') },
-        { value: "Tochigi Prefecture", label: t('Tochigi Prefecture') },
-        { value: "Gunma Prefecture", label: t('Gunma Prefecture') },
-        { value: "Saitama", label: t('Saitama') },
-        { value: "Chiba prefecture", label: t('Chiba prefecture') },
-        { value: "Tokyo", label: t('Tokyo') },
-        { value: "Kanagawa Prefecture", label: t('Kanagawa Prefecture') },
+        { value: "Ibaraki Prefecture", label: t("Ibaraki Prefecture") },
+        { value: "Tochigi Prefecture", label: t("Tochigi Prefecture") },
+        { value: "Gunma Prefecture", label: t("Gunma Prefecture") },
+        { value: "Saitama", label: t("Saitama") },
+        { value: "Chiba prefecture", label: t("Chiba prefecture") },
+        { value: "Tokyo", label: t("Tokyo") },
+        { value: "Kanagawa Prefecture", label: t("Kanagawa Prefecture") },
       ],
     },
     {
-      label: t('CHUBU'),
+      label: t("CHUBU"),
       options: [
-        { value: "Niigata Prefecture", label: t('Niigata Prefecture') },
-        { value: "Toyama Prefecture", label: t('Toyama Prefecture') },
-        { value: "Ishikawa Prefecture", label: t('Ishikawa Prefecture') },
-        { value: "Fukui prefecture", label: t('Fukui prefecture') },
-        { value: "Yamanashi Prefecture", label: t('Yamanashi Prefecture') },
-        { value: "Nagano Prefecture", label: t('Nagano Prefecture') },
+        { value: "Niigata Prefecture", label: t("Niigata Prefecture") },
+        { value: "Toyama Prefecture", label: t("Toyama Prefecture") },
+        { value: "Ishikawa Prefecture", label: t("Ishikawa Prefecture") },
+        { value: "Fukui prefecture", label: t("Fukui prefecture") },
+        { value: "Yamanashi Prefecture", label: t("Yamanashi Prefecture") },
+        { value: "Nagano Prefecture", label: t("Nagano Prefecture") },
       ],
     },
     {
-      label: t('TOKAI'),
+      label: t("TOKAI"),
       options: [
-        { value: "Shizuoka Prefecture", label: t('Shizuoka Prefecture') },
-        { value: "Aichi prefecture", label: t('Aichi prefecture') },
-        { value: "Mie Prefecture", label: t('Mie Prefecture') },
-        { value: "Gifu Prefecture", label: t('Gifu Prefecture') },
+        { value: "Shizuoka Prefecture", label: t("Shizuoka Prefecture") },
+        { value: "Aichi prefecture", label: t("Aichi prefecture") },
+        { value: "Mie Prefecture", label: t("Mie Prefecture") },
+        { value: "Gifu Prefecture", label: t("Gifu Prefecture") },
       ],
     },
     {
-      label: t('KINKI'),
+      label: t("KINKI"),
       options: [
-        { value: "Shiga Prefecture", label: t('Shiga Prefecture') },
-        { value: "Kyoto", label: t('Kyoto') },
-        { value: "Osaka prefecture", label: t('Osaka prefecture') },
-        { value: "Hyogo prefecture", label: t('Hyogo prefecture') },
-        { value: "Nara Prefecture", label: t('Nara Prefecture') },
-        { value: "Wakayama Prefecture", label: t('Wakayama Prefecture') },
-
+        { value: "Shiga Prefecture", label: t("Shiga Prefecture") },
+        { value: "Kyoto", label: t("Kyoto") },
+        { value: "Osaka prefecture", label: t("Osaka prefecture") },
+        { value: "Hyogo prefecture", label: t("Hyogo prefecture") },
+        { value: "Nara Prefecture", label: t("Nara Prefecture") },
+        { value: "Wakayama Prefecture", label: t("Wakayama Prefecture") },
       ],
     },
     {
-      label: t('SHIKOKU'),
+      label: t("SHIKOKU"),
       options: [
-        { value: "Tottori prefecture", label: t('Tottori prefecture') },
-        { value: "Shimane Prefecture", label: t('Shimane Prefecture') },
-        { value: "Okayama Prefecture", label: t('Okayama Prefecture') },
-        { value: "Hiroshima", label: t('Hiroshima') },
-        { value: "Yamaguchi Prefecture", label: t('Yamaguchi Prefecture') },
-        { value: "Tokushima", label: t('Tokushima') },
-        { value: "Kagawa Prefecture", label: t('Kagawa Prefecture') },
-        { value: "Ehime Prefecture", label: t('Ehime Prefecture') },
-        { value: "Kochi Prefecture", label: t('Kochi Prefecture') },
+        { value: "Tottori prefecture", label: t("Tottori prefecture") },
+        { value: "Shimane Prefecture", label: t("Shimane Prefecture") },
+        { value: "Okayama Prefecture", label: t("Okayama Prefecture") },
+        { value: "Hiroshima", label: t("Hiroshima") },
+        { value: "Yamaguchi Prefecture", label: t("Yamaguchi Prefecture") },
+        { value: "Tokushima", label: t("Tokushima") },
+        { value: "Kagawa Prefecture", label: t("Kagawa Prefecture") },
+        { value: "Ehime Prefecture", label: t("Ehime Prefecture") },
+        { value: "Kochi Prefecture", label: t("Kochi Prefecture") },
       ],
     },
     {
-      label: t('KYUSHU'),
+      label: t("KYUSHU"),
       options: [
-        { value: "Fukuoka Prefecture", label: t('Fukuoka Prefecture') },
-        { value: "Saga Prefecture", label: t('Saga Prefecture') },
-        { value: "Nagasaki Prefecture", label: t('Nagasaki Prefecture') },
-        { value: "Kumamoto Prefecture", label: t('Kumamoto Prefecture') },
-        { value: "Oita Prefecture", label: t('Oita Prefecture') },
-        { value: "Miyazaki prefecture", label: t('Miyazaki prefecture') },
-        { value: "Kagoshima prefecture", label: t('Kagoshima prefecture') },
-        { value: "Okinawa Prefecture", label: t('Okinawa Prefecture') },
+        { value: "Fukuoka Prefecture", label: t("Fukuoka Prefecture") },
+        { value: "Saga Prefecture", label: t("Saga Prefecture") },
+        { value: "Nagasaki Prefecture", label: t("Nagasaki Prefecture") },
+        { value: "Kumamoto Prefecture", label: t("Kumamoto Prefecture") },
+        { value: "Oita Prefecture", label: t("Oita Prefecture") },
+        { value: "Miyazaki prefecture", label: t("Miyazaki prefecture") },
+        { value: "Kagoshima prefecture", label: t("Kagoshima prefecture") },
+        { value: "Okinawa Prefecture", label: t("Okinawa Prefecture") },
       ],
     },
-
   ];
   const [isHovered, setIsHovered] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
@@ -132,12 +132,14 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files ? Array.from(event.target.files) : [];
-    setUploadedImages(files); // Update state with uploaded files
-      setFormData((prevFormData: any) => ({
-        ...prevFormData,
-        files: files,
-      }));
-    
+    setUploadedImages(files);
+    if (formData !== undefined) {
+      handleSelectedImage(files, eventId);
+    }
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      files: files,
+    }));
   };
   const handleChange = (selectedOption: any) => {
     handleCitySelection(selectedOption.value);
@@ -152,43 +154,47 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ onChange, setFormData, formData }
     } as React.ChangeEvent<HTMLInputElement>);
   };
   //test
-  
-  const [updateEventMedia, setUpdateEventMedia] = useState({
-    event: 23,
-    removedMediaUrls: "",
-    mediaFiles:""
-  });
+  const { handleMessage } = singleEventContextStore();
+  const [updateEventMedia, setUpdateEventMedia] = useState<any>(null);
+  useEffect(() => {
+    if (
+      updateEventMedia != null &&
+      updateEventMedia &&
+      formData !== undefined
+    ) {
+      handleUpdateEventMedia(updateEventMedia);
+    }
+  }, [updateEventMedia]);
 
+  const handleSelectedImage = (selectedImage: any, eId: any) => {
 
+    let url: any = "";
+    console.log(typeof selectedImage);
+    if (URL === selectedImage) {
+      url = new URL(selectedImage || "");
+    }
 
-
-
-  const handleSelectedImage = (selectedImage:any)=>{
-    const url = new URL(selectedImage);
-
-// Convert URL to string
-const urlString = url.toString();
-
-    const xyz = selectedImage;
-
-
-
-    console.log(xyz ,"helloooo")
-    setUpdateEventMedia({
-      event: Number(eventId),
-      removedMediaUrls: urlString,
-      mediaFiles:""
-    });
-    handleUpdateEventMedia();
-  }
-   const handleUpdateEventMedia = async (  ) => {
+    if (eId != undefined) {
+      setUpdateEventMedia({
+        eventId: eId || "",
+        removedMediaUrls:
+          typeof selectedImage === "string" ? selectedImage : "",
+        mediaFiles: selectedImage,
+      });
+    }
+  };
+  const handleUpdateEventMedia = async (formd: any) => {
     const userToken = localStorage.getItem("token");
-  
+
+    console.log(formd);
     try {
-    
+      if (!userToken) {
+        throw new Error("Token not found in localStorage");
+      }
+
       const response = await axios.put(
         API_ENDPOINTS.UPDATE_EVENT_MEDIA,
-        JSON.stringify(updateEventMedia),
+        formd,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -196,14 +202,17 @@ const urlString = url.toString();
           },
         }
       );
-      if (response.status === 201) {
-  
-        toast.success(response.data.message);
+
+      if (response.status === 200) {
+        handleMessage(response.data.event);
+        toast.success("Post Updated Successfully");
       }
-    } catch (error: unknown) {
-  
+    } catch (error) {
+      console.error("Error updating event media:");
+      toast.error("Failed to update event media. Please try again later.");
     }
   };
+
   //test
   return (
     <motion.div
@@ -217,9 +226,7 @@ const urlString = url.toString();
             "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
         }}
       >
-        <h2 className="text-4xl text-[#626262] ">
-          {t("BASIC_INFORMATION")}
-        </h2>
+        <h2 className="text-4xl text-[#626262] ">{t("BASIC_INFORMATION")}</h2>
         <div className="grid grid-cols-9 py-8 mx-auto lg:gap-x-16 ">
           <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3 ">
             <label
@@ -311,11 +318,8 @@ const urlString = url.toString();
               value={formData?.eventDetails}
               required
               onChange={onChange}
-              rows={4} 
+              rows={4}
             ></textarea>
-
-
-           
           </div>
           <div className="col-span-8 py-0  lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
             <label
@@ -330,22 +334,32 @@ const urlString = url.toString();
             </label>
             <div className="relative">
               <div className="flex justify-center">
-
-            {
-                  formData?.files?.length > 0 && formData?.files.map((item: any) => {return (
-                    
-                    <div>
-<img className="h-[50px] w-[50px]" key={item} src={item} alt="scd"/>
-<p className="w-20" onClick={()=>{
-  handleSelectedImage(item)
-}}>hello</p>
-                    </div>
-                  )})
-                }
+                {formData?.files?.length > 0 &&
+                  formData?.files.map((item: any) => {
+                    return (
+                      <div>
+                        <img
+                          className="h-[50px] w-[50px]"
+                          key={item}
+                          src={item}
+                          alt="scd"
+                        />
+                        {eventId && (
+                          <button
+                            className="absolute top-0 h-4 w-4 bg-[#61cbc2] rounded-full text-white text-[14px] flex justify-center items-center cursor-pointer"
+                            onClick={() => {
+                              handleSelectedImage(item, eventId);
+                            }}
+                          >
+                            X
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
               </div>
 
               <div className="flex items-center ">
-                
                 <input
                   className="filehidden appearance-none block w-full bg-white text-gray-800 border border-[#51ff85] rounded py-12 px-2  mb-3 leading-tight focus:outline-none focus:bg-white transition duration-300 ease-in-out transform shadow-xl"
                   style={{
@@ -369,33 +383,32 @@ const urlString = url.toString();
             </div>
           </div>
           <div className="relative w-full col-span-8 mt-0 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-6">
-              <label
-                className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
-                htmlFor="place"
-              >
-                {t("PLACE")}
-              </label>
-              <Select
-                name="place"
-                required
-                placeholder={formData?.place}
-                options={
-                  JapanCities as OptionsOrGroups<
-                    OptionType,
-                    GroupBase<OptionType>
-                  >
-                }
-                onChange={handleChange}
-                className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-              />
-              
+            <label
+              className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
+              htmlFor="place"
+            >
+              {t("PLACE")}
+            </label>
+            <Select
+              name="place"
+              required
+              placeholder={formData?.place}
+              options={
+                JapanCities as OptionsOrGroups<
+                  OptionType,
+                  GroupBase<OptionType>
+                >
+              }
+              onChange={handleChange}
+              className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
 
-              {!isWithinJapan && (
-                <p className="text-[#dc0000] bg-white text-center w-full">
-                  Please enter a location within Japan.
-                </p>
-              )}
-            </div> 
+            {!isWithinJapan && (
+              <p className="text-[#dc0000] bg-white text-center w-full">
+                Please enter a location within Japan.
+              </p>
+            )}
+          </div>
           <div className="col-span-8 py-2 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
             <label
               className="block mb-2 text-lg tracking-wide text-[#626262] captilize"
@@ -415,12 +428,8 @@ const urlString = url.toString();
               value={formData?.address}
               required
               onChange={onChange}
-              
             />
           </div>
-         
-         
-         
         </div>
 
         <div className="relative col-span-12 mx-4 sm:mx-16 md:col-span-8 lg:col-span-8 ">
@@ -437,7 +446,7 @@ const urlString = url.toString();
           <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
             <button
               className="bg-[#51ff85] mx-2 text-white py-3  mb-2 md:mb-0 md:mr-2 rounded-md"
-              onClick={() => { }}
+              onClick={() => {}}
             >
               {t("MAP")}
             </button>
@@ -447,27 +456,29 @@ const urlString = url.toString();
               placeholder={t("SEARCH_LOCATION")}
               required
               value={formData?.place}
-            />  
+            />
             <button
               className="py-3 mx-2 text-white bg-blue-500 rounded-md sm:mx-0 lg:mx-2"
-              onClick={() => { }}
-            >1
-              {t("SELECT")}
+              onClick={() => {}}
+            >
+              1{t("SELECT")}
             </button>
           </div>
         </div>
-      
       </div>
-      <div  className="grid grid-cols-9 px-4 py-4 mx-auto lg:gap-x-16 my-10" style={{
+      <div
+        className="grid grid-cols-9 px-4 py-4 mx-auto lg:gap-x-16 my-10"
+        style={{
           boxShadow:
-            'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
-        }}>
+            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+        }}
+      >
         <div className="col-span-8 py-2 lg:col-span-7  md:col-span-5 md:mr-0 md:mb-0 ">
           <label
             className="block mb-2 text-xs font-bold tracking-wide text-[#626262] captilize"
             htmlFor="grid-event-name"
           >
-            {t('PARTICIPATION_FEE')}
+            {t("PARTICIPATION_FEE")}
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent  rounded py-4 px-4 mb-0 leading-tight focus:outline-none "
@@ -482,66 +493,66 @@ const urlString = url.toString();
             min="0"
           />
         </div>
-        </div>
-        <div  className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 my-10 py-6" style={{
+      </div>
+      <div
+        className="grid grid-cols-9 px-4 py-0 mx-auto lg:gap-x-16 my-10 py-6"
+        style={{
           boxShadow:
-            'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
-        }}>
-         <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
-            <label
-              className="relative flex items-center gap-2 mb-2 text-lg tracking-wide text-[#626262] capitalize captilize"
-              htmlFor="grid-short-video"
+            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+        }}
+      >
+        <div className="col-span-8 py-2 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-3">
+          <label
+            className="relative flex items-center gap-2 mb-2 text-lg tracking-wide text-[#626262] capitalize captilize"
+            htmlFor="grid-short-video"
+          >
+            {t("CANCELLATION_FEE")}
+            <svg
+              height="20"
+              className="cursor-pointer"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
-              {t("CANCELLATION_FEE")}
-              <svg
-                height="20"
-                className="cursor-pointer"
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+              <path
+                d="M20 0C16.0444 0 12.1776 1.17298 8.8886 3.37061C5.59962 5.56823 3.03617 8.69181 1.52242 12.3463C0.00866569 16.0008 -0.387401 20.0222 0.384303 23.9018C1.15601 27.7814 3.06082 31.3451 5.85787 34.1421C8.65492 36.9392 12.2186 38.844 16.0982 39.6157C19.9778 40.3874 23.9991 39.9913 27.6537 38.4776C31.3082 36.9638 34.4318 34.4004 36.6294 31.1114C38.827 27.8224 40 23.9556 40 20C39.9944 14.6974 37.8855 9.61356 34.136 5.86405C30.3864 2.11453 25.3026 0.00559965 20 0ZM20 36.9231C16.6529 36.9231 13.381 35.9305 10.598 34.071C7.81506 32.2115 5.64599 29.5685 4.36512 26.4762C3.08426 23.3839 2.74912 19.9812 3.4021 16.6985C4.05508 13.4157 5.66685 10.4003 8.03358 8.03358C10.4003 5.66684 13.4157 4.05508 16.6985 3.40209C19.9812 2.74911 23.3839 3.08425 26.4762 4.36511C29.5685 5.64598 32.2115 7.81505 34.071 10.598C35.9306 13.381 36.9231 16.6529 36.9231 20C36.918 24.4867 35.1334 28.7882 31.9608 31.9608C28.7882 35.1334 24.4867 36.918 20 36.9231ZM23.0769 29.2308C23.0769 29.6388 22.9148 30.0301 22.6263 30.3186C22.3378 30.6071 21.9465 30.7692 21.5385 30.7692C20.7224 30.7692 19.9398 30.445 19.3628 29.868C18.7857 29.291 18.4615 28.5084 18.4615 27.6923V20C18.0535 20 17.6622 19.8379 17.3737 19.5494C17.0852 19.2609 16.9231 18.8696 16.9231 18.4615C16.9231 18.0535 17.0852 17.6622 17.3737 17.3737C17.6622 17.0852 18.0535 16.9231 18.4615 16.9231C19.2776 16.9231 20.0602 17.2472 20.6373 17.8243C21.2143 18.4013 21.5385 19.1839 21.5385 20V27.6923C21.9465 27.6923 22.3378 27.8544 22.6263 28.1429C22.9148 28.4314 23.0769 28.8227 23.0769 29.2308ZM16.9231 11.5385C16.9231 11.082 17.0584 10.6359 17.312 10.2564C17.5656 9.87688 17.926 9.58109 18.3477 9.40643C18.7693 9.23177 19.2333 9.18607 19.681 9.27511C20.1286 9.36415 20.5398 9.58394 20.8626 9.90667C21.1853 10.2294 21.4051 10.6406 21.4941 11.0883C21.5832 11.5359 21.5375 11.9999 21.3628 12.4216C21.1881 12.8433 20.8924 13.2037 20.5129 13.4572C20.1334 13.7108 19.6872 13.8462 19.2308 13.8462C18.6187 13.8462 18.0318 13.603 17.599 13.1702C17.1662 12.7375 16.9231 12.1505 16.9231 11.5385Z"
+                fill="white"
+              />
+            </svg>
+            {isHovered && (
+              <div
+                className="absolute bg-white border rounded-md px-1 z-[10] shadow-lg"
+                style={{
+                  top: "-34px",
+                  right: "135px",
+                  opacity: isHovered ? 1 : 0,
+                  transition: "opacity 0.3s ease-in-out",
+                }}
+                id="info-box"
               >
-                <path
-                  d="M20 0C16.0444 0 12.1776 1.17298 8.8886 3.37061C5.59962 5.56823 3.03617 8.69181 1.52242 12.3463C0.00866569 16.0008 -0.387401 20.0222 0.384303 23.9018C1.15601 27.7814 3.06082 31.3451 5.85787 34.1421C8.65492 36.9392 12.2186 38.844 16.0982 39.6157C19.9778 40.3874 23.9991 39.9913 27.6537 38.4776C31.3082 36.9638 34.4318 34.4004 36.6294 31.1114C38.827 27.8224 40 23.9556 40 20C39.9944 14.6974 37.8855 9.61356 34.136 5.86405C30.3864 2.11453 25.3026 0.00559965 20 0ZM20 36.9231C16.6529 36.9231 13.381 35.9305 10.598 34.071C7.81506 32.2115 5.64599 29.5685 4.36512 26.4762C3.08426 23.3839 2.74912 19.9812 3.4021 16.6985C4.05508 13.4157 5.66685 10.4003 8.03358 8.03358C10.4003 5.66684 13.4157 4.05508 16.6985 3.40209C19.9812 2.74911 23.3839 3.08425 26.4762 4.36511C29.5685 5.64598 32.2115 7.81505 34.071 10.598C35.9306 13.381 36.9231 16.6529 36.9231 20C36.918 24.4867 35.1334 28.7882 31.9608 31.9608C28.7882 35.1334 24.4867 36.918 20 36.9231ZM23.0769 29.2308C23.0769 29.6388 22.9148 30.0301 22.6263 30.3186C22.3378 30.6071 21.9465 30.7692 21.5385 30.7692C20.7224 30.7692 19.9398 30.445 19.3628 29.868C18.7857 29.291 18.4615 28.5084 18.4615 27.6923V20C18.0535 20 17.6622 19.8379 17.3737 19.5494C17.0852 19.2609 16.9231 18.8696 16.9231 18.4615C16.9231 18.0535 17.0852 17.6622 17.3737 17.3737C17.6622 17.0852 18.0535 16.9231 18.4615 16.9231C19.2776 16.9231 20.0602 17.2472 20.6373 17.8243C21.2143 18.4013 21.5385 19.1839 21.5385 20V27.6923C21.9465 27.6923 22.3378 27.8544 22.6263 28.1429C22.9148 28.4314 23.0769 28.8227 23.0769 29.2308ZM16.9231 11.5385C16.9231 11.082 17.0584 10.6359 17.312 10.2564C17.5656 9.87688 17.926 9.58109 18.3477 9.40643C18.7693 9.23177 19.2333 9.18607 19.681 9.27511C20.1286 9.36415 20.5398 9.58394 20.8626 9.90667C21.1853 10.2294 21.4051 10.6406 21.4941 11.0883C21.5832 11.5359 21.5375 11.9999 21.3628 12.4216C21.1881 12.8433 20.8924 13.2037 20.5129 13.4572C20.1334 13.7108 19.6872 13.8462 19.2308 13.8462C18.6187 13.8462 18.0318 13.603 17.599 13.1702C17.1662 12.7375 16.9231 12.1505 16.9231 11.5385Z"
-                  fill="white"
-                />
-              </svg>
-              {isHovered && (
-                <div
-                  className="absolute bg-white border rounded-md px-1 z-[10] shadow-lg"
-                  style={{
-                    top: "-34px",
-                    right: "135px",
-                    opacity: isHovered ? 1 : 0,
-                    transition: "opacity 0.3s ease-in-out",
-                  }}
-                  id="info-box"
-                >
-                  <p className="text-sm text-[#17B3A6]">
-                    {t("ADDITIONAL_INFORMATION")}
-                  </p>
-                </div>
-              )}
-            </label>
-            <textarea
-              className="comment-content block w-full py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded appearance-none focus:outline-none focus:bg-white "
-              style={{
-                boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
-              }}
-              id="grid-first-name"
-              name="eventDetails"
-              placeholder={t("CANCELLATION_FEE")}
-              value={formData?.eventDetails}
-              required
-              onChange={onChange}
-              rows={4} 
-            ></textarea>
-
-
-           
-          </div>
+                <p className="text-sm text-[#17B3A6]">
+                  {t("ADDITIONAL_INFORMATION")}
+                </p>
+              </div>
+            )}
+          </label>
+          <textarea
+            className="comment-content block w-full py-4 mb-3 leading-tight text-gray-800 transition duration-300 ease-in-out transform bg-white border border-[#51ff85] rounded appearance-none focus:outline-none focus:bg-white "
+            style={{
+              boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
+            }}
+            id="grid-first-name"
+            name="eventDetails"
+            placeholder={t("CANCELLATION_FEE")}
+            value={formData?.eventDetails}
+            required
+            onChange={onChange}
+            rows={4}
+          ></textarea>
         </div>
+      </div>
     </motion.div>
   );
 };

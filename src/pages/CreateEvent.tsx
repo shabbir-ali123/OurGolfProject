@@ -9,7 +9,7 @@ import axios from "axios";
 import PaymentDetails, { Click } from "../components/PaymentDetails";
 import { ToastProvider } from "../utils/ToastProvider";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB");
 
@@ -63,6 +63,8 @@ const CreateEvent: React.FC = () => {
   const router = useNavigate();
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
+  const params = useParams<{ id: string }>();
+  const eventId = params.id;
 
   const [formData, setFormData] = useState<CreateEventType>({
     eventType: "",
@@ -115,7 +117,8 @@ const CreateEvent: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    
+ 
+  
     if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
       const { checked } = e.target;
       setFormData({ ...formData, [name]: checked });
@@ -299,60 +302,13 @@ const CreateEvent: React.FC = () => {
 };
 
 
-  const toggleScoringEnabled = (enabled: boolean) => {
-    setIsScoringEnabled(enabled);
-  };
-  const handleCheckout = async (e:any) => {
-    e.preventDefault();
-
-    try {
- 
-    const lineItems = [
-      {
-        price_data: {
-          currency: "JPY",
-          product_data: {
-            name: "Per Event", 
-          },
-          unit_amount: 550 , 
-        },
-        quantity: 1,
-      }
-    ];
-    var baseUrl = window.location.origin;
-    var createEvent = baseUrl + '/payment-status';
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: createEvent, // Add parameter indicating success
-      cancel_url: createEvent,
-      allow_promotion_codes: true
-    });
-    
-    const d = session.paymentStatus;
-    if(d == "paid"){
-      handleSubmit(e)
-    }else{
-      window.location.href = session.url;
-    }
-    } catch (error) {
-      console.error('Error during checkout:', error);
-    }
-  };
-    const handleSuccessPageLoad = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('payment_success') === 'true') {
-          handleSubmit;
-      }
-  };
-  window.addEventListener('load', handleSuccessPageLoad);
+   
 
 
   return (
+    
     <ToastProvider iconColor="white" textColor="white">
-      <div
+      {eventId && <div
         className="p-2 xl:p-10 rounded-2x"
       >
         <div className=" animate__animated animate__lightSpeedInRight">
@@ -397,7 +353,7 @@ const CreateEvent: React.FC = () => {
             </div>
           </div>
         </form>
-      </div>
+      </div>}
     </ToastProvider>
   );
 };
