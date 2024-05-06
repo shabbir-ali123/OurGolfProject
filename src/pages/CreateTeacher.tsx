@@ -84,7 +84,7 @@ const CreateTeacher: React.FC = () => {
   });
   const [urls, setUrls] = useState<any>("");
   const [portfolioVideos, setPortfolioVideo] = useState<any>("");
-  const handlePortfolioUploadChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handlePortfolioUploadChange = (event: React.ChangeEvent<HTMLInputElement>,type?:any, index?: any) => {
     const { files } = event.target;
     if (files && files.length > 0) {
       const objectURL = URL.createObjectURL(files[0]);
@@ -95,6 +95,22 @@ const CreateTeacher: React.FC = () => {
         newUrls[index] = objectURL;
         return newUrls;
       });
+    }
+    const {  name} = event.target;
+    debugger
+    if ((files && files.length > 0) && (type === "introductionVideo")) {
+      const file = files[0];
+      setNextFormData((prevFormData) => ({
+        ...prevFormData,
+        [type]: [file],
+      }));
+    }
+    if ((files && files.length > 0) && (type === "portfolioVideo")) {
+      const fileList = Array.from(files); 
+      setNextFormData((prevFormData:any) => ({
+        ...prevFormData,
+        [type]: [...prevFormData[type], ...fileList], 
+      }));
     }
   };
   
@@ -616,7 +632,7 @@ const CreateTeacher: React.FC = () => {
               <UploaderInput
                 key={index}
                 isOpen={showInputIndexes.includes(index)}
-                handleUploadChange={(event:any) => handlePortfolioUploadChange(event, index)}
+                handleUploadChange={(event:any) => handlePortfolioUploadChange(event,"portfolioVideo", index)}
                 ref={portfolioVideoInputRef}
                 handleInputClick={() => handleButtonClick(index)}
                 videoUrl={portfolioVideoUrls[index]}

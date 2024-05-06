@@ -5,20 +5,19 @@ import {
   PhoneIcon,
   MapPinIcon,
   VideoCameraIcon,
-  ArrowTrendingUpIcon,
   ArrowDownIcon,
+  ArrowTrendingUpIcon
 } from "@heroicons/react/24/solid";
+import { Tooltip } from "react-tooltip";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
-import { ShareIcon, ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { ShareIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { ToastConfig, toastProperties } from "../constants/toast";
-import { useTeacherContext } from "../contexts/teachersContext";
-import { SlotsCalender } from "../components/calender/SlotsCalender";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
+import { SlotsCalender } from "../components/calender/SlotsCalender";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -38,123 +37,128 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 interface UpdatePostType {
   firstName: string;
   profileImage: File[];
-  portfolioVideo: File[];
+  portfolioVideo: FileList[];
   introductionVideo: File[];
-  level: string;
+  movieUrl: any
+  portfolioUrl: any
 }
-const UpdateTeacher: React.FC = () => {
-  const {teacher} = useTeacherContext();
-  const { t, i18n } = useTranslation();
-  const [videoVisible, setVideoVisible] = useState(false);
-  const [videoPortfolioVisible, setVideoPortfolioVisible] = useState(false);
-  const [showInputIndexes, setShowInputIndexes] = useState<any>([]);
-
-
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [formData, setFormData] = useState<UpdatePostType>({
+const CreateTeacher: React.FC = () => {
+  const { t } = useTranslation();
+  const [videoVisible, setVideoVisible] = useState<boolean>(false);
+  const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(Array(5).fill(''));
+  const [videoPortfolioVisible, setVideoPortfolioVisible] =
+    useState<boolean>(false);
+  const [showMediaUrl, setShowMediaUrl] = useState<boolean>(false);
+  const [showPortfolioUrl, setShowPortfolioUrl] = useState<boolean>(false);
+  const [formData, setFormData] = useState({
+    userId: 47,
+    aboutMyself: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    location: "",
+    hourlyRate: "",
+    level: "",
+    schedules: [
+      {
+        startDate: "",
+        endDate: "",
+        shifts: [
+          {
+            day: "",
+            startTime: "",
+            endTime: "",
+          },
+        ],
+      },
+    ],
+  });
+  const [nextformData, setNextFormData] = useState<UpdatePostType>({
+    firstName: "",
     profileImage: [],
     portfolioVideo: [],
-    firstName: "",
-    level: "",
     introductionVideo: [],
-    // schedules: [
-    //   {
-    //     startDate: "",
-    //     endDate: "",
-    //     shifts: [
-    //       {
-    //         day: "",
-    //         startTime: "",
-    //         endTime: "",
-    //       },
-    //     ],
-    //   },
-    // ],
+    movieUrl: "",
+    portfolioUrl: "",
+
   });
-  // const [nextformData, setNextFormData] = useState<UpdatePostType>({
-  //   firstName: "",
-  //   profileImage: [],
-  //   portfolioVideo: [],
-  //   introductionVideo: [],
-  // });
-  const [urls, setUrls] = useState<any>('');
-  const [portfolioVideo, setPortfolioVideo] = useState<any>('');
-  const handleImageChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => {
+  const [urls, setUrls] = useState<any>("");
+  const [portfolioVideos, setPortfolioVideo] = useState<any>("");
+  const handlePortfolioUploadChange = (event: React.ChangeEvent<HTMLInputElement>,type?:any, index?: any) => {
     const { files } = event.target;
     if (files && files.length > 0) {
+      const objectURL = URL.createObjectURL(files[0]);
+
+      // Update the specific video URL for this uploader
+      setPortfolioVideoUrls((prev) => {
+        const newUrls = [...prev];
+        newUrls[index] = objectURL;
+        return newUrls;
+      });
+    }
+    const {  name} = event.target;
+    debugger
+    if ((files && files.length > 0) && (type === "introductionVideo")) {
       const file = files[0];
-      setFormData((prevFormData) => ({
+      setNextFormData((prevFormData) => ({
         ...prevFormData,
         [type]: [file],
       }));
     }
-    if(type === "introductionVideo" && files && files.length > 0){
-      setVideoVisible(true);    
+    if ((files && files.length > 0) && (type === "portfolioVideo")) {
+      const fileList = Array.from(files); 
+      setNextFormData((prevFormData:any) => ({
+        ...prevFormData,
+        [type]: [...prevFormData[type], ...fileList], 
+      }));
+    }
+  };
+  
+  const handleImageChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => {
+    const { files , name} = event.target;
+    if ((files && files.length > 0) && (type === "introductionVideo")) {
+      const file = files[0];
+      setNextFormData((prevFormData) => ({
+        ...prevFormData,
+        [type]: [file],
+      }));
+    }
+    if ((files && files.length > 0) && (type === "portfolioVideo")) {
+      const fileList = Array.from(files); // Convert FileList to an array
+      setNextFormData((prevFormData:any) => ({
+        ...prevFormData,
+        [type]: [...prevFormData[type], ...fileList], // Append new files to the existing array
+      }));
+    }
+    if (type === "introductionVideo" && files && files.length > 0) {
+      setVideoVisible(true);
       const objectURL = URL.createObjectURL(files[0]);
       setUrls(objectURL);
     }
-    if(type === "portfolioVideo" && files && files.length > 0){
+    if (type === "portfolioVideo" && files && files.length > 0) {
       const objectURL = URL.createObjectURL(files[0]);
       setPortfolioVideo(objectURL);
-      setVideoPortfolioVisible(true)
+      setVideoPortfolioVisible(true);
     }
-    console.log(formData);
   };
 
   const profileImageInputRef = useRef<HTMLInputElement>(null);
   const portfolioVideoInputRef = useRef<HTMLInputElement>(null);
   const introductionVideoInputRef = useRef<HTMLInputElement>(null);
 
-
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
   const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
+  const [showInputIndexes, setShowInputIndexes] = useState<any>([]);
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeStates, setActiveStates] =
     useState<boolean[][]>(initialActiveStates);
 
-    console.log(formData)
-  // useEffect(() => {
-  //   setFormData((prev: any) => (
-  //     {
-  //      ...prev, 
-  //       profileImage: teacher?.profileImage,
-  //       portfolioVideo: teacher?.portfolioVideo,
-  //       firstName: teacher?.firstName,
-  //       introductionVideo: teacher?.introductionVideo,
-        
-  //     }
-  //   ))
-  // }, [teacher])
-  useEffect(() => {
-    const downloadFile = (url:any, fileName:any) => {
-      fetch(url)
-        .then(response => response.blob())
-        .then(blob => {
-          const file = new File([blob], fileName);
-          setFormData(prevFormData => ({
-            ...prevFormData,
-            [fileName]: file,
-            firstName: teacher?.firstName,
-          }));
-        })
-        .catch(error => console.error('Error downloading file:', error));
-    };
-
-    if (teacher.profileImage) {
-      downloadFile(teacher.profileImage, 'profileImage.jpg');
-    }
-    if (teacher.portfolioVideo) {
-      downloadFile(teacher.portfolioVideo, 'portfolioVideo.mp4');
-    }
-    if (teacher.introductionVideo) {
-      downloadFile(teacher.introductionVideo, 'introductionVideo.mp4');
-    }
-  }, [teacher]);
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer && selectedWeekStart) {
@@ -193,11 +197,47 @@ const UpdateTeacher: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value,  
+      [name]: value,
     }));
+    
   };
+  const handleUpdateChange = (event: any, index: any) => {
+    const { name, value } = event.target;
+  
+    if (name === "portfolioUrl"+(index)) {
+      setNextFormData((prevFormData) => {
+        const updatedFormData = { ...prevFormData };
+        const currentValue = updatedFormData.portfolioUrl ? updatedFormData.portfolioUrl.split(",") : [''];
+  
+        
+      if (value.trim() !== '') {
+        currentValue[index] = value.trim(','); // Update value at the given index
+      } else {
+        currentValue.splice(index, 1); // Remove empty value if the input is cleared
+      }
+      
+      // Concatenate all values with commas
+      updatedFormData.portfolioUrl = currentValue.filter(Boolean).join(",");
+
+        console.log(updatedFormData); 
+        return updatedFormData;
+      });
+    }else{
+      setNextFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
+  };
+  
+  
+  
+  
+  
+  
   
 
   const handleLocationChange = (location: any) => {
@@ -207,19 +247,23 @@ const UpdateTeacher: React.FC = () => {
     }));
   };
 
-  const handleImageChanges = (event: any) => {
-
-    setFormData((prevFormData:any) => ({
+  const handleLevelChange = (level: any) => {
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      profileImage: [event],
+      level: level.value,
     }));
-    
-    console.log("File", formData);
+  };
 
+  const handleImageChanges = (event: any) => {
+    setNextFormData((prevFormData) => ({
+      ...prevFormData,
+      profileImage: event,
+    }));
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log({formData, nextformData});
     const onfitmData = selectedTimeSlots.map((timeSlot) => {
       const [timeRange, , date] = timeSlot.split(" on ");
       const [startTime, endTime] = timeRange.split(" to ");
@@ -250,40 +294,33 @@ const UpdateTeacher: React.FC = () => {
 
     const payload = {
       ...formData,
+      // ...nextformData,
       schedules: onfitmData,
     };
 
-    try {
-        // const formDataToSend = new FormData();
-        const newFormData = new FormData();
-        newFormData.append("profileImage", formData.profileImage[0]);
-        newFormData.append("firstName", formData.firstName);
-        newFormData.append("portfolioVideo", formData.portfolioVideo[0]);
-        newFormData.append("introductionVideo", formData.introductionVideo[0]);
-        
-        const res = await axios.put(
-          API_ENDPOINTS.UPDATETEACHERPROFILE,
-          newFormData,
-          {
+        try {
+          const response = await axios.put(API_ENDPOINTS.UPDATETEACHERPROFILE, nextformData, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "multipart/form-data",
             },
+          });
+    
+          if (response.status === 200) {
+            toast.success("Post Updated Successfully");
           }
-        // 
-        );
-        if(res.status === 200){
-          toast.success(
-              "Teacher Created Successfully",
-              toastProperties as ToastConfig
-            );
+        } catch (error) {
+          console.error("Error updating event media:");
+          toast.error("Failed to update event media. Please try again later.");
         }
-    } catch (error) {
-      toast.error("Teacher Already Created");
-    }
+      
+
+    
   };
 
   const handleWeekSelected = (date: Date) => {
     setSelectedWeekStart(date);
+    
   };
 
   const handleTabClick = (date: Date) => {
@@ -308,16 +345,15 @@ const UpdateTeacher: React.FC = () => {
       const newActiveStates = prev.map((dayStates, index) =>
         index === hourIndex
           ? dayStates.map((isActive, i) =>
-              i === dayIndex ? !isActive : isActive
-            )
+            i === dayIndex ? !isActive : isActive
+          )
           : [...dayStates]
       );
       return newActiveStates;
     });
 
-    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${
-      selectedWeekStart?.toLocaleDateString() || ""
-    }`;
+    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${selectedWeekStart?.toLocaleDateString() || ""
+      }`;
 
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
@@ -361,19 +397,14 @@ const UpdateTeacher: React.FC = () => {
       shifts: [newShift],
     };
 
-    // setFormData((prevFormData) => {
-    //   const newSchedules = [...prevFormData.schedules, newSchedule];
-    //   return {
-    //     ...prevFormData,
-    //     schedules: newSchedules,
-    //   };
-    // });
+    setFormData((prevFormData) => {
+      const newSchedules = [...prevFormData.schedules, newSchedule];
+      return {
+        ...prevFormData,
+        schedules: newSchedules,
+      };
+    });
   };
-
-  const videoSrc = "/video/video.mp4";
-  const posterSrc = "/img/user-06.png";
-  // const user = JSON.parse(localStorage.getItem('user') || "");
-  // console.log(formData?.firstName)
 
   const handleButtonClick = (index: any) => {
     if (showInputIndexes.includes(index)) {
@@ -383,50 +414,38 @@ const UpdateTeacher: React.FC = () => {
     }
   };
 
-
-  const handleLevelChange = (level: any) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      level: level.value,
-    }));
-  };
   return (
-    <div className="py-8 max-w-7xl mx-auto ">
-      <div className="bg-[#17b3a6] p-4 rounded ">
+    <div className="py-8 mx-4 xl:mx-0 ">
+      <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4 items-start justify-center">
-              <div className="flex-col items-center text-center">
-              {/* <input
-                  id="profileImage"
-                  name="profileImage"
-                  ref={profileImageInputRef}
-                  type="file"
-                  onChange={(event) =>
-                    handleImageChange(event, "profileImage")
-                  }
-                /> */}
-                <ProfileAvatar
-                  pname=""
-                  icon={<ShareIcon />}
-                  // imageUrl={user?.imageUrl}
-                  onChangeImage={(event:any) => handleImageChanges(event)}
-                  defaultImageUrl={teacher?.profileImage}
-                  placeholder={t("NAME")}
-                  colSpanSm={6}
-                  colSpanMd={4}
-                  colSpanLg={2}
-                />
-                 <p>{t("PROFILE_PIC")}</p>
-                
+              <div className="text-center">
+                <div className="flex justify-center">
+                  <ProfileAvatar
+                    pname=""
+                    icon={<ShareIcon />}
+                    label={t("FIRST_NAME")}
+                    // imageUrl={user?.imageUrl}
+                    onChangeImage={(event: any) => handleImageChanges(event)}
+                    placeholder={t("FIRST_NAME")}
+                    colSpanSm={6}
+                    colSpanMd={4}
+                    colSpanLg={2}
+                  />
+                </div>
+                <p>{t("PROFILE_PIC")}</p>
+                <div>
+
+                </div>
               </div>
 
               <div className="ml-4 grid grid-cols-1 xl:grid-cols-2 gap-6 justify-center ">
                 <InputWithIcon
                   pname="firstName"
                   icon={<UserIcon />}
-                  label={t("NAME")}
-                  value={formData?.firstName}
+                  label={t("FIRST_NAME")}
+                  value={formData.firstName}
                   onChange={handleChange}
                   placeholder={t("ENTER_FIRST_NAME")}
                   colSpanSm={6}
@@ -436,8 +455,7 @@ const UpdateTeacher: React.FC = () => {
                 <InputWithIcon
                   pname="hourlyRate"
                   icon={<EnvelopeOpenIcon />}
-                  label={t("LessonFee")}
-                  // value={formData?.hourlyRate}
+                  label={t("Hourly")}
                   onChange={handleChange}
                   placeholder={t("ENTER_RATE")}
                   colSpanSm={6}
@@ -445,16 +463,17 @@ const UpdateTeacher: React.FC = () => {
                   colSpanLg={2}
                 />
 
+
                 <div className="">
                   <div className="flex flex-col gap-1">
                     <InputWithIcon
                       variant="dropdown"
                       pname="location"
                       icon={<MapPinIcon />}
-                      label={t("Prefectures")}
-                      // value={formData.location}
+                      label={t("LOCATION")}
+                      value={formData.location}
                       handleLocationChange={handleLocationChange}
-                      placeholder={t("Prefectures")}
+                      placeholder={t("ENTER_LOCATION")}
                       colSpanSm={6}
                       colSpanMd={4}
                       colSpanLg={2}
@@ -465,8 +484,8 @@ const UpdateTeacher: React.FC = () => {
                 <InputWithIcon
                   pname="phoneNumber"
                   icon={<PhoneIcon />}
-                  label={t("TEl_NUM")}
-                  // value={formData.phoneNumber}
+                  label={t("MOBILE")}
+                  value={formData.phoneNumber}
                   onChange={handleChange}
                   placeholder={t("ENTER_MOBILE")}
                   colSpanSm={6}
@@ -492,207 +511,219 @@ const UpdateTeacher: React.FC = () => {
                     colSpanLg={2}
                   />
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
-        <div className="col-span-1 md:col-span-5">
-          <div className="py-4  rounded  text-red ">
-            <div className="p-2 pl-5">
-              <h3 className="font-semibold mb-4 text-lg text-[#565656]">
-              {t("ABOUT_ME")}
-              </h3>
-              <textarea
-                onChange={handleChange}
-                name="aboutMyself"
-                // value={formData?.aboutMyself}
-                className="resize-none leading-8 text-[#e5e7eb] w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
-                placeholder={t("BIO")}
-              ></textarea>
-            </div>
-            <div></div>
-          </div>
-        </div>
-        <div className="mx-4 xl:mx-0 col-span-1 md:col-span-3 my-4">
-          <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
-          {t("INTRO_VIDEO")}
-          </h3>
-          <div className=" relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
-            {!videoVisible && (
-              <>
-                <div>
-                {teacher?.introductionVideo ? <video className="w-[400px]" src={teacher?.introductionVideo } controls></video> : ''}
-              <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
-              
-                <input
-                  id="introductionVideo"
-                  name="introductionVideo"
-                  ref={introductionVideoInputRef}
-                  type="file"
-                  onChange={(event) =>
-                    handleImageChange(event, "introductionVideo")
-                  }
-                  accept="video/*"
-                />
-                <label
-                  htmlFor="introductionVideo"
-                  className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-600"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M12 4v16m8-8H4"></path>
-                  </svg>
-                </label>
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
+          <div className="col-span-1 md:col-span-5">
+            <div className="py-4  rounded  text-red ">
+              <div className="">
+                <h3 className="font-semibold mb-4 text-lg text-[#565656]">
+                {t("ABOUT_ME")}
+                </h3>
+                <textarea
+                  onChange={handleChange}
+                  name="aboutMyself"
+                  className="resize-none leading-8 text-[#e5e7eb] w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
+                  placeholder={t("BIO")}
+                ></textarea>
               </div>
+              <div></div>
             </div>
-              </>
-            )}
-            {videoVisible && (
-              <video
-                className="rounded-lg w-[400px] h-[260px]"
-                src={urls}
-                title="Introduction Video"
-                controls
-              ></video>
+          </div>
+          <div className="col-span-1 md:col-span-3 my-4">
+            <h3 className="text-lg font-semibold mb-2 text-[#565656]">
+            {t("INTRO_VIDEO")}
+            </h3>
+            <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
+              {!videoVisible && (
+                <>
+                  <div>
+                    <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
+                      <input
+                        id="introductionVideo"
+                        name="introductionVideo"
+                        ref={introductionVideoInputRef}
+                        type="file"
+                        multiple
+                        onChange={(event) => handleImageChange(event, "introductionVideo")}
+                        accept="video/*"
+                        className="hidden xl:block"
+                      />
+                      <label
+                        htmlFor="introductionVideo"
+                        className="flex items-center justify-center p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-[#51ff85]"
+                      >
+                        <svg
+                          className="w-6 h-6 text-gray-600" 
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path d="M12 4v16m8-8H4"></path>
+                        </svg>
+                      </label>
+                    </div>
+                  </div>
+                  <>
+                  <ArrowDownIcon
+                    className="h-[16px] mt-2 p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                    onClick={() => setShowMediaUrl(!showMediaUrl)}
+                    data-tooltip-id="upload-url-tooltip" 
+                  />
+                  <Tooltip id="upload-url-tooltip" content="Add Video URL" />
+                  </>
+                 
+                </>              )}
+              {videoVisible && (
+                <video
+                  className="rounded-lg  h-[260px]"
+                  src={urls}
+                  title="Introduction Video"
+                  controls
+                ></video>
+              )}
+            </div>
+            {showMediaUrl && (
+              <div className="mt-4">
+                <h3 className="text-center mb-0">OR</h3>
+                <InputWithIcon
+                  pname="movieURL"
+                  icon={<VideoCameraIcon />}
+                  label={t("MOVIE_URL")}
+                  // value={nextformData.movieUrl}
+                  onChange={handleChange}
+                  placeholder={t("MOVIE_URL")}
+                  colSpanSm={6}
+                  colSpanMd={4}
+                  colSpanLg={2}
+                />
+              </div>
             )}
             
           </div>
-          
-        </div>
-      </div>
-      <div className="mx-4 xl:mx-0 col-span-1">
 
-      <div className="col-span-1 md:col-span-3 my-4">
+
+        </div>
+        <div className="col-span-1 md:col-span-3 my-4">
           <h3 className="text-lg font-semibold mb-2 text-[#565656]">
           {t("Video_Portfolio")}
           </h3>
           <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
-            {!videoPortfolioVisible && (
+            {/* {!videoPortfolioVisible && ( */}
               <div className="grid   md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1  gap-2">
-                {[1, 2, 3, 4, 5].map((index) => (
-                  <div key={index} className="flex flex-col gap-2">
-                    <UploaderInput
-                      isOpen={showInputIndexes.includes(index)}
-                      handleUploadChange={(event: any) => handleImageChange(event, "portfolioVideo")}
-                      ref={portfolioVideoInputRef}
-                      handleInputClick={() => handleButtonClick(index)}
-                    />
-                    {showInputIndexes.includes(index) && (
-                      <div className="my-4">
-                        <h3 className="text-center mb-0">OR</h3>
-                        <InputWithIcon
-                          pname="portfolioUrl"
-                          icon={<VideoCameraIcon />}
-                          label={"Portfolio URL"}
-                          // value={formData.movieUrl}
-                          onChange={handleChange}
-                          placeholder={"Portfolio URL"}
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))}
+              {[1, 2, 3, 4, 5].map((index) => (
+              <UploaderInput
+                key={index}
+                
+                isOpen={showInputIndexes.includes(index)}
+                handleUploadChange={(event:any) => handlePortfolioUploadChange(event,"portfolioVideo", index)}
+                ref={portfolioVideoInputRef}
+                handleInputClick={() => handleButtonClick(index)}
+                videoUrl={portfolioVideoUrls[index]}
+              />
+            ))}
+
               </div>
-            )}
+            {/* )} */}
             {videoPortfolioVisible && (
               <video
                 className="rounded-lg w-full h-[260px]"
-                // src={portfolioVideos}
+                src={portfolioVideos}
                 title="Portfolio Video"
                 controls
               ></video>
             )}
           </div>
-          {false && (
+          {showPortfolioUrl && (
             <div className="my-4">
               <h3 className="text-center mb-0">OR</h3>
               <InputWithIcon
                 pname="portfolioUrl"
                 icon={<VideoCameraIcon />}
                 label={t("PORTFOLIO_URL")}
-                // value={formData.movieUrl}
+                value={nextformData.movieUrl}
                 onChange={handleChange}
                 placeholder={t("PORTFOLIO_URL")}
               />
             </div>
           )}
         </div>
-      <div className="my-4 mx-4 xl:mx-0">
-      <SlotsCalender onWeekSelected={handleWeekSelected}/>
-        <div className="grid grid-cols-8 gap-4 py-2 text-center ">
-          <div className="col-span-1 font-bold ">{t("TIME")}</div>
-          {selectedWeekStart &&
-            Array.from({ length: 7 }, (_, i) => {
-              const date = new Date(
-                selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
-              );
-              return (
-                <div
-                  key={date.toLocaleDateString()}
-                  className={`col-span-1 font-bold   ${
-                    date.getTime() === selectedTab?.getTime()
+
+
+        <div className="my-4 mx-10   xl:mx-0">
+          <SlotsCalender onWeekSelected={handleWeekSelected}/>
+          <div className="grid grid-cols-1 gap-4 py-2 text-center ">
+            <div className="col-span-1 font-bold ">{t("TIME")}</div>
+            <div className="w-full flex justify-center gap-4 xl:gap-24 ml-0 xl:ml-10  overflow-x-scroll xl:overflow-auto">
+            {selectedWeekStart &&
+              Array.from({ length: 7 }, (_, i) => {
+                const date = new Date(
+                  selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
+                );
+                return (
+                  <div
+                    key={date.toLocaleDateString()}
+                    className={`col-span-1 font-bold   ${date.getTime() === selectedTab?.getTime()
                       ? "selected-tab"
                       : ""
-                  }`}
-                  onClick={() => handleTabClick(date)}
-                >
-                  {t(getDayName(date).toLocaleUpperCase())}
-                </div>
-              );
-            })}
-        </div>
-        <div
-          ref={scrollContainerRef}
-          className="grid grid-cols-8 gap-4 overflow-auto text-center"
-          style={{ maxHeight: "50vh" }}
-        >
-          {hoursOfDay.map((hour, hourIndex) => (
-            <React.Fragment key={hour}>
-              <div className="col-span-1 time-slot">{hour}</div>
-              {selectedWeekStart &&
-                Array.from({ length: 7 }, (_, dayIndex) => {
-                  const date = new Date(
-                    selectedWeekStart.getTime() + dayIndex * 24 * 60 * 60 * 1000
-                  );
-                  const dateKey = date.toISOString().split("T");
-                  const isActive = activeStates[hourIndex][dayIndex];
-                  return (
-                    <button
-                      key={dateKey + hour}
-                      type="button"
-                      className={`col-span-1 rounded-md py-2 time-slot ${
-                        isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
                       }`}
-                      onClick={() =>
-                        handleTimeSlotClick(dateKey, hour, dayIndex)
-                      }
-                    >
-                      {isActive ? `${hour}` : hour}
-                    </button>
-                  );
-                })}
-            </React.Fragment>
-          ))}
+                    onClick={() => handleTabClick(date)}
+                  >
+                    {t(getDayName(date).toLocaleUpperCase())}
+                  </div>
+                );
+              })}
+            </div>
+           
+          </div>
+          <div
+            ref={scrollContainerRef}
+            className="grid grid-cols-8 gap-4 overflow-auto text-center"
+            style={{ maxHeight: "50vh" }}
+          >
+            {hoursOfDay.map((hour, hourIndex) => (
+              <React.Fragment key={hour}>
+                <div className="col-span-1 time-slot">{hour}</div>
+                {selectedWeekStart &&
+                  Array.from({ length: 7 }, (_, dayIndex) => {
+                    const date = new Date(
+                      selectedWeekStart.getTime() + dayIndex * 24 * 60 * 60 * 1000
+                    );
+                    const dateKey = date.toISOString().split("T");
+                    const isActive = activeStates[hourIndex][dayIndex];
+                    return (
+                      <button
+                        key={dateKey + hour}
+                        type="button"
+                        className={`col-span-1 rounded-md py-2 time-slot ${isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
+                          }`}
+                        onClick={() =>
+                          handleTimeSlotClick(dateKey, hour, dayIndex)
+                        }
+                      >
+                        {isActive ? `${hour}` : hour}
+                      </button>
+                    );
+                  })}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
-      {/* <div>
-      <button onClick={handleFormSubmit}>Submit</button>
-      </div> */}
       <div className="flex justify-center">
-        <button className="p-4 bg-[#17b3a6] text-white rounded-md" onClick={handleFormSubmit}>Update Teacher</button>
+        <button className="p-4 bg-[#17b3a6] text-white rounded-md" onClick={handleFormSubmit}>Submit</button>
       </div>
-    </div>
+
     </div>
   );
 };
 
-export default UpdateTeacher;
+export default CreateTeacher;
