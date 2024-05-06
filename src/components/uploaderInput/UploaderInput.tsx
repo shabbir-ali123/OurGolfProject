@@ -4,10 +4,13 @@ export const UploaderInput = ({
   handleUploadChange,
   ref,
   handleInputClick,
-  isOpen
+  isOpen,
+  videoUrl,
+  videoUrlValue,
+  handleVideoUrlChange
 }: any) => {
   return (
-    <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2] ml-2 cursor-pointer">
+    <div className="flex flex-col items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2] ml-2 cursor-pointer">
       <input
         className="w-[106px]"
         id="portfolioVideo"
@@ -17,6 +20,7 @@ export const UploaderInput = ({
         multiple
         onChange={handleUploadChange}
         accept="video/*"
+       
       />
       <label
         htmlFor="portfolioVideo"
@@ -34,8 +38,24 @@ export const UploaderInput = ({
           <path d="M12 4v16m8-8H4"></path>
         </svg>
       </label>
+      {videoUrl && (
+        <video className="mt-2" src={videoUrl} controls width="100px"></video>
+      )}
       {
-        isOpen ? (<ArrowUpIcon  className="h-[30px]" onClick={handleInputClick}/>) : (<ArrowDownIcon className="h-[30px]" onClick={handleInputClick} />)
+        isOpen ? (
+          <>
+            <ArrowUpIcon className="h-[30px]" onClick={handleInputClick} />
+            <input
+              type="text"
+              value={videoUrlValue}
+              onChange={handleVideoUrlChange}
+              placeholder="Enter video URL"
+              className="mt-2 p-2 border border-gray-300 rounded-lg"
+            />
+          </>
+        ) : (
+          <ArrowDownIcon className="h-[24px] mt-2 p-[2px] border-2 border-solid rounded-full" onClick={handleInputClick} />
+        )
       }
     </div>
   );

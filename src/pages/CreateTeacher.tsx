@@ -44,6 +44,7 @@ interface UpdatePostType {
 const CreateTeacher: React.FC = () => {
   const { t } = useTranslation();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
+  const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(Array(5).fill(''));
   const [videoPortfolioVisible, setVideoPortfolioVisible] =
     useState<boolean>(false);
   const [showMediaUrl, setShowMediaUrl] = useState<boolean>(false);
@@ -82,6 +83,20 @@ const CreateTeacher: React.FC = () => {
   });
   const [urls, setUrls] = useState<any>("");
   const [portfolioVideos, setPortfolioVideo] = useState<any>("");
+  const handlePortfolioUploadChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const { files } = event.target;
+    if (files && files.length > 0) {
+      const objectURL = URL.createObjectURL(files[0]);
+
+      // Update the specific video URL for this uploader
+      setPortfolioVideoUrls((prev) => {
+        const newUrls = [...prev];
+        newUrls[index] = objectURL;
+        return newUrls;
+      });
+    }
+  };
+  
   const handleImageChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     type: string
@@ -591,28 +606,16 @@ const CreateTeacher: React.FC = () => {
           <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
             {/* {!videoPortfolioVisible && ( */}
               <div className="grid   md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1  gap-2">
-                {[1, 2, 3, 4, 5].map((index) => (
-  <div key={index} className="flex flex-col gap-2">
-    <UploaderInput
-      isOpen={showInputIndexes.includes(index)}
-      handleUploadChange={(event: any) => handleImageChange(event, "portfolioVideo")}
-      ref={portfolioVideoInputRef}
-      handleInputClick={() => handleButtonClick(index)}
-    />
-    {showInputIndexes.includes(index) && (
-      <div className="my-4">
-        <h3 className="text-center mb-0">OR</h3>
-        <InputWithIcon
-          pname={`portfolioUrl${index}`} // Use dynamic field names to distinguish between inputs
-          icon={<VideoCameraIcon />}
-          label={`Portfolio URL ${index}`} // Add index to label for clarity
-          onChange={(e: any) => handleUpdateChange(e, index)} // Pass index to the handler
-          placeholder={`Portfolio URL ${index}`}
-        />
-      </div>
-    )}
-  </div>
-))}
+              {[1, 2, 3, 4, 5].map((index) => (
+              <UploaderInput
+                key={index}
+                isOpen={showInputIndexes.includes(index)}
+                handleUploadChange={(event:any) => handlePortfolioUploadChange(event, index)}
+                ref={portfolioVideoInputRef}
+                handleInputClick={() => handleButtonClick(index)}
+                videoUrl={portfolioVideoUrls[index]}
+              />
+            ))}
 
               </div>
             {/* )} */}
