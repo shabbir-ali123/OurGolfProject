@@ -6,6 +6,12 @@ import { useTeacherContext } from "../contexts/teachersContext";
 import { useEffect, useState } from "react";
 import { fetchTeachersAppointments } from "../utils/fetchTeacher";
 
+interface FilteredAppointments {
+  previous: any[];
+  today: any[];
+  upcoming: any[];
+}
+
 export default function Activeties({ selectedDate }: any) {
   const { t, i18n } = useTranslation();
   const { studentAppointments } = useTeacherContext();
@@ -14,22 +20,53 @@ export default function Activeties({ selectedDate }: any) {
 
   const [teacherAppointments, setTeacherAppointments] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<any>(false);
-  const [filteredAppointments, setFilteredAppointments] = useState<any[]>([]);
+  const [filteredAppointments, setFilteredAppointments] = useState<FilteredAppointments>({
+    previous: [],
+    today: [],
+    upcoming: [],
+  });
 
   useEffect(() => {
     fetchTeachersAppointments(setTeacherAppointments, setIsLoading);
   }, []);
 
   useEffect(() => {
-    const filtered = studentAppointments.filter((appointment: any) => {
-      const createdAtDate = new Date(appointment.createdAt);
-      const createdAtDateString = createdAtDate.toISOString().split('T')[0]; // Extract YYYY-MM-DD
-      return createdAtDateString === selectedDate;
-    });
-    setFilteredAppointments(filtered);
+    if (selectedDate) {
+      const currentDate = new Date(selectedDate);
+      const filteredPrevious = studentAppointments.filter((appointment: any) => {
+        const createdAtDate = new Date(appointment.createdAt);
+        return createdAtDate < currentDate;
+      });
+  
+      const filteredToday = studentAppointments.filter((appointment: any) => {
+        const createdAtDate = new Date(appointment.createdAt);
+        const createdAtDateString = createdAtDate.toISOString().split('T')[0];
+        return createdAtDateString === selectedDate;
+      });
+  
+      const filteredUpcoming = studentAppointments.filter((appointment: any) => {
+        const createdAtDate = new Date(appointment.createdAt);
+        return createdAtDate > currentDate;
+      });
+  
+      setFilteredAppointments({
+        previous: filteredPrevious,
+        today: filteredToday,
+        upcoming: filteredUpcoming,
+      });
+    }
   }, [selectedDate, studentAppointments]);
-
-  console.log(filteredAppointments)
+  
+//   useEffect(() => {
+//     if (selectedDate) {
+//         const filtered = studentAppointments.filter((appointment: any) => {
+//             const createdAtDate = new Date(appointment.createdAt);
+//             const createdAtDateString = createdAtDate.toISOString().split('T')[0]; 
+//             return createdAtDateString === selectedDate;
+//         });
+//         setFilteredAppointments(filtered);
+//     }
+// }, [selectedDate, studentAppointments]);
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full">
@@ -66,12 +103,10 @@ export default function Activeties({ selectedDate }: any) {
           <Tab.Panels>
             <Tab.Panel>
               <div className="">
-                {filteredAppointments.map((activity: any, index: any) => (
+                {filteredAppointments.previous.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
                 ))}
-                {/* {teacherAppointments?.map((activity: any, index: any) => (
-                  <ActivtiesBox key={index} activity={activity} />
-                ))} */}
+                
                 <style>{`
         
         @media screen and (min-width: 1300px) {

@@ -9,6 +9,7 @@ import {
 import { Menu, Transition } from "@headlessui/react";
 import { addMonths, subMonths, format } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
+import { ActivitiesCalender } from "./calender/ActivitiesCalender";
 const meetings = [
   {
     id: 1,
@@ -74,7 +75,7 @@ function classNames(
 }
 
 export default function Example({selectedDatee}: any) {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<any>(null);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
   const handleDateClick = (date: string) => {
@@ -84,17 +85,21 @@ export default function Example({selectedDatee}: any) {
   useEffect(() => {
     selectedDatee(selectedDate);
   }, [selectedDate])
-
+  
+  const handleWeekSelected = (date: Date) => {
+    setSelectedDate(date);
+  };
+  
   const handleNextMonth = () => {
-  setCurrentMonth(addMonths(currentMonth, 1));
-  setSelectedDate(null);
-};
+    setCurrentMonth(addMonths(currentMonth, 1));
+    setSelectedDate(null);
+  };
 
-const handlePrevMonth = () => {
-  setCurrentMonth(subMonths(currentMonth, 1));
-  setSelectedDate(null);
-};
-
+  const handlePrevMonth = () => {
+    setCurrentMonth(subMonths(currentMonth, 1));
+    setSelectedDate(null);
+  };
+  
   return (
     <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent">
        <Link to="/student-page" >
@@ -108,68 +113,7 @@ const handlePrevMonth = () => {
         <div className="lg:col-span-8 xl:col-span-9 px-4 ">
          
 
-          <div className="flex items-center justify-between mx-2 my-2 text-gray-900">
-            <div className="font-inter font-semibold text-[#009C2F]">
-              January 2023
-            </div>
-            <div className="flex">
-              <button
-                onClick={handlePrevMonth}
-                type="button"
-                className="cursor-pointer -m-1.5 flex flex-none items-center justify-center p-1.5 bg-transparent hover:text-gray-500 "
-              >
-                <span className="sr-only">Previous month</span>
-                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNextMonth}
-                className="cursor-pointer -m-1.5 flex flex-none items-center justify-center p-1.5 bg-transparent hover:text-gray-500"
-              >
-                <span className="sr-only">Next month</span>
-                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-          <div className="mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
-            {days.map((day, dayIdx) => (
-              <button
-                key={day.date}
-                type="button"
-                onClick={() => handleDateClick(day.date)}
-                className={classNames(
-                  "py-1.5 hover:bg-gray-100 focus:z-10",
-                  day.isCurrentMonth ? "bg-white" : "bg-gray-50",
-                  (day.isSelected || day.isToday) && "font-semibold",
-                  day.isSelected && "text-white",
-                  !day.isSelected &&
-                    day.isCurrentMonth &&
-                    !day.isToday &&
-                    "text-gray-900",
-                  !day.isSelected &&
-                    !day.isCurrentMonth &&
-                    !day.isToday &&
-                    "text-gray-400",
-                  day.isToday && !day.isSelected && "text-indigo-600",
-                  dayIdx === 0 && "rounded-tl-lg",
-                  dayIdx === 6 && "rounded-tr-lg",
-                  dayIdx === days.length - 7 && "rounded-bl-lg",
-                  dayIdx === days.length - 1 && "rounded-br-lg"
-                )}
-              >
-                <time
-                  dateTime={day.date ?? ""}
-                  className={classNames(
-                    "mx-auto flex h-7 w-7 items-center justify-center rounded-full",
-                    day.isSelected && day.isToday && "bg-indigo-600",
-                    day.isSelected && !day.isToday && "bg-gray-900"
-                  )}
-                >
-                  {day.date?.split("-").pop()?.replace(/^0/, "") ?? ""}
-                </time>
-              </button>
-            ))}
-          </div>
+          <ActivitiesCalender onWeekSelected={handleWeekSelected} />
         </div>
         <ol className=" mt-4 ml-4 col-san-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8  ">
           
