@@ -75,6 +75,7 @@ import UserPosts from "./pages/UserPosts";
 import { TeacherAppointments } from "./pages/Appointments";
 import CheckoutForm from "./components/payment/PaymentForm";
 import AllStripeSessions from "./components/payment/PaymentForm";
+import Coupons from "./pages/Coupons";
 
 function App() {
   const params = useParams();
@@ -332,6 +333,10 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/pay"
             element={token ? <AllStripeSessions /> : <LoginPage />}
           />
+            <Route
+            path="/coupons"
+            element={token ? <Coupons /> : <LoginPage />}
+          />
           <Route
             path="/score-board/:id"
             element={
@@ -403,7 +408,6 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/edit-post/:id"
             element={
               <PostContext>
-                {" "}
                 <UpdatePost />
               </PostContext>
             }

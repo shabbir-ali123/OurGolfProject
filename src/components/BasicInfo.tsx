@@ -154,10 +154,8 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
     } as React.ChangeEvent<HTMLInputElement>);
   };
   //test
-  console.log(uploadedImages);
   const { handleMessage } = singleEventContextStore();
   const [updateEventMedia, setUpdateEventMedia] = useState<any>(null);
-  console.log(formData, "sajid");
   useEffect(() => {
     if (
       updateEventMedia != null &&
@@ -169,7 +167,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
   }, [updateEventMedia]);
 
   const handleSelectedImage = (selectedImage: any, eId: any) => {
-    debugger;
 
     let url: any = "";
     console.log(typeof selectedImage);
@@ -187,7 +184,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
     }
   };
   const handleUpdateEventMedia = async (formd: any) => {
-    debugger;
     const userToken = localStorage.getItem("token");
 
     console.log(formd);
