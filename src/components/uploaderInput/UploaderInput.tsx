@@ -1,4 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/solid";
+import { Tooltip } from "react-tooltip";
 
 export const UploaderInput = ({
   handleUploadChange,
@@ -20,7 +21,6 @@ export const UploaderInput = ({
         multiple
         onChange={handleUploadChange}
         accept="video/*"
-       
       />
       <label
         htmlFor="portfolioVideo"
@@ -44,7 +44,7 @@ export const UploaderInput = ({
       {
         isOpen ? (
           <>
-            <ArrowUpIcon className="h-[30px]" onClick={handleInputClick} />
+            <ArrowUpIcon className="h-[16px] mt-2 p-[2px] border-2 border-solid rounded-full" onClick={handleInputClick} data-tooltip-id="upload-url-tooltip" />
             <input
               type="text"
               value={videoUrlValue}
@@ -54,7 +54,14 @@ export const UploaderInput = ({
             />
           </>
         ) : (
-          <ArrowDownIcon className="h-[24px] mt-2 p-[2px] border-2 border-solid rounded-full" onClick={handleInputClick} />
+          <>
+            <ArrowDownIcon
+              className="h-[16px] mt-2 p-[2px] border-2 border-solid rounded-full"
+              onClick={handleInputClick}
+              data-tooltip-id="upload-url-tooltip" 
+            />
+            <Tooltip id="upload-url-tooltip" content="Add Video URL" />
+          </>
         )
       }
     </div>

@@ -8,6 +8,7 @@ import {
   ArrowDownIcon,
   ArrowTrendingUpIcon
 } from "@heroicons/react/24/solid";
+import { Tooltip } from "react-tooltip";
 import InputWithIcon from "../components/FormComponents";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { ShareIcon } from "@heroicons/react/20/solid";
@@ -564,12 +565,16 @@ const CreateTeacher: React.FC = () => {
                       </label>
                     </div>
                   </div>
+                  <>
                   <ArrowDownIcon
-                    className="h-6" // Standard size across all devices
+                    className="h-[16px] mt-2 p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
                     onClick={() => setShowMediaUrl(!showMediaUrl)}
+                    data-tooltip-id="upload-url-tooltip" 
                   />
-                </>
-              )}
+                  <Tooltip id="upload-url-tooltip" content="Add Video URL" />
+                  </>
+                 
+                </>              )}
               {videoVisible && (
                 <video
                   className="rounded-lg  h-[260px]"
@@ -595,6 +600,7 @@ const CreateTeacher: React.FC = () => {
                 />
               </div>
             )}
+            
           </div>
 
 
