@@ -345,7 +345,7 @@ const CreateTeacher: React.FC = () => {
                     colSpanLg={2}
                   />
                 </div>
-                <p>Profile Picture</p>
+                <p>{t("PROFILE_PIC")}</p>
                 <div>
 
                 </div>
@@ -434,13 +434,13 @@ const CreateTeacher: React.FC = () => {
             <div className="py-4  rounded  text-red ">
               <div className="">
                 <h3 className="font-semibold mb-4 text-lg text-[#565656]">
-                  About Me
+                {t("ABOUT_ME")}
                 </h3>
                 <textarea
                   onChange={handleChange}
                   name="aboutMyself"
                   className="resize-none leading-8 text-[#e5e7eb] w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
-                  placeholder="Tell about your self"
+                  placeholder={t("BIO")}
                 ></textarea>
               </div>
               <div></div>
@@ -448,7 +448,7 @@ const CreateTeacher: React.FC = () => {
           </div>
           <div className="col-span-1 md:col-span-3 my-4">
             <h3 className="text-lg font-semibold mb-2 text-[#565656]">
-              Introduction Video
+            {t("INTRO_VIDEO")}
             </h3>
             <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
               {!videoVisible && (
@@ -520,7 +520,7 @@ const CreateTeacher: React.FC = () => {
         </div>
         <div className="col-span-1 md:col-span-3 my-4">
           <h3 className="text-lg font-semibold mb-2 text-[#565656]">
-            Portfolio Video
+          {t("Video_Portfolio")}
           </h3>
           <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
             {!videoPortfolioVisible && (

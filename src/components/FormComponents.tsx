@@ -180,7 +180,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
         {variant == "video" ? (
           <>
             <div className="flex flex-wrap gap-4 mt-2  ">
-              {selectedFiles.map((file: any, index: any) => (
+              {selectedFiles.map((file: any, index: any)  => (
                 <div key={index} className="relative ">
                   <img
                     src={URL.createObjectURL(file)}
