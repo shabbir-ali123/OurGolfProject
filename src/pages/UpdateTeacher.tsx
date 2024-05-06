@@ -391,11 +391,11 @@ const UpdateTeacher: React.FC = () => {
     }));
   };
   return (
-    <div className="py-8 mx-4 xl:mx-0 ">
-      <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
+    <div className="py-8 max-w-7xl mx-auto ">
+      <div className="bg-[#17b3a6] p-4 rounded ">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4 items-start justify-center">
               <div className="flex-col items-center text-center">
               {/* <input
                   id="profileImage"
@@ -417,7 +417,7 @@ const UpdateTeacher: React.FC = () => {
                   colSpanMd={4}
                   colSpanLg={2}
                 />
-                <p>Profile Picture</p>
+                 <p>{t("PROFILE_PIC")}</p>
                 
               </div>
 
@@ -508,22 +508,22 @@ const UpdateTeacher: React.FC = () => {
                 onChange={handleChange}
                 name="aboutMyself"
                 // value={formData?.aboutMyself}
-                className="resize-none leading-8 text-[#565656] w-[90%] mr-4 h-[125px]"
-                placeholder="Tell Us About Your self"
+                className="resize-none leading-8 text-[#e5e7eb] w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
+                placeholder={t("BIO")}
               ></textarea>
             </div>
             <div></div>
           </div>
         </div>
-        <div className="col-span-1 md:col-span-3 my-4">
+        <div className="mx-4 xl:mx-0 col-span-1 md:col-span-3 my-4">
           <h3 className="text-lg text- font-semibold mb-2 text-[#565656]">
-            Introduction Video
+          {t("INTRO_VIDEO")}
           </h3>
-          <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
+          <div className=" relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md">
             {!videoVisible && (
               <>
                 <div>
-                {teacher?.introductionVideo ? <video src={teacher?.introductionVideo } controls></video> : ''}
+                {teacher?.introductionVideo ? <video className="w-[400px]" src={teacher?.introductionVideo } controls></video> : ''}
               <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
               
                 <input
@@ -558,7 +558,7 @@ const UpdateTeacher: React.FC = () => {
             )}
             {videoVisible && (
               <video
-                className="rounded-lg w-full h-[260px]"
+                className="rounded-lg w-[400px] h-[260px]"
                 src={urls}
                 title="Introduction Video"
                 controls
@@ -569,11 +569,11 @@ const UpdateTeacher: React.FC = () => {
           
         </div>
       </div>
-      <div className="col-span-1">
+      <div className="mx-4 xl:mx-0 col-span-1">
 
       <div className="col-span-1 md:col-span-3 my-4">
           <h3 className="text-lg font-semibold mb-2 text-[#565656]">
-            Portfolio Video
+          {t("Video_Portfolio")}
           </h3>
           <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
             {!videoPortfolioVisible && (
@@ -626,7 +626,7 @@ const UpdateTeacher: React.FC = () => {
             </div>
           )}
         </div>
-      <div className="my-4 mx-10   xl:mx-0">
+      <div className="my-4 mx-4 xl:mx-0">
       <SlotsCalender onWeekSelected={handleWeekSelected}/>
         <div className="grid grid-cols-8 gap-4 py-2 text-center ">
           <div className="col-span-1 font-bold ">{t("TIME")}</div>
@@ -684,7 +684,12 @@ const UpdateTeacher: React.FC = () => {
           ))}
         </div>
       </div>
+      {/* <div>
       <button onClick={handleFormSubmit}>Submit</button>
+      </div> */}
+      <div className="flex justify-center">
+        <button className="p-4 bg-[#17b3a6] text-white rounded-md" onClick={handleFormSubmit}>Update Teacher</button>
+      </div>
     </div>
     </div>
   );

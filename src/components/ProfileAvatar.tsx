@@ -61,7 +61,7 @@ icon,
       >
         {!imageUrl && !defaultImageUrl ? (
           <svg
-            className="w-6 h-6 text-gray-600" // This sets the icon size and color
+            className="w-6 h-6 text-gray-600 rounded-full" // This sets the icon size and color
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
