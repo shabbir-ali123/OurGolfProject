@@ -21,7 +21,12 @@ export default function ChatApp() {
   const [messages, setMessages] = useState<Message[]>([]);
   const messageListRef = useRef<HTMLElement>(null);
   const [users, setUsers] = useState<any>([]);
+  const [unreadMessages, setUnreadMessages] = useState<any>({});
 
+  useEffect(() => {
+  console.log(unreadMessages[Number(localStorage.getItem('id'))], 'ume')
+
+  }, [messages, unreadMessages])
   const userData = users?.map((user: any) => {
     return {
       id: user?.id.toString(),
@@ -52,9 +57,15 @@ export default function ChatApp() {
 
   useEffect(() => {
     if (!channel) return;
-    return channel.connect((message: any) =>
-      setMessages((messages) => [...messages, message])
-    );
+    return channel.connect((message: any) => {
+      setMessages((messages) => [...messages, message]);
+      if (message.user.id !== chatUser) {
+        setUnreadMessages((prevUnread: any) => ({
+          ...prevUnread,
+          [message.user.id]: (prevUnread[message.user.id] || 0) + 1,
+        }));
+      }
+    });
   }, [channel]);
 
   // console.log(channel)
