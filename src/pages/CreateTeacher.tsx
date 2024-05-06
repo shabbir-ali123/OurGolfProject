@@ -36,8 +36,10 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 interface UpdatePostType {
   firstName: string;
   profileImage: File[];
-  portfolioVideo: File[];
+  portfolioVideo: FileList[];
   introductionVideo: File[];
+  movieUrl: any
+  portfolioUrl: any
 }
 const CreateTeacher: React.FC = () => {
   const { t } = useTranslation();
@@ -55,7 +57,6 @@ const CreateTeacher: React.FC = () => {
     location: "",
     hourlyRate: "",
     level: "",
-    movieUrl: "",
     schedules: [
       {
         startDate: "",
@@ -75,6 +76,9 @@ const CreateTeacher: React.FC = () => {
     profileImage: [],
     portfolioVideo: [],
     introductionVideo: [],
+    movieUrl: "",
+    portfolioUrl: "",
+
   });
   const [urls, setUrls] = useState<any>("");
   const [portfolioVideos, setPortfolioVideo] = useState<any>("");
@@ -82,12 +86,19 @@ const CreateTeacher: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     type: string
   ) => {
-    const { files } = event.target;
-    if (files && files.length > 0) {
+    const { files , name} = event.target;
+    if ((files && files.length > 0) && (type === "introductionVideo")) {
       const file = files[0];
       setNextFormData((prevFormData) => ({
         ...prevFormData,
         [type]: [file],
+      }));
+    }
+    if ((files && files.length > 0) && (type === "portfolioVideo")) {
+      const fileList = Array.from(files); // Convert FileList to an array
+      setNextFormData((prevFormData:any) => ({
+        ...prevFormData,
+        [type]: [...prevFormData[type], ...fileList], // Append new files to the existing array
       }));
     }
     if (type === "introductionVideo" && files && files.length > 0) {
@@ -154,11 +165,48 @@ const CreateTeacher: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+    
   };
+  const handleUpdateChange = (event: any, index: any) => {
+    const { name, value } = event.target;
+  
+    if (name === "portfolioUrl"+(index)) {
+      setNextFormData((prevFormData) => {
+        const updatedFormData = { ...prevFormData };
+        const currentValue = updatedFormData.portfolioUrl ? updatedFormData.portfolioUrl.split(",") : [''];
+  
+        
+      if (value.trim() !== '') {
+        currentValue[index] = value.trim(','); // Update value at the given index
+      } else {
+        currentValue.splice(index, 1); // Remove empty value if the input is cleared
+      }
+      
+      // Concatenate all values with commas
+      updatedFormData.portfolioUrl = currentValue.filter(Boolean).join(",");
+
+        console.log(updatedFormData); 
+        return updatedFormData;
+      });
+    }else{
+      setNextFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
+  };
+  
+  
+  
+  
+  
+  
+  
 
   const handleLocationChange = (location: any) => {
     setFormData((prevFormData) => ({
@@ -175,7 +223,6 @@ const CreateTeacher: React.FC = () => {
   };
 
   const handleImageChanges = (event: any) => {
-    console.log();
     setNextFormData((prevFormData) => ({
       ...prevFormData,
       profileImage: event,
@@ -184,7 +231,7 @@ const CreateTeacher: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    console.log({formData, nextformData});
     const onfitmData = selectedTimeSlots.map((timeSlot) => {
       const [timeRange, , date] = timeSlot.split(" on ");
       const [startTime, endTime] = timeRange.split(" to ");
@@ -215,6 +262,7 @@ const CreateTeacher: React.FC = () => {
 
     const payload = {
       ...formData,
+      // ...nextformData,
       schedules: onfitmData,
     };
 
@@ -224,6 +272,24 @@ const CreateTeacher: React.FC = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      if(response.status == 201){
+        try {
+          const response = await axios.put(API_ENDPOINTS.UPDATETEACHERPROFILE, nextformData, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "multipart/form-data",
+            },
+          });
+    
+          if (response.status === 200) {
+            toast.success("Post Updated Successfully");
+          }
+        } catch (error) {
+          console.error("Error updating event media:");
+          toast.error("Failed to update event media. Please try again later.");
+        }
+      }
+
     } catch (error) {
       toast.error("Teacher Already Created");
     }
@@ -491,7 +557,7 @@ const CreateTeacher: React.FC = () => {
               )}
               {videoVisible && (
                 <video
-                  className="rounded-lg w-full h-[260px]"
+                  className="rounded-lg  h-[260px]"
                   src={urls}
                   title="Introduction Video"
                   controls
@@ -505,7 +571,7 @@ const CreateTeacher: React.FC = () => {
                   pname="movieURL"
                   icon={<VideoCameraIcon />}
                   label={t("MOVIE_URL")}
-                  value={formData.movieUrl}
+                  // value={nextformData.movieUrl}
                   onChange={handleChange}
                   placeholder={t("MOVIE_URL")}
                   colSpanSm={6}
@@ -523,33 +589,33 @@ const CreateTeacher: React.FC = () => {
           {t("Video_Portfolio")}
           </h3>
           <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
-            {!videoPortfolioVisible && (
+            {/* {!videoPortfolioVisible && ( */}
               <div className="grid   md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1  gap-2">
                 {[1, 2, 3, 4, 5].map((index) => (
-                  <div key={index} className="flex flex-col gap-2">
-                    <UploaderInput
-                      isOpen={showInputIndexes.includes(index)}
-                      handleUploadChange={(event: any) => handleImageChange(event, "portfolioVideo")}
-                      ref={portfolioVideoInputRef}
-                      handleInputClick={() => handleButtonClick(index)}
-                    />
-                    {showInputIndexes.includes(index) && (
-                      <div className="my-4">
-                        <h3 className="text-center mb-0">OR</h3>
-                        <InputWithIcon
-                          pname="portfolioUrl"
-                          icon={<VideoCameraIcon />}
-                          label={"Portfolio URL"}
-                          value={formData.movieUrl}
-                          onChange={handleChange}
-                          placeholder={"Portfolio URL"}
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))}
+  <div key={index} className="flex flex-col gap-2">
+    <UploaderInput
+      isOpen={showInputIndexes.includes(index)}
+      handleUploadChange={(event: any) => handleImageChange(event, "portfolioVideo")}
+      ref={portfolioVideoInputRef}
+      handleInputClick={() => handleButtonClick(index)}
+    />
+    {showInputIndexes.includes(index) && (
+      <div className="my-4">
+        <h3 className="text-center mb-0">OR</h3>
+        <InputWithIcon
+          pname={`portfolioUrl${index}`} // Use dynamic field names to distinguish between inputs
+          icon={<VideoCameraIcon />}
+          label={`Portfolio URL ${index}`} // Add index to label for clarity
+          onChange={(e: any) => handleUpdateChange(e, index)} // Pass index to the handler
+          placeholder={`Portfolio URL ${index}`}
+        />
+      </div>
+    )}
+  </div>
+))}
+
               </div>
-            )}
+            {/* )} */}
             {videoPortfolioVisible && (
               <video
                 className="rounded-lg w-full h-[260px]"
@@ -566,7 +632,7 @@ const CreateTeacher: React.FC = () => {
                 pname="portfolioUrl"
                 icon={<VideoCameraIcon />}
                 label={t("PORTFOLIO_URL")}
-                value={formData.movieUrl}
+                value={nextformData.movieUrl}
                 onChange={handleChange}
                 placeholder={t("PORTFOLIO_URL")}
               />
