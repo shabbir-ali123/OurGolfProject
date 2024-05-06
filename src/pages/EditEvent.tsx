@@ -25,6 +25,7 @@ const EditEvent: React.FC = () => {
     document.body.dir = i18n.dir();
 
     const [formData, setFormData] = useState<any>({
+      
         eventType: singleEvent?.eventType,
         eventName: singleEvent?.eventName,
         address: singleEvent?.address,
@@ -121,16 +122,16 @@ const EditEvent: React.FC = () => {
   const defaultImage2 = "/img/BG-GOLF.jpg";
   const defaultImage3 = "/img/BG-GOLF.jpg";
 
-  const getDefaultImages = async (): Promise<File[]> => {
+  // const getDefaultImages = async (): Promise<File[]> => {
 
 
-    const defaultImageFiles = await Promise.all([
-      getDefaultImageFile(defaultImage1),
-      getDefaultImageFile(defaultImage2),
-      getDefaultImageFile(defaultImage3),
-    ]);
-    return defaultImageFiles;
-  };
+  //   const defaultImageFiles = await Promise.all([
+  //     getDefaultImageFile(defaultImage1),
+  //     getDefaultImageFile(defaultImage2),
+  //     getDefaultImageFile(defaultImage3),
+  //   ]);
+  //   return defaultImageFiles;
+  // };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
@@ -139,18 +140,18 @@ const EditEvent: React.FC = () => {
     }
   
     let updatedFiles: File[] = [];
-    if (formData.files && formData.files?.length > 0) {
-      updatedFiles = formData.files;
-      if (formData.files.length === 1) {
-        const defaultFiles = await getDefaultImages();
-        updatedFiles.push(...defaultFiles.slice(0, 2));
-      } else if (formData.files.length === 2) {
-        const defaultFiles = await getDefaultImages();
-        updatedFiles.push(...defaultFiles.slice(0, 1));
-      }
-    } else {
-      updatedFiles = await getDefaultImages();
-    }
+    // if (formData.files && formData.files?.length > 0) {
+    //   updatedFiles = formData.files;
+    //   if (formData.files.length === 1) {
+    //     const defaultFiles = await getDefaultImages();
+    //     updatedFiles.push(...defaultFiles.slice(0, 2));
+    //   } else if (formData.files.length === 2) {
+    //     const defaultFiles = await getDefaultImages();
+    //     updatedFiles.push(...defaultFiles.slice(0, 1));
+    //   }
+    // } else {
+    //   updatedFiles = await getDefaultImages();
+    // }
   
     setFormData((prevFormData: any) => ({
       ...prevFormData,
