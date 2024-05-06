@@ -22,7 +22,7 @@ interface UpdatePostProps {
 const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { handlePostId, singlePost } = postContext();
+  const { handlePostId, handleMessage, singlePost } = postContext();
   const params = useParams<{ id: string }>();
   const router = useNavigate();
   const postId = params.id;
@@ -56,6 +56,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
+    
 
     if (files && files.length > 0) {
       const filesArray: File[] = Array.from(files);
@@ -65,12 +66,14 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
         mediaFiles: [...prevFormData.mediaFiles, ...filesArray],
       }));
     }
+    handleSelectedImage(event, files, postId)
+
     console.log(formData);
   };
-  
-  async function fetchAndConvertFiles(urls:any ) {
+
+  async function fetchAndConvertFiles(urls: any) {
     const files = [];
-  
+
     for (const url of urls) {
       try {
         const response = await fetch(url);
@@ -82,7 +85,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
         console.error("Error fetching or converting file:", error);
       }
     }
-  
+
     return files;
   }
   const handlePost = async (event: React.FormEvent) => {
@@ -104,10 +107,9 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
         formDataToSend.append("postId", postId);
       }
       formData.mediaFiles.forEach((file, index) => {
-            formDataToSend.append("mediaFiles", file);
+        formDataToSend.append("mediaFiles", file);
       });
-   
-  
+
       const response = await axios.put(
         API_ENDPOINTS.UPDATEPOST + postId,
         formDataToSend,
@@ -119,7 +121,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
         }
       );
       toast.success("Post has been Updated");
-      router('/post-page')
+      router("/post-page");
     } catch (error: unknown) {}
   };
 
@@ -146,55 +148,105 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
       [name]: value,
     }));
   };
+  const [updatePostMedia, setPostMedia] = useState<any>(null);
+  console.log(updatePostMedia, "updatePostMedia")
+  useEffect(() => {
+    if (
+      updatePostMedia != null &&
+      updatePostMedia &&
+      formData !== undefined
+    ) {
+      handleUpdatePostMedia(updatePostMedia);
+    }
+  }, [updatePostMedia]);
+
+  const handleSelectedImage = (e:any, selectedImage: any, postId: any) => {
+    e.preventDefault();
+    
+    let url: any = "";
+    console.log(typeof selectedImage);
+    if (URL === selectedImage) {
+      url = new URL(selectedImage || "");
+    }
+
+    if (postId != undefined) {
+      setPostMedia({
+        postId: postId || "",
+        removedMediaUrls: typeof selectedImage === "string" ? selectedImage : "",
+        mediaFiles:selectedImage ,
+      });
+    }
+  };
+  const handleUpdatePostMedia = async (formd: any) => {
+    const userToken = localStorage.getItem("token");
+
+    try {
+      if (!userToken) {
+        throw new Error("Token not found in localStorage");
+      }
+
+      const response = await axios.put(API_ENDPOINTS.UPDATEPOSTMEDIA, formd, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+        handleMessage(response.data.post);
+        toast.success("Post Updated Successfully");
+      }
+    } catch (error) {
+      console.error("Error updating event media:");
+      toast.error("Failed to update event media. Please try again later.");
+    }
+  };
 
   return (
     <div className=" z-50 fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
       <div
         className="w-full max-w-xl p-6 mx-auto bg-white rounded-lg "
         style={{
-          boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
-          maxHeight: '90vh', // Maximum height of the modal
-          overflowY: 'auto', // Enable vertical scrolling
+          boxShadow:
+            "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+          maxHeight: "90vh",
+          overflowY: "auto",
         }}
       >
         <form className="px-2">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold">{t("EDIT_POST")}</h1>
-            <Link
-              to={"/post-page"}
-              className="p-2 rounded-full cursor-pointer"
-            >
+            <Link to={"/post-page"} className="p-2 rounded-full cursor-pointer">
               <XMarkIcon className="w-6 h-6" aria-hidden="true" />
             </Link>
           </div>
-          <div style={{ height: '300px', overflow: 'hidden'}}>
+          <div style={{ height: "300px", overflow: "hidden" }}>
             <ReactQuill
               theme="snow"
               value={formData.text}
               onChange={handleInputTextChange}
               placeholder={t("WRITE_TEXT")}
               style={{ height: "220px" }}
-
-            />{" "}
-            {/* <textarea
-              className="w-[533px] p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
-              placeholder={t("WRITE_TEXT")}
-              name="text"
-              value={formData?.text}
-              onChange={handleInputTextChange}
-              // rows={4}
-            ></textarea> */}
+            />
           </div>
-        
 
           <div>
-            {singlePost?.mediaFile.map((item: any, index: number) => (
-              <img key={index} src={item} alt="" className="h-20" />
-            ))}
-
-            <label className="block text-gray-700">
-            {t("ADD_VIDEOS")}
-            </label>
+            <div className="flex gap-2">
+              {singlePost?.mediaFile.map((item: any, index: number) => (
+                <div className="relative">
+                  <img key={index} src={item} alt="" className="h-20" />
+                  <button
+                    className="absolute top-0 h-4 w-4 bg-[#61cbc2] rounded-full text-white text-[14px] flex justify-center items-center cursor-pointer"
+                    onClick={(e:any) => {
+                      handleSelectedImage(e, item, singlePost.id);
+                    }}
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+            <label className="block text-gray-700">{t("ADD_VIDEOS")}</label>
             <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
               <input
                 id="file-upload"
@@ -231,11 +283,9 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
             value={formData.category}
             name="category"
           >
-            <option value="" >
-            {t("SELECT_CATEGORY")}
-            </option>
+            <option value="">{t("SELECT_CATEGORY")}</option>
             <option value="Public">{t("PUBLIC")}</option>
-          <option value="Private">{t("PRIVATE")}</option>
+            <option value="Private">{t("PRIVATE")}</option>
           </select>
           <div>
             <label htmlFor="">{t("ADD_TAGS")}</label>
@@ -253,7 +303,8 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
             type="submit"
             className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
             onClick={(event) => handlePost(event)}
-          >{t("UPDATE")}
+          >
+            {t("UPDATE")}
           </button>
         </form>
       </div>

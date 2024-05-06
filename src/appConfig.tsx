@@ -86,6 +86,8 @@ export const API_ENDPOINTS = {
   GETMOSTCOMMENTSPOSTS: `${API_BASE_URL}/${API_VERSION}/get-top-commented-post`,
   GETMOSTLIKEDPOSTS: `${API_BASE_URL}/${API_VERSION}/get-top-liked-post`,
   GETUSERALLPOSTS: `${API_BASE_URL}/${API_VERSION}/get-user-all-posts/`,
+  UPDATEPOSTMEDIA: `${API_BASE_URL}/${API_VERSION}/update-post-media`,
+
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
   GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,
