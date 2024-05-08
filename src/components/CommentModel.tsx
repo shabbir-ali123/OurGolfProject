@@ -385,13 +385,13 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                 })}
             </div>
             {singleEvent?.comments?.length > commentsToShow && (
-              <div className="grid grid-cols-2 justify-center">
-                <p
-                  className="text-blue-500 text-[12px] cursor-pointer text-left hover:underline"
+              <div className="">
+                <button
+                  className="text-white text-[16px] bg-[#17b3a6] p-1 rounded-sm  cursor-pointer text-left hover:underline  flex justify-center items-center"
                   onClick={loadMoreComments}
                 >
                   Load more comments
-                </p>
+                </button>
 
                 <p className="text-gray-500 text-[12px] cursor-pointer text-right hover:underline">
                   2 of {singleEvent?.comments?.length}

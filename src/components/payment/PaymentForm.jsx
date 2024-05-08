@@ -31,7 +31,7 @@ const AllStripeSessions = () => {
               <p>Session ID: {session.id}</p>
               <p>Payment status: {session.payment_status}</p>
               <p>Subscription status: {session.subscription_status}</p>
-              {/* Add more fields as needed */}
+              
             </li>
           ))}
         </ul>

@@ -21,7 +21,7 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
   }, [selectedCities, selectedCitiesData, sendDataToParent]);
   
   const cityKeys = {
-    "HOKKAIDO_TOHOKU": ["Hokkaido", "Aomori Prefecture", "Iwate Prefecture", "Miyagi Prefecture", "Akita", "Yamagata Prefecture", "Fukushima Prefecture"],
+    "HOKKAIDO_TOHOKU": ["北海道 (Hokkaido)", "Aomori Prefecture", "Iwate Prefecture", "Miyagi Prefecture", "Akita", "Yamagata Prefecture", "Fukushima Prefecture"],
     "KANTO": ["Ibaraki Prefecture", "Tochigi Prefecture", "Gunma Prefecture", "Saitama", "Chiba prefecture", "Tokyo", "Kanagawa Prefecture"],
     "CHUBU": ["Niigata Prefecture", "Toyama Prefecture", "Ishikawa Prefecture", "Fukui prefecture", "Yamanashi Prefecture", "Nagano"],
     "TOKAI": ["Shizuoka Prefecture", "Aichi prefecture", "Mie Prefecture", "Gifu Prefecture"],

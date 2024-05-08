@@ -225,11 +225,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         (like: any) =>
                           parseInt(`${like.userId}`) === parseInt(`${userId}`)
                       )?.counter;
-                      const isUserIdMatched = event?.teams.some((team: any) =>
-                        team.members.some(
+                      const isUserIdMatched = event?.teams?.some((team: any) =>
+                        team?.members?.some(
                           (member: any) => member.userId == userId
                         )
                       );
+                      
                       return (
                         <React.Fragment key={index}>
                           <tr
@@ -332,7 +333,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                               {checkedJoined && event.eventType !== "normal" ? (
                                 <span
-                                  className=" px-1 w-[50%]  text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
+                                  className=" w-[30%]  text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
                                   onClick={(e) => {
                                     e.preventDefault();
                                     router("/add-score-page/" + event.id);
@@ -485,9 +486,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       (like: any) =>
                         parseInt(`${like.userId}`) === parseInt(`${userId}`)
                     )?.counter;
-                    const isUserIdMatched = item?.teams.some((team: any) =>
-                    team.members.some(
-                      (member: any) => member.userId == userId
+                    const isUserIdMatched = item?.teams?.some((team: any) =>
+                    team?.members?.some(
+                      (member: any) => member?.userId == userId
                     )
                   );
                     return (
@@ -507,8 +508,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           <div className="flex justify-start cursor-pointer h-[50px] w-[50px]">
                             <img
                               src={
-                                item.creator.imageUrl
-                                  ? item.creator.imageUrl
+                                item.creator?.imageUrl
+                                  ? item.creator?.imageUrl
                                   : "img/BG-GOLF.jpg"
                               }
                               alt=""
@@ -573,7 +574,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               onClick={() => router(`/edit-team/${item.id}`)}
                             >
                               <p
-                                className={`${isUserIdMatched ? "bg-[#ff3b41]":"bg-[#DDF4F2]"}  w-[75%] px-2 py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
+                                className={`${isUserIdMatched ? "bg-[#ff3b41]":"bg-[#DDF4F2]"}   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
                                 style={{
                                   boxShadow:
                                     "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",

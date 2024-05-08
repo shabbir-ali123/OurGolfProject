@@ -54,7 +54,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
     {
       label: t("HOKKAIDO_TOHOKU"),
       options: [
-        { value: "Hokkaido", label: t("HOKKAIDO") },
+        { value: "北海道 (Hokkaido)", label: t("HOKKAIDO") },
         { value: "Aomori Prefecture", label: t("AOMORI") },
         { value: "Iwate Prefecture", label: t("IWATE") },
         { value: "Miyagi Prefecture", label: t("MIYAGI") },
