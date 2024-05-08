@@ -6,12 +6,6 @@ import { useTeacherContext } from "../contexts/teachersContext";
 import { useEffect, useState } from "react";
 import { fetchTeachersAppointments } from "../utils/fetchTeacher";
 
-interface FilteredAppointments {
-  pending: any[];
-  booked: any[];
-  completed: any[];
-  declined: any[];
-}
 
 export default function Activeties({ selectedDate }: any) {
   const { t } = useTranslation();
@@ -19,7 +13,7 @@ export default function Activeties({ selectedDate }: any) {
 
   const [teacherAppointments, setTeacherAppointments] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<any>(false);
-  const [filteredAppointments, setFilteredAppointments] = useState<FilteredAppointments>({
+  const [filteredAppointments, setFilteredAppointments] = useState<any>({
     pending: [],
     booked: [],
     completed: [],
@@ -37,7 +31,6 @@ export default function Activeties({ selectedDate }: any) {
       });
   
       const pending = studentAppointments.filter((appointment: any) => {
-        console.log(appointment.status)
         return appointment.status === 'PENDING';
       });
   
@@ -84,7 +77,7 @@ const status = ['Pending', 'Booked', 'Completed', 'Declined'];
                     <div
                       className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[24px] md:font-bold md:w-16  md:h-16 text-[#52FF86]`}
                     >
-                      {/* {tabNumbers[index]} */}
+                      {filteredAppointments[category.toLowerCase()].length}
                     </div>
                     <span className="ml-2">
                       {t(category.toLocaleUpperCase())}
