@@ -103,7 +103,7 @@ export default function LocationFilter({handleLocationChange}: any) {
 
 
       const handleChange = (selectedOption: OptionType | null) => {
-        handleLocationChange(selectedOption);
+        handleLocationChange(selectedOption?.value);
       };
 
     return (
