@@ -31,8 +31,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
   setFormData,
   formData,
 }) => {
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+  const { t } = useTranslation();
   const params = useParams<{ id: string }>();
   const eventId = params.id;
 
@@ -169,7 +168,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
   const handleSelectedImage = (selectedImage: any, eId: any) => {
 
     let url: any = "";
-    console.log(typeof selectedImage);
     if (URL === selectedImage) {
       url = new URL(selectedImage || "");
     }
@@ -183,10 +181,10 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
       });
     }
   };
+
   const handleUpdateEventMedia = async (formd: any) => {
     const userToken = localStorage.getItem("token");
 
-    console.log(formd);
     try {
       if (!userToken) {
         throw new Error("Token not found in localStorage");

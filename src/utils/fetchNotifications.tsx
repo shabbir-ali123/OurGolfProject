@@ -20,7 +20,7 @@ export const fetchNotifications = async (
       headers,
       params:{
         organizerId: userId,
-        // teacherId: tId
+        teacherId: tId
       }
     });
     setNotificationData(response.data.notifications);
