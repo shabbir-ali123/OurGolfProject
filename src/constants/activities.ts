@@ -6,7 +6,7 @@ interface Category {
   }
 
 export const categories = {
-    PreviousActivities: [
+    Pending: [
       {
         imageUrl: "/img/BG-GOLF.jpg",
         description: "You have an 30 minutes appointment with Jaine at 2:00PM.",
@@ -62,7 +62,7 @@ export const categories = {
         borderColor: "#00A4FE",
       },
     ],
-    TodayActivities: [
+    Completed: [
       {
         imageUrl: "/img/BG-GOLF.jpg",
         description: "You have an 30 minutes appointment with Jaine at 2:00PM.",

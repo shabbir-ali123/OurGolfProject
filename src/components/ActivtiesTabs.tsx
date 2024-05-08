@@ -7,23 +7,23 @@ import { useEffect, useState } from "react";
 import { fetchTeachersAppointments } from "../utils/fetchTeacher";
 
 interface FilteredAppointments {
-  previous: any[];
-  today: any[];
-  upcoming: any[];
+  pending: any[];
+  booked: any[];
+  completed: any[];
+  declined: any[];
 }
 
 export default function Activeties({ selectedDate }: any) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { studentAppointments } = useTeacherContext();
-  const defaultTabIndex = Object.keys(categories).indexOf("PreviousActivities");
-  const tabNumbers = [29, 34, 32];
 
   const [teacherAppointments, setTeacherAppointments] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<any>(false);
   const [filteredAppointments, setFilteredAppointments] = useState<FilteredAppointments>({
-    previous: [],
-    today: [],
-    upcoming: [],
+    pending: [],
+    booked: [],
+    completed: [],
+    declined: [],
   });
 
   useEffect(() => {
@@ -32,48 +32,42 @@ export default function Activeties({ selectedDate }: any) {
 
   useEffect(() => {
     if (selectedDate) {
-      const currentDate = new Date(selectedDate);
-      const filteredPrevious = studentAppointments.filter((appointment: any) => {
-        const createdAtDate = new Date(appointment.createdAt);
-        return createdAtDate < currentDate;
+      const completed = studentAppointments.filter((appointment: any) => {
+        return appointment.status === 'COMPLETED';
       });
   
-      const filteredToday = studentAppointments.filter((appointment: any) => {
-        const createdAtDate = new Date(appointment.createdAt);
-        const createdAtDateString = createdAtDate.toISOString().split('T')[0];
-        return createdAtDateString === selectedDate;
+      const pending = studentAppointments.filter((appointment: any) => {
+        console.log(appointment.status)
+        return appointment.status === 'PENDING';
       });
   
-      const filteredUpcoming = studentAppointments.filter((appointment: any) => {
-        const createdAtDate = new Date(appointment.createdAt);
-        return createdAtDate > currentDate;
+      const booked = studentAppointments.filter((appointment: any) => {
+        return appointment.status === 'BOOKED';
+      });
+
+      const declined = studentAppointments.filter((appointment: any) => {
+        return appointment.status === 'DECLINED';
       });
   
       setFilteredAppointments({
-        previous: filteredPrevious,
-        today: filteredToday,
-        upcoming: filteredUpcoming,
+        completed: completed,
+        pending: pending,
+        booked: booked,
+        declined: declined,
       });
     }
   }, [selectedDate, studentAppointments]);
   
-//   useEffect(() => {
-//     if (selectedDate) {
-//         const filtered = studentAppointments.filter((appointment: any) => {
-//             const createdAtDate = new Date(appointment.createdAt);
-//             const createdAtDateString = createdAtDate.toISOString().split('T')[0]; 
-//             return createdAtDateString === selectedDate;
-//         });
-//         setFilteredAppointments(filtered);
-//     }
-// }, [selectedDate, studentAppointments]);
+  
+const status = ['Pending', 'Booked', 'Completed', 'Declined'];
+
   return (
     <div className="flex flex-wrap xl:flex-nowrap">
       <div className="w-full">
-        <Tab.Group defaultIndex={defaultTabIndex}>
+        <Tab.Group>
           <Tab.List className="flex items-center justify-center">
             <div className="flex gap-6 py-2 lg:flex-nowrap">
-              {Object.keys(categories).map((category, index) => (
+              {status.map((category, index) => (
                 <Tab
                   key={category}
                   className={({ selected }) =>
@@ -81,16 +75,16 @@ export default function Activeties({ selectedDate }: any) {
                     ring-white ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
                     ${
                       selected
-                        ? `bg-gradient-to-b from-[#0AE94D] to-[#00A632] rounded-lg text-white shadow-lg h-18 w-[120px] sm:w-[170px] sm:h-16 md:h-32 md:w-[250px] xl:w-[340px] animate-bounce`
+                        ? `bg-gradient-to-b from-[#0AE94D] to-[#00A632] rounded-lg text-white shadow-lg h-18 w-[120px] sm:w-[170px] sm:h-16 md:h-32 md:w-[250px] xl:w-[340px]`
                         : `bg-[#ffff] shadow-lg border-solid border-2 border-[#51ff85] h-18 w-[100px] sm:w-[170px] sm:h-16 md:h-32 md:w-250px] xl:w-[340px]`
                     }`
                   }
                 >
                   <div className="items-center justify-center text-center md:flex ">
                     <div
-                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[24px] md:font-bold md:w-16  md:h-16 text-[#52FF86] animate-bounce`}
+                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[24px] md:font-bold md:w-16  md:h-16 text-[#52FF86]`}
                     >
-                      {tabNumbers[index]}
+                      {/* {tabNumbers[index]} */}
                     </div>
                     <span className="ml-2">
                       {t(category.toLocaleUpperCase())}
@@ -103,7 +97,100 @@ export default function Activeties({ selectedDate }: any) {
           <Tab.Panels>
             <Tab.Panel>
               <div className="">
-                {filteredAppointments.previous.map((activity: any, index: any) => (
+                {filteredAppointments.pending.map((activity: any, index: any) => (
+                  <ActivtiesBox key={index} activity={activity} />
+                ))}
+                
+                <style>{`
+        
+        @media screen and (min-width: 1300px) {
+          .scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #52FF86 transparent;
+           
+          }
+               
+                .scrollbar::-webkit-scrollbar {
+                    width: 8px;
+                    height:10px;
+                }
+
+                .scrollbar::-webkit-scrollbar-thumb {
+                    background-color: #52FF86;
+                    border-radius: 6px;
+                }
+
+                .scrollbar::-webkit-scrollbar-track {
+                    background-color: transparent;
+                }
+            `}</style>
+              </div>
+            </Tab.Panel>
+            <Tab.Panel>
+              <div className="">
+                {filteredAppointments.booked.map((activity: any, index: any) => (
+                  <ActivtiesBox key={index} activity={activity} />
+                ))}
+                
+                <style>{`
+        
+        @media screen and (min-width: 1300px) {
+          .scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #52FF86 transparent;
+           
+          }
+               
+                .scrollbar::-webkit-scrollbar {
+                    width: 8px;
+                    height:10px;
+                }
+
+                .scrollbar::-webkit-scrollbar-thumb {
+                    background-color: #52FF86;
+                    border-radius: 6px;
+                }
+
+                .scrollbar::-webkit-scrollbar-track {
+                    background-color: transparent;
+                }
+            `}</style>
+              </div>
+            </Tab.Panel>
+            <Tab.Panel>
+              <div className="">
+                {filteredAppointments.completed.map((activity: any, index: any) => (
+                  <ActivtiesBox key={index} activity={activity} />
+                ))}
+                
+                <style>{`
+        
+        @media screen and (min-width: 1300px) {
+          .scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #52FF86 transparent;
+           
+          }
+               
+                .scrollbar::-webkit-scrollbar {
+                    width: 8px;
+                    height:10px;
+                }
+
+                .scrollbar::-webkit-scrollbar-thumb {
+                    background-color: #52FF86;
+                    border-radius: 6px;
+                }
+
+                .scrollbar::-webkit-scrollbar-track {
+                    background-color: transparent;
+                }
+            `}</style>
+              </div>
+            </Tab.Panel>
+            <Tab.Panel>
+              <div className="">
+                {filteredAppointments.declined.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
                 ))}
                 
