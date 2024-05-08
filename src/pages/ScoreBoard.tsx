@@ -22,85 +22,73 @@ import CommentModel from "../components/CommentModel";
 import { AboutEvent } from "../components/event/AboutEventSingle";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 import ScoringTabs from "../components/ScoringTabs";
+
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
 
   const { singleEvent } = singleEventContextStore();
   const { totalJoinedMembers } = singleTeamsContextStore();
-  const { score, scoreLoading } = useScoreContext()
+  const { score, scoreLoading } = useScoreContext();
 
-  console.log(score)
+  const shouldShowPlayerScore = !(singleEvent?.driverContest === 0 || singleEvent?.nearPinContest === 0);
+
   return (
     <div>
- <div className="">
+      <div className="">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid self-center w-full p-4 xl:w-[1200px] mx-auto">
-            {scoreLoading ? <div className="flex justify-center items-center ">
-              <div>
-                <img className="w-10 h-10 animate__animated animate__bounce animate__infinite " src="/img/golfball.jpg" alt="" />
-                <p>loading...</p>
+            {scoreLoading ? (
+              <div className="flex justify-center items-center ">
+                <div>
+                  <img
+                    className="w-10 h-10 animate__animated animate__bounce animate__infinite "
+                    src="/img/golfball.jpg"
+                    alt=""
+                  />
+                  <p>loading...</p>
+                </div>
               </div>
-
-            </div> : <FlexitySlider>
-              {score?.map((item: any) => {
-                return <ScoreSlider item={item} />;
-              })}
-            </FlexitySlider>
-            }
+            ) : (
+              <FlexitySlider>
+                {score?.map((item: any) => {
+                  return <ScoreSlider item={item} />;
+                })}
+              </FlexitySlider>
+            )}
           </div>
         )}
         <div
           className={
-            singleEvent?.scoringType === "Normal" ? "mt-[20px]" : "mt-[20px] xl:w-[1200px] mx-auto "
+            singleEvent?.scoringType === "Normal"
+              ? "mt-[20px]"
+              : "mt-[20px] xl:w-[1200px] mx-auto "
           }
         >
           <FinalEventGallery />
         </div>
-        
-        <AllMembers />
-    
-       
 
-        {singleEvent?.scoringType !== "Normal" && (
+        <AllMembers />
+
+       
           <>
-          <div className="max-w-6xl mx-auto">
-          <LeaderBoardTables />
-            
-          <IndiviualPlayerScore />
-            <ScoringTabs singleEvent={singleEvent}/>
-          </div>
-            
+            <div className="max-w-6xl mx-auto">
+              <LeaderBoardTables />
+
+              <IndiviualPlayerScore />
+              <ScoringTabs singleEvent={singleEvent} />
+            </div>
           </>
-        )}
+   
 
         {singleEvent?.id && (
           <table className="lg:w-[1200px] mx-auto">
-            <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
+            <CommentModel eventIsd={singleEvent?.id} closeModal={() => {}} />
           </table>
         )}
         <div className="w-full lg:w-[1200px] lg:mx-auto">
           <AboutEvent totalJoinedMembers={totalJoinedMembers} />
         </div>
-
-        {/* <div className="mt-20 mx-[60px]">
-          <div className="flex gap-4">
-            <img
-              className="w-[57px] h-[103px]"
-              alt=""
-              src="/img/rectangle-1248@2x.png"
-            />
-            <b className="relative left-[-24px] top-[35px] text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-              {t("SCORING_TABLE")}
-            </b>
-            <img
-              className="w-[57px] h-[103px] object-cover"
-              alt=""
-              src="/img/flag.png"
-            />
-          </div>
-          <ScoringTable />
-        </div> */}
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ const JoinedEvents: React.FC = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-6 mx-40 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 mx-4 xl:mx-40 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-12 ">
         <Table />
         <Pagination
