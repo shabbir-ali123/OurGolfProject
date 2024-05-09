@@ -22,7 +22,7 @@ const Calendar: React.FC<CalendarProps> = ({ setFilterLocation, setStartDate, se
 
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
-    // fetchEvents(date, endDate, setEvents);
+    // fetchEvents(date, endDate, setEvents);`
 
   };
   
@@ -53,7 +53,7 @@ const Calendar: React.FC<CalendarProps> = ({ setFilterLocation, setStartDate, se
         className=" py-4 px-0 text-center rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] h-4 xl:h-auto w-[97%] xl:w-full"
       />
       <DatePicker
-        selected={endDate}
+      selected={endDate}
         onChange={setEndDate}
         placeholderText={t('END_DATE')}
         className="ml-3 py-4 px-0 text-center  rounded-md shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] border-none bg-[#f0f0f0] h-4 xl:h-auto w-[92%] xl:w-full  "
