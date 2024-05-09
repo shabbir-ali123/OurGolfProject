@@ -23,7 +23,7 @@ function classNames(...classes:any) {
 
 export const ActivitiesCalender = ({ onWeekSelected }:any) => {
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const startDay = startOfWeek(startOfMonth(currentMonth));
@@ -31,7 +31,7 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
   const days = eachDayOfInterval({ start: startDay, end: endDay });
 
   useEffect(() => {
-    const formattedDate = format(selectedDate, "yyyy-MM-dd");
+    const formattedDate = selectedDate !== null && format(selectedDate, "yyyy-MM-dd");
     onWeekSelected(formattedDate)
   }, [selectedDate]);
 
@@ -80,9 +80,9 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
                   className={classNames(
                     "py-1.5 bg-[#2dd4bf] text-white hover:bg-gray focus:z-10",
                     isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
-                    isSameDay(day, selectedDate) ? "bg-blue-200 text-black" : "",
-                    isSameDay(day, new Date()) && !isSameDay(day, selectedDate) ? "text-red-600" : ""
-                  )}
+                    selectedDate !== null && isSameDay(day, selectedDate) ? "bg-blue-200 text-black" : "",
+                    selectedDate && !isSameDay(day, selectedDate) ? "" : "text-red-600"
+                )}
                 >
                   <time dateTime={format(day, "yyyy-MM-dd")}>{format(day, "d")}</time>
                 </button>

@@ -25,21 +25,44 @@ export default function Activeties({ selectedDate }: any) {
   }, []);
 
   useEffect(() => {
-    if (selectedDate) {
       const completed = studentAppointments.filter((appointment: any) => {
-        return appointment.status === 'COMPLETED';
+        if(!selectedDate) {
+          return appointment.status === 'COMPLETED';
+        } else {
+          const date = new Date(appointment.createdAt);
+          const formattedDate = date.toISOString().slice(0, 10);  
+          return formattedDate === selectedDate;
+        }
       });
-  
+      
       const pending = studentAppointments.filter((appointment: any) => {
-        return appointment.status === 'PENDING';
+        if(!selectedDate) {
+          return appointment.status === 'PENDING';
+        } else {
+          const date = new Date(appointment.createdAt);
+          const formattedDate = date.toISOString().slice(0, 10);  
+          return formattedDate === selectedDate;
+        }
       });
   
       const booked = studentAppointments.filter((appointment: any) => {
-        return appointment.status === 'BOOKED';
+        if(!selectedDate) {
+          return appointment.status === 'BOOKED';
+        } else {
+          const date = new Date(appointment.createdAt);
+          const formattedDate = date.toISOString().slice(0, 10);  
+          return formattedDate === selectedDate;
+        }
       });
 
       const declined = studentAppointments.filter((appointment: any) => {
-        return appointment.status === 'DECLINED';
+        if(!selectedDate) {
+          return appointment.status === 'DECLINED';
+        } else {
+          const date = new Date(appointment.createdAt);
+          const formattedDate = date.toISOString().slice(0, 10);  
+          return formattedDate === selectedDate;
+        }
       });
   
       setFilteredAppointments({
@@ -48,9 +71,7 @@ export default function Activeties({ selectedDate }: any) {
         booked: booked,
         declined: declined,
       });
-    }
   }, [selectedDate, studentAppointments]);
-  
   
 const status = ['Pending', 'Booked', 'Completed', 'Declined'];
 
