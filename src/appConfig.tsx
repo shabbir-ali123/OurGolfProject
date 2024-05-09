@@ -55,6 +55,7 @@ export const API_ENDPOINTS = {
   UPDATEAPPOINTMENTSTATUS: `${API_BASE_URL}/${API_VERSION}/update-appointment-status`,
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`,
+  DECLINEAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/decline-appointment`,
   UPDATETEACHERPROFILE: `${API_BASE_URL}/${API_VERSION}/update-teacher-profile`,
   ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,
   GETGIGSBYID: `${API_BASE_URL}/${API_VERSION}/get-gigs-by-teacher/`,

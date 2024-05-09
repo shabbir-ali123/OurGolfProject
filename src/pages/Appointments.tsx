@@ -37,6 +37,32 @@ export const TeacherAppointments = () => {
           );
         } 
       };
+
+      const handleDecline = async (e: any, item: any) => {
+        const { scheduleId, day, startTime, endTime, notificationId ='', bookedBy } = item;
+        let studentId = bookedBy;
+        let status = "DECLINED"
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          const response = await axios.post(
+            API_ENDPOINTS.DECLINEAPPOINTMENT,
+            { studentId, scheduleId, day, startTime, endTime, status },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            toast.warning("Declined Successfully");
+          }
+        } catch (error) {
+          toast.error(
+            (error as any)?.response?.data?.message || "We are not able to Accept"
+          );
+        } 
+      };
     return (
         <>
       {
@@ -88,7 +114,6 @@ export const TeacherAppointments = () => {
                               </p>
                               {
                                 item?.status == 'PENDING' ? (
-
                                
                               <div className="mt-4 flex gap-2">
                                   <button
@@ -103,9 +128,9 @@ export const TeacherAppointments = () => {
                                   <button
                                     type="button"
                                     className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    // onClick={(e) =>
-                                    //   handleApprove(e, item?.id, item?.message)
-                                    // }
+                                    onClick={(e) =>
+                                      handleDecline(e, item)
+                                    }
                                   >
                                     {"Decline"}
                                   </button>
