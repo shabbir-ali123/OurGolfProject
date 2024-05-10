@@ -10,7 +10,7 @@ import { fetchTeachersAppointments } from "../utils/fetchTeacher";
 export default function Activeties({ selectedDate }: any) {
   const { t } = useTranslation();
   const { studentAppointments } = useTeacherContext();
-
+  const status = ['Pending', 'Booked', 'Completed', 'Declined'];
   const [teacherAppointments, setTeacherAppointments] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<any>(false);
   const [filteredAppointments, setFilteredAppointments] = useState<any>({
@@ -25,23 +25,13 @@ export default function Activeties({ selectedDate }: any) {
   }, []);
 
   useEffect(() => {
-      const completed = studentAppointments.filter((appointment: any) => {
-        if(!selectedDate) {
-          return appointment.status === 'COMPLETED';
-        } else {
-          const date = new Date(appointment.createdAt);
-          const formattedDate = date.toISOString().slice(0, 10);  
-          return formattedDate === selectedDate;
-        }
-      });
-      
       const pending = studentAppointments.filter((appointment: any) => {
         if(!selectedDate) {
           return appointment.status === 'PENDING';
         } else {
           const date = new Date(appointment.createdAt);
           const formattedDate = date.toISOString().slice(0, 10);  
-          return formattedDate === selectedDate;
+          return formattedDate === selectedDate && appointment.status === 'PENDING'
         }
       });
   
@@ -51,7 +41,17 @@ export default function Activeties({ selectedDate }: any) {
         } else {
           const date = new Date(appointment.createdAt);
           const formattedDate = date.toISOString().slice(0, 10);  
-          return formattedDate === selectedDate;
+          return formattedDate === selectedDate && appointment.status === "BOOKED";
+        }
+      });
+
+      const completed = studentAppointments.filter((appointment: any) => {
+        if(!selectedDate) {
+          return appointment.status === 'COMPLETED';
+        } else {
+          const date = new Date(appointment.createdAt);
+          const formattedDate = date.toISOString().slice(0, 10);  
+          return formattedDate === selectedDate && appointment.status === 'COMPLETED'
         }
       });
 
@@ -73,7 +73,6 @@ export default function Activeties({ selectedDate }: any) {
       });
   }, [selectedDate, studentAppointments]);
   
-const status = ['Pending', 'Booked', 'Completed', 'Declined'];
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap ">
@@ -111,9 +110,13 @@ const status = ['Pending', 'Booked', 'Completed', 'Declined'];
           <Tab.Panels>
             <Tab.Panel>
               <div className="">
-                {filteredAppointments.pending.map((activity: any, index: any) => (
+                {
+                  filteredAppointments.pending.length > 0 ? 
+                filteredAppointments.pending.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
-                ))}
+                )) : 
+                <h3>Oops! You dont have Pending Appointments at {selectedDate}</h3>
+              }
                 
                 <style>{`
         
