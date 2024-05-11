@@ -2,10 +2,13 @@ import React, { useRef } from 'react';
 import Flickity from "react-flickity-component";
 import 'flickity/css/flickity.css';
 import "flickity-as-nav-for";
+import { singleEventContextStore } from '../contexts/eventContext';
 
-function FinalEventGallery() {
+    export const FinalEventGallery = ({ children}) => {
+
     const mainCarouselRef = useRef();
     const navCarouselRef = useRef();
+    const { singleEvent } = singleEventContextStore();
 
     return (
         <div className=" max-w-5xl mx-6 xl:mx-auto mt-10">
@@ -21,12 +24,9 @@ function FinalEventGallery() {
                 }}
                 ref={mainCarouselRef}
             >
-                {/* Main carousel images */}
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/BG-GOLF.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/second-image.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/third.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/BG-GOLF.jpg" alt="Description" /></div>
-                <div className="carousel-cell"><img height="100%" width="100%" className='object-fit' src="/img/tournament.png" alt="Description" /></div>
+
+                <div></div>
+                {children}
             </Flickity>
 
             <Flickity
@@ -39,14 +39,10 @@ function FinalEventGallery() {
                 ref={navCarouselRef}
             >
                 {/* Navigation carousel images */}
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/BG-GOLF.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/second-image.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/third.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/BG-GOLF.jpg" alt="Thumbnail" /></div>
-                <div className="carousel-cell-1"><img height="100%" width="100%" className='object-cover' src="/img/tournament.png" alt="Thumbnail" /></div>
+                {children[1]}
+
             </Flickity>
         </div>
     );
 }
 
-export default FinalEventGallery;

@@ -399,7 +399,7 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/post-page"
             element={
               <PostContext>
-                {" "}
+               
                 <PostPage />
               </PostContext>
             }
