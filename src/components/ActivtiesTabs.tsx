@@ -1,6 +1,5 @@
 import { Tab } from "@headlessui/react";
 import ActivtiesBox from "../components/ActivtiesBox";
-import { categories } from "../constants/activities";
 import { useTranslation } from "react-i18next";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { useEffect, useState } from "react";
@@ -109,13 +108,13 @@ export default function Activeties({ selectedDate }: any) {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <div className="">
+              <div>
                 {
                   filteredAppointments.pending.length > 0 ? 
                 filteredAppointments.pending.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
                 )) : 
-                <h3>Oops! You dont have Pending Appointments at {selectedDate}</h3>
+                <h3>Oops! You dont have Pending Appointments {selectedDate && `at ${selectedDate}`}</h3>
               }
                 
                 <style>{`
