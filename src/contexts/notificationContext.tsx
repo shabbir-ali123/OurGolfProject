@@ -18,17 +18,22 @@ export const NotificationsContext = ({ children }: any) => {
   useEffect(() => {
     fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
-      const check = (data.teacherId == tId || data.organizer == userId)
+      console.log(data, 'notificationDar')
+      const check = (data.teacherId == tId || data.organizer == userId || data.studentId == userId) 
       if(check){
         setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
       }
     };    
+    
     socket.on('appointmentBooked', handleAppointmentBooked);
     socket.on('joinRequest', handleAppointmentBooked);
+    socket.on('appointmentDeclined', handleAppointmentBooked);
 
     return () => {
       socket.off('appointmentBooked', handleAppointmentBooked);
       socket.off('joinRequest', handleAppointmentBooked);
+      socket.off('appointmentDeclined', handleAppointmentBooked);
+
     };
   }, [isLoading, message]); 
 

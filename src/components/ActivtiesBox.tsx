@@ -20,12 +20,12 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
     <div className={ ` px-2 bg-${bgClr} border border-${borderClr} shadow-lg rounded-lg border-solid mt-3`} style={{backgroundColor: bgClr , border:borderClr}}>
       <div className="flex items-center">
         <img
-          // src={imageUrl}
+          src={activity.schedule.Teacher.profileImage}
           alt="Profile"
           className="h-10 w-10 rounded-full mr-4"
         />
         <div>
-          <p className="text-gray-600 font-product-sans font-normal text-xl">Your Appointment with {activity.bookedBy} is {activity.status}</p>
+          <p className="text-gray-600 font-product-sans font-normal text-xl">Your Appointment with {activity.schedule.Teacher.firstName} is {activity.status}</p>
         </div>
       </div>
     </div>  
