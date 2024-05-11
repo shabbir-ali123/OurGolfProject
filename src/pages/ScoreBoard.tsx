@@ -31,7 +31,9 @@ const ScoreBoard: FunctionComponent = () => {
   const { score, scoreLoading } = useScoreContext();
 
   const shouldShowPlayerScore = !(singleEvent?.driverContest === 0 || singleEvent?.nearPinContest === 0);
+  const sortedScore = score.sort((a:any, b:any) => b.totalScore - a.totalScore);
 
+  const topThreeScores = sortedScore.slice(0, 3);
 
   return (
     <div>
@@ -52,7 +54,7 @@ const ScoreBoard: FunctionComponent = () => {
               </div>
             ) : (
               <FlexitySlider>
-                {score?.map((item: any) => {
+                {topThreeScores?.map((item: any) => {
                   return <ScoreSlider item={item} />;
                 })}
               </FlexitySlider>
