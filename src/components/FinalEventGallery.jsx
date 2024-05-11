@@ -26,7 +26,7 @@ import { singleEventContextStore } from '../contexts/eventContext';
             >
 
                 <div></div>
-                {children}
+                {children[0]}
             </Flickity>
 
             <Flickity
