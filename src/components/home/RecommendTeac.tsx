@@ -28,6 +28,7 @@ const RecommendedTeachers: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [teachers]);
+
   const shuffleArray = (array:any) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -35,32 +36,7 @@ const RecommendedTeachers: React.FC = () => {
     }
     return array;
   };
-    //     {
-    //         imageUrl: "/img/teacher1.png",
-    //         name: "Taki Najal",
-    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-    //     },
-    //     {
-    //         imageUrl: "/img/teacher2.png",
-    //         name: "Joshika Nain",
-    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-    //     },
-    //     {
-    //         imageUrl: "/img/teacher1.png",
-    //         name: "Emma Wilson",
-    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-    //     },
-    //     {
-    //         imageUrl: "/img/teacher2.png",
-    //         name: "Oliver Brown",
-    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-    //     },
-    //     {
-    //         imageUrl: "/img/teacher1.png",
-    //         name: "Oliver Brown",
-    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-    //     }
-    // ];
+   
     const settings = {
         dots: true,
         infinite: false,
