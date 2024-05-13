@@ -461,9 +461,8 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
               token ? (
                 <PostContext>
                   <CreatedEventContext>
-                    {" "}
                     <TeacherDetailsContext>
-                      <ProfilePage />{" "}
+                      <ProfilePage />
                     </TeacherDetailsContext>
                   </CreatedEventContext>
                 </PostContext>
@@ -477,7 +476,7 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             element={
               token && tId ? (
                 <TeacherDetailsContext>
-                  <TeacherCatalog />{" "}
+                  <TeacherCatalog />
                 </TeacherDetailsContext>
               ) : (
                 <LoginPage />
@@ -498,7 +497,6 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/all-teachers"
             element={
               <TeacherContext>
-                {" "}
                 <TeacherListpage />
               </TeacherContext>
             }
@@ -507,11 +505,9 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/edit-team/:id"
             element={
               <SingleTeamsContext>
-                {" "}
                 <SingleEventsContext>
-                  {" "}
-                  <EditTeamPage />{" "}
-                </SingleEventsContext>{" "}
+                  <EditTeamPage />
+                </SingleEventsContext>
               </SingleTeamsContext>
             }
           />
@@ -521,10 +517,8 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
               <SingleTeamsContext>
                 <SingleEventsContext>
                   <ScoreContextProvider>
-
                     <AddScorePage />
                   </ScoreContextProvider>
-
                 </SingleEventsContext>
               </SingleTeamsContext>
             }
