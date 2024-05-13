@@ -11,17 +11,17 @@ import {
   useScoreContext,
 } from "../contexts/scoreContext";
 import LeaderBoardTables from "../components/leaderBoard/leaderBoard";
-import FinalEventGallery from "../components/FinalEventGallery";
 import { singleEventContextStore } from "../contexts/eventContext";
 import { ScoreSlider } from "../components/sliders/ScoreSlider";
 import AllMembers from "../components/AllMembers";
-import Flickity from "react-flickity-component";
 import { FlexitySlider } from "../components/sliders/FlickitySlider";
 
 import CommentModel from "../components/CommentModel";
 import { AboutEvent } from "../components/event/AboutEventSingle";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 import ScoringTabs from "../components/ScoringTabs";
+import { FinalEventGallery } from "../components/FinalEventGallery";
+import { FinalSlider } from "../components/sliders/FinalEventSlider";
 
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -31,6 +31,9 @@ const ScoreBoard: FunctionComponent = () => {
   const { score, scoreLoading } = useScoreContext();
 
   const shouldShowPlayerScore = !(singleEvent?.driverContest === 0 || singleEvent?.nearPinContest === 0);
+  const sortedScore = score?.sort((a:any, b:any) => b.totalScore - a.totalScore);
+
+  const topThreeScores = sortedScore?.slice(0, 3);
 
   return (
     <div>
@@ -51,7 +54,7 @@ const ScoreBoard: FunctionComponent = () => {
               </div>
             ) : (
               <FlexitySlider>
-                {score?.map((item: any) => {
+                {topThreeScores?.map((item: any) => {
                   return <ScoreSlider item={item} />;
                 })}
               </FlexitySlider>
@@ -65,12 +68,22 @@ const ScoreBoard: FunctionComponent = () => {
               : "mt-[20px] xl:w-[1200px] mx-auto "
           }
         >
-          <FinalEventGallery />
+          <FinalEventGallery >
+          {singleEvent.imageUrl?.map((item: any) => {
+                  return <FinalSlider item={item} type="top"/>;
+                })}
+                 {singleEvent.imageUrl?.map((item: any) => {
+                  return <FinalSlider item={item} />;
+                })}
+
+          </FinalEventGallery>
+
+
         </div>
 
         <AllMembers />
 
-       
+        {singleEvent?.scoringType !== "Normal" && (
           <>
             <div className="max-w-6xl mx-auto">
               <LeaderBoardTables />
@@ -79,11 +92,11 @@ const ScoreBoard: FunctionComponent = () => {
               <ScoringTabs singleEvent={singleEvent} />
             </div>
           </>
-   
+        )}
 
         {singleEvent?.id && (
           <table className="lg:w-[1200px] mx-auto">
-            <CommentModel eventIsd={singleEvent?.id} closeModal={() => {}} />
+            <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
           </table>
         )}
         <div className="w-full lg:w-[1200px] lg:mx-auto">

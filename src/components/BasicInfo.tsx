@@ -31,8 +31,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
   setFormData,
   formData,
 }) => {
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+  const { t } = useTranslation();
   const params = useParams<{ id: string }>();
   const eventId = params.id;
 
@@ -40,83 +39,83 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
     {
       label: t("HOKKAIDO_TOHOKU"),
       options: [
-        { value: "北海道 (Hokkaido)", label: t("Hokkaido") },
-        { value: "青森県", label: t("Aomori Prefecture") },
-        { value: "岩手県", label: t("Iwate Prefecture") },
-        { value: "宮城県", label: t("Miyagi Prefecture") },
-        { value: "秋田県", label: t("Akita") },
-        { value: "山形県", label: t("Yamagata Prefecture") },
-        { value: "福島県", label: t("Fukushima Prefecture") },
+        { value: "北海道 (Hokkaido)", label: t("北海道 (Hokkaido)") },
+        { value: "青森県 (Aomori Prefecture)", label: t("青森県 (Aomori Prefecture)") },
+        { value: "岩手県 (Iwate Prefecture)", label: t("岩手県 (Iwate Prefecture)") },
+        { value: "宮城県 (Miyagi Prefecture)", label: t("宮城県 (Miyagi Prefecture)") },
+        { value: "秋田県 (Akita)", label: t("秋田県 (Akita)") },
+        { value: "山形県 (Yamagata Prefecture)", label: t("山形県 (Yamagata Prefecture)") },
+        { value: "福島県 (Fukushima Prefecture)", label: t("福島県 (Fukushima Prefecture)") },
       ],
     },
     {
       label: t("KANTO"),
       options: [
-        { value: "茨城県", label: t("Ibaraki Prefecture") },
-        { value: "栃木県", label: t("Tochigi Prefecture") },
-        { value: "群馬県", label: t("Gunma Prefecture") },
-        { value: "埼玉県", label: t("Saitama") },
-        { value: "千葉県", label: t("Chiba prefecture") },
-        { value: "東京都", label: t("Tokyo") },
-        { value: "神奈川県", label: t("Kanagawa Prefecture") },
+        { value: "茨城県 (Ibaraki Prefecture)", label: t("茨城県 (Ibaraki Prefecture)") },
+        { value: "栃木県 (Tochigi Prefecture)", label: t("栃木県 (Tochigi Prefecture)") },
+        { value: "群馬県 (Gunma Prefecture)", label: t("群馬県 (Gunma Prefecture)") },
+        { value: "埼玉県 (Saitama)", label: t("埼玉県 (Saitama)") },
+        { value: "千葉県 (Chiba prefecture)", label: t("千葉県 (Chiba prefecture)") },
+        { value: "東京都 (Tokyo)", label: t("東京都 (Tokyo)") },
+        { value: "神奈川県 (Kanagawa Prefecture)", label: t("神奈川県 (Kanagawa Prefecture)") },
       ],
     },
     {
-      label: t("CHUBU"),
+      label: t("中部 (Chubu)"),
       options: [
-        { value: "神奈川県", label: t("Niigata Prefecture") },
-        { value: "富山県", label: t("Toyama Prefecture") },
-        { value: "富山県", label: t("Ishikawa Prefecture") },
-        { value: "福井県", label: t("Fukui prefecture") },
-        { value: "山梨県", label: t("Yamanashi Prefecture") },
-        { value: "長野県", label: t("Nagano Prefecture") },
+        { value: "神奈川県 (Niigata Prefecture)", label: t("神奈川県 (Niigata Prefecture)") },
+        { value: "富山県 (Toyama Prefecture)", label: t("富山県 (Toyama Prefecture)") },
+        { value: "富山県 (Ishikawa Prefecture)", label: t("富山県 (Ishikawa Prefecture)") },
+        { value: "福井県 (Fukui prefecture)", label: t("福井県 (Fukui prefecture)") },
+        { value: "山梨県 (Yamanashi Prefecture)", label: t("山梨県 (Yamanashi Prefecture)") },
+        { value: "長野県 (Nagano Prefecture)", label: t("長野県 (Nagano Prefecture)") },
       ],
     },
     {
       label: t("TOKAI"),
       options: [
-        { value: "静岡", label: t("Shizuoka Prefecture") },
-        { value: "愛知県", label: t("Aichi prefecture") },
-        { value: "三重県", label: t("Mie Prefecture") },
-        { value: "岐阜県", label: t("Gifu Prefecture") },
+        { value: "静岡 (Shizuoka Prefecture)", label: t("静岡 (Shizuoka Prefecture)") },
+        { value: "愛知県 (Aichi prefecture)", label: t("愛知県 (Aichi prefecture)") },
+        { value: "三重県 (Mie Prefecture)", label: t("三重県 (Mie Prefecture)") },
+        { value: "岐阜県 (Gifu Prefecture)", label: t("岐阜県 (Gifu Prefecture)") },
       ],
     },
     {
-      label: t("KINKI"),
+      label: t("近畿 (Kinki)"),
       options: [
-        { value: "滋賀県", label: t("Shiga Prefecture") },
-        { value: "京都府", label: t("Kyoto") },
-        { value: "大阪府", label: t("Osaka prefecture") },
-        { value: "兵庫県", label: t("Hyogo prefecture") },
-        { value: "奈良県", label: t("Nara Prefecture") },
-        { value: "和歌山県", label: t("Wakayama Prefecture") },
+        { value: "滋賀県 (Shiga Prefecture)", label: t("滋賀県 (Shiga Prefecture)") },
+        { value: "京都府 (Kyoto)", label: t("京都府 (Kyoto)") },
+        { value: "大阪府 (Osaka prefecture)", label: t("大阪府 (Osaka prefecture)") },
+        { value: "兵庫県 (Hyogo prefecture)", label: t("兵庫県 (Hyogo prefecture)") },
+        { value: "奈良県 (Nara Prefecture)", label: t("奈良県 (Nara Prefecture)") },
+        { value: "和歌山県 (Wakayama Prefecture)", label: t("和歌山県 (Wakayama Prefecture)") },
       ],
     },
     {
       label: t("SHIKOKU"),
       options: [
-        { value: "鳥取県", label: t("Tottori prefecture") },
-        { value: "島根県", label: t("Shimane Prefecture") },
-        { value: "岡山県", label: t("Okayama Prefecture") },
-        { value: "広島県", label: t("Hiroshima") },
-        { value: "山口県", label: t("Yamaguchi Prefecture") },
-        { value: "徳島県", label: t("Tokushima") },
-        { value: "香川県", label: t("Kagawa Prefecture") },
-        { value: "愛媛県", label: t("Ehime Prefecture") },
-        { value: "高知県", label: t("Kochi Prefecture") },
+        { value: "鳥取県 (Tottori prefecture)", label: t("鳥取県 (Tottori prefecture)") },
+        { value: "島根県 (Shimane Prefecture)", label: t("島根県 (Shimane Prefecture)") },
+        { value: "岡山県 (Okayama Prefecture)", label: t("岡山県 (Okayama Prefecture)") },
+        { value: "広島県 (Hiroshima)", label: t("広島県 (Hiroshima)") },
+        { value: "山口県 (Yamaguchi Prefecture)", label: t("山口県 (Yamaguchi Prefecture)") },
+        { value: "徳島県 (Tokushima)", label: t("徳島県 (Tokushima)") },
+        { value: "香川県 (Kagawa Prefecture)", label: t("香川県 (Kagawa Prefecture)") },
+        { value: "愛媛県 (Ehime Prefecture)", label: t("愛媛県 (Ehime Prefecture)") },
+        { value: "高知県 (Kochi Prefecture)", label: t("高知県 (Kochi Prefecture)") },
       ],
     },
     {
-      label: t("KYUSHU"),
+      label: t("九州・沖縄 (Kyushu-Okinawa)"),
       options: [
-        { value: "福岡県", label: t("Fukuoka Prefecture") },
-        { value: "佐賀県", label: t("Saga Prefecture") },
-        { value: "長崎県", label: t("Nagasaki Prefecture") },
-        { value: "熊本県", label: t("Kumamoto Prefecture") },
-        { value: "大分県", label: t("Oita Prefecture") },
-        { value: "宮崎県", label: t("Miyazaki prefecture") },
-        { value: "鹿児島県", label: t("Kagoshima prefecture") },
-        { value: "沖縄県", label: t("Okinawa Prefecture") },
+        { value: "福岡県 (Fukuoka Prefecture)", label: t("福岡県 (Fukuoka Prefecture)") },
+        { value: "佐賀県 (Saga Prefecture)", label: t("佐賀県 (Saga Prefecture)") },
+        { value: "長崎県 (Nagasaki Prefecture)", label: t("長崎県 (Nagasaki Prefecture)") },
+        { value: "熊本県 (Kumamoto Prefecture)", label: t("熊本県 (Kumamoto Prefecture)") },
+        { value: "大分県 (Oita Prefecture)", label: t("大分県 (Oita Prefecture)") },
+        { value: "宮崎県 (Miyazaki prefecture)", label: t("宮崎県 (Miyazaki prefecture)") },
+        { value: "鹿児島県 (Kagoshima prefecture)", label: t("鹿児島県 (Kagoshima prefecture)") },
+        { value: "沖縄県 (Okinawa Prefecture)", label: t("沖縄県 (Okinawa Prefecture)") },
       ],
     },
   ];
@@ -169,7 +168,6 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
   const handleSelectedImage = (selectedImage: any, eId: any) => {
 
     let url: any = "";
-    console.log(typeof selectedImage);
     if (URL === selectedImage) {
       url = new URL(selectedImage || "");
     }
@@ -183,10 +181,10 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
       });
     }
   };
+
   const handleUpdateEventMedia = async (formd: any) => {
     const userToken = localStorage.getItem("token");
 
-    console.log(formd);
     try {
       if (!userToken) {
         throw new Error("Token not found in localStorage");

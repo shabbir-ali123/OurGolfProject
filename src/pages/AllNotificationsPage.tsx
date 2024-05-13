@@ -65,18 +65,13 @@ export default function AllNotification() {
                             navigate('/edit-team/' + item?.eventId);
 
                           } else if (item?.teacherId !== null) {
-                            navigate('/' + item?.teacherId);
+                            navigate('/appointments');
 
                           } else if (item?.postId !== null) {
                             handleApprove(e, item?.id, "")
-
                             navigate('/read-post/' + item?.postId);
 
                           }
-
-
-
-
 
                         }}>
                         <div className="p-4">

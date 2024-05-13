@@ -21,13 +21,13 @@ const LocationSelectionPopup: React.FC<LocationSelectionPopupProps> = ({ isOpen,
   }, [selectedCities, selectedCitiesData, sendDataToParent]);
   
   const cityKeys = {
-    "HOKKAIDO_TOHOKU": ["北海道 (Hokkaido)", "Aomori Prefecture", "Iwate Prefecture", "Miyagi Prefecture", "Akita", "Yamagata Prefecture", "Fukushima Prefecture"],
-    "KANTO": ["Ibaraki Prefecture", "Tochigi Prefecture", "Gunma Prefecture", "Saitama", "Chiba prefecture", "Tokyo", "Kanagawa Prefecture"],
-    "CHUBU": ["Niigata Prefecture", "Toyama Prefecture", "Ishikawa Prefecture", "Fukui prefecture", "Yamanashi Prefecture", "Nagano"],
-    "TOKAI": ["Shizuoka Prefecture", "Aichi prefecture", "Mie Prefecture", "Gifu Prefecture"],
-    "KINKI": ["Shiga Prefecture", "Kyoto", "Osaka prefecture", "Hyogo prefecture", "Nara Prefecture", "Wakayama Prefecture"],
-    "SHIKOKU": ["Tottori prefecture", "Shimane Prefecture", "Okayama Prefecture", "Hiroshima", "Yamaguchi Prefecture","Tokushima", "Kagawa Prefecture", "Ehime Prefecture", "Kochi Prefecture"],
-    "KYUSHU": ["Fukuoka Prefecture", "Saga Prefecture", "Nagasaki Prefecture", "Kumamoto Prefecture", "Oita Prefecture", "Miyazaki prefecture", "Kagoshima prefecture", "Okinawa Prefecture"],
+    "HOKKAIDO_TOHOKU": ["北海道 (Hokkaido)", "青森県 (Aomori Prefecture)", "岩手県 (Iwate Prefecture)", "宮城県 (Miyagi Prefecture)", "秋田県 (Akita)", "山形県 (Yamagata Prefecture)", "福島県 (Fukushima Prefecture)"],
+    "KANTO": ["茨城県 (Ibaraki Prefecture)", "栃木県 (Tochigi Prefecture)", "群馬県 (Gunma Prefecture)", "埼玉県 (Saitama)", "千葉県 (Chiba prefecture)", "東京都 (Tokyo)", "神奈川県 (Kanagawa Prefecture)"],
+    "中部 (Chubu)": ["神奈川県 (Niigata Prefecture)", "富山県 (Toyama Prefecture)", "富山県 (Ishikawa Prefecture)", "福井県 (Fukui prefecture)", "山梨県 (Yamanashi Prefecture)", "長野県 (Nagano Prefecture)"],
+    "TOKAI": ["静岡 (Shizuoka Prefecture)", "愛知県 (Aichi prefecture)", "三重県 (Mie Prefecture)", "岐阜県 (Gifu Prefecture)"],
+    "近畿 (Kinki)": ["滋賀県 (Shiga Prefecture)", "京都府 (Kyoto)", "大阪府 (Osaka prefecture)", "兵庫県 (Hyogo prefecture)", "奈良県 (Nara Prefecture)", "和歌山県 (Wakayama Prefecture)"],
+    "SHIKOKU": ["鳥取県 (Tottori prefecture)", "島根県 (Shimane Prefecture)", "岡山県 (Okayama Prefecture)", "広島県 (Hiroshima)", "山口県 (Yamaguchi Prefecture)","徳島県 (Tokushima)", "香川県 (Kagawa Prefecture)", "愛媛県 (Ehime Prefecture)", "高知県 (Kochi Prefecture)"],
+    "九州・沖縄 (Kyushu-Okinawa)": ["福岡県 (Fukuoka Prefecture)", "佐賀県 (Saga Prefecture)", "長崎県 (Nagasaki Prefecture)", "熊本県 (Kumamoto Prefecture)", "大分県 (Oita Prefecture)", "宮崎県 (Miyazaki prefecture)", "鹿児島県 (Kagoshima prefecture)", "沖縄県 (Okinawa Prefecture)"],
   };
 
   const toggleProvince = (province: string): void => {

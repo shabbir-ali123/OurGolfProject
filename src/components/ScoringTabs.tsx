@@ -63,6 +63,7 @@ const ScoringTabs = ({singleEvent}:any) => {
 
   const mergedScores = Object.values(groupedScores || {});
 
+  console.log(mergedScores, "Net Values")
   mergedScores.sort((a: any, b: any) => b?.totalScore - a.totalScore);
 
   mergedScores.forEach((team: any, index) => {
@@ -85,6 +86,7 @@ const ScoringTabs = ({singleEvent}:any) => {
   let firstNine = shotsPar?.slice(0, 9);
   let afterNine = shotsPar?.slice(9);
   let sumFirstNine = firstNine?.reduce((acc:any, curr:any) => acc + curr, 0);
+  let sumLastNine = firstNine?.reduce((acc:any, curr:any) => acc + curr, 0);
   let totalPar = shotsPar?.reduce((acc:any, curr:any) => acc + curr, 0);
 
   // console.log(shotsPar);
@@ -157,10 +159,11 @@ const ScoringTabs = ({singleEvent}:any) => {
                           className=" text-[18px] font-medium text-center"
                         />
                        
-                        <ScoringTableColumn
-                          title={t("SLOPE")}
-                          className="text-[18px] font-medium text-center"
-                        />
+                       <ScoringTableColumn
+                                title={t('Net Value')}
+                                className='text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]'
+                                dir='rtl'
+                            />
                         <ScoringTableColumn
                           title={t("RESULT")}
                           className="text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]"
@@ -172,6 +175,7 @@ const ScoringTabs = ({singleEvent}:any) => {
                           title={t("PAR")}
                           className="rounded-s-[3px] font-bold text-[24px] text-center"
                         />
+                        
                           {firstNine?.map((index:any) => (
                           <ScoringTableColumn
                             key={index}
@@ -191,9 +195,22 @@ const ScoringTabs = ({singleEvent}:any) => {
                           />
                         ))}
                         <ScoringTableColumn
-                          title={totalPar}
+                          title={sumLastNine}
                           className="bg-black  text-white text-[18px] font-medium text-center"
                         />
+                         <ScoringTableColumn
+                          title={totalPar}
+                          className=" text-white text-[18px] font-medium text-center"
+                        />
+                         <ScoringTableColumn
+                          title={t("Net Value")}
+                          className=" text-white text-[18px] font-medium text-center"
+                        />
+                         <ScoringTableColumn
+                          title={t("RESULT")}
+                          className=" text-white text-[18px] font-medium text-center"
+                        />
+                       
 </tr>
                     </thead>
 
@@ -205,6 +222,7 @@ const ScoringTabs = ({singleEvent}:any) => {
                             <ScoringTableRow
                               teamImageUrl="/img/ellipse-23114@2x.png"
                               teamName={"team " + item?.teamId}
+                              teamId={item?.teamId}
                               background="#CDD5FF"
                               teamBG="#D3D3D3"
                               score1={item.scorePerShot1}
@@ -262,11 +280,13 @@ const ScoringTabs = ({singleEvent}:any) => {
                                 title={t('TOTAL')}
                                 className=' text-[18px] font-medium text-center'
                             />
+                          
+                           
                             <ScoringTableColumn
-                                title={t('SLOPE')}
-                                className=' text-[18px] font-medium text-center'
+                                title={t('Net Value')}
+                                className='text-[18px] font-medium text-center'
                             />
-                            <ScoringTableColumn
+                             <ScoringTableColumn
                                 title={t('HCP')}
                                 className='text-[18px] font-medium text-center'
                             />
@@ -300,8 +320,25 @@ const ScoringTabs = ({singleEvent}:any) => {
                           />
                         ))}
                         <ScoringTableColumn
-                          title={totalPar}
+                          title={sumLastNine}
                           className="bg-black  text-white text-[18px] font-medium text-center"
+                        />
+                         <ScoringTableColumn
+                          title={totalPar}
+                          className=" text-white text-[18px] font-medium text-center"
+                        />
+                       
+                         <ScoringTableColumn
+                          title={t("Net Value")}
+                          className=" text-white text-[18px] font-medium text-center"
+                        />
+                         <ScoringTableColumn
+                          title={t("HCP Value")}
+                          className=" text-white text-[18px] font-medium text-center"
+                        />
+                         <ScoringTableColumn
+                          title={t("RESULT")}
+                          className=" text-white text-[18px] font-medium text-center"
                         />
 </tr>
                     </thead>

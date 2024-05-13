@@ -8,7 +8,7 @@ import socket from "../socket";
 
 export default function ProfileButton() {
   const { user } = userAuthContext();
-  const { notifications, filteredNotifications } = notificationsContextStore();
+  const { notifications, filteredNotifications, notificationData } = notificationsContextStore();
   const { t, i18n } = useTranslation();
   let n = [];
   const token = localStorage.getItem('token');
@@ -18,6 +18,7 @@ export default function ProfileButton() {
     ja: { displayName: i18n.language === "en" ? "日本語" : "日本語" },
   };
 
+  console.log({notifications, filteredNotifications, notificationData})
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notification, setNotification] = useState(false);
 

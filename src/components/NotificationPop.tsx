@@ -11,7 +11,7 @@ interface NotificationProp {
 export const NotificationPop: React.FC<NotificationProp> = ({ setNotification }) => {
   const { t } = useTranslation();
   const [show, setShow] = useState(true);
-  const { notificationData, isLoading } = notificationsContextStore();
+  const { notificationData, notification, isLoading } = notificationsContextStore();
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
@@ -36,6 +36,7 @@ export const NotificationPop: React.FC<NotificationProp> = ({ setNotification })
 
            )}
             {!isLoading && notificationData?.map((data: any) => {
+              console.log(notificationData, 'nd')
                 if( data.isRead !== true ){
 
                 return (
