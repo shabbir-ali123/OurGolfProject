@@ -60,6 +60,7 @@ export const TeacherAppointments = () => {
       startTime,
       endTime,
       bookedBy,
+      notificationId
     } = item;
     let studentId = bookedBy;
     let status = "DECLINED";
@@ -67,7 +68,7 @@ export const TeacherAppointments = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await axios.post(
         API_ENDPOINTS.DECLINEAPPOINTMENT,
-        { studentId, scheduleId, day, startTime, endTime, status },
+        { studentId, scheduleId, day, startTime, endTime, status, notificationId },
         {
           headers: {
             "Content-Type": "application/json",
@@ -84,6 +85,7 @@ export const TeacherAppointments = () => {
       );
     }
   };
+
   return (
     <>
       {isLoading ? (

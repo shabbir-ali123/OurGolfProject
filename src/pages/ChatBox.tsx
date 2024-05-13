@@ -24,9 +24,9 @@ export default function ChatApp() {
   const [unreadMessages, setUnreadMessages] = useState<any>({});
 
   useEffect(() => {
-  console.log(unreadMessages[Number(localStorage.getItem('id'))], 'ume')
-
+    console.log(unreadMessages[Number(localStorage.getItem('id'))], 'ume')
   }, [messages, unreadMessages])
+
   const userData = users?.map((user: any) => {
     return {
       id: user?.id.toString(),

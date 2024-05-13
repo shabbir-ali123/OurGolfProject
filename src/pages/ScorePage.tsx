@@ -13,14 +13,6 @@ const ScorePage = () => {
   const newArrayHole = hole?.split(",").map(Number);
 
   const { score } = useScoreContext();
-
-
-
-
-
-
-
-
   const p = singleEvent ? singleEvent.shotsPerHoles : [];
   const par = p?.split(",").map(Number);
 
