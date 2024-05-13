@@ -408,13 +408,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                       isUserIdMatched
                                         ? "bg-[#ff373a]"
                                         : "bg-[#DDF4F2]"
-                                    }   w-[70%] px-0 py-2 text-center rounded-lg m-0 hover:bg-black`}
+                                    }   w-[70%] px-0 py-2 mt-2 text-center rounded-lg m-0 hover:bg-black`}
                                     style={{
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                     }}
                                   >
-                                    Event Ended
+                                    {t("EVENT_END")}
                                   </p>
                                 </div>
                               )}

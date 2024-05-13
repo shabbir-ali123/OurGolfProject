@@ -1,5 +1,5 @@
 // RecommendedTeachers.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HomeTeacher from './HomeTeacher'; 
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -12,7 +12,29 @@ const RecommendedTeachers: React.FC = () => {
   const { t } = useTranslation();
 
   const {teachers} = teacherContext()
-   
+  const [displayedTeachers, setDisplayedTeachers] = useState([]);
+  useEffect(() => {
+    if (teachers && teachers.length > 0) {
+      setDisplayedTeachers(shuffleArray(teachers).slice(0, 4));
+    }
+  }, [teachers]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (teachers && teachers.length > 0) {
+        setDisplayedTeachers(shuffleArray(teachers).slice(0, 4));
+      }
+    }, 600000); // 600000 ms = 10 minutes
+
+    return () => clearInterval(interval);
+  }, [teachers]);
+  const shuffleArray = (array:any) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
     //     {
     //         imageUrl: "/img/teacher1.png",
     //         name: "Taki Najal",
@@ -80,9 +102,9 @@ const RecommendedTeachers: React.FC = () => {
             
            
             <Slider {...settings} className='mx-2 xl:mx-20'>
-                {teachers?.map((teacher: any, index: any) => (
-                    <HomeTeacher key={index} imageUrl={teacher.imageUrl} name={teacher.firstName} description={teacher.aboutMyself} />
-                ))}
+            {displayedTeachers.map((teacher:any, index:any) => (
+                <HomeTeacher key={index} imageUrl={teacher.imageUrl} name={teacher.firstName} description={teacher.aboutMyself} />
+            ))}
                 </Slider>
             </div>
       
