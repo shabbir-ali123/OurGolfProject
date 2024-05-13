@@ -29,12 +29,18 @@ const ScoreBoard: FunctionComponent = () => {
   const { singleEvent } = singleEventContextStore();
   const { totalJoinedMembers } = singleTeamsContextStore();
   const { score, scoreLoading } = useScoreContext();
+  const positions = ["1st", "2nd", "3rd"];
 
   const shouldShowPlayerScore = !(singleEvent?.driverContest === 0 || singleEvent?.nearPinContest === 0);
   const sortedScore = score?.sort((a:any, b:any) => b.totalScore - a.totalScore);
 
   const topThreeScores = sortedScore?.slice(0, 3);
-
+  const topThreeScoresWithPosition = topThreeScores?.map((score:any, index:any) => ({
+    ...score,
+    position: positions[index]
+  }));
+  
+  console.log(topThreeScoresWithPosition," postion");
   return (
     <div>
       <div className="">
@@ -53,11 +59,15 @@ const ScoreBoard: FunctionComponent = () => {
                 </div>
               </div>
             ) : (
+              topThreeScores.length > 2 ?
               <FlexitySlider>
-                {topThreeScores?.map((item: any) => {
+                {topThreeScoresWithPosition?.map((item: any) => {
                   return <ScoreSlider item={item} />;
                 })}
-              </FlexitySlider>
+              </FlexitySlider> : <div className="flex self-center w-full p-16 justify-around xl:w-[1200px] mx-auto">{ topThreeScoresWithPosition?.map((item: any) => {
+                  return <ScoreSlider item={item} />;
+                })}
+                </div>
             )}
           </div>
         )}
