@@ -7,35 +7,38 @@ import "slick-carousel/slick/slick-theme.css";
 import "./home.css"
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
+import { teacherContext } from '../../contexts/teachersContext';
 const RecommendedTeachers: React.FC = () => {
-  const { t, i18n } = useTranslation();
-    const teachers = [
-        {
-            imageUrl: "/img/teacher1.png",
-            name: "Taki Najal",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/teacher2.png",
-            name: "Joshika Nain",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/teacher1.png",
-            name: "Emma Wilson",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/teacher2.png",
-            name: "Oliver Brown",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        },
-        {
-            imageUrl: "/img/teacher1.png",
-            name: "Oliver Brown",
-            description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
-        }
-    ];
+  const { t } = useTranslation();
+
+  const {teachers} = teacherContext()
+   
+    //     {
+    //         imageUrl: "/img/teacher1.png",
+    //         name: "Taki Najal",
+    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
+    //     },
+    //     {
+    //         imageUrl: "/img/teacher2.png",
+    //         name: "Joshika Nain",
+    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
+    //     },
+    //     {
+    //         imageUrl: "/img/teacher1.png",
+    //         name: "Emma Wilson",
+    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
+    //     },
+    //     {
+    //         imageUrl: "/img/teacher2.png",
+    //         name: "Oliver Brown",
+    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
+    //     },
+    //     {
+    //         imageUrl: "/img/teacher1.png",
+    //         name: "Oliver Brown",
+    //         description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
+    //     }
+    // ];
     const settings = {
         dots: true,
         infinite: false,
@@ -77,8 +80,8 @@ const RecommendedTeachers: React.FC = () => {
             
            
             <Slider {...settings} className='mx-2 xl:mx-20'>
-                {teachers.map((teacher, index) => (
-                    <HomeTeacher key={index} imageUrl={teacher.imageUrl} name={teacher.name} description={teacher.description} />
+                {teachers?.map((teacher: any, index: any) => (
+                    <HomeTeacher key={index} imageUrl={teacher.imageUrl} name={teacher.firstName} description={teacher.aboutMyself} />
                 ))}
                 </Slider>
             </div>

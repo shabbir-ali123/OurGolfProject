@@ -293,7 +293,8 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
           />
           <Route
             path="/"
-            element={<HomePage />}
+          
+          element={<TeacherContext> <HomePage /></TeacherContext>}
           />
           <Route path="/event-main-page" element={<EventMainPage />} />
           <Route
