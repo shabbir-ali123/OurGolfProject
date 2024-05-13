@@ -53,7 +53,7 @@ const LeaderBoardTables: FunctionComponent = () => {
           className={`px-4 py-2 ${
             showRegularScores ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer animate-bounce border-none py-4 px-20 text-white text-lg" : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
           }`}
-          onClick={() => setShowRegularScores(true)} // Set regular scores tab active
+          onClick={() => setShowRegularScores(true)} 
         >
           {t("REGULAR")}
         </button>

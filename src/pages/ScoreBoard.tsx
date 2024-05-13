@@ -1,4 +1,4 @@
-import { FunctionComponent, useRef, useState } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import ChampionShipName from "../components/ChampionShipName";
 import Slider from "../components/Slider";
 import LeaderBoardSection from "../components/LeaderBoardSection";
@@ -29,23 +29,40 @@ const ScoreBoard: FunctionComponent = () => {
   const { singleEvent } = singleEventContextStore();
   const { totalJoinedMembers } = singleTeamsContextStore();
   const { score, scoreLoading } = useScoreContext();
-
+  const positions = ["1st", "2nd", "3rd"];
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const shouldShowPlayerScore = !(singleEvent?.driverContest === 0 || singleEvent?.nearPinContest === 0);
   const sortedScore = score?.sort((a:any, b:any) => b.totalScore - a.totalScore);
 
   const topThreeScores = sortedScore?.slice(0, 3);
+  const topThreeScoresWithPosition = topThreeScores?.map((score:any, index:any) => ({
+    ...score,
+    position: positions[index]
+  }));
+  
+  console.log(topThreeScoresWithPosition," postion");
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
 
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div>
       <div className="">
         <ChampionShipName />
         {singleEvent?.scoringType !== "Normal" && (
-          <div className="grid self-center w-full p-4 xl:w-[1200px] mx-auto">
+          <div className="grid self-center w-full p-0 xl:p-4 xl:w-[1200px] mx-auto">
             {scoreLoading ? (
               <div className="flex justify-center items-center ">
                 <div>
                   <img
-                    className="w-10 h-10 animate__animated animate__bounce animate__infinite "
+                    className="w-10 h-10 animate__animated animate__bounce animate__infinite"
                     src="/img/golfball.jpg"
                     alt=""
                   />
@@ -53,11 +70,15 @@ const ScoreBoard: FunctionComponent = () => {
                 </div>
               </div>
             ) : (
+              topThreeScores.length > 2 || screenWidth < 600 ?
               <FlexitySlider>
-                {topThreeScores?.map((item: any) => {
+                {topThreeScoresWithPosition?.map((item: any) => {
                   return <ScoreSlider item={item} />;
                 })}
-              </FlexitySlider>
+              </FlexitySlider> : <div className="flex self-center w-full p-16 justify-around xl:w-[1200px] mx-auto">{ topThreeScoresWithPosition?.map((item: any) => {
+                  return <ScoreSlider item={item} />;
+                })}
+                </div>
             )}
           </div>
         )}

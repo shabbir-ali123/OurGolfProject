@@ -108,7 +108,12 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           )
         : 0;
       const netValue = totalPar - roundedValue;
-
+      const newValueObj = contests.find(
+        (newValue) => newValue.userId == userId
+      );
+      const newPinValueObj = pinContests.find(
+        (newValue) => newValue.userId == userId
+      );
       formDataArray.push({
         userId: Number(userId),
         scorePerShot: userScores.sums,
@@ -117,8 +122,8 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         handiCapValue: roundedValue,
         netValue: netValue,
         eventId: singleEvent.id,
-        nearPinContest: "0",
-        driverContest: "0",
+        nearPinContest: newPinValueObj?.newValue,
+        driverContest:  newValueObj?.newValue,
         teamId: teamId,
       });
     }
@@ -126,18 +131,18 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     const updatedFormData = formData.map((data: any) => {
       const sums = data.scorePerShot;
     
-      if (data.userId === userId) {
-        const totalScore = sums.reduce(
+      if (data.userId == userId) {
+        const totalScore = sums?.reduce(
           (acc: any, score: any) => acc + score,
           0
         );
+        ;
         const newValueObj = contests.find(
           (newValue) => newValue.userId === data.userId
         );
         const newPinValueObj = pinContests.find(
           (newValue) => newValue.userId === data.userId
         );
-     
         data.scorePerShot[holeIndex] = value;
         data.totalScore = totalScore;
         data.driverContest = newValueObj?.newValue;
@@ -237,16 +242,16 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   useEffect(() => {
     const newFormData = score?.reduce((acc: any, item: any) => {
       const isMember = uniqueMembers?.find(
-        (member: any) => member.userId === item.userId
+        (member: any) => member.userId === item.userId 
       );
       if (isMember) {
         const scorePerShot =
-          typeof item.scorePerShot === "string"
-            ? JSON.parse(item.scorePerShot)
+          typeof item?.scorePerShot === "string"
+            ? JSON?.parse(item?.scorePerShot)
             : item.scorePerShot;
         const handiCapPerShot =
-          typeof item.handiCapPerShot === "string"
-            ? JSON.parse(item.handiCapPerShot)
+          typeof item?.handiCapPerShot === "string"
+            ? JSON?.parse(item?.handiCapPerShot)
             : item.handiCapPerShot;
 
         acc.push({
@@ -258,7 +263,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           netValue: item.netValue,
           eventId: item.eventId,
           nearPinContest: item.nearPinContest,
-          longDriveContest: "",
           driverContest: item.driverContest,
           teamId: item.teamId,
           teamName: item.name,
@@ -266,11 +270,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       }
       return acc;
     }, []);
-
-    setFormData(newFormData);
-  
-
-
+      setFormData(newFormData);
 
   }, [score, contests, pinContests]);
 
@@ -296,6 +296,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }
   };
 
+  console.log(formData, "sad");
   return (
     <div className="mx-4 xl:mx-32 ">
       <div className="flex items-center gap-10">
@@ -446,7 +447,21 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                     type="text"
                                     name="driverContest"
                                     className="w-10 bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
-                                  />
+                                    placeholder={
+                                      playerData &&
+                                      playerData?.driverContest  + " yrd"
+                                    }
+                                    value={
+                                      formData?.find(
+                                        (data: any) =>
+                                          data.userId == member.userId
+                                      )?.scorePerShot?.[holeIndex]
+                                    }
+                                    onChange={(e: any) => {
+                                      handleContests(member.userId, e);
+                                      
+                                    }}
+                                    />
                                 )}
                                 {holeIndex + 1 ==
                                   singleEvent?.nearPinContest && (
@@ -454,6 +469,14 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                     type="text"
                                     name="nearPinContest"
                                     className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
+                                    placeholder={
+                                      playerData &&
+                                      playerData?.nearPinContest + " yrd"
+                                    }
+                                    onChange={(e: any) => {
+                                      handlePinContests(member.userId, e);
+                                      
+                                    }}
                                   />
                                 )}
                               </td>
@@ -576,6 +599,13 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   }
                                   onChange={(e: any) => {
                                     handleContests(member.userId, e);
+                                    handleInputChange(
+                                      member.userId,
+                                      member.teamId,
+                                      member.teamName,
+                                      222,
+                                      parseInt(e.target.value)
+                                    )
                                   }}
                                   className="w-12 text-sm bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
                                 />
@@ -591,6 +621,13 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   }
                                   onChange={(e: any) => {
                                     handlePinContests(member.userId, e);
+                                    handleInputChange(
+                                      member.userId,
+                                      member.teamId,
+                                      member.teamName,
+                                      345,
+                                      parseInt(e.target.value)
+                                    )
                                   }}
                                   className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
                                 />

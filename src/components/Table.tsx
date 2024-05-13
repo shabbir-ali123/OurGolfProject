@@ -161,7 +161,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     };
   }, []);
 
-  console.log(eventss);
   return (
     <div className="animate__animated animate__fadeInLeft">
       {(eventss || []).length === 0 ? (
@@ -230,7 +229,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           (member: any) => member.userId == userId
                         )
                       );
-                      
+                      const currentDate = new Date();
+                      const endDate = new Date(event?.eventEndDate);
+                      const deadlineData = new Date(event?.eventDeadlineDate);
+                      const isEventOver = currentDate > endDate;
+                      const isDeadlineOver = currentDate > deadlineData;
                       return (
                         <React.Fragment key={index}>
                           <tr
@@ -331,7 +334,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 {event.capacity * event.teamSize}
                               </p>
 
-                              {checkedJoined && event.eventType !== "normal" ? (
+                              {checkedJoined &&
+                              event.eventType !== "normal" &&
+                              !isEventOver ? (
                                 <span
                                   className=" w-[30%]  text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
                                   onClick={(e) => {
@@ -349,7 +354,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     {t("ADD_SCORE")}
                                   </p>
                                 </span>
-                              ) : (
+                              ) : !isDeadlineOver || !isEventOver ? (
                                 <span
                                   className={` ${
                                     isUserIdMatched
@@ -360,9 +365,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     isUserIdMatched &&
                                     event.scoringType != "Normal"
                                       ? router(`/add-score-page/${event.id}`)
-                                      : isUserIdMatched && event.scoringType == "Normal"
+                                      : isUserIdMatched &&
+                                        event.scoringType == "Normal"
                                       ? router(`/edit-team/${event.id}`)
-                                      : router(`/pay-now/${event.id}`);
+                                      : !isDeadlineOver
+                                      ? router("/pay-now/" + event.id)
+                                      : router("/score-board/" + event.id);
                                   }}
                                 >
                                   <p
@@ -379,11 +387,36 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     {isUserIdMatched &&
                                     event.scoringType != "Normal"
                                       ? t("EDITSCORE")
-                                      :isUserIdMatched && event.scoringType == "Normal"
+                                      : isUserIdMatched &&
+                                        event.scoringType == "Normal"
                                       ? t("JOINED")
-                                      : t("JOIN")}
+                                      : !isDeadlineOver
+                                      ? t("JOIN")
+                                      : t("View Score")}
                                   </p>
                                 </span>
+                              ) : (
+                                <div
+                                  className={` ${
+                                    isUserIdMatched
+                                      ? "text-[#fff]"
+                                      : "text-[#17B3A6]"
+                                  } px-2  font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer `}
+                                >
+                                  <p
+                                    className={` ${
+                                      isUserIdMatched
+                                        ? "bg-[#ff373a]"
+                                        : "bg-[#DDF4F2]"
+                                    }   w-[70%] px-0 py-2 text-center rounded-lg m-0 hover:bg-black`}
+                                    style={{
+                                      boxShadow:
+                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                    }}
+                                  >
+                                    Event Ended
+                                  </p>
+                                </div>
                               )}
                             </td>
                             <div className="text-start flex items-center">
@@ -487,10 +520,15 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                         parseInt(`${like.userId}`) === parseInt(`${userId}`)
                     )?.counter;
                     const isUserIdMatched = item?.teams?.some((team: any) =>
-                    team?.members?.some(
-                      (member: any) => member?.userId == userId
-                    )
-                  );
+                      team?.members?.some(
+                        (member: any) => member?.userId == userId
+                      )
+                    );
+                    const currentDate = new Date();
+                    const endDate = new Date(item?.eventEndDate);
+                    const deadlineData = new Date(item?.eventDeadlineDate);
+                    const isEventOver = currentDate > endDate;
+                    const isDeadlineOver = currentDate > deadlineData;
                     return (
                       <div className="grid gap-2 px-4 py-1 border border-solid border-[#DCDCDC] mb-2 items-center">
                         <div className="grid grid-cols-2 bg-[#F5F5F5] items-center ">
@@ -553,9 +591,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           >
                             <p className="my-1 p-0">
                               <span className="font-bold text-sm m-0 p-0">
-                                {" "}
                                 {t("CONFIRMED")}:
-                              </span>{" "}
+                              </span>
                               <br /> {item.teamMemberCount} /{" "}
                               {item.capacity * item.teamSize}
                             </p>
@@ -569,25 +606,58 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <br /> {item.teamMemberCount} /{" "}
                               {item.capacity * item.teamSize}
                             </p>
-                            <span
-                              className={` ${isUserIdMatched ? "text-[#fff]":"text-[#17B3A6] "}  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
+                            {
+                              (!isEventOver && !isDeadlineOver) ?  <span
+                              className={` ${
+                                isUserIdMatched
+                                  ? "text-[#fff]"
+                                  : "text-[#17B3A6] "
+                              }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
                               onClick={() => router(`/edit-team/${item.id}`)}
                             >
                               <p
-                                className={`${isUserIdMatched ? "bg-[#ff3b41]":"bg-[#DDF4F2]"}   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
+                                className={`${
+                                  isUserIdMatched
+                                    ? "bg-[#ff3b41]"
+                                    : "bg-[#DDF4F2]"
+                                }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
                                 style={{
                                   boxShadow:
                                     "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                 }}
                               >
-                               {isUserIdMatched &&
-                                    item.scoringType != "Normal"
-                                      ? t("EDITSCORE")
-                                      : isUserIdMatched && item.scoringType == "Normal"
-                                      ? t("JOINED")
-                                      : t("JOIN")}
+                                {isUserIdMatched && item.scoringType != "Normal"
+                                  ? t("EDITSCORE")
+                                  : isUserIdMatched &&
+                                    item.scoringType == "Normal"
+                                  ? t("JOINED")
+                                  : t("JOIN")}
                               </p>
                             </span>
+                            : <span
+                            className={` ${
+                              isUserIdMatched
+                                ? "text-[#fff]"
+                                : "text-[#17B3A6] "
+                            }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
+                            onClick={() => router(`/edit-team/${item.id}`)}
+                          >
+                            <p
+                              className={`${
+                                isUserIdMatched
+                                  ? "bg-[#ff3b41]"
+                                  : "bg-[#DDF4F2]"
+                              }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
+                              style={{
+                                boxShadow:
+                                  "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                              }}
+                            >
+                              EventEnded
+                            </p>
+                          </span>
+                            }
+                           
                           </div>
                           <div className="p-2">
                             <div className="text-start flex items-center">

@@ -8,7 +8,7 @@ export const ScoreSlider = ({ item }: any) => {
     nickName && nickName?.length > 6 ? `${nickName?.substring(0, 6)}` : nickName;
   return (
     <div className="relative sajid px-4">
-      <div className="absolute h-[200px] transform scale-150 skew-x-[-6deg] p-2 w-[300px] left-[68px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] z-0" />
+      <div className="absolute h-[200px] transform scale-150 skew-x-[-6deg] p-2 w-[320px] left-[68px] rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] z-0" />
       <div className="relative z-1 bg-blue">
         <div className="flex gap-[4px]">
           <div className="p-1">
@@ -23,7 +23,7 @@ export const ScoreSlider = ({ item }: any) => {
               />{" "}
               {displayNickName}
             </h4>
-            <h4 className="m-0 mb-2">POS: 2/10</h4>
+            <h4 className="m-0 mb-2">POS: {item.position}</h4>
           </div>
           <div
             className="flex items-center  bg-cover rounded-lg"

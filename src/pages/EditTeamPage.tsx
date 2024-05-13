@@ -292,7 +292,11 @@ const EditTeamPage: FunctionComponent = () => {
     navigate(`/edit-team/${singleEvent?.id}`);
 
   }
-  
+  const currentDate = new Date();
+  const endDate = new Date(singleEvent?.eventEndDate);
+  const deadlineData = new Date(singleEvent?.eventDeadlineDate);
+  const isEventOver = currentDate > endDate;
+  const isDeadlineOver = currentDate > deadlineData;
   return (
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}
@@ -477,7 +481,7 @@ const EditTeamPage: FunctionComponent = () => {
             </div>
 
             <div className="flex items-start gap-40">
-              {(!isCreated && !isJoined) && (
+              {(!isCreated && !isJoined && !isDeadlineOver) && (
                 <>
                   <div className="flex justify-start text-center w-full ">
                     <button
@@ -591,14 +595,21 @@ const EditTeamPage: FunctionComponent = () => {
                     <div className="flex items-center gap-4">
                      
                     </div>
-                    <div className="flex justify-end w-full">
+                  {!isEventOver || !isDeadlineOver ? <div className="flex justify-end w-full">
                       <button
                         className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                         onClick={() => router(`/add-score-page/${singleEvent?.id}`)}
                       >
                         {t('Add Score')}
                       </button>
-                    </div>
+                    </div> : <div className="flex justify-end w-full">
+                      <button
+                        className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                        onClick={() => router(`/score-board/${singleEvent?.id}`)}
+                      >
+                        {t('View Score')}
+                      </button>
+                    </div> }
 
                   </>
                 ) : (

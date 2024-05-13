@@ -38,7 +38,7 @@ import { singleEventContextStore } from '../contexts/eventContext';
                 }}
                 ref={navCarouselRef}
             >
-                {/* Navigation carousel images */}
+                <div></div>
                 {children[1]}
 
             </Flickity>
