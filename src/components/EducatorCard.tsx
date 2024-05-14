@@ -26,6 +26,7 @@ export const EducatorCard = ({
   const [tap, setTaped] = useState<boolean>(false);
   const [bookingsData, setBookingsData] = useState<any>();
 
+  const tId = localStorage.getItem("teacher_id");
   const handleMatchedShift = (matchedShifts: any) => {
     setShiftsData(matchedShifts);
   };
@@ -130,10 +131,11 @@ export const EducatorCard = ({
                   {firstName} {lastName}
                 </h3>
                 <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0">
-                  <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
-                    {t("CHAT")}
-                  </button>
-
+                  {tId != teacherId && (
+                    <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                      {t("CHAT")}
+                    </button>
+                  )}
                   <Link to={"/teacher-details/" + teacherId}>
                     <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                       {t("VIEW_DETAILS")}
@@ -161,7 +163,10 @@ export const EducatorCard = ({
                     <h4 className="m-0 my-1 p-0"> {t("RATING")} </h4>
                     <p className="m-0 p-0">
                       {rating
-                        ? t("RATING_WITH_COUNT", { count: rating, numRatings: 130 })
+                        ? t("RATING_WITH_COUNT", {
+                            count: rating,
+                            numRatings: 130,
+                          })
                         : t("NO_RATINGS_YET")}
                     </p>
                   </div>
@@ -170,30 +175,35 @@ export const EducatorCard = ({
               <p className="leading-6 text-[#5b5b5b] mt-4">{aboutMyself}</p>
             </div>
           </div>
-          <div className="mt-4 ">
-            <div className="grid grid-cols-2 lg:grid-cols-8 sm:grid-cols-3 gap-4">
-              {shiftsData.map((shift: any, index: any) => (
-                <button
-                  key={index}
-                  className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${bookingsData === shift && '!bg-black'} ${!shift.isBooked
-                      ? "bg-teal-400 text-white"
-                      : "bg-gray-100 text-gray-600 "
+          {tId != teacherId && (
+            <div className="mt-4 ">
+              <div className="grid grid-cols-2 lg:grid-cols-8 sm:grid-cols-3 gap-4">
+                {shiftsData.map((shift: any, index: any) => (
+                  <button
+                    key={index}
+                    className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${
+                      bookingsData === shift && "!bg-black"
+                    } ${
+                      !shift.isBooked
+                        ? "bg-teal-400 text-white"
+                        : "bg-gray-100 text-gray-600 "
                     } `}
-                  onClick={() => handleSelectedShifts(shift)}
-                >
-                  {shift.startTime} - {shift.endTime}
-                </button>
-              ))}
-              <div className="w-full xl:w-[200px] ">
-                <button
-                  className="w-full py-4 xl:w-full text-sm bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
-                  onClick={handleBookAppointment}
-                >
-                  {t("BOOK_APPOINTMENT")}
-                </button>
+                    onClick={() => handleSelectedShifts(shift)}
+                  >
+                    {shift.startTime} - {shift.endTime}
+                  </button>
+                ))}
+                <div className="w-full xl:w-[200px] ">
+                  <button
+                    className="w-full py-4 xl:w-full text-sm bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
+                    onClick={handleBookAppointment}
+                  >
+                    {t("BOOK_APPOINTMENT")}ss
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <div className="md:col-span-3">
           <TeacherCalender
