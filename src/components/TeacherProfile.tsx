@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 interface UserProfileProps {
   firstName?: string;
   location?: string;
@@ -120,9 +121,12 @@ const UserProfile: React.FC<UserProfileProps> = ({
       </div>
 
       <div className="mt-4 flex justify-end">
+        <Link to="/message-page">
         <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 ">
         {t("CHAT")}
         </button>
+        </Link>
+      
       </div>
     </div>
   );

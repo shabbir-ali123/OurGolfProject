@@ -3,17 +3,17 @@ import Flickity from "react-flickity-component";
 import 'flickity/css/flickity.css';
 import "flickity-as-nav-for";
 import { singleEventContextStore } from '../contexts/eventContext';
-
+import { useTranslation } from "react-i18next";
     export const FinalEventGallery = ({ children}) => {
-
+        const { t, i18n } = useTranslation();
     const mainCarouselRef = useRef();
     const navCarouselRef = useRef();
     const { singleEvent } = singleEventContextStore();
 
     return (
         <div className=" max-w-5xl mx-6 xl:mx-auto mt-10">
-            <h4>Event Gallery</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum expedita dolorum iste officiis impedit fugiat enim tempore hic quas modi!</p>
+            <h4>{t("ABOUT_THE_EVENT")}</h4>
+            <p>{t("EVENT_BELOW")}</p>
             <Flickity
                 className="carousel-main2 mb-6 "
                 options={{

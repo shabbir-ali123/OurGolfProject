@@ -390,7 +390,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                   className="text-white text-[16px] bg-[#17b3a6] p-1 rounded-sm  cursor-pointer text-left hover:underline  flex justify-center items-center"
                   onClick={loadMoreComments}
                 >
-                  Load more comments
+                  {t("LOAD_COMMENTS")}
                 </button>
 
                 <p className="text-gray-500 text-[12px] cursor-pointer text-right hover:underline">

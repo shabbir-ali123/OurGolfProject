@@ -392,7 +392,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                       ? t("JOINED")
                                       : !isDeadlineOver
                                       ? t("JOIN")
-                                      : t("View Score")}
+                                      : t("VIEW_SCORE")}
                                   </p>
                                 </span>
                               ) : (

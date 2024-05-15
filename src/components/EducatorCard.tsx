@@ -132,9 +132,11 @@ export const EducatorCard = ({
                 </h3>
                 <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0">
                   {tId != teacherId && (
+                    <Link to="/message-page" className="z-[-1]">
                     <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                       {t("CHAT")}
                     </button>
+                    </Link>
                   )}
                   <Link to={"/teacher-details/" + teacherId}>
                     <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
