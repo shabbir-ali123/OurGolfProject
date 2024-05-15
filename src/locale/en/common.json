@@ -175,6 +175,8 @@
     "BIO": "Tell us about yourself...",
     "COMPLETED": "Completed",
     "PENDING": "Pending",
+    "BOOKED": "Booked",
+    "DECLINED": "Declined",
     "LOAD_COMMENTS": "Load more comments",
     "LESSON": "Lesson",
     "CHECK_CALENDER": "Check Calender",

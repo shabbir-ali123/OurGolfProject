@@ -85,9 +85,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prevs.map((e: any) =>
             e.id === eventId
               ? {
-                  ...e,
-                  isFavorite: !e.isFavorite,
-                }
+                ...e,
+                isFavorite: !e.isFavorite,
+              }
               : e
           )
         );
@@ -123,22 +123,22 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
           prev.map((e: any) =>
             e.id === event.id
               ? {
-                  ...e,
-                  likes: userEvent
-                    ? likes.map((like: any) =>
-                        like.userId === loggedInUser
-                          ? { ...like, counter: newCounter }
-                          : like
-                      )
-                    : [
-                        ...likes,
-                        {
-                          counter: newCounter,
-                          userId: loggedInUser,
-                          id: Math.floor(Math.random() * 10),
-                        },
-                      ],
-                }
+                ...e,
+                likes: userEvent
+                  ? likes.map((like: any) =>
+                    like.userId === loggedInUser
+                      ? { ...like, counter: newCounter }
+                      : like
+                  )
+                  : [
+                    ...likes,
+                    {
+                      counter: newCounter,
+                      userId: loggedInUser,
+                      id: Math.floor(Math.random() * 10),
+                    },
+                  ],
+              }
               : e
           )
         );
@@ -229,6 +229,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                           (member: any) => member.userId == userId
                         )
                       );
+                      console.log(isUserIdMatched)
                       const currentDate = new Date();
                       const endDate = new Date(event?.eventEndDate);
                       const deadlineData = new Date(event?.eventDeadlineDate);
@@ -272,9 +273,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   {event.creator && event.creator.nickName
                                     ? event.creator.nickName.length > 10
                                       ? `${event.creator.nickName.substring(
-                                          0,
-                                          10
-                                        )}...`
+                                        0,
+                                        10
+                                      )}...`
                                       : event.creator.nickName
                                     : "N/A"}
                                 </div>
@@ -291,9 +292,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
 
                                 <span className="flex items-center gap-1 font-normal ">
                                   <MapPinIcon
-                                    className={`-mr-0.5 h-4 w-4 ${
-                                      event.type !== "full" && "text-[#33333]"
-                                    }`}
+                                    className={`-mr-0.5 h-4 w-4 ${event.type !== "full" && "text-[#33333]"
+                                      }`}
                                     aria-hidden="true"
                                   />
                                   {event.place}
@@ -301,9 +301,9 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 <p className="text-start m-0 my-1 text-sm ">
                                   {event.eventDetails.length > 100
                                     ? `${event.eventDetails.substring(
-                                        0,
-                                        100
-                                      )}...`
+                                      0,
+                                      100
+                                    )}...`
                                     : event.eventDetails}
                                 </p>
                               </div>
@@ -323,8 +323,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   {" "}
                                   {t("CONFIRMED")}:
                                 </span>{" "}
-                                {event.teamMemberCount} /{" "}
-                                {event.capacity * event.teamSize}
+                                {new Set(event.teams.flatMap((team: any) => team.members.map((member: any) => member.userId))).size
+                                }                  /              {event.capacity * event.teamSize}
                               </p>
                               <p className="m-0 p-0">
                                 <span className="font-bold ">
@@ -335,8 +335,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </p>
 
                               {checkedJoined &&
-                              event.eventType !== "normal" &&
-                              !isEventOver ? (
+                                event.eventType !== "normal" &&
+                                !isEventOver ? (
                                 <span
                                   className=" w-[30%]  text-[#17B3A6] font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  "
                                   onClick={(e) => {
@@ -356,59 +356,55 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 </span>
                               ) : !isDeadlineOver || !isEventOver ? (
                                 <span
-                                  className={` ${
-                                    isUserIdMatched
+                                  className={` ${isUserIdMatched
                                       ? "text-[#fff]"
                                       : "text-[#17B3A6]"
-                                  } px-2  font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer `}
+                                    } px-2  font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer `}
                                   onClick={() => {
                                     isUserIdMatched &&
-                                    event.scoringType != "Normal"
+                                      event.scoringType != "Normal"
                                       ? router(`/add-score-page/${event.id}`)
                                       : isUserIdMatched &&
                                         event.scoringType == "Normal"
-                                      ? router(`/edit-team/${event.id}`)
-                                      : !isDeadlineOver
-                                      ? router("/pay-now/" + event.id)
-                                      : router("/score-board/" + event.id);
+                                        ? router(`/edit-team/${event.id}`)
+                                        : !isDeadlineOver && isUserIdMatched
+                                          ? router("/pay-now/" + event.id)
+                                          : router("/score-board/" + event.id);
                                   }}
                                 >
                                   <p
-                                    className={` ${
-                                      isUserIdMatched
+                                    className={` ${isUserIdMatched
                                         ? "bg-[#ff373a]"
                                         : "bg-[#DDF4F2]"
-                                    }   w-[70%] px-0 py-2 text-center rounded-lg m-0 hover:bg-black`}
+                                      }   w-[70%] px-0 py-2 text-center rounded-lg m-0 hover:bg-black`}
                                     style={{
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                     }}
                                   >
                                     {isUserIdMatched &&
-                                    event.scoringType != "Normal"
+                                      event.scoringType != "Normal"
                                       ? t("EDITSCORE")
                                       : isUserIdMatched &&
                                         event.scoringType == "Normal"
-                                      ? t("JOINED")
-                                      : !isDeadlineOver
-                                      ? t("JOIN")
-                                      : t("VIEW_SCORE")}
+                                        ? t("hjgj")
+                                        : !isDeadlineOver && isUserIdMatched
+                                          ? t("JOIN")
+                                          : t("VIEW_SCORE")}
                                   </p>
                                 </span>
                               ) : (
                                 <div
-                                  className={` ${
-                                    isUserIdMatched
+                                  className={` ${isUserIdMatched
                                       ? "text-[#fff]"
                                       : "text-[#17B3A6]"
-                                  } px-2  font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer `}
+                                    } px-2  font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer `}
                                 >
                                   <p
-                                    className={` ${
-                                      isUserIdMatched
+                                    className={` ${isUserIdMatched
                                         ? "bg-[#ff373a]"
                                         : "bg-[#DDF4F2]"
-                                    }   w-[70%] px-0 py-2 mt-2 text-center rounded-lg m-0 hover:bg-black`}
+                                      }   w-[70%] px-0 py-2 mt-2 text-center rounded-lg m-0 hover:bg-black`}
                                     style={{
                                       boxShadow:
                                         "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
@@ -424,15 +420,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
                                   <div className="flex flex-col items-center gap-1 ">
                                     <div
-                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${
-                                        liked ? "white" : "[white]"
-                                      } cursor-pointer p-1 rounded-md`}
+                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
+                                        } cursor-pointer p-1 rounded-md`}
                                       onClick={() => handleLike(event)}
                                     >
                                       <HandThumbUpIcon
-                                        className={`w-4 h-4 text-${
-                                          liked ? "red" : "[#17B3A6]"
-                                        } `}
+                                        className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
+                                          } `}
                                       />
                                     </div>
                                     <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
@@ -460,18 +454,16 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </div>
                                   <div className="flex flex-col items-center gap-1">
                                     <div
-                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${
-                                        isFavorite ? "[white]" : "[white]"
-                                      }  cursor-pointer p-1 rounded-md`}
+                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
+                                        }  cursor-pointer p-1 rounded-md`}
                                       onClick={() =>
                                         handleFavoriteClick(event.id)
                                       }
                                     >
                                       <FontAwesomeIcon
                                         icon={faHeart}
-                                        className={`h-4 w-4 text-${
-                                          isFavorite ? "[red]" : "[#17B3A6]"
-                                        }`}
+                                        className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
+                                          }`}
                                       />
                                     </div>
                                     <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">
@@ -593,7 +585,11 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <span className="font-bold text-sm m-0 p-0">
                                 {t("CONFIRMED")}:
                               </span>
-                              <br /> {item.teamMemberCount} /{" "}
+                              <br />
+                              {
+                                // Calculate the total number of unique userIds
+                                new Set(item.teams.map((team: any) => team.userId)).size
+                              } /
                               {item.capacity * item.teamSize}
                             </p>
                             <p
@@ -607,57 +603,53 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               {item.capacity * item.teamSize}
                             </p>
                             {
-                              (!isEventOver && !isDeadlineOver) ?  <span
-                              className={` ${
-                                isUserIdMatched
-                                  ? "text-[#fff]"
-                                  : "text-[#17B3A6] "
-                              }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
-                              onClick={() => router(`/edit-team/${item.id}`)}
-                            >
-                              <p
-                                className={`${
-                                  isUserIdMatched
-                                    ? "bg-[#ff3b41]"
-                                    : "bg-[#DDF4F2]"
-                                }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
-                                style={{
-                                  boxShadow:
-                                    "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                }}
+                              (!isEventOver && !isDeadlineOver) ? <span
+                                className={` ${isUserIdMatched
+                                    ? "text-[#fff]"
+                                    : "text-[#17B3A6] "
+                                  }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
+                                onClick={() => router(`/edit-team/${item.id}`)}
                               >
-                                {isUserIdMatched && item.scoringType != "Normal"
-                                  ? t("EDITSCORE")
-                                  : isUserIdMatched &&
-                                    item.scoringType == "Normal"
-                                  ? t("JOINED")
-                                  : t("JOIN")}
-                              </p>
-                            </span>
-                            : <span
-                            className={` ${
-                              isUserIdMatched
-                                ? "text-[#fff]"
-                                : "text-[#17B3A6] "
-                            }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
-                            onClick={() => router(`/edit-team/${item.id}`)}
-                          >
-                            <p
-                              className={`${
-                                isUserIdMatched
-                                  ? "bg-[#ff3b41]"
-                                  : "bg-[#DDF4F2]"
-                              }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
-                              style={{
-                                boxShadow:
-                                  "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                              }}
-                            >
-                              EventEnded
-                            </p>
-                          </span>
+                                <p
+                                  className={`${isUserIdMatched
+                                      ? "bg-[#ff3b41]"
+                                      : "bg-[#DDF4F2]"
+                                    }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
+                                  style={{
+                                    boxShadow:
+                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                  }}
+                                >
+                                  {isUserIdMatched && item.scoringType != "Normal"
+                                    ? t("EDITSCORE")
+                                    : isUserIdMatched &&
+                                      item.scoringType == "Normal"
+                                      ? t("JOINED")
+                                      : t("JOIN")}
+                                </p>
+                              </span>
+                                : <span
+                                  className={` ${isUserIdMatched
+                                      ? "text-[#fff]"
+                                      : "text-[#17B3A6] "
+                                    }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
+                                  onClick={() => router(`/edit-team/${item.id}`)}
+                                >
+                                  <p
+                                    className={`${isUserIdMatched
+                                        ? "bg-[#ff3b41]"
+                                        : "bg-[#DDF4F2]"
+                                      }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
+                                    style={{
+                                      boxShadow:
+                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                    }}
+                                  >
+                                    EventEnded
+                                  </p>
+                                </span>
                             }
-                           
+
                           </div>
                           <div className="p-2">
                             <div className="text-start flex items-center">
@@ -665,15 +657,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 <td className="flex gap-3 justify-center items-center py-0 text-sm whitespace-nowrap ">
                                   <div className="flex flex-col items-center gap-1 ">
                                     <div
-                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${
-                                        liked ? "white" : "[white]"
-                                      } cursor-pointer p-1 rounded-md`}
+                                      className={`flex shadow-lg border border-solid  border-[#17B3A6] hover:bg-black bg-${liked ? "white" : "[white]"
+                                        } cursor-pointer p-1 rounded-md`}
                                       onClick={() => handleLike(item)}
                                     >
                                       <HandThumbUpIcon
-                                        className={`w-4 h-4 text-${
-                                          liked ? "red" : "[#17B3A6]"
-                                        } `}
+                                        className={`w-4 h-4 text-${liked ? "red" : "[#17B3A6]"
+                                          } `}
                                       />
                                     </div>
                                     <div className="flex bg-white border border-solid  border-[#17B3A6] p-1 rounded-md   cursor-pointer text-center justify-center items-center h-4 w-4 p-1 rounded-md ">
@@ -701,18 +691,16 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </div>
                                   <div className="flex flex-col items-center gap-1">
                                     <div
-                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${
-                                        isFavorite ? "[white]" : "[white]"
-                                      }  cursor-pointer p-1 rounded-md`}
+                                      className={`flex shadow-lg border border-solid border-[#17B3A6] p-1 hover:bg-black bg-${isFavorite ? "[white]" : "[white]"
+                                        }  cursor-pointer p-1 rounded-md`}
                                       onClick={() =>
                                         handleFavoriteClick(item.id)
                                       }
                                     >
                                       <FontAwesomeIcon
                                         icon={faHeart}
-                                        className={`h-4 w-4 text-${
-                                          isFavorite ? "[red]" : "[#17B3A6]"
-                                        }`}
+                                        className={`h-4 w-4 text-${isFavorite ? "[red]" : "[#17B3A6]"
+                                          }`}
                                       />
                                     </div>
                                     <div className="flex shadow-lg border border-solid bg-white border-[#17B3A6] p-1 rounded-md">

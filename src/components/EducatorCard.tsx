@@ -111,7 +111,12 @@ export const EducatorCard = ({
         <div className="lg:col-span-6">
           <div
             className="flex flex-col lg:flex-row"
-            onClick={() => navigate(`/teacher-details/${teacherId}`)}
+            onClick={(e) =>
+              {
+                e.preventDefault();
+                navigate(`/teacher-details/${teacherId}`)
+              } 
+            }
           >
             <div className="text-center ">
               <img
@@ -130,13 +135,20 @@ export const EducatorCard = ({
                 <h3>
                   {firstName} {lastName}
                 </h3>
-                <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0">
+                <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0 z-[]">
                   {tId != teacherId && (
-                    <Link to="/message-page" className="z-[-1]">
-                    <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                    <div onClick={(e) =>{
+                      // debugger
+                      e.preventDefault();
+                      //  navigate(`/message-page`);
+                       document.location.href = '/message-page';
+                    } }>
+                    <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
+                    
+                    >
                       {t("CHAT")}
                     </button>
-                    </Link>
+                    </div>
                   )}
                   <Link to={"/teacher-details/" + teacherId}>
                     <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
