@@ -299,7 +299,7 @@ const CreateTeacher: React.FC = () => {
     };
 
         try {
-          const response = await axios.put(API_ENDPOINTS.UPDATETEACHERPROFILE, nextformData, {
+          const response = await axios.put(API_ENDPOINTS.UPDATETEACHERPROFILE, payload, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "multipart/form-data",

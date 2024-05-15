@@ -323,8 +323,8 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   {" "}
                                   {t("CONFIRMED")}:
                                 </span>{" "}
-                                {new Set(event.teams.flatMap((team: any) => team.members.map((member: any) => member.userId))).size
-                                }                  /              {event.capacity * event.teamSize}
+                                {new Set(event.teams?.flatMap((team: any) => team?.members.map((member: any) => member?.userId))).size
+                                }                  /              {event?.capacity * event?.teamSize}
                               </p>
                               <p className="m-0 p-0">
                                 <span className="font-bold ">

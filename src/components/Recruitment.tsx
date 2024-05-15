@@ -2,7 +2,7 @@ import React, { useRef, useState, ChangeEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
-export type Tab = "individual" | "team" | "message";
+export type Tab = "個人(individual)" | "チーム(team)" | "message";
 export function formatTimeCreateForm(timeString:any) {
   if (!timeString) return ''; 
   const [time, period] = timeString.split(' ');
@@ -22,20 +22,20 @@ interface RecuitmentsProps {
 const Recuitments: React.FC<RecuitmentsProps> = ({ onChange,setFormData, formData }) => {
   const {t, i18n} = useTranslation();
 document.body.dir = i18n.dir();
-  const [activeTab, setActiveTab] = useState<Tab>("individual");
+  const [activeTab, setActiveTab] = useState<Tab>("個人(individual)");
   // const [formData, setFormData] = useState<Record<string, any>>({});
   const prevFormData = useRef<Record<string, any>>({});
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    handleTabClick("individual");
+    handleTabClick("個人(individual)");
   }, []); 
   useEffect(() => {
     prevFormData.current = formData;
   }, [formData]);
 
   const handleTabClick = (tab: Tab, message?:any) => {
-    if(tab === "team" && message){
+    if(tab === "チーム(team)" && message){
        toast.success("Team Size Add succusffull");
     }
     setActiveTab(tab);
@@ -253,31 +253,31 @@ document.body.dir = i18n.dir();
               <div className="flex gap-2 mx-4">
                 <button
                   className={`${
-                    activeTab === "individual"
+                    activeTab === "個人(individual)"
                       ? "bg-blue-500 text-white cursor-pointer animate-bounce border-none"
                       : "text-[#626262] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 hover:scale-105 transform transition duration-300 ease-in-out"
                   } px-4 py-2 border rounded-full`}
                   type="button"
-                  onClick={() => handleTabClick("individual")}
+                  onClick={() => handleTabClick("個人(individual)")}
                 >
                   {t('INDIVIDUAL')}
                 </button>
 
                 <button
                   className={`${
-                    activeTab === "team"
+                    activeTab === "チーム(team)"
                       ? "bg-blue-500 text-white cursor-pointer animate-bounce"
                       : "text-[#626262] border border-[#0038FF] bg-transparent cursor-pointer  hover:text-blue-800 over:scale-105 transform transition duration-300 ease-in-out"
                   } px-4 py-2   rounded-full`}
                   type="button"
-                  onClick={() => handleTabClick("team")}
+                  onClick={() => handleTabClick("チーム(team)")}
                 >
                   {t('TEAM')}
                 </button>
               </div>
-              {activeTab === "individual" && <div></div>}
+              {activeTab === "個人(individual)" && <div></div>}
 
-              {activeTab === "team" && (
+              {activeTab === "チーム(team)" && (
                 <div>
                   <div className="col-span-8 py-2 mt-4 ml-4 lg:col-span-7 md:col-span-5 md:mr-0 md:mb-0 ">
                     <label
@@ -299,7 +299,7 @@ document.body.dir = i18n.dir();
                       <button
                   className="text-white bg-blue-500 border-none cursor-pointer"
                   type="button"
-                  onClick={() => {handleTabClick("team", "message")}}
+                  onClick={() => {handleTabClick("チーム(team)", "message")}}
                 >
                   {t('Add')}
                 </button>

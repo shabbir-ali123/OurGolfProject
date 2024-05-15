@@ -112,14 +112,12 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
             <option value="1"> Cancel 1 day before</option>
           </select> */}
 
-
-          <input
-            className="mt-4 ml-0 xl:ml-10 appearance-none block  bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-4 mb-0 leading-tight focus:outline-none"
+          <textarea
+            className="mt-4 ml-0 xl:ml-10 appearance-none block bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-8 mb-0 leading-tight focus:outline-none"
             id="cancellationFee"
-            type="text"
+            cols={20} 
             name="cancellationFee"
-
-            // value={calculatedCancellationFee}
+            style={{ width: '50%', height: '20px' }} 
             placeholder="Cancellation Fee"
           />
         </div>

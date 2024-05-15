@@ -314,7 +314,7 @@ const EditTeamPage: FunctionComponent = () => {
 
                   <div className="flex flex-col items-start justify-center gap-4">
                     <div className="text-white bg-[#17b3a6]  rounded-lg">
-                      <p className="p-1 px-2 m-0">{t('EVENT_DETAILS')}</p>
+                      <p className="p-1 px-2 m-0">{singleEvent?.eventType}</p>
                     </div>
                     <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-16xl leading-[40px] font-semibold text-black">
                       {singleEvent?.eventName}
