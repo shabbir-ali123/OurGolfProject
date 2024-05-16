@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import {
   Routes,
   Route,
@@ -15,7 +14,6 @@ import StudentPage from "./pages/StudentPage";
 import EventMainPage from "./pages/EventMainPage";
 import Header from "./components/Header";
 import ActivtiesPage from "./pages/ActivtiesPage";
-import TeacherPage from "./pages/TeacherPage";
 import CreateEvent from "./pages/CreateEvent";
 import SideIconMenu from "./components/SideIconMenu";
 import RegisterPage from "./pages/RegisterPage";
@@ -24,13 +22,10 @@ import Logout from "./pages/Logout";
 import EditTeamPage from "./pages/EditTeamPage";
 import PaymentForm from "./pages/PaymentForm";
 import "animate.css";
-import PrivateRoute from "./utils/PrivateRoute";
 import BookMarkedEvents from "./pages/BookMarkedEvents";
 import JoinedEvents from "./pages/JoinedEvents";
 import CreateTeacher from "./pages/CreateTeacher";
 import AllNotificationPage from "./pages/AllNotificationsPage";
-// import BookedTeachers from "./pages/BookedTeachers";
-// import SingleTeacherBooked from "./pages/SingleTeacherBooked";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
 import EditTeacher from "./pages/EditTeacher";
 import PostPage from "./pages/PostPage";
@@ -65,30 +60,24 @@ import { NotificationsContext } from "./contexts/notificationContext";
 import UserPage from "./pages/UserPage";
 import { UserContext } from "./contexts/authContext";
 import Pubnub from "pubnub";
-import { PubNubProvider } from "pubnub-react";
-import ChatApp from "./pages/ChatBox";
 import { ChatSystem } from "./pages/Chat";
 import UpdateTeacher from "./pages/UpdateTeacher";
 import { TeacherCatalog } from "./pages/TeacherCatalogs";
 import { TeacherGigsProvider } from "./contexts/gigsContext";
 import UserPosts from "./pages/UserPosts";
 import { TeacherAppointments } from "./pages/Appointments";
-import CheckoutForm from "./components/payment/PaymentForm";
 import AllStripeSessions from "./components/payment/PaymentForm";
 import Coupons from "./pages/Coupons";
 import CompletedEvents from "./pages/CompletedEvents";
-import StudentActivitiesPage from "./components/StudentActivitiesPage";
 import StudentActivitiesNew from "./components/StudentActivitiesNew";
 // import StudentActivitiesPage from "./components/StudentActivitiesPage";
 
 function App() {
-  const params = useParams();
 
   const action = useNavigationType();
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const tId = localStorage.getItem("teacher_id");
 
@@ -277,12 +266,9 @@ function App() {
     uuid: localStorage.getItem("id") || "12`",
   });
 
-
-const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB");
-
-
-
-
+  const stripe = require("stripe")(
+    "sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB"
+  );
 
   return (
     <ToastProvider iconColor="white" textColor="white">
@@ -297,20 +283,40 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
           />
           <Route
             path="/"
-          
-          element={<TeacherContext> <HomePage /></TeacherContext>}
+            element={
+              <TeacherContext>
+                {" "}
+                <HomePage />
+              </TeacherContext>
+            }
           />
           <Route path="/event-main-page" element={<EventMainPage />} />
           <Route
             path="/teacher-activities-page"
-            element={token ? <TeacherDetailsContext><ActivtiesPage /> </TeacherDetailsContext>: <LoginPage />}
+            element={
+              token ? (
+                <TeacherDetailsContext>
+                  <ActivtiesPage />{" "}
+                </TeacherDetailsContext>
+              ) : (
+                <LoginPage />
+              )
+            }
           />
           <Route
             path="/student-activties-page"
-            element={token ? <TeacherDetailsContext><StudentActivitiesNew /> </TeacherDetailsContext>: <LoginPage />}
+            element={
+              token ? (
+                <TeacherDetailsContext>
+                  <StudentActivitiesNew />{" "}
+                </TeacherDetailsContext>
+              ) : (
+                <LoginPage />
+              )
+            }
           />
           <Route
-            path={isTeacher ? "/teacher-page/:id" : '/teacher-page'}
+            path={isTeacher ? "/teacher-page/:id" : "/teacher-page"}
             element={
               token ? (
                 isTeacher ? (
@@ -338,11 +344,11 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/create-event/:id"
             element={token ? <CreateEvent /> : <LoginPage />}
           />
-            <Route
+          <Route
             path="/pay"
             element={token ? <AllStripeSessions /> : <LoginPage />}
           />
-            <Route
+          <Route
             path="/coupons"
             element={token ? <Coupons /> : <LoginPage />}
           />
@@ -358,10 +364,29 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
               </ScoreContextProvider>
             }
           />
-          <Route path="/user-page/:id" element={<UserContext> <UserPage />  </UserContext>} />
-          <Route path="/user-posts/:id" element={<PostContext> <UserPosts />  </PostContext>} />
+          <Route
+            path="/user-page/:id"
+            element={
+              <UserContext>
+                {" "}
+                <UserPage />{" "}
+              </UserContext>
+            }
+          />
+          <Route
+            path="/user-posts/:id"
+            element={
+              <PostContext>
+                {" "}
+                <UserPosts />{" "}
+              </PostContext>
+            }
+          />
           <Route path="/score-board" element={<ScoreBoard />} />
-          <Route path="/message-page" element={token ? <ChatSystem /> : <LoginPage />} />
+          <Route
+            path="/message-page"
+            element={token ? <ChatSystem /> : <LoginPage />}
+          />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
           <Route path="/logout" element={<Logout />} />
@@ -385,7 +410,7 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/joined-events"
             element={token ? <JoinedEvents /> : <LoginPage />}
           />
-           <Route
+          <Route
             path="/completed-events"
             element={token ? <CompletedEvents /> : <LoginPage />}
           />
@@ -412,7 +437,6 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             path="/post-page"
             element={
               <PostContext>
-               
                 <PostPage />
               </PostContext>
             }
@@ -566,7 +590,7 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             element={
               token ? (
                 <TeacherDetailsContext>
-                <TeacherAppointments/>
+                  <TeacherAppointments />
                 </TeacherDetailsContext>
               ) : (
                 <LoginPage />
