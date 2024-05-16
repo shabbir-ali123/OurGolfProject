@@ -542,9 +542,9 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
               boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
             }}
             id="grid-first-name"
-            name="eventDetails"
+            name="cancellationFee"
             placeholder={t("CANCELLATION_FEE")}
-            value={formData?.eventDetails}
+            value={formData?.cancellationFee}
             required
             onChange={onChange}
             rows={4}

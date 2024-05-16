@@ -100,7 +100,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
       </div>
       <div className="grid  py-2 mx-auto  my-2 py-2">
         <div className="col-span-8 text-4xl text-gray-500 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-0">
-          <p className="flex ml-0 xl:ml-10   w-full flex items-center gap-4"><span className="text-gray-500 text-[20px]  font-bold">Cancellation Fee :</span>  <span className="xl:text-[26px]  text-lightseagreen-200">{singleEvent?.cancellationFee}</span></p>
+          <p className="flex ml-0 xl:ml-10    gap-4"><span className="text-gray-500 text-[20px]  font-bold">Cancellation Fee :</span>  <span className="xl:text-[26px]  text-lightseagreen-200 comment-content">{singleEvent?.cancellationFee}</span></p>
           {/* <select
             className="block appearance-none w-full bg-gray-200 border border-[#51ff85] text-[#626262] py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="daySelection"
@@ -112,14 +112,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
             <option value="1"> Cancel 1 day before</option>
           </select> */}
 
-          <textarea
-            className="mt-4 ml-0 xl:ml-10 appearance-none block bg-gray-200 text-[#626262] border border-[#51ff85] bg-transparent rounded py-4 px-8 mb-0 leading-tight focus:outline-none"
-            id="cancellationFee"
-            cols={20} 
-            name="cancellationFee"
-            style={{ width: '50%', height: '20px' }} 
-            placeholder="Cancellation Fee"
-          />
+        
         </div>
       </div>
     </div>

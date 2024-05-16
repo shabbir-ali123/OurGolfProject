@@ -30,9 +30,9 @@ export default function Activeties({ selectedDate }: any) {
   }, []);
 
   useEffect(() => {
-    const combinedAppointments = [...studentAppointments, ...teacherAppointments];
+    // const combinedAppointments = [...studentAppointments, ...teacherAppointments];
 
-    const pending = combinedAppointments.filter((appointment: any) => {
+    const pending = teacherAppointments.filter((appointment: any) => {
       if (!selectedDate) {
         return appointment.status === 'PENDING';
       } else {
@@ -42,7 +42,7 @@ export default function Activeties({ selectedDate }: any) {
       }
     });
 
-    const booked = combinedAppointments.filter((appointment: any) => {
+    const booked = teacherAppointments.filter((appointment: any) => {
       if (!selectedDate) {
         return appointment.status === 'BOOKED';
       } else {
@@ -52,7 +52,7 @@ export default function Activeties({ selectedDate }: any) {
       }
     });
 
-    const completed = combinedAppointments.filter((appointment: any) => {
+    const completed = teacherAppointments.filter((appointment: any) => {
       if (!selectedDate) {
         return appointment.status === 'COMPLETED';
       } else {
@@ -62,7 +62,7 @@ export default function Activeties({ selectedDate }: any) {
       }
     });
 
-    const declined = combinedAppointments.filter((appointment: any) => {
+    const declined = teacherAppointments.filter((appointment: any) => {
       if (!selectedDate) {
         return appointment.status === 'DECLINED';
       } else {

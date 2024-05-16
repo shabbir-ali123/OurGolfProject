@@ -60,6 +60,12 @@ export const menuItems: MenuItem[] = [
         active: false,
       },
       {
+        name: "COMPLETED_EVENTS",
+        icon: faSearch,
+        path: "/completed-events",
+        active: false,
+      },
+      {
         name: "BOOKMARKED_EVENTS",
         icon: faSearch,
         path: "/booked-mark",
@@ -82,13 +88,19 @@ export const menuItems: MenuItem[] = [
       {
         name: "TEACHER",
         icon: faSearch,
+        path: "/teacher-activities-page",
+        active: false,
+      },
+      {
+        name: "STUDENT",
+        icon: faSearch,
         path: "/all-teachers",
         active: false,
       },
       {
         name: "APPOINTMENTS",
         icon: faSearch,
-        path: "/activties-page",
+        path: "/appointments",
         active: false,
       },
    

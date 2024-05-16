@@ -39,7 +39,7 @@ const JoinedEvents: React.FC = () => {
 
 
 
-  const { eventsCount, handlePageSize, handleEventStatus } = eventContextStore();
+  const { eventsCount, handlePageSize, handleEventStatus,events } = eventContextStore();
   const totalPages = Math.ceil(eventsCount / 6); 
   const onPageChange = (pageNumber: any) => {
 
@@ -49,6 +49,7 @@ const JoinedEvents: React.FC = () => {
     handleEventStatus('joined');
   }, []);
 
+  
   return (
     <div className="grid grid-cols-1 gap-6 mx-4 xl:mx-40 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <div className="col-span-12 ">
@@ -62,6 +63,7 @@ const JoinedEvents: React.FC = () => {
           isNextDisabled={currentPage === totalPages}
         />
       </div>
+   
     
     </div>
   );

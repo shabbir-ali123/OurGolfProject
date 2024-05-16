@@ -4,14 +4,14 @@ interface HoverSideMenuProps {
     onItemClick: () => void;
   }
 const HoverSideMenu: FunctionComponent <HoverSideMenuProps>= ({ onItemClick }) => {
-  const {t, i18n} = useTranslation();
-document.body.dir = i18n.dir();
+  const {t} = useTranslation();
   return (
     <div className="w-[231px] h-[1246px] text-center text-xl text-white font-poppins">
       <div className="absolute top-[0px] left-[0px] w-[270px] h-[1246px]">
         <div className="absolute top-[0px] left-[0px] bg-lightseagreen-200 w-[270px] h-[1246px]" />
       </div>
-      <div className="absolute h-[64.65%] w-[96.1%] top-[11.88%] right-[1.73%] bottom-[23.48%] left-[2.16%]">
+      <div className="absolute h-[64.65%] w-[96.1%] top-[11.88%] right-[1.73%] bottom-[2
+        3.48%] left-[2.16%]">
         <div className="absolute h-full w-[83.78%] top-[0%] right-[8.11%] bottom-[0%] left-[16px]">
           <div className="absolute h-[3.85%] w-[54.84%] top-[8%] right-[0] bottom-[0] left-[0%]">
             <img

@@ -18,6 +18,8 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
 import { SlotsCalender } from "../components/calender/SlotsCalender";
+import { useTeacherContext } from "../contexts/teachersContext";
+import { scheduler } from "timers/promises";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -36,14 +38,15 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 
 interface UpdatePostType {
   firstName: string;
-  profileImage: File[];
+  profileImage: FileList[];
   portfolioVideo: FileList[];
   introductionVideo: File[];
   movieUrl: any
   portfolioUrl: any
 }
-const CreateTeacher: React.FC = () => {
+const UpdateTeacher: React.FC = () => {
   const { t } = useTranslation();
+  const {teacher} = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
   const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(Array(5).fill(''));
   const [videoPortfolioVisible, setVideoPortfolioVisible] =
@@ -51,7 +54,7 @@ const CreateTeacher: React.FC = () => {
   const [showMediaUrl, setShowMediaUrl] = useState<boolean>(false);
   const [showPortfolioUrl, setShowPortfolioUrl] = useState<boolean>(false);
   const [formData, setFormData] = useState({
-    userId: 47,
+
     aboutMyself: "",
     firstName: "",
     lastName: "",
@@ -74,12 +77,12 @@ const CreateTeacher: React.FC = () => {
     ],
   });
   const [nextformData, setNextFormData] = useState<UpdatePostType>({
-    firstName: "",
+    firstName: "adsfasdf",
     profileImage: [],
     portfolioVideo: [],
     introductionVideo: [],
-    movieUrl: "",
-    portfolioUrl: "",
+    movieUrl: "asdf",
+    portfolioUrl: "asdfsdf",
 
   });
   const [urls, setUrls] = useState<any>("");
@@ -97,7 +100,7 @@ const CreateTeacher: React.FC = () => {
       });
     }
     const {  name} = event.target;
-    debugger
+  
     if ((files && files.length > 0) && (type === "introductionVideo")) {
       const file = files[0];
       setNextFormData((prevFormData) => ({
@@ -233,12 +236,6 @@ const CreateTeacher: React.FC = () => {
     }
   };
   
-  
-  
-  
-  
-  
-  
 
   const handleLocationChange = (location: any) => {
     setFormData((prevFormData) => ({
@@ -255,15 +252,40 @@ const CreateTeacher: React.FC = () => {
   };
 
   const handleImageChanges = (event: any) => {
-    setNextFormData((prevFormData) => ({
+    const files = event.target.files ? Array.from(event.target.files) : [];
+
+    setNextFormData((prevFormData:any) => ({
       ...prevFormData,
-      profileImage: event,
+      profileImage: files,
     }));
   };
 
+  useEffect(() => {
+    setFormData(prevState => ({
+        ...prevState, 
+        aboutMyself: teacher?.aboutMyself,
+        firstName: teacher?.firstName,
+        lastName: teacher?.lastName,
+        phoneNumber: teacher?.phoneNumber,
+        location: teacher?.location,
+        hourlyRate: teacher?.hourlyRate,
+        level: teacher?.level,
+        schedules: teacher?.schedules?.map((item:any) => ({
+            startDate: item.startDate,
+            endDate: item.endDate,
+            shifts: item?.shifts?.map((i:any) => ({
+                day: i.day,
+                startTime: i.startTime,
+                endTime: i.endTime,
+            }))
+        }))
+    }));
+}, [teacher]);
+
+  console.log(formData, "message")
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({formData, nextformData});
+    console.log({teacher, nextformData});
     const onfitmData = selectedTimeSlots.map((timeSlot) => {
       const [timeRange, , date] = timeSlot.split(" on ");
       const [startTime, endTime] = timeRange.split(" to ");
@@ -298,8 +320,15 @@ const CreateTeacher: React.FC = () => {
       schedules: onfitmData,
     };
 
+    try {
+      const response = await axios.put(API_ENDPOINTS.UPDATEUSER, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if(response.status == 201){
         try {
-          const response = await axios.put(API_ENDPOINTS.UPDATETEACHERPROFILE, payload, {
+          const response = await axios.put(API_ENDPOINTS.UPDATETEACHERPROFILE, nextformData, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "multipart/form-data",
@@ -313,9 +342,11 @@ const CreateTeacher: React.FC = () => {
           console.error("Error updating event media:");
           toast.error("Failed to update event media. Please try again later.");
         }
-      
+      }
 
-    
+    } catch (error) {
+      toast.error("Teacher Already Created");
+    }
   };
 
   const handleWeekSelected = (date: Date) => {
@@ -414,6 +445,7 @@ const CreateTeacher: React.FC = () => {
     }
   };
 
+  console.log(formData)
   return (
     <div className="py-8 mx-4 xl:mx-0 ">
       <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
@@ -622,7 +654,6 @@ const CreateTeacher: React.FC = () => {
               {[1, 2, 3, 4, 5].map((index) => (
               <UploaderInput
                 key={index}
-                
                 isOpen={showInputIndexes.includes(index)}
                 handleUploadChange={(event:any) => handlePortfolioUploadChange(event,"portfolioVideo", index)}
                 ref={portfolioVideoInputRef}
@@ -726,4 +757,4 @@ const CreateTeacher: React.FC = () => {
   );
 };
 
-export default CreateTeacher;
+export default UpdateTeacher;

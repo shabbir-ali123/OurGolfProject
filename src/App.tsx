@@ -76,6 +76,7 @@ import { TeacherAppointments } from "./pages/Appointments";
 import CheckoutForm from "./components/payment/PaymentForm";
 import AllStripeSessions from "./components/payment/PaymentForm";
 import Coupons from "./pages/Coupons";
+import CompletedEvents from "./pages/CompletedEvents";
 
 function App() {
   const params = useParams();
@@ -298,6 +299,10 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
           />
           <Route path="/event-main-page" element={<EventMainPage />} />
           <Route
+            path="/teacher-activities-page"
+            element={token ? <TeacherDetailsContext><ActivtiesPage /> </TeacherDetailsContext>: <LoginPage />}
+          />
+          <Route
             path="/activties-page"
             element={token ? <TeacherDetailsContext><ActivtiesPage /> </TeacherDetailsContext>: <LoginPage />}
           />
@@ -376,6 +381,10 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
           <Route
             path="/joined-events"
             element={token ? <JoinedEvents /> : <LoginPage />}
+          />
+           <Route
+            path="/completed-events"
+            element={token ? <CompletedEvents /> : <LoginPage />}
           />
           <Route
             path="/create-teacher"

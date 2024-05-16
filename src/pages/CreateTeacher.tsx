@@ -97,7 +97,7 @@ const CreateTeacher: React.FC = () => {
       });
     }
     const {  name} = event.target;
-    debugger
+  
     if ((files && files.length > 0) && (type === "introductionVideo")) {
       const file = files[0];
       setNextFormData((prevFormData) => ({

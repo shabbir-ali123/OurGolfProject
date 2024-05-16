@@ -39,13 +39,14 @@ icon,
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result as string;
         setImageUrl(result);
         if (onChangeImage) {
-          onChangeImage(file);
+          onChangeImage(e);
         }
       };
       reader.readAsDataURL(file);
