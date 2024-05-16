@@ -18,60 +18,69 @@ export default function Activeties({ selectedDate }: any) {
     completed: [],
     declined: [],
   });
+  const [filterTeacherApp, setFilterTeacherApp] = useState<any>({
+    pending: [],
+    booked: [],
+    completed: [],
+    declined: [],
+  });
 
   useEffect(() => {
     fetchTeachersAppointments(setTeacherAppointments, setIsLoading);
   }, []);
 
   useEffect(() => {
-      const pending = studentAppointments.filter((appointment: any) => {
-        if(!selectedDate) {
-          return appointment.status === 'PENDING';
-        } else {
-          const date = new Date(appointment.createdAt);
-          const formattedDate = date.toISOString().slice(0, 10);  
-          return formattedDate === selectedDate && appointment.status === 'PENDING'
-        }
-      });
-  
-      const booked = studentAppointments.filter((appointment: any) => {
-        if(!selectedDate) {
-          return appointment.status === 'BOOKED';
-        } else {
-          const date = new Date(appointment.createdAt);
-          const formattedDate = date.toISOString().slice(0, 10);  
-          return formattedDate === selectedDate && appointment.status === "BOOKED";
-        }
-      });
+    const combinedAppointments = [...studentAppointments, ...teacherAppointments];
 
-      const completed = studentAppointments.filter((appointment: any) => {
-        if(!selectedDate) {
-          return appointment.status === 'COMPLETED';
-        } else {
-          const date = new Date(appointment.createdAt);
-          const formattedDate = date.toISOString().slice(0, 10);  
-          return formattedDate === selectedDate && appointment.status === 'COMPLETED'
-        }
-      });
+    const pending = combinedAppointments.filter((appointment: any) => {
+      if (!selectedDate) {
+        return appointment.status === 'PENDING';
+      } else {
+        const date = new Date(appointment.createdAt);
+        const formattedDate = date.toISOString().slice(0, 10);
+        return formattedDate === selectedDate && appointment.status === 'PENDING';
+      }
+    });
 
-      const declined = studentAppointments.filter((appointment: any) => {
-        if(!selectedDate) {
-          return appointment.status === 'DECLINED';
-        } else {
-          const date = new Date(appointment.createdAt);
-          const formattedDate = date.toISOString().slice(0, 10);  
-          return formattedDate === selectedDate;
-        }
-      });
+    const booked = combinedAppointments.filter((appointment: any) => {
+      if (!selectedDate) {
+        return appointment.status === 'BOOKED';
+      } else {
+        const date = new Date(appointment.createdAt);
+        const formattedDate = date.toISOString().slice(0, 10);
+        return formattedDate === selectedDate && appointment.status === 'BOOKED';
+      }
+    });
+
+    const completed = combinedAppointments.filter((appointment: any) => {
+      if (!selectedDate) {
+        return appointment.status === 'COMPLETED';
+      } else {
+        const date = new Date(appointment.createdAt);
+        const formattedDate = date.toISOString().slice(0, 10);
+        return formattedDate === selectedDate && appointment.status === 'COMPLETED';
+      }
+    });
+
+    const declined = combinedAppointments.filter((appointment: any) => {
+      if (!selectedDate) {
+        return appointment.status === 'DECLINED';
+      } else {
+        const date = new Date(appointment.createdAt);
+        const formattedDate = date.toISOString().slice(0, 10);
+        return formattedDate === selectedDate;
+      }
+    });
+
+    setFilteredAppointments({
+      completed: completed,
+      pending: pending,
+      booked: booked,
+      declined: declined,
+    });
+  }, [selectedDate, studentAppointments, teacherAppointments]);
   
-      setFilteredAppointments({
-        completed: completed,
-        pending: pending,
-        booked: booked,
-        declined: declined,
-      });
-  }, [selectedDate, studentAppointments]);
-  
+  console.log(filterTeacherApp, 'setFilterTeacherApp')
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap ">
