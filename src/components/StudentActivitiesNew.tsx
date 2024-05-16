@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import StudentCalSec from "./StudentCalSec";
 import ActivtiesTabs from "./ActivtiesTabs"
-const StudentActivities = () => {
+import StudentActivitiesPage from "./StudentActivitiesPage";
+
+const StudentActivitiesNew = () => {
   const [selectedDate, setSelectedDate] = useState()
 
   return (
@@ -12,10 +14,10 @@ const StudentActivities = () => {
       </div> 
 
       <div className="col-span-12 lg:col-span-8 py-4 px-12 box-border  animate__animated animate__fadeInRight">
-        <ActivtiesTabs selectedDate={selectedDate}/>
+        <StudentActivitiesPage selectedDate={selectedDate}/>
       </div>
     </div>
   );
 };
 
-export default StudentActivities;
+export default StudentActivitiesNew;

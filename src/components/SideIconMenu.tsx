@@ -94,7 +94,7 @@ export const menuItems: MenuItem[] = [
       {
         name: "STUDENT",
         icon: faSearch,
-        path: "/all-teachers",
+        path: "/student-activties-page",
         active: false,
       },
       {

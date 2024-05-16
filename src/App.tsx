@@ -77,6 +77,9 @@ import CheckoutForm from "./components/payment/PaymentForm";
 import AllStripeSessions from "./components/payment/PaymentForm";
 import Coupons from "./pages/Coupons";
 import CompletedEvents from "./pages/CompletedEvents";
+import StudentActivitiesPage from "./components/StudentActivitiesPage";
+import StudentActivitiesNew from "./components/StudentActivitiesNew";
+// import StudentActivitiesPage from "./components/StudentActivitiesPage";
 
 function App() {
   const params = useParams();
@@ -303,8 +306,8 @@ const stripe = require("stripe")("sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi
             element={token ? <TeacherDetailsContext><ActivtiesPage /> </TeacherDetailsContext>: <LoginPage />}
           />
           <Route
-            path="/activties-page"
-            element={token ? <TeacherDetailsContext><ActivtiesPage /> </TeacherDetailsContext>: <LoginPage />}
+            path="/student-activties-page"
+            element={token ? <TeacherDetailsContext><StudentActivitiesNew /> </TeacherDetailsContext>: <LoginPage />}
           />
           <Route
             path={isTeacher ? "/teacher-page/:id" : '/teacher-page'}

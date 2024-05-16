@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import TeacherActivities from "../components/StudentActivities";
+import TeacherActivities from "../components/TeacherActivities";
 
 const ActivtiesPage: React.FC = () => {
 
