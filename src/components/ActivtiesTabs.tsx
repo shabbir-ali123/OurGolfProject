@@ -80,7 +80,6 @@ export default function Activeties({ selectedDate }: any) {
     });
   }, [selectedDate, studentAppointments, teacherAppointments]);
   
-  console.log(filterTeacherApp, 'setFilterTeacherApp')
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap ">

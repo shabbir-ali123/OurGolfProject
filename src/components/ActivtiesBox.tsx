@@ -29,7 +29,7 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
         />
         <div className='flex'>
           <p className="text-gray-600 font-product-sans font-normal text-xl">Your Appointment with {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName} is {activity.status}</p>
-          <p className='bg-[#03bb3a] p-2 rounded text-white'>{activity?.bookedShifts ? 'Teacher' : 'Student'}</p>
+          <p className='bg-[#03bb3a] p-2 rounded text-white ml-2'>{activity?.bookedShifts ? 'Teacher' : 'Student'}</p>
         </div>
       </div>
     </div>  
