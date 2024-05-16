@@ -244,7 +244,9 @@ function App() {
       }
     }
   }, [pathname]);
+
   var [token, setToken] = useState<any>();
+
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
@@ -257,18 +259,10 @@ function App() {
     const checkTeacher = tch && tch !== "null" ? true : false;
     setIsTeacher(checkTeacher);
   });
+  
   if (token === "undefined") {
     token = false;
   }
-  const pubnub = new Pubnub({
-    publishKey: "pub-c-eafa8c74-d8e8-4b72-b5fe-8e83c98886ff",
-    subscribeKey: "sub-c-1dd0a08c-ec68-45a5-a759-40baff5d89b5",
-    uuid: localStorage.getItem("id") || "12`",
-  });
-
-  const stripe = require("stripe")(
-    "sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB"
-  );
 
   return (
     <ToastProvider iconColor="white" textColor="white">
