@@ -235,6 +235,12 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       const deadlineData = new Date(event?.eventDeadlineDate);
                       const isEventOver = currentDate > endDate;
                       const isDeadlineOver = currentDate > deadlineData;
+                      // const isJoined = 
+                      const n =  parseInt(userId || "");
+
+                      const isUserIdInData = event?.teams?.some((team:any) => 
+                        team.members.some((member:any) => member.userId === n)
+                    );
                       return (
                         <React.Fragment key={index}>
                           <tr
@@ -414,6 +420,26 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </p>
                                 </div>
                               )}
+
+
+                              {/* new one */}
+                              {/* {
+                                isUserIdInData ?
+                                <>
+                                {event.eventType !== "normal" && isEventOver ? 
+                                  <a >{t("EVENT_END")}</a>
+                                : event.eventType !== "normal" && !isEventOver  ? <a>Edit Score</a>
+                                :  event.eventType === "normal" && !isEventOver   ? <a>Joined</a>
+                                : <a>Event Ended</a>} 
+                                </> :
+                                <>
+                                {
+                                  isDeadlineOver ? <a> Joined Dated Over </a>:   <a>Join</a>
+                                }
+                                
+                               
+                                </>
+                              } */}
                             </td>
                             <div className="text-start flex items-center">
                               <div>
