@@ -280,6 +280,7 @@ const SideMenu: React.FC = () => {
         style={{
           zIndex: "10",
           width: isMenuOpen ? "300px" : "50px",
+          height: isMenuOpen ? "100vh" : "100vh",
           backgroundColor: "#17b3a6",
           color: "white",
           boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.15)",
@@ -290,14 +291,14 @@ const SideMenu: React.FC = () => {
           left: 0,
           top: 0,
           transition: "width 0.3s ease",
-          height: "150vh",
-          overflowY: isDesktopScreen ? "hidden" : "auto",
+          overflowY: isMenuOpen ? "auto" : "hidden",
+          overflowX: isMenuOpen ? "hidden" : "hidden",
         }}
         className=""
         onMouseEnter={handleMenuMouseEnter}
         onMouseLeave={handleMenuMouseLeave}
       >
-        <div className="absolute top-[0]">
+        <div className="absolute top-[0] ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="white"

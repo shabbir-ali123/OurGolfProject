@@ -101,7 +101,7 @@ export const EducatorCard = ({
       );
       toast.success("Appointment booked successfully");
     } catch (error) {
-      toast.error("Error booking appointment");
+      // toast.error("Error booking appointment");sssss
     }
   };
 
