@@ -67,7 +67,7 @@ const SearchMainEventFilter: FunctionComponent = () => {
       <button
         type="button"
         // onClick={() => handleSearch(input)}
-        className="flex-shrink-0 bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2"
+        className="flex items-center bg-[#17b3a6] hover:bg-green-600 text-white rounded-md ml-3 px-4 py-2"
       >
         <FunnelIcon className="h-5 w-5" aria-hidden="true" />
         {t("Filter")}
