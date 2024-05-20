@@ -245,7 +245,6 @@ document.body.dir = i18n.dir();
             className="border border-[#52FF86] rounded px-2 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
-        {isEdit &&
         <div className="flex items-center col-span-12 py-2 space-x-4 lg:col-span-6 md:col-span-5 md:mr-0 md:mb-3">
           <div className="">
             <div className="">
@@ -310,7 +309,7 @@ document.body.dir = i18n.dir();
             </div>
           </div>
         </div>
-}
+
       </div>
     </div>
   );

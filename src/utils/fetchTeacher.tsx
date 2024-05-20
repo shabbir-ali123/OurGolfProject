@@ -20,7 +20,7 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
       console.log(response.data);
       setAppointsCount(response.data);
     } catch (error) {
-      throw error; 
+      console.error("Error toggling favorite status:", error);
     }
   };
   export  const fetchTeachers = async (search:any, locationInput:any, availibilty:any, setTeachers:any,setSelectedTeacher:any, setLoading:any) => {
@@ -94,7 +94,7 @@ export const fetchTeacherCounts = async (setAppointsCount:any) => {
       }
     } catch (error) {
       console.error('Error fetching teachers:', error);
-      toast.error('Error fetching teachers');
+      toast.error('');
     }
   }
 
@@ -215,7 +215,7 @@ export const fetchTeachersAppointments = async (setAppointments: any, setIsLoadi
     setAppointments(response.data.bookedAppointments);
     
   } catch (error: any) {
-    toast.error("ログインされていません");
+    // toast.error("ログインされていません");
   } finally {
     setIsLoading(false);
   }
@@ -241,7 +241,7 @@ export const fetchStudentAppointments = async (setStudentAppointments: any, setI
     setStudentAppointments(response.data.bookedAppointments);
     
   } catch (error: any) {
-    toast.error("ログインされていません");
+    // toast.error("ログインされていません");
   } finally {
     setIsLoading(false);
   }

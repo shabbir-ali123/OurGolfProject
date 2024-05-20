@@ -11,10 +11,11 @@ export const UsersList = () => {
 
   useEffect(() => {
     getAllUsers(setUsers);
+    
   }, [chatUser]);
 
   // Filter users based on search term
-  const filteredUsers = users.filter((user) =>
+  const filteredUsers = users?.filter((user) =>
     user.nickName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

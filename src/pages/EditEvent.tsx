@@ -226,12 +226,15 @@ const EditEvent: React.FC = () => {
 
   const handlePaymentDetailsChange = (
     formDataUpdate: any,
-    paymentType: Click
+    paymentType: Click,
+
   ) => {
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       ...formDataUpdate,
       paymentType,
+    
+      
     }));
   };
 

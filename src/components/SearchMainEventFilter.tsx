@@ -1,80 +1,77 @@
 import { FunnelIcon } from "@heroicons/react/24/outline";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { eventContextStore } from "../contexts/eventContext";
-import { Link } from "react-router-dom";
 
 const SearchMainEventFilter: FunctionComponent = () => {
-  const { t, i18n } = useTranslation();
-  const { handleSearch, handleInitialSearch, eventsName } = eventContextStore();
-  const [input, setInput] = useState<string>("");
-  const [selectedItems, setSelectedItems] = useState<any[]>([]);
+  const { t } = useTranslation();
+  const { handleSearch, handleInitialSearch } = eventContextStore();
+  // const [input, setInput] = useState<string>("");
+  // const [selectedItems, setSelectedItems] = useState<any[]>([]);
 
-  const handleChange = (e: any) => {
-    const inputValue = e.target.value;
-    setInput(inputValue);
+  // useEffect(() => {
+  //   const searchTerms = selectedItems.map(item => item.eventName + " " + item.location).concat(input).filter(Boolean);
+  //   const searchQuery = searchTerms.join(" ").trim();
+  //   if (searchQuery.length === 0) {
+  //     handleInitialSearch("");  // Fetch all events if no filter is applied
+  //   } else {
+  //     handleSearch(searchQuery);
+  //   }
+  // }, [input, selectedItems, handleSearch, handleInitialSearch]);
 
-    // Check if input is empty
-    if (inputValue === "") {
-      // If input is empty, perform search to fetch all events
-      handleInitialSearch(""); // You might want to adjust this based on your implementation
-    } else {
-      // Combine selected event names with input value
-      const selectedNames = selectedItems.map(item => item.eventName);
-      const combinedValue = selectedNames.join(" ") + inputValue;
+  // const handleChange = (e: any) => {
+  //   const inputValue = e.target.value;
+  //   setInput(inputValue);
+  //   if (inputValue === "") {
+  //     // Explicitly call handleInitialSearch when input is cleared
+  //     handleSearch(e.target.value);
+  //   }
+  // };
 
-      // Perform search with combined value
-      handleSearch(combinedValue);
-    }
-  };
+  // const handleItemClick = (item: any) => {
+  //   setSelectedItems([...selectedItems, item]);
+  //   setInput("");
+  // };
 
-  const handleItemClick = (item: any) => {
-    setSelectedItems([...selectedItems, item]);
-    setInput("");
-  };
-
-  const handleRemoveItem = (index: number) => {
-    const updatedItems = [...selectedItems];
-    updatedItems.splice(index, 1);
-    setSelectedItems(updatedItems);
-  };
+  // const handleRemoveItem = (index: number) => {
+  //   const newItems = selectedItems.filter((_, i) => i !== index);
+  //   setSelectedItems(newItems);
+  //   if (newItems.length === 0 && !input) {
+  //     // Call handleInitialSearch if no filters are left
+  //     handleInitialSearch("");
+  //   }
+  // };
 
   return (
-    <form
-      className="flex w-full py-1 mt-2 animate__animated animate__fadeInLeft gap-2"
-    >
-      <div className="relative  items-stretch flex-grow focus-within:z-10">
-        <div className="flex flex-wrap gap-1">
-          {selectedItems.map((item, index) => (
-            <div key={index} className="bg-gray-200 rounded-md p-1 flex items-center">
-              <span>{item.eventName}</span>
-              <button
-                type="button"
-                onClick={() => handleRemoveItem(index)}
-                className="ml-1 text-red-500 focus:outline-none"
-              >
-                &times;
-              </button>
-            </div>
-          ))}
-        </div>
-        <div className="relative flex self-stretch flex-grow focus-within:z-10">
-          <input
-            onChange={handleChange}
-            value={input}
-            className="block w-full rounded-l-md border outline-none py-2 pl-4 ring-1 ring-inset ring-[#17B3A6]"
-            placeholder={t('SEARCH_EVENT')}
-          />
-        </div>
+    <form className="flex w-full py-2 mt-2 gap-2 bg-white shadow-md rounded-lg p-4">
+      <div className="flex-grow">
+        {/* {selectedItems.map((item, index) => (
+          <div key={index} className="bg-blue-100 rounded-full p-2 flex items-center">
+            <span className="text-sm font-medium">{`${item.eventName} (${item.location})`}</span>
+            <button
+              type="button"
+              onClick={() => handleRemoveItem(index)}
+              className="ml-2 text-red-500"
+            >
+              &times;
+            </button>
+          </div>
+        ))} */}
+        <input
+          type="text"
+          onChange={(e) => handleSearch(e.target.value)}
+          className="w-full rounded-md border-gray-300 shadow-sm p-2"
+          placeholder={t('Search events by name or location')}
+        />
       </div>
       <button
         type="button"
-        onClick={handleSearch}
-        className="inline-flex h-[40px] items-center gap-x-1.5 text-white bg-[#17B3A6] rounded-r-md px-4 cursor-pointer"
+        // onClick={() => handleSearch(input)}
+        className="flex-shrink-0 bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2"
       >
-        <FunnelIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-        {t("FILTER")}
-      </button> 
+        <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+        {t("Filter")}
+      </button>
     </form>
   );
 };

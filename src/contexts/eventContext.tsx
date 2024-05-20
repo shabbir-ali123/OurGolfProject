@@ -21,12 +21,12 @@ export const EventsContext = ({ children }: any) => {
     const [initialSearch, setInitialSearch] =  useState<string>('');
 
     const navigate = useNavigate();
-    useEffect(() => {
-        if (clearFilter) {
-            setLocations([]);
-            setClearFilter(false); // Reset clearFilter to avoid repeated triggers
-        }
-    }, [clearFilter]);
+    // useEffect(() => {
+    //     if (clearFilter) {
+    //         setLocations([]);
+    //         setClearFilter(false); // Reset clearFilter to avoid repeated triggers
+    //     }
+    // }, [clearFilter]);
     useEffect(() => {
         const queryParams = {
             store_token,
@@ -50,16 +50,16 @@ export const EventsContext = ({ children }: any) => {
        }
        
     }, [currentPage,eventsCount, pageSize, locations, startDate, endDate, eventStatus]);
-    useEffect(() => {
-        if(search){
-            fetchSeachedEvents(search, setEvents);
-        }
-        if(initialSearch){
-            fetchSeachedEventsNames(initialSearch, setEventsName);
-        }        
+    // useEffect(() => {
+    //     // if(search){
+    //     //     fetchSeachedEvents(search, setEvents);
+    //     // }
+    //     // if(initialSearch){
+    //     //     fetchSeachedEventsNames(initialSearch, setEventsName);
+    //     // }        
      
        
-    }, [search, initialSearch]);
+    // }, [search, initialSearch]);
 
 
     const handleEvents = useCallback((value: any) => {
@@ -95,6 +95,7 @@ export const EventsContext = ({ children }: any) => {
     }, [eventStatus]);
    
     const handleSearch = useCallback((value: any) => {
+        handlePageSize('200000');setCurrentPage(1);
         setSearch(value);
     }, [search]);
     
@@ -112,7 +113,7 @@ export const EventsContext = ({ children }: any) => {
         setJoinedEvents(value);
     }, [joinedEvents]);
 
-    const value = { handleEvents, handlePageChange,handleJoinedEvents, handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,joinedEvents,eventStatus, eventsName, clearFilter, locations, eventss,pageSize, eventsCount }
+    const value = { handleEvents, handlePageChange,handleJoinedEvents, handleInitialSearch,handleSearch, handlePageSize, handleLocationFilter, handleStartDate, handleEndDate, handleEventStatus, handleClear,joinedEvents,eventStatus, eventsName, clearFilter, locations, eventss,pageSize,search, eventsCount }
 
     return <EventCreateContext.Provider value={value}> {children}</EventCreateContext.Provider>
 }

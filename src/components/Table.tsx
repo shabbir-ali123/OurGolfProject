@@ -46,7 +46,7 @@ interface TableProps {
 const Table: React.FunctionComponent<TableProps> = ({ events }) => {
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
-  const { eventss, handleEvents, eventStatus } = eventContextStore();
+  const { eventss, handleEvents, eventStatus, search } = eventContextStore();
   const router = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
@@ -63,8 +63,13 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     } else {
       setCheckedJoined(false);
     }
+    
     console.log(eventStatus);
   }, [checkedJoined, eventStatus]);
+
+  const filteredEvents = eventss?.filter((event:any) =>
+    event.eventName.toLowerCase().includes(search.toLowerCase())
+  );
 
   console.log(checkedJoined);
   const handleFavoriteClick = async (eventId: string) => {
@@ -217,7 +222,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                       </tr>
                     </thead>
 
-                    {eventss?.map((event: any, index: number) => {
+                    {filteredEvents?.map((event: any, index: number) => {
                       const likes = event.likes || [];
                       const isFavorite = event.isFavorite || false;
                       const liked = likes.find(
