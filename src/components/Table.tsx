@@ -332,7 +332,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 {new Set(event.teams?.flatMap((team: any) => team?.members.map((member: any) => member?.userId))).size
                                 }                  /              {event?.capacity * event?.teamSize}
                               </p>
-                              <p className="m-0 p-0">
+                              <p className="m-0 p-0 mb-4">
                                 <span className="font-bold ">
                                   {t("WAITING")}:
                                 </span>{" "}
@@ -340,7 +340,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 {event.capacity * event.teamSize}
                               </p>
 
-                              {checkedJoined &&
+                              {/* {checkedJoined &&
                                 event.eventType !== "normal" &&
                                 !isEventOver ? (
                                 <span
@@ -419,27 +419,48 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                     {t("EVENT_END")}
                                   </p>
                                 </div>
-                              )}
+                              )} */}
 
 
                               {/* new one */}
-                              {/* {
+                              {
                                 isUserIdInData ?
                                 <>
                                 {event.eventType !== "normal" && isEventOver ? 
-                                  <a >{t("EVENT_END")}</a>
-                                : event.eventType !== "normal" && !isEventOver  ? <a>Edit Score</a>
-                                :  event.eventType === "normal" && !isEventOver   ? <a>Joined</a>
-                                : <a>Event Ended</a>} 
+                                  <span className="bg-red text-white p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white" style={{
+                                    boxShadow:
+                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                  }} >{t("EVENT_END")}</span>
+                                : event.eventType !== "normal" && !isEventOver  ? <span onClick={(e) => {
+                                  e.preventDefault();
+                                  router("/edit-team/" + event.id);
+                                }} className="bg-red text-white p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white">{t("ADD_SCORE")}</span>
+                                :  event.eventType === "normal" && !isEventOver   ? <span>{t("JOINED")}</span>
+                                : <span  onClick={(e) => {
+                                  e.preventDefault();
+                                  router("/edit-team/" + event.id);
+                                }}>{t("EVENT_END")}</span>} 
                                 </> :
                                 <>
                                 {
-                                  isDeadlineOver ? <a> Joined Dated Over </a>:   <a>Join</a>
+                                  isDeadlineOver ? <span onClick={(e) => {
+                                    e.preventDefault();
+                                    router("/edit-team/" + event.id);
+                                  }} className="bg-[#ddf4f2]  p-2 text-center text-[#17B3A6] rounded-lg m-0 hover:bg-black hover:text-white " style={{
+                                    boxShadow:
+                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                  }}> {t("JOINING_OVER")} </span>:   <span onClick={(e) => {
+                                    e.preventDefault();
+                                    router("/pay-now/" + event.id);
+                                  }} className="bg-white  p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white" style={{
+                                    boxShadow:
+                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                  }}>{t("JOIN_NOW")}</span>
                                 }
                                 
                                
                                 </>
-                              } */}
+                              }
                             </td>
                             <div className="text-start flex items-center">
                               <div>

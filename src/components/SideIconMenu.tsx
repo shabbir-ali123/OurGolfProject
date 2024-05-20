@@ -97,12 +97,12 @@ export const menuItems: MenuItem[] = [
         path: "/student-activties-page",
         active: false,
       },
-      {
-        name: "APPOINTMENTS",
-        icon: faSearch,
-        path: "/appointments",
-        active: false,
-      },
+      // {
+      //   name: "APPOINTMENTS",
+      //   icon: faSearch,
+      //   path: "/appointments",
+      //   active: false,
+      // },
    
     ],
   },
