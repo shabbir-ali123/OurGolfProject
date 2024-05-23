@@ -79,7 +79,10 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
           <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> <span className="xl:text-[26px] ">{singleEvent?.
             eventType}</span> </p>
         </div>
+        <div className="flex items-center gap-10  ">
 
+          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('SHORT_VIDEO')}  :</span> <span className="xl:text-[26px] ">{singleEvent?.eventVideoUrl}</span> </p>
+        </div>
       </div>
 
 
@@ -112,7 +115,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
             <option value="1"> Cancel 1 day before</option>
           </select> */}
 
-        
+
         </div>
       </div>
     </div>
