@@ -127,10 +127,10 @@ const CreateTeacher: React.FC = () => {
       }));
     }
     if ((files && files.length > 0) && (type === "portfolioVideo")) {
-      const fileList = Array.from(files); // Convert FileList to an array
+      const fileList = Array.from(files);
       setNextFormData((prevFormData:any) => ({
         ...prevFormData,
-        [type]: [...prevFormData[type], ...fileList], // Append new files to the existing array
+        [type]: [...prevFormData[type], ...fileList], 
       }));
     }
     if (type === "introductionVideo" && files && files.length > 0) {
