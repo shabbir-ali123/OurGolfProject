@@ -46,7 +46,7 @@ icon,
         const result = reader.result as string;
         setImageUrl(result);
         if (onChangeImage) {
-          onChangeImage(e);
+          onChangeImage(file);
         }
       };
       reader.readAsDataURL(file);

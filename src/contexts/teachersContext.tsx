@@ -1,118 +1,207 @@
-import React, {  useCallback, useEffect, useState } from 'react';
-import { fetchSingleTeacher, fetchStudentAppointments, fetchTeachersAppointments, fetchTeacherss } from '../utils/fetchTeacher';
-import { useParams } from 'react-router-dom';
-
+import React, { useCallback, useEffect, useState } from "react";
+import {
+    deleteScheduleById,
+    deleteShiftById,
+  fetchSingleTeacher,
+  fetchStudentAppointments,
+  fetchTeachersAppointments,
+  fetchTeacherss,
+} from "../utils/fetchTeacher";
+import { useParams } from "react-router-dom";
 
 const TeachersContext = React.createContext<any>({});
 
-export const TeacherContext = ({children}:any)=>{
-    const [teachers, setTeachers] = useState<any[]>([]);
-    const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
-    const [schedules, setSchedules] = useState<any[]>([]);
-    const [shift, setShift] = useState<any>([])
-    const [teacherData, setTeacherData] = useState({
-        availability: null,
-        rating: null,
-        subjects: [],
-        locationSearch: '',
-        nameSearch: ''
-    });
+export const TeacherContext = ({ children }: any) => {
+  const [teachers, setTeachers] = useState<any[]>([]);
+  const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
+  const [schedules, setSchedules] = useState<any[]>([]);
+  const [shift, setShift] = useState<any>([]);
+  const [teacherData, setTeacherData] = useState({
+    availability: null,
+    rating: null,
+    subjects: [],
+    locationSearch: "",
+    nameSearch: "",
+  });
 
-    useEffect(() => {
-        fetchTeacherss(handleTeachers, setSelectedTeacher, handleSchedules, teacherData);
-    }, [teacherData]);
+  useEffect(() => {
+    fetchTeacherss(
+      handleTeachers,
+      setSelectedTeacher,
+      handleSchedules,
+      teacherData
+    );
+  }, [teacherData]);
 
-    const handleTeachers = useCallback((value: any) => {
-        setTeachers(value);
-    },[teachers]);
+  const handleTeachers = useCallback(
+    (value: any) => {
+      setTeachers(value);
+    },
+    [teachers]
+  );
 
-    const handleSchedules = useCallback((value: any) => {
-        setTeachers(value);
-    },[schedules]);
+  const handleSchedules = useCallback(
+    (value: any) => {
+      setTeachers(value);
+    },
+    [schedules]
+  );
 
-    const handleShift = useCallback((value: any) => {
-        setShift(value);
-    },[shift]);
+  const handleShift = useCallback(
+    (value: any) => {
+      setShift(value);
+    },
+    [shift]
+  );
 
-    const handleAvailability = useCallback((value: any) => {
-        setTeacherData(prevData => ({
-            ...prevData,
-            availability: value,
-        }));
-    },[teacherData]);
+  const handleAvailability = useCallback(
+    (value: any) => {
+      setTeacherData((prevData) => ({
+        ...prevData,
+        availability: value,
+      }));
+    },
+    [teacherData]
+  );
 
-    const handleRating = useCallback((value: any) => {
-        setTeacherData(prevData => ({
-            ...prevData,
-            rating: value,
-        }));
-    },[teacherData]);
+  const handleRating = useCallback(
+    (value: any) => {
+      setTeacherData((prevData) => ({
+        ...prevData,
+        rating: value,
+      }));
+    },
+    [teacherData]
+  );
 
-    const handleSubjects = useCallback((value: any) => {
-        setTeacherData(prevData => ({
-            ...prevData,
-            subjects: value,
-        }));
-    },[teacherData]);
+  const handleSubjects = useCallback(
+    (value: any) => {
+      setTeacherData((prevData) => ({
+        ...prevData,
+        subjects: value,
+      }));
+    },
+    [teacherData]
+  );
 
-    const handleLocationSearch = useCallback((value: any) => {
-        setTeacherData(prevData => ({
-            ...prevData,
-            locationSearch: value,
-        }));
-    },[teacherData]);
+  const handleLocationSearch = useCallback(
+    (value: any) => {
+      setTeacherData((prevData) => ({
+        ...prevData,
+        locationSearch: value,
+      }));
+    },
+    [teacherData]
+  );
 
-    const handleNameSearch = useCallback((value: any) => {
-        setTeacherData(prevData => ({
-            ...prevData,
-            nameSearch: value,
-        }));
-    },[teacherData]);
+  const handleNameSearch = useCallback(
+    (value: any) => {
+      setTeacherData((prevData) => ({
+        ...prevData,
+        nameSearch: value,
+      }));
+    },
+    [teacherData]
+  );
 
-    const value =  {handleSchedules, handleShift, handleAvailability, handleRating, handleSubjects, handleLocationSearch, handleNameSearch, shift, schedules, teachers, selectedTeacher}
+  const value = {
+    handleSchedules,
+    handleShift,
+    handleAvailability,
+    handleRating,
+    handleSubjects,
+    handleLocationSearch,
+    handleNameSearch,
+    shift,
+    schedules,
+    teachers,
+    selectedTeacher,
+  };
 
-    return <TeachersContext.Provider  value={value}> {children} </TeachersContext.Provider>
-}
+  return (
+    <TeachersContext.Provider value={value}>
+      {" "}
+      {children}{" "}
+    </TeachersContext.Provider>
+  );
+};
 
-export const teacherContext = ()=> React.useContext(TeachersContext);
+export const teacherContext = () => React.useContext(TeachersContext);
 
 const SingleTeacherContext = React.createContext<any>({});
 
-export const TeacherDetailsContext = ({children}:any)=>{
-    const params = useParams<{ id?: string }>();
-    const teacherId = params.id;
-    const [teacher, setTeacher] = useState<any[]>([]);
-    const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
-    const [schedules, setSchedules] = useState<any[]>([]);
-    const [bookedAppointments, setBookedAppointments] = useState<any[]>([])
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [studentAppointments, setStudentAppointments] = useState<any[]>([])
-    useEffect(() => {
-        if (teacherId !== 'null') {
-            fetchSingleTeacher(handleTeacher, teacherId);
-        }
-    }, [teacherId]);
+export const TeacherDetailsContext = ({ children }: any) => {
+  const params = useParams<{ id?: string }>();
+  const teacherId = params.id;
+  const [teacher, setTeacher] = useState<any[]>([]);
+  const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
+  const [schedules, setSchedules] = useState<any[]>([]);
+  const [bookedAppointments, setBookedAppointments] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [studentAppointments, setStudentAppointments] = useState<any[]>([]);
+  const [shiftId, setShiftId] = useState<any>(null);
+  const [scheduleId, setScheduleId] = useState<any>(null);
 
-    useEffect(() => {
-        fetchTeachersAppointments(setBookedAppointments, setIsLoading)
-        fetchStudentAppointments(setStudentAppointments, setIsLoading)
-    }, [])
+  useEffect(() => {
+    if (teacherId !== "null") {
+      fetchSingleTeacher(handleTeacher, teacherId);
+    }
+    if(shiftId !== null){
+        deleteShiftById(shiftId, setIsLoading);
+    }
+    if(scheduleId !== null){
+        deleteScheduleById(scheduleId, setIsLoading);
+    }
+  }, [teacherId, shiftId, scheduleId, isLoading]);
 
-    const handleTeacher = useCallback((value: any) => {
-        setTeacher(value);
-    },[teacher]);
+  useEffect(() => {
+    fetchTeachersAppointments(setBookedAppointments, setIsLoading);
+    fetchStudentAppointments(setStudentAppointments, setIsLoading);
+  }, []);
 
-    const handleSchedules = useCallback((value: any) => {
-        setTeacher(value);
-    },[schedules]);
+  const handleTeacher = useCallback(
+    (value: any) => {
+      setTeacher(value);
+    },
+    [teacher]
+  );
 
+  const handleSchedules = useCallback(
+    (value: any) => {
+      setTeacher(value);
+    },
+    [schedules]
+  );
+  const handleShiftDelete = useCallback(
+    (value: any) => {
+      setShiftId(value);
+    },
+    [shiftId]
+  );
+  const handleScheduleDelete = useCallback(
+    (value: any) => {
+      setScheduleId(value);
+    },
+    [scheduleId]
+  );
 
+  const value = {
+    handleSchedules,
+    schedules,
+    teacher,
+    selectedTeacher,
+    studentAppointments,
+    isLoading,
+    bookedAppointments,
+    handleShiftDelete,
+    handleScheduleDelete
+  };
 
- 
+  return (
+    <SingleTeacherContext.Provider value={value}>
+      {children}
+    </SingleTeacherContext.Provider>
+  );
+};
 
-    const value =  {handleSchedules, schedules, teacher, selectedTeacher, studentAppointments, isLoading, bookedAppointments}
-
-    return <SingleTeacherContext.Provider  value={value}> {children} </SingleTeacherContext.Provider>
-}
-
-export const useTeacherContext = ()=> React.useContext(SingleTeacherContext);
+export const useTeacherContext = () => React.useContext(SingleTeacherContext);

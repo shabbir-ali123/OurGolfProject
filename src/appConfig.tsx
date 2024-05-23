@@ -60,6 +60,8 @@ export const API_ENDPOINTS = {
   ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,
   GETGIGSBYID: `${API_BASE_URL}/${API_VERSION}/get-gigs-by-teacher/`,
   GETPUBLICGIGSBYID: `${API_BASE_URL}/${API_VERSION}/get-public-gigs-by-teacher/`,
+  DELETESHIFTSBYID: `${API_BASE_URL}/${API_VERSION}/delete-shift`,
+  DELETESCHEDULEBYID: `${API_BASE_URL}/${API_VERSION}/delete-schedule`,
 
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`,
