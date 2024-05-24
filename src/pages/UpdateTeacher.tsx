@@ -576,11 +576,11 @@ const UpdateTeacher: React.FC = () => {
             <h3 className="text-lg font-semibold mb-2 text-[#565656]">
               {t("INTRO_VIDEO")}
             </h3>
-            <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
+            <div className="relative  justify-center items-center bg-[#F1F1F1]  rounded-lg shadow-md">
               {!videoVisible && (
                 <>
-                  <div>
-                    <div className="flex items-center justify-center p-3 border-2 border-dashed rounded-lg border-[#61cbc2]">
+                  <div className="flex items-center py-4">
+                    <div className="flex items-center justify-center p-3 mx-4 border-2 border-dashed rounded-lg border-[#61cbc2]">
                       <input
                         id="introductionVideo"
                         name="introductionVideo"
@@ -608,17 +608,19 @@ const UpdateTeacher: React.FC = () => {
                         >
                           <path d="M12 4v16m8-8H4"></path>
                         </svg>
+                      
                       </label>
                     </div>
-                  </div>
+              
                   <>
                     <ArrowDownIcon
-                      className="h-[16px] mt-2 p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                      className="h-[16px]  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
                       onClick={() => setShowMediaUrl(!showMediaUrl)}
                       data-tooltip-id="upload-url-tooltip"
                     />
                     <Tooltip id="upload-url-tooltip" content="Add Video URL" />
                   </>
+                  </div>
                 </>
               )}
               {videoVisible ||
