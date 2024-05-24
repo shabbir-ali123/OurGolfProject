@@ -7,6 +7,7 @@ import {
   VideoCameraIcon,
   ArrowDownIcon,
   ArrowTrendingUpIcon,
+  TrashIcon
 } from "@heroicons/react/24/solid";
 import { Tooltip } from "react-tooltip";
 import InputWithIcon from "../components/FormComponents";
@@ -380,16 +381,15 @@ const UpdateTeacher: React.FC = () => {
       const newActiveStates = prev.map((dayStates, index) =>
         index === hourIndex
           ? dayStates.map((isActive, i) =>
-              i === dayIndex ? !isActive : isActive
-            )
+            i === dayIndex ? !isActive : isActive
+          )
           : [...dayStates]
       );
       return newActiveStates;
     });
 
-    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${
-      selectedWeekStart?.toLocaleDateString() || ""
-    }`;
+    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${selectedWeekStart?.toLocaleDateString() || ""
+      }`;
 
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
@@ -449,6 +449,24 @@ const UpdateTeacher: React.FC = () => {
       setShowInputIndexes([...showInputIndexes, index]);
     }
   };
+  const groupByDateRange = (schedules:any) => {
+    const grouped:any = {};
+  
+    schedules.forEach((schedule:any) => {
+      const dateRange:any = `${schedule.startDate}-${schedule.endDate}`;
+      if (!grouped[dateRange]) {
+        grouped[dateRange] = {
+          startDate:schedule.startDate,
+          endDate: schedule.endDate,
+          shifts: []
+        };
+      }
+      grouped[dateRange].shifts.push(...schedule.shifts);
+    });
+  
+    return Object.values(grouped);
+  };
+  const groupedSchedules = groupByDateRange(teacher?.schedules || []);
 
   return (
     <div className="py-8 mx-4 xl:mx-0 ">
@@ -608,18 +626,18 @@ const UpdateTeacher: React.FC = () => {
                         >
                           <path d="M12 4v16m8-8H4"></path>
                         </svg>
-                      
+
                       </label>
                     </div>
-              
-                  <>
-                    <ArrowDownIcon
-                      className="h-[16px]  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
-                      onClick={() => setShowMediaUrl(!showMediaUrl)}
-                      data-tooltip-id="upload-url-tooltip"
-                    />
-                    <Tooltip id="upload-url-tooltip" content="Add Video URL" />
-                  </>
+
+                    <>
+                      <ArrowDownIcon
+                        className="h-[16px]  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                        onClick={() => setShowMediaUrl(!showMediaUrl)}
+                        data-tooltip-id="upload-url-tooltip"
+                      />
+                      <Tooltip id="upload-url-tooltip" content="Add Video URL" />
+                    </>
                   </div>
                 </>
               )}
@@ -699,58 +717,45 @@ const UpdateTeacher: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="col-span-1 md:col-span-3 my-4">
-          {teacher?.schedules?.map((item: any) => {
-            return (
-              <div>
-                <li className="mb-10 ms-4 list-none">
-                  <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                  <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    You schedule {item.startDate} to {item.endDate}
-                  </time>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    On{" "}
-                    {item.shifts?.map((item: any) => {
-                      return (
-                        <>
-                          {item.day} time: {item.startTime} to {item.endTime}
-                          <button
-                            onClick={() => {handleShiftDelete(item.id)}}
-                            className="inline-flex items-center bg-red text-white p-2 rounded"
-                          >
-                            X
-                          </button>
-                        </>
-                      );
-                    })}
-                  </h3>
-
-                  <button
-                            onClick={() => {handleScheduleDelete(item.id)}}
-                            className="inline-flex items-center bg-red text-white p-2 rounded"
-                  >
-                    Delete schedule
-                    <svg
-                      className="w-3 h-3 ms-2 rtl:rotate-180"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 10"
+        <div className="flex">
+          <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
+            {groupedSchedules?.map((schedule: any, index: any) => (
+              <>
+                <div key={index} className="snap-start bg-white shadow-lg rounded-lg p-4 w-[240px]">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-sm font-bold">{schedule.startDate} - {schedule.endDate}</h2>
+                    <button
+                      onClick={() => handleScheduleDelete(schedule.id)}
+                      className="bg-transparent hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                      <TrashIcon
+                        className="h-[16px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                        onClick={() => setShowMediaUrl(!showMediaUrl)}
+                        data-tooltip-id="upload-url-tooltip"
                       />
-                    </svg>
-                  </button>
-                </li>
-              </div>
-            );
-          })}
+                    </button>
+                  </div>
+                  {schedule.shifts?.map((shift: any, shiftIndex: any) => (
+                    <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2">
+                      <span className="font-medium text-sm">{shift.day} {shift.startTime} - {shift.endTime}</span>
+                      <button
+                        onClick={() => handleShiftDelete(shift.id)}
+                        className="bg-red hover:bg-red-700 text-white font-bold py-1 px-2 rounded cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+
+              </>
+            ))}
+          </div>
         </div>
+
+
+
 
         <div className="my-4 mx-10   xl:mx-0">
           <SlotsCalender onWeekSelected={handleWeekSelected} />
@@ -765,11 +770,10 @@ const UpdateTeacher: React.FC = () => {
                   return (
                     <div
                       key={date.toLocaleDateString()}
-                      className={`col-span-1 font-bold   ${
-                        date.getTime() === selectedTab?.getTime()
-                          ? "selected-tab"
-                          : ""
-                      }`}
+                      className={`col-span-1 font-bold   ${date.getTime() === selectedTab?.getTime()
+                        ? "selected-tab"
+                        : ""
+                        }`}
                       onClick={() => handleTabClick(date)}
                     >
                       {t(getDayName(date).toLocaleUpperCase())}
@@ -790,7 +794,7 @@ const UpdateTeacher: React.FC = () => {
                   Array.from({ length: 7 }, (_, dayIndex) => {
                     const date = new Date(
                       selectedWeekStart.getTime() +
-                        dayIndex * 24 * 60 * 60 * 1000
+                      dayIndex * 24 * 60 * 60 * 1000
                     );
                     const dateKey = date.toISOString().split("T");
                     const isActive = activeStates[hourIndex][dayIndex];
@@ -798,9 +802,8 @@ const UpdateTeacher: React.FC = () => {
                       <button
                         key={dateKey + hour}
                         type="button"
-                        className={`col-span-1 rounded-md py-2 time-slot ${
-                          isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
-                        }`}
+                        className={`col-span-1 rounded-md py-2 time-slot ${isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
+                          }`}
                         onClick={() =>
                           handleTimeSlotClick(dateKey, hour, dayIndex)
                         }

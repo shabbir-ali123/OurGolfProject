@@ -36,11 +36,11 @@ const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
 
 interface UpdatePostType {
   firstName: string;
-  profileImage: File[];
+  profileImage: File | null;
   portfolioVideo: FileList[];
-  introductionVideo: File[];
-  movieUrl: any
-  portfolioUrl: any
+  introductionVideo: File | null;
+  movieUrl: any;
+  portfolioUrl: any;
 }
 const CreateTeacher: React.FC = () => {
   const { t } = useTranslation();
@@ -74,13 +74,12 @@ const CreateTeacher: React.FC = () => {
     ],
   });
   const [nextformData, setNextFormData] = useState<UpdatePostType>({
-    firstName: "",
-    profileImage: [],
+    firstName: "adsfasdf",
+    profileImage: null,
     portfolioVideo: [],
-    introductionVideo: [],
+    introductionVideo: null,
     movieUrl: "",
     portfolioUrl: "",
-
   });
   const [urls, setUrls] = useState<any>("");
   const [portfolioVideos, setPortfolioVideo] = useState<any>("");
@@ -97,12 +96,11 @@ const CreateTeacher: React.FC = () => {
       });
     }
     const {  name} = event.target;
-  
-    if ((files && files.length > 0) && (type === "introductionVideo")) {
-      const file = files[0];
+    if (files && files.length > 0 && type === "introductionVideo") {
+      const file = files[0]; // Get the first file from the files array
       setNextFormData((prevFormData) => ({
-        ...prevFormData,
-        [type]: [file],
+        ...prevFormData, // Spread the previous form data
+        [type]: file, // Update the introductionVideo field to be a single file
       }));
     }
     if ((files && files.length > 0) && (type === "portfolioVideo")) {
@@ -118,33 +116,22 @@ const CreateTeacher: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     type: string
   ) => {
-    const { files , name} = event.target;
-    if ((files && files.length > 0) && (type === "introductionVideo")) {
+    const { files, name } = event.target;
+
+    if (files && files.length > 0) {
       const file = files[0];
-      setNextFormData((prevFormData) => ({
+      setNextFormData((prevFormData: any) => ({
         ...prevFormData,
-        [type]: [file],
+        [type]: file,
       }));
-    }
-    if ((files && files.length > 0) && (type === "portfolioVideo")) {
-      const fileList = Array.from(files);
-      setNextFormData((prevFormData:any) => ({
-        ...prevFormData,
-        [type]: [...prevFormData[type], ...fileList], 
-      }));
-    }
-    if (type === "introductionVideo" && files && files.length > 0) {
-      setVideoVisible(true);
-      const objectURL = URL.createObjectURL(files[0]);
-      setUrls(objectURL);
-    }
-    if (type === "portfolioVideo" && files && files.length > 0) {
-      const objectURL = URL.createObjectURL(files[0]);
-      setPortfolioVideo(objectURL);
-      setVideoPortfolioVisible(true);
+
+      if (type === "introductionVideo") {
+        setVideoVisible(true);
+        const objectURL = URL.createObjectURL(file);
+        setUrls(objectURL);
+      }
     }
   };
-
   const profileImageInputRef = useRef<HTMLInputElement>(null);
   const portfolioVideoInputRef = useRef<HTMLInputElement>(null);
   const introductionVideoInputRef = useRef<HTMLInputElement>(null);
