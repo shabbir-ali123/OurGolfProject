@@ -497,7 +497,7 @@ const UpdateTeacher: React.FC = () => {
                   pname="firstName"
                   icon={<UserIcon />}
                   label={t("FIRST_NAME")}
-                  value={formData.firstName}
+                  value={formData?.firstName}
                   onChange={handleChange}
                   placeholder={t("ENTER_FIRST_NAME")}
                   colSpanSm={6}
@@ -506,6 +506,7 @@ const UpdateTeacher: React.FC = () => {
                 />
                 <InputWithIcon
                   pname="hourlyRate"
+                  value={formData?.hourlyRate}
                   icon={<EnvelopeOpenIcon />}
                   label={t("Hourly")}
                   onChange={handleChange}
@@ -522,7 +523,7 @@ const UpdateTeacher: React.FC = () => {
                       pname="location"
                       icon={<MapPinIcon />}
                       label={t("LOCATION")}
-                      value={formData.location}
+                      value={formData?.location}
                       handleLocationChange={handleLocationChange}
                       placeholder={t("ENTER_LOCATION")}
                       colSpanSm={6}
@@ -583,7 +584,8 @@ const UpdateTeacher: React.FC = () => {
                 <textarea
                   onChange={handleChange}
                   name="aboutMyself"
-                  className="resize-none leading-8 text-[#e5e7eb] w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
+                  value={formData?.aboutMyself}
+                  className="resize-none leading-8 text-black w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
                   placeholder={t("BIO")}
                 ></textarea>
               </div>

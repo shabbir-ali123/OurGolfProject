@@ -156,6 +156,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
       <Select
         name="level"
         required
+        placeholder={value}
         onChange={handleLevelChange}
         options={levelOptions}
         className="w-full text-base border text-black border-gray-300 rounded  hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -228,6 +229,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
         ) : variant === "dropdown" ? (
           <Select
             name="place"
+            placeholder={value}
             required
             options={
               JapanCities as OptionsOrGroups<OptionType, GroupBase<OptionType>>
