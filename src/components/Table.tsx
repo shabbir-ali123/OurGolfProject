@@ -639,7 +639,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               </span>
                               <br />
                               {
-                                // Calculate the total number of unique userIds
+                                
                                 new Set(item.teams.map((team: any) => team.userId)).size
                               } /
                               {item.capacity * item.teamSize}

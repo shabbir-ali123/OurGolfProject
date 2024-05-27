@@ -88,7 +88,7 @@ const CreateTeacher: React.FC = () => {
     if (files && files.length > 0) {
       const objectURL = URL.createObjectURL(files[0]);
 
-      // Update the specific video URL for this uploader
+      
       setPortfolioVideoUrls((prev) => {
         const newUrls = [...prev];
         newUrls[index] = objectURL;
