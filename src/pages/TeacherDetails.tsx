@@ -58,32 +58,16 @@ const TeacherDetails: React.FC = () => {
                 {t("MAIN_VIDEO")}
               </h3>
               <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md overflow-hidden">
-                {!videoVisible && (
-                  <>
-                    <img
-                      className="rounded-lg"
-                      src={posterSrc}
-                      alt="Introduction"
-                      onClick={() => setVideoVisible(true)}
-                    />
-                    <button
-                      className="absolute inset-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
-                      onClick={() => setVideoVisible(true)}
-                    >
-                      <span className="text-white text-6xl">&#9658;</span>
-                    </button>
-                  </>
-                )}
-                {videoVisible && (
-                  <iframe
+              
+         
+                  <video
                     className="rounded-lg w-full h-[260px]"
                     src={teacher.introductionVideo}
                     title="Introduction Video"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                )}
+                    width={260}
+                    controls
+                  ></video>
+                
               </div>
             </div>
           </div>

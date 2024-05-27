@@ -268,6 +268,7 @@ export const deleteShiftById = async (shiftId: any, setLoading: any) => {
         Authorization: token ? `Bearer ${token}` : "",
       },
     });
+    toast.success(response.data?.message);
   } catch (error) {
     console.error("Error fetching teacher:", error);
   }finally {

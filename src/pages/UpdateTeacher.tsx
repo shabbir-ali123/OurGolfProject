@@ -47,7 +47,7 @@ interface UpdatePostType {
 }
 const UpdateTeacher: React.FC = () => {
   const { t } = useTranslation();
-  const { teacher, handleScheduleDelete, handleShiftDelete } = useTeacherContext();
+  const { teacher, handleScheduleDelete, handleShiftDelete , isLoading, setIsLoading,handleTeacher} = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
   const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(
     Array(5).fill("")
@@ -266,9 +266,11 @@ const UpdateTeacher: React.FC = () => {
       hourlyRate: teacher?.hourlyRate,
       level: teacher?.level,
       schedules: teacher?.schedules?.map((item: any) => ({
+        ...item,
         startDate: item.startDate,
         endDate: item.endDate,
         shifts: item?.shifts?.map((i: any) => ({
+          ...i,
           day: i.day,
           startTime: i.startTime,
           endTime: i.endTime,
@@ -285,42 +287,33 @@ const UpdateTeacher: React.FC = () => {
       portfolioUrl: teacher?.portfolioUrl,
     }));
   }, [teacher]);
-
-  console.log(nextformData, "message");
+  useEffect(() => {
+    // Assume teacher data is fetched and contains a schedules array
+    if (teacher) {
+      setFormData((prevState) => ({
+        ...prevState,
+        schedules: teacher?.schedules?.map((schedule:any) => ({
+          ...schedule,
+          shifts: schedule?.shifts?.map((shift:any) => ({ ...shift }))
+        }))
+      }));
+    }
+  }, [teacher]);
+  
+  console.log(formData, "message");
+  function formatDate(dateString:any, addDays = 0) {
+    const date = new Date(dateString);
+    date.setDate(date.getDate() + addDays); // Add days to the date
+    return date.toISOString().split('T')[0];
+}
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const onfitmData = selectedTimeSlots.map((timeSlot) => {
-      const [timeRange, , date] = timeSlot.split(" on ");
-      const [startTime, endTime] = timeRange.split(" to ");
-      const day = timeSlot.split("on ")[1].split(" -")[0].trim();
 
-      const endDates = new Date(selectedWeekStart!);
-      endDates.setDate(selectedWeekStart!.getDate() + 7); // Add 7 days to the selectedWeekStart
-
-      const newEndDate = endDates.toISOString().split("T")[0];
-      const formatedDate = new Date(selectedWeekStart!);
-      formatedDate.setMinutes(
-        formatedDate.getMinutes() - formatedDate.getTimezoneOffset()
-      );
-      const formattedDate = formatedDate.toISOString().split("T")[0];
-
-      return {
-        startDate: formattedDate,
-        endDate: newEndDate,
-        shifts: [
-          {
-            day,
-            startTime,
-            endTime,
-          },
-        ],
-      };
-    });
 
     const payload = {
       ...formData,
       // ...nextformData,
-      schedules: onfitmData,
+      schedules: formData?.schedules,
     };
 
     try {
@@ -342,9 +335,9 @@ const UpdateTeacher: React.FC = () => {
             }
           );
 
-          if (response.status === 200) {
             toast.success("Post Updated Successfully");
-          }
+            // handleTeacher(response.data.teacher)
+            location.reload();
         } catch (error) {
           console.error("Error updating event media:");
           toast.error("Failed to update event media. Please try again later.");
@@ -352,6 +345,8 @@ const UpdateTeacher: React.FC = () => {
       }
     } catch (error) {
       toast.error("Teacher Already Created");
+    }finally{
+      setIsLoading(false);
     }
   };
 
@@ -428,8 +423,8 @@ const UpdateTeacher: React.FC = () => {
     };
 
     const newSchedule = {
-      startDate: selectedWeekStart?.toISOString() || "",
-      endDate: selectedWeekStart?.toISOString() || "",
+      startDate: formatDate(selectedWeekStart)|| "",
+      endDate: formatDate(selectedWeekStart, 7) || "",
       shifts: [newShift],
     };
 
@@ -456,6 +451,7 @@ const UpdateTeacher: React.FC = () => {
       const dateRange:any = `${schedule.startDate}-${schedule.endDate}`;
       if (!grouped[dateRange]) {
         grouped[dateRange] = {
+          id: schedule.id,
           startDate:schedule.startDate,
           endDate: schedule.endDate,
           shifts: []
@@ -469,7 +465,7 @@ const UpdateTeacher: React.FC = () => {
   const groupedSchedules = groupByDateRange(teacher?.schedules || []);
 
   return (
-    <div className="py-8 mx-4 xl:mx-0 ">
+    isLoading ? "Loading" : <div className="py-8 mx-4 xl:mx-0 ">
       <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
@@ -720,16 +716,16 @@ const UpdateTeacher: React.FC = () => {
           )}
         </div>
         <div className="">
-        <h3>Your Previous Schedules</h3>
+        <h3>{t("Your Previous Schedules")}</h3>
           <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
             
             {groupedSchedules?.map((schedule: any, index: any) => (
               <>
-                <div key={index} className="snap-start bg-white shadow-lg rounded-lg p-4 w-[240px]">
+                <div key={index} className="snap-start bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] rounded-lg p-4 w-[260px] ">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-bold">{schedule.startDate} - {schedule.endDate}</h2>
                     <button
-                      onClick={() => handleScheduleDelete(schedule.id)}
+                      onClick={() => handleScheduleDelete(schedule?.id)}
                       className="bg-transparent hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
                       <TrashIcon
@@ -739,17 +735,20 @@ const UpdateTeacher: React.FC = () => {
                       />
                     </button>
                   </div>
+                  <div className="h-[240px] overflow-y-auto">
                   {schedule.shifts?.map((shift: any, shiftIndex: any) => (
-                    <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2">
+                    <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
                       <span className="font-medium text-sm">{shift.day} {shift.startTime} - {shift.endTime}</span>
                       <button
                         onClick={() => handleShiftDelete(shift.id)}
-                        className="bg-red hover:bg-red-700 text-white font-bold py-1 px-2 rounded cursor-pointer"
+                        className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
                       >
-                        Remove
+                        {t("REMOVE")}
                       </button>
                     </div>
                   ))}
+                  </div>
+                 
                 </div>
 
 

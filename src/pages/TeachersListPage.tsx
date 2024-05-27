@@ -28,7 +28,7 @@ const TeachersListPage: React.FC = () => {
                 key={teacher.id}  // Prefer using unique ID over index for keys if possible
                 firstName={teacher.firstName}
                 lastName={teacher.lastName}
-                imgUrl={teacher.imageUrl || "/img/user-06.png"}
+                imgUrl={teacher.profileImage || teacher.imageUrl }
                 location={teacher.location}
                 rating={teacher.rating}
                 aboutMyself={teacher.aboutMyself}

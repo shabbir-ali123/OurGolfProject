@@ -142,15 +142,18 @@ export const TeacherDetailsContext = ({ children }: any) => {
   const [shiftId, setShiftId] = useState<any>(null);
   const [scheduleId, setScheduleId] = useState<any>(null);
 
+  console.log(scheduleId, "adsasd")
   useEffect(() => {
     if (teacherId !== "null") {
       fetchSingleTeacher(handleTeacher, teacherId);
     }
     if(shiftId !== null){
         deleteShiftById(shiftId, setIsLoading);
+        fetchSingleTeacher(handleTeacher, teacherId);
     }
     if(scheduleId !== null){
         deleteScheduleById(scheduleId, setIsLoading);
+        fetchSingleTeacher(handleTeacher, teacherId);
     }
   }, [teacherId, shiftId, scheduleId, isLoading]);
 
@@ -194,7 +197,9 @@ export const TeacherDetailsContext = ({ children }: any) => {
     isLoading,
     bookedAppointments,
     handleShiftDelete,
-    handleScheduleDelete
+    handleScheduleDelete,
+    setIsLoading,
+    handleTeacher
   };
 
   return (
