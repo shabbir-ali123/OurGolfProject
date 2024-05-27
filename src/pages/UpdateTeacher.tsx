@@ -719,8 +719,10 @@ const UpdateTeacher: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="flex">
+        <div className="">
+        <h3>Your Previous Schedules</h3>
           <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
+            
             {groupedSchedules?.map((schedule: any, index: any) => (
               <>
                 <div key={index} className="snap-start bg-white shadow-lg rounded-lg p-4 w-[240px]">
@@ -733,7 +735,7 @@ const UpdateTeacher: React.FC = () => {
                       <TrashIcon
                         className="h-[16px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
                         onClick={() => setShowMediaUrl(!showMediaUrl)}
-                        data-tooltip-id="upload-url-tooltip"
+                       
                       />
                     </button>
                   </div>

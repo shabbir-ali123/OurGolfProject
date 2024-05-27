@@ -143,11 +143,11 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
     
   };
   const levelOptions: readonly any[] = [
-    { value: "entry", label: "Entry" },
-    { value: "beginner", label: "Beginner" },
-    { value: "intermediate", label: "Intermediate" },
-    { value: "advanced", label: "Advanced" },
-    { value: "taskgolf", label: "TASKGOLF Amateur Ambassador" },
+    { value: t('ENTRY'), label: t('ENTRY') },
+    { value: t('Beginner'), label: t('Beginner')},
+    { value: t('INTERMEDIATE'), label: t('INTERMEDIATE') },
+    { value: t('ADVANCED'), label: t('ADVANCED') },
+    { value: t('AMBASSADOR'), label: t('AMBASSADOR') },
   ];
   
   if (variant == "levelDropdown") {
