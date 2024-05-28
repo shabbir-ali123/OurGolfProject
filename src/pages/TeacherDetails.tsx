@@ -85,7 +85,9 @@ const TeacherDetails: React.FC = () => {
                         <div className="flex flex-col">
 
                         <h3>{item.title}</h3>
-                        <p>{item.description}</p>
+                        <p>YUN {item.price}</p>
+                        <button>See More</button>
+                        <button>Chat</button>
                         </div>
                       </div>
                     </div>

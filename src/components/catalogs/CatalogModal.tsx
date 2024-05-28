@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "react-quill/dist/quill.snow.css";
 import { API_ENDPOINTS } from "../../appConfig";
+import { toast } from "react-toastify";
 interface CreateCatalogType {
   title: string;
   description: string;
@@ -19,13 +20,16 @@ const CatalogModal: React.FC<any> = () => {
   const [formData, setFormData] = useState<CreateCatalogType>({
     title: "",
     description: "",
-    mediaFiles: FileList,
+    mediaFiles: null,
     price: "",
   });
 
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const handleReset = () => {
+    setFormData(formData);
+  };
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
@@ -54,8 +58,8 @@ const CatalogModal: React.FC<any> = () => {
 
     const isTextEmpty =
       !formData.title || !formData.title.replace(/<(.|\n)*?>/g, "").trim();
-    if (isTextEmpty && formData.mediaFiles.length === 0) {
-      alert(t("Please add some text or an image/video before posting."));
+    if (isTextEmpty && formData?.mediaFiles?.length === 0) {
+      toast.error(t("Please add some text or an image/video before posting."));
       return;
     }
 
@@ -66,7 +70,7 @@ const CatalogModal: React.FC<any> = () => {
     if (formData.mediaFiles) {
       // Append each file in the mediaFiles array to formDataToSend
       for (let i = 0; i < formData.mediaFiles.length; i++) {
-        formDataToSend.append("mediaFiles", formData.mediaFiles[i]);
+        formDataToSend.append("mediaFiles[]", formData.mediaFiles[i]);
       }
     }
     formDataToSend.append("price", formData.price);
@@ -81,10 +85,28 @@ const CatalogModal: React.FC<any> = () => {
         },
       }
     );
+    if( response.status === 201){
+      toast.success(response.data.message);
+      handleReset();
+    }else{
+      toast.error(response.data.error);
+    }
+    
   }
-  catch (error) {
-    console.log(error)
+  catch (error:any) {
+    if (error.response) {
+   
+      toast.error(error.response.data.error || 'An error occurred.');
+    } else if (error.request) {
+      toast.error('No response received from the server.');
+    } else {
+      toast.error('Error setting up the request.');
+    }
+  } finally {
+    setLoading(false);
   }
+
+
     setFormData({
       title: "",
       description: "",
@@ -96,7 +118,7 @@ const CatalogModal: React.FC<any> = () => {
     setLoading(false);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevFormData: any) => ({
       ...prevFormData,
@@ -131,7 +153,7 @@ const CatalogModal: React.FC<any> = () => {
           </div>{" "}
           <div className="pr-3 mx-3">
             <label htmlFor="">{t("Gig_Description")}</label> <br />
-            <input
+            <textarea
               className="w-full mt-2 p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder={t("Gig_Description")}
               name="description"
@@ -140,11 +162,12 @@ const CatalogModal: React.FC<any> = () => {
             />
           </div>
           <div className="pr-3 mx-3">
-            <label htmlFor="">{t("Gig_Price")}</label> <br />
+            <label htmlFor="">{t("Gig_Price")}(Yun)</label> <br />
             <input
               className="w-full mt-2 p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder={t("Gig_Price")}
               name="price"
+              type="number"
               onChange={handleInputChange}
               required
             />
@@ -152,7 +175,7 @@ const CatalogModal: React.FC<any> = () => {
           <div className="mx-2 w-full">
             <label className="block text-gray-700">{t("ADD_VIDEOS")}</label>
             <div className="flex flex-wrap  gap-4 mt-2  ">
-              {selectedFiles.map((file, index) => (
+              {selectedFiles?.map((file, index) => (
                 <div key={index} className="relative ">
                   <img
                     src={URL.createObjectURL(file)}
@@ -198,7 +221,7 @@ const CatalogModal: React.FC<any> = () => {
             className="w-full bg-[#45e07d] cursor-pointer  text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all mt-10"
             disabled={
               isLoading ||
-              (!formData.title.trim() && formData.mediaFiles.length === 0)
+              (!formData.title.trim() && formData?.mediaFiles?.length === 0)
             }
             type="submit"
             onClick={(e) => handleCreate(e)}
