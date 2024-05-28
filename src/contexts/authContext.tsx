@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import { fetchUserPosts } from "../utils/fetchPosts";
+import { fetchUserEvents } from "../utils/fetchEvents";
 
 const UserAuthContext = React.createContext<any>({});
 
@@ -11,7 +12,7 @@ export const AuthContext = ({ children }: any) => {
   const [user, setUser] = useState<any>("");
 
   const [message, setMessage] = useState<string>();
-  const [chatUser, setChatUser] = useState<string>('4');
+  const [chatUser, setChatUser] = useState<string>("4");
   const navigate = useNavigate();
   const [userFormData, setUserFormData] = useState({
     nickName: "",
@@ -22,7 +23,6 @@ export const AuthContext = ({ children }: any) => {
   });
   useEffect(() => {
     getUser(setUser, navigate);
-   
   }, [message]);
 
   useEffect(() => {
@@ -92,8 +92,6 @@ export const AuthContext = ({ children }: any) => {
     }
   };
 
- 
-
   const value = {
     handleUser,
     handleUpdateUser,
@@ -106,15 +104,12 @@ export const AuthContext = ({ children }: any) => {
   };
   return (
     <UserAuthContext.Provider value={value}>
-      {" "}
       {children}
     </UserAuthContext.Provider>
   );
 };
 
 export const userAuthContext = () => React.useContext(UserAuthContext);
-
-
 
 const SingleUserContext = React.createContext<any>({});
 
@@ -124,22 +119,22 @@ export const UserContext = ({ children }: any) => {
 
   const [singleUser, setSingleUser] = useState<any>("");
   const [postCount, setPostsCount] = useState<any>("");
-  
-  console.log(singleUser)
-  useEffect(() => {
-      getSingleUser(setSingleUser, userId);
-      fetchUserPosts(userId, setPostsCount);
+  const [eventCount, setEventsCount] = useState<any>("");
 
+  console.log(eventCount,"asdsda");
+  useEffect(() => {
+    getSingleUser(setSingleUser, userId);
+    fetchUserPosts(userId, setPostsCount);
+    fetchUserEvents(userId,  setEventsCount,"", "")
   }, [userId]);
 
-  
-
   const value = {
-    singleUser,postCount
+    singleUser,
+    postCount,
+    eventCount
   };
   return (
     <SingleUserContext.Provider value={value}>
-      {" "}
       {children}
     </SingleUserContext.Provider>
   );

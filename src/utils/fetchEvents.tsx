@@ -379,3 +379,37 @@ export const updateEventMedia = async ( formData:any, setMessage:any ) => {
   }
 };
 
+export const fetchUserEvents = async (userId:any, setEventsCount: any, setEvents: any,queryParams: any) => {
+  const userToken = localStorage.getItem("token");
+
+  const { store_token=userToken, currentPage='1', locations, startDate, endDate, pageSize='6000', eventStatus } = queryParams;
+
+  try {
+    const headers: any = {
+     
+    }; 
+    if (store_token) {
+      headers["Authorization"] = `Bearer ${userToken || userToken}`;
+
+    }
+
+    const response = await axios.get(userToken ? API_ENDPOINTS.GETUSEREVENTS + userId : API_ENDPOINTS.PUBLICEVENTS, {
+      headers,
+      params: {
+        page: 1,
+        pageSize: 6000,
+        // eventStartDate: startDate ? formatDate(startDate) : "",
+        // eventEndDate: endDate ? formatDate(endDate) : "",
+        // status: eventStatus,
+        // place: locations[0]
+      },
+    });
+
+    setEventsCount(response.data.count);
+    setEvents(response.data.events);
+
+    
+
+  } catch (error) {
+  }
+};

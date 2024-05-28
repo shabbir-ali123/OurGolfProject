@@ -71,7 +71,6 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
     event.eventName.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(checkedJoined);
   const handleFavoriteClick = async (eventId: string) => {
     try {
       const token = localStorage.getItem("token");

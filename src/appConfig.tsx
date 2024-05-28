@@ -16,6 +16,7 @@ export const API_ENDPOINTS = {
   GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
   UPDATEUSER: `${API_BASE_URL}/${API_VERSION}/update-profile`,
   ALLUSERS: `${API_BASE_URL}/${API_VERSION}/get-total-users`,
+  GETUSEREVENTS: `${API_BASE_URL}/${API_VERSION}/get-user-all-events/`,
 
   //event
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,

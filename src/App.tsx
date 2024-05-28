@@ -271,6 +271,8 @@ function App() {
         <SideIconMenu />
         <Routes>
           <Route path="/event-main-page" element={<EventMainPage />} index />
+          <Route path="/event-main-page/:userId" element={<EventMainPage />} index />
+
           <Route
             path="/ongoing-indiviual-score"
             element={token ? <OngoingIndiviualScore /> : <LoginPage />}
@@ -329,7 +331,6 @@ function App() {
             path="/student-page"
             element={
               <TeacherContext>
-                {" "}
                 <StudentPage />{" "}
               </TeacherContext>
             }
@@ -362,8 +363,7 @@ function App() {
             path="/user-page/:id"
             element={
               <UserContext>
-                {" "}
-                <UserPage />{" "}
+                <UserPage />
               </UserContext>
             }
           />

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { singleUserContext } from "../contexts/authContext";
 
 import { postContext } from "../contexts/postsContext";
-import { createdEventsStore } from "../contexts/eventContext";
+import { createdEventsStore, eventContextStore } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
 import UpdateTeacher from "./UpdateTeacher";
 import PostPage from "./PostPage";
@@ -13,8 +13,8 @@ const UserProfile = () => {
 
   const router = useNavigate();
 
-  const { singleUser, postCount} = singleUserContext();
-  const {  handleCategory } = postContext();
+  const { singleUser, postCount, eventCount} = singleUserContext();
+  const {  setUserId } = eventContextStore();
   const [showPosts, setShowPosts] = useState(false);
   const { createdEvents } = createdEventsStore();
 
@@ -82,9 +82,13 @@ const UserProfile = () => {
                 </span>
                 <span className="text-sm">{t("POSTS")}</span>
               </div>
-              <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row cursor-pointer" >
+              <div
+              onClick={()=>{
+                router('/event-main-page/'+singleUser.id)
+              }}
+              className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row cursor-pointer" >
                 <span className="font-semibold text-black dark:text-white">
-                  {/* {createdEvents.length} */}
+                  {eventCount || 0}
                 </span>
                 <span className="text-sm">Total Events</span>
               </div>

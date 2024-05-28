@@ -4,7 +4,7 @@ import SideIconMenu from "../components/SideIconMenu";
 import { Clip } from "../components/Clip";
 import Tabs from "../components/Tabs";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
@@ -23,12 +23,19 @@ const EventMainPage: FunctionComponent = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<any[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
-  const { handleLocationFilter, clearFilter, handleSearch } = eventContextStore();
+  const { handleLocationFilter, clearFilter,  } = eventContextStore();
+
+
+
+
+
   useEffect(() => {
     handleLocationFilter(selectedLocations);
     if (clearFilter) {
       handleLocationFilter([])
     }
+ 
+
   }, [selectedLocations, clearFilter]);
 
   const handleTabChange = (tab: string) => {

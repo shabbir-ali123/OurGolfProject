@@ -5,7 +5,7 @@ import Pagination from "../components/Pagination";
 import EventMap from "../components/EventMap";
 import Table from "../components/Table";
 import { eventContextStore } from "../contexts/eventContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Event {
   id: string;
@@ -51,22 +51,29 @@ const AllEvents: React.FC<AllEventsProps> = ({
   const currentEvents = localEvents.slice(indexOfFirstEvent, indexOfLastEvent);
   const router = useNavigate();
 
-  const { eventsCount, handlePageChange,pageSize, handlePageSize,handleStartDate,handleEndDate, handleEventStatus } = eventContextStore();
+  const { eventsCount, handlePageChange,pageSize, handlePageSize,handleStartDate,handleEndDate, handleEventStatus, handleUserId } = eventContextStore();
   const totalPages = Math.ceil(eventsCount / pageSize); 
   let onPageChange = (pageNumber: any) => {
     setCurrentPage(pageNumber); 
     handlePageChange(pageNumber); 
   };
-  handleEventStatus('All');
+  const params = useParams<{ userId: string }>();
+  const userId = params.userId;
 
+  if(userId){
+    handleEventStatus("userpage")
+    handleUserId(userId);
+  }else{
+    handleEventStatus('All');
+  }
   useEffect(() => {
     handleEventStatus('All');
     handleStartDate('')
     handleEndDate('')
     handlePageChange(1)
-    
+   
   }, []);
-
+ 
   return (
     <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4">
       <div className="col-span-1 lg:col-span-3">
