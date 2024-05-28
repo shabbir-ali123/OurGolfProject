@@ -19,7 +19,7 @@ const ChampionShipName: FunctionComponent = () => {
             <div className="relative w-[170px] h-[29px]">
               <div className="absolute top-[0px] left-[0px] rounded-8xs bg-seagreen-200 w-[170px] h-[29px]" />
               <div className="absolute top-[3px] left-[9px] leading-[28px]">
-                {singleEvent?.eventType || t('EVENT_DETAILS')}
+                {singleEvent?.eventType || t('EVENT_DETAILS')} 
               </div>
             </div>
             <div className="relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-21xl  leading-[30px] font-semibold text-black">

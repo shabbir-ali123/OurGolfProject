@@ -79,7 +79,7 @@ const RecommendedTeachers: React.FC = () => {
            
             <Slider {...settings} className='mx-2 xl:mx-20'>
             {displayedTeachers.map((teacher:any, index:any) => (
-                <HomeTeacher key={index} imageUrl={teacher.imageUrl} name={teacher.firstName} description={teacher.aboutMyself} />
+                <HomeTeacher key={index} imageUrl={teacher?.imageUrl} id={teacher?.id} name={teacher?.firstName} description={teacher?.aboutMyself} />
             ))}
                 </Slider>
             </div>

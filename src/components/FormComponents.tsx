@@ -143,11 +143,11 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
     
   };
   const levelOptions: readonly any[] = [
-    { value: "entry", label: "Entry" },
-    { value: "beginner", label: "Beginner" },
-    { value: "intermediate", label: "Intermediate" },
-    { value: "advanced", label: "Advanced" },
-    { value: "taskgolf", label: "TASKGOLF Amateur Ambassador" },
+    { value: t('ENTRY'), label: t('ENTRY') },
+    { value: t('Beginner'), label: t('Beginner')},
+    { value: t('INTERMEDIATE'), label: t('INTERMEDIATE') },
+    { value: t('ADVANCED'), label: t('ADVANCED') },
+    { value: t('AMBASSADOR'), label: t('AMBASSADOR') },
   ];
   
   if (variant == "levelDropdown") {
@@ -156,6 +156,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
       <Select
         name="level"
         required
+        placeholder={value}
         onChange={handleLevelChange}
         options={levelOptions}
         className="w-full text-base border text-black border-gray-300 rounded  hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -228,6 +229,7 @@ const InputWithIcon: React.FC<InputWithIconProps> = ({
         ) : variant === "dropdown" ? (
           <Select
             name="place"
+            placeholder={value}
             required
             options={
               JapanCities as OptionsOrGroups<OptionType, GroupBase<OptionType>>

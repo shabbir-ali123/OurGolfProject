@@ -20,6 +20,8 @@ interface UserProfileProps {
   about?: string;
   lastName?: string;
   profileImage?: any;
+  imageUrl?:any;
+  level?:any;
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({
@@ -33,6 +35,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
   about,
   lastName,
   profileImage,
+  imageUrl,
+  level
 }) => {
   const { t, i18n } = useTranslation();
   return (
@@ -42,7 +46,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
           <div className="text-center">
             <img
               className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full"
-              src={profileImage}
+              src={profileImage || imageUrl}
               alt="Profile"
             />
             <div className="mt-4">
@@ -113,6 +117,18 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 </div>
                 <p className="text-sm text-white m-0 pl-[calc(1rem+1.5rem)]">
                   {rating}/{ratingCount} {t("RATING")}
+                </p>
+              </div>
+              <div className="">
+                <div className="flex gap-2 items-center">
+                  <StarIcon
+                    className="w-4 h-4 text-white border-[1px] border-white border-solid rounded-full p-1"
+                    aria-hidden="true"
+                  />
+                  <p className="m-0">{t("LEVEL")}</p>
+                </div>
+                <p className="text-sm text-white m-0 pl-[calc(1rem+1.5rem)]">
+                {level}
                 </p>
               </div>
             </div>
