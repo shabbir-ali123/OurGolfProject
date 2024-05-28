@@ -8,6 +8,7 @@ import UpdateTeacher from "./UpdateTeacher";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { Transition } from "@headlessui/react";
 import ReviewsModal from "../components/comments/ReviewsModal";
+import { gigsContextStore } from "../contexts/gigsContext";
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -15,6 +16,8 @@ const Profile = () => {
   const { post, handleCategory } = postContext();
   const { createdEvents } = createdEventsStore();
   const { studentAppointments, isLoading } = useTeacherContext();
+  const { teacher } = useTeacherContext();
+
   console.log(studentAppointments);
   const router = useNavigate();
   const formatDate = (dateString: string): string => {
@@ -32,6 +35,7 @@ const Profile = () => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [openEditTeacher, setEditTeacher] = useState(false);
+  const {gigs, handleTeacherId} = gigsContextStore();
 
   useEffect(() => {
     const tch = localStorage.getItem("teacher_id");
@@ -41,7 +45,8 @@ const Profile = () => {
   const handleClick = () => {
     setEditTeacher(!openEditTeacher);
   };
-
+ 
+  handleTeacherId(tId);
 
   return (
     <>
@@ -246,6 +251,54 @@ const Profile = () => {
                 <span className="text-sm">{t("CREATED_EVENTS")}</span>
               </div>
             </div>
+            <div className="my-8">
+            <h2 className="text-xl font-semibold mb-4">Gigs:</h2>
+
+              <div className="  xl:flex gap-6">
+                {gigs ? (
+                  gigs.gigs?.map((item: any) => (
+                    <div className=" xl:w-auto mb-4  xl:mb-0 p-2 space-y-4 text-white border border-yellow-400 rounded-lg bg-white lg:py-8 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12" style={{
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+                    
+                    }}>
+                      <div className=" gap-4 items-center text-black">
+                        {/* <div className="flex justify-end">
+                        <TrashIcon
+                        className="h-[16px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                        
+                       
+                      />
+                        </div> */}
+                     
+                        <img className="w-[150px] h-[150px]" src={item?.imageUrl || item?.videoPortfolioVisible} alt="" />
+                        <div className="flex flex-col">
+
+                        <h3>{item.title}</h3>
+                        <p>Price {item.price} ¥ </p>
+                        <button className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white">See More</button>
+                        <Link to="/message-page" className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white">Chat</Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    <h2>
+                    {t("OPPS")}
+                      <span className="text-[#17b3a6]">GIGS!SS</span>
+                    </h2>
+                    <button
+                      className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
+                      onClick={() => router(`/create-catalogs/${teacher?.id}`)}
+                    >
+                      Create GIG
+                    </button>
+                  </>
+                )}
+              </div>
+           
+          </div>
             <div className="text-center md:mt-20 sm:mt-0">
               <p className="font-bold">
                 {t("MEMBERS_SINCE")} : {formatDate(user.createdAt)}

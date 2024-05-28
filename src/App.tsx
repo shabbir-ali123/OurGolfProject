@@ -70,6 +70,7 @@ import AllStripeSessions from "./components/payment/PaymentForm";
 import Coupons from "./pages/Coupons";
 import CompletedEvents from "./pages/CompletedEvents";
 import StudentActivitiesNew from "./components/StudentActivitiesNew";
+import GigDetails from "./components/GigDetails";
 // import StudentActivitiesPage from "./components/StudentActivitiesPage";
 
 function App() {
@@ -259,7 +260,7 @@ function App() {
     const checkTeacher = tch && tch !== "null" ? true : false;
     setIsTeacher(checkTeacher);
   });
-  
+
   if (token === "undefined") {
     token = false;
   }
@@ -493,7 +494,10 @@ function App() {
                 <PostContext>
                   <CreatedEventContext>
                     <TeacherDetailsContext>
-                      <ProfilePage />
+                      <TeacherGigsProvider>
+                        <ProfilePage />
+
+                      </TeacherGigsProvider>
                     </TeacherDetailsContext>
                   </CreatedEventContext>
                 </PostContext>
@@ -520,6 +524,16 @@ function App() {
               <TeacherDetailsContext>
                 <TeacherGigsProvider>
                   <TeacherDetails />
+                </TeacherGigsProvider>
+              </TeacherDetailsContext>
+            }
+          />
+          <Route
+            path="/gig/:id"
+            element={
+              <TeacherDetailsContext>
+                <TeacherGigsProvider>
+                  <GigDetails />
                 </TeacherGigsProvider>
               </TeacherDetailsContext>
             }

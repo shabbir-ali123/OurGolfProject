@@ -8,8 +8,10 @@ import { useTeacherContext } from "../contexts/teachersContext";
 import VideoPortfolio from "../components/TeacherPortfolio";
 import { useTranslation } from "react-i18next";
 import CommentModel from "../components/CommentModel";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { gigsContextStore, TeacherGigsProvider } from "../contexts/gigsContext";
+import { TrashIcon } from "@heroicons/react/24/solid";
+
 const TeacherDetails: React.FC = () => {
   const router = useNavigate();
   const tId = localStorage.getItem("teacher_id");
@@ -29,7 +31,7 @@ const TeacherDetails: React.FC = () => {
 
  
 
-  console.log(teacher?.id, "sds");
+  console.log(gigs, "sds");
   return (
     <div className="mx-4 md:mx-20">
       <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
@@ -75,19 +77,27 @@ const TeacherDetails: React.FC = () => {
           <div className="my-8">
             <h2 className="text-xl font-semibold mb-4">Gigs:</h2>
 
-            {tId == teacher?.id ? (
-              <div className="flex flex-col">
-                {gigs ? (
+            {tId !== teacher?.id ? (
+              <div className="  xl:flex gap-6">
+                {gigs.gigs  ? (
                   gigs.gigs?.map((item: any) => (
-                    <div className="flex mb-2 flex-col w-full p-2 space-y-4 text-white border border-yellow-400 rounded-lg bg-[#2dd4bf] lg:py-8 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12">
-                      <div className="flex gap-4 items-center">
-                        <img className="h-[40px] w-[40px]" src={item?.imageUrl} alt="" />
+                    <div className=" xl:w-auto mb-4  xl:mb-0 p-2 space-y-4 text-white border border-yellow-400 rounded-lg bg-white lg:py-8 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12" style={{
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+                    
+                    }}>
+                      <div className=" gap-4 items-center text-black">
+                        <div>
+                          
+                        </div>
+                     
+                        <img className="w-[120px] h-[120px]" src={item?.imageUrl || item?.videoPortfolioVisible} alt="" />
                         <div className="flex flex-col">
 
                         <h3>{item.title}</h3>
-                        <p>YUN {item.price}</p>
-                        <button>See More</button>
-                        <button>Chat</button>
+                        <p>Price {item.price} ¥ </p>
+                        <button className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white">See More</button>
+                        <Link to="/message-page" className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white">Chat</Link>
                         </div>
                       </div>
                     </div>
