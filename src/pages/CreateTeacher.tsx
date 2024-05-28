@@ -524,7 +524,7 @@ const CreateTeacher: React.FC = () => {
                 <textarea
                   onChange={handleChange}
                   name="aboutMyself"
-                  className="resize-none leading-8 text-[#e5e7eb] w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
+                  className="resize-none leading-8 text-black w-[90%] mr-4 rounded-lg border-2 border-[#e5e7eb] border-solid"
                   placeholder={t("BIO")}
                 ></textarea>
               </div>

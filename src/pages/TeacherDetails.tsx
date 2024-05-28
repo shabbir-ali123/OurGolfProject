@@ -27,15 +27,13 @@ const TeacherDetails: React.FC = () => {
   const slots = shifts?.flatMap((item: any) => item);
   const { t } = useTranslation();
 
-  // useEffect(() => {
-  //   handleTeacherId(teacher?.id);
-  // }, [teacher])
+ 
 
   console.log(teacher?.id, "sds");
   return (
     <div className="mx-4 md:mx-20">
       <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
-        {/* TeacherSlots component - order changes based on screen size */}
+   
         <div className="col-span-1 md:col-span-4 order-last md:order-first">
           <TeacherSlotss
             slots={slots}
