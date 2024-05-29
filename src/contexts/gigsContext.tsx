@@ -12,6 +12,7 @@ export const TeacherGigsProvider = ({ children }: any) => {
 
     const [TeacherId, setTeacherId] = useState<any>(null);
     const [gigs, setGigs] = useState<any[]>([]);
+    const [isLoading, setIsLoading]= useState<any>(null);
 
     useEffect(() => {
 
@@ -21,6 +22,7 @@ export const TeacherGigsProvider = ({ children }: any) => {
             fetchGigsById(setGigs, TeacherId)
 
         }
+        
     }, [TeacherId, teacherId]);
 
     const handleTeacherId = useCallback(
@@ -29,7 +31,7 @@ export const TeacherGigsProvider = ({ children }: any) => {
         },
         [TeacherId]
       );
-    const value = { gigs, handleTeacherId }
+    const value = { gigs,isLoading, setIsLoading, handleTeacherId }
 
     console.log(gigs, 'cd')
     return <TeacherGigsContext.Provider value={value}> {children}</TeacherGigsContext.Provider>

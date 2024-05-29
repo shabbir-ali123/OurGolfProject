@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
 import { SlotsCalender } from "../components/calender/SlotsCalender";
+import { useNavigate } from "react-router-dom";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -73,6 +74,8 @@ const CreateTeacher: React.FC = () => {
       },
     ],
   });
+  const router = useNavigate();
+
   const [nextformData, setNextFormData] = useState<UpdatePostType>({
     firstName: "adsfasdf",
     profileImage: null,
@@ -300,9 +303,10 @@ const CreateTeacher: React.FC = () => {
             },
           });
     
-          if (response.status === 200) {
-            toast.success("Post Updated Successfully");
-          }
+            toast.success("Your teacher Account Created Successfully");
+            localStorage.setItem("teacher_id", response.data.teacher.id);
+            router('/profile-page');
+          
         } catch (error) {
           console.error("Error updating event media:");
           toast.error("Failed to update event media. Please try again later.");

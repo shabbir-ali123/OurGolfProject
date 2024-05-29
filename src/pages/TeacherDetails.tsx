@@ -29,13 +29,13 @@ const TeacherDetails: React.FC = () => {
   const slots = shifts?.flatMap((item: any) => item);
   const { t } = useTranslation();
 
- 
+
 
   console.log(gigs, "sds");
   return (
     <div className="mx-4 md:mx-20">
       <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
-   
+
         <div className="col-span-1 md:col-span-4 order-last md:order-first">
           <TeacherSlotss
             slots={slots}
@@ -58,16 +58,16 @@ const TeacherDetails: React.FC = () => {
                 {t("MAIN_VIDEO")}
               </h3>
               <div className="relative flex justify-center items-center bg-gray-200 p-4 rounded-lg shadow-md overflow-hidden">
-              
-         
-                  <video
-                    className="rounded-lg w-full h-[260px]"
-                    src={teacher.introductionVideo}
-                    title="Introduction Video"
-                    width={260}
-                    controls
-                  ></video>
-                
+
+
+                <video
+                  className="rounded-lg w-full h-[260px]"
+                  src={teacher.introductionVideo}
+                  title="Introduction Video"
+                  width={260}
+                  controls
+                ></video>
+
               </div>
             </div>
           </div>
@@ -75,54 +75,55 @@ const TeacherDetails: React.FC = () => {
             <VideoPortfolio />
           </div>
           <div className="my-8">
-            <h2 className="text-xl font-semibold mb-4">Gigs:</h2>
+            <h2 className="text-xl text-start font-semibold mb-4">Gigs:</h2>
 
-            {tId !== teacher?.id ? (
-              <div className="  xl:flex gap-6">
-                {gigs.gigs  ? (
+            {tId != teacher?.id ? (
+              <div className="  xl:flex gap-4">
+                {gigs.gigs?.length != 0 ? (
                   gigs.gigs?.map((item: any) => (
                     <div className=" xl:w-auto mb-4  xl:mb-0 p-2 space-y-4 text-white border border-yellow-400 rounded-lg bg-white lg:py-8 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12" style={{
                       boxShadow:
                         "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
-                    
+
                     }}>
                       <div className=" gap-4 items-center text-black">
                         <div>
-                          
+
                         </div>
-                     
-                        <img className="w-[120px] h-[120px]" src={item?.imageUrl || item?.videoPortfolioVisible} alt="" />
+
+                        <img className="w-[120px] h-[120px] rounded border-2 border-solid border-[#2dd4bf]" src={item?.imageUrl || teacher?.profileImage} alt="" />
                         <div className="flex flex-col">
 
-                        <h3>{item.title}</h3>
-                        <p>Price {item.price} ¥ </p>
-                        <button className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white">See More</button>
-                        <Link to="/message-page" className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white">Chat</Link>
+                          <h3>{item.title}</h3>
+                          <p>Price {item.price} ¥ </p>
+                          <button className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white">See More</button>
+                          <Link to="/message-page" className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white">Chat</Link>
                         </div>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <>
+                  <div className="flex flex-col items-center">
                     <h2>
-                    {t("OPPS")}
-                      <span className="text-[#17b3a6]">GIGS!SS</span>
+                      {t("OPPS")}
                     </h2>
-                    <button
-                      className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
-                      onClick={() => router(`/create-catalogs/${teacher?.id}`)}
-                    >
-                      Create GIG
-                    </button>
-                  </>
+                  </div>
                 )}
               </div>
             ) : (
-              <div className="flex flex-col items-center">
+
+              <>
                 <h2>
-                {t("OPPS")}
+                  {t("OPPS")}
+                  <span className="text-[#17b3a6]">GIGS!SS</span>
                 </h2>
-              </div>
+                <button
+                  className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
+                  onClick={() => router(`/create-catalogs/${teacher?.id}`)}
+                >
+                  Create GIG
+                </button>
+              </>
             )}
           </div>
           <div>
@@ -138,7 +139,7 @@ const TeacherDetails: React.FC = () => {
                         4.9 {t("OVERALL")}
                       </p>
                       <p className="text-base text-gray-600 lg:text-lg">
-                      {t("SERVING")} 3000 {t("STUDENTS_IN_JAPAN")}
+                        {t("SERVING")} 3000 {t("STUDENTS_IN_JAPAN")}
                       </p>
                     </div>
                     <div className="flex space-x-2 text-yellow-400">

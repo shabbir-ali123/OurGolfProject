@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import "react-quill/dist/quill.snow.css";
 import { API_ENDPOINTS } from "../../appConfig";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 interface CreateCatalogType {
   title: string;
   description: string;
@@ -17,6 +18,7 @@ const CatalogModal: React.FC<any> = () => {
   const userId = localStorage.getItem("id");
   const [isLoading, setLoading] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const router = useNavigate()
   const [formData, setFormData] = useState<CreateCatalogType>({
     title: "",
     description: "",
@@ -88,6 +90,8 @@ const CatalogModal: React.FC<any> = () => {
     if( response.status === 201){
       toast.success(response.data.message);
       handleReset();
+      router("/profile-page")
+      
     }else{
       toast.error(response.data.error);
     }
