@@ -71,6 +71,7 @@ import Coupons from "./pages/Coupons";
 import CompletedEvents from "./pages/CompletedEvents";
 import StudentActivitiesNew from "./components/StudentActivitiesNew";
 import GigDetails from "./components/GigDetails";
+import AllGigs from "./components/AllGigs";
 // import StudentActivitiesPage from "./components/StudentActivitiesPage";
 
 function App() {
@@ -230,6 +231,10 @@ function App() {
         title = "";
         metaDescription = "";
         break;
+        case "all-teacher-gigs":
+        title = "";
+        metaDescription = "";
+        break;
     }
 
     if (title) {
@@ -277,6 +282,10 @@ function App() {
           <Route
             path="/ongoing-indiviual-score"
             element={token ? <OngoingIndiviualScore /> : <LoginPage />}
+          />
+          <Route
+            path="/all-teacher-gigs"
+            element={token ? <AllGigs  /> : <LoginPage />}
           />
           <Route
             path="/"
@@ -529,7 +538,7 @@ function App() {
             }
           />
           <Route
-            path="/gig/:id"
+            path="/gig/:gigId"
             element={
               <TeacherDetailsContext>
                 <TeacherGigsProvider>

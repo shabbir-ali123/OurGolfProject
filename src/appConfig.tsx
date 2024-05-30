@@ -58,13 +58,19 @@ export const API_ENDPOINTS = {
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`,
   DECLINEAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/decline-appointment`,
   UPDATETEACHERPROFILE: `${API_BASE_URL}/${API_VERSION}/update-teacher-profile`,
-  ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,
-  GETGIGSBYID: `${API_BASE_URL}/${API_VERSION}/get-gigs-by-teacher/`,
-  GETPUBLICGIGSBYID: `${API_BASE_URL}/${API_VERSION}/get-public-gigs-by-teacher/`,
-  DELETEGIGBYID: `${API_BASE_URL}/${API_VERSION}/delete-gig/`,
   DELETESHIFTSBYID: `${API_BASE_URL}/${API_VERSION}/delete-shift`,
   DELETESCHEDULEBYID: `${API_BASE_URL}/${API_VERSION}/delete-schedule`,
   DELETETEACHER: `${API_BASE_URL}/${API_VERSION}/delete-teacher`,
+
+  // GIGS
+  ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,
+  GETGIGSBYTEACHER: `${API_BASE_URL}/${API_VERSION}/get-gigs-by-teacher/`,
+  GETGIGBYID: `${API_BASE_URL}/${API_VERSION}/get-gig-by-id/`,
+  GETPUBLICGIGBYID: `${API_BASE_URL}/${API_VERSION}/get-public-gig-by-id/`,
+  GETALLTEACHERSGIGS: `${API_BASE_URL}/${API_VERSION}/get-all-teachers-gigs`,
+  GETPUBLICALLTEACHERSGIGS: `${API_BASE_URL}/${API_VERSION}/get-public-all-teachers-gigs`,
+  GETPUBLICGIGSBYTEACHER: `${API_BASE_URL}/${API_VERSION}/get-public-gigs-by-teacher/`,
+  DELETEGIGBYID: `${API_BASE_URL}/${API_VERSION}/delete-gig/`,
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`,
   GETPUBLICTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-public-teams-by-event/`,

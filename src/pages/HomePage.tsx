@@ -8,6 +8,7 @@ import RecommendedPosts from "../components/home/RecommendPosts";
 import { PostContext } from "../contexts/postsContext";
 import { EventsContext } from "../contexts/eventContext";
 import CheckoutForm from "../components/payment/PaymentForm";
+import GigSlider from "../components/GigSlider";
 
 const HomePage: React.FC = () => {
 
@@ -25,7 +26,7 @@ const HomePage: React.FC = () => {
             <EventsContext>
             <RecommendEvent/>
             </EventsContext>
-            
+            <GigSlider/>
             <PostContext>
             <RecommendedPosts/>
             </PostContext>

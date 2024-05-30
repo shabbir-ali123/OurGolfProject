@@ -141,11 +141,15 @@ export const TeacherDetailsContext = ({ children }: any) => {
   const [studentAppointments, setStudentAppointments] = useState<any[]>([]);
   const [shiftId, setShiftId] = useState<any>(null);
   const [scheduleId, setScheduleId] = useState<any>(null);
+  const [tId, setTId] = useState<any>(null);
 
   console.log(scheduleId, "adsasd")
   useEffect(() => {
-    if (teacherId !== "null") {
+    if (teacherId !== "null" ) {
       fetchSingleTeacher(handleTeacher, teacherId);
+    }
+    if ( tId) {
+      fetchSingleTeacher(handleTeacher, tId);
     }
     if(shiftId !== null){
         deleteShiftById(shiftId, setIsLoading);
@@ -188,7 +192,15 @@ export const TeacherDetailsContext = ({ children }: any) => {
     [scheduleId]
   );
 
+  const handTeacherId = useCallback(
+    (value: any) => {
+      setTId(value);
+    },
+    [tId]
+  );
+
   const value = {
+    handTeacherId,
     handleSchedules,
     schedules,
     teacher,

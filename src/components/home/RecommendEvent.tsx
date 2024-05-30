@@ -37,13 +37,36 @@ const RecommendedEvents: React.FC = () => {
             description: "Lorem Ipsum is simply highd dummy text of the print and types text of the erdt and s printing and types. Text of the erdt and s printing and types erdssd"
         }
     ];
-
+    function SampleNextArrow(props:any) {
+      const { className, style, onClick } = props;
+      return (
+        <div
+          className={className}
+          style={{ ...style, display: "block", background: "red" }}
+          onClick={onClick}
+        />
+      );
+    }
+    
+    function SamplePrevArrow(props:any) {
+      const { className, style, onClick } = props;
+      return (
+        <div
+          className={className}
+          style={{ ...style, display: "block", background: "green" }}
+          onClick={onClick}
+        />
+      );
+    }
     const settings = {
         dots: true,
         infinite: false,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToScroll: 1,
+        className: "center",
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
         responsive: [
             {
               breakpoint: 1024,
@@ -86,6 +109,7 @@ const RecommendedEvents: React.FC = () => {
                 {eventss.map((teacher:any, index:any) => (
                     <HomeEventCard key={index} imageUrl={teacher?.imageUrl[0]} id={teacher?.id} name={teacher?.eventName} description={teacher?.eventDetails} />
                 ))}
+                
             </Slider>
         </div>
     );

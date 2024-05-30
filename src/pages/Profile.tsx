@@ -71,7 +71,7 @@ const Profile = () => {
   };
 
   handleTeacherId(tId);
-  
+
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -81,14 +81,15 @@ const Profile = () => {
     deleteGig("", id);
     setGigModalOpen(false);
 
-    handleTeacherId(tId);  }
+    handleTeacherId(tId);
+  }
   return (
     <>
       <div className="max-w-7xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="xl:relative h-35 md:h-65">
           {isTeacher ? (
             <div
-              className="xl:absolute bottom-1 left-1  z-10 sm:bottom-4 sm:right-4 my-2 flex items-center gap-2 justify-center xl:justify-start sm:flex-nowrap items-center"
+              className="xl:absolute bottom-1 left-1  z-10 sm:bottom-4 sm:right-4 my-2 flex items-center gap-2 justify-center xl:justify-start sm:flex-nowrap items-center z-0"
               onClick={handleClick}
             >
               <label
@@ -241,82 +242,107 @@ const Profile = () => {
                 <span className="text-sm">{t("CREATED_EVENTS")}</span>
               </div>
             </div>
-            <div className="my-8">
+            {tId &&
+              <div className="my-8">
 
-              <h2 className="text-xl text-start font-semibold mb-4">Gigs:</h2>
+                <h2 className="text-xl text-start font-semibold mb-4">Gigs:</h2>
 
-              <div className="  xl:flex gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-                {gigs.gigs?.length != 0 ? (
-                  gigs.gigs?.map((item: any) => (
-                    <div className=" xl:w-auto mb-4  xl:mb-0 px-2 py-4 space-y-4 text-white border border-yellow-400 rounded-lg bg-white lg:py-10 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12" style={{
-                      boxShadow:
-                        "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+                  {gigs.gigs?.length != 0 ? (
+                    gigs.gigs?.map((item: any) => (
+                      <div className=" xl:w-auto mb-4  xl:mb-0 px-2 py-4 space-y-4 text-white hover:bg-[#f1f1f1] cursor-pointer border border-yellow-400 rounded-lg bg-white lg:py-10 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12" style={{
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
 
-                    }}>
-                      <div className=" items-center text-black relative">
-                        <div className="flex justify-end xl:absolute top-[-30px] left-[130px]">
-                          <TrashIcon
-                            onClick={() => {
-                              setGigModalOpen(!isGigModalOpen);
-                            }}
-                            className="h-[18px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
-                          />
-                          <PencilSquareIcon
-                            className="h-[18px] text-green  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                      }}
+                      
+                        
+                      >
+                        <div className=" items-center text-black relative">
+                          <div className="flex justify-end xl:absolute top-[-30px] left-[238px] ]">
+                            <TrashIcon
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setGigModalOpen(!isGigModalOpen);
+                              }}
+                              className="h-[18px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                            />
+                            <PencilSquareIcon
+                              className="h-[18px] text-green  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
 
 
-                          />
-                          {isGigModalOpen && <DeletePopup mainFunc={(e:any) => {
-                            handleGigDelete(item.id, e)
-                          }} toggleModal={() => setGigModalOpen(!isGigModalOpen)} title="are you sure to delete gig " isModalOpen={isGigModalOpen} />}
-                        </div>
+                            />
+                            {isGigModalOpen && <DeletePopup mainFunc={(e: any) => {
+                              handleGigDelete(item.id, e)
+                            }} toggleModal={() => setGigModalOpen(!isGigModalOpen)} title="are you sure to delete gig " isModalOpen={isGigModalOpen} />}
+                          </div>
+                          <div className="w-full h-full xl:w-[300px] xl:h-[200px] ">
+                            <img className="w-full h-full rounded border-2 border-solid border-[#2dd4bf]" src={item?.imageUrl || user?.imageUrl} alt="No image" />
+                          </div>
 
-                        <img className="w-[150px] h-[150px] rounded border-2 border-solid border-[#2dd4bf]" src={item?.imageUrl || user?.imageUrl} alt="" />
-                        <div className="flex flex-col">
-
-                          <h3>{item.title}</h3>
-                          <p>Price {item.price} ¥ </p>
-                          <button className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white">See More</button>
-                          <Link to="/message-page" className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white">Chat</Link>
+                          <div className="flex flex-col">
+                          <div className="flex items-center mt-2">
+                            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg className="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <p className="ml-1 text-[#949494]">4.5(20 reviews)</p>
+                          </div>
+                            <h3>{item.title}</h3>
+                            <p className="text-start">Price {item.price} ¥ </p>
+                            <button onClick={(e) => router(`/gig/` + item.id)} className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white">See More</button>
+                            <Link to="/message-page" className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white">Chat</Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))
-                ) : (
-                  <>
-                    <h2>
-                      {t("OPPS")}
-                      <span className="text-[#17b3a6]">GIGS!</span>
-                    </h2>
-                    {/* <button
+                    ))
+                  ) : (
+                    <>
+                      <h2>
+                        {t("OPPS")}
+                        <span className="text-[#17b3a6]">GIGS!</span>
+                      </h2>
+                      {/* <button
                       className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
                       onClick={() => router(`/create-catalogs/${teacher?.id}`)}
                     >
                       Create GIG
                     </button> */}
-                  </>
-                )}
-              </div>
+                    </>
+                  )}
+                </div>
 
-            </div>
+              </div>
+            }
             <div className="text-center md:mt-20 sm:mt-0 xl:flex items-center justify-between">
               <p className="font-bold">
                 {t("MEMBERS_SINCE")} : {formatDate(user.createdAt)}
               </p>
 
-              {tId && 
+              {tId &&
                 <div className="flex justify-center">
-                <button
-                  onClick={toggleModal}
-                  className="flex cursor-pointer items-center justify-center gap-2 bg-[#17b3a6] hover:bg-blue-700 text-white xl:font-bold py-1 xl:py-2 px-4 rounded"
-                >
-                  <span>Delete Teacher Account</span>
-                </button>
-              </div>
-              
-            }
-            
+                  <button
+                    onClick={toggleModal}
+                    className="flex cursor-pointer items-center justify-center gap-2 bg-[#17b3a6] hover:bg-blue-700 text-white xl:font-bold py-1 xl:py-2 px-4 rounded"
+                  >
+                    <span>Delete Teacher Account</span>
+                  </button>
+                </div>
+
+              }
+
               {isModalOpen && <DeletePopup mainFunc={handleDeleteTeacher} toggleModal={toggleModal} title="are you sure to delete teacher" isModalOpen={isModalOpen} />}
             </div>
           </div>
