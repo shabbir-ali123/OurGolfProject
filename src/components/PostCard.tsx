@@ -66,14 +66,21 @@ const PostCard = () => {
     return localStorage.getItem("token");
   };
 
-  const handleInteraction = (event: React.MouseEvent<HTMLElement>) => {
-    if (!isAuthenticated()) {
+  const handleInteraction = (event: React.MouseEvent<HTMLElement>, postId: string) => {
+    if (!isAuthenticated) {
       navigate("/login-page");
       return;
     }
-    const interactionType =
-      event.currentTarget.getAttribute("data-interaction");
-    console.log("User interacted with:", interactionType);
+    const interactionType = event.currentTarget.getAttribute("data-interaction");
+
+    if (interactionType === "share") {
+      const postUrl = `${window.location.origin}/read-post/${postId}`;
+      navigator.clipboard.writeText(postUrl).then(() => {
+        toast.success("Post URL has been copied to clipboard!");
+      }).catch(err => {
+        console.error("Failed to copy the URL:", err);
+      });
+    }
   };
 
   const [activeDropdownPostId, setActiveDropdownPostId] = useState(null);
@@ -351,7 +358,7 @@ const PostCard = () => {
                       <div className="flex item-center">
                         <span
                           className="flex items-center gap-0 text-[10px] hover:bg-black p-1 rounded-lg"
-                          onClick={handleInteraction}
+                          onClick={(e) => handleInteraction(e, post.id)}
                           data-interaction="share"
                         ></span>
                       </div>
@@ -449,7 +456,12 @@ const PostCard = () => {
 
                       <span
                         className="flex items-center gap-0 hover:bg-black p-0 rounded-lg"
-                        onClick={handleInteraction}
+                       
+
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleInteraction(e, post.id);
+                        }}
                         data-interaction="share"
                       >
                         <ShareIcon

@@ -112,7 +112,7 @@ const ReadPost: React.FC = () => {
     try {
       await addPostComment(formData, handleMessage);
       toast.success("Comment added successfully");
-      fetchSinglePosts(handlePost, postId);
+      fetchSinglePosts(handlePost, postId!);
       setFormData({ ...formData, content: "" });
     } catch (error) {
       toast.error("Error adding comment, please try again");
@@ -226,6 +226,25 @@ const ReadPost: React.FC = () => {
       toast.error(`Error updating likes: ${error}`);
     }
   };
+  const isAuthenticated = () => {
+    return localStorage.getItem("token");
+  };
+  const handleInteraction = (event: React.MouseEvent<HTMLElement | SVGSVGElement>, postId: string) => {
+    if (!isAuthenticated()) {
+      navigate("/login-page");
+      return;
+    }
+    const interactionType = event.currentTarget.getAttribute("data-interaction");
+
+    if (interactionType === "share") {
+      const postUrl = `${window.location.origin}/read-post/${postId}`;
+      navigator.clipboard.writeText(postUrl).then(() => {
+        toast.success("Post URL has been copied to clipboard!");
+      }).catch(err => {
+        console.error("Failed to copy the URL:", err);
+      });
+    }
+  }
   return (
     <div
       className="mx-6 md:mx-auto max-w-7xl px-6  my-4 py-4"
@@ -505,11 +524,13 @@ const ReadPost: React.FC = () => {
                 <span
                   className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
                   data-interaction="share"
+                  onClick={(e) => handleInteraction(e, postId!)}
                 >
                   {" "}
                   <ShareIcon
                     className="w-4 h-4 cursor-pointer"
                     aria-hidden="true"
+                    
                     data-interaction="share"
                   />
                   {t("SHARE")}
