@@ -71,6 +71,7 @@ export const API_ENDPOINTS = {
   GETPUBLICALLTEACHERSGIGS: `${API_BASE_URL}/${API_VERSION}/get-public-all-teachers-gigs`,
   GETPUBLICGIGSBYTEACHER: `${API_BASE_URL}/${API_VERSION}/get-public-gigs-by-teacher/`,
   DELETEGIGBYID: `${API_BASE_URL}/${API_VERSION}/delete-gig/`,
+  UPDATEGIG: `${API_BASE_URL}/${API_VERSION}/update-gig/`,
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`,
   GETPUBLICTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-public-teams-by-event/`,

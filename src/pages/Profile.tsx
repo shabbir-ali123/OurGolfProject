@@ -266,10 +266,10 @@ const Profile = () => {
                                 e.preventDefault();
                                 setGigModalOpen(!isGigModalOpen);
                               }}
-                              className="h-[18px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                              className="h-[18px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " 
                             />
                             <PencilSquareIcon
-                              className="h-[18px] text-green  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                              className="h-[18px] text-green  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " 
 
 
                             />
