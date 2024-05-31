@@ -23,6 +23,7 @@ import ImageComponent from "./ImageComponent";
 import PostCardComments from "./comments/PostComments";
 import PostProfile from "../components/PostProfilePrompt";
 import Pagination from "./Pagination";
+import ShareComponent from "./ShareComponent";
 interface Post {
   createdAt: string | number | Date;
   id: string;
@@ -87,6 +88,7 @@ const PostCard = () => {
   const [activeCommentModel, setActiveCommentModel] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(-1);
   const [postwId, setPostwId] = useState("");
+  const [shareIcons, setShare] = useState<any>(false);
 
   const handleMouseEnter = (index: any) => {
     setHoveredIndex(index);
@@ -227,6 +229,8 @@ const PostCard = () => {
           const userHasLiked = post.PostLikes.find(
             (like: any) => like.userId === loggedInUser && like.counter === 1
           );
+          const postUrl = `${window.location.origin}/read-post/${post.id}`;
+
           return (
             <div className="w-full">
               <Link
@@ -460,7 +464,11 @@ const PostCard = () => {
 
                         onClick={(e) => {
                           e.preventDefault();
-                          handleInteraction(e, post.id);
+                          // handleInteraction(e, post.id);
+                   
+
+                          setShare(!shareIcons)
+                          
                         }}
                         data-interaction="share"
                       >
@@ -471,8 +479,11 @@ const PostCard = () => {
                         />
                         {t("SHARE")}
                       </span>
+                     
                     </div>
-                    
+                    {
+                       shareIcons && <ShareComponent url={post.id} />
+                      }
                   </div>
                   
                 </div>
