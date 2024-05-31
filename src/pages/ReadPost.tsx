@@ -15,6 +15,7 @@ import { hasImageExtension } from "../utils/imgExtension";
 import { Slide } from "react-slideshow-image";
 import { postContext } from "../contexts/postsContext";
 import { handleDeleteComment } from "../utils/fetchCommunication";
+import ShareComponent from "../components/ShareComponent";
 export interface SinglePostProps {
   posts: any;
   category: string;
@@ -26,7 +27,7 @@ export interface SinglePostProps {
   createdAt: any;
   id: any;
 }
-export const getTimeAgo = (pastTime: any, t:any) => {
+export const getTimeAgo = (pastTime: any, t: any) => {
   const currentTime: any = new Date();
 
   const msPerMinute = 60 * 1000;
@@ -38,17 +39,17 @@ export const getTimeAgo = (pastTime: any, t:any) => {
   const elapsed = currentTime - pastTime;
 
   if (elapsed < msPerMinute) {
-    return Math.round(elapsed / 1000)  + " " + t("SEC_AGO");
+    return Math.round(elapsed / 1000) + " " + t("SEC_AGO");
   } else if (elapsed < msPerHour) {
-    return Math.round(elapsed / msPerMinute)  + " " +  t("MIN_AGO");
+    return Math.round(elapsed / msPerMinute) + " " + t("MIN_AGO");
   } else if (elapsed < msPerDay) {
-    return Math.round(elapsed / msPerHour) +  " " + t("HOUR_AGO");
+    return Math.round(elapsed / msPerHour) + " " + t("HOUR_AGO");
   } else if (elapsed < msPerMonth) {
     return "" + Math.round(elapsed / msPerDay) + " " + t("DAYS_AGO")
   } else if (elapsed < msPerYear) {
-    return "" + Math.round(elapsed / msPerMonth) + " " +  t("MONTH_AGO");
+    return "" + Math.round(elapsed / msPerMonth) + " " + t("MONTH_AGO");
   } else {
-    return "" + Math.round(elapsed / msPerYear) +  " " + t("YEAR_AGO");
+    return "" + Math.round(elapsed / msPerYear) + " " + t("YEAR_AGO");
   }
 };
 const ReadPost: React.FC = () => {
@@ -77,7 +78,7 @@ const ReadPost: React.FC = () => {
   const [localEvents, setLocalEvents] = useState<any>([]);
   const [isOpenMap, setIsOpenMap] = useState<{ [key: string]: boolean }>({});
   const currentUserId = localStorage.getItem("id");
-
+  const [shareIcons, setShare] = useState<any>(false);
   const [isEdit, setIsEdit] = useState<{ [key: string]: boolean }>({});
 
   const handleEditComment = (commentId: string, content: any) => {
@@ -147,22 +148,22 @@ const ReadPost: React.FC = () => {
           prev.map((e: any) =>
             e.id === singlePost?.id
               ? {
-                  ...e,
-                  likes: userPosts
-                    ? likes.map((like: any) =>
-                        like.userId === loggedInUser
-                          ? { ...like, counter: newCounter }
-                          : like
-                      )
-                    : [
-                        ...likes,
-                        {
-                          counter: newCounter,
-                          userId: loggedInUser,
-                          id: Math.floor(Math.random() * 10),
-                        },
-                      ],
-                }
+                ...e,
+                likes: userPosts
+                  ? likes.map((like: any) =>
+                    like.userId === loggedInUser
+                      ? { ...like, counter: newCounter }
+                      : like
+                  )
+                  : [
+                    ...likes,
+                    {
+                      counter: newCounter,
+                      userId: loggedInUser,
+                      id: Math.floor(Math.random() * 10),
+                    },
+                  ],
+              }
               : e
           )
         );
@@ -416,7 +417,7 @@ const ReadPost: React.FC = () => {
                                   Remove
                                 </a>
 
-                                
+
                               </div>
                             </div>
                           )}
@@ -524,18 +525,28 @@ const ReadPost: React.FC = () => {
                 <span
                   className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
                   data-interaction="share"
-                  onClick={(e) => handleInteraction(e, postId!)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // handleInteraction(e, post.id);
+
+
+                    setShare(!shareIcons)
+
+                  }}
                 >
                   {" "}
                   <ShareIcon
                     className="w-4 h-4 cursor-pointer"
                     aria-hidden="true"
-                    
+
                     data-interaction="share"
                   />
                   {t("SHARE")}
                 </span>
               </div>
+              {
+                shareIcons && <ShareComponent url={singlePost?.id} justify="start"/>
+              }
             </div>
           </div>
         </div>

@@ -13,17 +13,19 @@ import {
 } from 'react-share';
 
 interface shareProp {
-  url: string
+  url: string;
+  justify?:string
 }
 
 const ShareComponent: FunctionComponent<shareProp> = ({
-  url = ""
+  url = "",
+  justify="end"
 }) => {
   const shareUrl = 'http://golf-encounters.com/read-post/' + url;
   const title: string = 'Check out this awesome website!';
 
   return (
-    <div className='flex justify-end'>
+    <div className={`flex justify-${justify}`}>
       <div>
         <h2 className=''>Share this post</h2>
         <div className='flex items-center gap-2'>
