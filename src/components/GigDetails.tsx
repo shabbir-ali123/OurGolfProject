@@ -17,6 +17,15 @@ import { postContext } from "../contexts/postsContext";
 import { handleDeleteComment } from "../utils/fetchCommunication";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { gigsContextStore } from "../contexts/gigsContext";
+export const settings = {
+  dots: true,
+  speed: 500,
+  slidesToShow: 1,
+
+  initialSlide: 1,
+  arrows: false,
+};
+
 export interface SinglePostProps {
   posts: any;
   category: string;
@@ -205,14 +214,6 @@ const GigDetails: React.FC = () => {
 
   const timeAgo = getTimeAgo(postTime, t);
 
-  var settings = {
-    dots: true,
-    speed: 500,
-    slidesToShow: 1,
-
-    initialSlide: 1,
-    arrows: false,
-  };
 
 
   const arrayImages = gig?.imageUrl?.split(',');
@@ -279,11 +280,16 @@ const GigDetails: React.FC = () => {
           {arrayImages?.map((img: string, index: number) => {
             if (arrayImages.length === 1) {
               return (
+                hasImageExtension(img) ? 
                 <img
                   className="w-full h-[300px] xl:h-[600px] rounded-lg"
                   src={img}
                   alt="Blog Post Image"
-                />
+                /> : <video
+                controls
+                className="w-full h-[300px] xl:h-[600px] rounded-lg"
+                src={img}
+              />
               );
             }
           })}

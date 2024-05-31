@@ -72,6 +72,7 @@ import CompletedEvents from "./pages/CompletedEvents";
 import StudentActivitiesNew from "./components/StudentActivitiesNew";
 import GigDetails from "./components/GigDetails";
 import AllGigs from "./components/AllGigs";
+import UpdateGig from "./components/UpdateGig";
 // import StudentActivitiesPage from "./components/StudentActivitiesPage";
 
 function App() {
@@ -545,6 +546,14 @@ function App() {
                   <GigDetails />
                 </TeacherGigsProvider>
               </TeacherDetailsContext>
+            }
+          />
+          <Route
+            path="/update-gig/:gigId"
+            element={
+                <TeacherGigsProvider>
+                  <UpdateGig />
+                </TeacherGigsProvider>
             }
           />
           <Route

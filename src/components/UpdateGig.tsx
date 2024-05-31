@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "react-quill/dist/quill.snow.css";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { gigsContextStore } from "../contexts/gigsContext";
+import { hasImageExtension } from "../utils/imgExtension";
 interface CreateCatalogType {
   title: string;
   description: string;
@@ -14,18 +16,18 @@ interface CreateCatalogType {
 
 const UpdateGig: React.FC<any> = () => {
   const { t } = useTranslation();
+  const { gig, handleTeacherId } = gigsContextStore();
 
   const userId = localStorage.getItem("id");
   const [isLoading, setLoading] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const router = useNavigate()
+  const router = useNavigate();
   const [formData, setFormData] = useState<CreateCatalogType>({
     title: "",
     description: "",
     mediaFiles: null,
     price: "",
   });
-
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,11 +42,11 @@ const UpdateGig: React.FC<any> = () => {
       setSelectedFiles([...selectedFiles, ...filesArray]);
       setFormData((prevFormData: CreateCatalogType) => ({
         ...prevFormData,
-        mediaFiles: [ ...filesArray],
+        mediaFiles: [...filesArray],
       }));
     }
   };
-  console.log(formData, 'for')
+  console.log(formData, "for");
   const removeSelectedFile = (index: number) => {
     const updatedFiles = [...selectedFiles];
     updatedFiles.splice(index, 1);
@@ -77,39 +79,34 @@ const UpdateGig: React.FC<any> = () => {
     }
     formDataToSend.append("price", formData.price);
     try {
-
-    const response = await axios.post(
-      API_ENDPOINTS.ADDGIGS,
-      formDataToSend,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+      const response = await axios.put(
+        API_ENDPOINTS.UPDATEGIG + gig.id,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        handleTeacherId(gig.id);
+        handleReset();
+        router("/profile-page");
+      } else {
+        toast.error(response.data.error);
       }
-    );
-    if( response.status === 201){
-      toast.success(response.data.message);
-      handleReset();
-      router("/profile-page")
-      
-    }else{
-      toast.error(response.data.error);
+    } catch (error: any) {
+      if (error.response) {
+        toast.error(error.response.data.error || "An error occurred.");
+      } else if (error.request) {
+        toast.error("No response received from the server.");
+      } else {
+        toast.error("Error setting up the request.");
+      }
+    } finally {
+      setLoading(false);
     }
-    
-  }
-  catch (error:any) {
-    if (error.response) {
-   
-      toast.error(error.response.data.error || 'An error occurred.');
-    } else if (error.request) {
-      toast.error('No response received from the server.');
-    } else {
-      toast.error('Error setting up the request.');
-    }
-  } finally {
-    setLoading(false);
-  }
-
 
     setFormData({
       title: "",
@@ -129,6 +126,16 @@ const UpdateGig: React.FC<any> = () => {
       [name]: value,
     }));
   };
+  useEffect(() => {
+    setFormData((prevData: any) => ({
+      ...prevData,
+      title: gig.title,
+      description: gig.description,
+      mediaFiles: gig.mediaFiles,
+      price: gig.price,
+    }));
+  }, [gig]);
+  const arrayImages = gig?.imageUrl?.split(",");
 
   return (
     <div className="flex items-center justify-center p-4">
@@ -143,7 +150,9 @@ const UpdateGig: React.FC<any> = () => {
       >
         <form className="px-2">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">{t("Create Your Gig")} &#128515;</h1>
+            <h1 className="text-2xl font-bold">
+              {t("Create Your Gig")} &#128515;
+            </h1>
           </div>
           <div className="pr-3 mx-3">
             <label>{t("Title")}</label> <br />
@@ -151,6 +160,7 @@ const UpdateGig: React.FC<any> = () => {
               className="w-full  mt-2 p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder={t("Gig_Title")}
               name="title"
+              value={formData?.title}
               onChange={handleInputChange}
               required
             />
@@ -161,6 +171,7 @@ const UpdateGig: React.FC<any> = () => {
               className="w-full mt-2 p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               placeholder={t("Gig_Description")}
               name="description"
+              value={formData?.description}
               onChange={handleInputChange}
               required
             />
@@ -172,6 +183,7 @@ const UpdateGig: React.FC<any> = () => {
               placeholder={t("Gig_Price")}
               name="price"
               type="number"
+              value={formData?.price}
               onChange={handleInputChange}
               required
             />
@@ -179,6 +191,30 @@ const UpdateGig: React.FC<any> = () => {
           <div className="mx-2 w-full">
             <label className="block text-gray-700">{t("ADD_VIDEOS")}</label>
             <div className="flex flex-wrap  gap-4 mt-2  ">
+              {arrayImages?.map((img: string, index: number) => {
+                return (
+                  <>
+                    {/* Ensure key is unique and at the top element */}
+                    {hasImageExtension(img) ? (
+                      <div key={index} className="relative ">
+                        <img
+                    className="w-16 h-16 object-cover rounded-lg "
+                    src={img}
+                          alt="Blog Post Image"
+                        />
+                      </div>
+                    ) : (
+                      <div key={index} className="relative ">
+                        <video
+                          controls
+                          className="w-16 h-16 object-cover rounded-lg "
+                          src={img}
+                        />
+                      </div>
+                    )}
+                  </>
+                );
+              })}
               {selectedFiles?.map((file, index) => (
                 <div key={index} className="relative ">
                   <img
@@ -223,14 +259,14 @@ const UpdateGig: React.FC<any> = () => {
           </div>
           <button
             className="w-full bg-[#45e07d] cursor-pointer  text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all mt-10"
-            disabled={
-              isLoading ||
-              (!formData.title.trim() && formData?.mediaFiles?.length === 0)
-            }
+            // disabled={
+            //   isLoading ||
+            //   (!formData.title.trim() && formData?.mediaFiles?.length === 0)
+            // }
             type="submit"
             onClick={(e) => handleCreate(e)}
           >
-            {t("Create_Gig")}
+            {t("Update_gig")}
           </button>
         </form>
       </div>
