@@ -572,6 +572,10 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                     const deadlineData = new Date(item?.eventDeadlineDate);
                     const isEventOver = currentDate > endDate;
                     const isDeadlineOver = currentDate > deadlineData;
+                    const n =  parseInt(userId || "");
+                    const isUserIdInData = item?.teams?.some((team:any) => 
+                      team.members.some((member:any) => member.userId === n)
+                  );
                     return (
                       <div className="grid gap-2 px-4 py-1 border border-solid border-[#DCDCDC] mb-2 items-center">
                         <div className="grid grid-cols-2 bg-[#F5F5F5] items-center ">
@@ -654,53 +658,43 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               {item.capacity * item.teamSize}
                             </p>
                             {
-                              (!isEventOver && !isDeadlineOver) ? <span
-                                className={` ${isUserIdMatched
-                                    ? "text-[#fff]"
-                                    : "text-[#17B3A6] "
-                                  }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
-                                onClick={() => router(`/edit-team/${item.id}`)}
-                              >
-                                <p
-                                  className={`${isUserIdMatched
-                                      ? "bg-[#ff3b41]"
-                                      : "bg-[#DDF4F2]"
-                                    }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
-                                  style={{
+                                isUserIdInData ?
+                                <>
+                                {item.eventType !== "normal" && isEventOver ? 
+                                  <span className="bg-red text-white p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white" style={{
                                     boxShadow:
                                       "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                  }}
-                                >
-                                  {isUserIdMatched && item.scoringType != "Normal"
-                                    ? t("EDITSCORE")
-                                    : isUserIdMatched &&
-                                      item.scoringType == "Normal"
-                                      ? t("JOINED")
-                                      : t("JOIN")}
-                                </p>
-                              </span>
-                                : <span
-                                  className={` ${isUserIdMatched
-                                      ? "text-[#fff]"
-                                      : "text-[#17B3A6] "
-                                    }  px-0 font-bold py-0 text-sm mx-0  sm:mx-2 cursor-pointer  `}
-                                  onClick={() => router(`/edit-team/${item.id}`)}
-                                >
-                                  <p
-                                    className={`${isUserIdMatched
-                                        ? "bg-[#ff3b41]"
-                                        : "bg-[#DDF4F2]"
-                                      }   py-2 text-[10px] text-center rounded-lg m-0 hover:bg-black`}
-                                    style={{
-                                      boxShadow:
-                                        "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                    }}
-                                  >
-                                    EventEnded
-                                  </p>
-                                </span>
-                            }
-
+                                  }} >{t("EVENT_END")}</span>
+                                : item.eventType !== "normal" && !isEventOver  ? <span onClick={(e) => {
+                                  e.preventDefault();
+                                  router("/edit-team/" + item.id);
+                                }} className="bg-red text-white p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white">{t("ADD_SCORE")}</span>
+                                :  item.eventType === "normal" && !isEventOver   ? <span>{t("JOINED")}</span>
+                                : <span  onClick={(e) => {
+                                  e.preventDefault();
+                                  router("/edit-team/" + item.id);
+                                }}>{t("EVENT_END")}</span>} 
+                                </> :
+                                <>
+                                {
+                                  isDeadlineOver ? <span onClick={(e) => {
+                                    e.preventDefault();
+                                    router("/edit-team/" + item.id);
+                                  }} className="bg-[#ddf4f2]  p-2 text-center text-[#17B3A6] rounded-lg m-0 hover:bg-black hover:text-white " style={{
+                                    boxShadow:
+                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                  }}> {t("JOINING_OVER")} </span>:   <span onClick={(e) => {
+                                    e.preventDefault();
+                                    router("/pay-now/" + item.id);
+                                  }} className="bg-white  p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white" style={{
+                                    boxShadow:
+                                      "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
+                                  }}>{t("JOIN_NOW")}</span>
+                                }
+                                
+                               
+                                </>
+                              }
                           </div>
                           <div className="p-2">
                             <div className="text-start flex items-center">
