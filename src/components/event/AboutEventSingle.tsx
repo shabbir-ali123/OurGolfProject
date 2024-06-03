@@ -25,7 +25,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     setCalculatedCancellationFee(`¥${calculatedFee.toFixed(2)}`);
   }, [selectedDays, singleEvent?.cancellationFee]);
   return <div className="max-w-5xl mx-6 xl:mx-auto     py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
-    <div className="flex items-center gap-10">
+    <div className="xl:flex items-center gap-10">
       <div className="relative w-[90.5px] h-[147.5px]">
         <img
           className="absolute top-[60px] left-[0px] w-[90.5px] h-[87.5px]"
@@ -73,15 +73,15 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
       </div>
       <div className=" items-center gap-10  ">
         <div className="text-white text-[24px] font-bold basis-4 bg-[#17b3a6]  p-2"> {t('EVENT_DETAILS')}</div>
-        <p className="py-2 ml-0 xl:ml-10  capitalize text-lightseagreen-200 flex items-center gap-4 xl:text-[26px]"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
+        <p className="py-2 ml-0 xl:ml-10  capitalize text-lightseagreen-200 xl:flex items-center gap-4 xl:text-[26px]"><span className="text-gray-500 text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span> {singleEvent?.eventDetails}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> <span className="xl:text-[26px] ">{singleEvent?.
+          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 xl:flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('EVENT_TYPE')}  :</span> <span className="xl:text-[26px] ">{singleEvent?.
             eventType}</span> </p>
         </div>
-        <div className="flex items-center gap-10  ">
+        <div className="flex items-center gap-10 w-full overflow-x-scroll xl:overflow-x-auto ">
 
-          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('SHORT_VIDEO')}  :</span> <span className="xl:text-[26px] ">{singleEvent?.eventVideoUrl}</span> </p>
+          <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 xl:flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('SHORT_VIDEO')}  :</span> <span className="xl:text-[26px] xl:overflow-x-outo">{singleEvent?.eventVideoUrl}</span> </p>
         </div>
       </div>
 

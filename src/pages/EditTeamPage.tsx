@@ -304,7 +304,7 @@ const EditTeamPage: FunctionComponent = () => {
         <div className="py-10 ml-12 ">
           <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
             <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
-              <div className="flex justify-around w-full">
+              <div className="xl:flex justify-around w-full">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
                   <img
                     className="w-[123px] h-[123px] object-cover rounded-[100%] text-center md:text-start"
@@ -331,14 +331,14 @@ const EditTeamPage: FunctionComponent = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 md:text-5xl lg:text-darkgray-400">
+                <div className="flex items-center justify-center gap-2 md:text-5xl lg:text-darkgray-400">
                   <img
                     className="w-[23px] h-[27.9px]"
                     alt=""
                     src="/img/group-1000008649.svg"
                   />
                   <div className="flex flex-col items-start justify-center gap-4">
-                    <div className="relative text-base md:text-xl leading-[18px]">
+                    <div className="relative text-base md:text-xl leading-[18px] text-black mt-4 xl:mt-0">
                       {singleEvent?.place || t("NO_LOCATION")}
                     </div>
                     <div className="relative text-base md:text-xl  leading-[18px] text-lightseagreen-200">
@@ -480,12 +480,12 @@ const EditTeamPage: FunctionComponent = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-40">
+              <div className="xl:flex items-start gap-40">
                 {(!isCreated && !isJoined && !isDeadlineOver) && (
                   <>
                     <div className="flex justify-start text-center w-full ">
                       <button
-                        className="py-4 text-xl  lg:py-6 w-[130px] mt-10 lg:w-[280px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                        className="py-4 text-xl  lg:py-6 w-full mx-10 xl:mx-0 mt-10 lg:w-[280px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                         onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                       >
                         {t('JOIN_NOW')}
@@ -498,9 +498,9 @@ const EditTeamPage: FunctionComponent = () => {
                   <div className="flex items-end gap-40">
                     {(!isCreated) && (
                       <>
-                        <div className=" ">
+                        <div className=" flex justify-start text-center w-full">
                           <button
-                            className="py-4 text-xl  lg:py-6 w-[130px] mt-10 lg:w-[280px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                            className="py-4 text-xl  lg:py-6 w-full mx-10 xl:mx-0 mt-10 lg:w-[280px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
                             onClick={() => router(`/pay-now/${singleEvent?.id}`)}
                           >
                             {t('CHAT_ORGANIZER')}
