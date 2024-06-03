@@ -112,11 +112,10 @@ export const EducatorCard = ({
         <div className="lg:col-span-6">
           <div
             className="flex flex-col lg:flex-row"
-            onClick={(e) =>
-              {
-                e.preventDefault();
-                navigate(`/teacher-details/${teacherId}`)
-              } 
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/teacher-details/${teacherId}`)
+            }
             }
           >
             <div className="text-center ">
@@ -138,17 +137,17 @@ export const EducatorCard = ({
                 </h3>
                 <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0 z-[]">
                   {tId != teacherId && (
-                    <div onClick={(e) =>{
+                    <div onClick={(e) => {
                       // debugger
                       e.preventDefault();
                       //  navigate(`/message-page`);
-                       document.location.href = '/message-page';
-                    } }>
-                    <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
-                    
-                    >
-                      {t("CHAT")}
-                    </button>
+                      document.location.href = '/message-page';
+                    }}>
+                      <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
+
+                      >
+                        {t("CHAT")}
+                      </button>
                     </div>
                   )}
                   <Link to={"/teacher-details/" + teacherId}>
@@ -179,28 +178,28 @@ export const EducatorCard = ({
                     <p className="m-0 p-0">
                       {rating
                         ? t("RATING_WITH_COUNT", {
-                            count: rating,
-                            numRatings: 130,
-                          })
+                          count: rating,
+                          numRatings: 130,
+                        })
                         : t("NO_RATINGS_YET")}
                     </p>
                   </div>
-                
+
                 </div>
                 <div className="flex items-center gap-2">
                   <StarIcon
                     className="w-4 h-4 text-white bg-[#61cbc2] rounded-full p-1"
                     aria-hidden="true"
                   />
-                 <div>
+                  <div>
                     <h4 className="m-0 my-1 p-0"> {t("LEVEL")} </h4>
                     <p className="m-0 p-0">
-                    {level ? level : t("NO_LEVEL_ADDED")}
+                      {level ? level : t("NO_LEVEL_ADDED")}
                     </p>
                   </div>
-                
+
                 </div>
-               
+
               </div>
               <p className="leading-6 text-[#5b5b5b] mt-4">{aboutMyself}</p>
             </div>
@@ -211,13 +210,11 @@ export const EducatorCard = ({
                 {shiftsData.map((shift: any, index: any) => (
                   <button
                     key={index}
-                    className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${
-                      bookingsData === shift && "!bg-black"
-                    } ${
-                      !shift.isBooked
+                    className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${bookingsData === shift && "!bg-black"
+                      } ${!shift.isBooked
                         ? "bg-teal-400 text-white"
                         : "bg-gray-100 text-gray-600 "
-                    } `}
+                      } `}
                     onClick={() => handleSelectedShifts(shift)}
                   >
                     {shift.startTime} - {shift.endTime}

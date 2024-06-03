@@ -61,7 +61,7 @@ export default function ProfileButton() {
               </div>
               <div className=" sm:gap-2">
                 <p className="my-1 text-base font-medium text-[#fff] group-hover:text-gray-900">
-                  {user.nickName ? user.nickName : user.email}
+                {user.nickName ? user.nickName : user.email}
                 </p>
                 <div>
                   <button

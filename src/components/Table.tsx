@@ -661,7 +661,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                 isUserIdInData ?
                                 <>
                                 {item.eventType !== "normal" && isEventOver ? 
-                                  <span className="bg-red text-white p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white" style={{
+                                  <span className="bg-red text-white p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white w-full" style={{
                                     boxShadow:
                                       "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                   }} >{t("EVENT_END")}</span>
@@ -689,7 +689,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   }} className="bg-white  p-2 text-center rounded-lg m-0 hover:bg-black hover:text-white" style={{
                                     boxShadow:
                                       "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
-                                  }}>{t("JOIN_NOW")}</span>
+                                  }}>{t("JOIN")}</span>
                                 }
                                 
                                
