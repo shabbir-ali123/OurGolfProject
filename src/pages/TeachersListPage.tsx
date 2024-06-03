@@ -34,6 +34,7 @@ const TeachersListPage: React.FC = () => {
                 aboutMyself={teacher.aboutMyself}
                 schedules={teacher.schedules}
                 hourlyRate={teacher.hourlyRate}
+                level={teacher.level}
                 teacherId={teacher.id}
               />
             ))}

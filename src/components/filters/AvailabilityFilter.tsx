@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 interface AvailabilityFilterProps {
   onFilterChange: (availability: 'available' | 'not-available' | '') => void;
+  reset:any,
+  setReset:any
 }
 
-const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange }) => {
+const AvailabilityFilter: React.FC<AvailabilityFilterProps> = ({ onFilterChange, reset, setReset }) => {
   const [selectedTab, setSelectedTab] = useState<any>(' ');
   const { t } = useTranslation();
   const handleTabChange = (tab: any) => {
     setSelectedTab(tab);
     onFilterChange(tab);
   };
-
+  useEffect(() => {
+    if(reset){
+      setSelectedTab('');
+      onFilterChange('');
+      setReset(false);
+    }
+}, [reset]);
   return (
     < >
     <div className='py-4'>

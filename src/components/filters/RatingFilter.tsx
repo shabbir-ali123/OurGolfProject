@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 interface RatingFilterProps {
     onRatingChange: (rating: number | null) => void;
+    reset:any,
+    setReset:any
 }
 
 
-const RatingFilter: React.FC<RatingFilterProps> = ({ onRatingChange }) => {
+const RatingFilter: React.FC<RatingFilterProps> = ({ onRatingChange,reset, setReset }) => {
     const [selectedRating, setSelectedRating] = useState<number | null>(null);
     const { t, i18n } = useTranslation();
     const handleRatingSelect = (rating: number) => {
@@ -13,7 +15,13 @@ const RatingFilter: React.FC<RatingFilterProps> = ({ onRatingChange }) => {
         setSelectedRating(newRating);
         onRatingChange(newRating); 
     };
-
+    useEffect(() => {
+        if(reset){
+           setSelectedRating(null);
+           onRatingChange(null);
+          setReset(false);
+        }
+    }, [reset]);
     return (
         <div>
             <h3 className='text-start'>{t("RATING")}</h3>

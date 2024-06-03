@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import {  teacherContext, useTeacherContext } from '../contexts/teachersContext';
 import RatingFilter from './filters/RatingFilter';
-import LocationFilter from './filters/LocationFilter';
 import AvailabilityFilter from './filters/AvailabilityFilter';
 import TeacherSkills from './filters/TeacherSkills';
 import NameFilter from './filters/NameFilter';
+import { LocationFilter } from './filters/LocationFilter';
 const AllTeacherFilters: React.FC = () => {
   const {handleAvailability, handleRating, handleSubjects, handleLocationSearch, handleNameSearch} = teacherContext();
 
@@ -27,14 +27,23 @@ const AllTeacherFilters: React.FC = () => {
     handleLocationSearch(selectedValue);
   };
 
+  const [reset, setReset] = useState<any>(false);
+  const handleClear = ()=>{
+ 
+    setReset(true);
+  }
   return (
     <div className="text-center p-4  bg-white shadow-lg">
+      <div className='flex justify-between items-center '>
       <h2 className='text-start'>{t("FILTER_BY")}</h2>
+      <button className='py-2 bg-[#17b3a6] text-white rounded-sm cursor-pointer' onClick={handleClear}>Clear Filter</button>
+      </div>
+     
       <div>
-        <LocationFilter handleLocationChange={handleLocationChange}/>
-        <AvailabilityFilter onFilterChange={handleAvailabilityChange} />
-        <RatingFilter onRatingChange={handleRatingChange} />
-        <TeacherSkills onSkillChange={handleSkillChange}/>
+        <LocationFilter reset={reset} setReset={setReset} handleLocationChange={handleLocationChange}/>
+        <AvailabilityFilter reset={reset} setReset={setReset} onFilterChange={handleAvailabilityChange} />
+        <RatingFilter reset={reset} setReset={setReset} onRatingChange={handleRatingChange} />
+        <TeacherSkills  reset={reset} setReset={setReset} onSkillChange={handleSkillChange}/>
       </div>
     </div>
   );

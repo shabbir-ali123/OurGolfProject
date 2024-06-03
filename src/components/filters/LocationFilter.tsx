@@ -1,17 +1,27 @@
 
-import { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GroupBase, OptionsOrGroups } from 'react-select';
 import Select from "react-select";
 
 interface OptionType {
-    label: string;
-    value: string;
-  }
-  type GroupedOptionType = GroupBase<OptionType>;
+  label: string;
+  value: string;
+}
 
-export default function LocationFilter({handleLocationChange}: any) {
-    const { t, i18n } = useTranslation();
+type GroupedOptionType = GroupBase<OptionType>;
+
+interface LocationFilterProps {
+  handleLocationChange: any
+  reset: boolean;
+  setReset: any;
+}
+
+
+
+export const LocationFilter: React.FC<LocationFilterProps> = ({ handleLocationChange, reset,setReset }) => {
+  const { t, i18n } = useTranslation();
 
     const JapanCities: GroupedOptionType[] = [
         {
@@ -101,10 +111,21 @@ export default function LocationFilter({handleLocationChange}: any) {
     
       ];
 
+      const [selectedLocation, setSelectedLocation] = useState<any | null>(null);
 
-      const handleChange = (selectedOption: OptionType | null) => {
+      const handleChange = (selectedOption: any) => {
+        setSelectedLocation(selectedOption);
         handleLocationChange(selectedOption?.value);
       };
+    
+      useEffect(() => {
+          setSelectedLocation(selectedLocation);
+          if(reset){
+            setSelectedLocation('');
+            handleLocationChange('');
+            setReset(false);
+          }
+      }, [reset, selectedLocation]);
 
     return (
         <div className="relative text-start w-full col-span-8 mt-8 lg:col-span-4 md:col-span-5 md:mr-0 md:mb-2">
@@ -122,6 +143,7 @@ export default function LocationFilter({handleLocationChange}: any) {
                     GroupBase<OptionType>
                   >
                 }
+                value={selectedLocation || ""}
                 onChange={handleChange}
                 className="w-full text-base border border-gray-300 rounded shadow hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />

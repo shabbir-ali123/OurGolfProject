@@ -19,6 +19,7 @@ export const EducatorCard = ({
   schedules,
   hourlyRate,
   teacherId,
+  level
 }: any) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -184,7 +185,22 @@ export const EducatorCard = ({
                         : t("NO_RATINGS_YET")}
                     </p>
                   </div>
+                
                 </div>
+                <div className="flex items-center gap-2">
+                  <StarIcon
+                    className="w-4 h-4 text-white bg-[#61cbc2] rounded-full p-1"
+                    aria-hidden="true"
+                  />
+                 <div>
+                    <h4 className="m-0 my-1 p-0"> {t("LEVEL")} </h4>
+                    <p className="m-0 p-0">
+                    {level ? level : t("NO_LEVEL_ADDED")}
+                    </p>
+                  </div>
+                
+                </div>
+               
               </div>
               <p className="leading-6 text-[#5b5b5b] mt-4">{aboutMyself}</p>
             </div>

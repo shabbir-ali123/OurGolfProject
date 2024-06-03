@@ -342,6 +342,7 @@
     "JOIN":"参加",
     "JOINED":"参加しました",
     "JOINING_OVER":"日付終了",
+    "NO_LEVEL_ADDED":"レベルなし",
     "EDITSCORE":"スコアを編集する",
     "EDIT": "編集",
     "UPDATE_TEAM":"今すぐ参加",

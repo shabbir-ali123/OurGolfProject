@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 
 interface SkillFilterProps {
   onSkillChange: (selectedSkills: string[]) => void;
+  reset: any,
+  setReset: any
 }
 
-const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
+const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange,reset, setReset }) => {
   const { t } = useTranslation();
   const skillKeys = ["ENTRY", "BEGINNER", "INTERMEDIATE", "ADVANCED", "AMBASSADOR"];
   const skills = skillKeys.map(key => t(key));
- 
+
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
   const handleSkillChange = (skill: string, isChecked: boolean) => {
@@ -22,7 +24,13 @@ const TeacherSkills: React.FC<SkillFilterProps> = ({ onSkillChange }) => {
     setSelectedSkills(updatedSelectedSkills);
     onSkillChange(updatedSelectedSkills);
   };
-
+  useEffect(() => {
+    if(reset){
+      setSelectedSkills([]);
+      onSkillChange([]);
+      setReset(false);
+    }
+}, [reset]);
   return (
     <div className='py-4'>
       <h3 className='text-start'>{t("LEVEL")}</h3>
