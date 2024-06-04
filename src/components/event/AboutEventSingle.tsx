@@ -24,6 +24,14 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     const calculatedFee = (percentage / 100) * validTotalCancellationFee;
     setCalculatedCancellationFee(`¥${calculatedFee.toFixed(2)}`);
   }, [selectedDays, singleEvent?.cancellationFee]);
+  const getYoutubeEmbedUrl = (url: string | undefined): string | undefined => {
+    if (!url) return undefined;
+    const regex = /(?:youtube\.com\/(?:[^\/]+\/[^\/]+\/|[^\/]+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
+    const match = url.match(regex);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : undefined;
+  };
+
+  const embedUrl = getYoutubeEmbedUrl(singleEvent?.eventVideoUrl);
   return <div className="max-w-5xl mx-6 xl:mx-auto     py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
     <div className="xl:flex items-center gap-10">
       <div className="relative w-[90.5px] h-[147.5px]">
@@ -83,6 +91,24 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
           <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 xl:flex items-center gap-4 "><span className="text-gray-500 text-[20px]  font-bold">{t('SHORT_VIDEO')}  :</span> <span className="xl:text-[26px] xl:overflow-x-outo">{singleEvent?.eventVideoUrl}</span> </p>
         </div>
+        <div className="flex items-center gap-10 w-full overflow-x-hidden xl:overflow-x-auto">
+            <p className="py-2 ml-0 xl:ml-10 text-lg capitalize rounded-sm text-lightseagreen-200 xl:flex items-center gap-4 w-full">
+              {embedUrl ? (
+                <div className="w-full max-w-full sm:max-w-full md:max-w-full lg:max-w-full xl:max-w-3xl">
+                  <iframe
+                    className="w-full  h-[45vw] md:h-[30vw] lg:h-[25vw] xl:h-[450px] max-h-[450px]"
+                    src={embedUrl}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : (
+                <span className="xl:text-[26px]">{singleEvent?.eventVideoUrl}</span>
+              )}
+            </p>
+          </div>
       </div>
 
 

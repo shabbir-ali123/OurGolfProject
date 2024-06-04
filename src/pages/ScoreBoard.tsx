@@ -22,6 +22,7 @@ import { singleTeamsContextStore } from "../contexts/teamContext";
 import ScoringTabs from "../components/ScoringTabs";
 import { FinalEventGallery } from "../components/FinalEventGallery";
 import { FinalSlider } from "../components/sliders/FinalEventSlider";
+import EventDetails from "../components/event/EventDetails";
 
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -55,9 +56,9 @@ const ScoreBoard: FunctionComponent = () => {
   return (
     <div>
       <div className="">
-        <ChampionShipName />
+        <EventDetails/>
         {singleEvent?.scoringType !== "Normal" && (
-          <div className="grid self-center w-full p-0 xl:p-4 xl:w-[1200px] mx-auto">
+          <div className="grid  w-full p-0 xl: xl:w-[1200px] mx-auto mt-[200px]">
             {scoreLoading ? (
               <div className="flex justify-center items-center ">
                 <div>
@@ -68,7 +69,7 @@ const ScoreBoard: FunctionComponent = () => {
                   />
                   <p>loading...</p>
                 </div>
-              </div>
+              </div>  
             ) : (
               topThreeScores.length > 2 || screenWidth < 600 ?
               <FlexitySlider>
@@ -85,7 +86,7 @@ const ScoreBoard: FunctionComponent = () => {
         <div
           className={
             singleEvent?.scoringType === "Normal"
-              ? "mt-[20px]"
+              ? "mt-[220px]"
               : "mt-[20px] xl:w-[1200px] mx-auto "
           }
         >

@@ -69,7 +69,7 @@ const LeaderBoardTables: FunctionComponent = () => {
       {showRegularScores && (
         <table className="w-full border-spacing-y-5 ">
           <thead className="text-left text-white ">
-            <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+            <tr className=" bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
               <LeaderBoard
                 title={t("HOLE")}
                 className="rounded-s-[3px] font-bold text-[24px] text-start ml-4"
@@ -104,7 +104,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                 className="text-[18px] font-medium text-center"
               /> */}
             </tr>
-            <tr className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+            <tr className="bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
               <LeaderBoard
                 title={t("PAR")}
                 className="rounded-s-[3px] font-bold text-[24px] text-start ml-4"
@@ -170,9 +170,9 @@ const LeaderBoardTables: FunctionComponent = () => {
         </table>
          )}
            {!showRegularScores && (
-        <table className="w-full border-spacing-y-5 ">
+        <table className="w-full border-spacing-y-2 ">
           <thead className="text-left text-white ">
-            <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+            <tr className=" bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
               <LeaderBoard
                 title={t("HOLE")}
                 className="rounded-s-[3px] font-bold text-[24px] text-start ml-4"
@@ -207,7 +207,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                 className="text-[18px] font-medium text-center"
               />
             </tr>
-            <tr className="bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+            <tr className="bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
               <LeaderBoard
                 title={t("PAR")}
                 className="rounded-s-[3px] font-bold text-[24px] text-start ml-4"

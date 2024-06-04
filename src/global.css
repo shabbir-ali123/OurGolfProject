@@ -178,7 +178,7 @@ a {
   width: 100%;
   height: 600px;
   margin-right: 10px;
-  background: #8c8;
+  background: #17B3A6;
   border-radius: 5px;
 }
 
@@ -186,7 +186,7 @@ a {
   width: 20%;
   height: 150px;
   margin-right: 10px;
-  background: #8c8;
+  background: #17B3A6;
   border-radius: 5px;
 }
 
@@ -217,4 +217,5 @@ a {
   background-color: #f4f4f4; /* color of the scrollbar track */
   border-radius: 10px; /* border radius of the scrollbar track */
 }
+
 
