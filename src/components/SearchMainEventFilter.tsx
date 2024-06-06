@@ -61,7 +61,7 @@ const SearchMainEventFilter: FunctionComponent = () => {
           type="text"
           onChange={(e) => handleSearch(e.target.value)}
           className="w-full rounded-md border-gray-300 shadow-sm p-2"
-          placeholder={t('Search events by name or location')}
+          placeholder={t('SEARCH_EVENTS')}
         />
       </div>
       <button
