@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notificationContext";
 import socket from "../socket";
+const teacherId  = localStorage.getItem("teacher_id");
 
 export const menuItems: MenuItem[] = [
   {
@@ -90,6 +91,26 @@ export const menuItems: MenuItem[] = [
         icon: faSearch,
         path: "/teacher-activities-page",
         active: false,
+        finalItem: [
+          {
+            name: "Create Gig",
+            icon: faSearch,
+            path: "/create-catalogs/" + teacherId,
+            active: false,
+          },
+          {
+            name: "Update Schedule",
+            icon: faSearch,
+            path: "teacher-page/" + teacherId,
+            active: false,
+          },
+          {
+            name: "Update Profile",
+            icon: faSearch,
+            path: "teacher-page/" + teacherId,
+            active: false,
+          },
+        ]
       },
       {
         name: "STUDENT",
@@ -103,7 +124,7 @@ export const menuItems: MenuItem[] = [
       //   path: "/appointments",
       //   active: false,
       // },
-   
+
     ],
   },
   // {
@@ -142,6 +163,7 @@ interface MenuItem {
   path: string;
   active?: boolean;
   subItems?: Array<MenuItem>;
+  finalItem?: any;
   properties?: any;
 }
 
@@ -153,6 +175,9 @@ const SideMenu: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [subMenuVisibility, setSubMenuVisibility] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [subIntoMenuVisibility, setIntoSubMenuVisibility] = useState<{
     [key: string]: boolean;
   }>({});
   const [isDesktopScreen, setIsDesktopScreen] = useState(
@@ -206,7 +231,23 @@ const SideMenu: React.FC = () => {
       [itemName]: !prevVisibility[itemName],
     }));
   };
+  const handleIntoMenuItemClick = (itemName: string) => {
+    setIsDropdownOpen(false);
 
+    Object.keys(subIntoMenuVisibility).forEach((key) => {
+      if (key !== itemName) {
+        setIntoSubMenuVisibility((prevVisibility) => ({
+          ...prevVisibility,
+          [key]: false,
+        }));
+      }
+    });
+
+    setIntoSubMenuVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [itemName]: !prevVisibility[itemName],
+    }));
+  };
   const getMenuItemStyles = (
     itemName: string,
     itemPath: string
@@ -270,7 +311,7 @@ const SideMenu: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const { notifications,filteredNotifications } = notificationsContextStore();
+  const { notifications, filteredNotifications } = notificationsContextStore();
 
 
 
@@ -321,9 +362,8 @@ const SideMenu: React.FC = () => {
           {menuItems.map((item) => (
             <ul
               key={item.name}
-              className={`p-0 ${item.active ? "active w-full" : ""} ${
-                subMenuVisibility ? "mb-0" : ""
-              }`}
+              className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-0" : ""
+                }`}
             >
               <Link
                 to={item.path}
@@ -331,19 +371,19 @@ const SideMenu: React.FC = () => {
                 style={
                   item.active
                     ? {
-                        backgroundColor: "#000",
-                        color: "#fff",
-                        fontWeight: "900",
-                        borderRadius: "2px",
-                      }
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      fontWeight: "900",
+                      borderRadius: "2px",
+                    }
                     : {}
                 }
                 onClick={() => handleMenuItemClick(item.name)}
               >
                 {item.properties && (
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
-                      {/* {n.length > 0 && n.length} */}
-                  {filteredNotifications?.length + notifications?.length}
+                    {/* {n.length > 0 && n.length} */}
+                    {filteredNotifications?.length + notifications?.length}
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                   </div>
                 )}
@@ -371,9 +411,8 @@ const SideMenu: React.FC = () => {
                           : faChevronRight
                       }
                       style={iconStyles(item.name, item.path)}
-                      className={`h-3 ml-auto mr-6 ${
-                        isMenuOpen ? "block" : "hidden"
-                      }`}
+                      className={`h-3 ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"
+                        }`}
                     />
                   )}
                 </div>
@@ -386,9 +425,11 @@ const SideMenu: React.FC = () => {
                         to={subItem.path}
                         className="w-full"
                         key={subItem.name}
+                        onClick={() => handleIntoMenuItemClick(subItem.name)}
+
                       >
                         <div
-                          className="bg-white rounded-md shadow-lg mt-2 px-6 py-4 text-[black]"
+                          className="bg-white flex items-center rounded-md shadow-lg mt-2 px-6 py-4 text-[black]"
                           style={{
                             boxShadow:
                               "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
@@ -397,12 +438,52 @@ const SideMenu: React.FC = () => {
                           <span style={{ marginLeft: "30px" }}>
                             {t(subItem.name)}
                           </span>
+                          {subItem.finalItem && (
+                            <FontAwesomeIcon
+                              icon={
+                                subIntoMenuVisibility[subItem.name] && subItem.finalItem
+                                  ? faChevronDown
+                                  : faChevronRight
+                              }
+                              className={`h-3 text-black ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"
+                                }`}
+                              onClick={() => handleIntoMenuItemClick(subItem.name)}
+                            />
+                          )}
+
                         </div>
                       </Link>
+                      {subIntoMenuVisibility[subItem.name] && subItem.finalItem && (
+                        <div className={`${isMenuOpen ? "block" : "hidden"}`}>
+                          {subItem?.finalItem?.map((subItem: any) => (
+                            <li className="mx-2 list-none">
+                              <Link
+                                to={subItem.path}
+                                className="w-full"
+                                key={subItem.name}
+                              >
+                                <div
+                                  className="bg-white  rounded-md shadow-lg mt-2 px-6 py-4 text-[black]"
+                                  style={{
+                                    boxShadow:
+                                      "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+                                  }}
+                                >
+                                  <span style={{ marginLeft: "30px" }}>
+                                    {t(subItem.name)}
+                                  </span>
+                                </div>
+                              </Link>
+                            </li>
+                          ))}
+                        </div>)}
                     </li>
                   ))}
+
+
                 </div>
               )}
+
             </ul>
           ))}
         </div>
