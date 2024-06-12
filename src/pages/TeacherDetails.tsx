@@ -93,7 +93,7 @@ const TeacherDetails: React.FC = () => {
 
                         </div>
 
-                        <div className="w-full h-full xl:w-[300px] xl:h-[200px] ">
+                        <div className="w-full h-full xl:w-[100%] xl:h-[260px] ">
                           <img className="w-full h-full rounded border-2 border-solid border-[#2dd4bf]" src={item?.imageUrl || teacher?.imageUrl} alt="No image" />
                         </div>
                         <div className="flex flex-col">

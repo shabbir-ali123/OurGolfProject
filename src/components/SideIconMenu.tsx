@@ -89,7 +89,7 @@ export const menuItems: MenuItem[] = [
       {
         name: "TEACHER",
         icon: faSearch,
-        path: "/teacher-activities-page",
+        path: teacherId ? "/teacher-activities-page" : "/all-teachers",
         active: false,
         finalItem: [
           {
@@ -101,7 +101,7 @@ export const menuItems: MenuItem[] = [
           {
             name: "Update Schedule",
             icon: faSearch,
-            path: "teacher-page/" + teacherId,
+            path: "update-schedules/" + teacherId,
             active: false,
           },
           {
@@ -439,7 +439,7 @@ const SideMenu: React.FC = () => {
                             {t(subItem.name)}
                           </span>
                           {subItem.finalItem && (
-                            <FontAwesomeIcon
+                             teacherId !== null && <FontAwesomeIcon
                               icon={
                                 subIntoMenuVisibility[subItem.name] && subItem.finalItem
                                   ? faChevronDown
@@ -456,6 +456,7 @@ const SideMenu: React.FC = () => {
                       {subIntoMenuVisibility[subItem.name] && subItem.finalItem && (
                         <div className={`${isMenuOpen ? "block" : "hidden"}`}>
                           {subItem?.finalItem?.map((subItem: any) => (
+                            teacherId !== null && 
                             <li className="mx-2 list-none">
                               <Link
                                 to={subItem.path}

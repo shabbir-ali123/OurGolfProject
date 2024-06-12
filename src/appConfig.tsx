@@ -60,7 +60,7 @@ export const API_ENDPOINTS = {
   UPDATETEACHERPROFILE: `${API_BASE_URL}/${API_VERSION}/update-teacher-profile`,
   DELETESHIFTSBYID: `${API_BASE_URL}/${API_VERSION}/delete-shift`,
   DELETESCHEDULEBYID: `${API_BASE_URL}/${API_VERSION}/delete-schedule`,
-  DELETETEACHER: `${API_BASE_URL}/${API_VERSION}/delete-teacher`,
+  DELETETEACHER: `${API_BASE_URL}/${API_VERSION}/delete-teacher/`,
 
   // GIGS
   ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,

@@ -150,13 +150,13 @@ const PostCard = () => {
                   PostLikes: userEvent
                     ? e.PostLikes.map((like: any) =>
                         like.userId == loggedInUser
-                          ? { ...like, counter: like.counter === 1 ? 0 : 1 } // Toggle the counter value
+                          ? { ...like, counter: like.counter === 1 ? 0 : 1 } 
                           : like
                       )
                     : [
                         ...e.PostLikes,
                         {
-                          id: Math.floor(Math.random() * 1000), // Generating a random id
+                          id: Math.floor(Math.random() * 1000), 
                           counter: newCounter,
                           userId: Number(loggedInUser),
                           postId: postId,

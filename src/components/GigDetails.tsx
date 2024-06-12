@@ -17,6 +17,7 @@ import { postContext } from "../contexts/postsContext";
 import { handleDeleteComment } from "../utils/fetchCommunication";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { gigsContextStore } from "../contexts/gigsContext";
+import { userAuthContext } from "../contexts/authContext";
 export const settings = {
   dots: true,
   speed: 500,
@@ -88,6 +89,7 @@ const GigDetails: React.FC = () => {
   document.body.dir = i18n.dir();
   const params = useParams<{ id?: string }>();
   const { teacher, handTeacherId } = useTeacherContext();
+  
   handTeacherId(gig?.teacherId);
   const postId = params.id;
   //   const [formData, setFormData] = useState<any>({
@@ -238,8 +240,8 @@ const GigDetails: React.FC = () => {
             alt="Post"
           />
           <div>
-            <h4 className="m-0 font-medium text-lg hover:text-[#17b3a6]  uppercase text-[#565656]">
-              {teacher?.firstName}
+            <h4 className="m-0 font-medium text-lg hover:text-[#17b3a6]  captalize py-1 text-[black]">
+              {teacher?.firstName || "Golf Teacher"}
             </h4>
             <p className="m-0 p-0 text-sm">{timeAgo}</p>
           </div>

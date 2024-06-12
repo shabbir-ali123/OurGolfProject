@@ -73,6 +73,8 @@ import StudentActivitiesNew from "./components/StudentActivitiesNew";
 import GigDetails from "./components/GigDetails";
 import AllGigs from "./components/AllGigs";
 import UpdateGig from "./components/UpdateGig";
+import UpdateSchedules from "./components/UpdateSchedules";
+import EditTeacherProfile from "./components/EditTeacherPro";
 // import StudentActivitiesPage from "./components/StudentActivitiesPage";
 
 function App() {
@@ -236,6 +238,14 @@ function App() {
         title = "";
         metaDescription = "";
         break;
+        case "update-schedules":
+          title = "";
+          metaDescription = "";
+          break;
+          case "edit-teacher-profile":
+          title = "";
+          metaDescription = "";
+          break;
     }
 
     if (title) {
@@ -349,6 +359,38 @@ function App() {
           <Route
             path="/create-event/:id"
             element={token ? <CreateEvent /> : <LoginPage />}
+          />
+             <Route
+            path={isTeacher ? "/update-schedules/:id" : "/teacher-page"}
+            element={
+              token ? (
+                isTeacher ? (
+                  <TeacherDetailsContext>
+                    <UpdateSchedules />
+                  </TeacherDetailsContext>
+                ) : (
+                  <CreateTeacher />
+                )
+              ) : (
+                <LoginPage />
+              )
+            }
+          />
+            <Route
+            path={isTeacher ? "/edit-teacher-profile/:id" : "/teacher-page"}
+            element={
+              token ? (
+                isTeacher ? (
+                  <TeacherDetailsContext>
+                    <EditTeacherProfile />
+                  </TeacherDetailsContext>
+                ) : (
+                  <CreateTeacher />
+                )
+              ) : (
+                <LoginPage />
+              )
+            }
           />
           <Route
             path="/pay"

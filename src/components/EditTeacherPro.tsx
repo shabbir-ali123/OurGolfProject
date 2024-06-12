@@ -45,7 +45,7 @@ interface UpdatePostType {
   movieUrl: any;
   portfolioUrl: any;
 }
-const UpdateTeacher: React.FC = () => {
+const EditTeacherPro: React.FC = () => {
   const { t } = useTranslation();
   const { teacher, handleScheduleDelete, handleShiftDelete , isLoading, setIsLoading,handleTeacher} = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
@@ -715,7 +715,7 @@ const UpdateTeacher: React.FC = () => {
             </div>
           )}
         </div>
-        {/* <div className="">
+        <div className="">
         <h3>{t("Your Previous Schedules")}</h3>
           <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
             
@@ -818,7 +818,7 @@ const UpdateTeacher: React.FC = () => {
               </React.Fragment>
             ))}
           </div>
-        </div> */}
+        </div>
       </div>
       <div className="flex justify-center">
         <button
@@ -832,4 +832,4 @@ const UpdateTeacher: React.FC = () => {
   );
 };
 
-export default UpdateTeacher;
+export default EditTeacherPro;

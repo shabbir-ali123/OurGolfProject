@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 // }
 
 export default function TeacherListHeader() {
-  const tId = localStorage.getItem("teacher_id");
+  const teacherId  = localStorage.getItem("teacher_id");
   const {
     handleNameSearch,
   } = teacherContext();
@@ -21,11 +21,11 @@ export default function TeacherListHeader() {
   return (
     <>
       <div>
-        <div>
-          {tId == 'null' && (
+        <div  className="flex justify-center xl:justify-end my-4">
+          {!teacherId  &&  (
             <Link
               to="/teacher-page"
-              className="flex justify-center xl:justify-end my-4"
+             
             >
               <button className="flex cursor-pointer items-center justify-center gap-2 bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
                 {t("BECOME_TEACHER")}

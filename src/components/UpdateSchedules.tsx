@@ -45,7 +45,7 @@ interface UpdatePostType {
   movieUrl: any;
   portfolioUrl: any;
 }
-const UpdateTeacher: React.FC = () => {
+const updateSchedules: React.FC = () => {
   const { t } = useTranslation();
   const { teacher, handleScheduleDelete, handleShiftDelete , isLoading, setIsLoading,handleTeacher} = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
@@ -466,7 +466,7 @@ const UpdateTeacher: React.FC = () => {
 
   return (
     isLoading ? "Loading" : <div className="py-8 mx-4 xl:mx-0 ">
-      <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
+      {/* <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4 items-start justify-center">
@@ -484,7 +484,7 @@ const UpdateTeacher: React.FC = () => {
                     colSpanLg={2}
                   />
                 </div>
-                <p>{t("PROFILE_PIC")}</p>
+                <p>{t("PROFILE_PIC")}1234</p>
                 <div></div>
               </div>
 
@@ -568,9 +568,12 @@ const UpdateTeacher: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
+        <div className="text-center bg-[#6841ea] p-1">
+            <h3 className="text-white">Edit your Schedules</h3>
+        </div>
+        {/* <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
           <div className="col-span-1 md:col-span-5">
             <div className="py-4  rounded  text-red ">
               <div className="">
@@ -666,56 +669,8 @@ const UpdateTeacher: React.FC = () => {
               </div>
             )}
           </div>
-        </div>
-        <div className="col-span-1 md:col-span-3 my-4">
-          <h3 className="text-lg font-semibold mb-2 text-[#565656]">
-            {t("Video_Portfolio")}
-          </h3>
-          <div className="relative flex justify-center items-center bg-[#F1F1F1] p-4 rounded-lg shadow-md">
-            {/* {!videoPortfolioVisible && ( */}
-            <div className="grid   md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1  gap-2">
-              {[1, 2, 3, 4, 5].map((index) => (
-                <UploaderInput
-                  key={index}
-                  isOpen={showInputIndexes.includes(index)}
-                  handleUploadChange={(event: any) =>
-                    handlePortfolioUploadChange(event, "portfolioVideo", index)
-                  }
-                  ref={portfolioVideoInputRef}
-                  handleInputClick={() => handleButtonClick(index)}
-                  videoUrl={
-                    nextformData?.portfolioVideo
-                      ? nextformData.portfolioVideo[index - 1]
-                      : undefined
-                  } // Adjust index as needed
-                />
-              ))}
-            </div>
-            {/* )} */}
-            {/* {videoPortfolioVisible || nextformData.portfolioVideo&& (
-              <video
-                className="rounded-lg w-full h-[260px]"
-                src={urls || nextformData.portfolioVideo}
-                title="Portfolio Video"
-                controls
-              ></video>
-            )} */}
-          </div>
-          {showPortfolioUrl && (
-            <div className="my-4">
-              <h3 className="text-center mb-0">OR</h3>
-              <InputWithIcon
-                pname="portfolioUrl"
-                icon={<VideoCameraIcon />}
-                label={t("PORTFOLIO_URL")}
-                value={nextformData.movieUrl}
-                onChange={handleChange}
-                placeholder={t("PORTFOLIO_URL")}
-              />
-            </div>
-          )}
-        </div>
-        {/* <div className="">
+        </div> */}
+            <div className="">
         <h3>{t("Your Previous Schedules")}</h3>
           <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
             
@@ -818,7 +773,7 @@ const UpdateTeacher: React.FC = () => {
               </React.Fragment>
             ))}
           </div>
-        </div> */}
+        </div>
       </div>
       <div className="flex justify-center">
         <button
@@ -832,4 +787,4 @@ const UpdateTeacher: React.FC = () => {
   );
 };
 
-export default UpdateTeacher;
+export default updateSchedules;
