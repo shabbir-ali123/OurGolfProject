@@ -7,7 +7,7 @@ const AllStripeSessions = () => {
 
   useEffect(() => {
     const fetchSessions = async () => {
-      const stripe = require('stripe')('sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB');
+      // const stripe = require('stripe')('sk_test_51PBH1RGfCaPJBtru0fuyrSojJ8nlHs9Vnufmi2JPk5BbxsiYPo4wyX7qW0lP8OvlzTsVxv9BlTeXMzZOPL2UxDJi00S166RaoB');
       const sessions = await stripe.checkout.sessions.list({
         limit: 200,
       });

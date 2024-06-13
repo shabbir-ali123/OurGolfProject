@@ -10,7 +10,7 @@ import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
 import { eventContextStore } from "../contexts/eventContext";
 import { userAuthContext } from "../contexts/authContext";
-const stripe = require("stripe")('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');
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_TEST_SECRET_KEY);
 
 
 

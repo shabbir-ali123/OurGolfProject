@@ -47,7 +47,7 @@ interface UpdatePostType {
 }
 const EditTeacherPro: React.FC = () => {
   const { t } = useTranslation();
-  const { teacher, handleScheduleDelete, handleShiftDelete , isLoading, setIsLoading,handleTeacher} = useTeacherContext();
+  const { teacher, handleScheduleDelete, handleShiftDelete, isLoading, setIsLoading, handleTeacher } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
   const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(
     Array(5).fill("")
@@ -152,6 +152,9 @@ const EditTeacherPro: React.FC = () => {
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const [showInputIndexes, setShowInputIndexes] = useState<any>([]);
+
+
+
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeStates, setActiveStates] =
@@ -292,20 +295,20 @@ const EditTeacherPro: React.FC = () => {
     if (teacher) {
       setFormData((prevState) => ({
         ...prevState,
-        schedules: teacher?.schedules?.map((schedule:any) => ({
+        schedules: teacher?.schedules?.map((schedule: any) => ({
           ...schedule,
-          shifts: schedule?.shifts?.map((shift:any) => ({ ...shift }))
+          shifts: schedule?.shifts?.map((shift: any) => ({ ...shift }))
         }))
       }));
     }
   }, [teacher]);
-  
+
   console.log(formData, "message");
-  function formatDate(dateString:any, addDays = 0) {
+  function formatDate(dateString: any, addDays = 0) {
     const date = new Date(dateString);
     date.setDate(date.getDate() + addDays); // Add days to the date
     return date.toISOString().split('T')[0];
-}
+  }
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -335,9 +338,9 @@ const EditTeacherPro: React.FC = () => {
             }
           );
 
-            toast.success("Post Updated Successfully");
-            // handleTeacher(response.data.teacher)
-            location.reload();
+          toast.success("Post Updated Successfully");
+          // handleTeacher(response.data.teacher)
+          // location.reload();
         } catch (error) {
           console.error("Error updating event media:");
           toast.error("Failed to update event media. Please try again later.");
@@ -345,7 +348,7 @@ const EditTeacherPro: React.FC = () => {
       }
     } catch (error) {
       toast.error("Teacher Already Created");
-    }finally{
+    } finally {
       setIsLoading(false);
     }
   };
@@ -364,7 +367,12 @@ const EditTeacherPro: React.FC = () => {
     }
     return "";
   };
-
+  const getFormattedDate = (date: Date | null): string => {
+    if (date) {
+      return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
+    }
+    return "";
+  };
   const toggleAvailability = (
     day: string,
     time: string,
@@ -394,6 +402,7 @@ const EditTeacherPro: React.FC = () => {
         return [...prev, timeSlot];
       }
     });
+    console.log
   };
 
   const handleTimeSlotClick = (
@@ -410,6 +419,9 @@ const EditTeacherPro: React.FC = () => {
       const dateParts = dateFormatter.formatToParts(date);
       const dayName =
         dateParts.find((part) => part.type === "weekday")?.value || "";
+
+
+      //  console.log(dayName,"checkk")
       toggleAvailability(dayName, hour, hourIndex);
     } else {
       console.error("Invalid date:", date);
@@ -423,7 +435,7 @@ const EditTeacherPro: React.FC = () => {
     };
 
     const newSchedule = {
-      startDate: formatDate(selectedWeekStart)|| "",
+      startDate: formatDate(selectedWeekStart) || "",
       endDate: formatDate(selectedWeekStart, 7) || "",
       shifts: [newShift],
     };
@@ -444,22 +456,22 @@ const EditTeacherPro: React.FC = () => {
       setShowInputIndexes([...showInputIndexes, index]);
     }
   };
-  const groupByDateRange = (schedules:any) => {
-    const grouped:any = {};
-  
-    schedules.forEach((schedule:any) => {
-      const dateRange:any = `${schedule.startDate}-${schedule.endDate}`;
+  const groupByDateRange = (schedules: any) => {
+    const grouped: any = {};
+
+    schedules.forEach((schedule: any) => {
+      const dateRange: any = `${schedule.startDate}-${schedule.endDate}`;
       if (!grouped[dateRange]) {
         grouped[dateRange] = {
           id: schedule.id,
-          startDate:schedule.startDate,
+          startDate: schedule.startDate,
           endDate: schedule.endDate,
           shifts: []
         };
       }
       grouped[dateRange].shifts.push(...schedule.shifts);
     });
-  
+
     return Object.values(grouped);
   };
   const groupedSchedules = groupByDateRange(teacher?.schedules || []);
@@ -569,7 +581,7 @@ const EditTeacherPro: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-8 gap-4 mt-4">
           <div className="col-span-1 md:col-span-5">
             <div className="py-4  rounded  text-red ">
@@ -715,10 +727,10 @@ const EditTeacherPro: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="">
-        <h3>{t("Your Previous Schedules")}</h3>
+        <div className="mx-10 xl:mx-0">
+          <h3>{t("Your Previous Schedules")}</h3>
           <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
-            
+
             {groupedSchedules?.map((schedule: any, index: any) => (
               <>
                 <div key={index} className="snap-start bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] rounded-lg p-4 w-[260px] ">
@@ -731,24 +743,24 @@ const EditTeacherPro: React.FC = () => {
                       <TrashIcon
                         className="h-[16px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
                         onClick={() => setShowMediaUrl(!showMediaUrl)}
-                       
+
                       />
                     </button>
                   </div>
                   <div className="h-[240px] overflow-y-auto">
-                  {schedule.shifts?.map((shift: any, shiftIndex: any) => (
-                    <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
-                      <span className="font-medium text-sm">{shift.day} {shift.startTime} - {shift.endTime}</span>
-                      <button
-                        onClick={() => handleShiftDelete(shift.id)}
-                        className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
-                      >
-                        {t("REMOVE")}
-                      </button>
-                    </div>
-                  ))}
+                    {schedule.shifts?.map((shift: any, shiftIndex: any) => (
+                      <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
+                        <span className="font-medium text-sm">{shift.day} {shift.startTime} - {shift.endTime}</span>
+                        <button
+                          onClick={() => handleShiftDelete(shift.id)}
+                          className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
+                        >
+                          {t("REMOVE")}
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                 
+
                 </div>
 
 
@@ -764,22 +776,17 @@ const EditTeacherPro: React.FC = () => {
           <SlotsCalender onWeekSelected={handleWeekSelected} />
           <div className="grid grid-cols-1 gap-4 py-2 text-center ">
             <div className="col-span-1 font-bold ">{t("TIME")}</div>
-            <div className="w-full flex justify-center gap-4 xl:gap-24 ml-0 xl:ml-10  overflow-x-scroll xl:overflow-auto">
+            <div className=" flex xl:justify-center gap-4  xl:gap-20  xl:ml-[200px]  overflow-x-scroll xl:overflow-auto bg-[#e4e4e4] p-2 rounded-md">
               {selectedWeekStart &&
                 Array.from({ length: 7 }, (_, i) => {
-                  const date = new Date(
-                    selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
-                  );
+                  const date = new Date(selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000);
                   return (
                     <div
                       key={date.toLocaleDateString()}
-                      className={`col-span-1 font-bold   ${date.getTime() === selectedTab?.getTime()
-                        ? "selected-tab"
-                        : ""
-                        }`}
+                      className={` xl:font-bold  ${date.getTime() === selectedTab?.getTime() ? "selected-tab" : ""}`}
                       onClick={() => handleTabClick(date)}
                     >
-                      {t(getDayName(date).toLocaleUpperCase())}
+                      {t(getDayName(date).toLocaleUpperCase())} {getFormattedDate(date)}
                     </div>
                   );
                 })}
@@ -792,7 +799,10 @@ const EditTeacherPro: React.FC = () => {
           >
             {hoursOfDay.map((hour, hourIndex) => (
               <React.Fragment key={hour}>
-                <div className="col-span-1 time-slot">{hour}</div>
+
+                <div className="col-span-1 time-slot hidden xl:block">
+
+                  <p className="text-[#17b3a6]">{hour}</p></div>
                 {selectedWeekStart &&
                   Array.from({ length: 7 }, (_, dayIndex) => {
                     const date = new Date(
@@ -828,6 +838,8 @@ const EditTeacherPro: React.FC = () => {
           Submit
         </button>
       </div>
+    
+
     </div>
   );
 };

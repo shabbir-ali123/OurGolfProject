@@ -333,7 +333,12 @@ const CreateTeacher: React.FC = () => {
     }
     return "";
   };
-
+  const getFormattedDate = (date: Date | null): string => {
+    if (date) {
+      return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
+    }
+    return "";
+  };
   const toggleAvailability = (
     day: string,
     time: string,
@@ -658,30 +663,24 @@ const CreateTeacher: React.FC = () => {
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender onWeekSelected={handleWeekSelected}/>
+          <SlotsCalender onWeekSelected={handleWeekSelected} />
           <div className="grid grid-cols-1 gap-4 py-2 text-center ">
             <div className="col-span-1 font-bold ">{t("TIME")}</div>
-            <div className="w-full flex justify-center gap-4 xl:gap-24 ml-0 xl:ml-10  overflow-x-scroll xl:overflow-auto">
-            {selectedWeekStart &&
-              Array.from({ length: 7 }, (_, i) => {
-                const date = new Date(
-                  selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000
-                );
-                return (
-                  <div
-                    key={date.toLocaleDateString()}
-                    className={`col-span-1 font-bold   ${date.getTime() === selectedTab?.getTime()
-                      ? "selected-tab"
-                      : ""
-                      }`}
-                    onClick={() => handleTabClick(date)}
-                  >
-                    {t(getDayName(date).toLocaleUpperCase())}
-                  </div>
-                );
-              })}
+            <div className=" flex justify-center gap-4  xl:gap-20 xl:ml-[200px]  overflow-x-scroll xl:overflow-auto bg-[#e4e4e4] p-2 rounded-md">
+              {selectedWeekStart &&
+                Array.from({ length: 7 }, (_, i) => {
+                  const date = new Date(selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000);
+                  return (
+                    <div
+                      key={date.toLocaleDateString()}
+                      className={`col-span-1 font-bold ${date.getTime() === selectedTab?.getTime() ? "selected-tab" : ""}`}
+                      onClick={() => handleTabClick(date)}
+                    >
+                      {t(getDayName(date).toLocaleUpperCase())} {getFormattedDate(date)}
+                    </div>
+                  );
+                })}
             </div>
-           
           </div>
           <div
             ref={scrollContainerRef}
@@ -694,7 +693,8 @@ const CreateTeacher: React.FC = () => {
                 {selectedWeekStart &&
                   Array.from({ length: 7 }, (_, dayIndex) => {
                     const date = new Date(
-                      selectedWeekStart.getTime() + dayIndex * 24 * 60 * 60 * 1000
+                      selectedWeekStart.getTime() +
+                      dayIndex * 24 * 60 * 60 * 1000
                     );
                     const dateKey = date.toISOString().split("T");
                     const isActive = activeStates[hourIndex][dayIndex];

@@ -56,6 +56,8 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
     return formatter.format(date);
   };
 
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
   return (
     <>
       <div className="w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2">
@@ -81,26 +83,36 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
               </div>
             </div>
             <div className="mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
+              {daysOfWeek.map((day) => (
+                <div
+                  key={day}
+                  className="py-2 bg-gray-200 text-center font-semibold"
+                >
+                  {day}
+                </div>
+              ))}
               {days.map((day) => (
                 <button
-                  key={day.toString()}
-                  onClick={() => handleDateClick(day)}
-                  className={classNames(
-                    "py-4 px-1 bg-[#2dd4bf] text-white hover:bg-gray focus:z-10 border-2 border-solid border-white",
-                    isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
-                    isSameDay(day, selectedDate) ? "bg-blue-800 text-black" : "",
-                    isSameDay(day, new Date()) && !isSameDay(day, selectedDate) ? "text-red-600" : ""
-                  )}
-                >
-                  <time dateTime={format(day, "yyyy-MM-dd")}>
-                    {format(day, "EEE d MMM")}
-                  </time>
-                </button>
-              ))}
+                  key={
+                    day.toString()}
+                    onClick={() => handleDateClick(day)}
+                    className={classNames(
+                      "py-4 px-1 bg-[#2dd4bf] text-white hover:bg-gray focus:z-10 border-2 border-solid border-white",
+                      isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
+                      isSameDay(day, selectedDate) ? "bg-blue-800 text-black" : "",
+                      isSameDay(day, new Date()) && !isSameDay(day, selectedDate) ? "text-red-600" : ""
+                    )}
+                  >
+                    <time dateTime={format(day, "yyyy-MM-dd")}>
+                      {format(day, " d MMM")}
+                    </time>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  };
+  
