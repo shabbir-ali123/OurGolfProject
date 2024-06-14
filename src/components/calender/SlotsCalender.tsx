@@ -60,7 +60,7 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
 
   return (
     <>
-      <div className="w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2">
+      <div className="w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-8">
         <div className="lg:grid lg:grid-cols-4 justify-center">
           <div className="lg:col-span-8 xl:col-span-9 px-4">
             <div className="flex items-center justify-between mx-2 my-2 text-gray-900">
@@ -97,9 +97,9 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
                     day.toString()}
                     onClick={() => handleDateClick(day)}
                     className={classNames(
-                      "py-4 px-1 bg-[#2dd4bf] text-white hover:bg-gray focus:z-10 border-2 border-solid border-white",
+                      "py-4 px-1  text-black hover:bg-gray focus:z-10 border-2 border-solid border-white",
                       isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
-                      isSameDay(day, selectedDate) ? "bg-blue-800 text-black" : "",
+                      isSameDay(day, selectedDate) ? "bg-blue-800 text-white" : "",
                       isSameDay(day, new Date()) && !isSameDay(day, selectedDate) ? "text-red-600" : ""
                     )}
                   >

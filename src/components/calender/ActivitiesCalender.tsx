@@ -56,7 +56,7 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
   };
   return (
     <>
-      <div className=" w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2 ">
+      <div className=" w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2 h-full ">
         <div className="lg:grid lg:grid-cols-4 justify-center">
           <div className="lg:col-span-8 xl:col-span-9 px-4">
             <div className="flex items-center justify-between mx-2 my-2 text-gray-900 ">

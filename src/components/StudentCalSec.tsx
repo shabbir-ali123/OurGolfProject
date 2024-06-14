@@ -101,7 +101,7 @@ export default function Example({selectedDatee}: any) {
   };
   
   return (
-    <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent">
+    <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent h-screen">
        <Link to="/all-teachers" >
             <button className="m-2 cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 mb-4 rounded-full inline-flex items-center hover:animate-bounce">
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -115,7 +115,7 @@ export default function Example({selectedDatee}: any) {
 
           <ActivitiesCalender onWeekSelected={handleWeekSelected} />
         </div>
-        <ol className=" mt-4 ml-4 col-san-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8  ">
+        {/* <ol className=" mt-4 ml-4 col-san-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8  ">
           
           <h3>UpComing Activities</h3>
         
@@ -232,7 +232,7 @@ export default function Example({selectedDatee}: any) {
             ))}
           </div>
          
-        </ol>
+        </ol> */}
       </div>
     </div>
   );
