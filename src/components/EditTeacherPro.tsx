@@ -775,7 +775,7 @@ const EditTeacherPro: React.FC = () => {
         <div className="my-4 mx-10   xl:mx-0">
           <SlotsCalender onWeekSelected={handleWeekSelected} />
           <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
-            {/* <div className="col-span-1 font-bold ">{t("TIME")}</div> */}
+
             <div className=" flex xl:justify-center gap-4  xl:gap-20  xl:ml-[200px]  overflow-x-scroll xl:overflow-auto bg-[#e4e4e4] p-2 rounded-md">
               {selectedWeekStart &&
                 Array.from({ length: 7 }, (_, i) => {
@@ -818,7 +818,7 @@ const EditTeacherPro: React.FC = () => {
                         className={`col-span-1 rounded-md py-2 time-slot ${isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
                           }`}
                         onClick={() =>
-                          handleTimeSlotClick(dateKey, hour, dayIndex)
+                          handleTimeSlotClick(date, hour, dayIndex) 
                         }
                       >
                         {isActive ? `${hour}` : hour}
@@ -838,7 +838,7 @@ const EditTeacherPro: React.FC = () => {
           Edit Profile
         </button>
       </div>
-    
+
 
     </div>
   );
