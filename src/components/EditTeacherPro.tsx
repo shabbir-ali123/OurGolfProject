@@ -97,7 +97,7 @@ const EditTeacherPro: React.FC = () => {
     if (files && files.length > 0) {
       const objectURL = URL.createObjectURL(files[0]);
 
-      // Update the specific video URL for this uploader
+    
       setPortfolioVideoUrls((prev) => {
         const newUrls = [...prev];
         newUrls[index] = objectURL;
@@ -107,10 +107,10 @@ const EditTeacherPro: React.FC = () => {
     const { name } = event.target;
 
     if (files && files.length > 0 && type === "introductionVideo") {
-      const file = files[0]; // Get the first file from the files array
+      const file = files[0];
       setNextFormData((prevFormData) => ({
-        ...prevFormData, // Spread the previous form data
-        [type]: file, // Update the introductionVideo field to be a single file
+        ...prevFormData, 
+        [type]: file, 
       }));
     }
     if (files && files.length > 0 && type === "portfolioVideo") {
@@ -148,7 +148,7 @@ const EditTeacherPro: React.FC = () => {
   const introductionVideoInputRef = useRef<HTMLInputElement>(null);
 
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
-  const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
+  const [teachAvailData, setTeachAvailData] = useState({}); 
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const [showInputIndexes, setShowInputIndexes] = useState<any>([]);
@@ -215,12 +215,12 @@ const EditTeacherPro: React.FC = () => {
           : [""];
 
         if (value.trim() !== "") {
-          currentValue[index] = value.trim(","); // Update value at the given index
+          currentValue[index] = value.trim(",");
         } else {
-          currentValue.splice(index, 1); // Remove empty value if the input is cleared
+          currentValue.splice(index, 1); 
         }
 
-        // Concatenate all values with commas
+       
         updatedFormData.portfolioUrl = currentValue.filter(Boolean).join(",");
 
         return updatedFormData;
@@ -291,7 +291,7 @@ const EditTeacherPro: React.FC = () => {
     }));
   }, [teacher]);
   useEffect(() => {
-    // Assume teacher data is fetched and contains a schedules array
+  
     if (teacher) {
       setFormData((prevState) => ({
         ...prevState,
@@ -306,7 +306,7 @@ const EditTeacherPro: React.FC = () => {
   console.log(formData, "message");
   function formatDate(dateString: any, addDays = 0) {
     const date = new Date(dateString);
-    date.setDate(date.getDate() + addDays); // Add days to the date
+    date.setDate(date.getDate() + addDays); 
     return date.toISOString().split('T')[0];
   }
   const handleFormSubmit = async (e: React.FormEvent) => {

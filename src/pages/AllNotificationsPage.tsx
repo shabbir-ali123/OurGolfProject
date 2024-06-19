@@ -24,7 +24,7 @@ export default function AllNotification() {
       message: message,
     }
     updateNotificationsStatus(handleMessage, obj);
-    toast.success("Marked as Read Successfully");
+    // toast.success("Marked as Read Successfully");
 
   };
   return (
