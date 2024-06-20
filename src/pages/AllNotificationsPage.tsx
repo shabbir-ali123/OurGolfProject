@@ -11,20 +11,23 @@ export default function AllNotification() {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  const { isloading, handleMessage, notificationData } =
+  const { isloading, handleMessage, notificationData,setIsLoading } =
     notificationsContextStore();
 
   const handleApprove = (e: any, eventId: any, message: any) => {
     e.preventDefault();
+    setIsLoading()
 
     const obj = {
       notificationId: eventId,
       message: message,
     }
-    updateNotificationsStatus(handleMessage, obj);
+    updateNotificationsStatus(setIsLoading, obj);
+
     toast.success("Marked as Read Successfully");
+    setIsLoading(false)
 
   };
   return (

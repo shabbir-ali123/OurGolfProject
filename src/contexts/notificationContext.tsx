@@ -57,7 +57,7 @@ export const NotificationsContext = ({ children }: any) => {
     }
   });
 
-  const value = { handleNotification, handleMessage, handleFormData, isLoading, formData, notifications,filteredNotifications,  notificationData }; 
+  const value = { handleNotification,setIsLoading, handleMessage, handleFormData, isLoading, formData, notifications,filteredNotifications,  notificationData }; 
 
   return <NotiContext.Provider value={value}> {children}</NotiContext.Provider>
 }

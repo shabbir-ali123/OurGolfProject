@@ -33,23 +33,23 @@ export const fetchNotifications = async (
 };
 
 export const updateNotificationsStatus = async (
-  setIsLoading:any,
+  setIsLoading: any,
   formData: any,
 ) => {
+  setIsLoading(true);
   try {
     const token = localStorage.getItem("token");
-    const headers: any = {
-        };
+    const headers: any = {};
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
-    const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, formData, {
-      headers
-    });
-    const n = Math.random()
-    setIsLoading(n);
-
+    const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, formData, { headers });
+    if (response.status === 200) {
+      window.location.reload(); // Refresh the page if status is 200
+    }
+    setIsLoading(false);
   } catch (error) {
-    console.log(error) 
-  } 
+    console.log(error);
+    setIsLoading(false); // Ensure to reset loading state in case of error
+  }
 };
