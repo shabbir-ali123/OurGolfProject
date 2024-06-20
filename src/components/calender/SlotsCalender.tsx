@@ -18,8 +18,8 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFilter, onWeekSelected }: any) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFilter, onWeekSelected ,handleState, resetSchedules}: any) => {
+  const [selectedDate, setSelectedDate] = useState(new Date("12-12-2222"));
   const [click, setClick] = useState<boolean>(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
@@ -37,6 +37,8 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
 
   const handleDateClick = (date: any) => {
     setSelectedDate(date);
+    // resetSchedules();
+    handleState();
     setClick(true);
   };
 
@@ -57,7 +59,6 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
   };
 
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   return (
     <>
       <div className="w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-8">
@@ -93,8 +94,7 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
               ))}
               {days.map((day) => (
                 <button
-                  key={
-                    day.toString()}
+                 
                     onClick={() => handleDateClick(day)}
                     className={classNames(
                       "py-4 px-1  text-black hover:bg-gray focus:z-10 border-2 border-solid border-white",

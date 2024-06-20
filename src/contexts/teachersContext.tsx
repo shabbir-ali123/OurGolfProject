@@ -142,6 +142,7 @@ export const TeacherDetailsContext = ({ children }: any) => {
   const [shiftId, setShiftId] = useState<any>(null);
   const [scheduleId, setScheduleId] = useState<any>(null);
   const [tId, setTId] = useState<any>(null);
+  const [ss, ssSet] = useState<any>(null);
 
   console.log(scheduleId, "adsasd")
   useEffect(() => {
@@ -159,9 +160,14 @@ export const TeacherDetailsContext = ({ children }: any) => {
         deleteScheduleById(scheduleId, setIsLoading);
         fetchSingleTeacher(handleTeacher, teacherId);
     }
-  }, [teacherId, shiftId, scheduleId, isLoading]);
+  }, [teacherId, shiftId, scheduleId, isLoading,ss ]);
 
-  useEffect(() => {
+  const handleUpdate = useCallback(
+    (value: any) => {
+      ssSet(value);
+    },
+    [schedules]
+  );  useEffect(() => {
     fetchTeachersAppointments(setBookedAppointments, setIsLoading);
     fetchStudentAppointments(setStudentAppointments, setIsLoading);
   }, []);
@@ -211,7 +217,8 @@ export const TeacherDetailsContext = ({ children }: any) => {
     handleShiftDelete,
     handleScheduleDelete,
     setIsLoading,
-    handleTeacher
+    handleTeacher,
+    handleUpdate
   };
 
   return (

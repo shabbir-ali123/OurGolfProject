@@ -21,6 +21,7 @@ import { UploaderInput } from "../components/uploaderInput/UploaderInput";
 import { SlotsCalender } from "../components/calender/SlotsCalender";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { scheduler } from "timers/promises";
+import { BeatLoader } from "react-spinners";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -34,7 +35,7 @@ const findHourIndex = (time: string): number => {
 };
 
 const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
-  Array(7).fill(false)
+  Array(1).fill(false)
 );
 
 interface UpdatePostType {
@@ -47,7 +48,7 @@ interface UpdatePostType {
 }
 const updateSchedules: React.FC = () => {
   const { t } = useTranslation();
-  const { teacher, handleScheduleDelete, handleShiftDelete, isLoading, setIsLoading, handleTeacher } = useTeacherContext();
+  const { teacher, handleScheduleDelete, handleShiftDelete, isLoading, setIsLoading, handleUpdate } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
   const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(
     Array(5).fill("")
@@ -156,7 +157,6 @@ const updateSchedules: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeStates, setActiveStates] =
     useState<boolean[][]>(initialActiveStates);
-
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer && selectedWeekStart) {
@@ -300,14 +300,16 @@ const updateSchedules: React.FC = () => {
     }
   }, [teacher]);
 
-  console.log(formData, "message");
-  function formatDate(dateString: any, addDays = 0) {
+  // console.log(formData, "message");
+  function formatDate(dateString: any, addDays = 1) {
     const date = new Date(dateString);
     date.setDate(date.getDate() + addDays); // Add days to the date
+    console.log(date.toISOString().split('T')[0]);
     return date.toISOString().split('T')[0];
   }
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
 
     const payload = {
@@ -323,6 +325,8 @@ const updateSchedules: React.FC = () => {
         },
       });
       if (response.status == 200) {
+        // handleUpdate(response.data.teacher);
+
         try {
           const response = await axios.put(
             API_ENDPOINTS.UPDATETEACHERPROFILE,
@@ -335,9 +339,9 @@ const updateSchedules: React.FC = () => {
             }
           );
 
-          toast.success("Post Updated Successfully");
+          toast.success("Teacher Updated Successfully");
           // handleTeacher(response.data.teacher)
-          location.reload();
+          // location.reload();
         } catch (error) {
           console.error("Error updating event media:");
           toast.error("Failed to update event media. Please try again later.");
@@ -351,6 +355,7 @@ const updateSchedules: React.FC = () => {
   };
 
   const handleWeekSelected = (date: Date) => {
+    
     setSelectedWeekStart(date);
   };
 
@@ -358,6 +363,15 @@ const updateSchedules: React.FC = () => {
     setSelectedWeekStart(date);
   };
 
+  const handleState = ()=>{
+    setActiveStates(initialActiveStates);
+  };
+  const resetSchedules = () => {
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        schedules: [],
+    }));
+};
   const getDayName = (date: Date | null): string => {
     if (date) {
       return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
@@ -401,7 +415,7 @@ const updateSchedules: React.FC = () => {
     const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
     const dateParts = dateFormatter.formatToParts(date);
     const dayName = dateParts.find((part) => part.type === "weekday")?.value || "";
-
+console.log(formData, date)
     if (!dayName) {
         console.error("Invalid date:", date);
         return; // Exit the function or handle it as required
@@ -458,14 +472,18 @@ const updateSchedules: React.FC = () => {
   };
   const groupedSchedules = groupByDateRange(teacher?.schedules || []);
 
+  const comparisonDate = new Date("12-12-2222");
+
   return (
-    isLoading ? "Loading" : <div className="py-8 mx-4 xl:mx-0 ">
+    isLoading ?  <div className="flex items-center justify-center h-[100vh] ">
+    <BeatLoader color="#51ff85" size={15} />
+  </div> :  <div className="py-8 mx-4 xl:mx-0 ">
       <div className="max-w-[1500px] mx-auto">
         <div className="text-center bg-[#1e40af] p-1">
           <h3 className="text-white">Edit your Schedules</h3>
         </div>
 
-        <div className="">
+        <div className="mx-10 xl:mx-0">
           <h3>{t("Your Previous Schedules")}</h3>
           <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
 
@@ -473,7 +491,7 @@ const updateSchedules: React.FC = () => {
               <>
                 <div key={index} className="snap-start bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] rounded-lg p-4 w-[260px] ">
                   <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-sm font-bold">{schedule.startDate} - {schedule.endDate}</h2>
+                    <h2 className="text-sm font-bold">{schedule.startDate}</h2>
                     <button
                       onClick={() => handleScheduleDelete(schedule?.id)}
                       className="bg-transparent hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -510,23 +528,24 @@ const updateSchedules: React.FC = () => {
 
 
 
+
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender onWeekSelected={handleWeekSelected} />
-          <div className="grid grid-cols-1 gap-4 pt-8 pb-4 text-center ">
-            {/* <div className="col-span-1 font-bold ">{t("TIME")}</div> */}
-            <div className=" flex xl:justify-center gap-4  xl:gap-20  xl:ml-[200px]  overflow-x-scroll xl:overflow-auto bg-[#e4e4e4] p-2 rounded-md">
+          <SlotsCalender resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
+          <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
+
+            <div className=" flex xl:justify-start gap-4    overflow-x-scroll xl:overflow-auto  p-2 rounded-md">
               {selectedWeekStart &&
-                Array.from({ length: 7 }, (_, i) => {
+                Array.from({ length: 1 }, (_, i) => {
                   const date = new Date(selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000);
-                  return (
+                  return (date.getTime() !== comparisonDate.getTime()) &&
                     <div
                       key={date.toLocaleDateString()}
-                      className={`   ${date.getTime() === selectedTab?.getTime() ? "selected-tab" : ""}`}
+                      className={` xl:font-bold  ${date.getTime() === selectedTab?.getTime() ? "selected-tab" : ""}`}
                       onClick={() => handleTabClick(date)}
                     >
                       {t(getDayName(date).toLocaleUpperCase())} {getFormattedDate(date)}
                     </div>
-                  );
+             
                 })}
             </div>
           </div>
@@ -538,18 +557,17 @@ const updateSchedules: React.FC = () => {
             {hoursOfDay.map((hour, hourIndex) => (
               <React.Fragment key={hour}>
 
-                <div className="col-span-1 time-slot hidden xl:block">
 
-                  <p className="text-[#17b3a6]">{hour}</p></div>
                 {selectedWeekStart &&
-                  Array.from({ length: 7 }, (_, dayIndex) => {
+                  Array.from({ length: 1 }, (_, dayIndex) => {
                     const date = new Date(
                       selectedWeekStart.getTime() +
                       dayIndex * 24 * 60 * 60 * 1000
                     );
                     const dateKey = date.toISOString().split("T");
                     const isActive = activeStates[hourIndex][dayIndex];
-                    return (
+                    return (date.getTime() !== comparisonDate.getTime()) &&
+                      
                       <button
                         key={dateKey + hour}
                         type="button"
@@ -561,7 +579,9 @@ const updateSchedules: React.FC = () => {
                       >
                         {isActive ? `${hour}` : hour}
                       </button>
-                    );
+                    
+                      
+                    ;
                   })}
               </React.Fragment>
             ))}

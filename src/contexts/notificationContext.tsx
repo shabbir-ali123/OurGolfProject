@@ -23,7 +23,7 @@ export const NotificationsContext = ({ children }: any) => {
       if(check){
         setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
       }
-    };    
+    }
     
     socket.on('appointmentBooked', handleAppointmentBooked);
     socket.on('joinRequest', handleAppointmentBooked);

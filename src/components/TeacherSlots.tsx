@@ -30,7 +30,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
   const [tap, setTaped] = useState<boolean>(false);
   const [shiftsData, setShiftsData] = useState([]);
   const [visibleItems, setVisibleItems] = useState(20);
-
+console.log(dayFilter,"hello")
   const handleShowMore = () => {
     setVisibleItems(prevCount => prevCount + 20);
   };
@@ -45,9 +45,9 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
     dayFilter === "All"
       ? slots
       : slots?.filter((slots: any) => slots.day === dayFilter);
-  const uniqueDays: (string | undefined)[] = day.filter((d, index) => {
-    return d === undefined || day.indexOf(d) === index;
-  });
+  // const uniqueDays: (string | undefined)[] = day.filter((d, index) => {
+  //   return d === undefined || day.indexOf(d) === index;
+  // });
 
   const handleBookAppointment = () => {
     bookAppointment(selectedTime);
@@ -134,7 +134,7 @@ const TeacherSlotss: React.FC<TeacherSlotsProps> = ({
           disabled={slot.isBooked}
           
         >
-          {slot.startTime} - {slot.endTime}
+          {slot.startTime} 
         </button>
       )})}
       </div>

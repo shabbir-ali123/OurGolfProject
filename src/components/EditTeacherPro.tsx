@@ -21,6 +21,7 @@ import { UploaderInput } from "../components/uploaderInput/UploaderInput";
 import { SlotsCalender } from "../components/calender/SlotsCalender";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { scheduler } from "timers/promises";
+import { BeatLoader } from "react-spinners";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
@@ -34,7 +35,7 @@ const findHourIndex = (time: string): number => {
 };
 
 const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
-  Array(7).fill(false)
+  Array(1).fill(false)
 );
 
 interface UpdatePostType {
@@ -47,7 +48,7 @@ interface UpdatePostType {
 }
 const EditTeacherPro: React.FC = () => {
   const { t } = useTranslation();
-  const { teacher, handleScheduleDelete, handleShiftDelete, isLoading, setIsLoading, handleTeacher } = useTeacherContext();
+  const { teacher, handleScheduleDelete, handleShiftDelete, isLoading, setIsLoading, handleUpdate } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
   const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(
     Array(5).fill("")
@@ -97,7 +98,7 @@ const EditTeacherPro: React.FC = () => {
     if (files && files.length > 0) {
       const objectURL = URL.createObjectURL(files[0]);
 
-    
+      // Update the specific video URL for this uploader
       setPortfolioVideoUrls((prev) => {
         const newUrls = [...prev];
         newUrls[index] = objectURL;
@@ -107,10 +108,10 @@ const EditTeacherPro: React.FC = () => {
     const { name } = event.target;
 
     if (files && files.length > 0 && type === "introductionVideo") {
-      const file = files[0];
+      const file = files[0]; // Get the first file from the files array
       setNextFormData((prevFormData) => ({
-        ...prevFormData, 
-        [type]: file, 
+        ...prevFormData, // Spread the previous form data
+        [type]: file, // Update the introductionVideo field to be a single file
       }));
     }
     if (files && files.length > 0 && type === "portfolioVideo") {
@@ -148,18 +149,14 @@ const EditTeacherPro: React.FC = () => {
   const introductionVideoInputRef = useRef<HTMLInputElement>(null);
 
   const [selectedTab, setSelectedTab] = useState<Date | null>(null);
-  const [teachAvailData, setTeachAvailData] = useState({}); 
+  const [teachAvailData, setTeachAvailData] = useState({}); // Step 1
   const [selectedWeekStart, setSelectedWeekStart] = useState<Date | null>(null);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const [showInputIndexes, setShowInputIndexes] = useState<any>([]);
 
-
-
-
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeStates, setActiveStates] =
     useState<boolean[][]>(initialActiveStates);
-
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer && selectedWeekStart) {
@@ -215,12 +212,12 @@ const EditTeacherPro: React.FC = () => {
           : [""];
 
         if (value.trim() !== "") {
-          currentValue[index] = value.trim(",");
+          currentValue[index] = value.trim(","); // Update value at the given index
         } else {
-          currentValue.splice(index, 1); 
+          currentValue.splice(index, 1); // Remove empty value if the input is cleared
         }
 
-       
+        // Concatenate all values with commas
         updatedFormData.portfolioUrl = currentValue.filter(Boolean).join(",");
 
         return updatedFormData;
@@ -291,7 +288,7 @@ const EditTeacherPro: React.FC = () => {
     }));
   }, [teacher]);
   useEffect(() => {
-  
+    // Assume teacher data is fetched and contains a schedules array
     if (teacher) {
       setFormData((prevState) => ({
         ...prevState,
@@ -303,14 +300,16 @@ const EditTeacherPro: React.FC = () => {
     }
   }, [teacher]);
 
-  console.log(formData, "message");
-  function formatDate(dateString: any, addDays = 0) {
+  // console.log(formData, "message");
+  function formatDate(dateString: any, addDays = 1) {
     const date = new Date(dateString);
-    date.setDate(date.getDate() + addDays); 
+    date.setDate(date.getDate() + addDays); // Add days to the date
+    console.log(date.toISOString().split('T')[0]);
     return date.toISOString().split('T')[0];
   }
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
 
     const payload = {
@@ -326,6 +325,8 @@ const EditTeacherPro: React.FC = () => {
         },
       });
       if (response.status == 200) {
+        // handleUpdate(response.data.teacher);
+
         try {
           const response = await axios.put(
             API_ENDPOINTS.UPDATETEACHERPROFILE,
@@ -338,9 +339,9 @@ const EditTeacherPro: React.FC = () => {
             }
           );
 
-          toast.success("Post Updated Successfully");
+          toast.success("Teacher Updated Successfully");
           // handleTeacher(response.data.teacher)
-          location.reload();
+          // location.reload();
         } catch (error) {
           console.error("Error updating event media:");
           toast.error("Failed to update event media. Please try again later.");
@@ -354,6 +355,7 @@ const EditTeacherPro: React.FC = () => {
   };
 
   const handleWeekSelected = (date: Date) => {
+    
     setSelectedWeekStart(date);
   };
 
@@ -361,6 +363,15 @@ const EditTeacherPro: React.FC = () => {
     setSelectedWeekStart(date);
   };
 
+  const handleState = ()=>{
+    setActiveStates(initialActiveStates);
+  };
+  const resetSchedules = () => {
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        schedules: [],
+    }));
+};
   const getDayName = (date: Date | null): string => {
     if (date) {
       return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
@@ -373,11 +384,7 @@ const EditTeacherPro: React.FC = () => {
     }
     return "";
   };
-  const toggleAvailability = (
-    day: string,
-    time: string,
-    dayIndex: number
-  ): void => {
+  const toggleAvailability = (date: Date, time: string, dayIndex: number): void => {
     const hourIndex = findHourIndex(time);
 
     setActiveStates((prev) => {
@@ -391,8 +398,7 @@ const EditTeacherPro: React.FC = () => {
       return newActiveStates;
     });
 
-    const timeSlot = `${hoursOfDay[hourIndex]} on ${day} - ${selectedWeekStart?.toLocaleDateString() || ""
-      }`;
+    const timeSlot = `${hoursOfDay[hourIndex]} on ${date.toLocaleDateString()}`;
 
     setSelectedTimeSlots((prev) => {
       const index = prev.indexOf(timeSlot);
@@ -402,52 +408,42 @@ const EditTeacherPro: React.FC = () => {
         return [...prev, timeSlot];
       }
     });
-    console.log
   };
 
-  const handleTimeSlotClick = (
-    dateKey: any,
-    hour: string,
-    hourIndex: number
-  ) => {
-    const date = new Date(dateKey);
 
-    if (!isNaN(date.getTime())) {
-      const dateFormatter = new Intl.DateTimeFormat("en-US", {
-        weekday: "long",
-      });
-      const dateParts = dateFormatter.formatToParts(date);
-      const dayName =
-        dateParts.find((part) => part.type === "weekday")?.value || "";
-
-
-      //  console.log(dayName,"checkk")
-      toggleAvailability(dayName, hour, hourIndex);
-    } else {
-      console.error("Invalid date:", date);
-      return; // Exit the function or handle it as required
+  const handleTimeSlotClick = (date: Date, hour: string, dayIndex: number) => { // Accept Date object
+    const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
+    const dateParts = dateFormatter.formatToParts(date);
+    const dayName = dateParts.find((part) => part.type === "weekday")?.value || "";
+console.log(formData, date)
+    if (!dayName) {
+        console.error("Invalid date:", date);
+        return; // Exit the function or handle it as required
     }
 
+    toggleAvailability(date, hour, dayIndex);
+    
     const newShift = {
-      day: "sunday",
-      startTime: hour,
-      endTime: "",
+        day: dayName,
+        startTime: hour,
+        endTime: "",
     };
 
     const newSchedule = {
-      startDate: formatDate(selectedWeekStart) || "",
-      endDate: formatDate(selectedWeekStart, 7) || "",
-      shifts: [newShift],
+        startDate: formatDate(selectedWeekStart) || "",
+        endDate: formatDate(selectedWeekStart, 7) || "",
+        shifts: [newShift],
     };
 
     setFormData((prevFormData) => {
-      const newSchedules = [...prevFormData.schedules, newSchedule];
-      return {
-        ...prevFormData,
-        schedules: newSchedules,
-      };
+        const newSchedules = [...prevFormData.schedules, newSchedule];
+        return {
+            ...prevFormData,
+            schedules: newSchedules,
+        };
     });
-  };
+};
+
 
   const handleButtonClick = (index: any) => {
     if (showInputIndexes.includes(index)) {
@@ -476,8 +472,14 @@ const EditTeacherPro: React.FC = () => {
   };
   const groupedSchedules = groupByDateRange(teacher?.schedules || []);
 
+  // useEffect(()=>{
+  //   resetSchedules();
+  // },[])
+
   return (
-    isLoading ? "Loading" : <div className="py-8 mx-4 xl:mx-0 ">
+    isLoading ?  <div className="flex items-center justify-center h-[100vh] ">
+    <BeatLoader color="#51ff85" size={15} />
+  </div> : <div className="py-8 mx-4 xl:mx-0 ">
       <div className="bg-[#17b3a6] p-4 rounded max-w-7xl mx-auto">
         <div className="p-6  rounded  text-white ">
           <div className="flex items-center justify-around">
@@ -564,7 +566,7 @@ const EditTeacherPro: React.FC = () => {
                   </div>
 
                   <InputWithIcon
-                    variant="levelDropdown" // Assuming there's a way to specify the component type
+                    variant="levelDropdown" 
                     pname="level"
                     icon={<ArrowDownIcon />}
                     label={t("LEVEL")}
@@ -735,7 +737,7 @@ const EditTeacherPro: React.FC = () => {
               <>
                 <div key={index} className="snap-start bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] rounded-lg p-4 w-[260px] ">
                   <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-sm font-bold">{schedule.startDate} - {schedule.endDate}</h2>
+                    <h2 className="text-sm font-bold">{schedule.startDate}</h2>
                     <button
                       onClick={() => handleScheduleDelete(schedule?.id)}
                       className="bg-transparent hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -770,15 +772,15 @@ const EditTeacherPro: React.FC = () => {
         </div>
 
 
-
+{/* ss */}
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender onWeekSelected={handleWeekSelected} />
+          <SlotsCalender resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
           <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
 
             <div className=" flex xl:justify-center gap-4  xl:gap-20  xl:ml-[200px]  overflow-x-scroll xl:overflow-auto bg-[#e4e4e4] p-2 rounded-md">
               {selectedWeekStart &&
-                Array.from({ length: 7 }, (_, i) => {
+                Array.from({ length: 1 }, (_, i) => {
                   const date = new Date(selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000);
                   return (
                     <div
@@ -800,11 +802,9 @@ const EditTeacherPro: React.FC = () => {
             {hoursOfDay.map((hour, hourIndex) => (
               <React.Fragment key={hour}>
 
-                <div className="col-span-1 time-slot hidden xl:block">
 
-                  <p className="text-[#17b3a6]">{hour}</p></div>
                 {selectedWeekStart &&
-                  Array.from({ length: 7 }, (_, dayIndex) => {
+                  Array.from({ length: 1 }, (_, dayIndex) => {
                     const date = new Date(
                       selectedWeekStart.getTime() +
                       dayIndex * 24 * 60 * 60 * 1000
@@ -818,7 +818,7 @@ const EditTeacherPro: React.FC = () => {
                         className={`col-span-1 rounded-md py-2 time-slot ${isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
                           }`}
                         onClick={() =>
-                          handleTimeSlotClick(date, hour, dayIndex) 
+                          handleTimeSlotClick(date, hour, dayIndex) // Pass the date object directly
                         }
                       >
                         {isActive ? `${hour}` : hour}

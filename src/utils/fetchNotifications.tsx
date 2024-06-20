@@ -46,8 +46,8 @@ export const updateNotificationsStatus = async (
     const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, formData, {
       headers
     });
-    
-    setIsLoading(response.data);
+    const n = Math.random()
+    setIsLoading(n);
 
   } catch (error) {
     console.log(error) 

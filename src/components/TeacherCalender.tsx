@@ -25,7 +25,7 @@ const isDayDisabled = (day:any, startEndDates:any) => {
   const inRange = startEndDates?.some(({ startDate, endDate }:any) =>
     isWithinInterval(day, {
       start: parseISO(startDate),
-      end: parseISO(endDate),
+      end: parseISO(startDate)
     })
   );
 

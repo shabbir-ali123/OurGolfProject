@@ -24,7 +24,7 @@ export default function AllNotification() {
       message: message,
     }
     updateNotificationsStatus(handleMessage, obj);
-    // toast.success("Marked as Read Successfully");
+    toast.success("Marked as Read Successfully");
 
   };
   return (
@@ -61,14 +61,24 @@ export default function AllNotification() {
 
 
                           if (item?.eventId !== null) {
-                            handleApprove(e, item?.id, item?.message)
+                            if(item?.isRead != true){
+                              handleApprove(e, item?.id, item?.message)
+
+                            }
                             navigate('/edit-team/' + item?.eventId);
 
                           } else if (item?.teacherId !== null) {
+                            if(item?.isRead != true){
+                              handleApprove(e, item?.id, item?.message)
+
+                            }
                             navigate('/appointments');
 
                           } else if (item?.postId !== null) {
-                            handleApprove(e, item?.id, "")
+                            if(item?.isRead != true){
+                              handleApprove(e, item?.id, item?.message)
+
+                            }
                             navigate('/read-post/' + item?.postId);
 
                           }
