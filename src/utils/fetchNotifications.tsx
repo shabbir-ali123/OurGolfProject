@@ -45,11 +45,11 @@ export const updateNotificationsStatus = async (
     }
     const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, formData, { headers });
     if (response.status === 200) {
-      window.location.reload(); // Refresh the page if status is 200
+      window.location.reload(); 
     }
     setIsLoading(false);
   } catch (error) {
     console.log(error);
-    setIsLoading(false); // Ensure to reset loading state in case of error
+    setIsLoading(false); 
   }
 };

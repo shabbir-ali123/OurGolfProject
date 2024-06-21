@@ -123,15 +123,15 @@ console.log(dayFilter,"hello")
       {tId == teacherId && <h2 className="font-semibold my-8 text-lg text-center">Your Available Slots!</h2>}
 
       <div className="grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-3 gap-4 my-4">
-      {filteredSlots?.slice(0, visibleItems)?.map((slot: any, index: any) => {
+      {filteredSlots?.slice(0, visibleItems)?.map((slot: any, index: any) =>  {console.log(slot ,"cslots")
         return (
         <button
           key={index}
           className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
-            slot.isBooked ? "bg-[#DDF4F2] text-gray-600" : "bg-[#17b3a6] text-white"
+            slot.isBooked ? "bg-[#17b3a6] text-gray-600" : "bg-[#17b3a6] text-white"
           } ${selectedTime === slot ? "bg-black" : ""}`}
           onClick={() => handleSlotClick(slot)}
-          disabled={slot.isBooked}
+          disabled={slot.status === "BOOKED"}
           
         >
           {slot.startTime} 
@@ -160,7 +160,7 @@ console.log(dayFilter,"hello")
       <div>
         <div className="flex items-center justify-end ">
           <p className="my-1">{t("AVAILABLE")}-</p>
-          <div className="h-4 w-8  md:w-10 lg:w-16  bg-[#DDF4F2]"></div>
+          <div className="h-4 w-8  md:w-10 lg:w-16  bg-[#17b3a6]"></div>
         </div>
         <div className="flex items-center justify-end ">
           <p className="my-1">{t("NOT_AVAILABLE")}-</p>

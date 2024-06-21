@@ -6,6 +6,8 @@ import { getTimeAgo } from "./ReadPost";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fetchNotifications, updateNotificationsStatus } from "../utils/fetchNotifications";
+import { API_ENDPOINTS } from "../appConfig";
+import axios from "axios";
 
 export default function AllNotification() {
   const navigate = useNavigate();
@@ -24,8 +26,27 @@ export default function AllNotification() {
       notificationId: eventId,
       message: message,
     }
-    updateNotificationsStatus(setIsLoading, obj);
-
+   const updateNotificationsStatus = async (
+      
+    ) => {
+      setIsLoading(true);
+      try {
+        const token = localStorage.getItem("token");
+        const headers: any = {};
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+        const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, obj, { headers });
+        if (response.status === 200) {
+          window.location.reload(); 
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false); 
+      }
+    };
+    updateNotificationsStatus();
     toast.success("Marked as Read Successfully");
     setIsLoading(false)
 
