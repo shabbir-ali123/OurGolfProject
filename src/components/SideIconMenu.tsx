@@ -313,7 +313,11 @@ const SideMenu: React.FC = () => {
   }, []);
   const { notifications, filteredNotifications } = notificationsContextStore();
 
+    useEffect(()=>{
+      
 
+      filteredNotifications
+    },[])
 
   return (
     <>

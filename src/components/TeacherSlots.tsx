@@ -128,7 +128,7 @@ console.log(dayFilter,"hello")
         <button
           key={index}
           className={`text-sm text-center px-1 py-4 rounded-lg shadow-sm ${
-            slot.isBooked ? "bg-[#17b3a6] text-gray-600" : "bg-[#17b3a6] text-white"
+            slot.isBooked ? "bg-[#f3f4f6] text-gray-600" : "bg-[#17b3a6] text-white"
           } ${selectedTime === slot ? "bg-black" : ""}`}
           onClick={() => handleSlotClick(slot)}
           disabled={slot.status === "BOOKED"}

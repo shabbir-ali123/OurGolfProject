@@ -14,8 +14,9 @@ export const NotificationsContext = ({ children }: any) => {
   let userId = localStorage.getItem("id");
   let tId = localStorage.getItem("teacher_id");
 
-  
   useEffect(() => {
+    console.log(isLoading ," isloasd")
+
     fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
       console.log(data, 'notificationDar')
@@ -36,7 +37,9 @@ export const NotificationsContext = ({ children }: any) => {
 
     };
   }, [isLoading, message]); 
-
+  const handleLoading = useCallback((value: any) => {
+    setIsLoading(value);
+  }, [isLoading]);
   const handleNotification = useCallback((value: any) => {
     setNotifications(value);
   }, [notifications]);
@@ -48,16 +51,19 @@ export const NotificationsContext = ({ children }: any) => {
   const handleFormData = useCallback((value: any) => {
     setFormData(value)
   }, [formData]);
-  const filteredNotifications = notificationData?.filter((item: any) => {
-    if (
-      (item.isRead !== true)
-    ) {
-      console.log("asdasd")
-      return true;
-    }
-  });
 
-  const value = { handleNotification,setIsLoading, handleMessage, handleFormData, isLoading, formData, notifications,filteredNotifications,  notificationData }; 
+  const [filteredNotifications, setFilteredNotifications] = useState([]);
+  useEffect(() => {
+    let filtered:any = notificationData?.filter((item:any) => item.isRead !== true);
+
+    setFilteredNotifications(filtered);
+    console.log("called");
+
+  }, [notificationData, message]);
+
+  
+
+  const value = { handleNotification,handleLoading, handleMessage, handleFormData, isLoading, formData, notifications,filteredNotifications,  notificationData }; 
 
   return <NotiContext.Provider value={value}> {children}</NotiContext.Provider>
 }

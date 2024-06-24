@@ -45,7 +45,7 @@ export const updateNotificationsStatus = async (
     }
     const response = await axios.put(API_ENDPOINTS.UPDATENOTIFICATIONSTATUS, formData, { headers });
     if (response.status === 200) {
-      window.location.reload(); 
+     
     }
     setIsLoading(false);
   } catch (error) {
@@ -53,3 +53,4 @@ export const updateNotificationsStatus = async (
     setIsLoading(false); 
   }
 };
+  

@@ -15,12 +15,12 @@ export default function AllNotification() {
   const { t } = useTranslation();
   // const [isLoading, setIsLoading] = useState(true);
 
-  const { isloading, handleMessage, notificationData,setIsLoading } =
+  const { isloading, handleMessage, notificationData } =
     notificationsContextStore();
 
+    console.log(isloading ,"isloading")
   const handleApprove = (e: any, eventId: any, message: any) => {
     e.preventDefault();
-    setIsLoading()
 
     const obj = {
       notificationId: eventId,
@@ -29,7 +29,7 @@ export default function AllNotification() {
    const updateNotificationsStatus = async (
       
     ) => {
-      setIsLoading(true);
+      handleMessage(true);
       try {
         const token = localStorage.getItem("token");
         const headers: any = {};
@@ -40,15 +40,14 @@ export default function AllNotification() {
         if (response.status === 200) {
           window.location.reload(); 
         }
-        setIsLoading(false);
+        handleMessage(false);
       } catch (error) {
         console.log(error);
-        setIsLoading(false); 
+        handleMessage(false); 
       }
     };
     updateNotificationsStatus();
     toast.success("Marked as Read Successfully");
-    setIsLoading(false)
 
   };
   return (
@@ -81,6 +80,7 @@ export default function AllNotification() {
                     >
                       <div className={`mt-2 pointer-events-auto w-full max-w-5xl rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ${!item.isRead ? 'bg-[#f3f3f3]' : 'bg-white'
                         }`} onClick={(e) => {
+                          
 
 
 
