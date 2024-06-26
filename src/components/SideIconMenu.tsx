@@ -99,6 +99,12 @@ export const menuItems: MenuItem[] = [
             active: false,
           },
           {
+            name: "Update Gig",
+            icon: faSearch,
+            path: "/profile-page",
+            active: false,
+          },
+          {
             name: "Update Schedule",
             icon: faSearch,
             path: "update-schedules/" + teacherId,
@@ -266,7 +272,7 @@ const SideMenu: React.FC = () => {
         : "",
     alignItems: "center",
     color: "#fff",
-    marginBottom: isMenuOpen && subMenuVisibility[itemName] ? "10px" : "0", // Adjust this value as needed
+    marginBottom: isMenuOpen && subMenuVisibility[itemName] ? "10px" : "0", 
   });
 
   const iconStyles = (
@@ -285,7 +291,7 @@ const SideMenu: React.FC = () => {
     color: window.location.pathname === itemPath ? "#fff" : "#fff",
     visibility: isMenuOpen ? "visible" : "hidden",
     transition: "visibility 0.3s ease",
-    marginLeft: "10px", // Adjust this value as needed
+    marginLeft: "10px", 
   });
 
   const small: any = {
@@ -433,10 +439,9 @@ const SideMenu: React.FC = () => {
 
                       >
                         <div
-                          className="bg-white flex items-center rounded-md shadow-lg mt-2 px-6 py-4 text-[black]"
+                          className=" flex items-center rounded-md shadow-lg mt-2  py-4 text-white"
                           style={{
-                            boxShadow:
-                              "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+                            borderBottom: "1px solid white", 
                           }}
                         >
                           <span style={{ marginLeft: "30px" }}>
@@ -461,17 +466,16 @@ const SideMenu: React.FC = () => {
                         <div className={`${isMenuOpen ? "block" : "hidden"}`}>
                           {subItem?.finalItem?.map((subItem: any) => (
                             teacherId !== null && 
-                            <li className="mx-2 list-none">
+                            <li className=" list-none ">
                               <Link
                                 to={subItem.path}
-                                className="w-full"
+                                className="w-full "
                                 key={subItem.name}
                               >
                                 <div
-                                  className="bg-white  rounded-md shadow-lg mt-2 px-6 py-4 text-[black]"
+                                  className="text-start  rounded-md   mt-2  py-4 text-white "
                                   style={{
-                                    boxShadow:
-                                      "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+                                    borderBottom: "1px solid white", // Add border bottom here
                                   }}
                                 >
                                   <span style={{ marginLeft: "30px" }}>

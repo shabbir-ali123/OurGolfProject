@@ -1,8 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import { userAuthContext } from "../contexts/authContext";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { singleUserContext, userAuthContext } from "../contexts/authContext";
 import { Fragment, useEffect, useState } from "react";
 import { postContext } from "../contexts/postsContext";
-import { createdEventsStore } from "../contexts/eventContext";
+import { createdEventsStore, eventContextStore } from "../contexts/eventContext";
 import { useTranslation } from "react-i18next";
 import UpdateTeacher from "./UpdateTeacher";
 import { useTeacherContext } from "../contexts/teachersContext";
@@ -20,9 +20,13 @@ const Profile = () => {
   const { user } = userAuthContext();
   const { post, handleCategory } = postContext();
   const { createdEvents } = createdEventsStore();
+  const { handleEventStatus,eventss } = eventContextStore();
+  handleEventStatus("joined");
   const { studentAppointments, isLoading } = useTeacherContext();
   const { teacher } = useTeacherContext();
   const teacherId  = localStorage.getItem("teacher_id");
+  const UserId  = localStorage.getItem("id");
+  const { id } = useParams<{ id: string }>();
   console.log(studentAppointments);
   const router = useNavigate();
   const formatDate = (dateString: string): string => {
@@ -37,6 +41,7 @@ const Profile = () => {
     handleCategory("MyPost");
   }, []);
   const tId = localStorage.getItem("teacher_id");
+  const { singleUser, postCount, eventCount} = singleUserContext();
   const [isTeacher, setIsTeacher] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [openEditTeacher, setEditTeacher] = useState(false);
@@ -83,6 +88,11 @@ const Profile = () => {
 
     handleTeacherId(tId);
   };
+  const handlePostsClick = () => {
+    router('/user-posts/' + user) 
+
+  };
+  console.log(eventss  ,"helllo")
   return (
     <>
       <div className="max-w-7xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -215,32 +225,32 @@ const Profile = () => {
               {user.nickName}
             </h3>
             <p className="font-medium">{user.email}</p>
-            <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 xl:grid-cols-4 sm:grid-cols-2 rounded-md border border-stroke py-4 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
-              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+            <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 xl:grid-cols-4 sm:grid-cols-2 rounded-md border border-stroke py-4 shadow-1 cursor-pointer dark:border-strokedark dark:bg-[#37404F]">
+              <div onClick={()=>{
+                router('/user-posts/'+UserId)
+              }} className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
                   {post.length}
                 </span>
                 <span className="text-sm">{t("POSTS")}</span>
               </div>
-              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row cursor-pointer"    onClick={()=>{
+                router('/created-events')
+              }}>
                 <span className="font-semibold text-black dark:text-white">
-                  {createdEvents.length}
+                  {createdEvents.length > 0 ? createdEvents.length : 0}
                 </span>
-                <span className="text-sm">{t("EVENTS")}</span>
+                <span className="text-sm">{t("CREATED_EVENTS")}</span>
               </div>
-              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row" onClick={()=>{
+                router('/joined-events')
+              }}>
                 <span className="font-semibold text-black dark:text-white">
-                  259
+                  {eventss.length > 0 ? eventss.length : 0}
                 </span>
                 <span className="text-sm">{t("JOINED_EVENTS")}</span>
               </div>
 
-              <div className="flex flex-col py-2 items-center justify-center gap-1 px-4 xsm:flex-row">
-                <span className="font-semibold text-black dark:text-white">
-                  2K
-                </span>
-                <span className="text-sm">{t("CREATED_EVENTS")}</span>
-              </div>
             </div>
             {tId && (
               <div className="my-8">

@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { singleTeamsContextStore } from '../contexts/teamContext';
 import { useTranslation } from "react-i18next";
-
+import { singleEventContextStore } from '../contexts/eventContext';
+import { approveEvent, fetchSingleEvent } from "../utils/fetchEvents";
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { CheckBadgeIcon, XMarkIcon } from '@heroicons/react/24/solid';
 export default function AllMembers() {
   const [visibleCount, setVisibleCount] = useState(5);
   const [activeTab, setActiveTab] = useState('confirmed');
-  const { waitingUsers = [], joinedUsers = [] } = singleTeamsContextStore();
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  
+  const { isCreated, singleEvent } = singleEventContextStore();
+  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers = [], joinedUsers = [], handleIsLoading } = singleTeamsContextStore()
   const loadMore = () => {
     setVisibleCount((prevCount) => prevCount + 5);
   };
@@ -15,9 +20,20 @@ export default function AllMembers() {
   const handleTabClick = (tab:any) => {
     setActiveTab(tab);
   };
+  const handleApprove = (e: any, id: any) => {
+    e.preventDefault();
+    handleIsLoading(true);
+    const obj = {
+      userId: id,
+      eventId: singleEvent?.id,
+    }
+    approveEvent(obj);
+    toast.success("Approved Successfully");
+    navigate(`/edit-team/${singleEvent?.id}`);
 
+  }
   return (
-    <div className="px-4 max-w-5xl mx-auto sm:px-6 lg:px-8 py-4 rounded-lg my-10">
+    <div className="px-4  sm:px-6 lg:px-8 py-4 rounded-lg my-10">
       <div className="flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
         <div className="flex gap-2 items-center">
           <img src="/img/golfplyr.png" alt="" width="40px" />
@@ -53,6 +69,7 @@ export default function AllMembers() {
                         <div>
                           <div className="text-sm font-medium text-gray-900">{player?.nickName}</div>
                         </div>
+                      
                       </div>
                     </td>
                   </tr>
@@ -80,6 +97,14 @@ export default function AllMembers() {
                         <div>
                           <div className="text-sm font-medium text-gray-900">{player?.nickName}</div>
                         </div>
+                        {isCreated &&
+                                    <div>
+
+
+                                      <button className="flex items-center gap-1 cursor-pointer bg-[#17b3a6] text-white rounded-lg my-2" onClick={(e) => { handleApprove(e, player.id) }}><CheckBadgeIcon className="w-6 h-6 text-white" />{t("ACCEPT")}</button>
+                                      <button className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#17b3a6]  rounded-lg my-2 py-1 text-[#17b3a6]" onClick={(e) => { }}><XMarkIcon className="w-5 h-5 text-[#17b3a6]" />{t("DECLINE")}</button>
+                                    </div>
+                                  }
                       </div>
                     </td>
                   </tr>

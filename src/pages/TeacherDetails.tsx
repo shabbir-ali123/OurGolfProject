@@ -89,10 +89,7 @@ const TeacherDetails: React.FC = () => {
                       
                     >
                       <div className=" gap-4 items-center text-black">
-                        <div>
-
-                        </div>
-
+                    
                         <div className="w-full h-full xl:w-[100%] xl:h-[260px] ">
                           <img className="w-full h-full rounded border-2 border-solid border-[#2dd4bf]" src={item?.imageUrl || teacher?.imageUrl} alt="No image" />
                         </div>

@@ -42,6 +42,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { PostContext } from "./contexts/postsContext";
 import {
   CreatedEventContext,
+  EventsContext,
   SingleEventsContext,
 } from "./contexts/eventContext";
 import { SingleTeamsContext } from "./contexts/teamContext";
@@ -544,6 +545,7 @@ function App() {
             element={
               token ? (
                 <PostContext>
+                  <EventsContext>
                   <CreatedEventContext>
                     <TeacherDetailsContext>
                       <TeacherGigsProvider>
@@ -552,6 +554,8 @@ function App() {
                       </TeacherGigsProvider>
                     </TeacherDetailsContext>
                   </CreatedEventContext>
+                  </EventsContext>
+                  
                 </PostContext>
               ) : (
                 <LoginPage />

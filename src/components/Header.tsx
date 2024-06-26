@@ -61,7 +61,7 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.to}
-                className={`flex items-center text-2xl list-none no-underline font-normal leading-6 text-[#fff] hover:text-[black] ${isActive(item.to) ? "active" : ""}`}
+                className={`flex items-center text-2xl w-full xl:w-auto list-none no-underline font-normal leading-6 text-[#fff] hover:text-[black] ${isActive(item.to) ? "active" : ""}`}
                 style={isActive(item.to) ? {
                   background: "black",
                   color: "#ffffff",
@@ -72,7 +72,7 @@ const Header: React.FC = () => {
               >
               {isSmallScreen ? (
                   <>
-                    <div className="inline text-center">
+                    <div className="inline text-center w-[100px]">
                       <item.icon className="w-6 h-6 mr-2" />
                       <br />
                       <span>{t(item.name.toLocaleUpperCase())}</span>

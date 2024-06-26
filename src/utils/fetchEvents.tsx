@@ -170,6 +170,7 @@ export const fetchCreatedEvents = async (activeTab: any, pageSize: any, currentP
       const response = await axios.get(API_ENDPOINTS.GETEVENTSBYID, {
         params: {
           pageSize,
+          
           page: currentPage,
           status,
           eventStartDate: "",

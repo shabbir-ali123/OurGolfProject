@@ -321,7 +321,7 @@ export const CreatedEventContext = ({ children }: any) => {
 
   const pageSize = 6;
   const [createdEvents, setCreatedEvents] = useState<any[]>([]);
-  const [activeTab, setActiveTab] = useState<any>("past");
+  const [activeTab, setActiveTab] = useState<any>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 

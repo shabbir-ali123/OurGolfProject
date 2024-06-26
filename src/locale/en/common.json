@@ -37,6 +37,7 @@
     "PREV": "Prev",
     "NEXT": "Next",
     "CLEAR": "Clear",
+    "CLEAR_FILTER": "Clear Filter",
     "MY_POST":"My Post",
     "EDIT_POST":"Edit",
     "DELETE":"Delete",

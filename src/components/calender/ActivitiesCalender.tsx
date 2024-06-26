@@ -15,6 +15,7 @@ import {
 } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import i18n from "../../locale";
+import { Link } from "react-router-dom";
 ;
 
 function classNames(...classes:any) {
@@ -25,7 +26,7 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
+  const teacherId  = localStorage.getItem("teacher_id");
   const startDay = startOfWeek(startOfMonth(currentMonth));
   const endDay = endOfWeek(endOfMonth(currentMonth));
   const days = eachDayOfInterval({ start: startDay, end: endDay });
@@ -78,7 +79,7 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
                   key={day.toString()}
                   onClick={() => handleDateClick(day)}
                   className={classNames(
-                    "py-1.5 bg-[#2dd4bf] text-white hover:bg-gray focus:z-10",
+                    "py-1.5 bg-[#17b3a6] text-white hover:bg-gray focus:z-10",
                     isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
                     selectedDate !== null && isSameDay(day, selectedDate) ? "bg-blue-200 text-black" : "",
                     selectedDate && !isSameDay(day, selectedDate) ? "" : "text-red-600"
@@ -90,8 +91,23 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
             </div>
           </div>
         </div>
+        
       </div>
-     
+      <div className="flex gap-4 justify-center my-8">
+        <Link to={`/update-schedules/${teacherId}`} >
+        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Schedules</button>
+        </Link>
+        <Link to={`teacher-page/${teacherId}`} >
+        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Profile</button>
+        </Link>
+        <Link to={`/create-catalogs/${teacherId}`} >
+        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Create Gig</button>
+        </Link>
+        <Link to={`/profile-page`} >
+        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Gigs</button>
+        </Link>
+
+     </div>
     </>
   );
 };

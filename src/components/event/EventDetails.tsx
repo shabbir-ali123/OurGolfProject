@@ -23,7 +23,7 @@ const EventDetails: React.FC = () => {
                                     className="w-24 h-24 rounded-full object-cover mx-10"
                                 />
                                 <div className="text-white">
-                                    <h3 className="text-xl font-semibold text-[#17B3A6] bg-white p-1 rounded-sm">{singleEvent?.eventType || t('EVENT_DETAILS')} </h3>
+                                    <h3 className="text-xl font-semibold text-[#17B3A6] bg-white p-1 rounded-md px-4">{singleEvent?.eventType || t('EVENT_DETAILS')} </h3>
                                     <p className="text-base">{singleEvent?.eventName || t('ZOZO_CHAMPIONSHIP')}</p>
                                 </div>
                             </div>

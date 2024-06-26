@@ -36,7 +36,7 @@ const AllTeacherFilters: React.FC = () => {
     <div className="text-center p-4  bg-white shadow-lg">
       <div className='flex justify-between items-center '>
       <h2 className='text-start'>{t("FILTER_BY")}</h2>
-      <button className='py-2 bg-[#17b3a6] text-white rounded-sm cursor-pointer' onClick={handleClear}>Clear Filter</button>
+      <button className='py-2 bg-[#17b3a6] text-white rounded-sm cursor-pointer' onClick={handleClear}>{t("CLEAR_FILTER")}</button>
       </div>
      
       <div>

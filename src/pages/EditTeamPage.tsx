@@ -20,6 +20,8 @@ import { ResponsiveSliderStyles, SliderStyles } from "../components/sliderStyles
 import NotFound from "./404";
 import { AboutEvent } from "../components/event/AboutEventSingle";
 import { CheckBadgeIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import EventDetails from "../components/event/EventDetails";
+import AllMembers from "../components/AllMembers";
 
 interface Team {
   id: string;
@@ -303,7 +305,7 @@ const EditTeamPage: FunctionComponent = () => {
       {singleEvent?.id ?
         <div className="py-10 ml-12 ">
           <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
-            <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
+            {/* <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
               <div className="xl:flex justify-around w-full">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
                   <img
@@ -347,7 +349,7 @@ const EditTeamPage: FunctionComponent = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div id="my-slider-container" className="mx-auto my-6 max-w-7xl slider-container">
               {singleEvent && singleEvent.imageUrl?.length > 1 && (
@@ -376,11 +378,19 @@ const EditTeamPage: FunctionComponent = () => {
                 </Slider>
               )}
             </div>
-            <div className="max-w-5xl mx-auto">
+            <EventDetails />
 
 
-              <AboutEvent totalJoinedMembers={totalJoinedMembers} />
-              <div className="max-w-5xl mx-6 xl:mx-auto py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
+            <div className="max-w-5xl mx-auto mt-24">
+
+<div className="mt-40">
+<AboutEvent totalJoinedMembers={totalJoinedMembers} />
+</div>
+              
+              <div className="">
+                <AllMembers />
+              </div>
+              {/* <div className="max-w-5xl mx-6 xl:mx-auto py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
                 <div className="flex gap-2 ">
                   <div>
                     <img src="/img/golfplyr.png" alt="" width="40px" />
@@ -478,7 +488,7 @@ const EditTeamPage: FunctionComponent = () => {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> */}
 
               <div className="xl:flex items-start gap-40">
                 {(!isCreated && !isJoined && !isDeadlineOver) && (
@@ -522,7 +532,7 @@ const EditTeamPage: FunctionComponent = () => {
                             <div>
                               <img src="/img/golfplyr.png" alt="" width="40px" />
                               <b className="text-xl lg:text-10xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
-                              {t('EDIT_TEAMS')}
+                                {t('EDIT_TEAMS')}
                               </b>
                             </div>
                           </div>
@@ -565,12 +575,12 @@ const EditTeamPage: FunctionComponent = () => {
                                 min="0"
                               />
                             </div>
-                            <button
+                            {/* <button
                               className="px-2 py-1 font-normal text-white bg-blue-500 rounded hover:bg-blue-700  xl:m-0"
                               onClick={handleOpenPlayerList}
                             >
-                             {t('REMOVE_PLAYER')}
-                            </button>
+                              {t('REMOVE_PLAYER')}
+                            </button> */}
 
                             {/* <button
                           className="font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"

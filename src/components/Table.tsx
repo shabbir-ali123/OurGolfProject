@@ -643,7 +643,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                               <br />
                               {
                                 
-                                new Set(item.teams.map((team: any) => team.userId)).size
+                                new Set(item?.teams?.map((team: any) => team?.userId)).size
                               } /
                               {item.capacity * item.teamSize}
                             </p>
