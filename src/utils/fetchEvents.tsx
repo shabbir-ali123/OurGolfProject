@@ -224,10 +224,10 @@ export const approveEvent = async (formData: any) => {
 
 export const fetchSeachedEvents = async (query: any, setEvents: any) => {
 
-  const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+  const token = localStorage.getItem('token'); 
   if (!token) {
     console.log("No token found in localStorage");
-    return; // Exit if no token is found
+    return;
   }
   const headers = new Headers({
     'Authorization': `Bearer ${token}`, // Use Bearer authentication scheme

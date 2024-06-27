@@ -7,11 +7,13 @@ import {
   endOfWeek,
   eachDayOfInterval,
   isSameMonth,
+  isWithinInterval,
   isSameDay,
   addMonths,
   subMonths,
+  parseISO,
 } from "date-fns";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid"
 import i18n from "../../locale";
 
 function classNames(...classes: any) {
@@ -58,6 +60,22 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
     return formatter.format(date);
   };
 
+  const isDayDisabled = (day:any, startEndDates:any) => {
+    const inRange = startEndDates?.some(({ startDate, endDate }:any) =>
+      isWithinInterval(day, {
+        start: parseISO(startDate),
+        end: parseISO(startDate)
+      })
+    );
+  
+    if (!inRange) return true;
+  
+    const dayOfWeek = format(day, "EEEE");
+  
+    return !startEndDates.some(({ shifts }:any) =>
+      shifts.some((shift:any) => shift.day === dayOfWeek)
+    );
+  };
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return (
     <>
@@ -98,6 +116,8 @@ export const SlotsCalender = ({ startEndDates, onMatchedShifts, onClicked, dayFi
                     onClick={() => handleDateClick(day)}
                     className={classNames(
                       "py-4 px-1  text-black hover:bg-gray focus:z-10 border-2 border-solid border-white",
+                      !isDayDisabled(day, startEndDates) ? "bg-[#17b3a6] text-white" : "cursor-pointer",
+
                       isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
                       isSameDay(day, selectedDate) ? "bg-blue-800 text-white" : "",
                       isSameDay(day, new Date()) && !isSameDay(day, selectedDate) ? "text-red-600" : ""

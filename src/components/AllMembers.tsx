@@ -33,7 +33,7 @@ export default function AllMembers() {
 
   }
   return (
-    <div className="px-4  sm:px-6 lg:px-8 py-4 rounded-lg my-10">
+    <div className="px-4 max-w-6xl mx-auto  sm:px-6 lg:px-8 py-4 rounded-lg my-10">
       <div className="flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
         <div className="flex gap-2 items-center">
           <img src="/img/golfplyr.png" alt="" width="40px" />

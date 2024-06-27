@@ -454,7 +454,7 @@ const SideMenu: React.FC = () => {
                                   ? faChevronDown
                                   : faChevronRight
                               }
-                              className={`h-3 text-black ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"
+                              className={`h-3 text-white ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"
                                 }`}
                               onClick={() => handleIntoMenuItemClick(subItem.name)}
                             />
@@ -469,13 +469,13 @@ const SideMenu: React.FC = () => {
                             <li className=" list-none ">
                               <Link
                                 to={subItem.path}
-                                className="w-full "
+                                className="w-full text-white"
                                 key={subItem.name}
                               >
                                 <div
                                   className="text-start  rounded-md   mt-2  py-4 text-white "
                                   style={{
-                                    borderBottom: "1px solid white", // Add border bottom here
+                                    borderBottom: "1px solid white", 
                                   }}
                                 >
                                   <span style={{ marginLeft: "30px" }}>

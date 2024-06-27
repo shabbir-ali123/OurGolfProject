@@ -475,7 +475,7 @@ console.log(formData, date)
   // useEffect(()=>{
   //   resetSchedules();
   // },[])
-
+  const comparisonDate = new Date("12-12-2222");
   return (
     isLoading ?  <div className="flex items-center justify-center h-[100vh] ">
     <BeatLoader color="#51ff85" size={15} />
@@ -738,7 +738,7 @@ console.log(formData, date)
                 <div key={index} className="snap-start bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] rounded-lg p-4 w-[260px] ">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-bold">{schedule.startDate}</h2>
-                    <button
+                  { !schedule.shifts.length && <button
                       onClick={() => handleScheduleDelete(schedule?.id)}
                       className="bg-transparent hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
@@ -747,20 +747,32 @@ console.log(formData, date)
                         onClick={() => setShowMediaUrl(!showMediaUrl)}
 
                       />
-                    </button>
+                    </button>}
                   </div>
                   <div className="h-[240px] overflow-y-auto">
-                    {schedule.shifts?.map((shift: any, shiftIndex: any) => (
-                      <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
+                    {schedule.shifts?.map((shift: any, shiftIndex: any) =>{
+                       console.log(shift?.isBooked ,"hello imran" )
+                    
+                      return <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
                         <span className="font-medium text-sm">{shift.day} {shift.startTime} - {shift.endTime}</span>
-                        <button
-                          onClick={() => handleShiftDelete(shift.id)}
-                          className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
-                        >
-                          {t("REMOVE")}
-                        </button>
+                       {
+                        shift?.isBooked == true ?  <button
+                                           
+
+                        onClick={() => handleShiftDelete(shift.id)}
+                        className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
+                      >
+                        {t("REMOVE")}
+                      </button> :  <button
+                                           
+
+                                           className="bg-[#17b3a6] hover:bg-red-700 text-white font-bold py-1  rounded cursor-not-allowed"
+                                         >
+                                           {"BOOKED"}
+                                         </button>
+                       }
                       </div>
-                    ))}
+})}
                   </div>
 
                 </div>
@@ -772,17 +784,18 @@ console.log(formData, date)
         </div>
 
 
-{/* ss */}
+
+
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
+          <SlotsCalender  startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
           <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
 
-            <div className=" flex xl:justify-center gap-4  xl:gap-20  xl:ml-[200px]  overflow-x-scroll xl:overflow-auto bg-[#e4e4e4] p-2 rounded-md">
+            <div className=" flex xl:justify-start gap-4    overflow-x-scroll xl:overflow-auto  p-2 rounded-md">
               {selectedWeekStart &&
                 Array.from({ length: 1 }, (_, i) => {
                   const date = new Date(selectedWeekStart.getTime() + i * 24 * 60 * 60 * 1000);
-                  return (
+                  return (date.getTime() !== comparisonDate.getTime()) &&
                     <div
                       key={date.toLocaleDateString()}
                       className={` xl:font-bold  ${date.getTime() === selectedTab?.getTime() ? "selected-tab" : ""}`}
@@ -790,7 +803,7 @@ console.log(formData, date)
                     >
                       {t(getDayName(date).toLocaleUpperCase())} {getFormattedDate(date)}
                     </div>
-                  );
+             
                 })}
             </div>
           </div>
@@ -811,7 +824,8 @@ console.log(formData, date)
                     );
                     const dateKey = date.toISOString().split("T");
                     const isActive = activeStates[hourIndex][dayIndex];
-                    return (
+                    return (date.getTime() !== comparisonDate.getTime()) &&
+                      
                       <button
                         key={dateKey + hour}
                         type="button"
@@ -823,7 +837,9 @@ console.log(formData, date)
                       >
                         {isActive ? `${hour}` : hour}
                       </button>
-                    );
+                    
+                      
+                    ;
                   })}
               </React.Fragment>
             ))}

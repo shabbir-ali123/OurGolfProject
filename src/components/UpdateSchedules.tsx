@@ -212,12 +212,12 @@ const updateSchedules: React.FC = () => {
           : [""];
 
         if (value.trim() !== "") {
-          currentValue[index] = value.trim(","); // Update value at the given index
+          currentValue[index] = value.trim(",");
         } else {
-          currentValue.splice(index, 1); // Remove empty value if the input is cleared
+          currentValue.splice(index, 1); 
         }
 
-        // Concatenate all values with commas
+       
         updatedFormData.portfolioUrl = currentValue.filter(Boolean).join(",");
 
         return updatedFormData;
@@ -492,7 +492,7 @@ console.log(formData, date)
                 <div key={index} className="snap-start bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] rounded-lg p-4 w-[260px] ">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-bold">{schedule.startDate}</h2>
-                    <button
+                  { !schedule.shifts.length && <button
                       onClick={() => handleScheduleDelete(schedule?.id)}
                       className="bg-transparent hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
@@ -501,20 +501,32 @@ console.log(formData, date)
                         onClick={() => setShowMediaUrl(!showMediaUrl)}
 
                       />
-                    </button>
+                    </button>}
                   </div>
                   <div className="h-[240px] overflow-y-auto">
-                    {schedule.shifts?.map((shift: any, shiftIndex: any) => (
-                      <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
+                    {schedule.shifts?.map((shift: any, shiftIndex: any) =>{
+                       console.log(shift?.isBooked ,"hello imran" )
+                    
+                      return <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
                         <span className="font-medium text-sm">{shift.day} {shift.startTime} - {shift.endTime}</span>
-                        <button
-                          onClick={() => handleShiftDelete(shift.id)}
-                          className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
-                        >
-                          {t("REMOVE")}
-                        </button>
+                       {
+                        shift?.isBooked == true ?  <button
+                                           
+
+                        onClick={() => handleShiftDelete(shift.id)}
+                        className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
+                      >
+                        {t("REMOVE")}
+                      </button> :  <button
+                                           
+
+                                           className="bg-[#17b3a6] hover:bg-red-700 text-white font-bold py-1  rounded cursor-not-allowed"
+                                         >
+                                           {"BOOKED"}
+                                         </button>
+                       }
                       </div>
-                    ))}
+})}
                   </div>
 
                 </div>
@@ -530,7 +542,7 @@ console.log(formData, date)
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
+          <SlotsCalender  startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
           <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
 
             <div className=" flex xl:justify-start gap-4    overflow-x-scroll xl:overflow-auto  p-2 rounded-md">
