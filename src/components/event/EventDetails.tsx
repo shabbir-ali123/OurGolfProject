@@ -7,14 +7,19 @@ const EventDetails: React.FC = () => {
     return (
         <div className="p-4 max-w-7xl mx-auto">
             <h2 className="text-2xl font-bold mb-4">{t('ABOUT_EVENT')}</h2>
-            <div className=' h-[70vh] bg-cover object-contain relative'
+            <div className='relative h-[70vh] bg-cover object-contain relative'
                 style={{ backgroundImage: 'url(/img/golfer-hitting.png)' }}
             >
-                <div className='bg-white  px-4 py-2 rounded-lg shadow-lg mx-10 max-w-3xl xl:mx-auto  absolute top-10 xl:top-10 xl:left-[24%]'>
+                <div className='pt-10'>
+                <div className='bg-white  px-4 py-2 rounded-lg shadow-lg mx-10 max-w-3xl xl:mx-auto  '>
                     <h2 className='text-center leading-[20px] xl:leading-[32px] text-blue font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-xl  xl:text-4xl'>{t('EVENT_BELOW')}</h2>
                 </div>
-                <div className='relative w-full flex justify-center xl:max-w-5xl mx-auto'>
-                    <div className="bg-[#17B3A6] rounded-lg shadow-lg absolute xl:top-[750px] top-[550px] w-full ">
+                </div>
+                
+             
+            </div>
+            <div className='relative w-full  flex justify-center xl:max-w-5xl mx-auto '>
+                    <div className="bg-[#17B3A6] rounded-lg shadow-lg xl:absolute top-[-80px] w-full ">
                         <div className='xl:flex justify-between gap-20'>
                             <div className="xl:flex gap-10 items-center bg-primary-green p-4">
                                 <img
@@ -76,7 +81,6 @@ const EventDetails: React.FC = () => {
 
                     </div>
                 </div>
-            </div>
         </div>
     );
 };

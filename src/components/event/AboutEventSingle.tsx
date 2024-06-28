@@ -33,10 +33,10 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
   const embedUrl = getYoutubeEmbedUrl(singleEvent?.eventVideoUrl);
   return <div className="max-w-6xl mx-6 xl:mx-auto    mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
-    <div className="xl:flex items-center gap-10 justify-center bg-[#17b3a6] rounded-t-lg">
+    <div className="xl:flex items-center gap-10 justify-center bg-[#17b3a6] rounded-t-lg py-4 px-8 xl:p-0">
     
       <h2 className="leading-[20px] xl:leading-[32px] font-semibold text-white text-xl  xl:text-[45px]"> {t('ABOUT_EVENT')}</h2>
-      <h2 className=" text-white text-xl xl:text-[31px]">{singleEvent?.eventName}</h2>
+      <h2 className=" text-white text-xl m-0 xl:text-[31px]">{singleEvent?.eventName}</h2>
     </div>
 
     <div className="grid grid-cols-1 gap-0 ">

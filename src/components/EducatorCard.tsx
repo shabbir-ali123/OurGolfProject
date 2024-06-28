@@ -222,10 +222,10 @@ export const EducatorCard = ({
                 ))}
                 <div className="w-full xl:w-[200px] ">
                   <button
-                    className="w-full py-4 xl:w-full text-sm bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
+                    className="w-full py-4 xl:w-full text-sm bg-[#2dd4bf] text-white  border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
                     onClick={handleBookAppointment}
                   >
-                    {t("BOOK_APPOINTMENT")}ss
+                    {t("BOOK_APPOINTMENT")}
                   </button>
                 </div>
               </div>

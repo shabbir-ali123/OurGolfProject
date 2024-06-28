@@ -303,8 +303,8 @@ const EditTeamPage: FunctionComponent = () => {
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}
       {singleEvent?.id ?
-        <div className="py-10 ml-12 ">
-          <div className=" max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
+        <div className="py-10 mx-4 ">
+          <div className=" xl:max-w-[1200px] mx-auto  text-left text-lg font-poppins  ">
             {/* <div className="flex justify-around   mx-5  rounded-lg bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5  text-left text-3xl text-white font-body-b2">
               <div className="xl:flex justify-around w-full">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[24px]">
@@ -383,10 +383,10 @@ const EditTeamPage: FunctionComponent = () => {
 
             <div className="max-w-5xl mx-auto mt-24">
 
-<div className="mt-40">
-<AboutEvent totalJoinedMembers={totalJoinedMembers} />
-</div>
-              
+              <div className="mt-40">
+                <AboutEvent totalJoinedMembers={totalJoinedMembers} />
+              </div>
+
               <div className="">
                 <AllMembers />
               </div>
@@ -643,7 +643,7 @@ const EditTeamPage: FunctionComponent = () => {
                       )}
                     </div>
                     {singleEvent?.eventType !== 'individual' && (
-                      <div className="overflow-x-hidden sm:overflow-x-scroll xl:overflow-x-auto  shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-10 ">
+                      <div className="overflow-x-scroll sm:overflow-x-scroll xl:overflow-x-auto  shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] px-4 xl:px-10 ">
                         <div className="flex items-center gap-4 pt-8">
                           <div>
 
@@ -661,9 +661,9 @@ const EditTeamPage: FunctionComponent = () => {
                               {generateTableHeaders()}
                             </tr>
                           </thead>
-                          <tbody className="text-left text-black ">
+                          <tbody className="text-left text-black">
                             {teams?.map((team: any, index: any) => (
-                              <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] h-[69px] font-medium">
+                              <tr className="shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] h-[69px] font-medium  overflow-scroll">
                                 <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                                   <div className={`w-[156px] relative pl-1 rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-[#e0e0e0]`}>
                                     <h4>{team.name}</h4>
@@ -677,7 +677,7 @@ const EditTeamPage: FunctionComponent = () => {
                                   </div>
                                 </td>
                                 {team.members?.map((member: any, memberIndex: any) => (
-                                  <td className="py-4 pl-4 whitespace-nowrap">
+                                  <td className="py-4 pl-4 whitespace-nowrap ">
                                     <Player
                                       isCreator={isCreated}
                                       key={memberIndex}
