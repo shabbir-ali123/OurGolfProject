@@ -95,14 +95,14 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
                     ring-white ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
                     ${
                       selected
-                        ? `bg-gradient-to-b from-[#0AE94D] to-[#00A632] rounded-lg text-white shadow-`
-                        : `bg-[#ffff] shadow-lg border-solid border-2 border-[#51ff85] `
+                        ? `bg-[#17b3a6] rounded-lg text-white shadow-`
+                        : `bg-[#ffff] shadow-lg border-solid border-2 border-[#17b3a6] `
                     }`
                   }
                 >
                   <div className="items-center xl:justify-center text-start flex ">
                     <div
-                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[20px] md:font-bold md:w-10  md:h-10 text-[#52FF86]`}
+                      className={`bg-[#E8FFEF] rounded-full font-regular  text-[12px] w-8 h-8 flex items-center justify-center  md:text-[20px] md:font-bold md:w-10  md:h-10 text-[#17b3a6]`}
                     >
                       {filteredAppointments[category.toLowerCase()].length}
                     </div>

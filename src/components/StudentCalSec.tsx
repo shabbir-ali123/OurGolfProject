@@ -6,6 +6,7 @@ import {
   EllipsisHorizontalIcon,
   MapPinIcon,
 } from "@heroicons/react/20/solid";
+import { useLocation } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { addMonths, subMonths, format } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";

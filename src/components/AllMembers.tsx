@@ -44,13 +44,13 @@ export default function AllMembers() {
         
         <div className="grid grid-cols-2 gap-2 border-b border-gray-200 mb-4 py-6">
           <button
-            className={`px-4 py-2 xl:py-4 font-semibold text-sm ${activeTab === 'confirmed' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
+            className={`px-4 py-2 xl:py-4 text-[20px] font-bold  ${activeTab === 'confirmed' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
             onClick={() => handleTabClick('confirmed')}
           >
             {t("Confirmed Members")}
           </button>
           <button
-            className={`px-4 py-2 xl:py-4 font-semibold text-sm ${activeTab === 'waiting' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
+            className={`px-4 py-2 xl:py-4 text-[20px] font-bold ${activeTab === 'waiting' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
             onClick={() => handleTabClick('waiting')}
           >
             {t("Waiting Members")}

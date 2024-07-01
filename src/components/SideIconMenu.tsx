@@ -408,7 +408,7 @@ const SideMenu: React.FC = () => {
                     style={iconStyles(item.name, item.path)}
                   />
                   <span
-                    className={` ${isMenuOpen ? "block" : "hidden"}`}
+                    className={ ` ${isMenuOpen ? "block" : "hidden"}`}
                     style={textStyles(item.name, item.path)}
                   >
                     {t(item.name)}
@@ -421,7 +421,7 @@ const SideMenu: React.FC = () => {
                           : faChevronRight
                       }
                       style={iconStyles(item.name, item.path)}
-                      className={`h-3 ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"
+                      className={`h-3 ml-auto mr-6  ${isMenuOpen ? "block" : "hidden"
                         }`}
                     />
                   )}
@@ -430,21 +430,21 @@ const SideMenu: React.FC = () => {
               {subMenuVisibility[item.name] && item.subItems && (
                 <div className={`${isMenuOpen ? "block" : "hidden"}`}>
                   {item.subItems.map((subItem) => (
-                    <li className="mx-2">
+                    <li className="">
                       <Link
                         to={subItem.path}
-                        className="w-full"
+                        className="w-full "
                         key={subItem.name}
                         onClick={() => handleIntoMenuItemClick(subItem.name)}
 
                       >
                         <div
-                          className=" flex items-center rounded-md shadow-lg mt-2  py-4 text-white"
+                          className=" flex items-center rounded-md shadow-lg mt-2  py-4  text-white"
                           style={{
                             borderBottom: "1px solid white", 
                           }}
                         >
-                          <span style={{ marginLeft: "30px" }}>
+                          <span className="" style={{ marginLeft: "30px"  }}>
                             {t(subItem.name)}
                           </span>
                           {subItem.finalItem && (
@@ -469,11 +469,11 @@ const SideMenu: React.FC = () => {
                             <li className=" list-none ">
                               <Link
                                 to={subItem.path}
-                                className="w-full text-white"
+                                className="w-full text-white "
                                 key={subItem.name}
                               >
                                 <div
-                                  className="text-start  rounded-md   mt-2  py-4 text-white "
+                                  className="text-start  rounded-md   mt-2  py-4 pl-8 text-white "
                                   style={{
                                     borderBottom: "1px solid white", 
                                   }}
