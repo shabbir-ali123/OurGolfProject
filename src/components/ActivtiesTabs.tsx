@@ -91,12 +91,12 @@ export default function Activeties({ selectedDate }: any) {
                 <Tab
                   key={category}
                   className={({ selected }) =>
-                    `w-full rounded-md py-2 text-base font-normal leading-5 sm:font-bold md:text-lg cursor-pointer m-1 xl:m-0
+                    `w-full rounded-md py-2  text-base font-normal leading-5 sm:font-bold md:text-lg cursor-pointer m-1 xl:m-0 xl:w-[200px]
                     ring-white ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
                     ${
                       selected
-                        ? `bg-[#17b3a6] rounded-lg text-white shadow-`
-                        : `bg-[#ffff] shadow-lg border-solid border-2 border-[#51ff85] `
+                        ? `bg-[#17b3a6] rounded-lg text-white `
+                        : `bg-[#ffff] shadow-lg border-solid border-2 border-[#0ad5c4] `
                     }`
                   }
                 >

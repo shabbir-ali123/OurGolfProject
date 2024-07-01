@@ -218,4 +218,12 @@ a {
   border-radius: 10px; /* border radius of the scrollbar track */
 }
 
+.inline-style {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Adjust the gap as needed */
+}
 
+.inline-style span {
+  margin-left: 0;
+}

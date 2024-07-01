@@ -74,12 +74,6 @@ export const menuItems: MenuItem[] = [
       },
     ],
   },
-  // {
-  //   name: "FIND_TEACHER",
-  //   icon: faSearch,
-  //   path: "/student-page",
-  //   active: false,
-  // },
   {
     name: "FIND_TEACHER",
     icon: faSearch,
@@ -124,20 +118,8 @@ export const menuItems: MenuItem[] = [
         path: "/student-activties-page",
         active: false,
       },
-      // {
-      //   name: "APPOINTMENTS",
-      //   icon: faSearch,
-      //   path: "/appointments",
-      //   active: false,
-      // },
-
     ],
   },
-  // {
-  //   name: "CALENDER",
-  //   icon: faCalendar,
-  //   path: "/activties-page",
-  // },
   {
     name: "PROFILE",
     icon: faUser,
@@ -163,6 +145,7 @@ export const menuItems: MenuItem[] = [
     active: false,
   },
 ];
+
 interface MenuItem {
   name: string;
   icon: any;
@@ -172,7 +155,6 @@ interface MenuItem {
   finalItem?: any;
   properties?: any;
 }
-
 
 const SideMenu: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -237,6 +219,7 @@ const SideMenu: React.FC = () => {
       [itemName]: !prevVisibility[itemName],
     }));
   };
+
   const handleIntoMenuItemClick = (itemName: string) => {
     setIsDropdownOpen(false);
 
@@ -254,6 +237,7 @@ const SideMenu: React.FC = () => {
       [itemName]: !prevVisibility[itemName],
     }));
   };
+
   const getMenuItemStyles = (
     itemName: string,
     itemPath: string
@@ -272,7 +256,7 @@ const SideMenu: React.FC = () => {
         : "",
     alignItems: "center",
     color: "#fff",
-    marginBottom: isMenuOpen && subMenuVisibility[itemName] ? "10px" : "0", 
+    marginBottom: isMenuOpen && subMenuVisibility[itemName] ? "0px" : "0",
   });
 
   const iconStyles = (
@@ -291,7 +275,7 @@ const SideMenu: React.FC = () => {
     color: window.location.pathname === itemPath ? "#fff" : "#fff",
     visibility: isMenuOpen ? "visible" : "hidden",
     transition: "visibility 0.3s ease",
-    marginLeft: "10px", 
+    marginLeft: "10px",
   });
 
   const small: any = {
@@ -317,13 +301,12 @@ const SideMenu: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   const { notifications, filteredNotifications } = notificationsContextStore();
 
-    useEffect(()=>{
-      
-
-      filteredNotifications
-    },[])
+  useEffect(() => {
+    filteredNotifications;
+  }, []);
 
   return (
     <>
@@ -331,7 +314,7 @@ const SideMenu: React.FC = () => {
         style={{
           zIndex: "99999",
           width: isMenuOpen ? "300px" : "50px",
-          height: isMenuOpen ? "100vh" : "100vh",
+          height: "100vh",
           backgroundColor: "#17b3a6",
           color: "white",
           boxShadow: "0px 0px 13px rgba(0, 0, 0, 0.15)",
@@ -343,13 +326,12 @@ const SideMenu: React.FC = () => {
           top: 0,
           transition: "width 0.3s ease",
           overflowY: isMenuOpen ? "auto" : "hidden",
-          overflowX: isMenuOpen ? "hidden" : "hidden",
+          overflowX: "hidden",
         }}
-        className=""
         onMouseEnter={handleMenuMouseEnter}
         onMouseLeave={handleMenuMouseLeave}
       >
-        <div className="absolute top-[0] ">
+        <div className="absolute top-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="white"
@@ -365,10 +347,7 @@ const SideMenu: React.FC = () => {
             />
           </svg>
         </div>
-        <div
-          className="mt-24 w-full"
-          style={{ width: isMenuOpen ? "" : "10px" }}
-        >
+        <div className="mt-24 w-full" style={{ width: isMenuOpen ? "" : "10px" }}>
           {menuItems.map((item) => (
             <ul
               key={item.name}
@@ -392,7 +371,6 @@ const SideMenu: React.FC = () => {
               >
                 {item.properties && (
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
-                    {/* {n.length > 0 && n.length} */}
                     {filteredNotifications?.length + notifications?.length}
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                   </div>
@@ -408,7 +386,7 @@ const SideMenu: React.FC = () => {
                     style={iconStyles(item.name, item.path)}
                   />
                   <span
-                    className={ ` ${isMenuOpen ? "block" : "hidden"}`}
+                    className={` ${isMenuOpen ? "block" : "hidden"}`}
                     style={textStyles(item.name, item.path)}
                   >
                     {t(item.name)}
@@ -430,25 +408,24 @@ const SideMenu: React.FC = () => {
               {subMenuVisibility[item.name] && item.subItems && (
                 <div className={`${isMenuOpen ? "block" : "hidden"}`}>
                   {item.subItems.map((subItem) => (
-                    <li className="">
+                    <li key={subItem.name}>
                       <Link
                         to={subItem.path}
-                        className="w-full "
-                        key={subItem.name}
+                        className="w-full"
                         onClick={() => handleIntoMenuItemClick(subItem.name)}
-
                       >
                         <div
-                          className=" flex items-center rounded-md shadow-lg mt-2  py-4  text-white"
+                          className={`flex items-center rounded-md shadow-lg mt-2 py-4 pl-4 text-white ${item.name === "EVENTS" ? "pl-[40px]" : "pl-[32px]"
+                            }`}
                           style={{
-                            borderBottom: "1px solid white", 
+                            borderBottom: "1px solid white",
                           }}
                         >
-                          <span className="" style={{ marginLeft: "30px"  }}>
+                          <span style={{ marginLeft: "30px" }}>
                             {t(subItem.name)}
                           </span>
                           {subItem.finalItem && (
-                             teacherId !== null && <FontAwesomeIcon
+                            teacherId !== null && <FontAwesomeIcon
                               icon={
                                 subIntoMenuVisibility[subItem.name] && subItem.finalItem
                                   ? faChevronDown
@@ -459,40 +436,36 @@ const SideMenu: React.FC = () => {
                               onClick={() => handleIntoMenuItemClick(subItem.name)}
                             />
                           )}
-
                         </div>
                       </Link>
                       {subIntoMenuVisibility[subItem.name] && subItem.finalItem && (
                         <div className={`${isMenuOpen ? "block" : "hidden"}`}>
-                          {subItem?.finalItem?.map((subItem: any) => (
-                            teacherId !== null && 
-                            <li className=" list-none ">
+                          {subItem?.finalItem?.map((finalItem: any) => (
+                            teacherId !== null &&
+                            <li key={finalItem.name} className="list-none">
                               <Link
-                                to={subItem.path}
-                                className="w-full text-white "
-                                key={subItem.name}
+                                to={finalItem.path}
+                                className="w-full text-white"
                               >
                                 <div
-                                  className="text-start  rounded-md   mt-2  py-4 pl-8 text-white "
+                                  className="text-start rounded-md mt-2 py-4 pl-16 text-white"
                                   style={{
-                                    borderBottom: "1px solid white", 
+                                    borderBottom: "1px solid white",
                                   }}
                                 >
                                   <span style={{ marginLeft: "30px" }}>
-                                    {t(subItem.name)}
+                                    {t(finalItem.name)}
                                   </span>
                                 </div>
                               </Link>
                             </li>
                           ))}
-                        </div>)}
+                        </div>
+                      )}
                     </li>
                   ))}
-
-
                 </div>
               )}
-
             </ul>
           ))}
         </div>

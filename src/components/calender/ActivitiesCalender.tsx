@@ -15,7 +15,7 @@ import {
 } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import i18n from "../../locale";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 ;
 
 function classNames(...classes:any) {
@@ -23,7 +23,10 @@ function classNames(...classes:any) {
 }
 
 export const ActivitiesCalender = ({ onWeekSelected }:any) => {
+  const location = useLocation();
+  const isStudentPage = location.pathname.includes('/student-activties-page');
 
+  console.log(isStudentPage,"helloooo")
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const teacherId  = localStorage.getItem("teacher_id");
@@ -93,21 +96,24 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
         </div>
         
       </div>
-      <div className="flex gap-4 justify-center my-8">
-        <Link to={`/update-schedules/${teacherId}`} >
-        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Schedules</button>
-        </Link>
-        <Link to={`teacher-page/${teacherId}`} >
-        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Profile</button>
-        </Link>
-        <Link to={`/create-catalogs/${teacherId}`} >
-        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Create Gig</button>
-        </Link>
-        <Link to={`/profile-page`} >
-        <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Gigs</button>
-        </Link>
+      {!isStudentPage && 
+       <div className="flex gap-4 justify-center my-8">
+       <Link to={`/update-schedules/${teacherId}`} >
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Schedules</button>
+       </Link>
+       <Link to={`teacher-page/${teacherId}`} >
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Profile</button>
+       </Link>
+       <Link to={`/create-catalogs/${teacherId}`} >
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Create Gig</button>
+       </Link>
+       <Link to={`/profile-page`} >
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Gigs</button>
+       </Link>
 
-     </div>
+    </div>
+      }
+     
     </>
   );
 };

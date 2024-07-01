@@ -91,7 +91,7 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
                 <Tab
                   key={category}
                   className={({ selected }) =>
-                    `w-full rounded-md py-2 text-base font-normal leading-5 sm:font-bold md:text-lg cursor-pointer m-1 xl:m-0
+                    `w-full rounded-md py-2 text-base font-normal leading-5 sm:font-bold md:text-lg cursor-pointer m-1 xl:m-0 xl:w-[200px]
                     ring-white ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
                     ${
                       selected
