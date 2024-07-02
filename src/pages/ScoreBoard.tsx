@@ -110,7 +110,7 @@ const ScoreBoard: FunctionComponent = () => {
             <div className="max-w-6xl mx-auto">
               <LeaderBoardTables />
 
-              <IndiviualPlayerScore />
+              {/* <IndiviualPlayerScore /> */}
               <ScoringTabs singleEvent={singleEvent} />
             </div>
           </>

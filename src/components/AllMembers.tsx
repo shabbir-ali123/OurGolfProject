@@ -35,7 +35,7 @@ export default function AllMembers() {
   return (
     <div className="px-4 max-w-6xl mx-auto  sm:px-6 lg:px-8 py-4 rounded-lg my-10">
       <div className="flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
-        <div className="flex gap-2 items-center">
+        <div className=" hidden xl:flex gap-2 items-center ">
           <img src="/img/golfplyr.png" alt="" width="40px" />
           <b className="text-xl lg:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
             {t("ALL_MEMBERS")}
@@ -44,13 +44,13 @@ export default function AllMembers() {
         
         <div className="grid grid-cols-2 gap-2 border-b border-gray-200 mb-4 py-6">
           <button
-            className={`px-4 py-2 xl:py-4 text-[20px] font-bold  ${activeTab === 'confirmed' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
+            className={`px-4 py-2 xl:py-4 text-[18px] xl:text-[20px] xl:font-bold  ${activeTab === 'confirmed' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
             onClick={() => handleTabClick('confirmed')}
           >
             {t("Confirmed Members")}
           </button>
           <button
-            className={`px-4 py-2 xl:py-4 text-[20px] font-bold ${activeTab === 'waiting' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
+            className={`px-4 py-2 xl:py-4 text-[18px] xl:text-[20px] xl:font-bold ${activeTab === 'waiting' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
             onClick={() => handleTabClick('waiting')}
           >
             {t("Waiting Members")}

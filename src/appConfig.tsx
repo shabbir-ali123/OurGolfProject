@@ -61,7 +61,8 @@ export const API_ENDPOINTS = {
   DELETESHIFTSBYID: `${API_BASE_URL}/${API_VERSION}/delete-shift`,
   DELETESCHEDULEBYID: `${API_BASE_URL}/${API_VERSION}/delete-schedule`,
   DELETETEACHER: `${API_BASE_URL}/${API_VERSION}/delete-teacher/`,
-
+// feedback
+FEEDBACKTEACHER: `${API_BASE_URL}/${API_VERSION}/feedback-teacher`,
   // GIGS
   ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,
   GETGIGSBYTEACHER: `${API_BASE_URL}/${API_VERSION}/get-gigs-by-teacher/`,
