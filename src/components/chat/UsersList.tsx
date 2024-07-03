@@ -14,7 +14,7 @@ export const UsersList = () => {
     
   }, [chatUser]);
 
-  // Filter users based on search term
+
   const filteredUsers = users?.filter((user) =>
     user.nickName.toLowerCase().includes(searchTerm.toLowerCase())
   );

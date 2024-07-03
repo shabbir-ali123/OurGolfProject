@@ -12,21 +12,16 @@ interface AddReview {
 
 interface ReviewsModalProps {
   closeModal: () => void;
-  teacherId: any;
-  allinfo:any;
+  teacherId: string;
+  allinfo: any;
 }
-// const { scheduleId, day, startTime, endTime, status } 
+
 const ReviewsModal: React.FC<ReviewsModalProps> = ({ closeModal, teacherId, allinfo }) => {
-
-
-
-
   const { t } = useTranslation();
   const [formData, setFormData] = useState<AddReview>({
     rating: 0,
     feedback: "",
   });
-  const userId = localStorage.getItem("user_id");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,51 +40,58 @@ const ReviewsModal: React.FC<ReviewsModalProps> = ({ closeModal, teacherId, alli
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const userId = localStorage.getItem('id')
+    const userId = localStorage.getItem("id");
     if (!userId) {
-      alert('hello')
+      alert("User ID not found");
       return;
     }
     try {
-      const response = await axios.put(API_ENDPOINTS.UPDATEAPPOINTMENTSTATUS, {
-        "scheduleId":  allinfo?.scheduleId,
-        "day":  allinfo?.day,
-        "status": "COMPLETED",
-        "endTime": allinfo?.endTime ,
-        "startTime": allinfo?.startTime ,
-        userId
-
-        // teacherId,
-        // rating: formData.rating,
-        // feedback: formData.feedback,
-      },
-      {
+     
+      const updateResponse = await axios.put(API_ENDPOINTS.UPDATEAPPOINTMENTSTATUS, {
+        scheduleId: allinfo.scheduleId,
+        day: allinfo.day,
+        startTime: allinfo.startTime,
+        endTime: allinfo.endTime,
+        status: "COMPLETED",
+      }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }
-    
-    );
+      });
 
-      if (response.status === 200) {
-        console.log("Review submitted successfully");
-        closeModal();
+      if (updateResponse.status === 200) {
+        
+        const feedbackResponse = await axios.post(API_ENDPOINTS.FEEDBACKTEACHER, {
+          teacherId: teacherId,
+          userId: userId,
+          rating: formData.rating,
+          feedback: formData.feedback,
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (feedbackResponse.status === 200) {
+          console.log("Review submitted successfully");
+          closeModal();
+        } else {
+          console.error("Error submitting review:", feedbackResponse.data);
+        }
       } else {
-        console.error("Error submitting review:", response.data);
+        console.error("Error updating appointment status:", updateResponse.data);
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-   
 
   return (
-    <div className="z-[9999] fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+    <div className="z-[9999]   inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm ">
       <div
         className="w-full max-w-xl p-6 mx-auto bg-white rounded-lg mx-20 xl:mx-auto"
         style={{
-          boxShadow:
-            "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+          boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
           maxHeight: "90vh",
           overflowY: "auto",
         }}
@@ -116,16 +118,14 @@ const ReviewsModal: React.FC<ReviewsModalProps> = ({ closeModal, teacherId, alli
           <div>
             <label className="mb-2">Write Feedback</label> <br />
             <input
-              className=" xs:w-[100%] md:w-[400px] xl:w-[533px] p-3 mb-4 text-gray-700 border mt-2 border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
+              className="xs:w-[100%] md:w-[400px] xl:w-[533px] p-3 mb-4 text-gray-700 border mt-2 border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
               name="feedback"
               onChange={handleInputChange}
             />
           </div>
-
           <button
             className="w-full bg-[#61cbc2] hover:bg-[#45e07d] text-white font-bold py-3 px-4 rounded-lg shadow hover:shadow-md transition-all"
             type="submit"
-
           >
             Submit
           </button>

@@ -152,10 +152,7 @@ export default function ChatApp() {
 
   return (
     <main className="bg-gray-200 flex flex-col rounded-sm w-[70%] h-[87vh]">
-      <header className="flex bg-white justify-between p-2 m-2" style={{
-          boxShadow:
-            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
-        }}>
+      <header className="flex bg-white justify-between p-1 m-2 shadow-lg rounded-lg" >
         <h3>{channel.name}</h3>
         <h3>{chat.currentUser.name}</h3>
       </header>
@@ -228,7 +225,7 @@ export default function ChatApp() {
         <input
           type="submit"
           value="➔"
-          className="cursor-pointer ml-2 w-auto"
+          className="cursor-pointer ml-2 w-auto bg-[#17b3a6] text-white rounded-lg"
           onClick={handleSend}
           style={{ color: text && "#de2440" }}
         />

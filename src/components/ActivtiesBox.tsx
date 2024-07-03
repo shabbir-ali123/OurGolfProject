@@ -86,7 +86,10 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
          
         </div>
       </div>
+      <div>
       {showModal && <ReviewsModal closeModal={() => setShowModal(false)} teacherId={activity.schedule?.Teacher?.id} allinfo={activity} />}
+      </div>
+    
     </div>
   );
 };
