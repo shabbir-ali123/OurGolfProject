@@ -19,13 +19,16 @@ export const NotificationsContext = ({ children }: any) => {
 
     fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
-      console.log(data, 'notificationDar')
-      const check = (data.teacherId == tId || data.organizer == userId || data.studentId == userId) 
+      console.log(data, ' li')
+      const check = (data.teacherId == tId || data.organizer == userId || data.studentId == userId || data.organizerId == userId || data.userId == userId) 
       if(check){
         setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
       }
+
+      console.log(notifications, check, 'awa li')
     }
-    
+
+   
     socket.on('appointmentBooked', handleAppointmentBooked);
     socket.on('joinRequest', handleAppointmentBooked);
     socket.on('appointmentDeclined', handleAppointmentBooked);

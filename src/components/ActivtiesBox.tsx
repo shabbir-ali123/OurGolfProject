@@ -9,23 +9,23 @@ interface ActivtiesBoxProps {
 const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
-  const isStudentPage = location.pathname.includes('/student-activties-page');
+  const isStudentPage = location.pathname?.includes('/student-activties-page');
   const router = useNavigate();
   let bgClr;
   let borderClr;
   let textColor;
 
-  if (activity.status === "PENDING") {
+  if (activity?.status === "PENDING") {
     bgClr = "#F2FAFF";
     borderClr = "#00A4FE";
-  } else if (activity.status === "CANCELLED") {
+  } else if (activity?.status === "CANCELLED") {
     bgClr = "#FFE6E6";
     borderClr = "#00A4FE";
-  } else if (activity.status === "COMPLETED") {
+  } else if (activity?.status === "COMPLETED") {
     bgClr = "#0ad5c4";
     borderClr = "none";
     textColor = "white";
-  } else if (activity.status === "BOOKED") {
+  } else if (activity?.status === "BOOKED") {
     bgClr = "#cffffb";
     borderClr = "none";
     textColor = "#ffff";
@@ -44,15 +44,15 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
       className={`px-2 bg-${bgClr} border border-${borderClr} shadow-lg rounded-lg border-solid mt-3`}
       style={{ backgroundColor: bgClr, border: borderClr }}
       onClick={() => {
-        activity.schedule?.Teacher?.id
-          ? router("/teacher-details/" + activity.schedule?.Teacher?.id)
+        activity?.schedule?.Teacher?.id
+          ? router("/teacher-details/" + activity?.schedule?.Teacher?.id)
           : router("/appointments/");
       }}
     >
       <div className="grid grid-cols-12 items-center">
         <div className='flex justify-start items-center col-span-8'>
           <img
-            src={activity.schedule?.Teacher?.teacher?.imageUrl || activity?.bookedShifts?.imageUrl}
+            src={activity?.schedule?.Teacher?.teacher?.imageUrl || activity?.bookedShifts?.imageUrl}
             alt="Profile"
             className="h-10 w-10 rounded-full mr-4"
           />

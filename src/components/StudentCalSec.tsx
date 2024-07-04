@@ -79,9 +79,6 @@ export default function Example({selectedDatee}: any) {
   const [selectedDate, setSelectedDate] = useState<any>(null);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
-  const handleDateClick = (date: string) => {
-    setSelectedDate(date);
-  };
 
   useEffect(() => {
     selectedDatee(selectedDate);
@@ -91,15 +88,9 @@ export default function Example({selectedDatee}: any) {
     setSelectedDate(date);
   };
   
-  const handleNextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-    setSelectedDate(null);
-  };
 
-  const handlePrevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
-    setSelectedDate(null);
-  };
+
+ 
   
   return (
     <div className="bg-gradient-to-b from-[rgba(167,255,193,0.34)] via-transparent to-transparent xl:h-screen">

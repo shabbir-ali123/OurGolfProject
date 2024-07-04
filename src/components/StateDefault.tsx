@@ -3,7 +3,7 @@ import { FunctionComponent, useMemo, type CSSProperties } from 'react';
 type SearchInputType = {
     search?: string;
 
-    /** Style props */
+   
     stateDefaultWidth?: CSSProperties['width'];
     stateDefaultPosition?: CSSProperties['position'];
     stateDefaultTop?: CSSProperties['top'];
