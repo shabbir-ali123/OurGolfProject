@@ -18,7 +18,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
-import { SlotsCalender } from "../components/calender/SlotsCalender";
+import { SlotsCalendar } from "../components/calender/SlotsCalender";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { scheduler } from "timers/promises";
 

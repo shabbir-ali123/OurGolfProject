@@ -134,7 +134,7 @@ console.log(dayFilter,"hello")
           disabled={slot.status === "BOOKED"}
           
         >
-          {slot.startTime} 
+          {slot.startTime} - {slot.endTime}
         </button>
       )})}
       </div>

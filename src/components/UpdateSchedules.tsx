@@ -18,7 +18,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
-import { SlotsCalender } from "../components/calender/SlotsCalender";
+import { SlotsCalendar } from "../components/calender/SlotsCalender";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { scheduler } from "timers/promises";
 import { BeatLoader } from "react-spinners";
@@ -214,10 +214,10 @@ const updateSchedules: React.FC = () => {
         if (value.trim() !== "") {
           currentValue[index] = value.trim(",");
         } else {
-          currentValue.splice(index, 1); 
+          currentValue.splice(index, 1);
         }
 
-       
+
         updatedFormData.portfolioUrl = currentValue.filter(Boolean).join(",");
 
         return updatedFormData;
@@ -355,7 +355,7 @@ const updateSchedules: React.FC = () => {
   };
 
   const handleWeekSelected = (date: Date) => {
-    
+
     setSelectedWeekStart(date);
   };
 
@@ -363,15 +363,15 @@ const updateSchedules: React.FC = () => {
     setSelectedWeekStart(date);
   };
 
-  const handleState = ()=>{
+  const handleState = () => {
     setActiveStates(initialActiveStates);
   };
   const resetSchedules = () => {
     setFormData((prevFormData) => ({
-        ...prevFormData,
-        schedules: [],
+      ...prevFormData,
+      schedules: [],
     }));
-};
+  };
   const getDayName = (date: Date | null): string => {
     if (date) {
       return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
@@ -415,34 +415,34 @@ const updateSchedules: React.FC = () => {
     const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
     const dateParts = dateFormatter.formatToParts(date);
     const dayName = dateParts.find((part) => part.type === "weekday")?.value || "";
-console.log(formData, date)
+    console.log(formData, date)
     if (!dayName) {
-        console.error("Invalid date:", date);
-        return; // Exit the function or handle it as required
+      console.error("Invalid date:", date);
+      return; // Exit the function or handle it as required
     }
 
     toggleAvailability(date, hour, dayIndex);
-    
+
     const newShift = {
-        day: dayName,
-        startTime: hour,
-        endTime: "",
+      day: dayName,
+      startTime: hour,
+      endTime: "",
     };
 
     const newSchedule = {
-        startDate: formatDate(selectedWeekStart) || "",
-        endDate: formatDate(selectedWeekStart, 7) || "",
-        shifts: [newShift],
+      startDate: formatDate(selectedWeekStart) || "",
+      endDate: formatDate(selectedWeekStart, 7) || "",
+      shifts: [newShift],
     };
 
     setFormData((prevFormData) => {
-        const newSchedules = [...prevFormData.schedules, newSchedule];
-        return {
-            ...prevFormData,
-            schedules: newSchedules,
-        };
+      const newSchedules = [...prevFormData.schedules, newSchedule];
+      return {
+        ...prevFormData,
+        schedules: newSchedules,
+      };
     });
-};
+  };
 
 
   const handleButtonClick = (index: any) => {
@@ -473,14 +473,20 @@ console.log(formData, date)
   const groupedSchedules = groupByDateRange(teacher?.schedules || []);
 
   const comparisonDate = new Date("12-12-2222");
-
+  // test
+  const isWithinShiftTime = (hour: any, shift: any) => {
+    const [startHour] = shift.startTime.split(" to ")[0].split(":");
+    const [endHour] = shift.startTime.split(" to ")[1].split(":");
+    return hour >= startHour && hour < endHour;
+  };
+  // test
   return (
-    isLoading ?  <div className="flex items-center justify-center h-[100vh] ">
-    <BeatLoader color="#51ff85" size={15} />
-  </div> :  <div className="py-8 mx-4 xl:mx-0 ">
+    isLoading ? <div className="flex items-center justify-center h-[100vh] ">
+      <BeatLoader color="#51ff85" size={15} />
+    </div> : <div className="py-8 mx-4 xl:mx-0 ">
       <div className="max-w-[1500px] mx-auto">
         <div className="text-center bg-[#1e40af] p-1">
-          <h3 className="text-white">Edit your Schedules</h3>
+          <h3 className="text-white">{t("EDIT_SCHEDULES")}</h3>
         </div>
 
         <div className="mx-10 xl:mx-0">
@@ -492,41 +498,43 @@ console.log(formData, date)
                 <div key={index} className="snap-start bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-5 md:p-[23px] rounded-lg p-4 w-[260px] ">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-bold">{schedule.startDate}</h2>
-                  { !schedule.shifts.length && <button
+                    {!schedule.shifts.length && <button
                       onClick={() => handleScheduleDelete(schedule?.id)}
                       className="bg-transparent hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
                       <TrashIcon
-                        className="h-[16px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 " // Standard size across all devices
+                        className="h-[16px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 "
                         onClick={() => setShowMediaUrl(!showMediaUrl)}
 
                       />
                     </button>}
                   </div>
                   <div className="h-[240px] overflow-y-auto">
-                    {schedule.shifts?.map((shift: any, shiftIndex: any) =>{
-                       console.log(shift?.isBooked ,"hello imran" )
-                    
+                    {schedule.shifts?.map((shift: any, shiftIndex: any) => {
+                      console.log(shift?.isBooked, "hello imran")
+
                       return <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
-                        <span className="font-medium text-sm">{shift.day} {shift.startTime} - {shift.endTime}</span>
-                       {
-                        shift?.isBooked == true ?  <button
-                                           
+                        <span className="font-medium text-sm">{shift.day} {shift.startTime}</span>
+                        {
+                          shift?.status == "BOOKED" ? <button
 
-                        onClick={() => handleShiftDelete(shift.id)}
-                        className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer"
-                      >
-                        {t("REMOVE")}
-                      </button> :  <button
-                                           
 
-                                           className="bg-[#17b3a6] hover:bg-red-700 text-white font-bold py-1  rounded cursor-not-allowed"
-                                         >
-                                           {"BOOKED"}
-                                         </button>
-                       }
+                            className="bg-[#17b3a6]  hover:bg-red-700 text-white font-bold py-1  rounded cursor-pointer w-[80px] cursor-not-allowed"
+                          >
+                            {t("BOOKED")}
+
+                          </button> : <button
+
+
+                            className="bg-red hover:bg-red-700 text-white font-bold py-1  rounded "
+                            onClick={() => handleShiftDelete(shift.id)}
+
+                          >
+                            {t("REMOVE")}
+                          </button>
+                        }
                       </div>
-})}
+                    })}
                   </div>
 
                 </div>
@@ -542,8 +550,8 @@ console.log(formData, date)
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender  startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
-          <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
+          <SlotsCalendar handleTimeSlotClick={handleTimeSlotClick} startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
+          {/* <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
 
             <div className=" flex xl:justify-start gap-4    overflow-x-scroll xl:overflow-auto  p-2 rounded-md">
               {selectedWeekStart &&
@@ -552,12 +560,12 @@ console.log(formData, date)
                   return (date.getTime() !== comparisonDate.getTime()) &&
                     <div
                       key={date.toLocaleDateString()}
-                      className={` xl:font-bold  ${date.getTime() === selectedTab?.getTime() ? "selected-tab" : ""}`}
+                      className={` xl:font-bold text-red ${date.getTime() === selectedTab?.getTime() ? "selected-tab" : ""}`}
                       onClick={() => handleTabClick(date)}
                     >
                       {t(getDayName(date).toLocaleUpperCase())} {getFormattedDate(date)}
                     </div>
-             
+
                 })}
             </div>
           </div>
@@ -579,25 +587,25 @@ console.log(formData, date)
                     const dateKey = date.toISOString().split("T");
                     const isActive = activeStates[hourIndex][dayIndex];
                     return (date.getTime() !== comparisonDate.getTime()) &&
-                      
+
                       <button
                         key={dateKey + hour}
                         type="button"
                         className={`col-span-1 rounded-md py-2 time-slot ${isActive ? "bg-[#B2C3FD] shadow-lg" : "bg-[#F1F1F1]"
                           }`}
                         onClick={() =>
-                          handleTimeSlotClick(date, hour, dayIndex) // Pass the date object directly
+                          handleTimeSlotClick(date, hour, dayIndex)
                         }
                       >
-                        {isActive ? `${hour}` : hour}
+                        { hour}
                       </button>
-                    
-                      
-                    ;
+
+
+                      ;
                   })}
               </React.Fragment>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex justify-center">
@@ -605,7 +613,7 @@ console.log(formData, date)
           className="p-4 bg-[#17b3a6] text-white rounded-md"
           onClick={handleFormSubmit}
         >
-          Update Schedules
+          {t("UPDATE_SCHEDULES")}
         </button>
       </div>
     </div>

@@ -17,7 +17,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import i18n from "../../locale";
 import { Link, useLocation } from "react-router-dom";
 ;
-
+import { useTranslation } from "react-i18next";
 function classNames(...classes:any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -25,7 +25,7 @@ function classNames(...classes:any) {
 export const ActivitiesCalender = ({ onWeekSelected }:any) => {
   const location = useLocation();
   const isStudentPage = location.pathname.includes('/student-activties-page');
-
+  const { t, i18n } = useTranslation();
   console.log(isStudentPage,"helloooo")
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -99,16 +99,16 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
       {!isStudentPage && 
        <div className="flex gap-4 justify-center my-8">
        <Link to={`/update-schedules/${teacherId}`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Schedules</button>
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_SCHEDULES")}</button>
        </Link>
        <Link to={`teacher-page/${teacherId}`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Profile</button>
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_PROFILE")}</button>
        </Link>
        <Link to={`/create-catalogs/${teacherId}`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Create Gig</button>
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("CREATE_GIG")}</button>
        </Link>
        <Link to={`/profile-page`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >Update Gigs</button>
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_GIG")}</button>
        </Link>
 
     </div>

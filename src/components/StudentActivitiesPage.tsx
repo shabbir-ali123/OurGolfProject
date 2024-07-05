@@ -122,7 +122,7 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
                 filteredAppointments.pending.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
                 )) : 
-                <h3>Oops! You dont have Pending Appointments {selectedDate && `at ${selectedDate}`}</h3>
+                <h3>{t("OPPS_PENDING")} {selectedDate && `at ${selectedDate}`}</h3>
               }
                 
                 <style>{`
@@ -151,10 +151,14 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
               </div>
             </Tab.Panel>
             <Tab.Panel>
-              <div className="">
-                {filteredAppointments.booked.map((activity: any, index: any) => (
+            <div>
+                {
+                  filteredAppointments.booked.length > 0 ? 
+                filteredAppointments.booked.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
-                ))}
+                )) : 
+                <h3>{t("OPPS_BOOKED")} {selectedDate && `at ${selectedDate}`}</h3>
+              }
                 
                 <style>{`
         
@@ -182,10 +186,14 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
               </div>
             </Tab.Panel>
             <Tab.Panel>
-              <div className="">
-                {filteredAppointments.completed.map((activity: any, index: any) => (
+            <div>
+                {
+                  filteredAppointments.completed.length > 0 ? 
+                filteredAppointments.completed.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
-                ))}
+                )) : 
+                <h3>{t("OPPS_COMPLETED")} {selectedDate && `at ${selectedDate}`}</h3>
+              }
                 
                 <style>{`
         
@@ -213,10 +221,14 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
               </div>
             </Tab.Panel>
             <Tab.Panel>
-              <div className="">
-                {filteredAppointments.declined.map((activity: any, index: any) => (
+            <div>
+                {
+                  filteredAppointments.declined.length > 0 ? 
+                filteredAppointments.declined.map((activity: any, index: any) => (
                   <ActivtiesBox key={index} activity={activity} />
-                ))}
+                )) : 
+                <h3>{t("OPPS_DECLINED")} {selectedDate && `at ${selectedDate}`}</h3>
+              }
                 
                 <style>{`
         

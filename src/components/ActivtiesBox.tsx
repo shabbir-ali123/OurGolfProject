@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ReviewsModal from './comments/ReviewsModal';
-
+import { useTranslation } from "react-i18next";
 interface ActivtiesBoxProps {
   activity?: any;
 }
@@ -9,6 +9,7 @@ interface ActivtiesBoxProps {
 const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
+  const { t } = useTranslation();
   const isStudentPage = location.pathname?.includes('/student-activties-page');
   const router = useNavigate();
   let bgClr;
@@ -57,29 +58,29 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
             className="h-10 w-10 rounded-full mr-4"
           />
           <p className="text-gray-600 font-product-sans font-normal text-xl">
-            You have an {activity.status} Appointment with {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName}
+          {t("YOU_HAVE")} {activity.status} {t("APPOINTMENT_WITH")}  {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName}
           </p>
         </div>
         <div className='flex justify-end col-span-4'>
           <p
-            className='bg-[#03bb3a] p-2 rounded text-white ml-2 cursor-pointer'
+            className='bg-[#03bb3a] p-2 rounded text-white ml-2 cursor-pointer flex items-center'
             onClick={(e) => {
               e.stopPropagation(); 
               router(activity?.bookedShifts ? '/appointments' : '/notification-page');
             }}
           >
-            See Details
+            {t("SEE_DETAILS")}
           </p>
           <Link to="/message-page" className=''>
-            <p className='bg-[#3b82f6] p-2 rounded text-white ml-2' onClick={(e) => e.stopPropagation()}>Chat</p>
+            <p className='bg-[#3b82f6] p-2 rounded text-white ml-2' onClick={(e) => e.stopPropagation()}>{t("CHAT")}</p>
           </Link>
           {isStudentPage && 
-           activity.status === "BOOKED" && (
+           activity?.status === "BOOKED" && (
             <p
-              className='bg-[#ff9800] p-2 rounded text-white ml-2 cursor-pointer'
+              className='bg-[#ff9800] p-2 rounded text-white ml-2 cursor-pointer flex items-center'
               onClick={handleComplete}
             >
-              Complete
+             {t("COMPLETE")}
             </p>
           )}
           

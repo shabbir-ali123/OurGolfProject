@@ -17,7 +17,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
-import { SlotsCalender } from "../components/calender/SlotsCalender";
+import { SlotsCalendar } from "../components/calender/SlotsCalender";
 import { useNavigate } from "react-router-dom";
 
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
@@ -663,8 +663,8 @@ const CreateTeacher: React.FC = () => {
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender onWeekSelected={handleWeekSelected} />
-          <div className="grid grid-cols-1 gap-4 py-2 text-center ">
+          <SlotsCalendar onWeekSelected={handleWeekSelected} />
+          {/* <div className="grid grid-cols-1 gap-4 py-2 text-center ">
             <div className="col-span-1 font-bold ">{t("TIME")}</div>
             <div className=" flex justify-center gap-4  xl:gap-20 xl:ml-[200px]  overflow-x-scroll xl:overflow-auto bg-[#e4e4e4] p-2 rounded-md">
               {selectedWeekStart &&
@@ -714,7 +714,7 @@ const CreateTeacher: React.FC = () => {
                   })}
               </React.Fragment>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex justify-center">

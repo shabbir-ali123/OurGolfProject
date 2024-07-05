@@ -549,7 +549,7 @@ function App() {
                   <CreatedEventContext>
                     <TeacherDetailsContext>
                       <TeacherGigsProvider>
-                        <ProfilePage />
+                        <ProfilePage  />
 
                       </TeacherGigsProvider>
                     </TeacherDetailsContext>

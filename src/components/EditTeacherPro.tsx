@@ -18,7 +18,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { UploaderInput } from "../components/uploaderInput/UploaderInput";
-import { SlotsCalender } from "../components/calender/SlotsCalender";
+import { SlotsCalendar } from "../components/calender/SlotsCalender";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { scheduler } from "timers/promises";
 import { BeatLoader } from "react-spinners";
@@ -788,8 +788,8 @@ console.log(formData, date)
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalender  startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
-          <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
+          <SlotsCalendar  startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
+          {/* <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
 
             <div className=" flex xl:justify-start gap-4    overflow-x-scroll xl:overflow-auto  p-2 rounded-md">
               {selectedWeekStart &&
@@ -843,7 +843,7 @@ console.log(formData, date)
                   })}
               </React.Fragment>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex justify-center">

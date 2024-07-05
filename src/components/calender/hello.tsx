@@ -28,7 +28,6 @@ export const SlotsCalendar = ({
   onWeekSelected,
   handleState,
   resetSchedules,
-  handleTimeSlotClick
 }: any) => {
   const [selectedDate, setSelectedDate] = useState(new Date("12-12-2222"));
   const [click, setClick] = useState<boolean>(false);
@@ -93,16 +92,28 @@ export const SlotsCalendar = ({
   function formatDatee(inputDateString: any) {
     const date = new Date(inputDateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
   }
 
-  function getDateForDayInRange(startDateString: any, endDateString: any, dayOfWeek: any) {
+  function getDateForDayInRange(
+    startDateString: any,
+    endDateString: any,
+    dayOfWeek: any
+  ) {
     const startDate = new Date(startDateString);
     const endDate = new Date(endDateString);
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', '土曜日'];
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
 
     if (!daysOfWeek.includes(dayOfWeek)) {
       throw new Error("Invalid day of the week");
@@ -113,8 +124,8 @@ export const SlotsCalendar = ({
     for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
       if (date.getDay() === dayIndex) {
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
 
         return `${year}-${month}-${day}`;
       }
@@ -122,49 +133,59 @@ export const SlotsCalendar = ({
 
     return null;
   }
+
   const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
     const startHour = i.toString().padStart(2, "0");
     const endHour = ((i + 1) % 24).toString().padStart(2, "0");
 
     return `${startHour}:00 to ${endHour}:00`;
   });
-  
+
   const initialActiveStates = Array.from({ length: hoursOfDay.length }, () =>
     Array(1).fill(false)
   );
- const [activeStates, setActiveStates] =
+  const [activeStates, setActiveStates] =
     useState<boolean[][]>(initialActiveStates);
 
   const renderTimeSlots = (date: Date) => {
-    return Array.from({ length: 24 }, (i, hourIndex) => {
+    return Array.from({ length: 24 }, (_, hourIndex) => {
       const startHour = hourIndex.toString().padStart(2, "0");
       const endHour = ((hourIndex + 1) % 24).toString().padStart(2, "0");
 
       const hour = `${startHour}:00 to ${endHour}:00`;
       const formattedDate = formatDatee(date);
 
-      const isActive = startEndDates?.some(({ shifts, startDate, endDate }: any) => {
-        const dateInRange = isWithinInterval(date, {
-          start: parseISO(startDate),
-          end: parseISO(startDate),
-        });
+      const isActive = startEndDates?.some(
+        ({ shifts, startDate, endDate }: any) => {
+          const dateInRange = isWithinInterval(date, {
+            start: parseISO(startDate),
+            end: parseISO(startDate),
+          });
 
-        return dateInRange && shifts.some(
-          (shift: any) =>
-            shift.day.toLowerCase() === format(date, "EEEE").toLowerCase() &&
-            shift.startTime.includes(hour)
-        );
-      });
+          return (
+            dateInRange &&
+            shifts.some(
+              (shift: any) =>
+                shift.day.toLowerCase() === format(date, "EEEE").toLowerCase() &&
+                shift.startTime.includes(hour)
+            )
+          );
+        }
+      );
       const isBooked = startEndDates?.some(({ shifts, startDate }: any) => {
         const dateInRange = isWithinInterval(date, {
           start: parseISO(startDate),
           end: parseISO(startDate),
         });
 
-        return dateInRange && shifts.some(
-          (shift: any) =>
-            shift.day.toLowerCase() === format(date, "EEEE").toLowerCase() &&
-            shift.startTime.includes(hour) && shift.status == "BOOKED"
+        return (
+          dateInRange &&
+          shifts.some(
+            (shift: any) =>
+              shift.day.toLowerCase() === format(date, "EEEE").toLowerCase() &&
+              shift.startTime.includes(hour) &&
+              shift.status === "BOOKED"
+          )
         );
       });
 
@@ -175,22 +196,19 @@ export const SlotsCalendar = ({
           key={`${formattedDate}-${hour}`}
           type="button"
           className={`col-span-1 rounded-md py-2 time-slot 
-            ${isActive && isBooked ? "bg-red shadow-lg" : ""
-            }
-            ${isActive && !isBooked ? "bg-[#B2C3FD] shadow-lg" : ""
-            }
-            ${isActived ? "bg-red shadow-lg" : ""
-            }
+            ${isActive && isBooked ? "bg-red shadow-lg" : ""}
+            ${isActive && !isBooked ? "bg-[#B2C3FD] shadow-lg" : ""}
+            ${isActived ? "bg-red shadow-lg" : ""}
             `}
-          onClick={() => handleTimeSlotClicks(date, hour, hourIndex)}
+          onClick={() => handleTimeSlotClick(date, hour, hourIndex)}
         >
-         {hour}
+          {hour}
         </button>
       );
     });
   };
-  const handleTimeSlotClicks = (date: Date, hour: string, hourIndex: number) => {
-    handleTimeSlotClick(date, hour, hourIndex)
+
+  const handleTimeSlotClick = (date: Date, hour: string, hourIndex: number) => {
     setActiveStates((prevStates) => {
       const newStates = [...prevStates];
       newStates[hourIndex][0] = !newStates[hourIndex][0];
@@ -198,9 +216,6 @@ export const SlotsCalendar = ({
     });
     console.log("Time slot clicked:", date, hour);
   };
-  // const handleTimeSlotClick = (date: Date, hour: string, hourIndex:any) => {
-  //   console.log("Time slot clicked:", date, hour);
-  // };
 
   return (
     <>
