@@ -235,18 +235,18 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-        case "all-teacher-gigs":
+      case "all-teacher-gigs":
         title = "";
         metaDescription = "";
         break;
-        case "update-schedules":
-          title = "";
-          metaDescription = "";
-          break;
-          case "edit-teacher-profile":
-          title = "";
-          metaDescription = "";
-          break;
+      case "update-schedules":
+        title = "";
+        metaDescription = "";
+        break;
+      case "edit-teacher-profile":
+        title = "";
+        metaDescription = "";
+        break;
     }
 
     if (title) {
@@ -297,7 +297,7 @@ function App() {
           />
           <Route
             path="/all-teacher-gigs"
-            element={token ? <AllGigs  /> : <LoginPage />}
+            element={token ? <AllGigs /> : <LoginPage />}
           />
           <Route
             path="/"
@@ -361,7 +361,7 @@ function App() {
             path="/create-event/:id"
             element={token ? <CreateEvent /> : <LoginPage />}
           />
-             <Route
+          <Route
             path={isTeacher ? "/update-schedules/:id" : "/teacher-page"}
             element={
               token ? (
@@ -377,7 +377,7 @@ function App() {
               )
             }
           />
-            <Route
+          <Route
             path={isTeacher ? "/edit-teacher-profile/:id" : "/teacher-page"}
             element={
               token ? (
@@ -546,16 +546,16 @@ function App() {
               token ? (
                 <PostContext>
                   <EventsContext>
-                  <CreatedEventContext>
-                    <TeacherDetailsContext>
-                      <TeacherGigsProvider>
-                        <ProfilePage  />
+                    <CreatedEventContext>
+                      <TeacherDetailsContext>
+                        <TeacherGigsProvider>
+                          <ProfilePage />
 
-                      </TeacherGigsProvider>
-                    </TeacherDetailsContext>
-                  </CreatedEventContext>
+                        </TeacherGigsProvider>
+                      </TeacherDetailsContext>
+                    </CreatedEventContext>
                   </EventsContext>
-                  
+
                 </PostContext>
               ) : (
                 <LoginPage />
@@ -566,9 +566,18 @@ function App() {
             path="/create-catalogs/:id"
             element={
               token && tId ? (
-                <TeacherDetailsContext>
-                  <TeacherCatalog />
-                </TeacherDetailsContext>
+
+
+
+
+                <TeacherGigsProvider>
+
+                  <TeacherDetailsContext>
+
+                    <TeacherCatalog />
+                  </TeacherDetailsContext>
+                </TeacherGigsProvider>
+
               ) : (
                 <LoginPage />
               )
@@ -597,9 +606,9 @@ function App() {
           <Route
             path="/update-gig/:gigId"
             element={
-                <TeacherGigsProvider>
-                  <UpdateGig />
-                </TeacherGigsProvider>
+              <TeacherGigsProvider>
+                <UpdateGig />
+              </TeacherGigsProvider>
             }
           />
           <Route

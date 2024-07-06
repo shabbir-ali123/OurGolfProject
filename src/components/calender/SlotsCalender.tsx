@@ -177,9 +177,9 @@ export const SlotsCalendar = ({
           className={`col-span-1 rounded-md py-2 time-slot 
             ${isActive && isBooked ? "bg-red shadow-lg" : ""
             }
-            ${isActive && !isBooked ? "bg-[#B2C3FD] shadow-lg" : ""
+            ${isActive && !isBooked ? "bg-[#1e40af] text-white shadow-lg" : ""
             }
-            ${isActived ? "bg-red shadow-lg" : ""
+            ${isActived ? "bg-[#61ff0e] text-white shadow-lg" : ""
             }
             `}
           onClick={() => handleTimeSlotClicks(date, hour, hourIndex)}
@@ -242,13 +242,13 @@ export const SlotsCalendar = ({
                   className={classNames(
                     "py-4 px-1 text-black hover:bg-gray focus:z-10 border-2 border-solid border-white",
                     !isDayDisabled(day, startEndDates)
-                      ? "bg-[#17b3a6] text-white"
+                      ? "bg-[#1e40af] text-white"
                       : "cursor-pointer",
                     isSameMonth(day, currentMonth)
                       ? "text-gray-900"
-                      : "text-gray-300",
+                      : "text-gray-300 ",
                     isSameDay(day, selectedDate)
-                      ? "bg-black-800 text-white"
+                      ? "bg-[#61ff0e] text-white"
                       : "",
                     isSameDay(day, new Date()) && !isSameDay(day, selectedDate)
                       ? "text-red-600"

@@ -58,7 +58,7 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
             className="h-10 w-10 rounded-full mr-4"
           />
           <p className="text-gray-600 font-product-sans font-normal text-xl">
-          {t("YOU_HAVE")} {activity.status} {t("APPOINTMENT_WITH")}  {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName}
+          {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName} {t("APPOINTMENT_WITH")} 
           </p>
         </div>
         <div className='flex justify-end col-span-4'>

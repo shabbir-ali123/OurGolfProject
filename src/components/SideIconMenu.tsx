@@ -95,7 +95,7 @@ export const menuItems: MenuItem[] = [
           {
             name: "UPDATE_GIG",
             icon: faSearch,
-            path: "/profile-page",
+            path: "/create-catalogs/" + teacherId,
             active: false,
           },
           {

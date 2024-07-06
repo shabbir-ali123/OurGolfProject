@@ -15,17 +15,18 @@ import { TrashIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 import DeletePopup from "../components/AreSure";
 import { deleteGig } from "../utils/fetchGigs";
 import { hasImageExtension } from "../utils/imgExtension";
+import GetAllGigs from "../components/GetAllGigs";
 const Profile = () => {
   const { t } = useTranslation();
   const { user } = userAuthContext();
   const { post, handleCategory } = postContext();
   const { createdEvents } = createdEventsStore();
-  const { handleEventStatus,eventss } = eventContextStore();
+  const { handleEventStatus, eventss } = eventContextStore();
   handleEventStatus("joined");
   const { studentAppointments, isLoading } = useTeacherContext();
   const { teacher } = useTeacherContext();
-  const teacherId  = localStorage.getItem("teacher_id");
-  const UserId  = localStorage.getItem("id");
+  const teacherId = localStorage.getItem("teacher_id");
+  const UserId = localStorage.getItem("id");
   const { id } = useParams<{ id: string }>();
   console.log(studentAppointments);
   const router = useNavigate();
@@ -41,7 +42,7 @@ const Profile = () => {
     handleCategory("MyPost");
   }, []);
   const tId = localStorage.getItem("teacher_id");
-  const { singleUser, postCount, eventCount} = singleUserContext();
+  const { singleUser, postCount, eventCount } = singleUserContext();
   const [isTeacher, setIsTeacher] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [openEditTeacher, setEditTeacher] = useState(false);
@@ -55,7 +56,7 @@ const Profile = () => {
   });
   const handleDeleteTeacher = async () => {
     try {
-      const response = await axios.delete(API_ENDPOINTS.DELETETEACHER +  teacherId, {
+      const response = await axios.delete(API_ENDPOINTS.DELETETEACHER + teacherId, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -65,7 +66,7 @@ const Profile = () => {
         localStorage.removeItem("teacher_id");
         setIsTeacher(false);
         setIsModalOpen(false);
-        router("/profile-page"); 
+        router("/profile-page");
       }
     } catch (error) {
       console.error("Error deleting teacher:", error);
@@ -89,10 +90,10 @@ const Profile = () => {
     handleTeacherId(tId);
   };
   const handlePostsClick = () => {
-    router('/user-posts/' + user) 
+    router('/user-posts/' + user)
 
   };
-  console.log(eventss  ,"helllo")
+  console.log(eventss, "helllo")
   return (
     <>
       <div className="max-w-7xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -225,16 +226,16 @@ const Profile = () => {
               {user.nickName}
             </h3>
             <p className="font-medium">{user.email}</p>
-            <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 xl:grid-cols-4 sm:grid-cols-2 rounded-md border border-stroke py-4 shadow-1 cursor-pointer dark:border-strokedark dark:bg-[#37404F]">
-              <div onClick={()=>{
-                router('/user-posts/'+UserId)
+            <div className="mx-auto mt-4.5 mb-5.5 grid grid-cols-3  rounded-md border border-stroke py-4 shadow-1 cursor-pointer dark:border-strokedark dark:bg-[#37404F]">
+              <div onClick={() => {
+                router('/user-posts/' + UserId)
               }} className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
                   {post.length}
                 </span>
                 <span className="text-sm">{t("POSTS")}</span>
               </div>
-              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row cursor-pointer"    onClick={()=>{
+              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row cursor-pointer" onClick={() => {
                 router('/created-events')
               }}>
                 <span className="font-semibold text-black dark:text-white">
@@ -242,7 +243,7 @@ const Profile = () => {
                 </span>
                 <span className="text-sm">{t("CREATED_EVENTS")}</span>
               </div>
-              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row" onClick={()=>{
+              <div className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row" onClick={() => {
                 router('/joined-events')
               }}>
                 <span className="font-semibold text-black dark:text-white">
@@ -252,166 +253,9 @@ const Profile = () => {
               </div>
 
             </div>
-            {tId && (
-              <div className="my-8">
-                <h2 className="text-xl text-start font-semibold mb-4">Gigs:</h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {gigs.gigs?.length != 0 ? (
-                    gigs.gigs?.map((item: any) => {
-                      const arrayImages = item?.imageUrl?.split(",");
-
-                      return (
-                        <div
-                          className=" xl:w-auto mb-4  xl:mb-0 px-2 py-4 space-y-4 text-white hover:bg-[#f1f1f1] cursor-pointer border border-yellow-400 rounded-lg bg-white lg:py-10 md:px-12 md:w-auto md:flex-row md:items-center md:space-x-4 lg:space-x-12"
-                          style={{
-                            boxShadow:
-                              "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
-                          }}
-                        >
-                          <div className=" items-center text-black relative">
-                            <div className="flex justify-end xl:absolute top-[-30px] left-[238px] ]">
-                              <TrashIcon
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setGigModalOpen(!isGigModalOpen);
-                                }}
-                                className="h-[18px] text-red  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 "
-                              />
-                              <PencilSquareIcon
-                                onClick={() => {
-                                  router("/update-gig/" + item.id);
-                                }}
-                                className="h-[18px] text-green  p-[2px] border-2 border-solid rounded-full cursor-pointer ml-2 "
-                              />
-                              {isGigModalOpen && (
-                                <DeletePopup
-                                  mainFunc={(e: any) => {
-                                    handleGigDelete(item.id, e);
-                                  }}
-                                  toggleModal={() =>
-                                    setGigModalOpen(!isGigModalOpen)
-                                  }
-                                  title="are you sure to delete gig "
-                                  isModalOpen={isGigModalOpen}
-                                />
-                              )}
-                            </div>
-                            <div className="w-full h-full xl:w-[300px] xl:h-[200px] ">
-
-
-                                    <>
-                                      {/* Ensure key is unique and at the top element */}
-                                      {hasImageExtension(arrayImages[0]) ? (
-                                        <div  className=" ">
-                                          <img
-                                            className="w-full h-[200px] object-cover rounded-lg "
-                                            src={arrayImages[0]}
-                                            alt="Blog Post Image"
-                                          />
-                                        </div>
-                                      ) : (
-                                        <div  className=" ">
-                                          <video
-                                            controls
-                                            className="w-full h-[200px] object-cover rounded-lg "
-                                            src={arrayImages[0]}
-                                          />
-                                        </div>
-                                      )}
-                                    </>
-
-                            </div>
-
-                            <div className="flex flex-col">
-                              <div className="flex items-center mt-2">
-                                <svg
-                                  className="w-4 h-4 text-yellow-300 ms-1"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 22 20"
-                                >
-                                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg
-                                  className="w-4 h-4 text-yellow-300 ms-1"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 22 20"
-                                >
-                                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg
-                                  className="w-4 h-4 text-yellow-300 ms-1"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 22 20"
-                                >
-                                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg
-                                  className="w-4 h-4 text-yellow-300 ms-1"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 22 20"
-                                >
-                                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg
-                                  className="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="currentColor"
-                                  viewBox="0 0 22 20"
-                                >
-                                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <p className="ml-1 text-[#949494]">
-                                  4.5(20 reviews)
-                                </p>
-                              </div>
-                              <h3>{item.title}</h3>
-                              <p className="text-start">
-                                Price {item.price} ¥{" "}
-                              </p>
-                              <button
-                                onClick={(e) => router(`/gig/` + item.id)}
-                                className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
-                              >
-                                See More
-                              </button>
-                              <Link
-                                to="/message-page"
-                                className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white"
-                              >
-                                Chat
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <>
-                      <h2 className="text-center">
-                        {t("OPPS")}
-                        <span className="text-[#17b3a6]">GIGS!</span>
-                      </h2>
-                      {/* <button
-                      className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
-                      onClick={() => router(`/create-catalogs/${teacher?.id}`)}
-                    >
-                      Create GIG
-                    </button> */}
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
+            <div>
+              <GetAllGigs />
+            </div>
             <div className="text-center md:mt-20 sm:mt-0 xl:flex items-center justify-between">
               <p className="font-bold">
                 {t("MEMBERS_SINCE")} : {formatDate(user.createdAt)}
@@ -440,94 +284,93 @@ const Profile = () => {
           </div>
         </div>
         <div>
-      <h3>{t("APPOINTMENTS_STATUS")}:</h3>
-      <>
-        {isLoading ? (
-          <div className="flex justify-center items-center h-auto">
-            <div>
-              <img
-                className="w-10 h-10 animate__animated animate__bounce animate__infinite"
-                src="/img/golfball.jpg"
-                alt=""
-              />
-              <p>loading...</p>
-            </div>
-          </div>
-        ) : (
-          <div className="max-w-7xl mx-10 xl:mx-auto">
-            <div
-              aria-live="assertive"
-              className="animate__animated animate__fadeInLeft"
-            >
-              <div className="w-full justify-center">
-                {studentAppointments?.length === 0 ? (
-                  <p>No Appointments</p>
-                ) : (
-                  studentAppointments?.map((item: any, index: any) => (
-                    <Transition
-                      show={true}
-                      as={Fragment}
-                      enter="transform ease-out duration-300 transition"
-                      enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-                      enterTo="translate-y-0 opacity-100 sm:translate-x-0"
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                      key={index}
-                    >
-                      <div
-                        className={`mt-2 pointer-events-auto w-full max-w-5xl rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ${
-                          !item.isRead ? "bg-[#f3f3f3]" : "bg-white"
-                        }`}
-                      >
-                        <div className="p-4">
-                          <div className="flex items-start">
-                            <div
-                              className="flex items-center justify-center border-2 border-solid border-[#17b3a6] rounded-full h-8 w-8"
-                              onClick={() => router("/user-page/" + item?.bookedBy)}
-                            >
-                              <img
-                                className="w-full h-full rounded-full"
-                                src={""}
-                                alt=""
-                              />
-                            </div>
-                            <div className="ml-3 w-0 flex-1">
-                              <p className="text-sm font-medium text-gray-900">
-                                {item?.bookedShifts?.nickName}
-                              </p>
-                              <p className="mt-1 text-sm text-gray-500">
-                                {item?.bookedShifts?.nickName} wants to book
-                                appointment from {item?.startTime} to{" "}
-                                {item?.endTime} on {item?.day}
-                              </p>
-                              <p>
-                                {item?.status == ""
-                                  ? "PENDING"
-                                  : item?.status}
-                              </p>
-                              {item?.status == "BOOKED" && (
-                                <button
-                                  onClick={() => setShowModal(true)}
-                                  className="text-[11px] cursor-pointer text-white bg-[#17b3a6] text-xs p-2 rounded"
+          <h3>{t("APPOINTMENTS_STATUS")}:</h3>
+          <>
+            {isLoading ? (
+              <div className="flex justify-center items-center h-auto">
+                <div>
+                  <img
+                    className="w-10 h-10 animate__animated animate__bounce animate__infinite"
+                    src="/img/golfball.jpg"
+                    alt=""
+                  />
+                  <p>loading...</p>
+                </div>
+              </div>
+            ) : (
+              <div className="max-w-7xl mx-10 xl:mx-auto">
+                <div
+                  aria-live="assertive"
+                  className="animate__animated animate__fadeInLeft"
+                >
+                  <div className="w-full justify-center">
+                    {studentAppointments?.length === 0 ? (
+                      <p>No Appointments</p>
+                    ) : (
+                      studentAppointments?.map((item: any, index: any) => (
+                        <Transition
+                          show={true}
+                          as={Fragment}
+                          enter="transform ease-out duration-300 transition"
+                          enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                          enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+                          leave="transition ease-in duration-100"
+                          leaveFrom="opacity-100"
+                          leaveTo="opacity-0"
+                          key={index}
+                        >
+                          <div
+                            className={`mt-2 pointer-events-auto w-full max-w-5xl rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ${!item.isRead ? "bg-[#f3f3f3]" : "bg-white"
+                              }`}
+                          >
+                            <div className="p-4">
+                              <div className="flex items-start">
+                                <div
+                                  className="flex items-center justify-center border-2 border-solid border-[#17b3a6] rounded-full h-8 w-8"
+                                  onClick={() => router("/user-page/" + item?.bookedBy)}
                                 >
-                                  {t("COMPLETE_LESSON")}
-                                </button>
-                              )}
+                                  <img
+                                    className="w-full h-full rounded-full"
+                                    src={""}
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="ml-3 w-0 flex-1">
+                                  <p className="text-sm font-medium text-gray-900">
+                                    {item?.bookedShifts?.nickName}
+                                  </p>
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {item?.bookedShifts?.nickName} wants to book
+                                    appointment from {item?.startTime} to{" "}
+                                    {item?.endTime} on {item?.day}
+                                  </p>
+                                  <p>
+                                    {item?.status == ""
+                                      ? "PENDING"
+                                      : item?.status}
+                                  </p>
+                                  {item?.status == "BOOKED" && (
+                                    <button
+                                      onClick={() => setShowModal(true)}
+                                      className="text-[11px] cursor-pointer text-white bg-[#17b3a6] text-xs p-2 rounded"
+                                    >
+                                      {t("COMPLETE_LESSON")}
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </Transition>
-                  ))
-                )}
+                        </Transition>
+                      ))
+                    )}
+                  </div>
+                </div>
+                {/* {showModal && <ReviewsModal onClose={() => setShowModal(false)} />} */}
               </div>
-            </div>
-            {/* {showModal && <ReviewsModal onClose={() => setShowModal(false)} />} */}
-          </div>
-        )}
-      </>
-    </div>
+            )}
+          </>
+        </div>
       </div>
     </>
   );

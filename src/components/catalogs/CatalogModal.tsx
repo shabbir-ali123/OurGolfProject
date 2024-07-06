@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import { API_ENDPOINTS } from "../../appConfig";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import GetAllGigs from "../GetAllGigs";
 interface CreateCatalogType {
   title: string;
   description: string;
@@ -131,9 +132,10 @@ const CatalogModal: React.FC<any> = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-4">
+    <>
+ <div className="flex items-center justify-center p-4">
       <div
-        className=" w-full max-w-xl p-6 mx-auto bg-white rounded-lg xl:mx-auto"
+        className=" w-full max-w-5xl p-6 mx-auto bg-white rounded-lg xl:mx-auto"
         style={{
           boxShadow:
             "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
@@ -235,6 +237,12 @@ const CatalogModal: React.FC<any> = () => {
         </form>
       </div>
     </div>
+
+    <div>
+      <GetAllGigs />
+    </div>
+    </>
+   
   );
 };
 

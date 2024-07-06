@@ -309,7 +309,7 @@ const CreateTeacher: React.FC = () => {
           
         } catch (error) {
           console.error("Error updating event media:");
-          toast.error("Failed to update event media. Please try again later.");
+          toast.error("Failed to create teacher's account");
         }
       }
 

@@ -513,7 +513,7 @@ const updateSchedules: React.FC = () => {
                     {schedule.shifts?.map((shift: any, shiftIndex: any) => {
                       console.log(shift?.isBooked, "hello imran")
 
-                      return <div key={shiftIndex} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 ">
+                      return <div key={shiftIndex} className="bg-[#1e40af] text-white p-3 rounded-lg flex justify-between items-center mb-2 ">
                         <span className="font-medium text-sm">{shift.day} {shift.startTime}</span>
                         {
                           shift?.status == "BOOKED" ? <button

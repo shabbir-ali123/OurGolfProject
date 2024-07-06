@@ -217,7 +217,7 @@ const EditEvent: React.FC = () => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      toast.error("Error occurred while creating the event");
+      toast.error("Error occurred while editing the event");
       console.error("Error:", error);
     } finally {
       setSubmitting(false);
