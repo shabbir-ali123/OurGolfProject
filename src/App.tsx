@@ -367,7 +367,10 @@ function App() {
               token ? (
                 isTeacher ? (
                   <TeacherDetailsContext>
+                    <TeacherGigsProvider>
                     <UpdateSchedules />
+                    </TeacherGigsProvider>
+                   
                   </TeacherDetailsContext>
                 ) : (
                   <CreateTeacher />

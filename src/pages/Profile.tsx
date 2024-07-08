@@ -108,14 +108,14 @@ const Profile = () => {
                 className="flex cursor-pointer items-center justify-center gap-2 bg-[#17b3a6] hover:bg-blue-700 text-white xl:font-bold py-1 xl:py-2 px-4 rounded"
               >
                 <Link to={`/edit-teacher-profile/${tId}`} className="text-white">
-                  <span>Edit Teacher Profile</span>
+                  <span>{t("EDIT_TEACHER")}</span>
                 </Link>
               </label>
               <Link
                 to={`/create-catalogs/${tId}`}
                 className="flex cursor-pointer items-center justify-center gap-2 bg-[#17b3a6] hover:bg-blue-700 text-white xl:font-bold py-1 xl:py-2 px-4 rounded"
               >
-                <span>Create Catalogs</span>
+                <span>{t("CREATE_CATELOGS")}</span>
               </Link>
 
               <div className="xl:absolute  right-1 z-10 ">
@@ -156,7 +156,7 @@ const Profile = () => {
                       className="bg-[#17b3a6] py-1 xl:py-2 px-4 hover:bg-blue-700 text-white xl:font-bold rounded cursor-pointer"
                       onClick={() => router("/appointments")}
                     >
-                      <span>Appointments</span>
+                      <span>{t("APPOINTMENTS")}</span>
                     </div>
                   )}
                 </div>

@@ -21,7 +21,9 @@ import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notificationContext";
 import socket from "../socket";
 const teacherId  = localStorage.getItem("teacher_id");
+const userId  = localStorage.getItem("id");
 
+const isLoggedIn = Boolean(userId);
 export const menuItems: MenuItem[] = [
   {
     name: "HOME",
@@ -369,9 +371,12 @@ const SideMenu: React.FC = () => {
                 }
                 onClick={() => handleMenuItemClick(item.name)}
               >
-                {item.properties && (
+                 {item.properties && (
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
-                    {filteredNotifications?.length + notifications?.length}
+                    {isLoggedIn 
+                      ? filteredNotifications?.length + notifications?.length 
+                      : "NA"
+                    }
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                   </div>
                 )}

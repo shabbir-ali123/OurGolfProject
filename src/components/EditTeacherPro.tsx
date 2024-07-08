@@ -729,7 +729,7 @@ console.log(formData, date)
             </div>
           )}
         </div>
-        <div className="mx-10 xl:mx-0">
+        {/* <div className="mx-10 xl:mx-0">
           <h3>{t("Your Previous Schedules")}</h3>
           <div className="grid grid-flow-col auto-cols-max gap-4 px-4 overflow-x-auto snap-x py-4">
 
@@ -781,14 +781,14 @@ console.log(formData, date)
               </>
             ))}
           </div>
-        </div>
+        </div> */}
 
 
 
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalendar  startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
+          {/* <SlotsCalendar  startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} /> */}
           {/* <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
 
             <div className=" flex xl:justify-start gap-4    overflow-x-scroll xl:overflow-auto  p-2 rounded-md">

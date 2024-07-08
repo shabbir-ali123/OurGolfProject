@@ -22,7 +22,7 @@ import { SlotsCalendar } from "../components/calender/SlotsCalender";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { scheduler } from "timers/promises";
 import { BeatLoader } from "react-spinners";
-
+import { gigsContextStore } from "../contexts/gigsContext";
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
   const endHour = ((i + 1) % 24).toString().padStart(2, "0");
@@ -50,6 +50,7 @@ const updateSchedules: React.FC = () => {
   const { t } = useTranslation();
   const { teacher, handleScheduleDelete, handleShiftDelete, isLoading, setIsLoading, handleUpdate } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
+  const { gigs, handleTeacherId } = gigsContextStore();
   const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(
     Array(5).fill("")
   );
@@ -307,8 +308,35 @@ const updateSchedules: React.FC = () => {
     console.log(date.toISOString().split('T')[0]);
     return date.toISOString().split('T')[0];
   }
+  useEffect(() => {
+    console.log("Teacher:", teacher);
+    console.log("Gigs:", gigs);
+
+    if (teacher) {
+      handleTeacherId(teacher?.id);
+    }
+
+    if (teacher?.teacherShift && gigs?.length !== teacher?.teacherShift?.length) {
+      const teacherShiftWithGigs = teacher.teacherShift.map((shift: any) => {
+        const gig = gigs.find((gig: any) => gig.shiftId === shift.id);
+        return {
+          ...shift,
+          gig,
+        };
+      });
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        schedules: teacherShiftWithGigs,
+      }));
+    }
+  }, [gigs, teacher]);
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (gigs?.gigs?.length === 0) {
+      toast.error("You must create at least one gig before updating schedules.");
+      return;
+    }
     setIsLoading(true);
 
 
