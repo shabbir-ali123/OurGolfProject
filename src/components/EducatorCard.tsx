@@ -155,6 +155,11 @@ export const EducatorCard = ({
                       {t("VIEW_DETAILS")}
                     </button>
                   </Link>
+                  
+                    <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                      {t("GIGS")}
+                    </button>
+               
                 </div>
               </div>
               <div className="flex flex-col md:flex-row gap-10 mt-4 md:mt-0">

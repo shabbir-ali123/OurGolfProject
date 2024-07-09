@@ -8,6 +8,7 @@ import {
   fetchTeacherss,
 } from "../utils/fetchTeacher";
 import { useParams } from "react-router-dom";
+import { fetchTeacherReservedGig } from "../utils/fetchGigs";
 
 const TeachersContext = React.createContext<any>({});
 
@@ -139,6 +140,7 @@ export const TeacherDetailsContext = ({ children }: any) => {
   const [bookedAppointments, setBookedAppointments] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [studentAppointments, setStudentAppointments] = useState<any[]>([]);
+  const [teacherReserved, setTeacherReserved] = useState<any[]>([]);
   const [shiftId, setShiftId] = useState<any>(null);
   const [scheduleId, setScheduleId] = useState<any>(null);
   const [tId, setTId] = useState<any>(null);
@@ -160,6 +162,7 @@ export const TeacherDetailsContext = ({ children }: any) => {
         deleteScheduleById(scheduleId, setIsLoading);
         fetchSingleTeacher(handleTeacher, teacherId);
     }
+    fetchTeacherReservedGig(setTeacherReserved)
   }, [teacherId, shiftId, scheduleId, isLoading,ss ]);
 
   const handleUpdate = useCallback(
@@ -212,6 +215,7 @@ export const TeacherDetailsContext = ({ children }: any) => {
     teacher,
     selectedTeacher,
     studentAppointments,
+    teacherReserved,
     isLoading,
     bookedAppointments,
     handleShiftDelete,

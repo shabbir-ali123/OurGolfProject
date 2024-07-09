@@ -97,3 +97,113 @@ export const fetchGig = async (setGigs: any, gigId:any) => {
     console.log(error);
   }
 };
+
+// Reserve gig
+
+export const reserveGig = async (gigId: string, setLoading: any) => {
+  try {
+    const token = localStorage.getItem("token");
+    const endpoint = `${API_ENDPOINTS.RESERVEGIG}/${gigId}`;
+    
+    const response = await axios.post(endpoint, {}, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+        "ngrok-skip-browser-warning": "69420"
+      },
+      params:{
+        id:gigId
+      }
+    });
+
+    if (response.status === 201) {
+      toast.success(response.data.message);
+    } else {
+      toast.error(response.data.error);
+    }
+
+    setLoading(false);
+  } catch (error) {
+    console.log(error);
+    toast.error("Error reserving gig");
+    setLoading(false);
+  }
+};
+
+
+// get
+
+export const fetchTeacherReservedGig = async (setGigs: any) => {
+
+  try {
+    const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETTEACHERRESERVEGIGS;
+    if (token && token !== "undefined") {
+      endpoint = API_ENDPOINTS.GETTEACHERRESERVEGIGS  ;
+    }
+    const response = await axios.get(endpoint, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+        "ngrok-skip-browser-warning": "69420"
+
+      },
+
+    });
+
+    setGigs(response.data.reservedGigs)
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const fetchUserReservedGig = async (setGigs: any) => {
+
+  try {
+    const token = localStorage.getItem("token");
+    let endpoint = API_ENDPOINTS.GETUSERRESERVEGIGS;
+    if (token && token !== "undefined") {
+      endpoint = API_ENDPOINTS.GETUSERRESERVEGIGS  ;
+    }
+    const response = await axios.get(endpoint, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+        "ngrok-skip-browser-warning": "69420"
+
+      },
+
+    });
+
+    setGigs(response.data.reservedGigs)
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+// manage
+export const manageGigReservation = async (gigId: string, status: string,reservationId:any, setLoading: any) => {
+  try {
+    const token = localStorage.getItem("token");
+    const endpoint = `${API_ENDPOINTS.MANAGEGIG}/${gigId}`;
+    
+    const response = await axios.put(endpoint, { status }, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+        "ngrok-skip-browser-warning": "69420"
+      },
+      params:{
+        id:reservationId
+      }
+    });
+
+    if (response.status === 200) {
+      toast.success(response.data.message);
+    } else {
+      toast.error(response.data.error);
+    }
+
+    setLoading(false);
+  } catch (error) {
+    console.log(error);
+    toast.error("Error updating reservation");
+    setLoading(false);
+  }
+};

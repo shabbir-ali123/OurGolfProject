@@ -79,7 +79,7 @@ export default function Activeties({ selectedDate }: any) {
       declined: declined,
     });
   }, [selectedDate, studentAppointments, teacherAppointments]);
-  
+
 
   return (
     <div className="flex flex-wrap xl:flex-nowrap ">
@@ -93,10 +93,9 @@ export default function Activeties({ selectedDate }: any) {
                   className={({ selected }) =>
                     `w-full rounded-md py-2  text-base font-normal leading-5 sm:font-bold md:text-lg cursor-pointer m-1 xl:m-0 xl:w-[200px]
                     ring-white ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
-                    ${
-                      selected
-                        ? `bg-[#17b3a6] rounded-lg text-white `
-                        : `bg-[#ffff] shadow-lg border-solid border-2 border-[#0ad5c4] `
+                    ${selected
+                      ? `bg-[#17b3a6] rounded-lg text-white `
+                      : `bg-[#ffff] shadow-lg border-solid border-2 border-[#0ad5c4] `
                     }`
                   }
                 >
@@ -118,13 +117,13 @@ export default function Activeties({ selectedDate }: any) {
             <Tab.Panel>
               <div>
                 {
-                  filteredAppointments.pending.length > 0 ? 
-                filteredAppointments.pending.map((activity: any, index: any) => (
-                  <ActivtiesBox key={index} activity={activity} />
-                )) : 
-                <h3>{t("OPPS_PENDING")} {selectedDate && `at ${selectedDate}`}</h3>
-              }
-                
+                  filteredAppointments.pending.length > 0 ?
+                    filteredAppointments.pending.map((activity: any, index: any) => (
+                      <ActivtiesBox key={index} activity={activity} />
+                    )) :
+                    <h3>{t("OPPS_PENDING")} {selectedDate && `at ${selectedDate}`}</h3>
+                }
+
                 <style>{`
         
         @media screen and (min-width: 1300px) {
@@ -152,10 +151,14 @@ export default function Activeties({ selectedDate }: any) {
             </Tab.Panel>
             <Tab.Panel>
               <div className="">
-                {filteredAppointments.booked.map((activity: any, index: any) => (
-                  <ActivtiesBox key={index} activity={activity} />
-                ))}
-                <h3>{t("OPPS_BOOKED")} {selectedDate && `at ${selectedDate}`}</h3>
+                {
+                  filteredAppointments.booked.length > 0 ?
+                    filteredAppointments.booked.map((activity: any, index: any) => (
+                      <ActivtiesBox key={index} activity={activity} />
+                    )) :
+                    <h3>{t("OPPS_BOOKED")} {selectedDate && `at ${selectedDate}`}</h3>
+                }
+
                 <style>{`
         
         @media screen and (min-width: 1300px) {
@@ -183,10 +186,13 @@ export default function Activeties({ selectedDate }: any) {
             </Tab.Panel>
             <Tab.Panel>
               <div className="">
-                {filteredAppointments.completed.map((activity: any, index: any) => (
-                  <ActivtiesBox key={index} activity={activity} />
-                ))}
-                <h3>{t("OPPS_COMPLETED")} {selectedDate && `at ${selectedDate}`}</h3>
+                {
+                  filteredAppointments.completed.length > 0 ?
+                    filteredAppointments.completed.map((activity: any, index: any) => (
+                      <ActivtiesBox key={index} activity={activity} />
+                    )) :
+                    <h3>{t("OPPS_COMPLETED")} {selectedDate && `at ${selectedDate}`}</h3>
+                }
                 <style>{`
         
         @media screen and (min-width: 1300px) {
@@ -214,10 +220,13 @@ export default function Activeties({ selectedDate }: any) {
             </Tab.Panel>
             <Tab.Panel>
               <div className="">
-                {filteredAppointments.declined.map((activity: any, index: any) => (
-                  <ActivtiesBox key={index} activity={activity} />
-                ))}
-                <h3>{t("OPPS_DECLINED")} {selectedDate && `at ${selectedDate}`}</h3>
+                {
+                  filteredAppointments.declined.length > 0 ?
+                    filteredAppointments.declined.map((activity: any, index: any) => (
+                      <ActivtiesBox key={index} activity={activity} />
+                    )) :
+                    <h3>{t("OPPS_DECLINED")} {selectedDate && `at ${selectedDate}`}</h3>
+                }
                 <style>{`
         
         @media screen and (min-width: 1300px) {

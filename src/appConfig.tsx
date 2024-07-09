@@ -54,6 +54,7 @@ export const API_ENDPOINTS = {
   GETTEACHERAPPPOINTMENTCOUNT: `${API_BASE_URL}/${API_VERSION}/get-teacher-appointments-count`,
   GETTEACHERAPPPOINTMENTPUBLICCOUNT: `${API_BASE_URL}/${API_VERSION}/get-public-teacher-appointments-count`,
   UPDATEAPPOINTMENTSTATUS: `${API_BASE_URL}/${API_VERSION}/update-appointment-status`,
+  COMPLETEAPPOINTMENTSTATUS: `${API_BASE_URL}/${API_VERSION}/complete-appointment`,
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`,
   DECLINEAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/decline-appointment`,
@@ -61,8 +62,11 @@ export const API_ENDPOINTS = {
   DELETESHIFTSBYID: `${API_BASE_URL}/${API_VERSION}/delete-shift`,
   DELETESCHEDULEBYID: `${API_BASE_URL}/${API_VERSION}/delete-schedule`,
   DELETETEACHER: `${API_BASE_URL}/${API_VERSION}/delete-teacher/`,
-// feedback
-FEEDBACKTEACHER: `${API_BASE_URL}/${API_VERSION}/feedback-teacher`,
+  // feedback
+  FEEDBACKTEACHER: `${API_BASE_URL}/${API_VERSION}/feedback-teacher`,
+
+
+
   // GIGS
   ADDGIGS: `${API_BASE_URL}/${API_VERSION}/add-gigs`,
   GETGIGSBYTEACHER: `${API_BASE_URL}/${API_VERSION}/get-gigs-by-teacher/`,
@@ -73,6 +77,12 @@ FEEDBACKTEACHER: `${API_BASE_URL}/${API_VERSION}/feedback-teacher`,
   GETPUBLICGIGSBYTEACHER: `${API_BASE_URL}/${API_VERSION}/get-public-gigs-by-teacher/`,
   DELETEGIGBYID: `${API_BASE_URL}/${API_VERSION}/delete-gig/`,
   UPDATEGIG: `${API_BASE_URL}/${API_VERSION}/update-gig/`,
+  RESERVEGIG: `${API_BASE_URL}/${API_VERSION}/reserve-gig`,
+  MANAGEGIG: `${API_BASE_URL}/${API_VERSION}/manage-gig-reservation`,
+  GETTEACHERRESERVEGIGS: `${API_BASE_URL}/${API_VERSION}/get-teacher-reserved-gigs`,
+  GETUSERRESERVEGIGS: `${API_BASE_URL}/${API_VERSION}/get-user-reserved-gigs`,
+  GETALLRESERVATIONS: `${API_BASE_URL}/${API_VERSION}/get-all-reservations`,
+
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`,
   GETPUBLICTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-public-teams-by-event/`,

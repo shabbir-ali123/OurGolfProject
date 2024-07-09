@@ -19,7 +19,7 @@ export const NotificationsContext = ({ children }: any) => {
 
     fetchNotifications(setNotificationData, setIsLoading);
     const handleAppointmentBooked = (data: any) => {
-      console.log(data, ' li')
+      console.log(data, ' babu')
       const check = (data.teacherId == tId || data.organizer == userId || data.studentId == userId || data.organizerId == userId || data.userId == userId) 
       if(check){
         setNotifications((prevNotifications: any) => [...prevNotifications, data]); 
@@ -32,11 +32,12 @@ export const NotificationsContext = ({ children }: any) => {
     socket.on('appointmentBooked', handleAppointmentBooked);
     socket.on('joinRequest', handleAppointmentBooked);
     socket.on('appointmentDeclined', handleAppointmentBooked);
-
+    socket.on('reservedGig', handleAppointmentBooked);
     return () => {
       socket.off('appointmentBooked', handleAppointmentBooked);
       socket.off('joinRequest', handleAppointmentBooked);
       socket.off('appointmentDeclined', handleAppointmentBooked);
+      socket.off('reservedGig', handleAppointmentBooked);
 
     };
   }, [isLoading, message]); 

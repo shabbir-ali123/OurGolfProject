@@ -18,6 +18,7 @@ import { handleDeleteComment } from "../utils/fetchCommunication";
 import { useTeacherContext } from "../contexts/teachersContext";
 import { gigsContextStore } from "../contexts/gigsContext";
 import { userAuthContext } from "../contexts/authContext";
+import { reserveGig } from "../utils/fetchGigs";
 export const settings = {
   dots: true,
   speed: 500,
@@ -80,7 +81,7 @@ const GigDetails: React.FC = () => {
   //     teacherName: "sajid",
   //     teacherImage: "https://egolf.s3.eu-north-1.amazonaws.com/user-aisar%40gmail.com/1716575368788.png"
   // }
-  const { gig } = gigsContextStore();
+  const { gig ,reserveGigs, setIsLoading} = gigsContextStore();
 
   //   const { handlePostId, handleMessage, handlePost, singlePost, message } =
   //     postContext();
@@ -89,7 +90,7 @@ const GigDetails: React.FC = () => {
   document.body.dir = i18n.dir();
   const params = useParams<{ id?: string }>();
   const { teacher, handTeacherId } = useTeacherContext();
-  
+
   handTeacherId(gig?.teacherId);
   const postId = params.id;
   //   const [formData, setFormData] = useState<any>({
@@ -216,7 +217,10 @@ const GigDetails: React.FC = () => {
 
   const timeAgo = getTimeAgo(postTime, t);
 
-
+  const checkAlreadyPurchased = (gId: any) => {
+    return reserveGigs?.some((item: any) => item.gigId == gId);
+  };
+ 
 
   const arrayImages = gig?.imageUrl?.split(',');
   return (
@@ -272,26 +276,42 @@ const GigDetails: React.FC = () => {
             <h2
               dangerouslySetInnerHTML={{ __html: gig?.title ?? "" }}
             ></h2>
-            <span className="bg-green font-bold p-2 rounded text-white">¥
+            <div className="flex gap-4">
+              <span className="bg-green font-bold p-2 rounded text-white">Price: ¥
 
+                {
+                  gig?.price
+                }
+              </span>
               {
-                gig?.price
+                gig.teacherId != localStorage.getItem("teacher_id") &&  !checkAlreadyPurchased(gig.id)  && 
+                  <button
+                  onClick={()=>{
+                    reserveGig(gig.id ,setIsLoading)
+                  }}
+                    className="p-2 rounded cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
+                  >
+                    BUY NOW
+                  </button>
+                
               }
-            </span>
+             
+            </div>
+
           </div>
           {arrayImages?.map((img: string, index: number) => {
             if (arrayImages.length === 1) {
               return (
-                hasImageExtension(img) ? 
-                <img
-                  className="w-full h-[300px] xl:h-[600px] rounded-lg"
-                  src={img}
-                  alt="Blog Post Image"
-                /> : <video
-                controls
-                className="w-full h-[300px] xl:h-[600px] rounded-lg"
-                src={img}
-              />
+                hasImageExtension(img) ?
+                  <img
+                    className="w-full h-[300px] xl:h-[600px] rounded-lg"
+                    src={img}
+                    alt="Blog Post Image"
+                  /> : <video
+                    controls
+                    className="w-full h-[300px] xl:h-[600px] rounded-lg"
+                    src={img}
+                  />
               );
             }
           })}
@@ -323,25 +343,25 @@ const GigDetails: React.FC = () => {
             })}
           </Slider>
           <div className="flex items-center justify-end mt-2">
-          <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg className="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <p className="ml-1 text-[#949494]">4.5(20 reviews)</p>
+            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg className="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <p className="ml-1 text-[#949494]">4.5(20 reviews)</p>
+          </div>
         </div>
-        </div>
-        
+
         <div
           dangerouslySetInnerHTML={{ __html: gig?.description ?? "" }}
         ></div>

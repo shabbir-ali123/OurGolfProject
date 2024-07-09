@@ -46,14 +46,14 @@ const ReviewsModal: React.FC<ReviewsModalProps> = ({ closeModal, teacherId, alli
       return;
     }
     try {
-      let startTime = allinfo.startTime.split("to")[0].trim();
-      let endDate = allinfo.startTime.split("to")[1].trim();
+      // let startTime = allinfo.startTime.split("to")[0].trim();
+      // let endDate = allinfo.startTime.split("to")[1].trim();
 
-      const updateResponse = await axios.put(API_ENDPOINTS.UPDATEAPPOINTMENTSTATUS, {
+      const updateResponse = await axios.post(API_ENDPOINTS.COMPLETEAPPOINTMENTSTATUS, {
         scheduleId: allinfo.scheduleId,
         day: allinfo.day,
-        startTime: startTime,
-        endTime: endDate,
+        startTime: allinfo.startTime,
+        endTime: "",
         status: "COMPLETED",
       }, {
         headers: {

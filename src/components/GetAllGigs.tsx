@@ -20,12 +20,12 @@ const GetAllGigs = () => {
   const { user } = userAuthContext();
   const { post, handleCategory } = postContext();
   const { createdEvents } = createdEventsStore();
-  const { handleEventStatus,eventss } = eventContextStore();
+  const { handleEventStatus, eventss } = eventContextStore();
   handleEventStatus("joined");
   const { studentAppointments, isLoading } = useTeacherContext();
   const { teacher } = useTeacherContext();
-  const teacherId  = localStorage.getItem("teacher_id");
-  const UserId  = localStorage.getItem("id");
+  const teacherId = localStorage.getItem("teacher_id");
+  const UserId = localStorage.getItem("id");
   const { id } = useParams<{ id: string }>();
   console.log(studentAppointments);
   const router = useNavigate();
@@ -39,7 +39,7 @@ const GetAllGigs = () => {
   };
 
   const tId = localStorage.getItem("teacher_id");
-  const { singleUser, postCount, eventCount} = singleUserContext();
+  const { singleUser, postCount, eventCount } = singleUserContext();
   const [isTeacher, setIsTeacher] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [openEditTeacher, setEditTeacher] = useState(false);
@@ -53,7 +53,7 @@ const GetAllGigs = () => {
   });
   const handleDeleteTeacher = async () => {
     try {
-      const response = await axios.delete(API_ENDPOINTS.DELETETEACHER +  teacherId, {
+      const response = await axios.delete(API_ENDPOINTS.DELETETEACHER + teacherId, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -63,7 +63,7 @@ const GetAllGigs = () => {
         localStorage.removeItem("teacher_id");
         setIsTeacher(false);
         setIsModalOpen(false);
-        router("/profile-page"); 
+        router("/profile-page");
       }
     } catch (error) {
       console.error("Error deleting teacher:", error);
@@ -87,17 +87,17 @@ const GetAllGigs = () => {
     handleTeacherId(tId);
   };
   const handlePostsClick = () => {
-    router('/user-posts/' + user) 
+    router('/user-posts/' + user)
 
   };
-  console.log(eventss  ,"helllo")
+  console.log(eventss, "helllo")
   return (
     <>
       <div className="max-w-7xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-   
+
 
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
-         
+
           <div className="mt-16">
             {tId && (
               <div className="my-8">
@@ -147,31 +147,31 @@ const GetAllGigs = () => {
                             <div className="w-full h-full xl:w-[300px] xl:h-[200px] ">
 
 
-                                    <>
-                                      {/* Ensure key is unique and at the top element */}
-                                      {hasImageExtension(arrayImages[0]) ? (
-                                        <div  className=" ">
-                                          <img
-                                            className="w-full h-[200px] object-cover rounded-lg "
-                                            src={arrayImages[0]}
-                                            alt="Blog Post Image"
-                                          />
-                                        </div>
-                                      ) : (
-                                        <div  className=" ">
-                                          <video
-                                            controls
-                                            className="w-full h-[200px] object-cover rounded-lg "
-                                            src={arrayImages[0]}
-                                          />
-                                        </div>
-                                      )}
-                                    </>
+                              <>
+                                {/* Ensure key is unique and at the top element */}
+                                {hasImageExtension(arrayImages[0]) ? (
+                                  <div className=" ">
+                                    <img
+                                      className="w-full h-[200px] object-cover rounded-lg "
+                                      src={arrayImages[0]}
+                                      alt="Blog Post Image"
+                                    />
+                                  </div>
+                                ) : (
+                                  <div className=" ">
+                                    <video
+                                      controls
+                                      className="w-full h-[200px] object-cover rounded-lg "
+                                      src={arrayImages[0]}
+                                    />
+                                  </div>
+                                )}
+                              </>
 
                             </div>
 
                             <div className="flex flex-col">
-                              <div className="flex items-center mt-2">
+                              {/* <div className="flex items-center mt-2">
                                 <svg
                                   className="w-4 h-4 text-yellow-300 ms-1"
                                   aria-hidden="true"
@@ -220,9 +220,9 @@ const GetAllGigs = () => {
                                 <p className="ml-1 text-[#949494]">
                                   4.5(20 reviews)
                                 </p>
-                              </div>
+                              </div> */}
                               <h3>{item.title}</h3>
-                              <p className="text-start">
+                              <p className="text-start font-bold text-green">
                                 Price {item.price} ¥{" "}
                               </p>
                               <button
@@ -231,41 +231,54 @@ const GetAllGigs = () => {
                               >
                                 See More
                               </button>
+                              {
+                                item.teacherId != localStorage.getItem("teacher_id") &&
                               <Link
                                 to="/message-page"
                                 className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white"
                               >
                                 Chat
                               </Link>
-                            </div>
+                    }
+                              {
+                                item.teacherId != localStorage.getItem("teacher_id") &&
+                                < Link
+                                to="/gig"
+                              className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white"
+                              >
+                             Buy Gig
+                            </Link>
+                              }
+
                           </div>
                         </div>
-                      );
+                        </div>
+                );
                     })
-                  ) : (
-                    <>
-                      <h2 className="text-center">
-                        {t("OPPS")}
-                        <span className="text-[#17b3a6]">GIGS!</span>
-                      </h2>
-                      {/* <button
+                ) : (
+                <>
+                  <h2 className="text-center">
+                    {t("OPPS")}
+                    <span className="text-[#17b3a6]">GIGS!</span>
+                  </h2>
+                  {/* <button
                       className="text-white bg-[#17b3a6] px-6 py-2 cursor-pointer rounded hover:bg-green-600 text-sm md:text-base"
                       onClick={() => router(`/create-catalogs/${teacher?.id}`)}
                     >
                       Create GIG
                     </button> */}
-                    </>
+                </>
                   )}
-                </div>
+              </div>
               </div>
             )}
-         
-          </div>
+
         </div>
-        <div>
-    
-    </div>
       </div>
+      <div>
+
+      </div>
+    </div >
     </>
   );
 };

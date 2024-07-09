@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { TeacherCalender } from "./TeacherCalender";
 import { teacherContext } from "../contexts/teachersContext";
+import TeacherReviews from "./TeachersReview";
 interface TeacherSlots {
   startTime: string;
   endTime: string;
@@ -167,8 +168,11 @@ console.log(dayFilter,"hello")
           <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#E8E8E8]"></div>
         </div>
       </div>
+     
       </>
+
       }
+       <TeacherReviews/>
     </div>
   );
 };
