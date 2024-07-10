@@ -87,7 +87,7 @@ export const fetchTeacherss = async (
       },
       params: {
         page: 1,
-        pageSize: 20,
+        pageSize: 2000,
         rating: teacherData?.rating,
         availability: teacherData?.availability,
         subject: teacherData?.subjects,

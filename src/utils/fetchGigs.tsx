@@ -132,7 +132,7 @@ export const reserveGig = async (gigId: string, setLoading: any) => {
 
 // get
 
-export const fetchTeacherReservedGig = async (setGigs: any) => {
+export const fetchTeacherReservedGig = async (setGigs: any,setIsLoading:any) => {
 
   try {
     const token = localStorage.getItem("token");
@@ -152,6 +152,9 @@ export const fetchTeacherReservedGig = async (setGigs: any) => {
     setGigs(response.data.reservedGigs)
   } catch (error) {
     console.log(error);
+  }
+  finally{
+    setIsLoading(false)
   }
 };
 export const fetchUserReservedGig = async (setGigs: any) => {
@@ -179,10 +182,12 @@ export const fetchUserReservedGig = async (setGigs: any) => {
 
 
 // manage
-export const manageGigReservation = async (gigId: string, status: string,reservationId:any, setLoading: any) => {
+export const manageGigReservation = async (item: any, status: string, setLoading: any) => {
+  const {notficationId, id} = item;
+
   try {
     const token = localStorage.getItem("token");
-    const endpoint = `${API_ENDPOINTS.MANAGEGIG}/${gigId}`;
+    const endpoint = `${API_ENDPOINTS.MANAGEGIG}/${item.id}`;
     
     const response = await axios.put(endpoint, { status }, {
       headers: {
@@ -190,7 +195,7 @@ export const manageGigReservation = async (gigId: string, status: string,reserva
         "ngrok-skip-browser-warning": "69420"
       },
       params:{
-        id:reservationId
+        id:item.id
       }
     });
 

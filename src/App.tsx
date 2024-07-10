@@ -76,6 +76,7 @@ import AllGigs from "./components/AllGigs";
 import UpdateGig from "./components/UpdateGig";
 import UpdateSchedules from "./components/UpdateSchedules";
 import EditTeacherProfile from "./components/EditTeacherPro";
+import ReservationDetails from "./components/TeacherReservedGigs"
 // import StudentActivitiesPage from "./components/StudentActivitiesPage";
 
 function App() {
@@ -247,7 +248,12 @@ function App() {
         title = "";
         metaDescription = "";
         break;
+      case "teacher-reserved-gigs":
+        title = "";
+        metaDescription = "";
+        break;
     }
+
 
     if (title) {
       document.title = title;
@@ -298,6 +304,10 @@ function App() {
           <Route
             path="/all-teacher-gigs"
             element={token ? <AllGigs /> : <LoginPage />}
+          />
+          <Route
+            path="/teacher-reserved-gigs/:id"
+            element={token ? <TeacherDetailsContext> <ReservationDetails /></TeacherDetailsContext> : <LoginPage />}
           />
           <Route
             path="/"
@@ -368,9 +378,9 @@ function App() {
                 isTeacher ? (
                   <TeacherDetailsContext>
                     <TeacherGigsProvider>
-                    <UpdateSchedules />
+                      <UpdateSchedules />
                     </TeacherGigsProvider>
-                   
+
                   </TeacherDetailsContext>
                 ) : (
                   <CreateTeacher />

@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
+import GigsModal from "../components/catalogs/GigsModel";
+import { fetchGigsById } from "../utils/fetchGigs";
 export const EducatorCard = ({
   firstName,
   lastName,
@@ -26,7 +28,8 @@ export const EducatorCard = ({
   const [shiftsData, setShiftsData] = useState([]);
   const [tap, setTaped] = useState<boolean>(false);
   const [bookingsData, setBookingsData] = useState<any>();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [gigs, setGigs] = useState<any>(null);
   const tId = localStorage.getItem("teacher_id");
   const handleMatchedShift = (matchedShifts: any) => {
     setShiftsData(matchedShifts);
@@ -106,6 +109,19 @@ export const EducatorCard = ({
     }
   };
 
+
+  const handleGigsClick = (e: any,teacherId:any) => {
+    e.stopPropagation();
+    console.log(gigs, "ggis");
+
+   fetchGigsById(setGigs,teacherId);
+
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
       <div className="grid grid-cols-1 xl:grid-cols-9 gap-4">
@@ -143,7 +159,7 @@ export const EducatorCard = ({
                       //  navigate(`/message-page`);
                       document.location.href = '/message-page';
                     }}>
-                      <button className="bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
+                      <button className="cursor-pointer bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
 
                       >
                         {t("CHAT")}
@@ -151,12 +167,14 @@ export const EducatorCard = ({
                     </div>
                   )}
                   <Link to={"/teacher-details/" + teacherId}>
-                    <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                    <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded cursor-pointer">
                       {t("VIEW_DETAILS")}
                     </button>
                   </Link>
                   
-                    <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
+                    <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded cursor-pointer" onClick={(e:any)=>{
+                      handleGigsClick(e,teacherId)
+                    }}>
                       {t("GIGS")}
                     </button>
                
@@ -227,7 +245,7 @@ export const EducatorCard = ({
                 ))}
                 <div className="w-full xl:w-[200px] ">
                   <button
-                    className="w-full py-4 xl:w-full text-sm bg-[#2dd4bf] text-white  border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
+                    className="cursor-pointer hover:bg-black hover:text-white w-full py-4 xl:w-full text-sm bg-[#2dd4bf] text-white  border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
                     onClick={handleBookAppointment}
                   >
                     {t("BOOK_APPOINTMENT")}
@@ -245,6 +263,8 @@ export const EducatorCard = ({
             onClicked={handleOnClicked}
           />
         </div>
+
+        {isModalOpen && <GigsModal isOpen={isModalOpen} onClose={handleCloseModal} gigs={gigs?.gigs} />}
       </div>
     </div>
   );

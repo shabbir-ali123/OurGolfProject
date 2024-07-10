@@ -162,7 +162,7 @@ export const TeacherDetailsContext = ({ children }: any) => {
         deleteScheduleById(scheduleId, setIsLoading);
         fetchSingleTeacher(handleTeacher, teacherId);
     }
-    fetchTeacherReservedGig(setTeacherReserved)
+    fetchTeacherReservedGig(setTeacherReserved,setIsLoading)
   }, [teacherId, shiftId, scheduleId, isLoading,ss ]);
 
   const handleUpdate = useCallback(

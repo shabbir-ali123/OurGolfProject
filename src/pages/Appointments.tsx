@@ -144,7 +144,7 @@ export const TeacherAppointments = () => {
                           >
                             <img
                               className="w-full h-full rounded-full"
-                              src={item.userReservations.imageUrl || ""}
+                              src={item.userReservations?.imageUrl || ""}
                               alt=""
                             />
                            
@@ -166,14 +166,14 @@ export const TeacherAppointments = () => {
                                 <button
                                   type="button"
                                   className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                  onClick={(e) => manageGigReservation(item.id, "ACCEPTED", item.gigId ,setIsLoading)}
+                                  onClick={(e) => manageGigReservation(item, "ACCEPTED",setIsLoading)}
                                 >
                                   {"Approve"}
                                 </button>
                                 <button
                                   type="button"
                                   className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                  onClick={(e) => manageGigReservation(item.id, "REJECTED", item.gigId ,setIsLoading)}
+                                  onClick={(e) => manageGigReservation(item, "REJECTED" ,setIsLoading)}
                                 >
                                   {"Decline"}
                                 </button>

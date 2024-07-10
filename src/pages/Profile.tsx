@@ -226,7 +226,7 @@ const Profile = () => {
               {user.nickName}
             </h3>
             <p className="font-medium">{user.email}</p>
-            <div className="mx-auto mt-4.5 mb-5.5 grid grid-cols-3  rounded-md border border-stroke py-4 shadow-1 cursor-pointer dark:border-strokedark dark:bg-[#37404F]">
+            <div className="mx-auto mt-4.5 mb-5.5 grid grid-cols-4  rounded-md border border-stroke py-4 shadow-1 cursor-pointer dark:border-strokedark dark:bg-[#37404F]">
               <div onClick={() => {
                 router('/user-posts/' + UserId)
               }} className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
@@ -251,7 +251,14 @@ const Profile = () => {
                 </span>
                 <span className="text-sm">{t("JOINED_EVENTS")}</span>
               </div>
-
+              <div onClick={() => {
+                router('/teacher-reserved-gigs/' + teacherId)
+              }} className="flex flex-col py-2 items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                <span className="font-semibold text-black dark:text-white">
+                  {post.length}
+                </span>
+                <span className="text-sm">{t("Reserve_Gigs")}</span>
+              </div>
             </div>
             <div>
               <GetAllGigs />

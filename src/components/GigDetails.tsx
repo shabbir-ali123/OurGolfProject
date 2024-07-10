@@ -81,7 +81,7 @@ const GigDetails: React.FC = () => {
   //     teacherName: "sajid",
   //     teacherImage: "https://egolf.s3.eu-north-1.amazonaws.com/user-aisar%40gmail.com/1716575368788.png"
   // }
-  const { gig ,reserveGigs, setIsLoading} = gigsContextStore();
+  const { gig, reserveGigs, setIsLoading } = gigsContextStore();
 
   //   const { handlePostId, handleMessage, handlePost, singlePost, message } =
   //     postContext();
@@ -220,7 +220,7 @@ const GigDetails: React.FC = () => {
   const checkAlreadyPurchased = (gId: any) => {
     return reserveGigs?.some((item: any) => item.gigId == gId);
   };
- 
+
 
   const arrayImages = gig?.imageUrl?.split(',');
   return (
@@ -233,13 +233,13 @@ const GigDetails: React.FC = () => {
     >
       <div className="flex gap-2 items-center py-4 justify-between">
         <div
-          className="flex gap-2 items-center cursor-pointer  py-4"
+          className="flex gap-2 items-start cursor-pointer  py-4"
           onClick={(e) => {
             e.preventDefault();
           }}
         >
           <img
-            className="w-10 h-10 rounded-full border-2 border-solid border-green "
+            className="w-16 h-16 rounded-full border-2 border-solid border-green "
             src={teacher?.profileImage || "/img/profile-page.png"}
             alt="Post"
           />
@@ -248,7 +248,21 @@ const GigDetails: React.FC = () => {
               {teacher?.firstName || "Golf Teacher"}
             </h4>
             <p className="m-0 p-0 text-sm">{timeAgo}</p>
+            {
+              gig.teacherId != localStorage.getItem("teacher_id") && !checkAlreadyPurchased(gig.id) &&
+              <div className="flex justify-end mt-4">
+                <Link to="/message-page" className="">
+                  <button
+                    type="button"
+                    className="bg-transparent border-2 border-solid border-black font-bold p-2 rounded text-black md:px-20 hover:bg-black hover:text-white cursor-pointer"
+                  >
+                    {t("CONTACT_ME")}
+                  </button>
+                </Link>
+              </div>
+            }
           </div>
+
         </div>
 
         <div className="flex  gap-2">
@@ -264,38 +278,38 @@ const GigDetails: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-4">
         <div className="col-span-12  ">
           <div
             className="mb-4"
           />
-          <div className="flex justify-between items-center">
+          <div className="md:flex justify-between items-center">
 
 
 
             <h2
               dangerouslySetInnerHTML={{ __html: gig?.title ?? "" }}
             ></h2>
-            <div className="flex gap-4">
-              <span className="bg-green font-bold p-2 rounded text-white">Price: ¥
+            <div className="flex gap-4 mb-4 md:mb-0">
+              <span className="bg-transparent border-2 border-solid  border-black font-bold p-2 rounded text-black xl:px-20 hover:bg-black hover:text-white cursor-pointer">Price: ¥
 
                 {
                   gig?.price
                 }
               </span>
               {
-                gig.teacherId != localStorage.getItem("teacher_id") &&  !checkAlreadyPurchased(gig.id)  && 
-                  <button
-                  onClick={()=>{
-                    reserveGig(gig.id ,setIsLoading)
+                gig.teacherId != localStorage.getItem("teacher_id") && !checkAlreadyPurchased(gig.id) &&
+                <button
+                  onClick={() => {
+                    reserveGig(gig.id, setIsLoading)
                   }}
-                    className="p-2 rounded cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
-                  >
-                    BUY NOW
-                  </button>
-                
+                  className="p-2 rounded cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
+                >
+                  BUY NOW
+                </button>
+
               }
-             
+
             </div>
 
           </div>
@@ -304,7 +318,7 @@ const GigDetails: React.FC = () => {
               return (
                 hasImageExtension(img) ?
                   <img
-                    className="w-full h-[300px] xl:h-[600px] rounded-lg"
+                    className="w-full h-[300px] xl:h-[600px] rounded-lg bg-cover"
                     src={img}
                     alt="Blog Post Image"
                   /> : <video
@@ -342,7 +356,7 @@ const GigDetails: React.FC = () => {
               }
             })}
           </Slider>
-          <div className="flex items-center justify-end mt-2">
+          {/* <div className="flex items-center justify-end mt-2">
             <svg className="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
               <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
@@ -359,27 +373,32 @@ const GigDetails: React.FC = () => {
               <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
             <p className="ml-1 text-[#949494]">4.5(20 reviews)</p>
-          </div>
+          </div> */}
+        </div>
+        <div className="w-full">
+          <h3>About this Gig</h3>
+          <div
+            dangerouslySetInnerHTML={{ __html: gig?.description ?? "" }}
+          ></div>
         </div>
 
-        <div
-          dangerouslySetInnerHTML={{ __html: gig?.description ?? "" }}
-        ></div>
 
 
 
       </div>
-      <div className="flex justify-end">
-        <Link to="/message-page" className="">
-          <button
-            type="button"
-            className="bg-[#17b3a6] hover:bg-blue-700 text-white font-bold py-2 px-2 rounded cursor-pointer"
-          >
-            {t("CHAT_WITH_TEACHER")}
-          </button>
-        </Link>
-      </div>
-
+      {
+        gig.teacherId != localStorage.getItem("teacher_id") && !checkAlreadyPurchased(gig.id) &&
+        <div className="flex justify-end mt-4">
+          <Link to="/message-page" className="">
+            <button
+              type="button"
+              className="bg-transparent border-2 border-solid border-black font-bold p-2 rounded text-black md:px-20 hover:bg-black hover:text-white cursor-pointer"
+            >
+              {t("CONTACT_ME")}
+            </button>
+          </Link>
+        </div>
+      }
     </div>
   );
 };
