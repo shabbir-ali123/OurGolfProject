@@ -182,14 +182,14 @@ export const fetchUserReservedGig = async (setGigs: any) => {
 
 
 // manage
-export const manageGigReservation = async (item: any, status: string, setLoading: any) => {
-  const {notficationId, id} = item;
+export const manageGigReservation = async (item: any, notificationId:any, status: string, setLoading: any) => {
+  const { id } = item;
 
   try {
     const token = localStorage.getItem("token");
     const endpoint = `${API_ENDPOINTS.MANAGEGIG}/${item.id}`;
     
-    const response = await axios.put(endpoint, { status }, {
+    const response = await axios.put(endpoint, { status,  notificationId }, {
       headers: {
         Authorization: token ? `Bearer ${token}` : '',
         "ngrok-skip-browser-warning": "69420"

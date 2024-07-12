@@ -684,7 +684,11 @@ function App() {
             element={
               token ? (
                 <TeacherDetailsContext>
-                  <TeacherAppointments />
+
+                  <NotificationsContext>
+                    <TeacherAppointments />
+                  </NotificationsContext>
+
                 </TeacherDetailsContext>
               ) : (
                 <LoginPage />

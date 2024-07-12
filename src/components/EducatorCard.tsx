@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { MapPinIcon, StarIcon } from "@heroicons/react/24/outline";
-// import TeacherCalender from "../components/TeacherCalender";
 import TeacherListSlots from "./TeacherListSlots";
 import { Link, useNavigate } from "react-router-dom";
 import { teacherContext } from "../contexts/teachersContext";
@@ -11,6 +10,7 @@ import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import GigsModal from "../components/catalogs/GigsModel";
 import { fetchGigsById } from "../utils/fetchGigs";
+
 export const EducatorCard = ({
   firstName,
   lastName,
@@ -31,9 +31,11 @@ export const EducatorCard = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gigs, setGigs] = useState<any>(null);
   const tId = localStorage.getItem("teacher_id");
+  
   const handleMatchedShift = (matchedShifts: any) => {
     setShiftsData(matchedShifts);
   };
+
   const handleMatchedShifts = (matchedShifts: any) => {
     if (!tap) {
       const s = schedules.flatMap(({ shifts }: any) => shifts);
@@ -41,6 +43,7 @@ export const EducatorCard = ({
     }
     setShiftsData(matchedShifts);
   };
+
   const handleOnClicked = (click: boolean) => {
     setTaped(click);
   };
@@ -49,13 +52,16 @@ export const EducatorCard = ({
     handleMatchedShift;
   }, [tap]);
 
-  const handleSelectedShifts = (shift: any) => {
+  const handleSelectedShifts = async (shift: any) => {
+    if (shift.isBooked) {
+      return; // Prevent action if shift is booked
+    }
     if (bookingsData == shift) {
-      // If the clicked shift is already selected, deselect it
       setBookingsData(null);
     } else {
-      // Otherwise, select the clicked shift
       setBookingsData(shift);
+      await fetchGigsById(setGigs, teacherId);
+      setIsModalOpen(true);
     }
   };
 
@@ -105,23 +111,20 @@ export const EducatorCard = ({
       );
       toast.success("Appointment booked successfully");
     } catch (error) {
-      // toast.error("Error booking appointment");sssss
+      toast.error("Error booking appointment");
     }
   };
 
-
-  const handleGigsClick = (e: any,teacherId:any) => {
+  const handleGigsClick = async (e: any, teacherId: any) => {
     e.stopPropagation();
-    console.log(gigs, "ggis");
-
-   fetchGigsById(setGigs,teacherId);
-
+    await fetchGigsById(setGigs, teacherId);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <div className="bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] p-6 my-4">
       <div className="grid grid-cols-1 xl:grid-cols-9 gap-4">
@@ -131,8 +134,7 @@ export const EducatorCard = ({
             onClick={(e) => {
               e.preventDefault();
               navigate(`/teacher-details/${teacherId}`)
-            }
-            }
+            }}
           >
             <div className="text-center ">
               <img
@@ -154,14 +156,10 @@ export const EducatorCard = ({
                 <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0 z-[]">
                   {tId != teacherId && (
                     <div onClick={(e) => {
-                      // debugger
                       e.preventDefault();
-                      //  navigate(`/message-page`);
                       document.location.href = '/message-page';
                     }}>
-                      <button className="cursor-pointer bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded"
-
-                      >
+                      <button className="cursor-pointer bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                         {t("CHAT")}
                       </button>
                     </div>
@@ -171,13 +169,11 @@ export const EducatorCard = ({
                       {t("VIEW_DETAILS")}
                     </button>
                   </Link>
-                  
-                    <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded cursor-pointer" onClick={(e:any)=>{
-                      handleGigsClick(e,teacherId)
-                    }}>
-                      {t("GIGS")}
-                    </button>
-               
+                  {/* <button className="w-full xl:w-auto bg-transparent border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded cursor-pointer" onClick={(e: any) => {
+                    handleGigsClick(e, teacherId)
+                  }}>
+                    {t("GIGS")}
+                  </button> */}
                 </div>
               </div>
               <div className="flex flex-col md:flex-row gap-10 mt-4 md:mt-0">
@@ -207,7 +203,6 @@ export const EducatorCard = ({
                         : t("NO_RATINGS_YET")}
                     </p>
                   </div>
-
                 </div>
                 <div className="flex items-center gap-2">
                   <StarIcon
@@ -220,15 +215,13 @@ export const EducatorCard = ({
                       {level ? level : t("NO_LEVEL_ADDED")}
                     </p>
                   </div>
-
                 </div>
-
               </div>
               <p className="leading-6 text-[#5b5b5b] mt-4">{aboutMyself}</p>
             </div>
           </div>
           {tId != teacherId && (
-            <div className="mt-4 ">
+            <div className="mt-4">
               <div className="grid grid-cols-2 lg:grid-cols-8 sm:grid-cols-3 gap-4">
                 {shiftsData.map((shift: any, index: any) => (
                   <button
@@ -236,16 +229,16 @@ export const EducatorCard = ({
                     className={`text-[12px] w-full xl:w-auto text-center px-1 py-4 rounded-lg shadow-sm ${bookingsData === shift && "!bg-black"
                       } ${!shift.isBooked
                         ? "bg-teal-400 text-white"
-                        : "bg-gray-100 text-gray-600 "
+                        : "bg-gray-100 text-gray-600 cursor-not-allowed"
                       } `}
                     onClick={() => handleSelectedShifts(shift)}
                   >
                     {shift.startTime} - {shift.endTime}
                   </button>
                 ))}
-                <div className="w-full xl:w-[200px] ">
+                <div className="w-full xl:w-[200px]">
                   <button
-                    className="cursor-pointer hover:bg-black hover:text-white w-full py-4 xl:w-full text-sm bg-[#2dd4bf] text-white  border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2  rounded"
+                    className="cursor-pointer hover:bg-black hover:text-white w-full py-4 xl:w-full text-sm bg-[#2dd4bf] text-white border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 rounded"
                     onClick={handleBookAppointment}
                   >
                     {t("BOOK_APPOINTMENT")}

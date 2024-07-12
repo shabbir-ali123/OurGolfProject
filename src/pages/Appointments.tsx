@@ -7,11 +7,12 @@ import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { manageGigReservation } from "../utils/fetchGigs";
+import { notificationsContextStore } from "../contexts/notificationContext";
 
 export const TeacherAppointments = () => {
   const { t } = useTranslation();
   const router = useNavigate();
-  const { bookedAppointments, isLoading,setIsLoading, teacherReserved } = useTeacherContext();
+  const { bookedAppointments, isLoading, setIsLoading, teacherReserved } = useTeacherContext();
 
   const handleAcceptClick = async (e: any, item: any) => {
     const {
@@ -94,7 +95,13 @@ export const TeacherAppointments = () => {
       );
     }
   };
-
+  const { isloading, handleMessage, notificationData } =
+    notificationsContextStore();
+     function notificationIdFind(reserveId: any) {
+      const item = notificationData.find((item: any) => item.reservationId === reserveId);
+      return item ? item.id : null;  // Return the id if the item is found, otherwise return null
+    }
+  
   return (
     <>
       {isLoading ? (
@@ -135,45 +142,45 @@ export const TeacherAppointments = () => {
                     >
                       <div className="p-4">
                         <div className="flex items-start">
-                         <div className="flex flex-col gap-0 justify-center items-center">
-                         <div
-                            className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8 cursor-pointer "
-                            onClick={() => 
-                              router("/user-page/" + item?.userReservations.id)
-                            }
-                          >
-                            <img
-                              className="w-full h-full rounded-full"
-                              src={item.userReservations?.imageUrl || ""}
-                              alt=""
-                            />
-                           
-                          </div>
-                          <p className="text-sm m-1 font-bold text-gray-900">
+                          <div className="flex flex-col gap-0 justify-center items-center">
+                            <div
+                              className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8 cursor-pointer "
+                              onClick={() =>
+                                router("/user-page/" + item?.userReservations.id)
+                              }
+                            >
+                              <img
+                                className="w-full h-full rounded-full"
+                                src={item.userReservations?.imageUrl || ""}
+                                alt=""
+                              />
+
+                            </div>
+                            <p className="text-sm m-1 font-bold text-gray-900">
                               {item?.userReservations?.nickName}
                             </p>
-                         </div>
-                          <div className="ml-3 w-0 flex-1"  onClick={() => 
-                              router("/gig/" + item?.gigId)
-                            }>
-                            
+                          </div>
+                          <div className="ml-3 w-0 flex-1" onClick={() =>
+                            router("/gig/" + item?.gigId)
+                          }>
+
                             <p className="mt-1 text-sm text-gray-500">
                               {item?.userReservations?.nickName} wants to book
-                              purchase gig  {item.gigReservations.title}
+                              purchase gig  {item.gigReservations.title} {item.id}
                             </p>
                             {item?.status == "PENDING" ? (
                               <div className="mt-4 flex gap-2">
                                 <button
                                   type="button"
                                   className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                  onClick={(e) => manageGigReservation(item, "ACCEPTED",setIsLoading)}
+                                  onClick={(e) => manageGigReservation(item, notificationIdFind(item.id), "ACCEPTED", setIsLoading)}
                                 >
                                   {"Approve"}
                                 </button>
                                 <button
                                   type="button"
                                   className="cursor-pointer inline-flex items-center rounded-md bg-[#17b3a6] px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                  onClick={(e) => manageGigReservation(item, "REJECTED" ,setIsLoading)}
+                                  onClick={(e) => manageGigReservation(item, notificationIdFind(item.id), "REJECTED", setIsLoading)}
                                 >
                                   {"Decline"}
                                 </button>

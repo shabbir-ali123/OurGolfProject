@@ -102,7 +102,7 @@ export default function AllNotification() {
                             if(item?.isRead != true){
                               handleApprove(e, item?.id, item?.message)
 
-                            }
+                            } else
                             navigate('/read-post/' + item?.postId);
 
                           }

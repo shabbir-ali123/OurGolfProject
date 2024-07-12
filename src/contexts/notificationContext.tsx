@@ -33,11 +33,13 @@ export const NotificationsContext = ({ children }: any) => {
     socket.on('joinRequest', handleAppointmentBooked);
     socket.on('appointmentDeclined', handleAppointmentBooked);
     socket.on('reservedGig', handleAppointmentBooked);
+    socket.on('gigStatus', handleAppointmentBooked);
     return () => {
       socket.off('appointmentBooked', handleAppointmentBooked);
       socket.off('joinRequest', handleAppointmentBooked);
       socket.off('appointmentDeclined', handleAppointmentBooked);
       socket.off('reservedGig', handleAppointmentBooked);
+      socket.off('gigStatus', handleAppointmentBooked);
 
     };
   }, [isLoading, message]); 

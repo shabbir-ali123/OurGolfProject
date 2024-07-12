@@ -65,27 +65,7 @@ export const getTimeAgo = (pastTime: any, t: any) => {
   }
 };
 const GigDetails: React.FC = () => {
-  // const GigDetails = {
-  //     id: 3,
-  //     teacherId: 6,
-  //     description: "sdcsdc",
-  //     price: 0,
-  //     title: "sdc",
-  //     imageUrl: [
-  //         "",
-  //         "",
-  //         ""
-  //     ],
-  //     createdAt: "2024-04-18T15:24:22.000Z",
-  //     updatedAt: "2024-04-18T15:24:22.000Z",
-  //     teacherName: "sajid",
-  //     teacherImage: "https://egolf.s3.eu-north-1.amazonaws.com/user-aisar%40gmail.com/1716575368788.png"
-  // }
   const { gig, reserveGigs, setIsLoading } = gigsContextStore();
-
-  //   const { handlePostId, handleMessage, handlePost, singlePost, message } =
-  //     postContext();
-
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
   const params = useParams<{ id?: string }>();
@@ -93,119 +73,9 @@ const GigDetails: React.FC = () => {
 
   handTeacherId(gig?.teacherId);
   const postId = params.id;
-  //   const [formData, setFormData] = useState<any>({
-  //     content: "",
-  //     postId: postId,
-  //   });
-  //   const [updateFormData, setUpdateFormData] = useState<any>({
-  //     updatedContent: "",
-  //     commentId: "",
-  //   });
-
-  //   useEffect(() => {
-  //     if (postId) {
-  //       handlePostId(postId);
-  //     }
-  //   }, [postId]);
-  //   const [userHasLiked, setUserHasLiked] = useState<any>(false);
   const [localEvents, setLocalEvents] = useState<any>([]);
   const [isOpenMap, setIsOpenMap] = useState<{ [key: string]: boolean }>({});
-  //   const currentUserId = localStorage.getItem("id");
-
-  //   const [isEdit, setIsEdit] = useState<{ [key: string]: boolean }>({});
-
-  //   const handleEditComment = (commentId: string, content: any) => {
-  //     setIsOpenMap((prevState) => ({
-  //       [commentId]: false,
-  //     }));
-  //     setIsEdit((prevState) => ({
-  //       [commentId]: !prevState[commentId],
-  //     }));
-
-  //     if (isEdit) {
-  //       setUpdateFormData((prevState: any) => ({
-  //         commentId: commentId,
-  //         content: content,
-  //       }));
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     if (singlePost) {
-  //       const loggedInUser = JSON.parse(localStorage.getItem("id") || "null");
-  //       setUserHasLiked(
-  //         singlePost.PostLikes.some(
-  //           (like: any) => like.userId === loggedInUser && like.counter === 1
-  //         )
-  //       );
-  //     }
-  //   }, [singlePost]);
-
-  //   const handleSubmit = async (e: React.FormEvent) => {
-  //     e.preventDefault();
-  //     try {
-  //       await addPostComment(formData, handleMessage);
-  //       toast.success("Comment added successfully");
-  //       fetchSinglePosts(handlePost, postId);
-  //       setFormData({ ...formData, content: "" });
-  //     } catch (error) {
-  //       toast.error("Error adding comment, please try again");
-  //     }
-  //   };
-  //   const likescount = singlePost?.PostLikes.length;
-  //   const handleLike = async () => {
-  //     try {
-  //       const loggedInUser = JSON.parse(localStorage.getItem("id") || "");
-  //       const likes = singlePost?.PostLikes || [];
-  //       const userPosts = likes?.find(
-  //         (like: any) => like.userId === loggedInUser
-  //       );
-  //       // console.log(singlePost?.PostLikes, "s");
-  //       const newCounter = userPosts?.counter === 1 ? 0 : 1;
-
-  //       // console.log(likes, "true or false");
-  //       const response = await axios.post(
-  //         API_ENDPOINTS.ADDPOSTLIKE,
-  //         { postId: postId, Count: newCounter, userId: loggedInUser },
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         }
-  //       );
-
-  //       if (response.status === 200) {
-  //         setUserHasLiked(!userHasLiked);
-  //         // fetchSinglePosts(handlePost, postId);
-  //         setLocalEvents((prev: any) =>
-  //           prev.map((e: any) =>
-  //             e.id === singlePost?.id
-  //               ? {
-  //                   ...e,
-  //                   likes: userPosts
-  //                     ? likes.map((like: any) =>
-  //                         like.userId === loggedInUser
-  //                           ? { ...like, counter: newCounter }
-  //                           : like
-  //                       )
-  //                     : [
-  //                         ...likes,
-  //                         {
-  //                           counter: newCounter,
-  //                           userId: loggedInUser,
-  //                           id: Math.floor(Math.random() * 10),
-  //                         },
-  //                       ],
-  //                 }
-  //               : e
-  //           )
-  //         );
-  //       }
-  //     } catch (error) {
-  //       toast.error(`Error updating likes: ${error}`);
-  //     }
-  //   };
-
+ 
   const toggleDropdown = (commentId: string) => {
     setIsOpenMap((prevState) => ({
       [commentId]: !prevState[commentId],
@@ -298,7 +168,6 @@ const GigDetails: React.FC = () => {
                 }
               </span>
               {
-                gig.teacherId != localStorage.getItem("teacher_id") && !checkAlreadyPurchased(gig.id) &&
                 <button
                   onClick={() => {
                     reserveGig(gig.id, setIsLoading)
