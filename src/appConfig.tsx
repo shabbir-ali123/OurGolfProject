@@ -34,12 +34,14 @@ export const API_ENDPOINTS = {
   DELETE_EVENT: `${API_BASE_URL}/${API_VERSION}/delete-event-by-id/`,
   UPDATE_EVENT: `${API_BASE_URL}/${API_VERSION}/update-event-by-id/`,
   UPDATE_EVENT_MEDIA: `${API_BASE_URL}/${API_VERSION}/update-event-media`,
-  GET_NOTIFICATION: `${API_BASE_URL}/${API_VERSION}/get-notifications`,
+  
   APPROVE_EVENT: `${API_BASE_URL}/${API_VERSION}/approve-join-request`,
   SEARCH_EVENT: `${API_BASE_URL}/${API_VERSION}/search-event-by-name`,
   SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/get-event-col-data`,
   GETMEMBERSLIST: `${API_BASE_URL}/${API_VERSION}/get-joined-and-wait-list/`,
 
+  // get notfication
+  GET_NOTIFICATION: `${API_BASE_URL}/${API_VERSION}/get-notifications`,
 
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
@@ -115,7 +117,7 @@ export const API_ENDPOINTS = {
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
   GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,
 
-  // Score Page
+  // Score 
   GETALLSCORE: `${API_BASE_URL}/${API_VERSION}/get-all-score-cards`,
   GETALLSCOREPUBLIC: `${API_BASE_URL}/${API_VERSION}/get-all-public-score-cards`,
   ADDSCORE: `${API_BASE_URL}/${API_VERSION}/add-score-card`,

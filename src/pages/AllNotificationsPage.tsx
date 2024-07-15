@@ -18,7 +18,7 @@ export default function AllNotification() {
   const { isloading, handleMessage, notificationData } =
     notificationsContextStore();
 
-    console.log(isloading ,"isloading")
+    console.log(notificationData ,"hellonotificationData")
   const handleApprove = (e: any, eventId: any, message: any) => {
     e.preventDefault();
 
@@ -108,6 +108,7 @@ export default function AllNotification() {
                           }
 
                         }}>
+                          {item.id} 
                         <div className="p-4">
                           <div className="flex items-start">
                             <div className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8">
@@ -142,7 +143,7 @@ export default function AllNotification() {
                                 </div>
                               )}
                               <p className="text-[12px]">
-                                {getTimeAgo(new Date(item?.createdAt), t)}
+                                {getTimeAgo(new Date(item?.updatedAt), t)}
                               </p>
 
                             </div>
