@@ -9,6 +9,7 @@ import {
 } from "../utils/fetchTeacher";
 import { useParams } from "react-router-dom";
 import { fetchTeacherReservedGig } from "../utils/fetchGigs";
+import { getTeacherFee } from "../utils/subscriptionFee";
 
 const TeachersContext = React.createContext<any>({});
 
@@ -16,6 +17,8 @@ export const TeacherContext = ({ children }: any) => {
   const [teachers, setTeachers] = useState<any[]>([]);
   const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
   const [schedules, setSchedules] = useState<any[]>([]);
+  const [teacherFee, setTeacherFee] = useState(550);
+
   const [shift, setShift] = useState<any>([]);
   const [teacherData, setTeacherData] = useState({
     availability: null,
@@ -24,8 +27,9 @@ export const TeacherContext = ({ children }: any) => {
     locationSearch: "",
     nameSearch: "",
   });
-
+console.log(teacherFee ,"teacherFee")
   useEffect(() => {
+    getTeacherFee(setTeacherFee);
     fetchTeacherss(
       handleTeachers,
       setSelectedTeacher,
@@ -117,6 +121,7 @@ export const TeacherContext = ({ children }: any) => {
     schedules,
     teachers,
     selectedTeacher,
+    teacherFee
   };
 
   return (

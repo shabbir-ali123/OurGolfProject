@@ -129,4 +129,8 @@ export const API_ENDPOINTS = {
   UPDATENOTIFICATIONSTATUS: `${API_BASE_URL}/${API_VERSION}/update-notification-response`,
 
 
+ 
+  GETEVENTPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-event-payment`,
+  GETTEACHERPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-teacher-payment`,
+
 };

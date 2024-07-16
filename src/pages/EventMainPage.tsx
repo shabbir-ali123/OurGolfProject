@@ -5,7 +5,6 @@ import { Clip } from "../components/Clip";
 import Tabs from "../components/Tabs";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { Link, useParams } from "react-router-dom";
-// import { fetchEvents } from "../utils/fetchEvents";
 import { ToastProvider } from '../utils/ToastProvider';
 import { useTranslation } from "react-i18next";
 import { eventContextStore } from "../contexts/eventContext";
@@ -23,7 +22,7 @@ const EventMainPage: FunctionComponent = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1280);
   const [selectedLocations, setSelectedLocations] = useState<any[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("ALL");
-  const { handleLocationFilter, clearFilter,  } = eventContextStore();
+  const { handleLocationFilter, clearFilter, eventFee} = eventContextStore();
 
 
 
@@ -34,7 +33,7 @@ const EventMainPage: FunctionComponent = () => {
     if (clearFilter) {
       handleLocationFilter([])
     }
- 
+
 
   }, [selectedLocations, clearFilter]);
 
@@ -66,48 +65,47 @@ const EventMainPage: FunctionComponent = () => {
     }
   }, [clearFilter]);
 
-  // test
+ 
 
-  const {user} = userAuthContext();
+  const { user } = userAuthContext();
 
-  async function getTotalAmountPaid(customerId:any) {
+  async function getTotalAmountPaid(customerId: any) {
     try {
-      // Retrieve payment history for the customer
-     
-const customers = await stripe.customers.list({
-  limit: 30,
-});
+ 
+
+      const customers = await stripe.customers.list({
+        limit: 30,
+      });
+
   
-      // Calculate total amount paid
-      // let totalAmountPaid = 0;
       const totalAmountPaid = customers.data.find((data: any) => "dero@gmail.com" === data.email);
 
       console.log(totalAmountPaid, "asd")
-   // Retrieve payments associated with the customer
-   const payments = await stripe.paymentIntents.list({
-    customer: customerId,
-  });
-  console.log(payments, "aswwd")
+    
+      const payments = await stripe.paymentIntents.list({
+        customer: customerId,
+      });
+      console.log(payments, "aswwd")
 
-  // Retrieve subscriptions associated with the customer
-  const subscriptions = await stripe.subscriptions.list({
-    customer: customerId,
-    limit: 100, // Adjust as needed
-  });
+      
+      const subscriptions = await stripe.subscriptions.list({
+        customer: customerId,
+        limit: 100,
+      });
 
-  // Extract session IDs from payments and subscriptions
-  const sessionIds = [
-    ...payments.data.map((payment:any) => payment.metadata.session_id),
-    ...subscriptions.data.map((subscription:any) => subscription.metadata.session_id),
-  ];
+    
+      const sessionIds = [
+        ...payments.data.map((payment: any) => payment.metadata.session_id),
+        ...subscriptions.data.map((subscription: any) => subscription.metadata.session_id),
+      ];
 
-  return sessionIds;
+      return sessionIds;
     } catch (error) {
       console.error('Error retrieving payment history:', error);
       throw error;
     }
   }
-  
+
   getTotalAmountPaid("cus_Q3C3Vf8MFTWURN")
     .then(totalAmountPaid => {
       console.log('Total amount paid:', totalAmountPaid);
@@ -115,87 +113,62 @@ const customers = await stripe.customers.list({
     .catch(error => {
       console.error('Error:', error);
     });
-  
-  
-  
-  
-  const handleCheckout = async (e:any) => {
+
+
+
+
+  const handleCheckout = async (e: any) => {
+
     e.preventDefault();
-    
+
     try {
       const token = localStorage.getItem("token");
-     if(token){
-  
-     
-      const lineItems = [
-        {
-          price_data: {
-            currency: "JPY",
-            product_data: {
-              name: "Per Event", 
-            },
-            unit_amount: 550,
-          },
-          quantity: 1,
-        }
-      ];
-      var baseUrl = window.location.origin;
-      var createEvent = baseUrl + '/create-event';
-      const customer = await stripe.customers.create({
-        name: user.id,
-        email: user.email,
-      });
+      if (token) {
 
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: lineItems,
-        mode: 'payment',
-        customer_email: user.email,
-        
-        success_url: `${createEvent}/{CHECKOUT_SESSION_ID}`,
-        cancel_url: baseUrl,
-        allow_promotion_codes: true,
-      
-      });
-  
-      window.location.href = session.url;
-    }else{
-      window.location.href = '/login-page';
-    }
+
+        const lineItems = [
+          {
+            price_data: {
+              currency: "JPY",
+              product_data: {
+                name: "Per Event",
+              },
+              unit_amount: eventFee,
+            },
+            quantity: 1,
+          }
+        ];
+        var baseUrl = window.location.origin;
+        var createEvent = baseUrl + '/create-event';
+        const customer = await stripe.customers.create({
+          name: user.id,
+          email: user.email,
+        });
+
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items: lineItems,
+          mode: 'payment',
+          customer_email: user.email,
+
+          success_url: `${createEvent}/{CHECKOUT_SESSION_ID}`,
+          cancel_url: baseUrl,
+          allow_promotion_codes: true,
+
+        });
+
+        window.location.href = session.url;
+      } else {
+        window.location.href = '/login-page';
+      }
     } catch (error) {
       console.error('Error during checkout:', error);
     }
-  
-    // try{
-    //   const customer = await stripe.customers.create();
-    //   const ephemeralKey = await stripe.ephemeralKeys.create(
-    //     {customer: customer.id},
-    //     {apiVersion: '2024-04-10'}
-    //   );
-    //   const paymentIntent = await stripe.paymentIntents.create({
-    //     amount: 1099,
-    //     currency: 'eur',
-    //     customer: customer.id,
-    //     setup_future_usage: 'off_session',
-    //     automatic_payment_methods: {
-    //       enabled: true,
-    //     },
-    //   });
-    
-    //   console.log(paymentIntent.client_secret, ephemeralKey.secret, customer.id)
-    //   // res.json({
-    //   //   paymentIntent: paymentIntent.client_secret,
-    //   //   ephemeralKey: ephemeralKey.secret,
-    //   //   customer: customer.id,
-    //   //   publishableKey: 'pk_test_TYooMQauvdEDq54NiTphI7jx'
-    //   // });
-    //   }catch(error){
-    //   console.error('Error creating customer:', error);
-    // }
-    
-    
+
+ 
+
   };
-  //test
+
   return (
     <ToastProvider iconColor="white" textColor="white">
       <div className="flex flex-col gap-0 overflow-hidden px-10 py-0 mx-0 xl:px-20 bg-[white]  transition-colors duration-2000 animate-color-change">

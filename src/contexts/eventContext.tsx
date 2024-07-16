@@ -10,11 +10,13 @@ import {
   fetchUserEvents,
 } from "../utils/fetchEvents";
 import { useNavigate, useParams } from "react-router-dom";
+import { getEventFee } from "../utils/subscriptionFee";
 
 const EventCreateContext = React.createContext<any>({});
 
 export const EventsContext = ({ children }: any) => {
   const [eventss, setEvents] = useState<any[]>([]);
+  const [eventFee, setEventFee] = useState(550);
   const [eventsName, setEventsName] = useState<any>(null);
   const [joinedEvents, setJoinedEvents] = useState<any[]>([]);
   const store_token: string = localStorage.getItem("token") || "";
@@ -38,6 +40,7 @@ export const EventsContext = ({ children }: any) => {
   //     }
   // }, [clearFilter]);
   useEffect(() => {
+    getEventFee(setEventFee);
     const queryParams = {
       store_token,
       currentPage,
@@ -189,6 +192,8 @@ export const EventsContext = ({ children }: any) => {
     pageSize,
     search,
     eventsCount,
+    eventFee
+
   };
 
   return (

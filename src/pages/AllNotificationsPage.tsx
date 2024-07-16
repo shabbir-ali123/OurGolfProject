@@ -108,7 +108,7 @@ export default function AllNotification() {
                           }
 
                         }}>
-                          {item.id} 
+                        
                         <div className="p-4">
                           <div className="flex items-start">
                             <div className="flex items-center justify-center  border-2 border-solid border-[#17b3a6] rounded-full  h-8 w-8">
@@ -143,7 +143,7 @@ export default function AllNotification() {
                                 </div>
                               )}
                               <p className="text-[12px]">
-                                {getTimeAgo(new Date(item?.updatedAt), t)}
+                                {getTimeAgo(new Date(item?.createdAt), t)}
                               </p>
 
                             </div>
