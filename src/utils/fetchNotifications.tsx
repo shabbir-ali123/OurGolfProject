@@ -6,6 +6,8 @@ export const fetchNotifications = async (
   setNotificationData: any,
   setIsLoading: any
 ) => {
+  const token = localStorage.getItem("token");
+  if(token) {
   try {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("id");
@@ -30,6 +32,9 @@ export const fetchNotifications = async (
   } finally {
     setIsLoading(false);
   }
+}else{
+  setNotificationData([])
+}
 };
 
 export const updateNotificationsStatus = async (

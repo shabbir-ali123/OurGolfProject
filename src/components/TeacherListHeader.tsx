@@ -35,7 +35,7 @@ export default function TeacherListHeader() {
             price_data: {
               currency: "JPY",
               product_data: {
-                name: "Per Event",
+                name: "アカウント作成手数料",
               },
               unit_amount: teacherFee,
             },
