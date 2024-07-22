@@ -178,11 +178,13 @@ const CreateEvent: React.FC = () => {
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (submitting) {
       return;
     }
-  
+
+    setSubmitting(true);
+
     let updatedFiles: File[] = [];
     if (formData.files && formData.files.length > 0) {
       updatedFiles = formData.files;
@@ -196,12 +198,12 @@ const CreateEvent: React.FC = () => {
     } else {
       updatedFiles = await getDefaultImages();
     }
-  
+
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       files: updatedFiles,
     }));
-    setSubmitting(true)
+
     const formdata = new FormData();
 
     updatedFiles.forEach((file: File) => {
@@ -258,10 +260,10 @@ const CreateEvent: React.FC = () => {
         localStorage.removeItem("par");
         router("/event-main-page");
       } else {
-        toast.success("Error occurred while creating the event");
+        toast.error("Error occurred while creating the event");
       }
     } catch (error) {
-      toast.success("Error occurred while creating the event");
+      toast.error("Error occurred while creating the event");
       console.error("Error:", error);
     } finally {
       setSubmitting(false);
@@ -343,7 +345,7 @@ const CreateEvent: React.FC = () => {
                     onClick={handleSubmit}
                     className="glow-on-hover hover:rotate-45 transform transition duration-300 ease-in-out text-black bg-[#ffff] border border-[#52FF86] shadow-xl ring-blue-300 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    {t("NEXT")}
+                    {submitting ? "Creating Event..." : "NEXT"}
                   </button>
                   <button className="cursor-pointer text-white bg-[#FE2E00] hover:bg-blue-800  focus:outline-none  focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-4 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700  dark:focus:ring-blue-800 hover:scale-105 transform transition duration-300 ease-in-out">
                     {t("CLEAR")}

@@ -121,7 +121,7 @@ const ScoringTabs = ({singleEvent}:any) => {
         <div className="overflow-x-scroll sm:overflow-x-auto">
           {activeTab === "REGULAR" && (
             <div>
-              <div className="mx-5 ">
+              <div className="">
                 <div className="px-3 ">
                   <table className="w-full border-spacing-y-5 ">
                     <thead className="text-left text-white ">

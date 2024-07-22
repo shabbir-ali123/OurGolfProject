@@ -39,7 +39,7 @@ const LeaderBoardTables: FunctionComponent = () => {
   );
 
   return (
-    <div className="px-4 xl:max-w-5xl mx-auto sm:px-6 lg:px-8 py-4 rounded-lg my-10">
+    <div className="py-4 rounded-lg my-10">
       <div className="px-3 overflow-x-auto">
         <div className="hidden xl:flex gap-4">
           <img
@@ -53,24 +53,22 @@ const LeaderBoardTables: FunctionComponent = () => {
         </div>
         <div className="flex xl:justify-end justify-center gap-4 mb-4">
           <button
-             onClick={() => setShowRegularScores(true)}
-            className={`xl:px-4 xl:py-2 ${
-              showRegularScores
+            onClick={() => setShowRegularScores(true)}
+            className={`xl:px-4 xl:py-2 ${showRegularScores
                 ? "bg-[#17b3a6] rounded-md xl:p-4 cursor-pointer  border-none xl:py-4 xl:px-20 text-white text-lg"
                 : "bg-[#EEEEEE] rounded-md xl:p-4 cursor-pointer border-none xl:py-4 xl:px-20 text-[#17b3a6] text-lg font-bold"
-            }`}
-         
+              }`}
+
           >
             {t("REGULAR")}
           </button>
           <button
-          onClick={() => setShowRegularScores(false)}
-            className={`px-4 py-2 ${
-              !showRegularScores
+            onClick={() => setShowRegularScores(false)}
+            className={`px-4 py-2 ${!showRegularScores
                 ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-white text-lg"
                 : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer border-none py-4 px-20 text-[#17b3a6] text-lg font-bold"
-            }`}
-            
+              }`}
+
           >
             {t("HANDICAP_SCORE")}
           </button>
@@ -264,56 +262,56 @@ const LeaderBoardTables: FunctionComponent = () => {
         )}
         {/* Mobile View */}
         {showRegularScores && (
-        <div className="block md:hidden">
-          <div className="flex justify-between items-center bg-[#17B3A6] p-2 text-white rounded-t-md">
-            <div className="text-[10px]"><p>{t("PLAYER_NO")}</p></div>
-            <div className="text-[10px]"><p>{t("PLAYER_NAME")}</p></div>
-            <div className="text-[10px]"><p>{t("TOTAL_SCORE")}</p></div>
-            <div className="text-[10px]"><p>{t("PAR_SCORE")}</p></div>
-            <div className="text-[10px]"><p>{t("TOTAL_PAR")}</p></div>
-          </div>
-          {filteredScores?.map((scored: any, index: any) => (
-            <div
-              key={index}
-              className="flex justify-between items-center bg-white p-2 mb-2 shadow-md"
-            >
-              <div className="flex items-center">
-                <p className="text-[14px] text-center text-[#17B3A6] font-bold">{index + 1}</p>
-              </div>
-              <div className="text-end text-[14px] flex "><p>{scored?.userScoreCard?.nickName}</p></div>
-              <div className="text-end text-[14px] flex "><p>{scored.totalScore}</p></div>
-              <div className="text-end text-[14px] flex "><p >{sum}</p></div>
-              <div className="text-end text-[14px] flex "><p>{scored?.totalScore}</p></div>
+          <div className="block mx-4 md:hidden">
+            <div className="flex justify-between items-center bg-[#17B3A6] p-2 text-white rounded-t-md">
+              <div className="text-[10px]"><p>{t("PLAYER_NO")}</p></div>
+              <div className="text-[10px]"><p>{t("PLAYER_NAME")}</p></div>
+              <div className="text-[10px]"><p>{t("TOTAL_SCORE")}</p></div>
+              <div className="text-[10px]"><p>{t("PAR_SCORE")}</p></div>
+              <div className="text-[10px]"><p>{t("TOTAL_PAR")}</p></div>
             </div>
-          ))}
-        </div>
-         )}
+            {filteredScores?.map((scored: any, index: any) => (
+              <div
+                key={index}
+                className="flex justify-between items-center bg-white p-2 mb-2 shadow-md"
+              >
+                <div className="flex items-center">
+                  <p className="text-[14px] text-center text-[#17B3A6] font-bold">{index + 1}</p>
+                </div>
+                <div className="text-center text-[16px] font-medium flex "><p>{scored?.userScoreCard?.nickName}</p></div>
+                <div className="text-center text-[14px] flex "><p>{scored.totalScore}</p></div>
+                <div className="text-center text-[14px] flex "><p >{sum}</p></div>
+                <div className="text-center text-white font-medium text-[14px] flex justify-center items-center bg-[#17B3A6] p-1 rounded-md h-6 w-6"><p>{scored?.totalScore}</p></div>
+              </div>
+            ))}
+          </div>
+        )}
         {!showRegularScores && (
-        <div className="block md:hidden">
-          <div className="flex justify-between items-center bg-[#17B3A6] p-2 text-white rounded-t-md">
-            <div className="text-[10px]"><p>{t("PLAYER_NO")}</p></div>
-            <div className="text-[10px]"><p>{t("PLAYER_NAME")}</p></div>
-            <div className="text-[10px]"><p>{t("TOTAL_SCORE")}</p></div>
-            <div className="text-[10px]"><p>{t("PAR_SCORE")}</p></div>
-            <div className="text-[10px]"><p>{t("TOTAL_PAR")}</p></div>
-            <div className="text-[10px]"><p>{t("HandiCap Value")}</p></div>
-          </div>
-          {filteredScores?.map((scored: any, index: any) => (
-            <div
-              key={index}
-              className="flex justify-between items-center bg-white p-2 mb-2 shadow-md"
-            >
-              <div className="flex items-center">
-                <p className="text-[14px] text-center text-[#17B3A6] font-bold">{index + 1}</p>
-              </div>
-              <div className="text-end text-[14px] flex "><p>{scored?.userScoreCard?.nickName}</p></div>
-              <div className="text-end text-[14px] flex "><p>{scored?.totalScore}</p></div>
-              <div className="text-end text-[14px] flex "><p >{sum}</p></div>
-              <div className="text-end text-[14px] flex "><p className="mr-[40px]">{scored?.totalScore}</p></div>
-              <div className="text-end text-[14px] flex "><p>{scored?.handiCapValue}</p></div>
+          <div className="block md:hidden">
+            <div className="flex justify-between items-center bg-[#17B3A6] p-2 text-white rounded-t-md">
+              <div className="text-[10px]"><p>{t("PLAYER_NO")}</p></div>
+              <div className="text-[10px]"><p>{t("PLAYER_NAME")}</p></div>
+              <div className="text-[10px]"><p>{t("TOTAL_SCORE")}</p></div>
+              <div className="text-[10px]"><p>{t("PAR_SCORE")}</p></div>
+              <div className="text-[10px]"><p>{t("TOTAL_PAR")}</p></div>
+              <div className="text-[10px]"><p>{t("HandiCap Value")}</p></div>
             </div>
-          ))}
-        </div>
+            {filteredScores?.map((scored: any, index: any) => (
+              <div
+                key={index}
+                className="flex justify-between items-center bg-white p-2 mb-2 shadow-md"
+              >
+                <div className="flex items-center">
+                  <p className="text-[14px] text-center text-[#17B3A6] font-bold">{index + 1}</p>
+                </div>
+                <div className="text-end text-[14px] flex "><p>{scored?.userScoreCard?.nickName}</p></div>
+                <div className="text-end text-[14px] flex "><p>{scored?.totalScore}</p></div>
+                <div className="text-end text-[14px] flex "><p >{sum}</p></div>
+                <div className="text-end text-[14px] flex "><p className="mr-[40px]">{scored?.totalScore}</p></div>
+                <div className="text-end text-[14px] flex "><p>{scored?.handiCapValue}</p></div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
