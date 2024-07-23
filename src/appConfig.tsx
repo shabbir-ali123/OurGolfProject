@@ -40,6 +40,12 @@ export const API_ENDPOINTS = {
   SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/get-event-col-data`,
   GETMEMBERSLIST: `${API_BASE_URL}/${API_VERSION}/get-joined-and-wait-list/`,
 
+
+  // EVent ceremony
+  ADD_EVENT_CEREMONY: `${API_BASE_URL}/${API_VERSION}/add-event-ceremony-details`,
+  GET_EVENT_CEREMONY: `${API_BASE_URL}/${API_VERSION}/get-ceremony-details/`,
+
+  
   // get notfication
   GET_NOTIFICATION: `${API_BASE_URL}/${API_VERSION}/get-notifications`,
 

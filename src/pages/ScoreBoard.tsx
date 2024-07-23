@@ -23,25 +23,29 @@ import ScoringTabs from "../components/ScoringTabs";
 import { FinalEventGallery } from "../components/FinalEventGallery";
 import { FinalSlider } from "../components/sliders/FinalEventSlider";
 import EventDetails from "../components/event/EventDetails";
+import CeremonyModal from "../components/CeremonyModal";
 
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
 
-  const { singleEvent } = singleEventContextStore();
+  const { isCreated, singleEvent } = singleEventContextStore();
   const { totalJoinedMembers } = singleTeamsContextStore();
   const { score, scoreLoading } = useScoreContext();
   const positions = ["1st", "2nd", "3rd"];
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const shouldShowPlayerScore = !(singleEvent?.driverContest === 0 || singleEvent?.nearPinContest === 0);
-  const sortedScore = score?.sort((a:any, b:any) => b.totalScore - a.totalScore);
-
+  const sortedScore = score?.sort((a: any, b: any) => b.totalScore - a.totalScore);
+  const [ceremonyModel, setCeremonyModel] = useState(false)
   const topThreeScores = sortedScore?.slice(0, 3);
-  const topThreeScoresWithPosition = topThreeScores?.map((score:any, index:any) => ({
+  const topThreeScoresWithPosition = topThreeScores?.map((score: any, index: any) => ({
     ...score,
     position: positions[index]
   }));
-  
-  console.log(topThreeScoresWithPosition," postion");
+
+  console.log(topThreeScoresWithPosition, " postion");
+const onClose = (value:any)=>{
+  setCeremonyModel(value)
+}
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -55,8 +59,8 @@ const ScoreBoard: FunctionComponent = () => {
   }, []);
   return (
     <div>
-      <div className="">
-        <EventDetails/>
+      <div className="max-w-7xl mx-auto">
+        <EventDetails />
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid  w-full p-0 xl: xl:w-[1200px] mx-auto mt-[200px]">
             {scoreLoading ? (
@@ -69,14 +73,14 @@ const ScoreBoard: FunctionComponent = () => {
                   />
                   <p>loading...</p>
                 </div>
-              </div>  
+              </div>
             ) : (
               topThreeScores.length > 2 || screenWidth < 600 ?
-              <FlexitySlider>
-                {topThreeScoresWithPosition?.map((item: any) => {
-                  return <ScoreSlider item={item} />;
-                })}
-              </FlexitySlider> : <div className="flex self-center w-full p-16 justify-around xl:w-[1200px] mx-auto">{ topThreeScoresWithPosition?.map((item: any) => {
+                <FlexitySlider>
+                  {topThreeScoresWithPosition?.map((item: any) => {
+                    return <ScoreSlider item={item} />;
+                  })}
+                </FlexitySlider> : <div className="flex self-center w-full p-16 justify-around xl:w-[1200px] mx-auto">{topThreeScoresWithPosition?.map((item: any) => {
                   return <ScoreSlider item={item} />;
                 })}
                 </div>
@@ -91,23 +95,33 @@ const ScoreBoard: FunctionComponent = () => {
           }
         >
           <FinalEventGallery >
-          {singleEvent.imageUrl?.map((item: any) => {
-                  return <FinalSlider item={item} type="top"/>;
-                })}
-                 {singleEvent.imageUrl?.map((item: any) => {
-                  return <FinalSlider item={item} />;
-                })}
+            {singleEvent.imageUrl?.map((item: any) => {
+              return <FinalSlider item={item} type="top" />;
+            })}
+            {singleEvent.imageUrl?.map((item: any) => {
+              return <FinalSlider item={item} />;
+            })}
 
           </FinalEventGallery>
 
 
         </div>
+        {isCreated &&
+        <div className="mr-20 flex justify-end">
+          <button onClick={() => {
+            onClose(true)
 
+          }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white">Add Event Details</button>
+        </div>
+}
+        {
+          ceremonyModel && <CeremonyModal onClose={onClose} eventId={singleEvent.id}/>
+        }
         <AllMembers />
 
         {singleEvent?.scoringType !== "Normal" && (
           <>
-            <div className="max-w-6xl mx-auto">
+            <div className="max-w-7xl mx-auto">
               <LeaderBoardTables />
 
               {/* <IndiviualPlayerScore /> */}

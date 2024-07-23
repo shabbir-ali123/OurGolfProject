@@ -169,10 +169,10 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
         colSpan={8}
         id="popup-modal"
         tabIndex={-1}
-        className="p-2 max-w-5xl mx-auto  bg-white rounded-lg shadow-lg mt-[-10px]"
+        className="p-2 max-w-5xl mx-auto  bg-white rounded-lg shadow-lg mt-[-10px] "
       >
-        <div className="col-span-12">
-          <div className="flex items-center justify-between mx-4">
+        <div className="col-span-12 ">
+          <div className="flex items-center justify-between mx-4 z-[-1]">
             {token ? (
               <h2 className="mx-4">{t("ADD_COMMENTS")}</h2>
             ) : (
@@ -205,7 +205,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
 
           <div className="relative max-h-full p-4 ">
             {token && (
-              <form method="post" className="mx-4 " onSubmit={handleSubmit}
+              <form method="post" className="mx-4  " onSubmit={handleSubmit}
             >
                 <input type="hidden" name="userId" />
                 <input type="hidden" name="eventId" />
@@ -219,7 +219,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                     setFormData({ ...formData, content: e.target.value })
                   }
                   required
-                  className="w-full h-16 p-2 mb-4 border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 "
+                  className="w-full h-16 p-2 mb-4  border border-gray-200 rounded-lg focus:outline-none focus:border-gray-300 "
                 ></textarea>
                 <div className="flex justify-start">
                   <button

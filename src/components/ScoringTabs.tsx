@@ -16,7 +16,7 @@ const ScoringTableColumn = (props: {
     </td>
   );
 };
-const ScoringTabs = ({singleEvent}:any) => {
+const ScoringTabs = ({ singleEvent }: any) => {
   const [activeTab, setActiveTab] = useState<Tab>("REGULAR");
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
@@ -25,7 +25,7 @@ const ScoringTabs = ({singleEvent}:any) => {
   };
   const { score } = useScoreContext();
   const groupedScores = score?.reduce((acc: any, obj: any) => {
-    const { teamId, scorePerShot, totalScore, handiCapValue , netValue} = obj;
+    const { teamId, scorePerShot, totalScore, handiCapValue, netValue } = obj;
     const parsedScorePerShot = JSON.parse(scorePerShot);
     const slicedScorePerShot1 = parsedScorePerShot.slice(0, 9);
     const slicedScorePerShot2 = parsedScorePerShot.slice(9, 18);
@@ -85,9 +85,9 @@ const ScoringTabs = ({singleEvent}:any) => {
   const shotsPar = singleEvent?.shotsPerHoles?.split(",").map(Number);
   let firstNine = shotsPar?.slice(0, 9);
   let afterNine = shotsPar?.slice(9);
-  let sumFirstNine = firstNine?.reduce((acc:any, curr:any) => acc + curr, 0);
-  let sumLastNine = firstNine?.reduce((acc:any, curr:any) => acc + curr, 0);
-  let totalPar = shotsPar?.reduce((acc:any, curr:any) => acc + curr, 0);
+  let sumFirstNine = firstNine?.reduce((acc: any, curr: any) => acc + curr, 0);
+  let sumLastNine = firstNine?.reduce((acc: any, curr: any) => acc + curr, 0);
+  let totalPar = shotsPar?.reduce((acc: any, curr: any) => acc + curr, 0);
 
   // console.log(shotsPar);
   return (
@@ -96,21 +96,19 @@ const ScoringTabs = ({singleEvent}:any) => {
         <div className="flex justify-end gap-2 ">
           <div className="flex justify-end gap-2">
             <button
-              className={` ${
-                activeTab === "REGULAR"
-                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-white text-lg"
-                  : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4 px-20 text-[#17b3a6]  text-lg font-bold"
-              } px-4 py-2 border rounded-full`}
+              className={` ${activeTab === "REGULAR"
+                  ? "bg-[#17b3a6] rounded-sm p-4 cursor-pointer  border-none py-4 px-20 text-white text-lg"
+                  : "bg-transparent border-solid border-[#17b3a6] border-2  rounded-sm p-4 cursor-pointer  py-4 px-20 text-[#17b3a6] text-lg font-bold"
+                } px-4 py-2 border rounded-full`}
               onClick={() => handleTabClick("REGULAR")}
             >
               {t("REGULAR")}
             </button>
             <button
-              className={`${
-                activeTab === "HANDICAP"
-                  ? "bg-[#17b3a6] rounded-md p-4 cursor-pointer  border-none py-4  text-white text-lg"
-                  : "bg-[#EEEEEE] rounded-md p-4 cursor-pointer  border-none py-4  text-[#17b3a6]  text-lg font-bold"
-              } px-4 py-2   rounded-full`}
+              className={`${activeTab === "HANDICAP"
+                  ? "bg-[#17b3a6] rounded-sm p-4 cursor-pointer  border-none py-4  text-white text-lg"
+                  : "bg-transparent border-solid border-[#17b3a6] border-2  rounded-sm p-4 cursor-pointer  py-4 px-20 text-[#17b3a6] text-lg font-bold"
+                } px-4 py-2   rounded-full`}
               onClick={() => handleTabClick("HANDICAP")}
             >
               {t("HANDICAP_SCORE")}
@@ -118,104 +116,104 @@ const ScoringTabs = ({singleEvent}:any) => {
           </div>
         </div>
 
-        <div className="overflow-x-scroll sm:overflow-x-auto">
+        <div className="overflow-x-scroll sm:overflow-x-auto ">
           {activeTab === "REGULAR" && (
-            <div>
+            <div className="mx-5 mt-10">
               <div className="">
                 <div className="px-3 ">
-                  <table className="w-full border-spacing-y-5 ">
+                  <table className="w-full border-spacing-y-[1px] ">
                     <thead className="text-left text-white ">
-                      <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+                      <tr className=" bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
                         <ScoringTableColumn
                           title={t("HOLE")}
-                          className="rounded-s-[3px] font-bold text-[24px] text-center"
+                          className="rounded-s-[3px] font-bold text-[24px] text-center border-[1px] border-solid border-white"
                         />
 
                         {Array.from({ length: 9 }, (_, index) => (
                           <ScoringTableColumn
                             key={index}
                             title={`${index + 1}`}
-                            className="text-[18px] font-medium text-center "
+                            className="text-[18px] font-medium text-center border-[1px] border-solid border-white"
                           />
                         ))}
 
                         <ScoringTableColumn
                           title="Out"
-                          className="bg-black  text-[18px] font-medium text-center"
+                          className="bg-black  text-[18px] font-medium text-center border-[1px] border-solid border-white"
                         />
                         {Array.from({ length: 9 }, (_, index) => (
                           <ScoringTableColumn
                             key={index}
                             title={`${index + 10}`}
-                            className="text-[18px]  font-medium text-center"
+                            className="text-[18px]  font-medium text-center border-[1px] border-solid border-white"
                           />
                         ))}
                         <ScoringTableColumn
                           title="In"
-                          className="bg-black text-[18px] font-medium text-center min-w-[24px]"
+                          className="bg-black text-[18px] font-medium text-center min-w-[24px] border-[1px] border-solid border-white"
                         />
                         <ScoringTableColumn
                           title={t("TOTAL")}
-                          className=" text-[18px] font-medium text-center"
+                          className=" text-[18px] font-medium text-center border-[1px] border-solid border-white"
                         />
-                       
-                       <ScoringTableColumn
-                                title={t('Net Value')}
-                                className='text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]'
-                                dir='rtl'
-                            />
+
+                        <ScoringTableColumn
+                          title={t('Net Value')}
+                          className='text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px] border-[1px] border-solid border-white'
+                          dir='rtl'
+                        />
                         <ScoringTableColumn
                           title={t("RESULT")}
-                          className="text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]"
+                          className="text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px] border-[1px] border-solid border-white"
                           dir="rtl"
                         />
                       </tr>
-                      <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+                      <tr className=" bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
                         <ScoringTableColumn
                           title={t("PAR")}
-                          className="rounded-s-[3px] font-bold text-[24px] text-center"
+                          className="rounded-s-[3px] font-bold text-[24px] text-center border-[1px] border-solid border-white"
                         />
-                        
-                          {firstNine?.map((index:any) => (
+
+                        {firstNine?.map((index: any) => (
                           <ScoringTableColumn
                             key={index}
-                            title={`${index }`}
-                            className="text-[18px] text-white font-medium text-center "
+                            title={`${index}`}
+                            className="text-[18px] text-white font-medium text-center border-[1px] border-solid border-white"
                           />
                         ))}
                         <ScoringTableColumn
                           title={sumFirstNine}
-                          className="bg-black  text-white text-[18px] font-medium text-center"
+                          className="bg-black  text-white text-[18px] font-medium text-center border-[1px] border-solid border-white"
                         />
-                          {afterNine?.map((index:any) => (
+                        {afterNine?.map((index: any) => (
                           <ScoringTableColumn
                             key={index}
-                            title={`${index }`}
-                            className="text-[18px] text-white font-medium text-center "
+                            title={`${index}`}
+                            className="text-[18px] text-white font-medium text-center border-[1px] border-solid border-white"
                           />
                         ))}
                         <ScoringTableColumn
                           title={sumLastNine}
-                          className="bg-black  text-white text-[18px] font-medium text-center"
+                          className="bg-black  text-white text-[18px] font-medium text-center border-[1px] border-solid border-white"
                         />
-                         <ScoringTableColumn
+                        <ScoringTableColumn
                           title={totalPar}
-                          className=" text-white text-[18px] font-medium text-center"
+                          className=" text-white text-[18px] font-medium text-center border-[1px] border-solid border-white"
                         />
-                         <ScoringTableColumn
+                        <ScoringTableColumn
                           title={t("Net Value")}
-                          className=" text-white text-[18px] font-medium text-center"
+                          className=" text-white text-[18px] font-medium text-center border-[1px] border-solid border-white"
                         />
-                         <ScoringTableColumn
+                        <ScoringTableColumn
                           title={t("RESULT")}
-                          className=" text-white text-[18px] font-medium text-center"
+                          className=" text-white text-[18px] font-medium text-center border-[1px] border-solid border-white"
                         />
-                       
-</tr>
+
+                      </tr>
                     </thead>
 
                     <tbody>
-                   
+
                       {mergedScores?.map((item: any) => {
                         return (
                           item?.nearPinContest !== "" && (
@@ -243,68 +241,68 @@ const ScoringTabs = ({singleEvent}:any) => {
 
           {activeTab === "HANDICAP" && (
             <div>
-               <div className='mx-5 mt-10 '>
-            <div className='px-3 '>
-                <table className='w-full border-spacing-y-5 '>
+              <div className='mx-5 mt-10 '>
+                <div className='px-3 '>
+                  <table className='w-full border-spacing-y-5 '>
                     <thead className='text-left text-white '>
-                        <tr className=' bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]'>
-                            <ScoringTableColumn
-                                title={t('HOLE')}
-                                className='rounded-s-[3px] font-bold text-[24px] text-center'
-                            />
+                      <tr className=' bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]'>
+                        <ScoringTableColumn
+                          title={t('HOLE')}
+                          className='rounded-s-[3px] font-bold text-[24px] text-center'
+                        />
 
-                            {Array.from({ length: 9 }, (_, index) => (
-                                <ScoringTableColumn
-                                    key={index}
-                                    title={`${index + 1}`}
-                                    className='text-[18px] font-medium text-center '
-                                />
-                            ))}
+                        {Array.from({ length: 9 }, (_, index) => (
+                          <ScoringTableColumn
+                            key={index}
+                            title={`${index + 1}`}
+                            className='text-[18px] font-medium text-center '
+                          />
+                        ))}
 
-                            <ScoringTableColumn
-                                title='Out'
-                                className='bg-black  text-[18px] font-medium text-center'
-                            />
-                            {Array.from({ length: 9 }, (_, index) => (
-                                <ScoringTableColumn
-                                    key={index}
-                                    title={`${index + 10}`}
-                                    className='text-[18px]  font-medium text-center'
-                                />
-                            ))}
-                            <ScoringTableColumn
-                                title='In'
-                                className='bg-black text-[18px] font-medium text-center min-w-[24px]'
-                            />
-                            <ScoringTableColumn
-                                title={t('TOTAL')}
-                                className=' text-[18px] font-medium text-center'
-                            />
-                          
-                           
-                            <ScoringTableColumn
-                                title={t('Net Value')}
-                                className='text-[18px] font-medium text-center'
-                            />
-                             <ScoringTableColumn
-                                title={t('HCP')}
-                                className='text-[18px] font-medium text-center'
-                            />
-                            <ScoringTableColumn
-                                title={t('RESULT')}
-                                className='text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]'
-                                dir='rtl'
-                            />
-                        </tr>
-                        <tr className=" bg-[#054a51] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
+                        <ScoringTableColumn
+                          title='Out'
+                          className='bg-black  text-[18px] font-medium text-center'
+                        />
+                        {Array.from({ length: 9 }, (_, index) => (
+                          <ScoringTableColumn
+                            key={index}
+                            title={`${index + 10}`}
+                            className='text-[18px]  font-medium text-center'
+                          />
+                        ))}
+                        <ScoringTableColumn
+                          title='In'
+                          className='bg-black text-[18px] font-medium text-center min-w-[24px]'
+                        />
+                        <ScoringTableColumn
+                          title={t('TOTAL')}
+                          className=' text-[18px] font-medium text-center'
+                        />
+
+
+                        <ScoringTableColumn
+                          title={t('Net Value')}
+                          className='text-[18px] font-medium text-center'
+                        />
+                        <ScoringTableColumn
+                          title={t('HCP')}
+                          className='text-[18px] font-medium text-center'
+                        />
+                        <ScoringTableColumn
+                          title={t('RESULT')}
+                          className='text-[18px] font-medium min-w-[100px] text-center rounded-s-[3px]'
+                          dir='rtl'
+                        />
+                      </tr>
+                      <tr className=" bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
                         <ScoringTableColumn
                           title={t("PAR")}
                           className="rounded-s-[3px] font-bold text-[24px] text-center"
                         />
-                          {firstNine?.map((index:any) => (
+                        {firstNine?.map((index: any) => (
                           <ScoringTableColumn
                             key={index}
-                            title={`${index }`}
+                            title={`${index}`}
                             className="text-[18px] text-white font-medium text-center "
                           />
                         ))}
@@ -312,10 +310,10 @@ const ScoringTabs = ({singleEvent}:any) => {
                           title={sumFirstNine}
                           className="bg-black  text-white text-[18px] font-medium text-center"
                         />
-                          {afterNine?.map((index:any) => (
+                        {afterNine?.map((index: any) => (
                           <ScoringTableColumn
                             key={index}
-                            title={`${index }`}
+                            title={`${index}`}
                             className="text-[18px] text-white font-medium text-center "
                           />
                         ))}
@@ -323,27 +321,27 @@ const ScoringTabs = ({singleEvent}:any) => {
                           title={sumLastNine}
                           className="bg-black  text-white text-[18px] font-medium text-center"
                         />
-                         <ScoringTableColumn
+                        <ScoringTableColumn
                           title={totalPar}
                           className=" text-white text-[18px] font-medium text-center"
                         />
-                       
-                         <ScoringTableColumn
+
+                        <ScoringTableColumn
                           title={t("Net Value")}
                           className=" text-white text-[18px] font-medium text-center"
                         />
-                         <ScoringTableColumn
+                        <ScoringTableColumn
                           title={t("HCP Value")}
                           className=" text-white text-[18px] font-medium text-center"
                         />
-                         <ScoringTableColumn
+                        <ScoringTableColumn
                           title={t("RESULT")}
                           className=" text-white text-[18px] font-medium text-center"
                         />
-</tr>
+                      </tr>
                     </thead>
                     <tbody>
-                      
+
                       {mergedScores?.map((item: any) => {
                         return (
                           item?.nearPinContest !== "" && (
@@ -364,11 +362,11 @@ const ScoringTabs = ({singleEvent}:any) => {
                         );
                       })}
                     </tbody>
-                    
-                   
-                </table>
-            </div>
-        </div>
+
+
+                  </table>
+                </div>
+              </div>
             </div>
           )}
         </div>

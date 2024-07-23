@@ -414,3 +414,27 @@ export const fetchUserEvents = async (userId:any, setEventsCount: any, setEvents
   } catch (error) {
   }
 };
+
+export const addEventCeremonyDetails = async (eventId:any, eventInfo:any, files:any, token:any) => {
+  const formData = new FormData();
+  formData.append('eventId', eventId);
+  formData.append('eventInfo', eventInfo);
+  files.forEach((file:any, index:any) => {
+    formData.append(`files`, file); 
+  });
+
+  const response = await axios.post(API_ENDPOINTS.ADD_EVENT_CEREMONY, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`, 
+    },
+  });
+  return response.data;
+};
+export const getCeremonyDetails = async (eventId:any, token:any) => {
+  const response = await axios.get(`${API_ENDPOINTS. GET_EVENT_CEREMONY}/${eventId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};

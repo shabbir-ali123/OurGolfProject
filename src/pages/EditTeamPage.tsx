@@ -22,6 +22,7 @@ import { AboutEvent } from "../components/event/AboutEventSingle";
 import { CheckBadgeIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import EventDetails from "../components/event/EventDetails";
 import AllMembers from "../components/AllMembers";
+import CeremonyModal from "../components/CeremonyModal";
 
 interface Team {
   id: string;
@@ -69,6 +70,7 @@ const EditTeamPage: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
   const teamId = params.id;
   const { isCreated, singleEvent } = singleEventContextStore();
+  const [ceremonyModel, setCeremonyModel] = useState(false)
   console.log(singleEvent, 'sE')
   const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers, joinedUsers, handleIsLoading } = singleTeamsContextStore()
 
@@ -83,7 +85,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', right: '300px' }}
+        style={{ ...style, position: 'absolute', right: '300px',zIndex:'1' }}
         onClick={onClick}
       />
     );
@@ -94,7 +96,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', left: '340px' }}
+        style={{ ...style, position: 'absolute', left: '340px',zIndex:'1' }}
         onClick={onClick}
       />
     );
@@ -261,7 +263,7 @@ const EditTeamPage: FunctionComponent = () => {
     const headers = [];
     for (let i = 1; i <= teamCapacity; i++) {
       headers.push(
-        <th key={i} className="pl-4 py-3 leading-[10.25px] font-medium">
+        <th key={i} className="pl-4 py-3 leading-[10.25px] font-medium ">
           {t("PLAYER")}
           {i}
         </th>
@@ -299,6 +301,7 @@ const EditTeamPage: FunctionComponent = () => {
   const deadlineData = new Date(singleEvent?.eventDeadlineDate);
   const isEventOver = currentDate > endDate;
   const isDeadlineOver = currentDate > deadlineData;
+ 
   return (
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}
@@ -351,7 +354,7 @@ const EditTeamPage: FunctionComponent = () => {
               </div>
             </div>
 
-            <div id="my-slider-container" className="mx-auto my-6 max-w-7xl slider-container">
+            <div id="my-slider-container" className="mx-auto my-6 max-w-7xl slider-container ">
               {singleEvent && singleEvent.imageUrl?.length > 1 && (
                 <Slider {...settings}>
                   {singleEvent.imageUrl.slice(0, 3).map((item: any, index: any) => {
@@ -382,7 +385,17 @@ const EditTeamPage: FunctionComponent = () => {
 
 
             <div className="max-w-5xl mx-auto mt-24">
+              {isCreated &&
+                <div className="mr-20 flex justify-end">
+                  <button onClick={() => {
+                    setCeremonyModel(true)
 
+                  }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white">Add Event Details</button>
+                </div>
+              }
+              {
+                ceremonyModel && <CeremonyModal onClose={setCeremonyModel} eventId={singleEvent.id} />
+              }
               <div className="mt-40">
                 <AboutEvent totalJoinedMembers={totalJoinedMembers} />
               </div>
@@ -654,7 +667,7 @@ const EditTeamPage: FunctionComponent = () => {
                         </div>
                         <table className="w-full border-spacing-y-5 px-1 ">
                           <thead className="text-left text-whitesmoke-100">
-                            <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200 h-[55px] text-xl ">
+                            <tr className="shadow-[0px_4px_10px_rgba(0,_0,_0,_0.25)] bg-lightseagreen-200 h-[55px] text-xl  ">
                               <th className="pl-4 py-3 whitespace-nowrap rounded-s-[3px] leading-[10.25px] font-medium ">
                                 {t('TEAM_NAME')}
                               </th>
@@ -667,7 +680,7 @@ const EditTeamPage: FunctionComponent = () => {
                                 <td className="whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] ">
                                   <div className={`w-[156px] relative pl-1 rounded text-base h-[58px] flex items-center font-semibold leading-5 text-black bg-[#e0e0e0]`}>
                                     <h4>{team.name}</h4>
-                                    <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4 h-[58px] w-[58px] overflow-hidden text-lg leading-5 font-semibold">
+                                    <div className="absolute top-[50%] z-20 -right-[20px] -translate-y-2/4 h-[58px] w-[58px] overflow-hidden text-lg leading-5 font-semibold z-[0]">
                                       {team.imageUrl ? (
                                         <img className="w-full h-full object-cover rounded-[50%]" alt="" src={team.imageUrl} />
                                       ) : (

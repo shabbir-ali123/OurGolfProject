@@ -8,7 +8,7 @@ const EventDetails: React.FC = () => {
         <div className="p-4 max-w-7xl mx-auto">
             <h2 className="text-2xl font-bold mb-4">{t('ABOUT_EVENT')}</h2>
             <div className='relative h-[70vh] bg-cover object-contain relative'
-                style={{ backgroundImage: 'url(/img/golfer-hitting.png)' }}
+                style={{ backgroundImage: 'url(/img/golfer-hitting.webp)' }}
             >
                 <div className='pt-10'>
                 <div className='bg-white  px-4 py-2 rounded-lg shadow-lg mx-10 max-w-3xl xl:mx-auto  '>
