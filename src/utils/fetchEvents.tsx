@@ -430,11 +430,17 @@ export const addEventCeremonyDetails = async (eventId:any, eventInfo:any, files:
   });
   return response.data;
 };
-export const getCeremonyDetails = async (eventId:any, token:any) => {
+export const getCeremonyDetails = async (eventId:any, setEventCeremony:any) => {
+try {
+  const token = localStorage.getItem('token')
   const response = await axios.get(`${API_ENDPOINTS. GET_EVENT_CEREMONY}/${eventId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  
   });
-  return response.data;
+  setEventCeremony(response.data.ceremony)
+} catch (error) {
+  console.log(error,'error')
+}
 };

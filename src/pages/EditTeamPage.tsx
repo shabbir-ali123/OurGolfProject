@@ -85,7 +85,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', right: '300px',zIndex:'1' }}
+        style={{ ...style, position: 'absolute', right: '300px', zIndex: '1' }}
         onClick={onClick}
       />
     );
@@ -96,7 +96,7 @@ const EditTeamPage: FunctionComponent = () => {
     return (
       <div
         className={className}
-        style={{ ...style, position: 'absolute', left: '340px',zIndex:'1' }}
+        style={{ ...style, position: 'absolute', left: '340px', zIndex: '1' }}
         onClick={onClick}
       />
     );
@@ -301,7 +301,7 @@ const EditTeamPage: FunctionComponent = () => {
   const deadlineData = new Date(singleEvent?.eventDeadlineDate);
   const isEventOver = currentDate > endDate;
   const isDeadlineOver = currentDate > deadlineData;
- 
+
   return (
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}

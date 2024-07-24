@@ -24,6 +24,7 @@ import { FinalEventGallery } from "../components/FinalEventGallery";
 import { FinalSlider } from "../components/sliders/FinalEventSlider";
 import EventDetails from "../components/event/EventDetails";
 import CeremonyModal from "../components/CeremonyModal";
+import EventCeremonyDetails from "../components/EventCeremonyDetails";
 
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -61,6 +62,7 @@ const onClose = (value:any)=>{
     <div>
       <div className="max-w-7xl mx-auto">
         <EventDetails />
+
         {singleEvent?.scoringType !== "Normal" && (
           <div className="grid  w-full p-0 xl: xl:w-[1200px] mx-auto mt-[200px]">
             {scoreLoading ? (
@@ -117,6 +119,7 @@ const onClose = (value:any)=>{
         {
           ceremonyModel && <CeremonyModal onClose={onClose} eventId={singleEvent.id}/>
         }
+        <EventCeremonyDetails    />
         <AllMembers />
 
         {singleEvent?.scoringType !== "Normal" && (

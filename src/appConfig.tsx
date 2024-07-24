@@ -43,7 +43,7 @@ export const API_ENDPOINTS = {
 
   // EVent ceremony
   ADD_EVENT_CEREMONY: `${API_BASE_URL}/${API_VERSION}/add-event-ceremony-details`,
-  GET_EVENT_CEREMONY: `${API_BASE_URL}/${API_VERSION}/get-ceremony-details/`,
+  GET_EVENT_CEREMONY: `${API_BASE_URL}/${API_VERSION}/get-ceremony-details`,
 
   
   // get notfication

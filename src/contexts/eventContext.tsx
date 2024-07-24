@@ -8,6 +8,7 @@ import {
   fetchSeachedEventsNames,
   fetchSingleEvent,
   fetchUserEvents,
+  getCeremonyDetails,
 } from "../utils/fetchEvents";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEventFee } from "../utils/subscriptionFee";
@@ -57,18 +58,18 @@ export const EventsContext = ({ children }: any) => {
       eventStatus == "upcomming"
     ) {
       fetchEventss(setEvents, setEventsCount, queryParams, navigate);
-   
+
     }
     if (eventStatus == "joined") {
       fetchJoinedEvents(setEvents, setEventsCount, queryParams);
     }
-    if (eventStatus == "fav" ) {
+    if (eventStatus == "fav") {
       fetchFavoriteEvents(setEvents, setEventsCount, queryParams);
     }
-    if(eventStatus ==  'userpage'){
-        fetchUserEvents(userId,setEventsCount, setEvents, queryParams);
+    if (eventStatus == 'userpage') {
+      fetchUserEvents(userId, setEventsCount, setEvents, queryParams);
     }
-   
+
   }, [
     currentPage,
     eventsCount,
@@ -256,12 +257,13 @@ export const SingleEventsContext = ({ children }: any) => {
   const [selectedEventId, setSelectedEventId] = useState<any>();
   const [message, setMessage] = useState<any>();
   const [loading, isLoading] = useState(true);
-
+  const [eventCeremony, setEventCeremony] = useState([  ])
   if (selectedEventId) {
     eventId = selectedEventId;
   }
 
   useEffect(() => {
+    getCeremonyDetails(eventId ,setEventCeremony)
     const fetchData = async () => {
       try {
         const eventData = await fetchSingleEvent(eventId);
@@ -305,6 +307,7 @@ export const SingleEventsContext = ({ children }: any) => {
     isCreated,
     loading,
     singleEvent,
+    eventCeremony
   };
 
   return (
