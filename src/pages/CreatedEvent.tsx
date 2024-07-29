@@ -27,6 +27,8 @@ const CreatedEvents: React.FC = () => {
     const { handleActiveTab, handleCurrentPage, activeTab, currentPage, totalPages, createdEvents, } = createdEventsStore();
     const tabs = [t('LIVE'), t('UPCOMING'), t('PAST')];
     const sendTab = ['live', 'upcoming', 'past'];
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+    const [eventToDelete, setEventToDelete] = useState<Event | null>(null);
 
     // const [events, setEvents] = useState<Event[]>([]);
     // const [activeTab, setActiveTab] = useState<typeof tabs[number]>('past');
@@ -92,6 +94,10 @@ const CreatedEvents: React.FC = () => {
     };
 
 
+    const handleDeleteClick = (event: Event) => {
+        setEventToDelete(event);
+        setShowConfirmPopup(true);
+    };
 
 
     console.log({ activeTab })
@@ -133,7 +139,7 @@ const CreatedEvents: React.FC = () => {
                             </th>
                             <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
                                 {t("END_DATE")}
-                            </th> 
+                            </th>
                             <th className="px-6 py-3 border-b border-gray-200 bg-[#054a51] text-left text-xs font-medium text-white uppercase tracking-wider">
                                 {t("ACTIONS")}
                             </th>
@@ -162,13 +168,11 @@ const CreatedEvents: React.FC = () => {
                                             <EyeIcon className="w-6 h-6 text-[#17b3a6] hover:text-[#054a51]" onClick={() => handleCogIconClick(event)} /> {t("VIEW")}
                                         </Link>
                                         <button
-                                            className='bg-transparent flex items-center cursor-pointer  gap-1 hover:text-red'
-                                            type="button"
-                                            onClick={(e) => {
-                                                handleDeleteEvent(event.id, e);
-                                            }}>
-                                            <TrashIcon className='w-6 h-6' /> {t("DELETE")}
-                                        </button>
+                                        className='bg-transparent flex items-center cursor-pointer gap-1 hover:text-red'
+                                        type="button"
+                                        onClick={() => handleDeleteClick(event)}>
+                                        <TrashIcon className='w-6 h-6' /> {t("DELETE")}
+                                    </button>
 
 
 
@@ -186,6 +190,35 @@ const CreatedEvents: React.FC = () => {
                     onPageChange={handlePageChange}
                 />
             </div>
+            {/* Confirmation Popup */}
+            {showConfirmPopup && eventToDelete && (
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="bg-white p-8 rounded-md">
+                        <h2 className="text-lg font-bold mb-4">Are you sure you want to delete this event?</h2>
+                        <p>{eventToDelete.eventName}</p>
+                        <div className="mt-4">
+                            <button
+                                className="px-4 py-2 bg-blue-500 text-white mr-2"
+                                onClick={() => {
+                                    if (eventToDelete) {
+                                        handleDeleteEvent(eventToDelete.id, { preventDefault: () => { } });
+                                    }
+                                    setShowConfirmPopup(false);
+                                }}
+                            >
+                                Delete
+                            </button>
+                            <button
+                                className="px-4 py-2 bg-[red] text-white"
+                                onClick={() => setShowConfirmPopup(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {showPopup && selectedEvent && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
                     <div className="bg-white p-8 rounded-md">
@@ -212,7 +245,7 @@ const CreatedEvents: React.FC = () => {
                     </div>
                 </div>
             )}
-            
+
         </div>
 
     );
