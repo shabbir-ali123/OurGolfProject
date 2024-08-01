@@ -134,7 +134,7 @@ const onClose = (value:any)=>{
         )}
 
         {singleEvent?.id && (
-          <table className="lg:w-[1200px] mx-auto">
+          <table className="lg:w-[1200px] mx-auto my-10">
             <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
           </table>
         )}

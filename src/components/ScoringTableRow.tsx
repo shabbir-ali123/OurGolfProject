@@ -55,7 +55,7 @@ const ScoringTableRow: FunctionComponent<ScoringTableRowProps> = ({
 
     return (
         <tr
-            className={`h-[69px] font-medium text-black bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] z-[-1]`}
+            className={`h-[69px] font-medium text-black bg-[#e8f7f6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] z-[-1]`}
 
         >
             <td className='cursor-pointer whitespace-nowrap pl-1 relative top-1 tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[3px] '>

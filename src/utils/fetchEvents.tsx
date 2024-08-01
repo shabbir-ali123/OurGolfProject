@@ -444,3 +444,30 @@ try {
   console.log(error,'error')
 }
 };
+
+export const updateCeremonyDetails = async (
+  formData:any,
+  id:any,
+  token: any,
+  setMessage: React.Dispatch<React.SetStateAction<string>>
+) => {
+
+
+  try {
+      const response = await axios.put(
+          `${API_ENDPOINTS.UPDATE_EVENT_CEREMONY}/${id}`,
+          formData,
+          {
+              headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`
+              }
+          }
+      );
+      setMessage(response.data.message || 'Details updated successfully');
+      return response.data;
+  } catch (error) {
+      console.error('Error updating ceremony details:', error);
+      throw error;
+  }
+};

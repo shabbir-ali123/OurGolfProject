@@ -69,13 +69,17 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     value: number
   ) => {
     const updatedSums = { ...sums };
-    if (!updatedSums[userId]) {
-      updatedSums[userId] = Array.from({ length: holes.length }, () => 0);
+  
+    // Skip indices 18 and 19
+    if (holeIndex !== 18 && holeIndex !== 19) {
+      if (!updatedSums[userId]) {
+        updatedSums[userId] = Array.from({ length: holes.length }, () => 0);
+      }
+      updatedSums[userId][holeIndex] = value;
     }
-    updatedSums[userId][holeIndex] = value;
-
+  
     const userScoresMap: { [userId: string]: UserScores } = {};
-
+  
     for (const [userId, userSums] of Object.entries(sums)) {
       userScoresMap[userId] = userScoresMap[userId] || {
         sums: [],
@@ -83,7 +87,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       };
       userScoresMap[userId].sums.push(...userSums);
     }
-
+  
     for (const [userId, userFilteredSums] of Object.entries(filteredSums)) {
       userScoresMap[userId] = userScoresMap[userId] || {
         sums: [],
@@ -91,7 +95,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       };
       userScoresMap[userId].filteredSums.push(...userFilteredSums);
     }
-
+  
     const formDataArray = [];
     for (const [userId, userScores] of Object.entries(userScoresMap)) {
       const totalScore = userScores.sums.reduce((acc, score) => acc + score, 0);
@@ -114,53 +118,63 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       const newPinValueObj = pinContests.find(
         (newValue) => newValue.userId == userId
       );
+  
+      // Skip adding scorePerShot if holeIndex is 18 or 19
+      const scorePerShot = holeIndex !== 18 && holeIndex !== 19
+        ? userScores.sums
+        : [];
+  
       formDataArray.push({
         userId: Number(userId),
-        scorePerShot: userScores.sums,
+        scorePerShot: scorePerShot,
         handiCapPerShot: singleEvent?.selectedHoles,
         totalScore: totalScore,
         handiCapValue: roundedValue,
         netValue: netValue,
         eventId: singleEvent.id,
         nearPinContest: newPinValueObj?.newValue,
-        driverContest:  newValueObj?.newValue,
+        driverContest: newValueObj?.newValue,
         teamId: teamId,
       });
     }
-
+  
     const updatedFormData = formData.map((data: any) => {
       const sums = data.scorePerShot;
-    
+  
       if (data.userId == userId) {
         const totalScore = sums?.reduce(
           (acc: any, score: any) => acc + score,
           0
         );
-        ;
+  
         const newValueObj = contests.find(
           (newValue) => newValue.userId === data.userId
         );
         const newPinValueObj = pinContests.find(
           (newValue) => newValue.userId === data.userId
         );
-        data.scorePerShot[holeIndex] = value;
+  
+        if (holeIndex !== 18 && holeIndex !== 19) {
+          data.scorePerShot[holeIndex] = value;
+        }
+        
         data.totalScore = totalScore;
         data.driverContest = newValueObj?.newValue;
         data.nearPinContest = newPinValueObj?.newValue;
-
       }
       return data;
     });
-     
-
-    if (formData.length == uniqueMembers.length) {
+  
+    if (formData.length === uniqueMembers.length) {
       setFormData(updatedFormData);
     } else {
       setFormData(formDataArray);
     }
-
+  
     setSums(updatedSums);
   };
+  console.log(formData, "sad");
+
   const handlePinContests = (
     userId: number,
     e: React.ChangeEvent<HTMLInputElement>
@@ -272,7 +286,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }, []);
       setFormData(newFormData);
 
-  }, [score, contests, pinContests]);
+  }, [score]);
 
   const handleContests = (
     userId: number,
@@ -296,7 +310,6 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     }
   };
 
-  console.log(formData, "sad");
   return (
     <div className="mx-4 xl:mx-32 ">
       <div className="flex items-center gap-10">
@@ -603,7 +616,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                       member.userId,
                                       member.teamId,
                                       member.teamName,
-                                      222,
+                                      18,
                                       parseInt(e.target.value)
                                     )
                                   }}
@@ -625,7 +638,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                       member.userId,
                                       member.teamId,
                                       member.teamName,
-                                      345,
+                                      19,
                                       parseInt(e.target.value)
                                     )
                                   }}

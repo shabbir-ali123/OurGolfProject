@@ -79,7 +79,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
         </div>
         <div className="flex items-center gap-10 w-full overflow-x-scroll xl:overflow-x-auto ">
 
-          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><span className="text-[#17B3A6] text-[20px]  font-bold">{t('SHORT_VIDEO')}</span> <p className="xl:text-[22px]  xl:overflow-x-outo xl:ml-[132px]">{singleEvent?.eventVideoUrl}</p> </p>
+          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><span className="text-[#17B3A6] text-[20px]  font-bold">{t('SHORT_VIDEO')}</span> <p className="xl:text-[22px]  xl:overflow-x-outo xl:ml-[152px]">{singleEvent?.eventVideoUrl}</p> </p>
         </div>
         <div className="flex items-center gap-10 w-full overflow-x-hidden xl:overflow-x-auto">
             <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 w-full">

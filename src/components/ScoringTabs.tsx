@@ -221,7 +221,7 @@ const ScoringTabs = ({ singleEvent }: any) => {
                               teamImageUrl="/img/ellipse-23114@2x.png"
                               teamName={"team " + item?.teamId}
                               teamId={item?.teamId}
-                              background="#CDD5FF"
+                              background="#red"
                               teamBG="#D3D3D3"
                               score1={item.scorePerShot1}
                               score2={item.scorePerShot2}
