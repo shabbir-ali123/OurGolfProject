@@ -23,7 +23,7 @@ import { CheckBadgeIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import EventDetails from "../components/event/EventDetails";
 import AllMembers from "../components/AllMembers";
 import CeremonyModal from "../components/CeremonyModal";
-
+import { useLocation } from 'react-router-dom';
 interface Team {
   id: string;
   name: string;
@@ -67,6 +67,7 @@ interface SingleEvent {
 }
 
 const EditTeamPage: FunctionComponent = () => {
+  const { hash } = useLocation();
   const params = useParams<{ id?: string }>();
   const teamId = params.id;
   const { isCreated, singleEvent } = singleEventContextStore();
@@ -79,7 +80,22 @@ const EditTeamPage: FunctionComponent = () => {
   document.body.dir = i18n.dir();
 
 
-
+//   useEffect(() => {
+//     if (hash) {
+//         const element = document.querySelector(hash);
+//         if (element) {
+//             element.scrollIntoView({ behavior: 'smooth' });
+//         }
+//     }
+// }, [hash]);
+useEffect(() => {
+  if (location.hash) {
+    const element = document.querySelector(location.hash);
+    if (element && !isLoading) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}, [location.hash,isLoading]);
   function CustomNextArrow(props: any) {
     const { className, style, onClick } = props;
     return (
@@ -400,7 +416,7 @@ const EditTeamPage: FunctionComponent = () => {
                 <AboutEvent totalJoinedMembers={totalJoinedMembers} />
               </div>
 
-              <div className="">
+              <div className=""  id="all-members">
                 <AllMembers />
               </div>
               {/* <div className="max-w-5xl mx-6 xl:mx-auto py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
