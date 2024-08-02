@@ -447,7 +447,8 @@ try {
 
 export const updateCeremonyDetails = async (
   formData: FormData,
-  setMessage: React.Dispatch<React.SetStateAction<string>>
+  setMessage: React.Dispatch<React.SetStateAction<string>>,
+  closeModal:any
 ) => {
   try {
     const token = localStorage.getItem('token')
@@ -466,5 +467,7 @@ export const updateCeremonyDetails = async (
   } catch (error) {
     console.error('Error updating ceremony details:', error);
     throw error;
+  }finally{
+    closeModal(false)
   }
 };

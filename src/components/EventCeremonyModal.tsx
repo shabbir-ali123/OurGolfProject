@@ -4,7 +4,7 @@ import { updateCeremonyDetails } from '../utils/fetchEvents';
 
 interface EventEditModalProps {
     event: any;
-    closeModal: () => void;
+    closeModal: any;
     handleLoading:any
 }
 
@@ -38,7 +38,8 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal,handl
        
         updateCeremonyDetails(
             formdata,
-            handleLoading
+            handleLoading,
+            closeModal
 
         );
     };
@@ -51,7 +52,8 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal,handl
         if(formdata.removedMediaUrls){
             updateCeremonyDetails(
                 formdata,
-                handleLoading
+                handleLoading,
+                closeModal
 
             );
         }
@@ -78,7 +80,9 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal,handl
         <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
             <div className="w-full max-w-xl p-6 bg-white rounded-lg shadow-lg relative">
                 <button
-                    onClick={closeModal}
+                    onClick={()=>{
+                        closeModal(false)
+                    }}
                     className="absolute top-2 right-2 text-gray-500"
                 >
                  
