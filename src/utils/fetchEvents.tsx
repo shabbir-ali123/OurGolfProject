@@ -447,13 +447,12 @@ try {
 
 export const updateCeremonyDetails = async (
   formData: FormData,
-  id: any,
-  token: any,
   setMessage: React.Dispatch<React.SetStateAction<string>>
 ) => {
   try {
+    const token = localStorage.getItem('token')
     const response = await axios.put(
-      `${API_ENDPOINTS.UPDATE_EVENT_CEREMONY}/${id}`,
+      `${API_ENDPOINTS.UPDATE_EVENT_CEREMONY}`,
       formData,
       {
         headers: {
@@ -462,8 +461,8 @@ export const updateCeremonyDetails = async (
         }
       }
     );
-    setMessage(response.data.message || 'Details updated successfully');
-    return response.data;
+    setMessage(response.data.ceremony);
+
   } catch (error) {
     console.error('Error updating ceremony details:', error);
     throw error;

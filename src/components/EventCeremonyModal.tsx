@@ -1,52 +1,79 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { updateCeremonyDetails } from '../utils/fetchEvents';
 
 interface EventEditModalProps {
     event: any;
     closeModal: () => void;
+    handleLoading:any
 }
 
-const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal }) => {
-    const [eventInfo, setEventInfo] = useState(event.item.eventInfo || '');
-    const [removedMediaUrls, setRemovedMediaUrls] = useState<any>({});
-    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal,handleLoading }) => {
+    // const [eventInfo, setEventInfo] = useState(event.item.eventInfo || '');
+    const [formdata, setFormdata] = useState<any>({
+        removedMediaUrls: "",
+        eventId: "",
+        id:event.item.id,
+        eventInfo: "hguy",
+        mediaFiles: ""
+    });
     const [message, setMessage] = useState<string>('');
-   console.log(event,"noooo")
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setSelectedFiles(Array.from(e.target.files));
+        const { files } = e.target;
+        if (files) {
+            setFormdata((prev: any) => ({
+                ...prev,
+                mediaFiles:  files 
+            }));
         }
     };
 
-    const handleRemoveImage = (removedMediaUrls: string ,eventId:any) => {
-        setRemovedMediaUrls({ removedMediaUrls ,eventId, eventInfo});
-    };
+    // const handleRemoveImage = (removedMediaUrls: string ,eventId:any) => {
+    //     setRemovedMediaUrls({ removedMediaUrls ,eventId, eventInfo, "mediaFiles[]": ''});
+    // };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
 
-        const token = localStorage.getItem('token');
-        if (!token) {
-            toast.error('User not authenticated');
-            return;
-        }
+       
+        updateCeremonyDetails(
+            formdata,
+            handleLoading
 
-        try {
-            await updateCeremonyDetails(
-           
-                removedMediaUrls,
-                event.item.id, 
-                token,
-                setMessage
+        );
+    };
+    const handleDelete = async (e: React.FormEvent,  removedMediaUrls:any) => {
+       
+        setFormdata((prev: any) => ({
+            ...prev,
+            removedMediaUrls
+        }));
+        if(formdata.removedMediaUrls){
+            updateCeremonyDetails(
+                formdata,
+                handleLoading
+
             );
-            toast.success('Ceremony details updated successfully');
-            closeModal();
-        } catch (error) {
-            toast.error('An error occurred. Please try again.');
         }
     };
-
+    useEffect(() => {
+        setFormdata({
+            eventId: event.item.eventId,
+            eventInfo: event.item.eventInfo,
+           ' mediaFiles[]': "",
+           id:event.item.id,
+           removedMediaUrls: ''
+        })
+    }, [event.item])
+    const handleInput = (e: any) => {
+        console.log(e, "asdasjkdnasjk")
+        const { name, value } = e.target;
+    
+        setFormdata((prev: any) => ({
+            ...prev,
+            eventInfo: value
+        }));
+    };
     return (
         <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
             <div className="w-full max-w-xl p-6 bg-white rounded-lg shadow-lg relative">
@@ -54,6 +81,7 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal }) =>
                     onClick={closeModal}
                     className="absolute top-2 right-2 text-gray-500"
                 >
+                 
                     X
                 </button>
                 <h2 className="text-xl font-bold mb-4">Edit Event</h2>
@@ -62,13 +90,14 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal }) =>
                         <label htmlFor="eventInfo" className="block text-gray-700">Event Information:</label>
                         <textarea
                             id="eventInfo"
-                            value={eventInfo}
-                            onChange={(e) => setEventInfo(e.target.value)}
+                            value={formdata.eventInfo}
+                            name="eventInfo"
+                            onChange={ handleInput}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-                            
+
                         />
                     </div>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="fileInput" className="block text-gray-700">Upload New Files:</label>
                         <input
@@ -87,7 +116,7 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal }) =>
                                 <div key={index} className="relative">
                                     <img src={image} alt={`Event image ${index + 1}`} className="w-32 h-32 object-cover rounded-lg" />
                                     <button
-                                        onClick={() => handleRemoveImage(image, event.item.eventId)}
+                                        onClick={(e) => handleDelete(e, image)}
                                         className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded-full"
                                     >
                                         X

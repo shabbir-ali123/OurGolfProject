@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -10,25 +10,28 @@ import { toast } from 'react-toastify';
 import EventEditModal from '../components/EventCeremonyModal'; 
 
 const EventDetailsCeremony: React.FC = () => {
-    const [loading, setLoading] = useState(true);
     const [eventInfo, setEventInfo] = useState<string>('');
     const [removedMediaUrls, setRemovedMediaUrls] = useState<string[]>([]);
     const [files, setFiles] = useState<File[]>([]);
     const [message, setMessage] = useState<string>('');
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false); 
-    const { eventCeremony } = singleEventContextStore();
+    const { eventCeremony,handleLoading,loading } = singleEventContextStore();
     const [singleEventC, setsingleEventC] = useState<any>();
     useEffect(() => {
         if (eventCeremony) {
             setEventInfo(eventCeremony[0]?.eventInfo || '');
         }
-        setLoading(false);
     }, [eventCeremony]);
 
 
 
-
+const handleEventCeremony = useCallback(
+    (value: any) => {
+      return setsingleEventC(value);
+    },
+    [singleEventC]
+  );
     const openModal= (id:any) => {
         console.log(id,"yess")
         eventCeremony.map((item:any)=>{
@@ -103,6 +106,7 @@ const EventDetailsCeremony: React.FC = () => {
             {isModalOpen && (
                 <EventEditModal
                     event={singleEventC}
+                    handleLoading={handleLoading}
                     closeModal={closeModal}
                 />
             )}

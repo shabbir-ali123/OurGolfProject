@@ -299,11 +299,18 @@ export const SingleEventsContext = ({ children }: any) => {
     },
     [message]
   );
+  const handleLoading = useCallback(
+    (value: any) => {
+      return isLoading(value);
+    },
+    [message]
+  );
 
   const value = {
     handleSingleEvent,
     handleMessage,
     handleSingleEventID,
+    handleLoading,
     isCreated,
     loading,
     singleEvent,
