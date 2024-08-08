@@ -87,7 +87,7 @@ const RecommendedEvents: React.FC = () => {
               settings: {
                 slidesToShow: 1,
                 slidesToScroll: 1,
-              }
+                 }
             }
           ]
     };

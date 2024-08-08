@@ -10,9 +10,11 @@ const UserAuthContext = React.createContext<any>({});
 
 export const AuthContext = ({ children }: any) => {
   const [user, setUser] = useState<any>("");
-
+  const [receiver, setReceiver] = useState('');
   const [message, setMessage] = useState<string>();
   const [chatUser, setChatUser] = useState<string>("4");
+  const [activeChatId, setActiveChatId] = useState<any>(Boolean);
+
   const navigate = useNavigate();
   const [userFormData, setUserFormData] = useState({
     nickName: "",
@@ -47,6 +49,18 @@ export const AuthContext = ({ children }: any) => {
       return setChatUser(value);
     },
     [chatUser]
+  );
+  const handleReceiver = useCallback(
+    (value: any) => {
+      return setReceiver(value);
+    },
+    [receiver]
+  );
+  const handleChatId = useCallback(
+    (value: any) => {
+      return setActiveChatId(value);
+    },
+    [activeChatId]
   );
 
   const handleUpdateUser = async () => {
@@ -92,11 +106,16 @@ export const AuthContext = ({ children }: any) => {
     }
   };
 
+
   const value = {
     handleUser,
     handleUpdateUser,
     setUserFormData,
     handleSelectedUser,
+    handleReceiver,
+    handleChatId,
+    activeChatId,
+    receiver,
     chatUser,
     userFormData,
     user,

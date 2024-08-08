@@ -122,7 +122,7 @@ const onClose = (value:any)=>{
         <EventCeremonyDetails    />
         <AllMembers />
 
-        {(singleEvent?.scoringType !== "Regular" && singleEvent?.scoringType !== "Normal") && (
+        {(singleEvent?.scoringType !== "Regular" && singleEvent?.scoringType !== "Normal" && (score?.length > 0)) && (
           <>
             <div className="max-w-7xl mx-auto">
               <LeaderBoardTables />
