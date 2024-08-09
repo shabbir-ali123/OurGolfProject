@@ -7,18 +7,20 @@ self.addEventListener('activate', (event) => {
 });
 self.addEventListener('push', (event) => {
     const data = event.data.json();
-    console.log('Push received: ', data);
 
+    console.log("data", data)
     const notificationTitle = data.notification.title;
+    console.log("notificationTitle", notificationTitle)
     const notificationOptions = {
         body: data.notification.body,
         icon: 'your_icon_url_here', 
         data: {
             deep_link: data.notification.deep_link, 
         }
+        
     };
-
-   
+    console.log("notificationOptions", notificationOptions)
+    
     event.waitUntil(
         self.registration.showNotification(notificationTitle, notificationOptions)
     );
@@ -38,4 +40,5 @@ self.addEventListener('push', (event) => {
             }
         })
     );
+    console.log("end")
 });

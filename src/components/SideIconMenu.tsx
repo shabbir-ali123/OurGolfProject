@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notificationContext";
 import socket from "../socket";
+import { userAuthContext } from "../contexts/authContext";
 const teacherId  = localStorage.getItem("teacher_id");
 const userId  = localStorage.getItem("id");
 
@@ -133,6 +134,7 @@ export const menuItems: MenuItem[] = [
     icon: faMessage,
     path: "/message-page",
     active: false,
+    messageNotification:true
   },
   {
     name: "SETTING",
@@ -156,6 +158,7 @@ interface MenuItem {
   subItems?: Array<MenuItem>;
   finalItem?: any;
   properties?: any;
+  messageNotification?:any;
 }
 
 const SideMenu: React.FC = () => {
@@ -305,6 +308,7 @@ const SideMenu: React.FC = () => {
   }, []);
 
   const { notifications, filteredNotifications } = notificationsContextStore();
+  const { notificationCount} = userAuthContext();
 
   useEffect(() => {
     filteredNotifications;
@@ -375,6 +379,15 @@ const SideMenu: React.FC = () => {
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
                     {isLoggedIn 
                       ? filteredNotifications?.length + notifications?.length 
+                      : "NA"
+                    }
+                    <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
+                  </div>
+                )}
+                 {item.messageNotification && (
+                  <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
+                    {isLoggedIn 
+                      ? notificationCount.length 
                       : "NA"
                     }
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>

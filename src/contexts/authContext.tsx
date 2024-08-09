@@ -14,6 +14,7 @@ export const AuthContext = ({ children }: any) => {
   const [message, setMessage] = useState<string>();
   const [chatUser, setChatUser] = useState<string>("4");
   const [activeChatId, setActiveChatId] = useState<any>(Boolean);
+  const [notificationCount, setNotificationCount] = useState<any>([]);
 
   const navigate = useNavigate();
   const [userFormData, setUserFormData] = useState({
@@ -61,6 +62,14 @@ export const AuthContext = ({ children }: any) => {
       return setActiveChatId(value);
     },
     [activeChatId]
+  );
+  const handleNotificationCount = useCallback(
+    (incomingMessage: any) => {
+  
+      // Optionally, if you need to store the incoming messages
+      setNotificationCount((prevMessages: any[]) => [...prevMessages, incomingMessage]);
+    },
+    [notificationCount]
   );
 
   const handleUpdateUser = async () => {
@@ -114,6 +123,8 @@ export const AuthContext = ({ children }: any) => {
     handleSelectedUser,
     handleReceiver,
     handleChatId,
+    handleNotificationCount,
+    notificationCount,
     activeChatId,
     receiver,
     chatUser,
