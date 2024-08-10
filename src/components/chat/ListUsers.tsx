@@ -6,16 +6,15 @@ import { userAuthContext } from '../../contexts/authContext';
 import { useTranslation } from 'react-i18next';
 import { getTimeAgo } from '../../pages/ReadPost';
 import { API_ENDPOINTS } from "../../appConfig";
+import { fetchMessages } from '../../utils/fetchChat';
 const AllUserChat = () => {
     const { t, i18n } = useTranslation();
     const [allChat, setAllChat] = useState<any>([])
     const [sender, setSender] = useState(localStorage.getItem('id'));
     const { handleSelectedUser, handleNotificationCount, notificationCount, handleReceiver, handleChatId, activeChatId } = userAuthContext();
-    // const [activeId, setActiveId] = useState<any>(Boolean);
 
     useEffect(() => {
-        fetchMessages();
-
+        fetchMessages(sender, setAllChat);
     }, [sender, notificationCount]);
     useEffect(() => {
         if (allChat && allChat[0]?.user) {
@@ -25,17 +24,7 @@ const AllUserChat = () => {
             handleChatId(defaultMessages);
         }
     }, [allChat])
-    const fetchMessages = async () => {
-        try {
-            const response = await axios.get('https://backend.golf-encounters.com:5000/api/all-chat', {
-                params: { receiver: sender }
-            });
-            setAllChat(response.data);
-        } catch (error) {
-            console.error('Error fetching messages:', error);
-        }
-    };
- 
+  
     return (
         <div className='w-[30%] sticky'>
             <div className=' shadow-lg py-10 h-[75vh] bg-[#17b3a6]'

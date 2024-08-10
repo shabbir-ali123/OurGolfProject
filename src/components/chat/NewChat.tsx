@@ -5,26 +5,26 @@ import { userAuthContext } from '../../contexts/authContext';
 import { getTimeAgo } from '../../pages/ReadPost';
 import { useTranslation } from 'react-i18next';
 import { API_ENDPOINTS } from "../../appConfig";
+import { fetchMessage } from '../../utils/fetchChat';
 const Messages = () => {
     const { t } = useTranslation();
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<any>([]);
     const [newMessage, setNewMessage] = useState('');
     const [sender] = useState(localStorage.getItem("id"));
     const { receiver, handleReceiver,chatId,handleNotificationCount, notificationCount } = userAuthContext();
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
-        fetchMessages();
+        fetchMessage(sender, receiver, setMessages);
     }, [sender, receiver, notificationCount]);
 
+    console.log(messages, "messages")
     useEffect(() => {
         setupNotifications();
     }, [sender]);
 
     useEffect(() => {
-      const handleNotification = (event) => {
-          console.log('Notification event received:', event.data);
-  
+      const handleNotification = (event:any) => {
           if (event.data && event.data.type === 'NEW_NOTIFICATION') {
               const incomingMessage = {
                   sender: event.data.title,
@@ -71,18 +71,7 @@ const Messages = () => {
    // Empty dependency array ensures this effect runs only once when the component mounts
 
 
-    const fetchMessages = async () => {
-        try {
-            const response = await axios.get('https://backend.golf-encounters.com:5000/api/get-chat', {
-                params: { receiver: receiver, sender: sender }
-            });
-            setMessages(response.data);
-        } catch (error) {
-            console.error('Error fetching messages:', error);
-        }
-    };
-
-    const handleSendMessage = async (e) => {
+    const handleSendMessage = async (e:any) => {
         e.preventDefault();
         try {
             await axios.post('https://backend.golf-encounters.com:5000/api/post-chat', {
@@ -93,7 +82,7 @@ const Messages = () => {
                 receiver: receiver
             });
             setNewMessage('');
-            fetchMessages();
+            fetchMessage(sender, receiver, setMessages);
         } catch (error) {
             console.error('Error sending message:', error);
         }
@@ -104,7 +93,7 @@ const Messages = () => {
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
                     const beamsClient = new PusherPushNotifications({
-                        instanceId: '2f55c6b0-0852-4c60-896e-f4036ef33af1'
+                        instanceId: process.env.REACT_APP_PUSHER_INSTANCE_KEY || ""
                     });
 
                     beamsClient
@@ -119,15 +108,7 @@ const Messages = () => {
         }
     };
 
-    useEffect(() => {
-        const scrollToBottom = () => {
-            if (messagesEndRef.current) {
-                messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-            }
-        };
-        scrollToBottom();
-    }, [messages]);
-
+  
     return (
         <div className="flex flex-col justify-center h-[77vh] pb-16  sticky w-[100%]  bg-white shadow-lg">
             <div className='flex items-end gap-4 mb-8 shadow-lg p-4'>
@@ -136,7 +117,7 @@ const Messages = () => {
             </div>
             <div className="flex-1 overflow-y-scroll bg-white border border-gray-300 rounded-lg p-4">
                 {messages.userMessages?.length > 0 ? (
-                    messages.userMessages.map((msg, index) => (
+                    messages.userMessages.map((msg:any, index:any) => (
                         <div key={index} className={`p-2 mb-2 bg-gray-100 w-[50%] rounded-e-xl ${msg.sender === sender ? 'float-left rounded-es-xl' : 'float-right rounded-es'}`}>
                             <div className='flex justify-end'>
                             <span>
