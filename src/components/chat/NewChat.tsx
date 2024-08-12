@@ -104,6 +104,7 @@ const Messages = () => {
     };
     console.log(newMessage);
     postChat(formData, setMessages);
+    setNewMessage("");
   };
 
   const setupNotifications = () => {
@@ -345,7 +346,7 @@ const Messages = () => {
       </div>
       <form
         onSubmit={handleSendMessage}
-        className="block absolute bottom-0 w-[92%] gap-2 p-4  border-t border-gray-300"
+        className="block z-50 absolute bottom-[-2%] w-[92%] gap-2 p-4  border-t border-gray-300"
       >
         <div className="sticky top-0 w-full bottom-0 flex gap-2 p-4">
           <input
