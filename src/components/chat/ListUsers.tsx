@@ -50,7 +50,7 @@ const AllUserChat = () => {
   console.log(onlineUsers, "isOnline");
   return (
     <div className="w-[30%] sticky">
-      <div className=" shadow-lg py-10 h-[75vh] bg-[#17b3a6]">
+      <div className=" shadow-lg py-10 h-[75vh] overflow-hidden overflow-y-auto bg-[#17b3a6]">
         <div className="px-2 text-white">
           <h3>Messages</h3>
           <UsersList />
@@ -65,7 +65,7 @@ const AllUserChat = () => {
           return (
             <div
               key={item.user.id}
-              className={`border-solid relative border-[#c8c8c8] border-b-[1px] cursor-pointer pt-3 relative ${
+              className={`border-solid border-[#c8c8c8] border-b-[1px] cursor-pointer pt-3 relative ${
                 isActive ? "bg-black" : ""
               }`}
               onClick={(e: any) => {

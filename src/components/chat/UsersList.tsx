@@ -17,30 +17,23 @@ export const UsersList = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [sideSearch, setSideSearch] = useState<any>(false);
 
   useEffect(() => {
     getAllUsers(setUsers);
-    fetchOnlineUsers(setOnlineUsers)
+    fetchOnlineUsers(setOnlineUsers);
   }, [chatUser]);
 
   const filteredUsers = users?.filter((user) => {
     // Skip the user if their ID matches the one in localStorage
-    if (user.id.toString() === localStorage.getItem('id')) {
+    if (user.id.toString() === localStorage.getItem("id")) {
       return false;
     }
-  
+
     // Continue filtering based on the nickname
     return user.nickName.toLowerCase().includes(searchTerm.toLowerCase());
   });
-  // const handleChatStatus = (e: any) => {
-  //   e.preventDefault();
-  //   const formData = {
-  //     sender: localStorage.getItem("id"),
-  //     receiver: receiver,
-  //   };
-  //   updateChatStatus(formData);
-  // };
- 
+
   return (
     <div className=" p-2 ">
       <div className="relative">
@@ -48,17 +41,24 @@ export const UsersList = () => {
           type="text"
           placeholder="Search users"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="p-1 pl-10 pr-4  border-[1px] border-solid border-[#c8c8c8] rounded"
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setSideSearch(true);
+          }}
+          className="p-1 pl-10 pr-6  border-[1px] border-solid border-[#c8c8c8] rounded"
         />
         <FontAwesomeIcon
           icon={faSearch}
           className="absolute top-2 left-3 text-gray-400 pointer-events-none"
         />
       </div>
-      <div className="bg-white absolute pr-[122px] z-50">
+      <div
+        className={`bg-white absolute w-[90%] ${
+          sideSearch ? "max-h-[68vh]" : "hidden"
+        } overflow-hidden overflow-y-auto p-0 z-50`}
+      >
         {filteredUsers.map((user: any) => {
-         const isOnline = onlineUsers.includes(user.id.toString());
+          const isOnline = onlineUsers.includes(user.id.toString());
           return (
             <li
               className={`list-none text-black  ${
@@ -68,6 +68,7 @@ export const UsersList = () => {
               onClick={(e: any) => {
                 handleReceiver(user.id);
                 handleChatId(user.id);
+                setSideSearch(false);
                 // handleChatStatus(e);
               }}
             >
@@ -84,10 +85,11 @@ export const UsersList = () => {
                 </div>
                 {user?.nickName}
                 {isOnline ? (
-                  <span className="w-4 h-4 absolute top-[-10%] left-[25%] bg-blue-400 rounded-full"></span>
+                  <span className="w-4 h-4 absolute top-[-10%] left-[10%] bg-blue-400 rounded-full"></span>
                 ) : (
                   ""
-                )}              </div>
+                )}{" "}
+              </div>
             </li>
           );
         })}
