@@ -21,8 +21,8 @@ import { useTranslation } from "react-i18next";
 import { notificationsContextStore } from "../contexts/notificationContext";
 import socket from "../socket";
 import { userAuthContext } from "../contexts/authContext";
-const teacherId  = localStorage.getItem("teacher_id");
-const userId  = localStorage.getItem("id");
+const teacherId = localStorage.getItem("teacher_id");
+const userId = localStorage.getItem("id");
 
 const isLoggedIn = Boolean(userId);
 export const menuItems: MenuItem[] = [
@@ -113,7 +113,7 @@ export const menuItems: MenuItem[] = [
             path: "teacher-page/" + teacherId,
             active: false,
           },
-        ]
+        ],
       },
       {
         name: "STUDENT",
@@ -134,7 +134,7 @@ export const menuItems: MenuItem[] = [
     icon: faMessage,
     path: "/message-page",
     active: false,
-    messageNotification:true
+    messageNotification: true,
   },
   {
     name: "SETTING",
@@ -158,7 +158,7 @@ interface MenuItem {
   subItems?: Array<MenuItem>;
   finalItem?: any;
   properties?: any;
-  messageNotification?:any;
+  messageNotification?: any;
 }
 
 const SideMenu: React.FC = () => {
@@ -251,9 +251,7 @@ const SideMenu: React.FC = () => {
     cursor: "pointer",
     borderBottom: "1px solid #ffff",
     background:
-      window.location.pathname === itemPath
-        ? "black "
-        : "transparent",
+      window.location.pathname === itemPath ? "black " : "transparent",
     borderRadius: window.location.pathname === itemPath ? "4px" : "",
     boxShadow:
       window.location.pathname === itemPath
@@ -308,7 +306,7 @@ const SideMenu: React.FC = () => {
   }, []);
 
   const { notifications, filteredNotifications } = notificationsContextStore();
-  const { notificationCount} = userAuthContext();
+  const { allChat, sender } = userAuthContext();
 
   useEffect(() => {
     filteredNotifications;
@@ -353,12 +351,16 @@ const SideMenu: React.FC = () => {
             />
           </svg>
         </div>
-        <div className="mt-24 w-full" style={{ width: isMenuOpen ? "" : "10px" }}>
+        <div
+          className="mt-24 w-full"
+          style={{ width: isMenuOpen ? "" : "10px" }}
+        >
           {menuItems.map((item) => (
             <ul
               key={item.name}
-              className={`p-0 ${item.active ? "active w-full" : ""} ${subMenuVisibility ? "mb-0" : ""
-                }`}
+              className={`p-0 ${item.active ? "active w-full" : ""} ${
+                subMenuVisibility ? "mb-0" : ""
+              }`}
             >
               <Link
                 to={item.path}
@@ -366,30 +368,33 @@ const SideMenu: React.FC = () => {
                 style={
                   item.active
                     ? {
-                      backgroundColor: "#000",
-                      color: "#fff",
-                      fontWeight: "900",
-                      borderRadius: "2px",
-                    }
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        fontWeight: "900",
+                        borderRadius: "2px",
+                      }
                     : {}
                 }
                 onClick={() => handleMenuItemClick(item.name)}
               >
-                 {item.properties && (
+                {item.properties && (
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
-                    {isLoggedIn 
-                      ? filteredNotifications?.length + notifications?.length 
-                      : "NA"
-                    }
+                    {isLoggedIn
+                      ? filteredNotifications?.length + notifications?.length
+                      : "NA"}
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                   </div>
                 )}
-                 {item.messageNotification && (
+                {item.messageNotification && (
                   <div className="absolute px-1 text-sm text-center text-white bg-teal-500 rounded-full top-[9px] left-1">
-                    {isLoggedIn 
-                      ? notificationCount.length 
-                      : "NA"
-                    }
+                    {isLoggedIn
+                      ? allChat.reduce((total: number, chat: any) => {
+                        const unreadMessages = chat.messages?.filter(
+                          (e: any) => e.is_read === false && e.receiver === sender
+                        )?.length || 0;
+                        return total + unreadMessages;
+                      }, 0)
+                      : "0"}
                     <div className="absolute top-0 w-full h-full bg-teal-200 rounded-full start-0 -z-10 animate-ping"></div>
                   </div>
                 )}
@@ -417,8 +422,9 @@ const SideMenu: React.FC = () => {
                           : faChevronRight
                       }
                       style={iconStyles(item.name, item.path)}
-                      className={`h-3 ml-auto mr-6  ${isMenuOpen ? "block" : "hidden"
-                        }`}
+                      className={`h-3 ml-auto mr-6  ${
+                        isMenuOpen ? "block" : "hidden"
+                      }`}
                     />
                   )}
                 </div>
@@ -433,8 +439,9 @@ const SideMenu: React.FC = () => {
                         onClick={() => handleIntoMenuItemClick(subItem.name)}
                       >
                         <div
-                          className={`flex items-center rounded-md shadow-lg mt-2 py-4 pl-4 text-white ${item.name === "EVENTS" ? "pl-[40px]" : "pl-[32px]"
-                            }`}
+                          className={`flex items-center rounded-md shadow-lg mt-2 py-4 pl-4 text-white ${
+                            item.name === "EVENTS" ? "pl-[40px]" : "pl-[32px]"
+                          }`}
                           style={{
                             borderBottom: "1px solid white",
                           }}
@@ -442,44 +449,54 @@ const SideMenu: React.FC = () => {
                           <span style={{ marginLeft: "30px" }}>
                             {t(subItem.name)}
                           </span>
-                          {subItem.finalItem && (
-                            teacherId !== null && <FontAwesomeIcon
+                          {subItem.finalItem && teacherId !== null && (
+                            <FontAwesomeIcon
                               icon={
-                                subIntoMenuVisibility[subItem.name] && subItem.finalItem
+                                subIntoMenuVisibility[subItem.name] &&
+                                subItem.finalItem
                                   ? faChevronDown
                                   : faChevronRight
                               }
-                              className={`h-3 text-white ml-auto mr-6 ${isMenuOpen ? "block" : "hidden"
-                                }`}
-                              onClick={() => handleIntoMenuItemClick(subItem.name)}
+                              className={`h-3 text-white ml-auto mr-6 ${
+                                isMenuOpen ? "block" : "hidden"
+                              }`}
+                              onClick={() =>
+                                handleIntoMenuItemClick(subItem.name)
+                              }
                             />
                           )}
                         </div>
                       </Link>
-                      {subIntoMenuVisibility[subItem.name] && subItem.finalItem && (
-                        <div className={`${isMenuOpen ? "block" : "hidden"}`}>
-                          {subItem?.finalItem?.map((finalItem: any) => (
-                            teacherId !== null &&
-                            <li key={finalItem.name} className="list-none">
-                              <Link
-                                to={finalItem.path}
-                                className="w-full text-white"
-                              >
-                                <div
-                                  className="text-start rounded-md mt-2 py-4 pl-16 text-white"
-                                  style={{
-                                    borderBottom: "1px solid white",
-                                  }}
-                                >
-                                  <span style={{ marginLeft: "30px" }}>
-                                    {t(finalItem.name)}
-                                  </span>
-                                </div>
-                              </Link>
-                            </li>
-                          ))}
-                        </div>
-                      )}
+                      {subIntoMenuVisibility[subItem.name] &&
+                        subItem.finalItem && (
+                          <div className={`${isMenuOpen ? "block" : "hidden"}`}>
+                            {subItem?.finalItem?.map(
+                              (finalItem: any) =>
+                                teacherId !== null && (
+                                  <li
+                                    key={finalItem.name}
+                                    className="list-none"
+                                  >
+                                    <Link
+                                      to={finalItem.path}
+                                      className="w-full text-white"
+                                    >
+                                      <div
+                                        className="text-start rounded-md mt-2 py-4 pl-16 text-white"
+                                        style={{
+                                          borderBottom: "1px solid white",
+                                        }}
+                                      >
+                                        <span style={{ marginLeft: "30px" }}>
+                                          {t(finalItem.name)}
+                                        </span>
+                                      </div>
+                                    </Link>
+                                  </li>
+                                )
+                            )}
+                          </div>
+                        )}
                     </li>
                   ))}
                 </div>

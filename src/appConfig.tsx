@@ -5,7 +5,7 @@
 // https://18.216.79.130:5000/api/login
 // https://18.216.79.130:5000
 // https://backend.golf-encounters.com:5000/
-const API_BASE_URL = "https://backend.golf-encounters.com:5000"
+const API_BASE_URL = "http://localhost:5000"
 const API_VERSION = "api";
 
 export const API_ENDPOINTS = {
@@ -140,9 +140,15 @@ export const API_ENDPOINTS = {
   GETEVENTPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-event-payment`,
   GETTEACHERPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-teacher-payment`,
 
-
   //chat
   ALLCHAT: `${API_BASE_URL}/${API_VERSION}/all-chat`,
   GETCHAT: `${API_BASE_URL}/${API_VERSION}/get-chat`,
-
+  POSTCHAT: `${API_BASE_URL}/${API_VERSION}/post-chat`,
+  UPDATECHATSTATUS: `${API_BASE_URL}/${API_VERSION}/update-chat-status`,
+  UPDATEMESSAGESTATUS: `${API_BASE_URL}/${API_VERSION}/update-message-status`,
+  DELETEMESSAGE: `${API_BASE_URL}/${API_VERSION}/delete-message`,
+  UPDATEMESSAGE: `${API_BASE_URL}/${API_VERSION}/update-message`,
+  UPDATEUSERPRESENSE: `${API_BASE_URL}/${API_VERSION}/user-presense`,
+  ONLINEUSERS: `${API_BASE_URL}/${API_VERSION}/online-users`,
+  PUSHERAUTH:`${API_BASE_URL}/${API_VERSION}/pusher/auth`,
 };

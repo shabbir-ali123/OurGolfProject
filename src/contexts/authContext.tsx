@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../appConfig";
 import { fetchUserPosts } from "../utils/fetchPosts";
 import { fetchUserEvents } from "../utils/fetchEvents";
+import { fetchMessages, subscribeToChannel } from "../utils/fetchChat";
+import { pusher } from "../components/chat/pusher";
+import axios from "axios";
 
 const UserAuthContext = React.createContext<any>({});
 
@@ -15,6 +18,12 @@ export const AuthContext = ({ children }: any) => {
   const [chatUser, setChatUser] = useState<string>("4");
   const [activeChatId, setActiveChatId] = useState<any>(Boolean);
   const [notificationCount, setNotificationCount] = useState<any>([]);
+  const sender = localStorage.getItem("id")
+  const [allChat, setAllChat] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
+
+
+
 
   const navigate = useNavigate();
   const [userFormData, setUserFormData] = useState({
@@ -43,6 +52,18 @@ export const AuthContext = ({ children }: any) => {
       return setUser(value);
     },
     [user]
+  );
+  const handleLoading = useCallback(
+    (value: any) => {
+      return setLoading(value);
+    },
+    [loading]
+  );
+  const handleAllChat = useCallback(
+    (value: any) => {
+      return setAllChat(value);
+    },
+    [allChat]
   );
 
   const handleSelectedUser = useCallback(
@@ -114,7 +135,34 @@ export const AuthContext = ({ children }: any) => {
       }
     }
   };
+  useEffect(() => {
+    fetchMessages(sender, handleAllChat);
+  }, [sender, notificationCount, loading]);
 
+  useEffect(() => {
+    // Function to handle the Pusher connection state
+    const handlePusherConnection = () => {
+      pusher.connection.bind('connected', () => {
+        const id = pusher.connection.socket_id;
+        if (id) {
+          subscribeToChannel(id);
+        } else {
+          console.error('Socket ID is not available.');
+        }
+      });
+
+      pusher.connection.bind('error', (error: any) => {
+        console.error('Pusher connection error:', error);
+      });
+    };  
+
+    handlePusherConnection();
+
+    // Cleanup function to unsubscribe from the channel on component unmount
+    return () => {
+      pusher.unsubscribe('presence-channel');
+    };
+  }, []);
 
   const value = {
     handleUser,
@@ -124,13 +172,18 @@ export const AuthContext = ({ children }: any) => {
     handleReceiver,
     handleChatId,
     handleNotificationCount,
+    handleLoading,
+    handleAllChat,
     notificationCount,
+    loading,
     activeChatId,
     receiver,
     chatUser,
     userFormData,
     user,
     message,
+    allChat,
+    sender
   };
   return (
     <UserAuthContext.Provider value={value}>
