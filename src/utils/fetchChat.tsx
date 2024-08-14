@@ -28,10 +28,10 @@ export const fetchMessage = async (
   }
 };
 
-export const postChat = async (formData: any, setMessage: any) => {
+export const postChat = async (formData: any, setMessage: any, handleLoading:any) => {
   const { newMessage, sender, receiver } = formData;
   try {
-    await axios.post(API_ENDPOINTS.POSTCHAT, {
+    const res =  await axios.post(API_ENDPOINTS.POSTCHAT, {
       channel: "my-channel",
       event: "my-event",
       message: newMessage,
@@ -39,6 +39,8 @@ export const postChat = async (formData: any, setMessage: any) => {
       receiver: receiver,
     });
     fetchMessage(sender, receiver, setMessage);
+    const refresh = Math.random();
+    handleLoading(refresh)
   } catch (error) {
     console.error("Error sending message:", error);
   }

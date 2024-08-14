@@ -11,6 +11,23 @@ import {
   fetchOnlineUsers,
   updateChatStatus,
 } from "../../utils/fetchChat";
+import {
+  faHome,
+  faGlobe,
+  faBell,
+  faUser,
+  faCalendar,
+  faUserFriends,
+  faMessage,
+  faPeopleGroup,
+  faSearch,
+  faGear,
+  faSignOutAlt,
+  faChevronDown,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const AllUserChat = () => {
   const { t, i18n } = useTranslation();
   const [sender, setSender] = useState(localStorage.getItem("id"));
@@ -29,7 +46,9 @@ const AllUserChat = () => {
     handleLoading,
     loading,
   } = userAuthContext();
-
+  const handleBack = () => {
+    handleChatId(false)
+}
   useEffect(() => {
     if (allChat && allChat[0]?.user) {
       const defaultMessages = allChat[0].user.id;
@@ -49,10 +68,24 @@ const AllUserChat = () => {
 
   console.log(onlineUsers, "isOnline");
   return (
-    <div className="w-[30%] sticky">
-      <div className=" shadow-lg py-10 h-[75vh] overflow-hidden overflow-y-auto bg-[#17b3a6]">
+    <div className={` w-[100%] h-[100vh] sticky md:block md:w-[30%] ${activeChatId ? "hidden" : "block"}`}>
+      <div className=" shadow-lg pb-10 h-[83%] overflow-hidden overflow-y-auto bg-[#17b3a6]">
         <div className="px-2 text-white">
+          <div className="flex items-center gap-10">
+          {/* {activeChatId && <button className="bg-white rounded-full h-6 w-6 cursor-pointer" onClick={
+                handleBack
+            }>
+                 <FontAwesomeIcon
+                      icon={
+                       
+                          faChevronLeft
+                      }
+            
+                    />
+            </button>} */}
           <h3>Messages</h3>
+          </div>
+      
           <UsersList />
         </div>
 

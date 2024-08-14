@@ -13,6 +13,12 @@ import {
   updateChatStatus,
   updateMessageStatus,
 } from "../../utils/fetchChat";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+ 
+  faChevronLeft,
+ 
+} from "@fortawesome/free-solid-svg-icons";
 const Messages = () => {
   const { t } = useTranslation();
   const [messages, setMessages] = useState<any>([]);
@@ -28,6 +34,8 @@ const Messages = () => {
     handleNotificationCount,
     notificationCount,
     handleLoading,
+    activeChatId,
+    handleChatId,
     loading,
   } = userAuthContext();
   const messagesEndRef = useRef(null);
@@ -94,7 +102,7 @@ const Messages = () => {
     };
   }, []);
   // Empty dependency array ensures this effect runs only once when the component mounts
-
+console.log(loading,"hey")
   const handleSendMessage = async (e: any) => {
     e.preventDefault();
     const formData = {
@@ -102,8 +110,7 @@ const Messages = () => {
       sender: sender,
       receiver: receiver,
     };
-    console.log(newMessage);
-    postChat(formData, setMessages);
+    postChat(formData, setMessages, handleLoading);
     setNewMessage("");
   };
 
@@ -162,10 +169,24 @@ const Messages = () => {
       message: newMessage,
     }));
   };
+  const handleBack = () => {
+    handleChatId(false)
+}
   return (
-    <div className="flex flex-col justify-center h-[77vh] pb-16  sticky w-[100%]  bg-white shadow-lg">
-      <div className="flex items-center justify-between gap-4 mb-8 shadow-lg p-4">
-        <div className="flex items-end gap-4 ">
+    <div className={`md:flex ${activeChatId ? "block" : "hidden"} overflow-hidden flex-col justify-center md:h-[80vh] pb-16  sticky w-[100%]  bg-white shadow-lg`}>
+      <div className="flex items-center justify-between gap-4 mb-8 shadow-lg p-4 ">
+        <div className="flex items-center gap-4 ">
+        {activeChatId && <button className="bg-grey rounded-full h-6 w-6 cursor-pointer" onClick={
+                handleBack
+            }>
+                 <FontAwesomeIcon
+                      icon={
+                       
+                          faChevronLeft
+                      }
+            
+                    />
+            </button>}
           <img
             src={messages.receiver?.imageUrl}
             className="rounded-full"
@@ -175,25 +196,26 @@ const Messages = () => {
           />
           <p>{messages.receiver?.nickName}</p>
         </div>
-        <div>
+        {/* <div>
           <p>
             Member Since:
             {getTimeAgo(new Date(messages.receiver?.createdAt), t)}
           </p>
-        </div>
+        </div> */}
       </div>
-      <div className="flex-1 overflow-y-scroll bg-white border border-gray-300 rounded-lg p-4">
+      <div className="flex-1 custom-scrollbar md:overflow-y-auto bg-white border   border-gray-300 rounded-lg p-4 ">
+      
         {messages.userMessages?.length > 0 ? (
           messages.userMessages.map((msg: any, index: any) => (
             <div
               key={index}
-              className={`p-2 mb-2 bg-gray-100 w-[50%] rounded-e-xl relative ${
+              className={`p-2 mb-2  bg-gray-100 sm:w-[50%] w-full rounded-e-xl relative ${
                 msg.sender === sender
-                  ? "float-left rounded-es-xl"
-                  : "float-right rounded-es"
+                  ? "float-right rounded-es-xl"
+                  : "float-left ml-2 bg-[#e4fffd] md:ml-0 rounded-es"
               }`}
             >
-              <div className="absolute z-50 right-[10px] top-0 p-2 flex justify-center items-center">
+              <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2 flex justify-center items-center">
                 <span>
                   <small className="text-gray-500">
                     {getTimeAgo(new Date(msg.timestamp), t)}
@@ -201,7 +223,7 @@ const Messages = () => {
                 </span>
                 {
                   <button
-                    className="p-0 m-0  focus:outline-none"
+                    className="p-0 m-0  focus:outline-none bg-transparent"
                     onClick={() => {
                       handleMessageDropdown(msg.id);
                     }}
@@ -224,7 +246,7 @@ const Messages = () => {
                 }
               </div>
               {messageDropdown == msg.id && showmessageDropdown && (
-                <div className="absolute right-[15%] h-auto p-2 w-24 rounded-md bg-white z-50">
+                <div className="absolute right-[15%] h-auto p-2 w-24 rounded-md bg-white z-50 ">
                   {sender != msg.receiver && (
                     <>
                       <button
@@ -291,8 +313,8 @@ const Messages = () => {
                 </div>
               )}
 
-              <div className="flex items-start gap-4 relative">
-                <img
+              <div className="flex items-start gap-4 relative mt-4">
+                {/* <img
                   src={
                     msg.sender === sender
                       ? messages.sender.imageUrl
@@ -302,9 +324,9 @@ const Messages = () => {
                   height="40px"
                   alt=""
                   className="rounded-full"
-                />
+                /> */}
                 <div>
-                  <strong
+                  {/* <strong
                     className={`text-blue-600 gap-4  ${
                       msg.sender === sender ? "text-left" : "text-right"
                     }`}
@@ -312,7 +334,7 @@ const Messages = () => {
                     {msg.sender === sender
                       ? messages.sender.nickName
                       : messages.receiver.nickName}
-                  </strong>
+                  </strong> */}
                   <p>
                     {editMessage?.id == msg.id ? (
                       <form onSubmit={editChatMessage}>
@@ -332,9 +354,9 @@ const Messages = () => {
                   </p>
                 </div>
               </div>
-              <small>
+              <small className="text-[green]">
                 {msg.sender == sender && msg.is_read == true
-                  ? "msg has been readed"
+                  ? "Readed"
                   : ""}
               </small>
             </div>
@@ -346,22 +368,22 @@ const Messages = () => {
       </div>
       <form
         onSubmit={handleSendMessage}
-        className="block z-50 absolute bottom-[-2%] w-[92%] gap-2 p-4  border-t border-gray-300"
+        className="block z-50 md:absolute bottom-[-2%] w-[92%] gap-2 md:p-4  border-t border-gray-300 "
       >
-        <div className="sticky top-0 w-full bottom-0 flex gap-2 p-4">
+        <div className="fixed justify-start md:flex md:sticky md:top-0 w-full bottom-0  flex gap-2 p-4 z-[9999]">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Enter your message"
+            placeholder="Write message"
             required
-            className="flex-1 px-4 xl:w-[600px] py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex md:flex-1 px-2 w-[200px] md:px-4 xl:w-[600px] py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+            className="px-2 md:px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
           >
-            Send Message
+            Send
           </button>
         </div>
       </form>
