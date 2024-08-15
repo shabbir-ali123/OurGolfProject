@@ -377,7 +377,8 @@ console.log(loading,"hey")
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Write message"
             required
-            className="flex md:flex-1 px-2 w-[200px] md:px-4 xl:w-[600px] py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex md:flex-1 px-3 w-[200px] md:px-5 xl:w-[600px] py-2 border-[1px] border-solid border-[#e7e7e7] rounded-lg  transition-shadow duration-200 ease-in-out shadow-sm focus:shadow-md hover:shadow-lg"
+
           />
           <button
             type="submit"
