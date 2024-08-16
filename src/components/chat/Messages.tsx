@@ -86,7 +86,7 @@ const Messages = () => {
 
     checkForNotifications();
 
-    // Cleanup function to remove event listener when component unmounts
+  
     return () => {
       if (navigator.serviceWorker) {
         navigator.serviceWorker.ready.then((registration) => {
@@ -101,7 +101,7 @@ const Messages = () => {
       }
     };
   }, []);
-  // Empty dependency array ensures this effect runs only once when the component mounts
+ 
 console.log(loading,"hey")
   const handleSendMessage = async (e: any) => {
     e.preventDefault();
@@ -162,8 +162,6 @@ console.log(loading,"hey")
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMessage = e.target.value;
-
-    // Update only the message part of the state while keeping the id the same
     setEditMessage((prevState: any) => ({
       ...prevState,
       message: newMessage,
@@ -215,7 +213,7 @@ console.log(loading,"hey")
                   : "float-left ml-2 bg-[#e4fffd] md:ml-0 rounded-es"
               }`}
             >
-              <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2 flex justify-center items-center">
+              <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2 flex justify-center ">
                 <span>
                   <small className="text-gray-500">
                     {getTimeAgo(new Date(msg.timestamp), t)}
