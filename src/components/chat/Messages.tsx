@@ -207,13 +207,13 @@ console.log(loading,"hey")
           messages.userMessages.map((msg: any, index: any) => (
             <div
               key={index}
-              className={`p-2 mb-2  bg-gray-100 sm:w-[50%] w-full rounded-e-xl relative ${
+              className={`p-2 mb-2   sm:w-[50%] w-full rounded-e-xl relative ${
                 msg.sender === sender
-                  ? "float-right rounded-es-xl"
-                  : "float-left ml-2 bg-[#e4fffd] md:ml-0 rounded-es"
+                  ? "float-right rounded-es-xl bg-gray-100 w-[88%]"
+                  : "float-left ml-0 w-[88%] bg-[#e4fffd] md:ml-0 rounded-es"
               }`}
             >
-              <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2 flex justify-center ">
+                <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2 flex justify-center items-center">
                 <span>
                   <small className="text-gray-500">
                     {getTimeAgo(new Date(msg.timestamp), t)}
@@ -324,7 +324,8 @@ console.log(loading,"hey")
                   className="rounded-full"
                 /> */}
                 <div>
-                  {/* <strong
+                  <div className="flex items-start">
+                  <strong
                     className={`text-blue-600 gap-4  ${
                       msg.sender === sender ? "text-left" : "text-right"
                     }`}
@@ -332,7 +333,10 @@ console.log(loading,"hey")
                     {msg.sender === sender
                       ? messages.sender.nickName
                       : messages.receiver.nickName}
-                  </strong> */}
+                  </strong>
+                
+                  </div>
+               
                   <p>
                     {editMessage?.id == msg.id ? (
                       <form onSubmit={editChatMessage}>
