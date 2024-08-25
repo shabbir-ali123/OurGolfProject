@@ -15,9 +15,9 @@ import {
 } from "../../utils/fetchChat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
- 
+
   faChevronLeft,
- 
+
 } from "@fortawesome/free-solid-svg-icons";
 const Messages = () => {
   const { t } = useTranslation();
@@ -86,7 +86,7 @@ const Messages = () => {
 
     checkForNotifications();
 
-  
+
     return () => {
       if (navigator.serviceWorker) {
         navigator.serviceWorker.ready.then((registration) => {
@@ -101,8 +101,8 @@ const Messages = () => {
       }
     };
   }, []);
- 
-console.log(loading,"hey")
+
+  console.log(loading, "hey")
   const handleSendMessage = async (e: any) => {
     e.preventDefault();
     const formData = {
@@ -169,22 +169,22 @@ console.log(loading,"hey")
   };
   const handleBack = () => {
     handleChatId(false)
-}
+  }
   return (
     <div className={`md:flex ${activeChatId ? "block" : "hidden"} overflow-hidden flex-col justify-center md:h-[80vh] pb-16  sticky w-[100%]  bg-white shadow-lg`}>
       <div className="flex items-center justify-between gap-4 mb-8 shadow-lg p-4 ">
         <div className="flex items-center gap-4 ">
-        {activeChatId && <button className="bg-grey rounded-full h-6 w-6 cursor-pointer" onClick={
-                handleBack
-            }>
-                 <FontAwesomeIcon
-                      icon={
-                       
-                          faChevronLeft
-                      }
-            
-                    />
-            </button>}
+          {activeChatId && <button className="bg-grey block md:hidden rounded-full h-6 w-6 cursor-pointer" onClick={
+            handleBack
+          }>
+            <FontAwesomeIcon
+              icon={
+
+                faChevronLeft
+              }
+
+            />
+          </button>}
           <img
             src={messages.receiver?.imageUrl}
             className="rounded-full"
@@ -202,18 +202,17 @@ console.log(loading,"hey")
         </div> */}
       </div>
       <div className="flex-1 custom-scrollbar md:overflow-y-auto bg-white border   border-gray-300 rounded-lg p-4 ">
-      
+
         {messages.userMessages?.length > 0 ? (
           messages.userMessages.map((msg: any, index: any) => (
             <div
               key={index}
-              className={`p-2 mb-2   sm:w-[50%] w-full rounded-e-xl relative ${
-                msg.sender === sender
+              className={`p-2 mb-2   sm:w-[50%] w-full rounded-e-xl relative ${msg.sender === sender
                   ? "float-right rounded-es-xl bg-gray-100 w-[88%]"
                   : "float-left ml-0 w-[88%] bg-[#e4fffd] md:ml-0 rounded-es"
-              }`}
+                }`}
             >
-                <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2 flex justify-center items-center">
+              <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2  flex justify-center gap-1 items-center">
                 <span>
                   <small className="text-gray-500">
                     {getTimeAgo(new Date(msg.timestamp), t)}
@@ -312,33 +311,19 @@ console.log(loading,"hey")
               )}
 
               <div className="flex items-start gap-4 relative mt-4">
-                {/* <img
-                  src={
-                    msg.sender === sender
-                      ? messages.sender.imageUrl
-                      : messages.receiver.imageUrl
-                  }
-                  width="40px"
-                  height="40px"
-                  alt=""
-                  className="rounded-full"
-                /> */}
                 <div>
                   <div className="flex items-start">
-                  <strong
-                    className={`text-blue-600 gap-4  ${
-                      msg.sender === sender ? "text-left" : "text-right"
-                    }`}
-                  >
-                    {msg.sender === sender
-                      ? messages.sender.nickName
-                      : messages.receiver.nickName}
-                  </strong>
-                
+                    <strong
+                      className={`text-blue-600 gap-4 ${msg.sender === sender ? "text-left" : "text-right"
+                        }`}
+                    >
+                      {msg.sender === sender
+                        ? "Me"
+                        : messages.receiver.nickName}
+                    </strong>
                   </div>
-               
                   <p>
-                    {editMessage?.id == msg.id ? (
+                    {editMessage?.id === msg.id ? (
                       <form onSubmit={editChatMessage}>
                         <input
                           type="text"
@@ -356,6 +341,7 @@ console.log(loading,"hey")
                   </p>
                 </div>
               </div>
+
               <small className="text-[green]">
                 {msg.sender == sender && msg.is_read == true
                   ? "Readed"
@@ -370,16 +356,16 @@ console.log(loading,"hey")
       </div>
       <form
         onSubmit={handleSendMessage}
-        className="block z-50 md:absolute bottom-[-2%] w-[92%] gap-2 md:p-4  border-t border-gray-300 "
+        className="block z-50 md:absolute bottom-[-2%] w-[92%] gap-2 md:p-4   border-t border-gray-300 "
       >
-        <div className="fixed justify-start md:flex md:sticky md:top-0 w-full bottom-0  flex gap-2 p-4 z-[9999]">
+        <div className="fixed bg-[#e6e6e6] md:bg-transparent justify-center md:justify-start flex md:sticky md:top-0 w-full bottom-0  flex gap-2 p-4 z-[9999]">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Write message"
             required
-            className="flex md:flex-1 px-3 w-[200px] md:px-5 xl:w-[600px] py-2 border-[1px] border-solid border-[#e7e7e7] rounded-lg  transition-shadow duration-200 ease-in-out shadow-sm focus:shadow-md hover:shadow-lg"
+            className="flex md:flex-1 px-3 w-[250px] md:px-5 xl:w-[600px] py-2 border-[1px] border-solid border-[#e7e7e7] rounded-lg  transition-shadow duration-200 ease-in-out shadow-sm focus:shadow-md hover:shadow-lg"
 
           />
           <button
