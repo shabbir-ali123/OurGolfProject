@@ -19,6 +19,7 @@ import {
   faChevronLeft,
 
 } from "@fortawesome/free-solid-svg-icons";
+import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 const Messages = () => {
   const { t } = useTranslation();
   const [messages, setMessages] = useState<any>([]);
@@ -57,9 +58,6 @@ const Messages = () => {
           message: event.data.body,
           timestamp: new Date().toISOString(),
         };
-        // Add the new message to the messages state
-        // setMessages((prevMessages) => [...prevMessages, incomingMessage]);
-        // Increment the notification count
         handleNotificationCount(incomingMessage);
       }
     };
@@ -171,7 +169,7 @@ const Messages = () => {
     handleChatId(false)
   }
   return (
-    <div className={`md:flex ${activeChatId ? "block" : "hidden"} overflow-hidden flex-col justify-center md:h-[80vh] pb-16  sticky w-[100%]  bg-white shadow-lg`}>
+    <div className={`md:flex ${activeChatId ? "block" : "hidden"} overflow-hidden flex-col justify-center md:h-[80vh] pb-16  sticky w-[100%] relative bg-white md:shadow-lg`}>
       <div className="flex items-center justify-between gap-4 mb-8 shadow-lg p-4 ">
         <div className="flex items-center gap-4 ">
           {activeChatId && <button className="bg-grey block md:hidden rounded-full h-6 w-6 cursor-pointer" onClick={
@@ -310,7 +308,7 @@ const Messages = () => {
                 </div>
               )}
 
-              <div className="flex items-start gap-4 relative mt-4">
+              <div className="flex items-start gap-4 relative">
                 <div>
                   <div className="flex items-start">
                     <strong
@@ -356,23 +354,23 @@ const Messages = () => {
       </div>
       <form
         onSubmit={handleSendMessage}
-        className="block z-50 md:absolute bottom-[-2%] w-[92%] gap-2 md:p-4   border-t border-gray-300 "
+        className="block z-50 md:absolute bottom-[-2%] w-[97%] gap-2 md:p-4   border-t border-gray-300 "
       >
-        <div className="fixed bg-[#e6e6e6] md:bg-transparent justify-center md:justify-start flex md:sticky md:top-0 w-full bottom-0  flex gap-2 p-4 z-[9999]">
+        <div className="fixed bg-[#e6e6e6] md:bg-transparent px-1 py-2 justify-center gap-2  md:justify-start flex md:sticky md:top-0 w-full bottom-0  flex gap-2 p-[12px 0px] z-[9999]">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Write message"
             required
-            className="flex md:flex-1 px-3 w-[250px] md:px-5 xl:w-[600px] py-2 border-[1px] border-solid border-[#e7e7e7] rounded-lg  transition-shadow duration-200 ease-in-out shadow-sm focus:shadow-md hover:shadow-lg"
+            className="flex md:flex-1 px-3 w-[80%] md:px-5 xl:w-[600px] py-2 border-[1px] border-solid border-[#e7e7e7] rounded-lg  transition-shadow duration-200 ease-in-out shadow-sm focus:shadow-md hover:shadow-lg"
 
           />
           <button
             type="submit"
-            className="px-2 md:px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+            className="w-[15%] md:w-auto mx-2 md:px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
           >
-            Send
+            <PaperAirplaneIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
           </button>
         </div>
       </form>

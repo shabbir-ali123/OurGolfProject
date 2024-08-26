@@ -36,7 +36,7 @@ export const UsersList = () => {
 
   return (
     <div className=" p-2 ">
-      <div className="relative">
+      <div className="relative overflow-hidden rounded-md">
         <input
           type="text"
           placeholder="Search users"
@@ -45,7 +45,7 @@ export const UsersList = () => {
             setSearchTerm(e.target.value);
             setSideSearch(true);
           }}
-          className="p-1 pl-10 pr-6  border-[1px] border-solid border-[#c8c8c8] rounded"
+          className="p-1 pl-10 pr-6  border-[1px] border-solid border-[#c8c8c8] rounded w-full "
         />
         <FontAwesomeIcon
           icon={faSearch}

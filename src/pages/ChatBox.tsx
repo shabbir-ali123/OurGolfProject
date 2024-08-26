@@ -151,7 +151,7 @@ export default function ChatApp() {
   if (!chat || !channel) return <p>Loading...</p>;
 
   return (
-    <main className="bg-gray-200 flex flex-col rounded-md w-4/5 h-[87vh] p-4 shadow-lg">
+    <main className="bg-gray-200 flex flex-col rounded-md w-4/5 h-[87vh] p-4 shadow-lg ">
       <header className="flex bg-white justify-between items-center p-4 mb-4 shadow-md rounded-lg" >
       {messages.map((message) => {
             const user = users.find((user: any) => user.id == message.userId);

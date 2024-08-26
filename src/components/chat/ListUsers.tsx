@@ -68,8 +68,8 @@ const AllUserChat = () => {
 
   console.log(onlineUsers, "isOnline");
   return (
-    <div className={` w-[100%] h-[100vh] sticky md:block md:w-[30%] ${activeChatId ? "hidden" : "block"}`}>
-      <div className=" shadow-lg pb-10 h-[83%] overflow-hidden overflow-y-auto bg-[#17b3a6]">
+    <div className={` w-[100%]  h-[100vh] sticky md:block md:w-[30%] ${activeChatId ? "hidden" : "block"}`}>
+      <div className=" shadow-lg pb-10 h-full md:h-[83%] overflow-hidden overflow-y-auto bg-[#17b3a6]  ">
         <div className="px-2 text-white">
           <div className="flex items-center gap-10">
           {/* {activeChatId && <button className="bg-white rounded-full h-6 w-6 cursor-pointer" onClick={

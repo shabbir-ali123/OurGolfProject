@@ -22,7 +22,7 @@ export const ChatSystem = () => {
         handleChatId(false)
     }
     return (
-        <div className={`max-w-7xl md:flex block  items-start mx-auto  rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`} >
+        <div className={`max-w-7xl md:flex block  custom-scrollbar  items-start mx-auto   rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`} >
             {/* {activeChatId && <button onClick={
                 handleBack
             }>
