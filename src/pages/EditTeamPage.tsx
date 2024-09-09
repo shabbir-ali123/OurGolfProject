@@ -80,22 +80,22 @@ const EditTeamPage: FunctionComponent = () => {
   document.body.dir = i18n.dir();
 
 
-//   useEffect(() => {
-//     if (hash) {
-//         const element = document.querySelector(hash);
-//         if (element) {
-//             element.scrollIntoView({ behavior: 'smooth' });
-//         }
-//     }
-// }, [hash]);
-useEffect(() => {
-  if (location.hash) {
-    const element = document.querySelector(location.hash);
-    if (element && !isLoading) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  //   useEffect(() => {
+  //     if (hash) {
+  //         const element = document.querySelector(hash);
+  //         if (element) {
+  //             element.scrollIntoView({ behavior: 'smooth' });
+  //         }
+  //     }
+  // }, [hash]);
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element && !isLoading) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
-  }
-}, [location.hash,isLoading]);
+  }, [location.hash, isLoading]);
   function CustomNextArrow(props: any) {
     const { className, style, onClick } = props;
     return (
@@ -149,6 +149,7 @@ useEffect(() => {
 
   const [open, setOpen] = useState(false);
   const [selectedPlayerNickname, setSelectedPlayerNickname] = useState("");
+  const [selectedPlayerImageUrl, setselectedPlayerImageUrl] = useState("");
   const [selectedTeamName, setSelectedTeamName] = useState("");
   const [currentTeamSize, setCurrentTeamSize] = useState(singleEvent?.teamSize);
   const [capacity, setCapacity] = useState(singleEvent?.capacity);
@@ -210,7 +211,7 @@ useEffect(() => {
       JSON.stringify(teamMembers) !== JSON.stringify(initialMembers);
 
     if (!hasCapacityChanged && !hasTeamSizeChanged && !hasMembersChanged) {
-      toast.error("Please make changes before updating.");
+      toast.error(t("MAKE_CHANGES"));
       return;
     }
 
@@ -279,8 +280,8 @@ useEffect(() => {
     const headers = [];
     for (let i = 1; i <= teamCapacity; i++) {
       headers.push(
-        <th key={i} className="pl-4 py-3 leading-[10.25px] font-medium ">
-          {t("PLAYER")}
+        <th key={i} className=" py-3 leading-[10.25px] font-medium ">
+         
           {i}
         </th>
       );
@@ -335,7 +336,7 @@ useEffect(() => {
 
                   <div className="flex flex-col items-start justify-center gap-4">
                     <div className="text-white bg-[#17b3a6]  rounded-lg">
-                      <p className="p-1 px-2 m-0">{singleEvent?.eventType}</p>
+                      <p className="p-1 px-2 m-0 uppercase">{singleEvent?.eventType}</p>
                     </div>
                     <div className="uppercase relative text-2xl md:text-2xl tracking-[-0.17px] lg:text-16xl leading-[40px] font-semibold text-black">
                       {singleEvent?.eventName}
@@ -406,7 +407,7 @@ useEffect(() => {
                   <button onClick={() => {
                     setCeremonyModel(true)
 
-                  }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white">Add Event Details</button>
+                  }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white text-lg">{t('ADD_EVENT_DETEIALS')}</button>
                 </div>
               }
               {
@@ -416,7 +417,7 @@ useEffect(() => {
                 <AboutEvent totalJoinedMembers={totalJoinedMembers} />
               </div>
 
-              <div className=""  id="all-members">
+              <div className="" id="all-members">
                 <AllMembers />
               </div>
               {/* <div className="max-w-5xl mx-6 xl:mx-auto py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
@@ -604,31 +605,9 @@ useEffect(() => {
                                 min="0"
                               />
                             </div>
-                            {/* <button
-                              className="px-2 py-1 font-normal text-white bg-blue-500 rounded hover:bg-blue-700  xl:m-0"
-                              onClick={handleOpenPlayerList}
-                            >
-                              {t('REMOVE_PLAYER')}
-                            </button> */}
 
-                            {/* <button
-                          className="font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
-                          onClick={() => router(`/add-score-page/${singleEvent?.id}`)}
-                        >
-                          {t('Add Score')}
-                        </button>
-                   */}
-                            {singleEvent.scoringType !== "Normal" &&
-                              <button
-                                className="px-2 py-1 xl:py-0 font-normal text-white bg-blue-500 rounded hover:bg-blue-700"
-                                onClick={handleNavigateHome}
-                              >
-                                {t('ADD_PLAYER_SCORE')}
-
-                              </button>
-                            }
                             {isCreated && (
-                              <div className="flex justify-end ">
+                              <div className="flex justify-center ">
 
                                 <button
                                   className="px-2 py-1 xl:py-2 font-normal text-white bg-blue-500 rounded hover:bg-blue-700"
@@ -639,6 +618,16 @@ useEffect(() => {
                                 </button>
                               </div>
                             )}
+                            {singleEvent.scoringType !== "Normal" &&
+                              <button
+                                className="px-2 py-1 xl:py-0 font-normal text-white bg-blue-500 rounded hover:bg-blue-700"
+                                onClick={handleNavigateHome}
+                              >
+                                {t('ADD_PLAYER_SCORE')}
+
+                              </button>
+                            }
+
                           </div>
                         </>
                       ) : isJoined && singleEvent?.scoringType !== "Normal" ? (
@@ -656,7 +645,7 @@ useEffect(() => {
                             </button>
                           </div> : <div className="flex justify-end w-full">
                             <button
-                              className="p-4 font-normal text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
+                              className="px-6 py-4 font-medium text-white uppercase bg-red-500 rounded cursor-pointer hover:bg-blue-700"
                               onClick={() => router(`/score-board/${singleEvent?.id}`)}
                             >
                               {t('View Score')}
@@ -716,6 +705,7 @@ useEffect(() => {
                                         setSelectedPlayerNickname(member.nickName);
                                         setSelectedUserId(member.userId);
                                         setSelectedTeamName(team.name);
+                                        setselectedPlayerImageUrl(member.imageUrl);
                                         setEditOpen(true);
                                       }}
                                       onDelete={() => setOpen(true)}
@@ -982,11 +972,13 @@ useEffect(() => {
                                       </label>
 
                                       <div className="relative flex items-center w-full gap-2">
-                                        <img
-                                          src="/img/ellipse-13@2x.png"
-                                          alt="Team Logo"
-                                          className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
-                                        />
+                                        {selectedUserId && selectedPlayerNickname && (
+                                          <img
+                                            src={selectedPlayerImageUrl ? selectedPlayerImageUrl : "/img/ellipse-13@2x.png"}
+                                            alt="Player"
+                                            className="absolute w-10 h-10 transform -translate-y-1/2 rounded-full left-2 top-1/2"
+                                          />
+                                        )}
 
                                         <input
                                           type="text"

@@ -44,11 +44,11 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
       e.preventDefault();
       try {
         await addPostComment(formData, handleMessage);
-        toast.success("Comment added successfully");
+        toast.success(t("COMMENT_SUCCESS"));
        
         setFormData({ ...formData, content: "" });
       } catch (error) {
-        toast.error("Error adding comment, please try again");
+        toast.error(t("ERROR_ADDING_COMMENT"));
       }
     };
     const [isOpenMap, setIsOpenMap] = useState<{ [key: string]: boolean }>({});
@@ -95,10 +95,10 @@ const PostCardComments :React.FC<PostCardCommentsProps> = ({
           }));
           if (response.status === 200) {
             handleMessage(response.data.updatedComment.content);
-            toast.success("comment has been updated");
+            toast.success(t("COMMENT_UPDATE"));
           }
         } catch (error) {
-          toast.error(`Error updating likes: ${error}`);
+          toast.error(t("ERROR_UPDATE_LIKES"));
         }
       };
 

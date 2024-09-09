@@ -46,7 +46,7 @@ export const TeacherAppointments = () => {
         }
       );
       if (response.status === 200) {
-        toast.success("Accepted Successfully");
+        toast.success(t("ACCEPT_SUCCESS"));
       }
     } catch (error) {
       toast.error(
@@ -87,7 +87,7 @@ export const TeacherAppointments = () => {
         }
       );
       if (response.status === 200) {
-        toast.success("Declined Successfully");
+        toast.success(t("DECLINED_SUCCESS"));
       }
     } catch (error) {
       toast.error(

@@ -127,7 +127,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
       //   eventId: eventId,
       //   content: "",});
     } catch (error) {
-      showToast("Getting error, please try again", "red");
+      toast.error(t("GETTING_ERROR", "red"));
     } finally {
       setSubmitting(false);
     }

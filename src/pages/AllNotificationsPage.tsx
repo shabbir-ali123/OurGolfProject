@@ -47,7 +47,7 @@ export default function AllNotification() {
       }
     };
     updateNotificationsStatus();
-    toast.success("Marked as Read Successfully");
+    toast.success(t("MARKED_SUCCESS"));
 
   };
   return (

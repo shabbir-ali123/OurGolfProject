@@ -176,13 +176,13 @@ const PostCard = () => {
         });
 
         if (!tt) {
-          toast.success("Post Has been Liked");
+          toast.success(t("POST_LIKED"));
         } else {
         
         }
       }
     } catch (error) {
-      console.error(`Error updating likes: ${error}`);
+      toast.error(t("MUST_CREATE_GIG"));
     }
   };
   const handleLikes = (postId: string, hasLiked: any, event: any) => {

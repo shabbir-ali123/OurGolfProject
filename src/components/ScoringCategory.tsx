@@ -12,11 +12,11 @@ interface ScoringTypeProps {
 }
 
 enum Tab {
-  Normal = "Normal",
-  Regular = "Regular",
-  Single = "single",
-  Double = "double",
-  Triple = "triple",
+  Normal = "(普通)Normal",
+  Regular = "(通常)Regular",
+  Single = "(シングル)single",
+  Double = "(ダブル)double",
+  Triple = "(トリプル)triple",
 }
 
 interface FormData {

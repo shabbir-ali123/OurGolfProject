@@ -330,8 +330,8 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         </h2>
       </div>
       <p>
-        Scoring Type:{" "}
-        <span className="font-bold">{singleEvent?.scoringType} Peria</span>{" "}
+      {t("SCORING_TYPE")} : 
+        <span className="font-bold">{singleEvent?.scoringType} {t("PERIA")}</span>{" "}
       </p>
       <form action="" onSubmit={handleForm}>
         <div className="overflow-x-scroll">
@@ -474,7 +474,9 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                       handleContests(member.userId, e);
                                       
                                     }}
+                                    
                                     />
+                                    
                                 )}
                                 {holeIndex + 1 ==
                                   singleEvent?.nearPinContest && (
@@ -588,7 +590,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   playerData &&
                                   playerData.scorePerShot?.[holeIndex]
                                 }
-                                // placeholder={formData?.scorePerShot[holeIndex] !== "" ? formData?.scorePerShot[holeIndex] : ""}
+                            
                                 onChange={(e) =>
                                   handleInputChange(
                                     member.userId,
@@ -598,7 +600,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                     parseInt(e.target.value)
                                   )
                                 }
-                                // placeholder={hole.toString()}
+                                
                                 className="w-6 text-sm text-center border border-solid border-[#054a51] bg-white shadow-lg"
                               />
                               {holeIndex + 1 == singleEvent?.driverContest && (
@@ -699,7 +701,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
           type="submit"
           className="mt-4 px-4 py-2 bg-[#17b3a6] text-white rounded hover:bg-blue-700"
         >
-          Save Scores
+          {t("SAVE_SCORE")}
         </button>
       </form>
       <div className="">

@@ -66,7 +66,7 @@ document.body.dir = i18n.dir();
     if (name === "eventStartDate") {
       const isValidStartDate = value >= currentDate;
       if (!isValidStartDate) {
-        setError("Start Date should be equal to or greater than the current date.");
+        setError(t("START_ENDDATE"));
         return;
       }
     }
@@ -75,7 +75,7 @@ document.body.dir = i18n.dir();
       const startDate = formData["eventStartDate"];
       const isValidEndDate = startDate && value >= startDate;
       if (!isValidEndDate) {
-        setError("End Date should be equal to or greater than the Start Date.");
+        setError(t("ENDDATE_RULE"));
         return;
       }
     }
@@ -83,7 +83,7 @@ document.body.dir = i18n.dir();
     if (name === "teamSize" || name === "capacity") {
       const teamSizeValue = 1;
       if (!isNaN(teamSizeValue) && typeof numericValue === 'number' && numericValue < teamSizeValue) {
-        setError("Number of players cannot be less than Team Size.");
+        setError(t("ENDDATE_RULE"));
         return;
       }
     }

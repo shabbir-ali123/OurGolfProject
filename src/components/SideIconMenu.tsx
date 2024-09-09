@@ -334,6 +334,7 @@ const SideMenu: React.FC = () => {
         }}
         onMouseEnter={handleMenuMouseEnter}
         onMouseLeave={handleMenuMouseLeave}
+        className="custom-scrollbar"
       >
         <div className="absolute top-0">
           <svg

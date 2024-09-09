@@ -198,7 +198,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ closeModal }) => {
       }
     } catch (error) {
       console.error("Error updating event media:");
-      toast.error("Failed to update event media. Please try again later.");
+      toast.error(t("FAILED_EVENT_UPDATE"));
     }
   };
 

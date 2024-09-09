@@ -76,12 +76,12 @@ console.log(dayFilter,"hello")
             },
           }
         );
-        toast.success("Appointment booked successfully");
+        toast.success(t("BOOKED_SUCCESS"));
       } catch (error) {
-        toast.error("Error booking appointment");
+        toast.error(t("ERROR_BOOKED"));
       }
     } else {
-      toast.error("Please select a time slot");
+      toast.error(t("SELECT_SLOT"));
     }
   };
 

@@ -77,7 +77,7 @@ export const EducatorCard = ({
         bookingsData.isBooked
       );
     } else {
-      toast.error("Please select a schedule");
+      toast.error(t("SELECT_SCHEDULE"));
     }
   };
 
@@ -109,9 +109,9 @@ export const EducatorCard = ({
           },
         }
       );
-      toast.success("Appointment booked successfully");
+      toast.success(t("BOOKED_SUCCESS"));
     } catch (error) {
-      toast.error("Error booking appointment");
+      toast.error(t("ERROR_BOOKED"));
     }
   };
 

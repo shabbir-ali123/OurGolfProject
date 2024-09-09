@@ -8,10 +8,11 @@ import { fetchUserEvents } from "../utils/fetchEvents";
 import { fetchMessages, subscribeToChannel } from "../utils/fetchChat";
 import { pusher } from "../components/chat/pusher";
 import axios from "axios";
-
+import { useTranslation } from "react-i18next";
 const UserAuthContext = React.createContext<any>({});
 
 export const AuthContext = ({ children }: any) => {
+  const { t } = useTranslation();
   const [user, setUser] = useState<any>("");
   const [receiver, setReceiver] = useState('');
   const [message, setMessage] = useState<string>();
@@ -134,7 +135,7 @@ export const AuthContext = ({ children }: any) => {
         toast.error("Update failed: " + error.message);
       } else {
         console.error("An unexpected error occurred");
-        toast.error("An unexpected error occurred");
+        toast.error(t("UNEXPECTED_ERROR"));
       }
     }
   };

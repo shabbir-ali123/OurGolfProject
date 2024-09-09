@@ -334,7 +334,7 @@ const updateSchedules: React.FC = () => {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (gigs?.gigs?.length === 0) {
-      toast.error("You must create at least one gig before updating schedules.");
+      toast.error(t("ERROR_UPDATE_LIKES"));
       return;
     }
     setIsLoading(true);
@@ -367,16 +367,16 @@ const updateSchedules: React.FC = () => {
             }
           );
 
-          toast.success("Teacher Updated Successfully");
+          toast.success(t("UPDATED_SUCCESS"));
           // handleTeacher(response.data.teacher)
           // location.reload();
         } catch (error) {
           console.error("Error updating event media:");
-          toast.error("Failed to update event media. Please try again later.");
+          toast.error(t("FAILED_EVENT_UPDATE"));
         }
       }
     } catch (error) {
-      toast.error("Teacher Already Created");
+      toast.error(t("ALREADY_CREATED"));
     } finally {
       setIsLoading(false);
     }

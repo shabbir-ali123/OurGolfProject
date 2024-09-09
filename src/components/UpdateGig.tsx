@@ -63,7 +63,7 @@ const UpdateGig: React.FC<any> = () => {
     const isTextEmpty =
       !formData.title || !formData.title.replace(/<(.|\n)*?>/g, "").trim();
     if (isTextEmpty && formData?.mediaFiles?.length === 0) {
-      toast.error(t("Please add some text or an image/video before posting."));
+      toast.error(t("BEFORE_POST"));
       return;
     }
 

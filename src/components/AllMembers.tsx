@@ -75,7 +75,7 @@ export default function AllMembers() {
                   </tr>
                 )) : (
                   <tr>
-                    <td className="px-3 py-2 text-sm text-gray-500 text-center">
+                    <td className="px-3 py-2 text-lg text-gray-500 text-center">
                       {t("No confirmed members")}
                     </td>
                   </tr>

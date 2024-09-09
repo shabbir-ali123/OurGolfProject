@@ -30,7 +30,7 @@ const Player: React.FC<PlayerProps> = ({ showNumber, name, imageUrl, enableHover
   };
 
   return (
-    <div className='flex w-full items-center h-[55px] px-2'
+    <div className='flex w-full items-center h-[55px] px-0'
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
       <div className='flex-col text-center items-center'>
@@ -49,7 +49,7 @@ const Player: React.FC<PlayerProps> = ({ showNumber, name, imageUrl, enableHover
           3
         </div>
       )}
-      {enableHover && isHovered && isCreator && (
+      { isCreator && (
         <div className='flex gap-2 z-[10]'>
           {onEdit &&
             <svg

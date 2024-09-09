@@ -303,18 +303,18 @@ const CreateTeacher: React.FC = () => {
             },
           });
     
-            toast.success("Your teacher Account Created Successfully");
+          toast.success(t("TEACHER_CREATED"));
             localStorage.setItem("teacher_id", response.data.teacher.id);
             router('/profile-page');
           
         } catch (error) {
           console.error("Error updating event media:");
-          toast.error("Failed to create teacher's account");
+          toast.error(t("FAILED_CREATE"));
         }
       }
 
     } catch (error) {
-      toast.error("Teacher Already Created");
+      toast.error(t("ALREADY_CREATED"));
     }
   };
 

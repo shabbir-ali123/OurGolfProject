@@ -54,7 +54,7 @@ const PostModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     // Check if text is effectively empty or if no files are selected
     const isTextEmpty = !formData.text || !formData.text.replace(/<(.|\n)*?>/g, '').trim();
     if (isTextEmpty && formData.mediaFiles.length === 0) {
-      alert(t("Please add some text or an image/video before posting."));
+      alert(t("BEFORE_POST"));
       return;
     }
   

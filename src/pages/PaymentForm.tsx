@@ -161,7 +161,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                               type="text"
                               name="paymentFullName"
                               id="paymentFullName"
-                              placeholder="fullNameCheckBox"
+                              placeholder={t("FULL_NAME")}
                               required
                               // value={singleEvent?.accountNumber}
                               className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
@@ -207,7 +207,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                               type="tel"
                               name="paymentTelPhone"
                               id="paymentTelPhone"
-                              placeholder="telephoneCheckBox"
+                              placeholder={t('TELEPHONE')}
                               required
                               // value={singleEvent?.paypalId}
                               className="w-full py-4 text-base font-normal text-gray-600 uppercase border-none rounded-md pl-14 bg-gray-50 font-poppins"
@@ -243,7 +243,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                               type="email"
                               name="paymentEmailAddress"
                               id="paymentEmailAddress"
-                              placeholder="emailCheckBox"
+                              placeholder= {t("EMAIL")}
                               required
                               // value={singleEvent?.accountHolderName}
                               className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"
@@ -281,7 +281,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
                             type="text"
                             name="PaymentHandiCap"
                             id="PaymentHandiCap"
-                            placeholder="handicapCheckBox"
+                            placeholder={t("HANDICAP_SCORE")}
                             required
                             // value={singleEvent?.participationFee}
                             className="w-full py-4 text-base font-normal text-gray-600 border-none rounded-md pl-14 bg-gray-50 font-poppins"

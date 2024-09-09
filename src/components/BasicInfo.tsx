@@ -203,11 +203,11 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
 
       if (response.status === 200) {
         handleMessage(response.data.event);
-        toast.success("Event Updated Successfully");
+        toast.success(t("EVENT_UPDATE"));
       }
     } catch (error) {
       console.error("Error updating event media:");
-      toast.error("Failed to update event media. Please try again later.");
+      toast.error(t("FAILED_EVENT_UPDATE"));
     }
   };
 

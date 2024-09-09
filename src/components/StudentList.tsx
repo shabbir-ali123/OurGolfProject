@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReschedulePop from "../components/ReschedulePop";
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
-
+import { useTranslation } from "react-i18next";
 interface StudentListProps {
   openModal: () => void;
   handleBookAppointment?: () => void;
@@ -33,7 +33,7 @@ const StudentList: React.FC<StudentListProps> = ({
   newStatus
 
 }) => {
- 
+  const { t, i18n } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const [lessontype, setLessonType] =   useState<string | undefined>(undefined);
   
@@ -74,7 +74,7 @@ const StudentList: React.FC<StudentListProps> = ({
         }
       );
       if (response.status === 200) {
-        alert("Accepted Successfully");
+        alert(t("SELECT_SLOT"));
       }
     } catch (error) {
       alert(

@@ -62,7 +62,7 @@ const Profile = () => {
         },
       });
       if (response.status === 200) {
-        alert("Teacher deleted successfully");
+        alert(t("TEACHER_DELETE"));
         localStorage.removeItem("teacher_id");
         setIsTeacher(false);
         setIsModalOpen(false);
@@ -70,7 +70,7 @@ const Profile = () => {
       }
     } catch (error) {
       console.error("Error deleting teacher:", error);
-      alert("Error deleting teacher. Please try again.");
+      alert(t("ERROR_TEACHER_DELETE"));
     }
   };
   const handleClick = () => {

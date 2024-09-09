@@ -42,23 +42,23 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     <div className="grid grid-cols-1 gap-0 ">
       <div className="text-start items-center gap-10  bg-[#D7FBF8] py-4 px-10">
         <div className="text-black text-[24px] font-bold basis-4"> {t('DATE')}</div>
-        <p className="py-2 ml-0  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold ">{t('EVENT_DATE')}:</h2> <span className="xl:text-[22px]  text-[#000000] xl:ml-[110px]">{singleEvent?.eventStartDate} {t('START_FROM')} {singleEvent?.eventStartTime} {t('TO')}   <span className="text-black">{singleEvent?.
+        <p className="py-2 ml-0  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold ">{t('EVENT_DATE')}:</h2> <span className="xl:text-[22px]  text-[#000000] xl:ml-[80px]">{t('START_FROM')} {singleEvent?.eventStartDate}  {singleEvent?.eventStartTime} <span className="ml-8">{t('TO')} </span>   <span className="text-black">{singleEvent?.
           eventEndTime
         }  {singleEvent?.eventEndDate}</span></span> </p>
-        <p className="py-2 ml-0  text-lg capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</h2> <span className="xl:text-[22px]  text-[#000000]">{singleEvent?.eventEndDate}</span> </p>
+        <p className="py-2 ml-0  text-lg capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</h2> <span className="xl:text-[22px]  text-[#000000] xl:ml-[60px]">{singleEvent?.eventEndDate}</span> </p>
       </div>
       <div className=" items-center gap-10  py-4 px-10 ">
         <div className=" text-[24px] font-bold basis-4 text-black"> {t('EVENT_LOCATION')}</div>
-        <p className="py-2 ml-0  text-lg  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold">{t('LOCATION')} :</h2> <span className="xl:text-[22px] xl:ml-[135px] text-black">{singleEvent?.place}</span></p>
+        <p className="py-2 ml-0  text-lg  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold">{t('LOCATION')} :</h2> <span className="xl:text-[22px] xl:ml-[100px] text-black">{singleEvent?.place}</span></p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0  xl:text-[22px]  capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className="text-[#17B3A6] text-[20px]  font-bold">{t('EVENT_ADDRESS')} :</h2 ><p className="xl:ml-[60px]"></p>{singleEvent?.address}</p>
+          <p className="py-2 ml-0  xl:text-[22px]  capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className="text-[#17B3A6] text-[20px]  font-bold xl:w-[45%]">{t('EVENT_ADDRESS')} :</h2 ><p className="xl:ml-[10px]"></p>{singleEvent?.address}</p>
         </div>
        
       </div>
-      <div className=" ">
+      <div className="xl:h-[400px] ">
           <iframe
-            className="col-span-4 sm:col-span-4 "
+            className="col-span-4 sm:col-span-4 xl:h-full"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8181116.269949623!2d130.64039243803072!3d36.56179855912495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34674e0fd77f192f%3A0xf54275d47c665244!2sJapan!5e0!3m2!1sen!2s!4v1700468556527!5m2!1sen!2s"
             width="100%"
             height="350px"
@@ -69,17 +69,17 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
 
 
         </div>
-      <div className=" items-center gap-10  bg-[#D7FBF8] py-4 px-10">
+      <div className=" items-center   bg-[#D7FBF8] py-4 px-10">
         <div className="text-black text-[24px] font-bold basis-4 "> {t('EVENT_DETAILS')}</div>
-        <p className="py-2 ml-0   capitalize text-black xl:flex items-center gap-4 xl:text-[22px]"><span className="text-[#17B3A6] text-[20px]  font-bold">{t('ABOUT_EVENT')} :</span><p className="xl:ml-[50px]"></p> {singleEvent?.eventDetails}</p>
+        <p className="py-2 ml-0   capitalize text-black xl:flex items-center gap-4 xl:text-[22px] "><span className="text-[#17B3A6] text-[20px]  font-bold xl:w-[10%]">{t('ABOUT_EVENT')} :</span><p className="xl:ml-[50px]"></p> {singleEvent?.eventDetails}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className="text-[#17B3A6] text-[20px]  font-bold">{t('EVENT_TYPE')}  :</h2> <span className="xl:text-[22px]  xl:ml-[115px]">{singleEvent?.
+          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className="text-[#17B3A6] text-[20px]  font-bold xl:w-[20%]">{t('EVENT_TYPE')}  :</h2> <span className="xl:text-[22px]  xl:ml-[85px]">{singleEvent?.
             eventType}</span> </p>
         </div>
         <div className="flex items-center gap-10 w-full overflow-x-scroll xl:overflow-x-auto ">
 
-          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><span className="text-[#17B3A6] text-[20px]  font-bold">{t('SHORT_VIDEO')}</span> <p className="xl:text-[22px]  xl:overflow-x-outo xl:ml-[152px]">{singleEvent?.eventVideoUrl}</p> </p>
+          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><span className="text-[#17B3A6] text-[20px]  font-bold xl:w-[25%]">{t('SHORT_VIDEO')}</span> <p className="xl:text-[22px]  xl:overflow-x-outo xl:ml-[104px]">{singleEvent?.eventVideoUrl}</p> </p>
         </div>
         <div className="flex items-center gap-10 w-full overflow-x-hidden xl:overflow-x-auto">
             <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 w-full">
@@ -113,14 +113,14 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
   <div className="text-black text-[24px] font-bold basis-4">{t('PRICE')}</div>
   <p className="py-2 ml-0 text-lg capitalize text-black xl:flex flex-col xl:flex-row items-center gap-4">
     <h2 className="text-[#17B3A6] text-[20px] font-bold">{t('PARTICIPATION_FEE')} :</h2>
-    <span className="xl:text-[22px] xl:ml-[62px]">{singleEvent?.participationFee}</span>
+    <span className="xl:text-[22px] xl:ml-[100px]">{singleEvent?.participationFee}</span>
   </p>
 </div>
 <div className="items-center bg-[#D7FBF8] gap-10 py-4 px-10">
   <div className="text-black text-[24px] font-bold basis-4">{t('PRICE')}</div>
   <p className="py-2 ml-0 text-lg capitalize text-black xl:flex flex-col xl:flex-row items-center gap-4">
-    <h2 className="text-[#17B3A6] text-[20px] font-bold">{t('Cancellation Fee')} :</h2>
-    <span className="xl:text-[22px] xl:ml-[62px]">{singleEvent?.cancellationFee}</span>
+    <h2 className="text-[#17B3A6] text-[20px] font-bold xl:w-[15%]">{t('CANCELLATION')} :</h2>
+    <span className="xl:text-[22px] xl:ml-[25px]">{singleEvent?.cancellationFee}</span>
   </p>
 </div>
  

@@ -39,7 +39,7 @@ export default function Register(): JSX.Element {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setError("Password and Confirm Password do not match");
+      setError(t("PASSWORD_ERROR"));
       return;
     }
   
