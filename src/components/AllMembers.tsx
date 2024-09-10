@@ -110,8 +110,8 @@ export default function AllMembers() {
                   </tr>
                 )) : (
                   <tr>
-                    <td className="px-3 py-2 text-sm text-gray-500 text-center">
-                      {t("No waiting members")}
+                    <td className="px-3 py-2 text-lg font-medium text-gray-500 text-center">
+                      {t("NO_WAITING")}
                     </td>
                   </tr>
                 )}
@@ -121,13 +121,7 @@ export default function AllMembers() {
         )}
       </div>
 
-      {/* {(visibleCount < joinedUsers?.length + waitingUsers?.length) && (
-        <div className="flex justify-center mt-4">
-          <button onClick={loadMore} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            {t("Load More")}
-          </button>
-        </div>
-      )} */}
+   
     </div>
   );
 }

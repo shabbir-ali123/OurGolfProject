@@ -428,7 +428,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                           />
                           {holes.map((hole, holeIndex: number) => {
                             return (
-                              <td key={holeIndex}>
+                              <td key={holeIndex} >
                                 <input
                                   type="number"
                                   value={
@@ -476,24 +476,25 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                     }}
                                     
                                     />
-                                    
                                 )}
                                 {holeIndex + 1 ==
                                   singleEvent?.nearPinContest && (
-                                  <input
-                                    type="text"
-                                    name="nearPinContest"
-                                    className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
-                                    placeholder={
-                                      playerData &&
-                                      playerData?.nearPinContest + " yrd"
-                                    }
-                                    onChange={(e: any) => {
-                                      handlePinContests(member.userId, e);
-                                      
-                                    }}
+                                    <input
+                                      type="text"
+                                      name="nearPinContest"
+                                      className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
+                                      placeholder={
+                                        playerData &&
+                                        playerData?.nearPinContest + " yrd"
+                                      }
+                                      onChange={(e: any) => {
+                                        handlePinContests(member.userId, e);
+                                        
+                                      }}
                                   />
+                                  
                                 )}
+                                
                               </td>
                             );
                           })}
@@ -574,7 +575,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                           isCreator={isCreated}
                           key={memberIndex}
                           showNumber={false}
-                          enableHover={true}
+                          enableHover={false}
                           onDelete={() => {}}
                           name={member.nickName}
                           imageUrl={member.imageUrl}
@@ -582,7 +583,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                         {holes.map((hole, holeIndex: number) => {
 
                           return (
-                            <td key={holeIndex}>
+                            <td key={holeIndex} className="relative">
                               <input
                                 type="number"
                                 min="0"
@@ -604,6 +605,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                 className="w-6 text-sm text-center border border-solid border-[#054a51] bg-white shadow-lg"
                               />
                               {holeIndex + 1 == singleEvent?.driverContest && (
+                                <>
                                 <input
                                   type="text"
                                   min="1"
@@ -624,8 +626,12 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   }}
                                   className="w-12 text-sm bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
                                 />
+                              
+                                <span className="absolute bottom-0 right-3"><img src="/img/shot.png" width='45px' height='45px' alt="" /></span>
+</>
                               )}
                               {holeIndex + 1 == singleEvent?.nearPinContest && (
+                                <>
                                 <input
                                   type="text"
                                   min="1"
@@ -646,6 +652,8 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                   }}
                                   className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
                                 />
+                            <span className="absolute bottom-0 right-1"><img src="/img/flag.png" width='60px' height='40px' alt="" /></span>
+                                </>
                               )}
                             </td>
                           );

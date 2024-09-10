@@ -73,7 +73,7 @@ const EditTeamPage: FunctionComponent = () => {
   const { isCreated, singleEvent } = singleEventContextStore();
   const [ceremonyModel, setCeremonyModel] = useState(false)
   console.log(singleEvent, 'sE')
-  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers, joinedUsers, handleIsLoading } = singleTeamsContextStore()
+  const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers, joinedUsers = [], handleIsLoading } = singleTeamsContextStore()
 
   const router = useNavigate();
   const { t, i18n } = useTranslation();
@@ -318,7 +318,7 @@ const EditTeamPage: FunctionComponent = () => {
   const deadlineData = new Date(singleEvent?.eventDeadlineDate);
   const isEventOver = currentDate > endDate;
   const isDeadlineOver = currentDate > deadlineData;
-
+console.log({teams},"teams")
   return (
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}

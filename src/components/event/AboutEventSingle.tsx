@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { singleEventContextStore } from "../../contexts/eventContext";
 import { useEffect, useState } from "react";
+import i18n from "../../locale";
 
 export const AboutEvent = ({ totalJoinedMembers }: any) => {
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
   };
 
   const embedUrl = getYoutubeEmbedUrl(singleEvent?.eventVideoUrl);
+  const isEnglish = i18n.language === "en";
   return <div className="max-w-6xl mx-6 xl:mx-auto    mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
     <div className="xl:flex items-center gap-10 justify-center bg-[#17b3a6] rounded-t-lg py-4 px-8 xl:p-0">
     
@@ -42,17 +44,17 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
     <div className="grid grid-cols-1 gap-0 ">
       <div className="text-start items-center gap-10  bg-[#D7FBF8] py-4 px-10">
         <div className="text-black text-[24px] font-bold basis-4"> {t('DATE')}</div>
-        <p className="py-2 ml-0  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold ">{t('EVENT_DATE')}:</h2> <span className="xl:text-[22px]  text-[#000000] xl:ml-[80px]">{t('START_FROM')} {singleEvent?.eventStartDate}  {singleEvent?.eventStartTime} <span className="ml-8">{t('TO')} </span>   <span className="text-black">{singleEvent?.
+        <p className="py-2 ml-0  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold ">{t('EVENT_DATE')}:</h2> <span className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[120px]" : "xl:ml-[80px]"}  `}>{t('START_FROM')} {singleEvent?.eventStartDate}  {singleEvent?.eventStartTime} <span className="ml-8">{t('TO')} </span>   <span className="text-black">{singleEvent?.
           eventEndTime
         }  {singleEvent?.eventEndDate}</span></span> </p>
-        <p className="py-2 ml-0  text-lg capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</h2> <span className="xl:text-[22px]  text-[#000000] xl:ml-[60px]">{singleEvent?.eventEndDate}</span> </p>
+        <p className="py-2 ml-0  text-lg capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px]  font-bold">{t('APPLICATION_DEADLINE')} :</h2> <span className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[10px]" : "xl:ml-[60px]"}  `}>{singleEvent?.eventEndDate}</span> </p>
       </div>
       <div className=" items-center gap-10  py-4 px-10 ">
         <div className=" text-[24px] font-bold basis-4 text-black"> {t('EVENT_LOCATION')}</div>
-        <p className="py-2 ml-0  text-lg  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold">{t('LOCATION')} :</h2> <span className="xl:text-[22px] xl:ml-[100px] text-black">{singleEvent?.place}</span></p>
+        <p className="py-2 ml-0  text-lg  capitalize text-black xl:flex items-center gap-4"><h2 className="text-[#17B3A6] text-[20px] font-bold">{t('LOCATION')} :</h2> <span className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[140px]" : "xl:ml-[100px]"}  `}>{singleEvent?.place}</span></p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0  xl:text-[22px]  capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className="text-[#17B3A6] text-[20px]  font-bold xl:w-[45%]">{t('EVENT_ADDRESS')} :</h2 ><p className="xl:ml-[10px]"></p>{singleEvent?.address}</p>
+          <p className="py-2 ml-0  xl:text-[22px]  capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className={`text-[#17B3A6] text-[20px] font-bold  ${isEnglish ? "xl:w-auto" : "xl:w-[45%]"}`}>{t('EVENT_ADDRESS')} :</h2 ><p className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[70px]" : "xl:ml-[10px]"}  `}></p>{singleEvent?.address}</p>
         </div>
        
       </div>
@@ -71,15 +73,15 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
         </div>
       <div className=" items-center   bg-[#D7FBF8] py-4 px-10">
         <div className="text-black text-[24px] font-bold basis-4 "> {t('EVENT_DETAILS')}</div>
-        <p className="py-2 ml-0   capitalize text-black xl:flex items-center gap-4 xl:text-[22px] "><span className="text-[#17B3A6] text-[20px]  font-bold xl:w-[10%]">{t('ABOUT_EVENT')} :</span><p className="xl:ml-[50px]"></p> {singleEvent?.eventDetails}</p>
+        <p className="py-2 ml-0   capitalize text-black xl:flex items-center gap-4 xl:text-[22px] "><span className={`text-[#17B3A6] text-[20px] font-bold  ${isEnglish ? "xl:w-auto" : "xl:w-[15%]"}`}>{t('ABOUT_EVENT')} :</span><p className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[30px]" : "xl:ml-[-10px]"}  `}></p> {singleEvent?.eventDetails}</p>
         <div className="flex items-center gap-10  ">
 
-          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className="text-[#17B3A6] text-[20px]  font-bold xl:w-[20%]">{t('EVENT_TYPE')}  :</h2> <span className="xl:text-[22px]  xl:ml-[85px]">{singleEvent?.
+          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><h2 className={`text-[#17B3A6] text-[20px] font-bold  ${isEnglish ? "xl:w-auto" : "xl:w-[15%]"}`}>{t('EVENT_TYPE')}  :</h2> <span className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[100px]" : "xl:ml-[85px]"}  `}>{singleEvent?.
             eventType}</span> </p>
         </div>
         <div className="flex items-center gap-10 w-full overflow-x-scroll xl:overflow-x-auto ">
 
-          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><span className="text-[#17B3A6] text-[20px]  font-bold xl:w-[25%]">{t('SHORT_VIDEO')}</span> <p className="xl:text-[22px]  xl:overflow-x-outo xl:ml-[104px]">{singleEvent?.eventVideoUrl}</p> </p>
+          <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 "><span className={`text-[#17B3A6] text-[20px] font-bold  ${isEnglish ? "xl:w-auto" : "xl:w-[15%]"}`}>{t('SHORT_VIDEO')}</span> <p className={`xl:text-[22px]  xl:overflow-x-outo ${isEnglish ? "xl:ml-[110px]" : "xl:ml-[104px]"}`}>{singleEvent?.eventVideoUrl}</p> </p>
         </div>
         <div className="flex items-center gap-10 w-full overflow-x-hidden xl:overflow-x-auto">
             <p className="py-2 ml-0  text-lg capitalize rounded-sm text-black xl:flex items-center gap-4 w-full">
@@ -113,14 +115,14 @@ export const AboutEvent = ({ totalJoinedMembers }: any) => {
   <div className="text-black text-[24px] font-bold basis-4">{t('PRICE')}</div>
   <p className="py-2 ml-0 text-lg capitalize text-black xl:flex flex-col xl:flex-row items-center gap-4">
     <h2 className="text-[#17B3A6] text-[20px] font-bold">{t('PARTICIPATION_FEE')} :</h2>
-    <span className="xl:text-[22px] xl:ml-[100px]">{singleEvent?.participationFee}</span>
+    <span className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[30px]" : "xl:ml-[100px]"}  `}>{singleEvent?.participationFee}</span>
   </p>
 </div>
 <div className="items-center bg-[#D7FBF8] gap-10 py-4 px-10">
   <div className="text-black text-[24px] font-bold basis-4">{t('PRICE')}</div>
   <p className="py-2 ml-0 text-lg capitalize text-black xl:flex flex-col xl:flex-row items-center gap-4">
-    <h2 className="text-[#17B3A6] text-[20px] font-bold xl:w-[15%]">{t('CANCELLATION')} :</h2>
-    <span className="xl:text-[22px] xl:ml-[25px]">{singleEvent?.cancellationFee}</span>
+    <h2 className={`text-[#17B3A6] text-[20px] font-bold  ${isEnglish ? "xl:w-auto" : "xl:w-[15%]"}`}>{t('CANCELLATION')} :</h2>
+    <span className={`xl:text-[22px]  text-[#000000] ${isEnglish ? "xl:ml-[30px]" : "xl:ml-[25px]"}  `}>{singleEvent?.cancellationFee}</span>
   </p>
 </div>
  
