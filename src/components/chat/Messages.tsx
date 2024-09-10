@@ -206,8 +206,8 @@ const Messages = () => {
             <div
               key={index}
               className={`p-2 mb-2   sm:w-[50%] w-full rounded-e-xl relative ${msg.sender === sender
-                  ? "float-right rounded-es-xl bg-gray-100 w-[88%]"
-                  : "float-left ml-0 w-[88%] bg-[#e4fffd] md:ml-0 rounded-es"
+                ? "float-right rounded-es-xl bg-gray-100 w-[88%]"
+                : "float-left ml-0 w-[88%] bg-[#e4fffd] md:ml-0 rounded-es"
                 }`}
             >
               <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2  flex justify-center gap-1 items-center">
@@ -311,14 +311,35 @@ const Messages = () => {
               <div className="flex items-start gap-4 relative">
                 <div>
                   <div className="flex items-start">
+
                     <strong
-                      className={`text-blue-600 gap-4 ${msg.sender === sender ? "text-left" : "text-right"
-                        }`}
+                      className={`text-blue-600 gap-4 ${msg.sender === sender ? "text-left" : "text-right"}`}
                     >
-                      {msg.sender === sender
-                        ? "Me"
-                        : messages.receiver.nickName}
+                      {msg.sender === sender ? (
+                        <>
+                          {/* <img
+                            src={messages.sender?.imageUrl}  
+                            className="rounded-full"
+                            width="30px"
+                            height="30px"
+                            alt="Sender Image"
+                          /> */}
+                          Me
+                        </>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={messages.receiver?.imageUrl}
+                            className="rounded-full"
+                            width="30px"
+                            height="30px"
+                            alt="Receiver Image"
+                          />
+                          {messages.receiver?.nickName}
+                        </div>
+                      )}
                     </strong>
+
                   </div>
                   <p>
                     {editMessage?.id === msg.id ? (
