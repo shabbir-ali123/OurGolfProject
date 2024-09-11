@@ -6,18 +6,10 @@ import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { ToastConfig, toastProperties } from "../constants/toast";
 import { useTranslation } from "react-i18next";
-import {
-  Channel,
-  Chat,
-  Message,
-  MixedTextTypedElement,
-  TimetokenUtils,
-  User,
-} from "@pubnub/chat";
-import "./app.css";
-import { getAllUsers } from "../utils/fetchUser";
+import { Chat } from "@pubnub/chat";
 import { userAuthContext } from "../contexts/authContext";
-import PubNub from "pubnub";
+import "./app.css";
+import { Cog6ToothIcon, EyeDropperIcon, EyeIcon, EyeSlashIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'; // Importing the eye icons from react-icons
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -32,6 +24,7 @@ const Login: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [pubnubUser, setPubNubUser] = useState<any>(null); // State for PubNub user
+  const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -39,13 +32,6 @@ const Login: React.FC = () => {
       ...prevData,
       [name]: value,
     }));
-  };
-
-  const hash = document.location.hash.split("?")[1];
-  const params = new URLSearchParams(hash);
-  const pubnubKeys = {
-    publishKey: params.get("pubkey") || process.env.REACT_APP_PUB_KEY,
-    subscribeKey: params?.get("subkey") || process.env.REACT_APP_SUB_KEY?.toString(),
   };
 
   const handleLogin = async (e: any) => {
@@ -58,17 +44,20 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.jwtToken);
         localStorage.setItem("id", response.data.id);
-        response.data.teacherId != null && localStorage.setItem("teacher_id", response.data.teacherId);
-        localStorage.setItem('tokenTimestamp', tokenTimestamp);
+        response.data.teacherId != null &&
+          localStorage.setItem("teacher_id", response.data.teacherId);
+        localStorage.setItem("tokenTimestamp", tokenTimestamp);
 
         const chat = await Chat.init({
-          publishKey: pubnubKeys.publishKey,
-          subscribeKey: pubnubKeys.subscribeKey || "",
+          publishKey: process.env.REACT_APP_PUB_KEY,
+          subscribeKey: process.env.REACT_APP_SUB_KEY || "",
           userId: localStorage.getItem("id") || "",
         });
 
         const userId = response.data.id.toString();
-        const user = (await chat.getUser(chatUser)) || await chat.createUser(userId, { name: response.data.username });
+        const user =
+          (await chat.getUser(chatUser)) ||
+          (await chat.createUser(userId, { name: response.data.username }));
 
         setPubNubUser(user);
 
@@ -77,15 +66,20 @@ const Login: React.FC = () => {
       }
       setError(null);
     } catch (error) {
-      const apiError = (error as any)?.response?.data?.message || "We are not able to Login";
+      const apiError =
+        (error as any)?.response?.data?.message || "We are not able to Login";
       toast.error(`${apiError}`, toastProperties as ToastConfig);
     } finally {
       setLoading(false);
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   return (
-    <section className="bg-gray-50 ">
+    <section className="bg-gray-50">
       {loading ? (
         <div className="flex items-center justify-center h-[100vh] ">
           <BeatLoader color="#51ff85" size={15} />
@@ -123,15 +117,27 @@ const Login: React.FC = () => {
                   >
                     {t("PASSWORD")}
                   </label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border outline-none border-[#dddddd] text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                    onChange={handleChange}
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"} 
+                      name="password"
+                      id="password"
+                      placeholder="••••••••"
+                      className="bg-gray-50 border outline-none border-[#dddddd] text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      required
+                      onChange={handleChange}
+                    />
+                    <div
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                    >
+                      {showPassword ? (
+                        <EyeIcon className="text-gray-600 h-6 w-8" />
+                      ) : (
+                        <EyeSlashIcon className="text-gray-600 h-6 w-8" />
+                      )}
+                    </div>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
@@ -176,7 +182,6 @@ const Login: React.FC = () => {
                 </p>
               </form>
             </div>
-            
           </div>
         </div>
       )}

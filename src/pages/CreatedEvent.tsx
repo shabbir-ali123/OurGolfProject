@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { deleteEvent, fetchCreatedEvents } from '../utils/fetchEvents';
 import { createdEventsStore } from '../contexts/eventContext';
 import { useTranslation } from "react-i18next";
+import { singleTeamsContextStore } from '../contexts/teamContext';
 interface Event {
     id: number;
     eventName: string;
@@ -25,6 +26,7 @@ interface Event {
 const CreatedEvents: React.FC = () => {
     const { t, i18n } = useTranslation();
     const { handleActiveTab, handleCurrentPage, activeTab, currentPage, totalPages, createdEvents, } = createdEventsStore();
+    const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers = [], joinedUsers = [], handleIsLoading } = singleTeamsContextStore()
     const tabs = [t('LIVE'), t('UPCOMING'), t('PAST')];
     const sendTab = ['live', 'upcoming', 'past'];
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
@@ -161,9 +163,15 @@ const CreatedEvents: React.FC = () => {
                                     boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
                                 }}>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventName}</td>
-           <td className="px-6 py-4 whitespace-nowrap cursor-pointer text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]" onClick={()=>{
-                                        navigate(`/edit-team/${event.id}/#all-members` )
-                                    }}>{event.capacity}</td>
+                                    <td
+                                        className="px-6 py-4 whitespace-nowrap cursor-pointer text-sm text-gray-500 border-solid border-l border-r border-t border-b border-[#e4e4e4]"
+                                        onClick={() => {
+                                            navigate(`/edit-team/${event.id}/#all-members`);
+                                        }}
+                                    >
+                                        {event.teamData?.waitingCount} {t("confirmed")}, {event.waitingCount} {t("waiting")}
+                                    </td>
+
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartTime}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartDate}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventEndTime}</td>
@@ -192,76 +200,76 @@ const CreatedEvents: React.FC = () => {
 
                                     </td>
                                 </tr>
-                    ))
+                            ))
                         )}
-                </tbody>
-            </table>
-            <CreatedEventPagination
-                currentPage={currentPage}
-                pageSize={pageSize}
-                totalEvents={totalPages}
-                onPageChange={handlePageChange}
-            />
-        </div>
-            {/* Confirmation Popup */ }
-    {
-        showConfirmPopup && eventToDelete && (
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-                <div className="bg-white p-8 rounded-md">
-                    <h2 className="text-lg font-bold mb-4">Are you sure you want to delete this event?</h2>
-                    <p>{eventToDelete.eventName}</p>
-                    <div className="mt-4">
-                        <button
-                            className="px-4 py-2 bg-blue-500 text-white mr-2"
-                            onClick={() => {
-                                if (eventToDelete) {
-                                    handleDeleteEvent(eventToDelete.id, { preventDefault: () => { } });
-                                }
-                                setShowConfirmPopup(false);
-                            }}
-                        >
-                            Delete
-                        </button>
-                        <button
-                            className="px-4 py-2 bg-[red] text-white"
-                            onClick={() => setShowConfirmPopup(false)}
-                        >
-                            Cancel
-                        </button>
+                    </tbody>
+                </table>
+                <CreatedEventPagination
+                    currentPage={currentPage}
+                    pageSize={pageSize}
+                    totalEvents={totalPages}
+                    onPageChange={handlePageChange}
+                />
+            </div>
+            {/* Confirmation Popup */}
+            {
+                showConfirmPopup && eventToDelete && (
+                    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+                        <div className="bg-white p-8 rounded-md">
+                            <h2 className="text-lg font-bold mb-4">Are you sure you want to delete this event?</h2>
+                            <p>{eventToDelete.eventName}</p>
+                            <div className="mt-4">
+                                <button
+                                    className="px-4 py-2 bg-blue-500 text-white mr-2"
+                                    onClick={() => {
+                                        if (eventToDelete) {
+                                            handleDeleteEvent(eventToDelete.id, { preventDefault: () => { } });
+                                        }
+                                        setShowConfirmPopup(false);
+                                    }}
+                                >
+                                    Delete
+                                </button>
+                                <button
+                                    className="px-4 py-2 bg-[red] text-white"
+                                    onClick={() => setShowConfirmPopup(false)}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        )
-    }
+                )
+            }
 
-    {
-        showPopup && selectedEvent && (
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-                <div className="bg-white p-8 rounded-md">
-                    <h2 className="text-lg font-bold mb-4">Event Name <br /> {selectedEvent.eventName}</h2>
+            {
+                showPopup && selectedEvent && (
+                    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+                        <div className="bg-white p-8 rounded-md">
+                            <h2 className="text-lg font-bold mb-4">Event Name <br /> {selectedEvent.eventName}</h2>
 
-                    <button
-                        className="px-4 py-2 bg-blue-500 text-white mr-2"
-                        onClick={() => {
-                            if (selectedEvent) handleEditTeam(selectedEvent.id, selectedEvent.eventName, selectedEvent.eventStartDate, selectedEvent.place, selectedEvent.eventDetails, selectedEvent.teamSize, selectedEvent.imageUrl);
+                            <button
+                                className="px-4 py-2 bg-blue-500 text-white mr-2"
+                                onClick={() => {
+                                    if (selectedEvent) handleEditTeam(selectedEvent.id, selectedEvent.eventName, selectedEvent.eventStartDate, selectedEvent.place, selectedEvent.eventDetails, selectedEvent.teamSize, selectedEvent.imageUrl);
 
 
-                        }}
-                    >
-                        Edit Team
-                    </button>
+                                }}
+                            >
+                                Edit Team
+                            </button>
 
-                    <button
-                        className="px-4 py-2 bg-[red] text-white"
-                        onClick={handleCancelEvent}
-                    >
-                        Cancel
-                    </button>
+                            <button
+                                className="px-4 py-2 bg-[red] text-white"
+                                onClick={handleCancelEvent}
+                            >
+                                Cancel
+                            </button>
 
-                </div>
-            </div>
-        )
-    }
+                        </div>
+                    </div>
+                )
+            }
 
         </div >
 
