@@ -70,12 +70,12 @@ const GigDetails: React.FC = () => {
   document.body.dir = i18n.dir();
   const params = useParams<{ id?: string }>();
   const { teacher, handTeacherId } = useTeacherContext();
-
+  const teacherId = localStorage.getItem("teacher_id");
   handTeacherId(gig?.teacherId);
   const postId = params.id;
   const [localEvents, setLocalEvents] = useState<any>([]);
   const [isOpenMap, setIsOpenMap] = useState<{ [key: string]: boolean }>({});
- 
+
   const toggleDropdown = (commentId: string) => {
     setIsOpenMap((prevState) => ({
       [commentId]: !prevState[commentId],
@@ -168,16 +168,18 @@ const GigDetails: React.FC = () => {
                 }
               </span>
               {
-                <button
-                  onClick={() => {
-                    reserveGig(gig.id, setIsLoading)
-                  }}
-                  className="p-2 rounded cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
-                >
-                  BUY NOW
-                </button>
+                gig.teacherId === localStorage.getItem("teacher_id") && !checkAlreadyPurchased(gig.id) && (
+                  <button
+                    onClick={() => {
+                      reserveGig(gig.id, setIsLoading);
+                    }}
+                    className="p-2 rounded cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
+                  >
+                    {t("BUY_NOW")}
+                  </button>
+                )
+}
 
-              }
 
             </div>
 
@@ -187,7 +189,7 @@ const GigDetails: React.FC = () => {
               return (
                 hasImageExtension(img) ?
                   <img
-                    className="w-full h-[300px] xl:h-[600px] rounded-lg bg-cover"
+                    className="w-full h-[300px] xl:h-[600px] object-contain bg-white rounded-lg bg-cover"
                     src={img}
                     alt="Blog Post Image"
                   /> : <video
@@ -209,7 +211,7 @@ const GigDetails: React.FC = () => {
                     {/* Ensure key is unique and at the top element */}
                     {hasImageExtension(img) ? (
                       <img
-                        className="w-full h-[300px] xl:h-[600px] rounded-lg"
+                        className="w-full bg-cover object-fit h-[300px] xl:h-[600px] rounded-lg"
                         src={img}
                         alt="Blog Post Image"
                       />
@@ -245,7 +247,7 @@ const GigDetails: React.FC = () => {
           </div> */}
         </div>
         <div className="w-full">
-          <h3>About this Gig</h3>
+          <h3>{t("ABOUT_GIG")}</h3>
           <div
             dangerouslySetInnerHTML={{ __html: gig?.description ?? "" }}
           ></div>

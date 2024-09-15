@@ -23,6 +23,7 @@ import { useTeacherContext } from "../contexts/teachersContext";
 import { scheduler } from "timers/promises";
 import { BeatLoader } from "react-spinners";
 import { gigsContextStore } from "../contexts/gigsContext";
+import { Link } from "react-router-dom";
 const hoursOfDay: string[] = Array.from({ length: 24 }, (_, i) => {
   const startHour = i.toString().padStart(2, "0");
   const endHour = ((i + 1) % 24).toString().padStart(2, "0");
@@ -50,6 +51,7 @@ const updateSchedules: React.FC = () => {
   const { t } = useTranslation();
   const { teacher, handleScheduleDelete, handleShiftDelete, isLoading, setIsLoading, handleUpdate } = useTeacherContext();
   const [videoVisible, setVideoVisible] = useState<boolean>(false);
+  const teacherId = localStorage.getItem("teacher_id");
   const { gigs, handleTeacherId } = gigsContextStore();
   const [portfolioVideoUrls, setPortfolioVideoUrls] = useState<string[]>(
     Array(5).fill("")
@@ -542,7 +544,10 @@ const updateSchedules: React.FC = () => {
                       console.log(shift?.isBooked, "hello imran")
 
                       return <div key={shiftIndex} className="bg-[#1e40af] text-white p-3 rounded-lg flex justify-between items-center mb-2 ">
-                        <span className="font-medium text-sm">{shift.day} {shift.startTime}</span>
+                        <span className="font-medium text-sm">
+                          {t(`${shift.day.toUpperCase()}`)} {shift.startTime}
+                        </span>
+
                         {
                           shift?.status == "BOOKED" ? <button
 
@@ -636,13 +641,26 @@ const updateSchedules: React.FC = () => {
           </div> */}
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          className="p-4 bg-[#17b3a6] text-white rounded-md"
-          onClick={handleFormSubmit}
-        >
-          {t("UPDATE_SCHEDULES")}
-        </button>
+
+      <div className="flex gap-4 justify-center my-8">
+        <div className="flex justify-center">
+          <button
+            className="p-3 bg-[#1e40af] text-white rounded-md"
+            onClick={handleFormSubmit}
+          >
+            {t("UPDATE_SCHEDULES")}
+          </button>
+        </div>
+        <Link to={`/profile-page`} >
+          <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_PROFILE")}</button>
+        </Link>
+        <Link to={`/create-catalogs/${teacherId}`} >
+          <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("CREATE_GIG")}</button>
+        </Link>
+        <Link to={`/profile-page`} >
+          <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_GIG")}</button>
+        </Link>
+
       </div>
     </div>
   );

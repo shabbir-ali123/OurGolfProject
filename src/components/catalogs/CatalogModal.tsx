@@ -168,10 +168,10 @@ const CatalogModal: React.FC<any> = () => {
             />
           </div>
           <div className="pr-3 mx-3">
-            <label htmlFor="">{t("Gig_Price")}(Yun)</label> <br />
+            <label htmlFor="">{t("Gig_Price")}</label> <br />
             <input
               className="w-full mt-2 p-3 mb-4 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:border-[#51ff85] focus:ring-1 focus:ring-[#51ff85] focus:outline-none"
-              placeholder={t("Gig_Price")}
+              placeholder={t("Gig_Prices")}
               name="price"
               type="number"
               onChange={handleInputChange}

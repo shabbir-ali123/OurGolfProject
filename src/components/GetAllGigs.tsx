@@ -150,9 +150,9 @@ const GetAllGigs = () => {
                               <>
                                 {/* Ensure key is unique and at the top element */}
                                 {hasImageExtension(arrayImages[0]) ? (
-                                  <div className=" ">
+                                  <div className=" w-[100%]">
                                     <img
-                                      className="w-full h-[200px] object-cover rounded-lg "
+                                      className="w-full h-[200px] object-fit rounded-lg "
                                       src={arrayImages[0]}
                                       alt="Blog Post Image"
                                     />
@@ -161,7 +161,7 @@ const GetAllGigs = () => {
                                   <div className=" ">
                                     <video
                                       controls
-                                      className="w-full h-[200px] object-cover rounded-lg "
+                                      className="w-full h-[200px] object-contain rounded-lg "
                                       src={arrayImages[0]}
                                     />
                                   </div>

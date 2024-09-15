@@ -57,10 +57,10 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
       );
 
       if (response.status !== 200) {
-        toast.error(response.data.error);
+        toast.error(t("ERROR_EVENTS"));
       } else {
         setEvents(response.data.events || []);
-        toast.success(response.data.message);
+        toast.success(t("JOINED_SUCCESSFULLY"));
         router("/edit-team/" + eventID);
       }
     } catch (error) {

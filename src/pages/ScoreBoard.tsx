@@ -127,7 +127,7 @@ const onClose = (value:any)=>{
             <div className="max-w-7xl mx-auto">
               <LeaderBoardTables />
 
-              {/* <IndiviualPlayerScore /> */}
+           
               <ScoringTabs singleEvent={singleEvent} />
             </div>
           </>

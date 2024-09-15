@@ -266,7 +266,7 @@ const UpdateGig: React.FC<any> = () => {
             type="submit"
             onClick={(e) => handleCreate(e)}
           >
-            {t("Update_gig")}
+            {t("UPDATE_GIG")}
           </button>
         </form>
       </div>

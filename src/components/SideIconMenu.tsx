@@ -90,9 +90,9 @@ export const menuItems: MenuItem[] = [
         active: false,
         finalItem: [
           {
-            name: "CREATE_GIG",
+            name: "UPDATE_SCHEDULES",
             icon: faSearch,
-            path: "/create-catalogs/" + teacherId,
+            path: "update-schedules/" + teacherId,
             active: false,
           },
           {
@@ -102,11 +102,12 @@ export const menuItems: MenuItem[] = [
             active: false,
           },
           {
-            name: "UPDATE_SCHEDULES",
+            name: "CREATE_GIG",
             icon: faSearch,
-            path: "update-schedules/" + teacherId,
+            path: "/create-catalogs/" + teacherId,
             active: false,
           },
+         
           {
             name: "UPDATE_PROFILE",
             icon: faSearch,

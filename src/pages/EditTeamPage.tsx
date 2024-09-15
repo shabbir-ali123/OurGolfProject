@@ -402,14 +402,14 @@ console.log({teams},"teams")
 
 
             <div className="max-w-5xl mx-auto mt-24">
-              {isCreated &&
+              {/* {isCreated &&
                 <div className="mr-20 flex justify-end">
                   <button onClick={() => {
                     setCeremonyModel(true)
 
                   }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white text-lg">{t('ADD_EVENT_DETEIALS')}</button>
                 </div>
-              }
+              } */}
               {
                 ceremonyModel && <CeremonyModal onClose={setCeremonyModel} eventId={singleEvent.id} />
               }
