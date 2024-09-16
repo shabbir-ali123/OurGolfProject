@@ -95,7 +95,7 @@ const GigDetails: React.FC = () => {
   const arrayImages = gig?.imageUrl?.split(',');
   return (
     <div
-      className="mx-6 md:mx-auto max-w-7xl px-6  my-4 py-4"
+      className="mx-6 md:mx-auto max-w-3xl px-6  my-4 py-4"
       style={{
         boxShadow:
           "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
@@ -168,7 +168,7 @@ const GigDetails: React.FC = () => {
                 }
               </span>
               {
-                gig.teacherId === localStorage.getItem("teacher_id") && !checkAlreadyPurchased(gig.id) && (
+                gig.teacherId == localStorage.getItem("teacher_id") || !checkAlreadyPurchased(gig.id) && (
                   <button
                     onClick={() => {
                       reserveGig(gig.id, setIsLoading);
@@ -178,7 +178,8 @@ const GigDetails: React.FC = () => {
                     {t("BUY_NOW")}
                   </button>
                 )
-}
+              }
+
 
 
             </div>
@@ -189,7 +190,7 @@ const GigDetails: React.FC = () => {
               return (
                 hasImageExtension(img) ?
                   <img
-                    className="w-full h-[300px] xl:h-[600px] object-contain bg-white rounded-lg bg-cover"
+                    className="w-full h-[300px] xl:h-[700px] object-fit bg-white rounded-lg bg-cover"
                     src={img}
                     alt="Blog Post Image"
                   /> : <video

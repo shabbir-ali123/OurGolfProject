@@ -200,32 +200,42 @@ const EditTeamPage: FunctionComponent = () => {
   console.log(centerIndex, "cc")
   const updateTeams = async (event: any) => {
     event.preventDefault();
+  
+    // Check if the team size is being reduced
+    if (currentTeamSize < teams.length) {
+      // Check if there are any members in the teams that will be removed
+      for (let i = currentTeamSize; i < teams.length; i++) {
+        const team = teams[i];
+        if (team.members && team.members.length > 0) {
+          // Show error message if there are members in the team that will be removed
+          toast.error(`${team.name} has members. Please move or remove the members before reducing the team size.`);
+          return; // Stop the update process
+        }
+      }
+    }
+  
     const uId = selectedUserId.toString();
     const initialTeamSize = singleEvent?.teamSize;
     const initialCapacity = singleEvent?.capacity;
     const initialMembers = teamMembers;
-
+  
     const hasCapacityChanged = capacity !== initialCapacity;
     const hasTeamSizeChanged = currentTeamSize !== initialTeamSize;
     const hasMembersChanged =
       JSON.stringify(teamMembers) !== JSON.stringify(initialMembers);
-
+  
     if (!hasCapacityChanged && !hasTeamSizeChanged && !hasMembersChanged) {
       toast.error(t("MAKE_CHANGES"));
       return;
     }
-
-
+  
     const formDataObj = {
       eventId: singleEvent?.id,
-      teamSize:
-        currentTeamSize == undefined
-          ? singleEvent?.teamSize
-          : Number(currentTeamSize),
+      teamSize: currentTeamSize == undefined ? singleEvent?.teamSize : Number(currentTeamSize),
       capacity: capacity === undefined ? totalCapacity : Number(capacity),
       teams,
     };
-
+  
     try {
       const response = await axios.put(
         API_ENDPOINTS.UPDATETEAMMEMBER,
@@ -237,17 +247,18 @@ const EditTeamPage: FunctionComponent = () => {
           },
         }
       );
-
+  
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      toast.success(response.data.message);
-      window.location.reload();
+      toast.success(t('MEMBER_UPDATED_SUCCESS'));
+      // window.location.reload();
     } catch (error) {
       console.error("Error updating team:", error);
       toast.error("Please make changes before updating.");
     }
   };
+  
   let previousIndex = centerIndex - 1;
   let nextIndex = centerIndex + 2;
 
@@ -309,7 +320,7 @@ const EditTeamPage: FunctionComponent = () => {
       eventId: singleEvent?.id,
     }
     approveEvent(obj);
-    toast.success("Approved Successfully");
+    toast.success(t("UPDATED"));
     navigate(`/edit-team/${singleEvent?.id}`);
 
   }

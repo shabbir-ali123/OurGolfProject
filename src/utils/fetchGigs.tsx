@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
-
+import { useTranslation } from "react-i18next";
 export const fetchGigsById = async (setGigs: any, tId: any) => {
 
   try {
@@ -101,6 +101,7 @@ export const fetchGig = async (setGigs: any, gigId:any) => {
 // Reserve gig
 
 export const reserveGig = async (gigId: string, setLoading: any) => {
+  const { t } = useTranslation();
   try {
     const token = localStorage.getItem("token");
     const endpoint = `${API_ENDPOINTS.RESERVEGIG}/${gigId}`;
@@ -116,7 +117,7 @@ export const reserveGig = async (gigId: string, setLoading: any) => {
     });
 
     if (response.status === 201) {
-      toast.success(response.data.message);
+      toast.success(t('GIG_RESERVATION'));
     } else {
       toast.error(response.data.error);
     }

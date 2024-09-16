@@ -169,8 +169,10 @@ const CreatedEvents: React.FC = () => {
                                             navigate(`/edit-team/${event.id}/#all-members`);
                                         }}
                                     >
-                                        {event.teamData?.waitingCount} {t("confirmed")}, {event.waitingCount} {t("waiting")}
+                                        {/* Display confirmed and waiting users */}
+                                        {joinedUsers.joinedCount || 0} {t("confirmed")}, {waitingUsers.length || 0} {t("waiting")}
                                     </td>
+
 
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartTime}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-solid border-l border-r border-t border-b  border-[#e4e4e4]">{event.eventStartDate}</td>

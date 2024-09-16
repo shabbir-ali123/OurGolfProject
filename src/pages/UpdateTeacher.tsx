@@ -335,7 +335,7 @@ const UpdateTeacher: React.FC = () => {
             }
           );
 
-            toast.success("Post Updated Successfully");
+            toast.success(t("UPDATED"));
             // handleTeacher(response.data.teacher)
             location.reload();
         } catch (error) {

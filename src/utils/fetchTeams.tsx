@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
-
+import { useTranslation } from "react-i18next";
 export const fetchTeams = async (setTeams: any, eventId: any, setTeamMembers: any, setTotalJoinedMembers:any) => {
     try {
         const token = localStorage.getItem("token");
@@ -100,7 +100,7 @@ export const fetchAllMembers = async (teamId: any) => {
 };
 export const updateTeams = async (event: any, selectedUserId: any, selectedTeamId: any) => {
     event.preventDefault();
-
+ const { t } = useTranslation();
     const uId = selectedUserId.toString();
     const formDataObj = {
 
@@ -119,7 +119,7 @@ export const updateTeams = async (event: any, selectedUserId: any, selectedTeamI
         if (response.status !== 200) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        toast.success(response.data.message);
+        toast.success(t('MEMBER_UPDATED_SUCCESS'));
 
     } catch (error) {
         if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
