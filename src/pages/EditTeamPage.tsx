@@ -252,7 +252,7 @@ const EditTeamPage: FunctionComponent = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       toast.success(t('MEMBER_UPDATED_SUCCESS'));
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.error("Error updating team:", error);
       toast.error("Please make changes before updating.");
