@@ -16,8 +16,8 @@ export default function AllMembers() {
   const loadMore = () => {
     setVisibleCount((prevCount) => prevCount + 5);
   };
-  
-  const handleTabClick = (tab:any) => {
+
+  const handleTabClick = (tab: any) => {
     setActiveTab(tab);
   };
   const handleApprove = (e: any, id: any) => {
@@ -41,8 +41,8 @@ export default function AllMembers() {
             {t("ALL_MEMBERS")}
           </b>
         </div>
-        
-        <div className="grid grid-cols-2 gap-2 border-b border-gray-200 mb-4 py-6">
+
+        {/* <div className="grid grid-cols-2 gap-2 border-b border-gray-200 mb-4 py-6">
           <button
             className={`px-4 py-2 xl:py-4 text-[18px] xl:text-[20px] xl:font-bold  ${activeTab === 'confirmed' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
             onClick={() => handleTabClick('confirmed')}
@@ -55,73 +55,74 @@ export default function AllMembers() {
           >
             {t("Waiting Members")}
           </button>
+        </div> */}
+
+        <div className=" ">
+          <h2 className='px-4 py-2 xl:py-4 text-[18px] xl:text-[20px] xl:font-bold bg-[#17b3a6] text-white'> {t("Confirmed Members")}</h2>
+          <table className=" ">
+            <tbody className="flex flex-wrap gap-2">
+              {joinedUsers?.length > 0 ? joinedUsers.map((player: any, index: any) => (
+                <tr key={player.id} className="">
+                  <td className="px-3 py-2 text-sm text-gray-500">
+                    <div className="text-center">
+                      <img className="h-10 w-10 rounded-full" src={player?.imageUrl} alt="" />
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">{player?.nickName}</div>
+                      </div>
+
+                    </div>
+                  </td>
+                </tr>
+              )) : (
+                <tr>
+                  <td className="px-3 py-2 text-lg text-gray-500 text-center">
+                    {t("No confirmed members")}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
 
-        {activeTab === 'confirmed' && (
-          <div className=" ">
-            <table className=" ">
-              <tbody className="flex flex-wrap gap-2">
-                {joinedUsers.length > 0 ? joinedUsers.map((player:any, index:any) => (
-                  <tr key={player.id} className="">
-                    <td className="px-3 py-2 text-sm text-gray-500">
-                      <div className="text-center">
-                        <img className="h-10 w-10 rounded-full" src={player?.imageUrl} alt="" />
-                        <div>
-                          <div className="text-sm font-medium text-gray-900">{player?.nickName}</div>
-                        </div>
-                      
+
+
+        <div className=" ">
+          <h2 className='px-4 py-2 xl:py-4 text-[18px] xl:text-[20px] xl:font-bold bg-[#17b3a6] text-white'> {t("Waiting Members")}</h2>
+          <table className=" ">
+            <tbody className="flex flex-wrap gap-2">
+              {waitingUsers?.length > 0 ? waitingUsers.map((player: any, index: any) => (
+                <tr key={player.id} className="">
+                  <td className="px-3 py-2 text-sm text-gray-500">
+                    <div className="text-center">
+                      <img className="h-10 w-10 rounded-full" src={player?.imageUrl} alt="" />
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">{player?.nickName}</div>
                       </div>
-                    </td>
-                  </tr>
-                )) : (
-                  <tr>
-                    <td className="px-3 py-2 text-lg text-gray-500 text-center">
-                      {t("No confirmed members")}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {activeTab === 'waiting' && (
-          <div className=" ">
-            <table className=" ">
-              <tbody className="flex flex-wrap gap-2">
-                {waitingUsers.length > 0 ? waitingUsers.map((player:any, index:any) => (
-                  <tr key={player.id} className="">
-                    <td className="px-3 py-2 text-sm text-gray-500">
-                      <div className="text-center">
-                        <img className="h-10 w-10 rounded-full" src={player?.imageUrl} alt="" />
+                      {isCreated &&
                         <div>
-                          <div className="text-sm font-medium text-gray-900">{player?.nickName}</div>
+
+
+                          <button className="flex items-center gap-1 cursor-pointer bg-[#17b3a6] text-white rounded-lg my-2" onClick={(e) => { handleApprove(e, player.id) }}><CheckBadgeIcon className="w-6 h-6 text-white" />{t("ACCEPT")}</button>
+                          <button className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#17b3a6]  rounded-lg my-2 py-1 text-[#17b3a6]" onClick={(e) => { }}><XMarkIcon className="w-5 h-5 text-[#17b3a6]" />{t("DECLINE")}</button>
                         </div>
-                        {isCreated &&
-                                    <div>
+                      }
+                    </div>
+                  </td>
+                </tr>
+              )) : (
+                <tr>
+                  <td className="px-3 py-2 text-lg font-medium text-gray-500 text-center">
+                    {t("NO_WAITING")}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
 
-
-                                      <button className="flex items-center gap-1 cursor-pointer bg-[#17b3a6] text-white rounded-lg my-2" onClick={(e) => { handleApprove(e, player.id) }}><CheckBadgeIcon className="w-6 h-6 text-white" />{t("ACCEPT")}</button>
-                                      <button className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#17b3a6]  rounded-lg my-2 py-1 text-[#17b3a6]" onClick={(e) => { }}><XMarkIcon className="w-5 h-5 text-[#17b3a6]" />{t("DECLINE")}</button>
-                                    </div>
-                                  }
-                      </div>
-                    </td>
-                  </tr>
-                )) : (
-                  <tr>
-                    <td className="px-3 py-2 text-lg font-medium text-gray-500 text-center">
-                      {t("NO_WAITING")}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
 
-   
+
     </div>
   );
 }
