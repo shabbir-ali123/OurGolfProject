@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { getTimeAgo } from "../pages/ReadPost";
 import {
   handleDeleteComment,
-  handleEditForm,
+ 
 } from "../utils/fetchCommunication";
 interface CommentModelProps {
   eventIsd?: any;
@@ -86,7 +86,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
 
   useEffect(() => {
     handleSingleEventID(eventIsd);
-    setFormData((prev:any)=>({
+    setFormData((prev: any) => ({
       ...prev,
       userId: uid,
       eventId: eventIsd,
@@ -104,8 +104,8 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
     setSubmitting(true);
 
     try {
-      const response = await axios.post(API_ENDPOINTS.ADDCOMMENT,formData, {
-        
+      const response = await axios.post(API_ENDPOINTS.ADDCOMMENT, formData, {
+
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -162,7 +162,33 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
       }));
     }
   };
+  const handleEditForm = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        API_ENDPOINTS.EDITPOSTCOMMENTS,
+        {
+          commentId: updateFormData.commentId,
+          content: updateFormData.content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
+      setIsEdit((prevState: any) => ({
+        false: false,
+      }));
+      if (response.status === 200) {
+        handleMessage(response.data.updatedComment.content);
+        toast.success(t("COMMENT_UPDATE"));
+      }
+    } catch (error) {
+      toast.error(t("ERROR_UPDATE_LIKES"));
+    }
+  };
   return (
     <>
       <td
@@ -206,7 +232,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
           <div className="relative max-h-full p-4 ">
             {token && (
               <form method="post" className="mx-4  " onSubmit={handleSubmit}
-            >
+              >
                 <input type="hidden" name="userId" />
                 <input type="hidden" name="eventId" />
 
@@ -256,14 +282,14 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                                 {isEdit[comment.id] ? (
                                   <form
                                     className=""
-                                    onSubmit={(e) => {
-                                      handleEditForm(
-                                        e,
-                                        setIsEdit,
-                                        handleMessage,
-                                        updateFormData
-                                      );
-                                    }}
+                                    // onSubmit={(e) => {
+                                    //   handleEditForm(
+                                    //     e,
+                                    //     setIsEdit,
+                                    //     handleMessage,
+                                    //     updateFormData
+                                    //   );
+                                    // }}
                                   >
                                     <textarea
                                       name="editContent"
@@ -286,11 +312,12 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                                       <button
                                         data-modal-hide="popup-modal"
                                         type="submit"
-                                        // onClick={handleEditForm}
+                                        onClick={(e) => handleEditForm(e)}
                                         className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#17b3a6] hover:bg-green-600 rounded-lg focus:ring-4 focus:ring-primary-200  hover:bg-primary-800"
                                       >
                                         {t("UPDATE_COMMENT")}
                                       </button>
+
                                       <button
                                         data-modal-hide="popup-modal"
                                         type="submit"
@@ -310,7 +337,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
                                 )}
                               </div>
                               <p className="col-start-2  text-[12px] text-gray-600 ">
-                                {getTimeAgo(new Date(comment.createdAt),t)}
+                                {getTimeAgo(new Date(comment.createdAt), t)}
                               </p>
                             </div>
                           </div>
