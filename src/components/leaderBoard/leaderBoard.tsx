@@ -22,7 +22,8 @@ const LeaderBoardTables: FunctionComponent = () => {
   const params = useParams<{ id?: string }>();
   const { score } = useScoreContext();
   const { t } = useTranslation();
-  
+
+
   const paramsFilter = score?.filter(
     (id: any) => id.eventId == Number(params.id)
   );
@@ -37,7 +38,7 @@ const LeaderBoardTables: FunctionComponent = () => {
     (accumulator: any, currentValue: any) => accumulator + currentValue,
     0
   );
-
+  console.log(shotsPerHoles);
   return (
     <div className="py-4 rounded-lg my-10">
       <div className="px-3 overflow-x-auto">
@@ -82,20 +83,29 @@ const LeaderBoardTables: FunctionComponent = () => {
                     title={t("HOLE")}
                     className="rounded-s-[3px] font-bold text-[24px] text-start ml-4 border-[1px] border-solid border-white"
                   />
-                  {Array.from({ length: 9 }, (_, index) => (
-                    <LeaderBoard
-                      key={index}
-                      title={`${index + 1}`}
-                      className="text-[18px] font-medium text-center border-[1px] border-solid border-white"
-                    />
-                  ))}
-                  {Array.from({ length: 9 }, (_, index) => (
-                    <LeaderBoard
-                      key={index}
-                      title={`${index + 10}`}
-                      className="text-[18px] font-medium text-center border-[1px] border-solid border-white"
-                    />
-                  ))}
+                  {Array.from({ length: 18 }, (_, index) => {
+
+                    return <>
+                      <LeaderBoard
+                        key={index}
+                        title={`${index + 1}`}
+                        className="text-[18px] font-medium text-center border-[1px] border-solid border-white"
+                      />
+                      {
+                        singleEvent.driverContest == index &&
+                        <LeaderBoard
+                          title={t("DC")}
+                          className="text-[18px] font-medium text-center border-[1px] border-solid border-white bg-[#054a51]"
+                        />}
+                      {singleEvent.nearPinContest == index &&
+                        <LeaderBoard
+                          title={t("NPC")}
+                          className="text-[18px] font-medium text-center border-[1px] border-solid border-white bg-[#054a51]"
+                        />
+                      }
+                    </>
+                  })}
+
                   <LeaderBoard
                     title={t("TOTAL")}
                     className="text-[18px] font-medium text-center border-[1px] border-solid border-white"
@@ -104,16 +114,26 @@ const LeaderBoardTables: FunctionComponent = () => {
                     title={"Net Value"}
                     className="text-[18px] font-medium text-center border-[1px] border-solid border-white"
                   />
+
                 </tr>
                 <tr className="bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
                   <LeaderBoard
                     title={t("PAR")}
                     className="rounded-s-[3px] font-bold text-[24px] text-start ml-4 border-[1px] border-solid border-white"
                   />
-                  {shotsPerHoles?.map((shot: any) => (
-                    <td className="p-2 leading-[20px] text-center border-[1px] border-solid border-white">{shot}</td>
+                  {shotsPerHoles?.map((shot: any, i: any) => (
+                    <>
+                      <td key={i} className="p-2 leading-[20px] text-center border-[1px] border-solid border-white">{shot}</td>
+                      {
+                        singleEvent.nearPinContest == i && <td key={i} className="p-2 leading-[20px] text-center border-[1px] border-solid border-white bg-[#054a51]">0</td>
+                      }
+                      {
+                        singleEvent.driverContest == i && <td key={i} className="p-2 leading-[20px] text-center border-[1px] bg-[#054a51] border-solid border-white">0</td>
+                      }
+
+                    </>
                   ))}
-                  <td className="p-2 leading-[20px] text-center border-[1px] border-solid border-white">{sum}</td>
+                  <td className="p-2 leading-[20px] text-center border-[1px] border-solid border-white ">{sum}</td>
                   <td className="p-2 leading-[20px] text-center border-[1px] border-solid border-white">0</td>
                 </tr>
               </thead>
@@ -126,7 +146,7 @@ const LeaderBoardTables: FunctionComponent = () => {
                       <td className="whitespace-nowrap tracking-[1.45px] leading-[9.22px] flex items-center justify-between min-w-[182px] rounded-s-[13px]">
                         <div
                           className="w-[135px] text-[24px] h-[69px] px-4 flex items-center font-normal leading-5 text-black bg-[#E8F7F6] overflow-hidden"
-                         
+
                         >
                           <img
                             className="h-11 w-11 rounded-full mr-2"
@@ -138,13 +158,38 @@ const LeaderBoardTables: FunctionComponent = () => {
                           </p>
                         </div>
                       </td>
-                      {arr?.map((scores: any) => (
-                        <LeaderBoard
+                      {/* {arr?.map((scores: any, indx: any) => {
+                        const my = scored.eventScoreCard?.driverContest == indx
+
+                        return <LeaderBoard
                           key={scores?.hole}
                           title={`${scores}`}
                           className="text-[18px] font-medium text-center"
                         />
-                      ))}
+                      }
+
+                      )} */}
+                      {arr?.map((scores: any, indx: any) => {
+
+                        return <>
+                          {singleEvent.driverContest == indx - 1 && <LeaderBoard
+                            key={scores?.hole}
+                            title={`${scored.driverContest}`}
+                            className="text-[18px] font-medium text-center bg-[#054a51] text-white"
+                          />}
+                          {singleEvent.nearPinContest == indx - 1 && <LeaderBoard
+                            key={scores?.hole}
+                            title={`${scored.nearPinContest}`}
+                            className="text-[18px] font-medium text-center bg-[#054a51] text-white"
+                          />}<LeaderBoard
+                            key={scores?.hole}
+                            title={`${scores}`}
+                            className="text-[18px] font-medium text-center"
+                          />
+                        </>
+                      }
+
+                      )}
                       <LeaderBoard
                         title={scored?.totalScore}
                         className="text-[18px] font-medium text-center"
@@ -312,6 +357,7 @@ const LeaderBoardTables: FunctionComponent = () => {
           </div>
         )}
       </div>
+
     </div>
   );
 };

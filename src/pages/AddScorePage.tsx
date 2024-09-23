@@ -322,13 +322,13 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         <div className="relative w-[90.5px] h-[147.5px]">
           <img
             className="absolute top-[60px] left-[0px] w-[90.5px] h-[87.5px]"
-            alt=""
+            alt="122"
             src="/img/ellipse-2303.svg"
           />
           <img
             className="absolute top-[0px] left-[22.5px] w-[58px] h-[108px] object-cover"
-            alt=""
-            src="/img/rectangle-1249@2x.png"
+            alt="12"
+            src="/img/leaderboard.png"
           />
         </div>
         <h2 className="tracking-[0.04em] leading-[18px] font-semibold  [text-shadow:0px_7px_4px_#17b3a6] text-21xl">

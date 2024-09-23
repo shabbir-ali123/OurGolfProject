@@ -61,6 +61,7 @@ const onClose = (value:any)=>{
   return (
     <div>
       <div className="max-w-7xl mx-auto">
+     
         <EventDetails />
 
         {singleEvent?.scoringType !== "Normal" && (
@@ -120,7 +121,7 @@ const onClose = (value:any)=>{
           ceremonyModel && <CeremonyModal onClose={onClose} eventId={singleEvent.id}/>
         }
         <EventCeremonyDetails    />
-        <AllMembers />
+   
 
         {(singleEvent?.scoringType !== "Regular" && singleEvent?.scoringType !== "Normal" && (score?.length > 0)) && (
           <>
@@ -138,6 +139,7 @@ const onClose = (value:any)=>{
             <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
           </table>
         )}
+         <AllMembers />
         <div className="w-full lg:w-[1200px] lg:mx-auto">
           <AboutEvent totalJoinedMembers={totalJoinedMembers} />
         </div>
