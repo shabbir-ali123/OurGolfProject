@@ -427,8 +427,8 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                           isCreator={isCreated}
                           key={memberIndex}
                           showNumber={false}
-                          enableHover={true}
-                          onDelete={() => { }}
+                          // enableHover={true}
+                          // onDelete={() => { }}
                           name={member.nickName}
                           imageUrl={member.imageUrl}
                         />
