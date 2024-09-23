@@ -68,8 +68,7 @@ export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) 
 };
 
 
-  export const postScores = async (score: any,) => {
-    const { t } = useTranslation();
+export const postScores = async (score: any, message:any) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -82,7 +81,7 @@ export const getAllScores = async ( setScore: any,setLoading:any, navigate:any) 
           },
         }
       );
-      toast.success(t('UPDATE_SCORE'));
+      toast.success(message);
     } catch (error) {
       console.error("Error toggling favorite status:", error);
     }

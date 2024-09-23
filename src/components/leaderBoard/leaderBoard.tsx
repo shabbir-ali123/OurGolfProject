@@ -45,7 +45,7 @@ const LeaderBoardTables: FunctionComponent = () => {
           <img
             className="w-[57px] h-[103px]"
             alt=""
-            src="/img/rectangle-1248@2x.png"
+            src="/img/leaderboard.png"
           />
           <b className="relative left-[-24px] top-[35px] z-[-1] text-6xl xl:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
             {t("LEADER_BOARD")}

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getAllScores, getScoreById, postScores } from '../utils/getAllScores';
 import { useNavigate, useParams } from 'react-router-dom';
+import { t } from 'i18next';
 
 
 const ScoresContext = React.createContext<any>({});
@@ -30,7 +31,7 @@ export const ScoreContextProvider = ({ children }: any) => {
     }, [eventId, scoreLoading]);
 
     const handleScore = useCallback((score: any) => {
-        postScores(score);
+        postScores(score, t('UPDATE_SCORE'));
     }, [score, scoreLoading]);
 
   

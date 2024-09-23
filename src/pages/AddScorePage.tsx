@@ -5,6 +5,7 @@ import Player from "../components/Player";
 import { singleTeamsContextStore } from "../contexts/teamContext";
 import { useNavigate } from "react-router-dom";
 import { useScoreContext } from "../contexts/scoreContext";
+import { postScores } from "../utils/getAllScores";
 
 interface GolfScoreProps {
   onSaveScores?: (scores: number[]) => void;
@@ -15,6 +16,8 @@ interface UserScores {
   filteredSums: number[];
 }
 const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   const { isCreated, singleEvent } = singleEventContextStore();
   const { handleScore, score } = useScoreContext();
   const { teams, isJoined } = singleTeamsContextStore();
@@ -27,8 +30,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   const [contests, setContests] = useState<any[]>([]);
   const [pinContests, setPinContests] = useState<any[]>([]);
 
-  const { t, i18n } = useTranslation();
-  document.body.dir = i18n.dir();
+
 
   const holes = Array.from({ length: 18 }, (_, index: number) => index + 1);
   const [sums, setSums] = useState<{ [key: string]: any }>({});
@@ -58,7 +60,11 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
 
   const handleForm = (event: any) => {
     event.preventDefault();
+
+    
     handleScore(formData);
+
+   
   };
 
   const handleInputChange = (
@@ -69,7 +75,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
     value: number
   ) => {
     const updatedSums = { ...sums };
-  
+
     // Skip indices 18 and 19
     if (holeIndex !== 18 && holeIndex !== 19) {
       if (!updatedSums[userId]) {
@@ -77,9 +83,9 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       }
       updatedSums[userId][holeIndex] = value;
     }
-  
+
     const userScoresMap: { [userId: string]: UserScores } = {};
-  
+
     for (const [userId, userSums] of Object.entries(sums)) {
       userScoresMap[userId] = userScoresMap[userId] || {
         sums: [],
@@ -87,7 +93,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       };
       userScoresMap[userId].sums.push(...userSums);
     }
-  
+
     for (const [userId, userFilteredSums] of Object.entries(filteredSums)) {
       userScoresMap[userId] = userScoresMap[userId] || {
         sums: [],
@@ -95,21 +101,21 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       };
       userScoresMap[userId].filteredSums.push(...userFilteredSums);
     }
-  
+
     const formDataArray = [];
     for (const [userId, userScores] of Object.entries(userScoresMap)) {
       const totalScore = userScores.sums.reduce((acc, score) => acc + score, 0);
       const roundedValue = isHandicap[userId]
         ? Math.round(
-            (totalScore *
-              (singleEvent?.scoringType === "single"
-                ? 3
-                : singleEvent?.scoringType === "double"
+          (totalScore *
+            (singleEvent?.scoringType === "single"
+              ? 3
+              : singleEvent?.scoringType === "double"
                 ? 1.5
                 : 2) -
-              totalPar) *
-              0.8
-          )
+            totalPar) *
+          0.8
+        )
         : 0;
       const netValue = totalPar - roundedValue;
       const newValueObj = contests.find(
@@ -118,12 +124,12 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       const newPinValueObj = pinContests.find(
         (newValue) => newValue.userId == userId
       );
-  
+
       // Skip adding scorePerShot if holeIndex is 18 or 19
       const scorePerShot = holeIndex !== 18 && holeIndex !== 19
         ? userScores.sums
         : [];
-  
+
       formDataArray.push({
         userId: Number(userId),
         scorePerShot: scorePerShot,
@@ -137,40 +143,40 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         teamId: teamId,
       });
     }
-  
+
     const updatedFormData = formData.map((data: any) => {
       const sums = data.scorePerShot;
-  
+
       if (data.userId == userId) {
         const totalScore = sums?.reduce(
           (acc: any, score: any) => acc + score,
           0
         );
-  
+
         const newValueObj = contests.find(
           (newValue) => newValue.userId === data.userId
         );
         const newPinValueObj = pinContests.find(
           (newValue) => newValue.userId === data.userId
         );
-  
+
         if (holeIndex !== 18 && holeIndex !== 19) {
           data.scorePerShot[holeIndex] = value;
         }
-        
+
         data.totalScore = totalScore;
         data.driverContest = newValueObj?.newValue;
         data.nearPinContest = newPinValueObj?.newValue;
       }
       return data;
     });
-  
+
     if (formData.length === uniqueMembers.length) {
       setFormData(updatedFormData);
     } else {
       setFormData(formDataArray);
     }
-  
+
     setSums(updatedSums);
   };
   console.log(formData, "sad");
@@ -195,9 +201,9 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         { newValue: e.target.value, userId: userId },
       ]);
     }
-  
 
-    
+
+
   };
   const filteredSums = Object.fromEntries(
     Object.entries(sums).map(([userId, scores]) => {
@@ -256,7 +262,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
   useEffect(() => {
     const newFormData = score?.reduce((acc: any, item: any) => {
       const isMember = uniqueMembers?.find(
-        (member: any) => member.userId === item.userId 
+        (member: any) => member.userId === item.userId
       );
       if (isMember) {
         const scorePerShot =
@@ -284,7 +290,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
       }
       return acc;
     }, []);
-      setFormData(newFormData);
+    setFormData(newFormData);
 
   }, [score]);
 
@@ -330,7 +336,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         </h2>
       </div>
       <p>
-      {t("SCORING_TYPE")} : 
+        {t("SCORING_TYPE")} :
         <span className="font-bold">{singleEvent?.scoringType} {t("PERIA")}</span>{" "}
       </p>
       <form action="" onSubmit={handleForm}>
@@ -382,87 +388,87 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
               </tr>
               {isJoined && !isCreator
                 ? uniqueMembers
-                    .filter((member: any) => member.userId == uId)
-                    .map((member: any, memberIndex: number) => {
-                      const playerHandicap = isHandicap[member.userId] || false;
+                  .filter((member: any) => member.userId == uId)
+                  .map((member: any, memberIndex: number) => {
+                    const playerHandicap = isHandicap[member.userId] || false;
 
-                      let roundedValue = 0;
-                      if (playerHandicap) {
-                        if (singleEvent?.scoringType == "single") {
-                          roundedValue = Math.round(
-                            (selectedHoleSum[member.userId] * 3 - totalPar) *
-                              0.8
-                          );
-                        }
-                        if (singleEvent?.scoringType == "double") {
-                          roundedValue = Math.round(
-                            (selectedHoleSum[member.userId] * 1.5 - totalPar) *
-                              0.8
-                          );
-                        }
-                        if (singleEvent?.scoringType == "triple") {
-                          roundedValue = Math.round(
-                            (selectedHoleSum[member.userId] * 2 - totalPar) *
-                              0.8
-                          );
-                        }
+                    let roundedValue = 0;
+                    if (playerHandicap) {
+                      if (singleEvent?.scoringType == "single") {
+                        roundedValue = Math.round(
+                          (selectedHoleSum[member.userId] * 3 - totalPar) *
+                          0.8
+                        );
                       }
-                      const netValue = totalPar - roundedValue;
-                      const playerData = formData?.find(
-                        (data: any) => data.userId == member.userId
-                      );
+                      if (singleEvent?.scoringType == "double") {
+                        roundedValue = Math.round(
+                          (selectedHoleSum[member.userId] * 1.5 - totalPar) *
+                          0.8
+                        );
+                      }
+                      if (singleEvent?.scoringType == "triple") {
+                        roundedValue = Math.round(
+                          (selectedHoleSum[member.userId] * 2 - totalPar) *
+                          0.8
+                        );
+                      }
+                    }
+                    const netValue = totalPar - roundedValue;
+                    const playerData = formData?.find(
+                      (data: any) => data.userId == member.userId
+                    );
 
-                      return (
-                        <tr
+                    return (
+                      <tr
+                        key={memberIndex}
+                        className="py-4 pl-4 whitespace-nowrap"
+                      >
+                        <Player
+                          isCreator={isCreated}
                           key={memberIndex}
-                          className="py-4 pl-4 whitespace-nowrap"
-                        >
-                          <Player
-                            isCreator={isCreated}
-                            key={memberIndex}
-                            showNumber={false}
-                            enableHover={true}
-                            onDelete={() => {}}
-                            name={member.nickName}
-                            imageUrl={member.imageUrl}
-                          />
-                          {holes.map((hole, holeIndex: number) => {
-                            return (
-                              <td key={holeIndex} >
-                                <input
-                                  type="number"
-                                  value={
-                                    formData?.find(
-                                      (data: any) =>
-                                        data.userId == member.userId
-                                    )?.scorePerShot?.[holeIndex]
-                                  }
-                                  placeholder={
-                                    formData?.find(
-                                      (data: any) =>
-                                        data.userId == member.userId
-                                    )?.scorePerShot?.[holeIndex]
-                                  }
-                                  onChange={(e) =>
-                                    handleInputChange(
-                                      member.userId,
-                                      member.teamId,
-                                      member.name,
-                                      holeIndex,
-                                      parseInt(e.target.value)
-                                    )
-                                  }
-                                  className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
-                                />
-                                {holeIndex + 1 ==
-                                  singleEvent?.driverContest && (
+                          showNumber={false}
+                          enableHover={true}
+                          onDelete={() => { }}
+                          name={member.nickName}
+                          imageUrl={member.imageUrl}
+                        />
+                        {holes.map((hole, holeIndex: number) => {
+                          return (
+                            <td key={holeIndex} >
+                              <input
+                                type="number"
+                                value={
+                                  formData?.find(
+                                    (data: any) =>
+                                      data.userId == member.userId
+                                  )?.scorePerShot?.[holeIndex]
+                                }
+                                placeholder={
+                                  formData?.find(
+                                    (data: any) =>
+                                      data.userId == member.userId
+                                  )?.scorePerShot?.[holeIndex]
+                                }
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    member.userId,
+                                    member.teamId,
+                                    member.name,
+                                    holeIndex,
+                                    parseInt(e.target.value)
+                                  )
+                                }
+                                className="w-10 text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                              />
+                              {holeIndex + 1 ==
+                                singleEvent?.driverContest && (
                                   <input
                                     type="text"
                                     name="driverContest"
                                     className="w-10 bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
                                     placeholder={
                                       playerData &&
-                                      playerData?.driverContest  + " yrd"
+                                      playerData?.driverContest + " yrd"
                                     }
                                     value={
                                       formData?.find(
@@ -472,196 +478,36 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                     }
                                     onChange={(e: any) => {
                                       handleContests(member.userId, e);
-                                      
+
                                     }}
-                                    
-                                    />
-                                )}
-                                {holeIndex + 1 ==
-                                  singleEvent?.nearPinContest && (
-                                    <input
-                                      type="text"
-                                      name="nearPinContest"
-                                      className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
-                                      placeholder={
-                                        playerData &&
-                                        playerData?.nearPinContest + " yrd"
-                                      }
-                                      onChange={(e: any) => {
-                                        handlePinContests(member.userId, e);
-                                        
-                                      }}
+
                                   />
-                                  
                                 )}
-                                
-                              </td>
-                            );
-                          })}
-                          <td className="px-2 py-3 text-center">
-                            {playerData?.totalScore || formData
-                              ? playerData?.totalScore
-                              : totalScores[member.userId]}{" "}
-                          </td>
-                          {isCreator && (
-                            <>
-                              <td className="px-2 py-3 text-center">
-                                {roundedValue}
-                              </td>
-                              <td className="px-2 py-3 text-center">
-                                {netValue}
-                              </td>
-                            </>
-                          )}
+                              {holeIndex + 1 ==
+                                singleEvent?.nearPinContest && (
+                                  <input
+                                    type="text"
+                                    name="nearPinContest"
+                                    className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
+                                    placeholder={
+                                      playerData &&
+                                      playerData?.nearPinContest + " yrd"
+                                    }
+                                    onChange={(e: any) => {
+                                      handlePinContests(member.userId, e);
 
-                          {isCreator && (
-                            <td className="px-2 py-3 text-center">
-                              <div className="relative">
-                                <input
-                                  type="checkbox"
-                                  className="sr-only"
-                                  checked={playerHandicap}
-                                />
-                                <div
-                                  onClick={() => handleHandicap(member.userId)}
-                                  className={`block bg-gray-600 w-14 h-8 rounded-full ${
-                                    playerHandicap ? "bg-[green]" : ""
-                                  }`}
-                                ></div>
-                                <div
-                                  className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
-                                    playerHandicap
-                                      ? "transform translate-x-6"
-                                      : ""
-                                  }`}
-                                ></div>
-                              </div>
-                            </td>
-                          )}
-                        </tr>
-                      );
-                    })
-                : uniqueMembers.map((member: any, memberIndex: number) => {
-                    const playerHandicap = isHandicap[member.userId] || false;
+                                    }}
+                                  />
 
-                    let roundedValue = 0;
-                    if (playerHandicap) {
-                      if (singleEvent?.scoringType == "single") {
-                        roundedValue = Math.round(
-                          (selectedHoleSum[member.userId] * 3 - totalPar) * 0.8
-                        );
-                      }
-                      if (singleEvent?.scoringType == "double") {
-                        roundedValue = Math.round(
-                          (selectedHoleSum[member.userId] * 1.5 - totalPar) *
-                            0.8
-                        );
-                      }
-                      if (singleEvent?.scoringType == "triple") {
-                        roundedValue = Math.round(
-                          (selectedHoleSum[member.userId] * 2 - totalPar) * 0.8
-                        );
-                      }
-                    }
+                                )}
 
-                    const netValue = totalPar - roundedValue;
-                    const playerData = formData?.find(
-                      (data: any) => data.userId == member.userId
-                    );
-
-                    return (
-                      <tr key={memberIndex} className="whitespace-nowrap ">
-                        <Player
-                          isCreator={isCreated}
-                          key={memberIndex}
-                          showNumber={false}
-                          enableHover={false}
-                          onDelete={() => {}}
-                          name={member.nickName}
-                          imageUrl={member.imageUrl}
-                        />
-                        {holes.map((hole, holeIndex: number) => {
-
-                          return (
-                            <td key={holeIndex} className="relative">
-                              <input
-                                type="number"
-                                min="0"
-                                value={
-                                  playerData &&
-                                  playerData.scorePerShot?.[holeIndex]
-                                }
-                            
-                                onChange={(e) =>
-                                  handleInputChange(
-                                    member.userId,
-                                    member.teamId,
-                                    member.teamName,
-                                    holeIndex,
-                                    parseInt(e.target.value)
-                                  )
-                                }
-                                
-                                className="w-6 text-sm text-center border border-solid border-[#054a51] bg-white shadow-lg"
-                              />
-                              {holeIndex + 1 == singleEvent?.driverContest && (
-                                <>
-                                <input
-                                  type="text"
-                                  min="1"
-                                  name="driverContest"
-                                  placeholder={
-                                    playerData &&
-                                    playerData?.driverContest + " yrd"
-                                  }
-                                  onChange={(e: any) => {
-                                    handleContests(member.userId, e);
-                                    handleInputChange(
-                                      member.userId,
-                                      member.teamId,
-                                      member.teamName,
-                                      18,
-                                      parseInt(e.target.value)
-                                    )
-                                  }}
-                                  className="w-12 text-sm bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
-                                />
-                              
-                                <span className="absolute bottom-0 right-3"><img src="/img/shot.png" width='45px' height='45px' alt="" /></span>
-</>
-                              )}
-                              {holeIndex + 1 == singleEvent?.nearPinContest && (
-                                <>
-                                <input
-                                  type="text"
-                                  min="1"
-                                  name="nearPinContest"
-                                  placeholder={
-                                    playerData &&
-                                    playerData?.nearPinContest + " yrd"
-                                  }
-                                  onChange={(e: any) => {
-                                    handlePinContests(member.userId, e);
-                                    handleInputChange(
-                                      member.userId,
-                                      member.teamId,
-                                      member.teamName,
-                                      19,
-                                      parseInt(e.target.value)
-                                    )
-                                  }}
-                                  className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
-                                />
-                            <span className="absolute bottom-0 right-1"><img src="/img/flag.png" width='60px' height='40px' alt="" /></span>
-                                </>
-                              )}
                             </td>
                           );
                         })}
                         <td className="px-2 py-3 text-center">
                           {playerData?.totalScore || formData
                             ? playerData?.totalScore
-                            : totalScores[member.userId]}
+                            : totalScores[member.userId]}{" "}
                         </td>
                         {isCreator && (
                           <>
@@ -684,23 +530,179 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                               />
                               <div
                                 onClick={() => handleHandicap(member.userId)}
-                                className={`block bg-gray-600 w-14 h-8 rounded-full ${
-                                  playerHandicap ? "bg-[green]" : ""
-                                }`}
+                                className={`block bg-gray-600 w-14 h-8 rounded-full ${playerHandicap ? "bg-[green]" : ""
+                                  }`}
                               ></div>
                               <div
-                                className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${
-                                  playerHandicap
+                                className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${playerHandicap
                                     ? "transform translate-x-6"
                                     : ""
-                                }`}
+                                  }`}
                               ></div>
                             </div>
                           </td>
                         )}
                       </tr>
                     );
-                  })}
+                  })
+                : uniqueMembers.map((member: any, memberIndex: number) => {
+                  const playerHandicap = isHandicap[member.userId] || false;
+
+                  let roundedValue = 0;
+                  if (playerHandicap) {
+                    if (singleEvent?.scoringType == "single") {
+                      roundedValue = Math.round(
+                        (selectedHoleSum[member.userId] * 3 - totalPar) * 0.8
+                      );
+                    }
+                    if (singleEvent?.scoringType == "double") {
+                      roundedValue = Math.round(
+                        (selectedHoleSum[member.userId] * 1.5 - totalPar) *
+                        0.8
+                      );
+                    }
+                    if (singleEvent?.scoringType == "triple") {
+                      roundedValue = Math.round(
+                        (selectedHoleSum[member.userId] * 2 - totalPar) * 0.8
+                      );
+                    }
+                  }
+
+                  const netValue = totalPar - roundedValue;
+                  const playerData = formData?.find(
+                    (data: any) => data.userId == member.userId
+                  );
+
+                  return (
+                    <tr key={memberIndex} className="whitespace-nowrap ">
+                      <Player
+                        isCreator={isCreated}
+                        key={memberIndex}
+                        showNumber={false}
+                        enableHover={false}
+                        onDelete={() => { }}
+                        name={member.nickName}
+                        imageUrl={member.imageUrl}
+                      />
+                      {holes.map((hole, holeIndex: number) => {
+
+                        return (
+                          <td key={holeIndex} className="relative">
+                            <input
+                              type="number"
+                              min="0"
+                              value={
+                                playerData &&
+                                playerData.scorePerShot?.[holeIndex]
+                              }
+
+                              onChange={(e) =>
+                                handleInputChange(
+                                  member.userId,
+                                  member.teamId,
+                                  member.teamName,
+                                  holeIndex,
+                                  parseInt(e.target.value)
+                                )
+                              }
+
+                              className="w-6 text-sm text-center border border-solid border-[#054a51] bg-white shadow-lg"
+                            />
+                            {holeIndex + 1 == singleEvent?.driverContest && (
+                              <>
+                                <input
+                                  type="text"
+                                  min="1"
+                                  name="driverContest"
+                                  placeholder={
+                                    playerData &&
+                                    playerData?.driverContest + " yrd"
+                                  }
+                                  onChange={(e: any) => {
+                                    handleContests(member.userId, e);
+                                    handleInputChange(
+                                      member.userId,
+                                      member.teamId,
+                                      member.teamName,
+                                      18,
+                                      parseInt(e.target.value)
+                                    )
+                                  }}
+                                  className="w-12 text-sm bg-[#17b3a6] text-center border border-solid border-[#054a51]shadow-lg"
+                                />
+
+                                <span className="absolute bottom-0 right-3"><img src="/img/shot.png" width='45px' height='45px' alt="" /></span>
+                              </>
+                            )}
+                            {holeIndex + 1 == singleEvent?.nearPinContest && (
+                              <>
+                                <input
+                                  type="text"
+                                  min="1"
+                                  name="nearPinContest"
+                                  placeholder={
+                                    playerData &&
+                                    playerData?.nearPinContest + " yrd"
+                                  }
+                                  onChange={(e: any) => {
+                                    handlePinContests(member.userId, e);
+                                    handleInputChange(
+                                      member.userId,
+                                      member.teamId,
+                                      member.teamName,
+                                      19,
+                                      parseInt(e.target.value)
+                                    )
+                                  }}
+                                  className="w-10 bg-[#6effa4] text-center border border-solid border-[#054a51]shadow-lg"
+                                />
+                                <span className="absolute bottom-0 right-1"><img src="/img/flag.png" width='60px' height='40px' alt="" /></span>
+                              </>
+                            )}
+                          </td>
+                        );
+                      })}
+                      <td className="px-2 py-3 text-center">
+                        {playerData?.totalScore || formData
+                          ? playerData?.totalScore
+                          : totalScores[member.userId]}
+                      </td>
+                      {isCreator && (
+                        <>
+                          <td className="px-2 py-3 text-center">
+                            {roundedValue}
+                          </td>
+                          <td className="px-2 py-3 text-center">
+                            {netValue}
+                          </td>
+                        </>
+                      )}
+
+                      {isCreator && (
+                        <td className="px-2 py-3 text-center">
+                          <div className="relative">
+                            <input
+                              type="checkbox"
+                              className="sr-only"
+                              checked={playerHandicap}
+                            />
+                            <div
+                              onClick={() => handleHandicap(member.userId)}
+                              className={`block bg-gray-600 w-14 h-8 rounded-full ${playerHandicap ? "bg-[green]" : ""
+                                }`}
+                            ></div>
+                            <div
+                              className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${playerHandicap
+                                  ? "transform translate-x-6"
+                                  : ""
+                                }`}
+                            ></div>
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  );
+                })}
             </thead>
           </table>
         </div>
