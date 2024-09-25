@@ -92,7 +92,17 @@ const ScoringTabs = ({ singleEvent }: any) => {
   // console.log(shotsPar);
   return (
     <div className=" ">
-      <div className=" mx-6 xl:mx-0">
+      <div className=" mx-6 xl:mx-0 ">
+      <div className="hidden xl:flex gap-4 mt-2 xl:mt-10">
+          <img
+            className="w-[57px] h-[103px]"
+            alt=""
+            src="/img/leaderboard.png"
+          />
+          <b className="relative left-[-24px] top-[35px] z-[-1] text-6xl xl:text-17xl text-darkslateblue-300 leading-[18px] [text-shadow:0px_7px_4px_#ccf2fe]">
+            {t("TEAM_RESULT")}
+          </b>
+        </div>
         <div className="flex justify-end gap-2 ">
           <div className="flex justify-end gap-2">
             <button
@@ -118,7 +128,7 @@ const ScoringTabs = ({ singleEvent }: any) => {
 
         <div className="overflow-x-scroll sm:overflow-x-auto ">
           {activeTab === "REGULAR" && (
-            <div className="mx-5 mt-10">
+            <div className="xl:mx-0 mt-10">
               <div className="">
                 <div className="px-3 ">
                   <table className="w-full border-spacing-y-[1px] ">
@@ -241,7 +251,7 @@ const ScoringTabs = ({ singleEvent }: any) => {
 
           {activeTab === "HANDICAP" && (
             <div>
-              <div className='mx-5 mt-10 '>
+              <div className='mx-0 mt-10 '>
                 <div className='px-3 '>
                   <table className='w-full border-spacing-y-5 '>
                     <thead className='text-left text-white '>

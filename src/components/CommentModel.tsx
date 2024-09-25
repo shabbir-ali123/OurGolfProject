@@ -195,7 +195,7 @@ const CommentModel: React.FC<CommentModelProps> = ({ closeModal, eventIsd }) => 
         colSpan={8}
         id="popup-modal"
         tabIndex={-1}
-        className="p-2 max-w-5xl mx-auto  bg-white rounded-lg shadow-lg mt-[-10px] "
+        className="p-2 max-w-7xl mx-auto  bg-white rounded-lg shadow-lg mt-[-10px] "
       >
         <div className="col-span-12 ">
           <div className="flex items-center justify-between mx-4 z-[-1]">
