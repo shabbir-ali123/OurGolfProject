@@ -5,87 +5,79 @@ import { updateCeremonyDetails } from '../utils/fetchEvents';
 interface EventEditModalProps {
     event: any;
     closeModal: any;
-    handleLoading:any
+    handleLoading: any;
 }
 
-const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal,handleLoading }) => {
-    // const [eventInfo, setEventInfo] = useState(event.item.eventInfo || '');
+const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, handleLoading }) => {
     const [formdata, setFormdata] = useState<any>({
         removedMediaUrls: "",
         eventId: "",
-        id:event.item.id,
-        eventInfo: "hguy",
+        id: "",
+        eventInfo: "",
         mediaFiles: ""
     });
     const [message, setMessage] = useState<string>('');
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { files } = e.target;
         if (files) {
             setFormdata((prev: any) => ({
                 ...prev,
-                mediaFiles:  files 
+                mediaFiles: files
             }));
         }
     };
 
-    // const handleRemoveImage = (removedMediaUrls: string ,eventId:any) => {
-    //     setRemovedMediaUrls({ removedMediaUrls ,eventId, eventInfo, "mediaFiles[]": ''});
-    // };
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
-       
-        updateCeremonyDetails(
-            formdata,
-            handleLoading,
-            closeModal
-
-        );
+        updateCeremonyDetails(formdata, handleLoading, closeModal);
     };
-    const handleDelete = async (e: React.FormEvent,  removedMediaUrls:any) => {
-       
+
+    const handleDelete = async (e: React.FormEvent, removedMediaUrls: any) => {
         setFormdata((prev: any) => ({
             ...prev,
             removedMediaUrls
         }));
-        if(formdata.removedMediaUrls){
-            updateCeremonyDetails(
-                formdata,
-                handleLoading,
-                closeModal
-
-            );
+        if (formdata.removedMediaUrls) {
+            updateCeremonyDetails(formdata, handleLoading, closeModal);
         }
     };
+
     useEffect(() => {
-        setFormdata({
-            eventId: event.item.eventId,
-            eventInfo: event.item.eventInfo,
-           ' mediaFiles[]': "",
-           id:event.item.id,
-           removedMediaUrls: ''
-        })
-    }, [event.item])
+        if (event?.item) {
+            setFormdata({
+                eventId: event.item.eventId || "",
+                eventInfo: event.item.eventInfo || "",
+                mediaFiles: "",
+                id: event.item.id || "",
+                removedMediaUrls: ''
+            });
+        }
+    }, [event]);
+
     const handleInput = (e: any) => {
-        console.log(e, "asdasjkdnasjk")
         const { name, value } = e.target;
-    
+
         setFormdata((prev: any) => ({
             ...prev,
             eventInfo: value
         }));
     };
+
+    if (!event?.item) {
+        return null; // Or a loading spinner/message, if needed
+    }
+
     return (
         <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
             <div className="w-full max-w-xl p-6 bg-white rounded-lg shadow-lg relative">
                 <button
-                    onClick={()=>{
-                        closeModal(false)
+                    onClick={() => {
+                        closeModal(false);
                     }}
                     className="absolute top-2 right-2 text-gray-500"
                 >
-                 
                     X
                 </button>
                 <h2 className="text-xl font-bold mb-4">Edit Event</h2>
@@ -96,9 +88,8 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal,handl
                             id="eventInfo"
                             value={formdata.eventInfo}
                             name="eventInfo"
-                            onChange={ handleInput}
+                            onChange={handleInput}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-
                         />
                     </div>
 

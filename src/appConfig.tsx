@@ -34,7 +34,7 @@ export const API_ENDPOINTS = {
   DELETE_EVENT: `${API_BASE_URL}/${API_VERSION}/delete-event-by-id/`,
   UPDATE_EVENT: `${API_BASE_URL}/${API_VERSION}/update-event-by-id/`,
   UPDATE_EVENT_MEDIA: `${API_BASE_URL}/${API_VERSION}/update-event-media`,
-  
+
   APPROVE_EVENT: `${API_BASE_URL}/${API_VERSION}/approve-join-request`,
   SEARCH_EVENT: `${API_BASE_URL}/${API_VERSION}/search-event-by-name`,
   SEARCH_EVENT_NAME: `${API_BASE_URL}/${API_VERSION}/get-event-col-data`,
@@ -46,7 +46,7 @@ export const API_ENDPOINTS = {
   GET_EVENT_CEREMONY: `${API_BASE_URL}/${API_VERSION}/get-ceremony-details`,
   UPDATE_EVENT_CEREMONY: `${API_BASE_URL}/${API_VERSION}/update-event-ceremony-details`,
 
-  
+
   // get notfication
   GET_NOTIFICATION: `${API_BASE_URL}/${API_VERSION}/get-notifications`,
 
@@ -97,7 +97,7 @@ export const API_ENDPOINTS = {
   GETPUBLICTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-public-teams-by-event/`,
   GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`,
   UPDATETEAMMEMBER: `${API_BASE_URL}/${API_VERSION}/update-team-member`,
-
+  DELETETEAMEMBER: `${API_BASE_URL}/${API_VERSION}/delete-team-member`,
   // student
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
 
@@ -136,7 +136,7 @@ export const API_ENDPOINTS = {
   UPDATENOTIFICATIONSTATUS: `${API_BASE_URL}/${API_VERSION}/update-notification-response`,
 
 
- 
+
   GETEVENTPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-event-payment`,
   GETTEACHERPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-teacher-payment`,
 
@@ -150,5 +150,5 @@ export const API_ENDPOINTS = {
   UPDATEMESSAGE: `${API_BASE_URL}/${API_VERSION}/update-message`,
   UPDATEUSERPRESENSE: `${API_BASE_URL}/${API_VERSION}/user-presense`,
   ONLINEUSERS: `${API_BASE_URL}/${API_VERSION}/online-users`,
-  PUSHERAUTH:`${API_BASE_URL}/${API_VERSION}/pusher/auth`,
+  PUSHERAUTH: `${API_BASE_URL}/${API_VERSION}/pusher/auth`,
 };

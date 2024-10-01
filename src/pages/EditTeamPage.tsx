@@ -200,7 +200,7 @@ const EditTeamPage: FunctionComponent = () => {
   console.log(centerIndex, "cc")
   const updateTeams = async (event: any) => {
     event.preventDefault();
-  
+
     // Check if the team size is being reduced
     if (currentTeamSize < teams.length) {
       // Check if there are any members in the teams that will be removed
@@ -213,29 +213,29 @@ const EditTeamPage: FunctionComponent = () => {
         }
       }
     }
-  
+
     const uId = selectedUserId.toString();
     const initialTeamSize = singleEvent?.teamSize;
     const initialCapacity = singleEvent?.capacity;
     const initialMembers = teamMembers;
-  
+
     const hasCapacityChanged = capacity !== initialCapacity;
     const hasTeamSizeChanged = currentTeamSize !== initialTeamSize;
     const hasMembersChanged =
       JSON.stringify(teamMembers) !== JSON.stringify(initialMembers);
-  
+
     if (!hasCapacityChanged && !hasTeamSizeChanged && !hasMembersChanged) {
       toast.error(t("MAKE_CHANGES"));
       return;
     }
-  
+
     const formDataObj = {
       eventId: singleEvent?.id,
       teamSize: currentTeamSize == undefined ? singleEvent?.teamSize : Number(currentTeamSize),
       capacity: capacity === undefined ? totalCapacity : Number(capacity),
       teams,
     };
-  
+
     try {
       const response = await axios.put(
         API_ENDPOINTS.UPDATETEAMMEMBER,
@@ -247,7 +247,7 @@ const EditTeamPage: FunctionComponent = () => {
           },
         }
       );
-  
+
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -258,7 +258,7 @@ const EditTeamPage: FunctionComponent = () => {
       toast.error("Please make changes before updating.");
     }
   };
-  
+
   let previousIndex = centerIndex - 1;
   let nextIndex = centerIndex + 2;
 
@@ -292,7 +292,7 @@ const EditTeamPage: FunctionComponent = () => {
     for (let i = 1; i <= teamCapacity; i++) {
       headers.push(
         <th key={i} className=" py-3 leading-[10.25px] font-medium ">
-         
+
           {i}
         </th>
       );
@@ -329,7 +329,7 @@ const EditTeamPage: FunctionComponent = () => {
   const deadlineData = new Date(singleEvent?.eventDeadlineDate);
   const isEventOver = currentDate > endDate;
   const isDeadlineOver = currentDate > deadlineData;
-console.log({teams},"teams")
+  console.log({ teams }, "teams")
   return (
     <>
       {showWideSlider ? <SliderStyles /> : <ResponsiveSliderStyles />}
@@ -705,11 +705,10 @@ console.log({teams},"teams")
                                     </div>
                                   </div>
                                 </td>
-                                {team.members?.map((member: any, memberIndex: any) => (
-                                  <td className="py-4 pl-4 whitespace-nowrap ">
+                                {team.members?.filter((member: any) => member.status === 'joined').map((member: any, memberIndex: any) => (
+                                  <td className="py-4 pl-4 whitespace-nowrap" key={memberIndex}>
                                     <Player
                                       isCreator={isCreated}
-                                      key={memberIndex}
                                       showNumber={false}
                                       enableHover={true}
                                       onEdit={() => {
@@ -719,12 +718,13 @@ console.log({teams},"teams")
                                         setselectedPlayerImageUrl(member.imageUrl);
                                         setEditOpen(true);
                                       }}
-                                      onDelete={() => setOpen(true)}
+                                      onDelete={() => console.log('Delete clicked')} 
                                       name={member.nickName}
                                       imageUrl={member.imageUrl}
                                     />
                                   </td>
                                 ))}
+
                               </tr>
                             ))}
                           </tbody>
