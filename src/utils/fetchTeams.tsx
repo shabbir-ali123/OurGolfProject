@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_ENDPOINTS } from "../appConfig";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+
 export const fetchTeams = async (setTeams: any, eventId: any, setTeamMembers: any, setTotalJoinedMembers:any) => {
     try {
         const token = localStorage.getItem("token");
@@ -85,6 +86,7 @@ export const fetchAllMembers = async (teamId: any) => {
                 headers
             }
         );
+        console.log(response.data,'khan11')
         
         return response.data;
         
@@ -135,5 +137,33 @@ export const updateTeams = async (event: any, selectedUserId: any, selectedTeamI
           } else {
             toast.error("An error occurred. Please try again.");
           }
+    }
+};
+export const deleteTeamMember = async (teamId: any, userId: any) => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.delete(API_ENDPOINTS.DELETETEAMEMBER, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            data: {
+                teamId,
+                userId,
+            },
+        });
+
+        if (response.status === 200) {
+            toast.success("Team member removed successfully.");
+            window.location.reload()
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+            localStorage.clear();
+            toast.error("Session expired. Please log in again.");
+        } else {
+            toast.error("An error occurred while deleting the team member. Please try again.");
+        }
     }
 };

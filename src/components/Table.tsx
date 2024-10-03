@@ -539,13 +539,14 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   </button>
                                   {event.creator.id == userId || (
                                     <button
-                                      className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] font-bold py-2 px-2 rounded cursor-pointer"
+                                      className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] w-full font-bold py-2 px-2 rounded cursor-pointer whitespace-nowrap"
                                       onClick={() => router(`/message-page`)}
                                       style={{
                                         boxShadow:
                                           "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",
                                       }}
                                     >
+                                      
                                       {t("CHAT")}
                                     </button>
                                   )}
