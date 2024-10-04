@@ -139,7 +139,7 @@ export const updateTeams = async (event: any, selectedUserId: any, selectedTeamI
           }
     }
 };
-export const deleteTeamMember = async (teamId: any, userId: any) => {
+export const deleteTeamMember = async (teamId: any, userId: any,eventId:any) => {
     try {
         const token = localStorage.getItem("token");
 
@@ -151,6 +151,8 @@ export const deleteTeamMember = async (teamId: any, userId: any) => {
             data: {
                 teamId,
                 userId,
+                eventId
+                
             },
         });
 

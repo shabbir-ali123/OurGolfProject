@@ -5,13 +5,17 @@ import { singleEventContextStore } from '../contexts/eventContext';
 import { approveEvent, fetchSingleEvent } from "../utils/fetchEvents";
 import { deleteTeamMember } from "../utils/fetchTeams";
 import { toast } from 'react-toastify';
+
 import { useNavigate } from 'react-router-dom';
 import { CheckBadgeIcon, XMarkIcon, TrashIcon } from '@heroicons/react/24/solid';
+import AreSure from './AreSure';
 export default function AllMembers() {
   const [visibleCount, setVisibleCount] = useState(5);
   const [activeTab, setActiveTab] = useState('confirmed');
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [memberToRemove, setMemberToRemove] = useState(null);
   const { isCreated, singleEvent } = singleEventContextStore();
   const { handleSingleTeam, totalJoinedMembers, teamMembers, isJoined, isLoading, teams, waitingUsers = [], joinedUsers = [], handleIsLoading } = singleTeamsContextStore()
   const loadMore = () => {
@@ -33,15 +37,17 @@ export default function AllMembers() {
     navigate(`/edit-team/${singleEvent?.id}`);
 
   }
-  const handleRemoveMember = async (e: any, teamId: any, memberId: any,) => {
+
+  const handleRemoveMember = async (e: any, teamId: any, memberId: any, eventId: any) => {
     e.preventDefault();
     try {
-      await deleteTeamMember(teamId, memberId);
+      await deleteTeamMember(teamId, memberId, singleEvent.id);
       toast.success(t("MEMBER_REMOVED_SUCCESS"));
     } catch (error) {
       toast.error(t("ERROR_REMOVING_MEMBER"));
     }
   };
+
   return (
     <div className="px-4 max-w-6xl mx-auto  sm:px-6 lg:px-8 py-4 rounded-lg my-10">
       <div className="flex flex-col justify-center py-4 px-10 mt-10 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] rounded-lg">
@@ -51,7 +57,7 @@ export default function AllMembers() {
             {t("ALL_MEMBERS")}
           </b>
         </div>
-
+        {/* handleRemoveMember(e, player.teamId, player.userId, player.eventId) */}
         {/* <div className="grid grid-cols-2 gap-2 border-b border-gray-200 mb-4 py-6">
           <button
             className={`px-4 py-2 xl:py-4 text-[18px] xl:text-[20px] xl:font-bold  ${activeTab === 'confirmed' ? 'text-white bg-[#17b3a6]' : 'bg-transparent border-2 border-solid border-[#17B3A6] text-[#17B3A6]'}`}
@@ -72,49 +78,62 @@ export default function AllMembers() {
           <table className=" ">
             <tbody className="flex flex-wrap gap-2">
               {joinedUsers?.length > 0 ? (
-               
+
                 joinedUsers.some((members: any) =>
                   members.members?.some((player: any) => player.status === 'joined')
                 ) ? (
-                
+
                   joinedUsers.map((members: any, index: any) =>
                     members.members?.map((player: any, index: any) => {
                       return (
-                        player.status === 'joined' && (
-                          <tr key={player.id} className="">
-                            <td className="px-3 py-2 text-sm text-gray-500">
-                              <div className="flex items-center justify-between">
-                                <div className="text-center">
-                                  <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={player?.imageUrl}
-                                    alt=""
-                                  />
-                                  <div>
-                                    <div className="text-sm font-medium text-gray-900">
-                                      {player?.nickName}
+                        <>
+                          {showConfirm && (
+                            <AreSure
+                              mainFunc={(e: any) => {
+                                handleRemoveMember(e, player.teamId, player.userId, player.eventId)
+                              }}
+                              toggleModal={() => setShowConfirm(false)}
+                              isModalOpen={showConfirm}
+                              title={t("Are you sure you want to remove this member?")}
+                            />
+                          )}  {
+                            player.status === 'joined' && (
+                              <tr key={player.id} className="">
+                                <td className="px-3 py-2 text-sm text-gray-500">
+                                  <div className="flex items-center justify-between">
+                                    <div className="text-center">
+                                      <img
+                                        className="h-10 w-10 rounded-full"
+                                        src={player?.imageUrl}
+                                        alt=""
+                                      />
+                                      <div>
+                                        <div className="text-sm font-medium text-gray-900">
+                                          {player?.nickName}
+                                        </div>
+                                      </div>
+                                      {
+                                        isCreated ? <button
+                                          className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#e74c3c] text-[#e74c3c] rounded-lg my-2 py-1 px-2"
+                                          onClick={(e) => setShowConfirm(true)}
+                                        >
+                                          <TrashIcon className="w-5 h-5 text-[#e74c3c]" />
+                                          {t("Remove")}
+                                        </button> : ''
+                                      }
+
                                     </div>
                                   </div>
-                                  {
-                                    isCreated ?  <button
-                                    className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#e74c3c] text-[#e74c3c] rounded-lg my-2 py-1 px-2"
-                                    onClick={(e) => handleRemoveMember(e, player.teamId, player.userId)}
-                                  >
-                                    <TrashIcon className="w-5 h-5 text-[#e74c3c]" />
-                                    {t("Remove")}
-                                  </button> :''
-                                  }
-                                 
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        )
+                                </td>
+                              </tr>
+                            )
+                          }</>
+
                       );
                     })
                   )
                 ) : (
-                  
+
                   <tr>
                     <td className="px-3 py-2 text-lg text-gray-500 text-center">
                       {t("No confirmed members")}
@@ -122,7 +141,7 @@ export default function AllMembers() {
                   </tr>
                 )
               ) : (
-               
+
                 <tr>
                   <td className="px-3 py-2 text-lg text-gray-500 text-center">
                     {t("No confirmed members")}
@@ -154,9 +173,9 @@ export default function AllMembers() {
 
 
                           <button className="flex items-center gap-1 cursor-pointer bg-[#17b3a6] text-white rounded-lg my-2" onClick={(e) => { handleApprove(e, player.id) }}><CheckBadgeIcon className="w-6 h-6 text-white" />{t("ACCEPT")}</button>
-                          <button className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#17b3a6]  rounded-lg my-2 py-1 text-[#17b3a6]" onClick={(e) => handleRemoveMember(e, player.teamId, player.userId)}><XMarkIcon className="w-5 h-5 text-[#17b3a6]" />{t("DECLINE")}</button>
+                          <button className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#17b3a6]  rounded-lg my-2 py-1 text-[#17b3a6]" onClick={(e) => handleRemoveMember(e, player.teamId, player.userId, player.eventId)}><XMarkIcon className="w-5 h-5 text-[#17b3a6]" />{t("DECLINE")}</button>
                         </div>
-                        
+
                       }
                     </div>
                   </td>
