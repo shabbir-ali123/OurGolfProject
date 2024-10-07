@@ -207,6 +207,7 @@ const LeaderBoardTables: FunctionComponent = () => {
         )}
         {!showRegularScores && (
           <div className="hidden md:block">
+           <h4 className="flex items-center gap-2">{t("EVENT_TYPE")} : <span className="text-[#17b3a6]">{singleEvent?.scoringType}</span> </h4> 
             <table className="w-full border-spacing-y-[1px]">
               <thead className="text-left text-white">
                 <tr className="bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">

@@ -25,6 +25,8 @@ import { FinalSlider } from "../components/sliders/FinalEventSlider";
 import EventDetails from "../components/event/EventDetails";
 import CeremonyModal from "../components/CeremonyModal";
 import EventCeremonyDetails from "../components/EventCeremonyDetails";
+import IndiviualPlayerTableRow from "../components/IndiviualPlayerTableRow";
+import LeaderBoardIndiviualPlayerScore from "../components/LeaderBoardPlayerScore";
 
 const ScoreBoard: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -44,9 +46,9 @@ const ScoreBoard: FunctionComponent = () => {
   }));
 
   console.log(topThreeScoresWithPosition, " postion");
-const onClose = (value:any)=>{
-  setCeremonyModel(value)
-}
+  const onClose = (value: any) => {
+    setCeremonyModel(value)
+  }
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -61,7 +63,7 @@ const onClose = (value:any)=>{
   return (
     <div>
       <div className="max-w-7xl mx-auto">
-     
+
         <EventDetails />
 
         {singleEvent?.scoringType !== "Normal" && (
@@ -110,25 +112,25 @@ const onClose = (value:any)=>{
 
         </div>
         {isCreated &&
-        <div className="mr-20 flex justify-end">
-          <button onClick={() => {
-            onClose(true)
+          <div className="mr-20 flex justify-end">
+            <button onClick={() => {
+              onClose(true)
 
-          }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white">Add Event Details</button>
-        </div>
-}
-        {
-          ceremonyModel && <CeremonyModal onClose={onClose} eventId={singleEvent.id}/>
+            }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white">Add Event Details</button>
+          </div>
         }
-        <EventCeremonyDetails    />
-   
+        {
+          ceremonyModel && <CeremonyModal onClose={onClose} eventId={singleEvent.id} />
+        }
+        <EventCeremonyDetails />
+
 
         {(singleEvent?.scoringType !== "Regular" && singleEvent?.scoringType !== "Normal" && (score?.length > 0)) && (
           <>
             <div className="max-w-7xl mx-auto">
               <LeaderBoardTables />
+              <LeaderBoardIndiviualPlayerScore />
 
-           
               <ScoringTabs singleEvent={singleEvent} />
             </div>
           </>
@@ -139,7 +141,7 @@ const onClose = (value:any)=>{
             <CommentModel eventIsd={singleEvent?.id} closeModal={() => { }} />
           </table>
         )}
-         <AllMembers />
+        <AllMembers />
         <div className="w-full lg:w-[1200px] lg:mx-auto">
           <AboutEvent totalJoinedMembers={totalJoinedMembers} />
         </div>

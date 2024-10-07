@@ -175,7 +175,7 @@ const SideMenu: React.FC = () => {
     [key: string]: boolean;
   }>({});
   const [isDesktopScreen, setIsDesktopScreen] = useState(
-    window.innerWidth > 768
+    window.innerWidth > 1430
   );
 
   useEffect(() => {
