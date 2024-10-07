@@ -78,6 +78,8 @@ import UpdateSchedules from "./components/UpdateSchedules";
 import EditTeacherProfile from "./components/EditTeacherPro";
 import ReservationDetails from "./components/TeacherReservedGigs"
 // import StudentActivitiesPage from "./components/StudentActivitiesPage";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
 

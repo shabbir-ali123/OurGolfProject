@@ -307,6 +307,7 @@ const LeaderBoardTables: FunctionComponent = () => {
         {/* Mobile View */}
         {showRegularScores && (
           <div className="block mx-4 md:hidden">
+         
             <div className="flex justify-between items-center bg-[#17B3A6] p-2 text-white rounded-t-md">
               <div className="text-[10px]"><p>{t("PLAYER_NO")}</p></div>
               <div className="text-[10px]"><p>{t("PLAYER_NAME")}</p></div>
@@ -332,6 +333,7 @@ const LeaderBoardTables: FunctionComponent = () => {
         )}
         {!showRegularScores && (
           <div className="block md:hidden">
+               <h4 className="flex items-center gap-2">{t("EVENT_TYPE")} : <span className="text-[#17b3a6]">{singleEvent?.scoringType}</span> </h4>
             <div className="flex justify-between items-center bg-[#17B3A6] p-2 text-white rounded-t-md">
               <div className="text-[10px]"><p>{t("PLAYER_NO")}</p></div>
               <div className="text-[10px]"><p>{t("PLAYER_NAME")}</p></div>

@@ -70,7 +70,9 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
+        <>
+    sdfsfd
+        <div className=" flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
             <div className="w-full max-w-xl p-6 bg-white rounded-lg shadow-lg relative">
                 <button
                     onClick={() => {
@@ -131,6 +133,7 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
                 </form>
             </div>
         </div>
+        </>
     );
 };
 
