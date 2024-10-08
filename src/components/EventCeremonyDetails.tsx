@@ -6,25 +6,30 @@ import { FlexitySlider } from './sliders/FlickitySlider';
 const EventDetailsCeremony: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { isCreated, eventCeremony, handleLoading, loading } = singleEventContextStore();
-    const [singleEventC, setsingleEventC] = useState<any>();
+    const [singleEventC, setsingleEventC] = useState<any>({});
 
     const openModal = (id: any) => {
-        console.log(id, "Open Modal called for event");
+        console.log(isModalOpen, "Open Modal called for event");
         const selectedEvent = eventCeremony?.find((item: any) => item.id === id);
 
+
         if (selectedEvent) {
+            setIsModalOpen(true);
             setsingleEventC(selectedEvent);
+        } else {
+            setIsModalOpen(false);
+
         }
     };
 
     const closeModal = useCallback((value: any) => {
         setIsModalOpen(value);
-    }, []);
+    }, [isModalOpen]);
 
     // Effect to open modal only after the selected event is set
     useEffect(() => {
         if (singleEventC) {
-            setIsModalOpen(true); // Open modal when selected event is set
+            setIsModalOpen(false); // Open modal when selected event is set
         }
     }, [singleEventC]);
 
@@ -43,7 +48,7 @@ const EventDetailsCeremony: React.FC = () => {
 
                     return (
                         <div key={item.eventId} className="relative">
-                            <p className="text-gray-700 mb-4 capitalize text-sm md:text-base">
+                            <p className="text-gray-700 mb-4 capitalize text-sm md:text-base leading-8">
                                 {item.eventInfo || "No event info available"}
                             </p>
                             {parsedArray.map((image: any, index: any) => (
@@ -69,16 +74,22 @@ const EventDetailsCeremony: React.FC = () => {
             </FlexitySlider>
 
 
-            {isModalOpen && (
+            {isModalOpen && singleEventC && (
                 <>
-                <EventEditModal
-                    event={singleEventC}
-                    handleLoading={handleLoading}
-                    closeModal={closeModal}
-                />
-                
+                    {/* Overlay for modal with opacity effect */}
+                    <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+                    {/* Modal */}
+                    <div className="fixed inset-0 z-50 flex items-center justify-center">
+                        <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg relative">
+                            <EventEditModal
+                                event={singleEventC}
+                                handleLoading={handleLoading}
+                                closeModal={closeModal}
+                            />
+                        </div>
+                    </div>
                 </>
-              
             )}
         </div>
     );

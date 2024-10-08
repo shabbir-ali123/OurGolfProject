@@ -91,18 +91,18 @@ const LeaderBoardTables: FunctionComponent = () => {
                         title={`${index + 1}`}
                         className="text-[18px] font-medium text-center border-[1px] border-solid border-white"
                       />
-                      {
+                      {/* {
                         singleEvent.driverContest == index &&
                         <LeaderBoard
                           title={t("DC")}
                           className="text-[18px] font-medium text-center border-[1px] border-solid border-white bg-[#054a51]"
-                        />}
-                      {singleEvent.nearPinContest == index &&
+                        />} */}
+                      {/* {singleEvent.nearPinContest == index &&
                         <LeaderBoard
                           title={t("NPC")}
                           className="text-[18px] font-medium text-center border-[1px] border-solid border-white bg-[#054a51]"
                         />
-                      }
+                      } */}
                     </>
                   })}
 
@@ -124,12 +124,12 @@ const LeaderBoardTables: FunctionComponent = () => {
                   {shotsPerHoles?.map((shot: any, i: any) => (
                     <>
                       <td key={i} className="p-2 leading-[20px] text-center border-[1px] border-solid border-white">{shot}</td>
-                      {
+                      {/* {
                         singleEvent.nearPinContest == i && <td key={i} className="p-2 leading-[20px] text-center border-[1px] border-solid border-white bg-[#054a51]">0</td>
-                      }
-                      {
+                      } */}
+                      {/* {
                         singleEvent.driverContest == i && <td key={i} className="p-2 leading-[20px] text-center border-[1px] bg-[#054a51] border-solid border-white">0</td>
-                      }
+                      } */}
 
                     </>
                   ))}
@@ -172,16 +172,18 @@ const LeaderBoardTables: FunctionComponent = () => {
                       {arr?.map((scores: any, indx: any) => {
 
                         return <>
-                          {singleEvent.driverContest == indx - 1 && <LeaderBoard
+                          {/* {singleEvent.driverContest == indx - 1 && <LeaderBoard
                             key={scores?.hole}
                             title={`${scored.driverContest}`}
                             className="text-[18px] font-medium text-center bg-[#054a51] text-white"
-                          />}
-                          {singleEvent.nearPinContest == indx - 1 && <LeaderBoard
+                          />} */}
+                          {/* {singleEvent.nearPinContest == indx - 1 && <LeaderBoard
                             key={scores?.hole}
                             title={`${scored.nearPinContest}`}
                             className="text-[18px] font-medium text-center bg-[#054a51] text-white"
-                          />}<LeaderBoard
+                          />} */}
+                          
+                          <LeaderBoard
                             key={scores?.hole}
                             title={`${scores}`}
                             className="text-[18px] font-medium text-center"
@@ -207,7 +209,7 @@ const LeaderBoardTables: FunctionComponent = () => {
         )}
         {!showRegularScores && (
           <div className="hidden md:block">
-           <h4 className="flex items-center gap-2">{t("EVENT_TYPE")} : <span className="text-[#17b3a6]">{singleEvent?.scoringType}</span> </h4> 
+           <h4 className="flex items-center gap-2">{t("SCORING_TYPE")} : <span className="text-[#17b3a6]">{singleEvent?.scoringType}</span> </h4> 
             <table className="w-full border-spacing-y-[1px]">
               <thead className="text-left text-white">
                 <tr className="bg-[#17B3A6] shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] h-[63px] min-w-[182px]">
@@ -333,7 +335,7 @@ const LeaderBoardTables: FunctionComponent = () => {
         )}
         {!showRegularScores && (
           <div className="block md:hidden">
-               <h4 className="flex items-center gap-2">{t("EVENT_TYPE")} : <span className="text-[#17b3a6]">{singleEvent?.scoringType}</span> </h4>
+               <h4 className="flex items-center gap-2">{t("SCORING_TYPE")} : <span className="text-[#17b3a6]">{singleEvent?.scoringType}</span> </h4>
             <div className="flex justify-between items-center bg-[#17B3A6] p-2 text-white rounded-t-md">
               <div className="text-[10px]"><p>{t("PLAYER_NO")}</p></div>
               <div className="text-[10px]"><p>{t("PLAYER_NAME")}</p></div>

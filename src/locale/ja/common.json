@@ -67,6 +67,7 @@
     "UPDATE_COMMENT":"コメントを更新",
     "CLOSE_COMMENT":"コメントを閉じる",
     "REQUIRED_INFO":"必要情報",
+    "SCORING_RULE": "ニアピンコンテストまたはドラコンコンテストを追加または編集する際は、ホール番号も選択する必要があります",
     "TEAM_RESULT":"チーム結果",
     "CALENDER": "レッスン日程",
     "PROFILE": "プロフィール",

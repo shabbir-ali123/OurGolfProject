@@ -470,12 +470,12 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                       playerData &&
                                       playerData?.driverContest + " yrd"
                                     }
-                                    value={
-                                      formData?.find(
-                                        (data: any) =>
-                                          data.userId == member.userId
-                                      )?.scorePerShot?.[holeIndex]
-                                    }
+                                    // value={
+                                    //   formData?.find(
+                                    //     (data: any) =>
+                                    //       data.userId == member.userId
+                                    //   )?.scorePerShot?.[holeIndex]
+                                    // }
                                     onChange={(e: any) => {
                                       handleContests(member.userId, e);
 
@@ -493,6 +493,7 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
                                       playerData &&
                                       playerData?.nearPinContest + " yrd"
                                     }
+                                    
                                     onChange={(e: any) => {
                                       handlePinContests(member.userId, e);
 
@@ -721,6 +722,10 @@ const AddScorePage: React.FC<GolfScoreProps> = ({ onSaveScores }) => {
         </div>
         <div className="flex items-center justify-end ">
           <p className="my-1">{t("PIN_CONTEST")}-</p>
+          <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#6effa4]"></div>
+        </div>
+        <div className="flex items-center justify-end ">
+          <p className="my-1">{t("SCORING_RULE")}-</p>
           <div className="h-4 w-8 md:w-10 lg:w-16 bg-[#6effa4]"></div>
         </div>
       </div>

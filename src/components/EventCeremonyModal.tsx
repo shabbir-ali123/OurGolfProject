@@ -45,12 +45,12 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
     };
 
     useEffect(() => {
-        if (event?.item) {
+        if (event) {
             setFormdata({
-                eventId: event.item.eventId || "",
-                eventInfo: event.item.eventInfo || "",
+                eventId: event.eventId || "",
+                eventInfo: event.eventInfo || "",
                 mediaFiles: "",
-                id: event.item.id || "",
+                id: event.id || "",
                 removedMediaUrls: ''
             });
         }
@@ -65,23 +65,25 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
         }));
     };
 
-    if (!event?.item) {
+    if (!event) {
         return null; // Or a loading spinner/message, if needed
     }
 
     return (
-        <>
-    sdfsfd
-        <div className=" flex items-center justify-center p-4 bg-gray-500 bg-opacity-50 backdrop-blur-sm">
-            <div className="w-full max-w-xl p-6 bg-white rounded-lg shadow-lg relative">
-                <button
-                    onClick={() => {
-                        closeModal(false);
-                    }}
-                    className="absolute top-2 right-2 text-gray-500"
-                >
-                    X
-                </button>
+
+        <div className=" flex items-center justify-center p-4 ">
+            <div className="w-full max-w-xl p-6 bg-white rounded-lg  relative">
+                <div className='w-6 h-6 flex items-center justify-center rounded-full bg-blue-500 cursor-pointer absolute top-2 right-2' onClick={() => {
+                    closeModal(false);
+                }}>
+                    <button
+
+                        className=" bg-transparent text-white cursor-pointer"
+                    >
+                        X
+                    </button>
+                </div>
+
                 <h2 className="text-xl font-bold mb-4">Edit Event</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -109,8 +111,8 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
                     <div className="mb-4">
                         <p className="text-gray-700">Current Images:</p>
                         <div className="flex flex-wrap gap-2 mt-2">
-                            {event.item.ceremonyImages && JSON.parse(event.item.ceremonyImages).map((image: string, index: number) => (
-                                <div key={index} className="relative">
+                            {event.ceremonyImages && JSON.parse(event.ceremonyImages).map((image: string, index: number) => (
+                                <div className="relative">
                                     <img src={image} alt={`Event image ${index + 1}`} className="w-32 h-32 object-cover rounded-lg" />
                                     <button
                                         onClick={(e) => handleDelete(e, image)}
@@ -133,7 +135,7 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
                 </form>
             </div>
         </div>
-        </>
+
     );
 };
 
