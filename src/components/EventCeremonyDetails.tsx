@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { singleEventContextStore } from '../contexts/eventContext';
 import EventEditModal from '../components/EventCeremonyModal';
 import { FlexitySlider } from './sliders/FlickitySlider';
-
+import { useTranslation } from "react-i18next";
 const EventDetailsCeremony: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { t } = useTranslation();
     const { isCreated, eventCeremony, handleLoading, loading } = singleEventContextStore();
     const [singleEventC, setsingleEventC] = useState<any>({});
 
@@ -40,7 +41,7 @@ const EventDetailsCeremony: React.FC = () => {
 
     return (
         <div className="max-w-6xl mx-auto p-4 bg-white rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Event Memories</h2>
+            <h2 className="text-xl font-bold mb-4">{t("EVENT_MEMORY")}</h2>
             <FlexitySlider>
                 {eventCeremony?.map((item: any) => {
                     console.log(item, "Event item details");
@@ -65,7 +66,7 @@ const EventDetailsCeremony: React.FC = () => {
                                     onClick={() => openModal(item.id)}
                                     className="px-4 py-2 my-4 bg-blue-500 text-white rounded-md text-sm md:text-base"
                                 >
-                                    Edit Event
+                                   {t("EVENT_EDIT")}
                                 </button>
                             )}
                         </div>

@@ -336,7 +336,7 @@ const updateSchedules: React.FC = () => {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (gigs?.gigs?.length === 0) {
-      toast.error(t("ERROR_UPDATE_LIKES"));
+      toast.error(t("MUST_CREATE_GIG"));
       return;
     }
     setIsLoading(true);

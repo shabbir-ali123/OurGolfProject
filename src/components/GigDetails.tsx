@@ -161,7 +161,7 @@ const GigDetails: React.FC = () => {
               dangerouslySetInnerHTML={{ __html: gig?.title ?? "" }}
             ></h2>
             <div className="flex gap-4 mb-4 md:mb-0">
-              <span className="bg-transparent border-2 border-solid  border-black font-bold p-2 rounded text-black xl:px-20 hover:bg-black hover:text-white cursor-pointer">Price: ¥
+              <span className="bg-transparent border-2 border-solid  border-black font-bold p-2 rounded text-black xl:px-20 hover:bg-black hover:text-white cursor-pointer">  {t("PRICE")}: ¥
 
                 {
                   gig?.price
@@ -192,7 +192,7 @@ const GigDetails: React.FC = () => {
                   <img
                     className="w-full h-[300px] xl:h-[700px] object-fit bg-white rounded-lg bg-cover"
                     src={img}
-                    alt="Blog Post Image"
+                    alt="画像がありません。"
                   /> : <video
                     controls
                     className="w-full h-[300px] xl:h-[600px] rounded-lg"
@@ -214,7 +214,7 @@ const GigDetails: React.FC = () => {
                       <img
                         className="w-full bg-cover object-fit h-[300px] xl:h-[600px] rounded-lg"
                         src={img}
-                        alt="Blog Post Image"
+                        alt="画像がありません。"
                       />
                     ) : (
                       <video

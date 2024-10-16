@@ -26,6 +26,7 @@ import BookMarkedEvents from "./pages/BookMarkedEvents";
 import JoinedEvents from "./pages/JoinedEvents";
 import CreateTeacher from "./pages/CreateTeacher";
 import AllNotificationPage from "./pages/AllNotificationsPage";
+import AppointmentNotificationPage from "./pages/AppointmentNotification";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
 import EditTeacher from "./pages/EditTeacher";
 import PostPage from "./pages/PostPage";
@@ -549,6 +550,18 @@ function App() {
               token ? (
                 <NotificationsContext>
                   <AllNotificationPage />
+                </NotificationsContext>
+              ) : (
+                <LoginPage />
+              )
+            }
+          />
+            <Route
+            path="/appointment-notification-page"
+            element={
+              token ? (
+                <NotificationsContext>
+                  <AppointmentNotificationPage />
                 </NotificationsContext>
               ) : (
                 <LoginPage />

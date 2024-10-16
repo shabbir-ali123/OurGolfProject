@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { updateCeremonyDetails } from '../utils/fetchEvents';
-
+import { useTranslation } from "react-i18next";
 interface EventEditModalProps {
     event: any;
     closeModal: any;
@@ -9,6 +9,8 @@ interface EventEditModalProps {
 }
 
 const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, handleLoading }) => {
+
+    const { t } = useTranslation();
     const [formdata, setFormdata] = useState<any>({
         removedMediaUrls: "",
         eventId: "",
@@ -84,10 +86,10 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
                     </button>
                 </div>
 
-                <h2 className="text-xl font-bold mb-4">Edit Event</h2>
+                <h2 className="text-xl font-bold mb-4"> {t("EVENT_EDIT")}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="eventInfo" className="block text-gray-700">Event Information:</label>
+                        <label htmlFor="eventInfo" className="block text-gray-700">{t("EVENT_INFO")}</label>
                         <textarea
                             id="eventInfo"
                             value={formdata.eventInfo}
@@ -98,7 +100,7 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
                     </div>
 
                     <div className="mb-4">
-                        <label htmlFor="fileInput" className="block text-gray-700">Upload New Files:</label>
+                        <label htmlFor="fileInput" className="block text-gray-700">{t("UPLOAD_FILES")}:</label>
                         <input
                             id="fileInput"
                             type="file"
@@ -129,7 +131,7 @@ const EventEditModal: React.FC<EventEditModalProps> = ({ event, closeModal, hand
                         type="submit"
                         className="px-4 py-2 bg-blue-500 text-white rounded-md"
                     >
-                        Update Ceremony Details
+                        {t("UPDATE_CEREMONT")}
                     </button>
                     {message && <p className="mt-4 text-green-500">{message}</p>}
                 </form>

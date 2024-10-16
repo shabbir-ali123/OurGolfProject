@@ -89,6 +89,7 @@ const TeacherDetails: React.FC = () => {
                           "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
                       }}
                       key={item.id}
+                      onClick={() => router(`/gig/` + item.id)}
                     >
                       <div className="gap-4 items-center text-black">
                         <div className="w-full h-full xl:w-[100%] xl:h-[260px]">
@@ -121,7 +122,7 @@ const TeacherDetails: React.FC = () => {
                           </div>
                           <h3>{item.title}</h3>
                           <p>
-                            Price{" "}
+                          {t("PRICE")}{" "}
                             <span className="text-green font-bold text-2xl">
                               {item.price} ¥
                             </span>
@@ -130,13 +131,13 @@ const TeacherDetails: React.FC = () => {
                             onClick={() => router(`/gig/` + item.id)}
                             className="p-2 rounded-lg cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
                           >
-                            See More
+                           {t("SEE_MORE")}
                           </button>
                           <Link
                             to="/message-page"
                             className="text-center bg-[#2dd4bf] text-white p-2 mt-2 rounded-lg cursor-pointer hover:bg-black hover:text-white"
                           >
-                            Chat
+                            {t("CHAT")}
                           </Link>
                         </div>
                       </div>

@@ -6,6 +6,7 @@ import { User } from '@pubnub/chat';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useTranslation } from "react-i18next";
 interface GigItem {
     id: string;
     title: string;
@@ -35,7 +36,7 @@ const fetchAllTeachersGigs = async (setGigs: React.Dispatch<React.SetStateAction
 
 const AllGigs: React.FC = () => {
     const [gigs, setGigs] = useState<any>([]);
-
+    const { t } = useTranslation();
     useEffect(() => {
         fetchAllTeachersGigs(setGigs);
     }, []);
@@ -77,7 +78,7 @@ const AllGigs: React.FC = () => {
                 <img src="/img/colorarrow.png" width="230px" className='absolute right-[66%]' alt="" />
             </div> */}
             <Link to="/all-teacher-gigs">
-                <h2 className="cursor-pointer text-center text-2xl font-bold my-8 text-white bg-[#17B3A6] shadow-lg max-w-2xl py-4  border-2 border-white border-solid mx-4 xl:mx-auto">All Teacher</h2>
+                <h2 className="cursor-pointer text-center text-2xl font-bold my-8 text-white bg-[#17B3A6] shadow-lg max-w-2xl py-4  border-2 border-white border-solid mx-4 xl:mx-auto">{t("ALL_GIGS")}</h2>
             </Link>
             <div className=''>
                 <Slider {...settings} className=''>

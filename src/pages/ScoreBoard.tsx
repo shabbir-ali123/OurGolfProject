@@ -116,7 +116,7 @@ const ScoreBoard: FunctionComponent = () => {
             <button onClick={() => {
               onClose(true)
 
-            }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white">Add Event Details</button>
+            }} className="cursor-pointer p-2 bg-[#17b3a6] rounded-md text-white">{t("ADD_EVENT_DETEIALS")}</button>
           </div>
         }
         {

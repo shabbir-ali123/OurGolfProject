@@ -115,8 +115,9 @@ const GetAllGigs = () => {
                             boxShadow:
                               "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
                           }}
+                          
                         >
-                          <div className=" items-center text-black relative">
+                          <div className=" items-center text-black relative" >
                             <div className="flex justify-end xl:absolute top-[-30px] left-[238px] ]">
                               <TrashIcon
                                 onClick={(e) => {

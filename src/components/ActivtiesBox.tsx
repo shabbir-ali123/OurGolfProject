@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ReviewsModal from './comments/ReviewsModal';
 import { useTranslation } from "react-i18next";
+
 interface ActivtiesBoxProps {
   activity?: any;
 }
@@ -37,8 +38,10 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
     setShowModal(true);
   };
 
-  console.log(activity, "ma hoon");
-  const tId = localStorage.getItem("teacher_id");
+  const handleSeeDetails = (e: React.MouseEvent) => {
+    e.stopPropagation(); 
+    router('/appointment-notification-page', { state: { activity } }); 
+  };
 
   return (
     <div
@@ -51,46 +54,45 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
       }}
     >
       <div className="grid grid-cols-12 items-center">
-        <div className='flex justify-start items-center col-span-8'>
+        <div className='flex justify-start items-center gap-2 col-span-9'>
           <img
             src={activity?.schedule?.Teacher?.teacher?.imageUrl || activity?.bookedShifts?.imageUrl}
             alt="Profile"
             className="h-10 w-10 rounded-full mr-4"
           />
           <p className="text-gray-600 font-product-sans font-normal text-xl">
-          {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName} {t("APPOINTMENT_WITH")} 
+            {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName} {t("APPOINTMENT_WITH")} 
+          </p>
+          <p className="text-[blue] font-product-sans font-normal text-xl ">
+            Time: <span className='font-bold text-green'>{activity?.startTime}</span>
+          </p>
+          <p className="text-[blue] font-product-sans font-normal text-xl ">
+            Day: <span className='font-bold text-green'>{activity?.day}</span>
           </p>
         </div>
-        <div className='flex justify-end col-span-4'>
+        <div className='flex justify-end col-span-3'>
           <p
             className='bg-[#03bb3a] p-2 rounded text-white ml-2 cursor-pointer flex items-center'
-            onClick={(e) => {
-              e.stopPropagation(); 
-              router(activity?.bookedShifts ? '/appointments' : '/notification-page');
-            }}
+            onClick={handleSeeDetails} // Updated to use the new function
           >
             {t("SEE_DETAILS")}
           </p>
-          <Link to="/message-page" className=''>
+          <Link to="/message-page">
             <p className='bg-[#3b82f6] p-2 rounded text-white ml-2' onClick={(e) => e.stopPropagation()}>{t("CHAT")}</p>
           </Link>
-          {isStudentPage && 
-           activity?.status === "BOOKED" && (
+          {isStudentPage && activity?.status === "BOOKED" && (
             <p
               className='bg-[#ff9800] p-2 rounded text-white ml-2 cursor-pointer flex items-center'
               onClick={handleComplete}
             >
-             {t("COMPLETE")}
+              {t("COMPLETE")}
             </p>
           )}
-          
-         
         </div>
       </div>
       <div>
-      {showModal && <ReviewsModal closeModal={() => setShowModal(false)} teacherId={activity.schedule?.Teacher?.id} allinfo={activity} />}
+        {showModal && <ReviewsModal closeModal={() => setShowModal(false)} teacherId={activity.schedule?.Teacher?.id} allinfo={activity} />}
       </div>
-    
     </div>
   );
 };

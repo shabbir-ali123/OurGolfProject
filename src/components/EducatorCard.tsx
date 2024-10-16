@@ -60,8 +60,6 @@ export const EducatorCard = ({
       setBookingsData(null);
     } else {
       setBookingsData(shift);
-      await fetchGigsById(setGigs, teacherId);
-      setIsModalOpen(true);
     }
   };
 
@@ -257,7 +255,7 @@ export const EducatorCard = ({
           />
         </div>
 
-        {isModalOpen && <GigsModal isOpen={isModalOpen} onClose={handleCloseModal} gigs={gigs?.gigs} />}
+        {/* {isModalOpen && <GigsModal isOpen={isModalOpen} onClose={handleCloseModal} gigs={gigs?.gigs} />} */}
       </div>
     </div>
   );
