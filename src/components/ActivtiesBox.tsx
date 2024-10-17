@@ -39,8 +39,8 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
   };
 
   const handleSeeDetails = (e: React.MouseEvent) => {
-    e.stopPropagation(); 
-    router('/appointment-notification-page', { state: { activity } }); 
+    e.stopPropagation();
+    router('/appointment-notification-page', { state: { activity } });
   };
 
   return (
@@ -53,22 +53,24 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
           : router("/appointments/");
       }}
     >
-      <div className="grid grid-cols-12 items-center">
-        <div className='flex justify-start items-center gap-2 col-span-9'>
+      <div className="xl:grid grid-cols-12 items-center">
+        <div className='xl:flex justify-start items-center gap-2 col-span-9'>
           <img
             src={activity?.schedule?.Teacher?.teacher?.imageUrl || activity?.bookedShifts?.imageUrl}
             alt="Profile"
             className="h-10 w-10 rounded-full mr-4"
           />
           <p className="text-gray-600 font-product-sans font-normal text-xl">
-            {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName} {t("APPOINTMENT_WITH")} 
+            {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName} {t("APPOINTMENT_WITH")}
           </p>
           <p className="text-[blue] font-product-sans font-normal text-xl ">
             Time: <span className='font-bold text-green'>{activity?.startTime}</span>
           </p>
           <p className="text-[blue] font-product-sans font-normal text-xl ">
             Day: <span className='font-bold text-green'>{activity?.day}</span>
+
           </p>
+          <p className="text-[blue] font-product-sans font-normal text-xl "> Date: <span className='font-bold text-green'>{activity?.schedule?.startDate}</span></p>
         </div>
         <div className='flex justify-end col-span-3'>
           <p

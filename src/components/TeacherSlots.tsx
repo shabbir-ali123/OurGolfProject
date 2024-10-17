@@ -63,6 +63,7 @@ console.log(dayFilter,"hello")
           {
             scheduleId: selectedTime.scheduleId,
             day: selectedTime.day,
+            date: selectedTime.date,
             startTime: selectedTime.startTime,
             endTime: selectedTime.endTime,
             isBooked: false,

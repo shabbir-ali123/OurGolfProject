@@ -35,15 +35,16 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
   const days = eachDayOfInterval({ start: startDay, end: endDay });
 
   useEffect(() => {
-    const formattedDate = selectedDate !== null && format(selectedDate, "yyyy-MM-dd");
-    onWeekSelected(formattedDate)
-  }, [selectedDate]);
+    if (selectedDate !== null) {
+      const formattedDate = format(selectedDate, "yyyy-MM-dd");
+      onWeekSelected(formattedDate); // Ensure this function filters based on the provided date
+    }
+  }, [selectedDate, onWeekSelected]);
 
-  const handleDateClick = (date:any) => {
-    console.log(date,'sdsd')
-      setSelectedDate(date);
-  };
-
+ const handleDateClick = (date: any) => {
+  console.log(date, 'Date clicked'); // This should show the correct clicked date
+  setSelectedDate(date);
+};
   const handleNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
   };
@@ -58,6 +59,7 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
     });
     return formatter.format(date);
   };
+ 
   return (
     <>
       <div className=" w-full bg-white shadow-[0px_0px_13px_rgba(0,_0,_0,_0.25)] py-2 h-full ">
@@ -78,18 +80,23 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
             </div>
             <div className="mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
               {days.map((day) => (
-                <button
-                  key={day.toString()}
-                  onClick={() => handleDateClick(day)}
-                  className={classNames(
-                    "py-1.5 bg-[#17b3a6] text-white hover:bg-gray focus:z-10",
-                    isSameMonth(day, currentMonth) ? "text-gray-900" : "text-gray-300",
-                    selectedDate !== null && isSameDay(day, selectedDate) ? "bg-blue-200 text-black" : "",
-                    selectedDate && !isSameDay(day, selectedDate) ? "" : "text-red-600"
-                )}
-                >
-                  <time dateTime={format(day, "yyyy-MM-dd")}>{format(day, "d")}</time>
-                </button>
+                 <button
+                 key={day.toString()}
+                 onClick={() => handleDateClick(day)}
+                 className={classNames(
+                   "py-1.5 hover:bg-gray-300 focus:z-10",
+                   isSameMonth(day, currentMonth)
+                     ? "text-gray-900"
+                     : "text-gray-300",
+                   selectedDate !== null && isSameDay(day, selectedDate)
+                     ? "bg-[blue] text-white" // Red background and white text for selected date
+                     : "bg-[#17b3a6] text-white hover:bg-gray-400"
+                 )}
+               >
+                 <time dateTime={format(day, "yyyy-MM-dd")}>
+                   {format(day, "d")}
+                 </time>
+               </button>
               ))}
             </div>
           </div>
@@ -97,18 +104,18 @@ export const ActivitiesCalender = ({ onWeekSelected }:any) => {
         
       </div>
       {!isStudentPage && 
-       <div className="flex gap-4 justify-center my-8">
-       <Link to={`/update-schedules/${teacherId}`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_SCHEDULES")}</button>
+       <div className="xl:flex gap-4 justify-center my-8">
+       <Link to={`/update-schedules/${teacherId}`}  >
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer my-2 xl:my-0 mx-2 xl:mx-0" >{t("UPDATE_SCHEDULES")}</button>
        </Link>
        <Link to={`teacher-page/${teacherId}`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_PROFILE")}</button>
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer my-2 xl:my-0 mx-2 xl:mx-0" >{t("UPDATE_PROFILE")}</button>
        </Link>
        <Link to={`/create-catalogs/${teacherId}`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("CREATE_GIG")}</button>
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer my-2 xl:my-0" >{t("CREATE_GIG")}</button>
        </Link>
        <Link to={`/profile-page`} >
-       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer" >{t("UPDATE_GIG")}</button>
+       <button className="p-3 bg-[#17b3a6] rounded-md text-white cursor-pointer mx-2 xl:mx-0" >{t("UPDATE_GIG")}</button>
        </Link>
 
     </div>

@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../appConfig';
@@ -8,11 +8,15 @@ import { useTeacherContext } from '../contexts/teachersContext';
 
 const AppointmentNotificationPage = () => {
     const location = useLocation();
+    const navigate = useNavigate(); // For redirecting to the teacher's profile
     const { t } = useTranslation();
     const { activity } = location.state || {}; // Getting the appointment details passed through navigation
     const [loading, setLoading] = useState(false);
     const { isLoading } = useTeacherContext();
+    const [isModalOpen, setModalOpen] = useState(false); // Modal state
+
     const studentNickName = activity?.bookedShifts?.nickName || localStorage.getItem('nickname');
+
     const handleAcceptClick = async (item: any) => {
         const { scheduleId, day, startTime, endTime, bookedBy, notificationId = "" } = item;
         let studentId = bookedBy;
@@ -52,10 +56,24 @@ const AppointmentNotificationPage = () => {
             }
         } catch (error) {
             toast.error(
-                (error as any)?.response?.data?.message || "We are not able to Accept"
+                (error as any)?.response?.data?.message || "We are not able to Decline"
             );
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleModalClose = () => {
+        setModalOpen(false);
+    };
+
+    const handleTeacherProfileRedirect = () => {
+        const teacherId = activity?.schedule?.teacherId;
+        console.log("Teacher ID:", teacherId); // Log to check if teacherId is being captured correctly
+        if (teacherId) {
+            navigate(`/teacher-details/${teacherId}`);
+        } else {
+            toast.error("Teacher information is unavailable");
         }
     };
 
@@ -70,6 +88,9 @@ const AppointmentNotificationPage = () => {
                         )}
                         <p>Appointment Time: {activity.startTime}</p>
                         <p>Appointment Day: {activity.day}</p>
+                        {/* Conditionally render Start Date and End Date */}
+                        {activity.schedule?.startDate && <p>Start Date: {activity.schedule.startDate}</p>}
+                        {activity.schedule?.endDate && <p>End Date: {activity.schedule.endDate}</p>}
                     </div>
 
                     {activity?.bookedShifts?.nickName && activity?.status === "PENDING" ? (
@@ -82,14 +103,6 @@ const AppointmentNotificationPage = () => {
                             >
                                 {loading ? "Processing..." : "Approve"}
                             </button>
-                            <button
-                                type="button"
-                                className="cursor-pointer inline-flex items-center rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700"
-                                onClick={() => handleDeclineClick(activity)}
-                                disabled={loading || isLoading}
-                            >
-                                {loading ? "Processing..." : "Decline"}
-                            </button>
                         </div>
                     ) : (
                         activity?.bookedShifts?.nickName && (
@@ -99,9 +112,40 @@ const AppointmentNotificationPage = () => {
                                         ? "You have accepted the appointment"
                                         : "You have declined the appointment"}
                                 </h3>
-                                <p>Teacher Name: {activity.bookedShifts.teacherNickName}</p> {/* Show teacher's nickname */}
+                                <p>Teacher Name: {activity.bookedShifts.teacherNickName}</p>
                             </div>
                         )
+                    )}
+
+                    {!activity?.bookedShifts?.nickName && (
+                        <button
+                            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                            onClick={() => setModalOpen(true)}
+                        >
+                            {t("VIEW_GIGS")}
+                        </button>
+                    )}
+
+                    {/* Modal */}
+                    {isModalOpen && (
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
+                            <div className="bg-white p-6 rounded shadow-lg">
+                                <p>{t("TEACHER_PROFILE")}</p>
+                                <p>{t("NO_GIGS")} <span className='text-green'>{t("COLORFUL")}</span></p>
+                                <button
+                                    className="text-white underline bg-[green] p-2 mx-2"
+                                    onClick={handleTeacherProfileRedirect}
+                                >
+                                    {t("CLICK_HERE")}
+                                </button>
+                                <button
+                                    className="mt-4 bg-[red] text-white px-4 py-2 rounded"
+                                    onClick={handleModalClose}
+                                >
+                                    {t("CLOSE")}
+                                </button>
+                            </div>
+                        </div>
                     )}
                 </div>
             ) : (

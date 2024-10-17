@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { fetchNotifications, updateNotificationsStatus } from "../utils/fetchNotifications";
 import { API_ENDPOINTS } from "../appConfig";
 import axios from "axios";
+import { isHtmlElement } from "react-router-dom/dist/dom";
 
 export default function AllNotification() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ export default function AllNotification() {
     toast.success(t("MARKED_SUCCESS"));
 
   };
+  
   return (
     <>
       {

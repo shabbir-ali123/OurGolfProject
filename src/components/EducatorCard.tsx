@@ -70,6 +70,7 @@ export const EducatorCard = ({
       bookAppointment(
         bookingsData.scheduleId,
         bookingsData.day,
+        bookingsData.date,
         bookingsData.startTime,
         bookingsData.endTime,
         bookingsData.isBooked
@@ -82,6 +83,7 @@ export const EducatorCard = ({
   const bookAppointment = async (
     scheduleId: any,
     day: any,
+    date: any,
     startTime: any,
     endTime: any,
     isBooked: boolean
@@ -94,6 +96,7 @@ export const EducatorCard = ({
         {
           scheduleId,
           day,
+          date,
           startTime,
           endTime,
           isBooked: false,
