@@ -145,6 +145,7 @@ export const SlotsCalendar = ({
 
       const isActive = startEndDates?.some(({ shifts, startDate, endDate }: any) => {
         const dateInRange = isWithinInterval(date, {
+          
           start: parseISO(startDate),
           end: parseISO(startDate),
         });

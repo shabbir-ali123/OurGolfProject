@@ -20,8 +20,10 @@ import {
 
 } from "@fortawesome/free-solid-svg-icons";
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from "react-router-dom";
 const Messages = () => {
   const { t } = useTranslation();
+  const router = useNavigate();
   const [messages, setMessages] = useState<any>([]);
   const [newMessage, setNewMessage] = useState<any>("");
   const [messageDropdown, setMessageDropdown] = useState<any>(null);
@@ -40,6 +42,7 @@ const Messages = () => {
     loading,
   } = userAuthContext();
   const messagesEndRef = useRef(null);
+
 
   useEffect(() => {
     fetchMessage(sender, receiver, setMessages);
@@ -171,7 +174,9 @@ const Messages = () => {
   return (
     <div className={`md:flex ${activeChatId ? "block" : "hidden"} overflow-hidden flex-col justify-center md:h-[80vh] pb-16  sticky w-[100%] relative bg-white md:shadow-lg`}>
       <div className="flex items-center justify-between gap-4 mb-8 shadow-lg p-4 ">
-        <div className="flex items-center gap-4 ">
+        <div className="flex items-center gap-4 " onClick={()=>{
+          router('/user-page/'+ messages.receiver?.id)
+        }}>
           {activeChatId && <button className="bg-grey block md:hidden rounded-full h-6 w-6 cursor-pointer" onClick={
             handleBack
           }>

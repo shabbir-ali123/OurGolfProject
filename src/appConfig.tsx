@@ -56,7 +56,6 @@ export const API_ENDPOINTS = {
   GETALLTEACHERSPUBLIC: `${API_BASE_URL}/${API_VERSION}/get-all-teachers-public`,
   GETTEACHERBYID: `${API_BASE_URL}/${API_VERSION}/get-teacher-by-id/`,
   GETPUBLICTEACHERBYID: `${API_BASE_URL}/${API_VERSION}/get-public-teacher-by-id/`,
-  UPDATEPROFILE: `${API_BASE_URL}/${API_VERSION}/update-profile`,
   BOOKAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/book-appointment`,
   GETTEACHERBOOKEDAPPOINTMENTS: `${API_BASE_URL}/${API_VERSION}/get-teacher-booked-appointments`,
   GETUSERBOOKEDAPPOINTMENTS: `${API_BASE_URL}/${API_VERSION}/get-user-booked-appointments`,

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ReviewsModal from './comments/ReviewsModal';
 import { useTranslation } from "react-i18next";
+import { userAuthContext } from '../contexts/authContext';
 
 interface ActivtiesBoxProps {
   activity?: any;
@@ -43,15 +44,25 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
     router('/appointment-notification-page', { state: { activity } });
   };
 
+  const {
+    handleChatId,
+    handleReceiver
+   
+  } = userAuthContext();
+  const openChat = (id:any)=>{
+    handleReceiver(4);
+    handleChatId(4);
+    router('/message-page');
+  }
   return (
     <div
       className={`px-2 bg-${bgClr} border border-${borderClr} shadow-lg rounded-lg border-solid mt-3`}
       style={{ backgroundColor: bgClr, border: borderClr }}
-      onClick={() => {
-        activity?.schedule?.Teacher?.id
-          ? router("/teacher-details/" + activity?.schedule?.Teacher?.id)
-          : router("/appointments/");
-      }}
+      // onClick={() => {
+      //   activity?.schedule?.Teacher?.id
+      //     ? router("/teacher-details/" + activity?.schedule?.Teacher?.id)
+      //     : router("/appointments/");
+      // }}
     >
       <div className="xl:grid grid-cols-12 items-center">
         <div className='xl:flex justify-start items-center gap-2 col-span-9'>
@@ -64,13 +75,13 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
             {activity.schedule?.Teacher?.firstName || activity?.bookedShifts?.nickName} {t("APPOINTMENT_WITH")}
           </p>
           <p className="text-[blue] font-product-sans font-normal text-xl ">
-            Time: <span className='font-bold text-green'>{activity?.startTime}</span>
+          {t("TIME")}: <span className='font-bold text-green'>{activity?.startTime}</span>
           </p>
           <p className="text-[blue] font-product-sans font-normal text-xl ">
-            Day: <span className='font-bold text-green'>{activity?.day}</span>
+          {t("DAY")}: <span className='font-bold text-green'>{activity?.day}</span>
 
           </p>
-          <p className="text-[blue] font-product-sans font-normal text-xl "> Date: <span className='font-bold text-green'>{activity?.schedule?.startDate}</span></p>
+          <p className="text-[blue] font-product-sans font-normal text-xl "> {t("DATE")}: <span className='font-bold text-green'>{activity?.date}</span></p>
         </div>
         <div className='flex justify-end col-span-3'>
           <p
@@ -79,9 +90,12 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
           >
             {t("SEE_DETAILS")}
           </p>
-          <Link to="/message-page">
-            <p className='bg-[#3b82f6] p-2 rounded text-white ml-2' onClick={(e) => e.stopPropagation()}>{t("CHAT")}</p>
-          </Link>
+          <div onClick={(e)=>{
+            e.preventDefault();
+            openChat(3);
+          }}>
+            <p className='bg-[#3b82f6] p-2 rounded text-white ml-2' >{t("CHAT")}</p>
+          </div>
           {isStudentPage && activity?.status === "BOOKED" && (
             <p
               className='bg-[#ff9800] p-2 rounded text-white ml-2 cursor-pointer flex items-center'

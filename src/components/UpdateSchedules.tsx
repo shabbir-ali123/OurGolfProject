@@ -74,6 +74,7 @@ const updateSchedules: React.FC = () => {
         endDate: "",
         shifts: [
           {
+            date: "",
             day: "",
             startTime: "",
             endTime: "",
@@ -275,6 +276,7 @@ const updateSchedules: React.FC = () => {
         shifts: item?.shifts?.map((i: any) => ({
           ...i,
           day: i.day,
+          date:  item.startDate,
           startTime: i.startTime,
           endTime: i.endTime,
         })),
@@ -311,8 +313,8 @@ const updateSchedules: React.FC = () => {
     return date.toISOString().split('T')[0];
   }
   useEffect(() => {
-    console.log("Teacher:", teacher);
-    console.log("Gigs:", gigs);
+    // console.log("Teacher:", teacher);
+    // console.log("Gigs:", gigs);
 
     if (teacher) {
       handleTeacherId(teacher?.id);
@@ -348,6 +350,8 @@ const updateSchedules: React.FC = () => {
       schedules: formData?.schedules,
     };
 
+    console.log(formData,"payyy")
+    alert('hello')
     try {
       const response = await axios.put(API_ENDPOINTS.UPDATEUSER, payload, {
         headers: {
@@ -445,7 +449,7 @@ const updateSchedules: React.FC = () => {
     const dateFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long" });
     const dateParts = dateFormatter.formatToParts(date);
     const dayName = dateParts.find((part) => part.type === "weekday")?.value || "";
-    console.log(formData, date)
+    // console.log(formData, date)
     if (!dayName) {
       console.error("Invalid date:", date);
       return; // Exit the function or handle it as required
@@ -453,7 +457,10 @@ const updateSchedules: React.FC = () => {
 
     toggleAvailability(date, hour, dayIndex);
 
+    console.log( formatDate(date),"jhhk"
+    );
     const newShift = {
+      date:  formatDate(date),
       day: dayName,
       startTime: hour,
       endTime: "",
@@ -465,7 +472,7 @@ const updateSchedules: React.FC = () => {
       shifts: [newShift],
     };
 
-    setFormData((prevFormData) => {
+    setFormData((prevFormData:any) => {
       const newSchedules = [...prevFormData.schedules, newSchedule];
       return {
         ...prevFormData,
@@ -541,7 +548,7 @@ const updateSchedules: React.FC = () => {
                   </div>
                   <div className="h-[240px] overflow-y-auto">
                     {schedule.shifts?.map((shift: any, shiftIndex: any) => {
-                      console.log(shift?.isBooked, "hello imran")
+                      // console.log(shift?.isBooked, "hello imran")
 
                       return <div key={shiftIndex} className="bg-[#1e40af] text-white p-3 rounded-lg flex justify-between items-center mb-2 ">
                         <span className="font-medium text-sm">
@@ -583,7 +590,7 @@ const updateSchedules: React.FC = () => {
 
 
         <div className="my-4 mx-10   xl:mx-0">
-          <SlotsCalendar handleTimeSlotClick={handleTimeSlotClick} startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
+          <SlotsCalendar  handleTimeSlotClick={handleTimeSlotClick} startEndDates={teacher.schedules} resetSchedules={resetSchedules} handleState={handleState} onWeekSelected={handleWeekSelected} />
           {/* <div className="grid grid-cols-1 gap-4 py-2 text-center mt-10">
 
             <div className=" flex xl:justify-start gap-4    overflow-x-scroll xl:overflow-auto  p-2 rounded-md">
