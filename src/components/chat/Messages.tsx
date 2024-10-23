@@ -21,9 +21,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from "react-router-dom";
+import GigsModal from "./MessageGigModel";
 const Messages = () => {
   const { t } = useTranslation();
   const router = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [messages, setMessages] = useState<any>([]);
   const [newMessage, setNewMessage] = useState<any>("");
   const [messageDropdown, setMessageDropdown] = useState<any>(null);
@@ -103,7 +105,6 @@ const Messages = () => {
     };
   }, []);
 
-  console.log(loading, "hey")
   const handleSendMessage = async (e: any) => {
     e.preventDefault();
     const formData = {
@@ -171,11 +172,19 @@ const Messages = () => {
   const handleBack = () => {
     handleChatId(false)
   }
+ 
+
+  const handleAllGigsClick = () => {
+    setIsModalOpen(!isModalOpen) // Assuming you have receiver's id
+   
+  };
+  console.log(isModalOpen, "fa")
+
   return (
     <div className={`md:flex ${activeChatId ? "block" : "hidden"} overflow-hidden flex-col justify-center md:h-[80vh] pb-16  sticky w-[100%] relative bg-white md:shadow-lg`}>
       <div className="flex items-center justify-between gap-4 mb-8 shadow-lg p-4 ">
-        <div className="flex items-center gap-4 " onClick={()=>{
-          router('/user-page/'+ messages.receiver?.id)
+        <div className="flex items-center gap-4 " onClick={() => {
+          router('/user-page/' + messages.receiver?.id)
         }}>
           {activeChatId && <button className="bg-grey block md:hidden rounded-full h-6 w-6 cursor-pointer" onClick={
             handleBack
@@ -197,6 +206,16 @@ const Messages = () => {
           />
           <p>{messages.receiver?.nickName}</p>
         </div>
+        <div className="cursor-pointer" onClick={()=>{
+          handleAllGigsClick()
+        }}>
+          <button className="cursor-pointer bg-[#17b3a6] text-white p-2 rounded-md">All gigs </button>
+          {
+            isModalOpen &&
+            <GigsModal userId={messages.receiver?.id} isOpen={isModalOpen} handleAllGigsClick={handleAllGigsClick} />
+          }
+
+        </div>
         {/* <div>
           <p>
             Member Since:
@@ -215,7 +234,7 @@ const Messages = () => {
                 : "float-left ml-0 w-[88%] bg-[#e4fffd] md:ml-0 rounded-es"
                 }`}
             >
-              <div className="absolute z-50 right-[40px] md:right-[10px] top-0 p-2  flex justify-center gap-1 items-center">
+              <div className="absolute z-[0] right-[40px] md:right-[10px] top-0 p-2  flex justify-center gap-1 items-center">
                 <span>
                   <small className="text-gray-500">
                     {getTimeAgo(new Date(msg.timestamp), t)}
@@ -380,7 +399,7 @@ const Messages = () => {
       </div>
       <form
         onSubmit={handleSendMessage}
-        className="block z-50 md:absolute bottom-[-2%] w-[97%] gap-2 md:p-4   border-t border-gray-300 "
+        className="block z-[0] md:absolute bottom-[-2%] w-[97%] gap-2 md:p-4   border-t border-gray-300 "
       >
         <div className="fixed bg-[#e6e6e6] md:bg-transparent px-1 py-2 justify-center gap-2  md:justify-start flex md:sticky md:top-0 w-full bottom-0  flex gap-2 p-[12px 0px] z-[9999]">
           <input

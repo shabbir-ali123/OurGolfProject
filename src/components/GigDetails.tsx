@@ -95,7 +95,7 @@ const GigDetails: React.FC = () => {
   const arrayImages = gig?.imageUrl?.split(',');
   return (
     <div
-      className="mx-6 md:mx-auto max-w-3xl px-6  my-4 py-4"
+      className="mx-6 md:mx-auto max-w-5xl px-6  my-4 py-4"
       style={{
         boxShadow:
           "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
@@ -161,7 +161,7 @@ const GigDetails: React.FC = () => {
               dangerouslySetInnerHTML={{ __html: gig?.title ?? "" }}
             ></h2>
             <div className="flex gap-4 mb-4 md:mb-0">
-              <span className="bg-transparent border-2 border-solid  border-black font-bold p-2 rounded text-black xl:px-20 hover:bg-black hover:text-white cursor-pointer">  {t("PRICE")}: ¥
+              <span className="bg-transparent border-2 border-solid  border-black font-bold p-1 rounded text-black xl:px-10 w-full hover:bg-black hover:text-white cursor-pointer">  {t("PRICE")}: ¥
 
                 {
                   gig?.price
@@ -173,7 +173,7 @@ const GigDetails: React.FC = () => {
                     onClick={() => {
                       reserveGig(gig.id, setIsLoading);
                     }}
-                    className="p-2 rounded cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
+                    className="p-1 w-full rounded cursor-pointer bg-[#2dd4bf] text-white hover:bg-black hover:text-white"
                   >
                     {t("BUY_NOW")}
                   </button>
@@ -190,7 +190,7 @@ const GigDetails: React.FC = () => {
               return (
                 hasImageExtension(img) ?
                   <img
-                    className="w-full h-[300px] xl:h-[700px] object-fit bg-white rounded-lg bg-cover"
+                    className="w-full h-[300px] xl:h-[450px] object-fit bg-white rounded-lg bg-cover"
                     src={img}
                     alt="画像がありません。"
                   /> : <video

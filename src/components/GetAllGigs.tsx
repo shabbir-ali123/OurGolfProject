@@ -95,7 +95,6 @@ const GetAllGigs = () => {
     <>
       <div className="max-w-7xl mx-auto h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
 
-
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
 
           <div className="mt-16">
