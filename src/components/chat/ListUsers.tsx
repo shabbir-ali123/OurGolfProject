@@ -51,11 +51,18 @@ const AllUserChat = () => {
   } = userAuthContext();
 
   useEffect(() => {
+    // Check if allChat and allChat.user exist and have users
+    if (newChat) {
       handleReceiver(newChat);
       handleChatId(newChat);
-      fetchOnlineUsers(setOnlineUsers);
-
+    } else {
+      handleReceiver(allChat[0]?.user?.id);
+      handleChatId(allChat[0]?.user.id);
+    }
+    fetchOnlineUsers(setOnlineUsers);
+  
   }, [allChat, loading, newChat]);
+  
   const handleChatStatus = () => {
     const formData = {
       sender: sender,
