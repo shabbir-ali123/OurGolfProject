@@ -60,9 +60,9 @@ const AllUserChat = () => {
       handleChatId(allChat[0]?.user.id);
     }
     fetchOnlineUsers(setOnlineUsers);
-  
+
   }, [allChat, loading, newChat]);
-  
+
   const handleChatStatus = () => {
     const formData = {
       sender: sender,
@@ -70,17 +70,17 @@ const AllUserChat = () => {
     };
     updateChatStatus(formData, handleLoading);
   };
-const router = useNavigate();
+  const router = useNavigate();
   console.log(onlineUsers, "isOnline");
   return (
     <div className={` w-[100%]  h-[100vh] sticky md:block md:w-[30%] ${activeChatId ? "hidden" : "block"}`}>
       <div className=" shadow-lg pb-10 h-full md:h-[83%] overflow-hidden overflow-y-auto bg-[#17b3a6]  ">
         <div className="px-2 text-white">
           <div className="flex items-center gap-10">
-      
-          <h4 className="ml-0 md:ml-3">{t("MESSAGE")}</h4>
+
+            <h4 className="ml-0 md:ml-3">{t("MESSAGE")}</h4>
           </div>
-      
+
           <UsersList />
         </div>
 
@@ -93,9 +93,8 @@ const router = useNavigate();
           return (
             <div
               key={item.user.id}
-              className={`border-solid border-[#c8c8c8] border-b-[1px] cursor-pointer pt-3 relative ${
-                isActive ? "bg-black" : ""
-              }`}
+              className={`border-solid border-[#c8c8c8] border-b-[1px] cursor-pointer pt-3 relative ${isActive ? "bg-black" : ""
+                }`}
               onClick={(e: any) => {
                 handleReceiver(item.user.id);
                 handleChatId(item.user.id);
@@ -112,7 +111,7 @@ const router = useNavigate();
                 />
                 <span>
                   <p className="text-white font-bold">
-                  {item.user.nickName}&nbsp; &nbsp; &nbsp;
+                    {item.user.nickName}&nbsp; &nbsp; &nbsp;
                     <span>
                       <small className="text-white">
                         {getTimeAgo(new Date(item.messages[0].timestamp), t)}
@@ -120,7 +119,12 @@ const router = useNavigate();
                     </span>
                   </p>
 
-                  <p className="text-white">{item.messages[0].message}</p>
+                  <p className="text-white">
+                    {item.messages[0].message
+                      ? item.messages[0].message.slice(0, 15) + (item.messages[0].message.length > 10 ? '...' : '')
+                      : ''}
+                  </p>
+
                 </span>
                 {isOnline ? (
                   <span className="w-4 h-4 absolute top-[30%] left-[15%] bg-blue-400 rounded-full"></span>
@@ -131,27 +135,27 @@ const router = useNavigate();
               {item.messages?.filter(
                 (e: any) => e.is_read == false && e.receiver == sender
               )?.length > 0 && (
-                <div className=" absolute right-[10%] top-[50%] flex cursor-pointer rounded-full text-center bg-red  text-white">
-                  {/* {item.messages.length} */}
-                  <div className="   rounded-full w-[20px]">
-                    {
-                      item?.messages.filter(
-                        (i: any) => i.is_read == false && i.receiver == sender
-                      ).length
-                    }
-                  </div>
+                  <div className=" absolute right-[10%] top-[50%] flex cursor-pointer rounded-full text-center bg-red  text-white">
+                    {/* {item.messages.length} */}
+                    <div className="   rounded-full w-[20px]">
+                      {
+                        item?.messages.filter(
+                          (i: any) => i.is_read == false && i.receiver == sender
+                        ).length
+                      }
+                    </div>
 
-                  <button
-                    className="rounded"
-                    onClick={(e: any) => {
-                      e.preventDefault();
-                      handleChatStatus();
-                    }}
-                  >
-                    mark as read
-                  </button>
-                </div>
-              )}
+                    <button
+                      className="rounded"
+                      onClick={(e: any) => {
+                        e.preventDefault();
+                        handleChatStatus();
+                      }}
+                    >
+                      mark as read
+                    </button>
+                  </div>
+                )}
             </div>
           );
         })}
