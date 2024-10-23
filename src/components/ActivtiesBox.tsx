@@ -46,14 +46,11 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
 
   const {
     handleChatId,
-    handleReceiver
+    handleReceiver,
+    handleLoading
    
   } = userAuthContext();
-  const openChat = (id:any)=>{
-    handleReceiver(4);
-    handleChatId(4);
-    router('/message-page');
-  }
+
   return (
     <div
       className={`px-2 bg-${bgClr} border border-${borderClr} shadow-lg rounded-lg border-solid mt-3`}
@@ -92,7 +89,7 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
           </p>
           <div onClick={(e)=>{
             e.preventDefault();
-            openChat(3);
+            router('/message-page/' + activity.bookedBy);
           }}>
             <p className='bg-[#3b82f6] p-2 rounded text-white ml-2' >{t("CHAT")}</p>
           </div>

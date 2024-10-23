@@ -540,7 +540,7 @@ const Table: React.FunctionComponent<TableProps> = ({ events }) => {
                                   {event.creator.id == userId || (
                                     <button
                                       className="bg-[#DDF4F2] hover:bg-black text-[#17B3A6] w-full font-bold py-2 px-2 rounded cursor-pointer whitespace-nowrap"
-                                      onClick={() => router(`/message-page`)}
+                                      onClick={() => router(`/message-page/` + event.creator.id  )}
                                       style={{
                                         boxShadow:
                                           "rgb(253 253 255 / 0%) 0px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 1px 11px 1px",

@@ -38,6 +38,7 @@ interface Members {
 }
 interface SingleEvent {
   id: string;
+  userId:any;
   creator: {
     nickName: string;
   };
@@ -552,7 +553,10 @@ const EditTeamPage: FunctionComponent = () => {
                         <div className=" flex justify-start text-center w-full">
                           <button
                             className="py-4 text-xl  lg:py-6 w-full mx-10 xl:mx-0 mt-10 lg:w-[280px] font-medium  text-white uppercase bg-blue-500 rounded cursor-pointer hover:bg-blue-700"
-                            onClick={() => router(`/pay-now/${singleEvent?.id}`)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              router('/message-page/' + singleEvent?.creatorId)
+                            }}
                           >
                             {t('CHAT_ORGANIZER')}
                           </button>

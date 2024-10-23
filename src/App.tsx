@@ -451,6 +451,10 @@ function App() {
             path="/message-page"
             element={token ? <ChatSystem /> : <LoginPage />}
           />
+           <Route
+            path="/message-page/:newChat"
+            element={token ? <ChatSystem /> : <LoginPage />}
+          />
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
           <Route path="/logout" element={<Logout />} />

@@ -8,11 +8,12 @@ import {
 } from "@heroicons/react/24/outline";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 interface UserProfileProps {
   firstName?: string;
   location?: string;
   email?: string;
+  userId?: any;
   phoneNumber?: string;
   hourlyRate?: number;
   rating?: number;
@@ -20,8 +21,8 @@ interface UserProfileProps {
   about?: string;
   lastName?: string;
   profileImage?: any;
-  imageUrl?:any;
-  level?:any;
+  imageUrl?: any;
+  level?: any;
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({
@@ -36,9 +37,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
   lastName,
   profileImage,
   imageUrl,
-  level
+  level,
+  userId
 }) => {
   const { t, i18n } = useTranslation();
+  const router = useNavigate();
   return (
     <div className="p-6  rounded  text-white ">
       <div className="flex items-center lg:justify-around">
@@ -128,7 +131,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   <p className="m-0">{t("LEVEL")}</p>
                 </div>
                 <p className="text-sm text-white m-0 pl-[calc(1rem+1.5rem)]">
-                {level}
+                  {level}
                 </p>
               </div>
             </div>
@@ -136,13 +139,16 @@ const UserProfile: React.FC<UserProfileProps> = ({
         </div>
       </div>
 
-      <div className="mt-4 flex justify-end">
-        <Link to="/message-page">
-        <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 ">
-        {t("CHAT")}
+      <div className="mt-4 flex justify-end " >
+
+        <button className="bg-green-500 text-[#17b3a6] px-4 py-2 rounded hover:bg-green-600 cursor-pointer" onClick={(e) => {
+          e.preventDefault();
+          router('/message-page/' + userId)
+        }}>
+          {t("CHAT")}
         </button>
-        </Link>
-      
+
+
       </div>
     </div>
   );

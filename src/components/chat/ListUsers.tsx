@@ -28,11 +28,14 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate, useParams } from "react-router-dom";
 const AllUserChat = () => {
   const { t, i18n } = useTranslation();
   const [sender, setSender] = useState(localStorage.getItem("id"));
   const [markChecked, setMarkChecked] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
+  const { newChat } = useParams();  // Get newChat from params
+
 
   const {
     handleSelectedUser,
@@ -46,18 +49,13 @@ const AllUserChat = () => {
     handleLoading,
     loading,
   } = userAuthContext();
-  const handleBack = () => {
-    handleChatId(false)
-}
+
   useEffect(() => {
-    if (allChat && allChat[0]?.user) {
-      const defaultMessages = allChat[0].user.id;
-      console.log(defaultMessages, "sad");
-      handleReceiver(defaultMessages);
-      handleChatId(defaultMessages);
+      handleReceiver(newChat);
+      handleChatId(newChat);
       fetchOnlineUsers(setOnlineUsers);
-    }
-  }, [allChat, loading]);
+
+  }, [allChat, loading, newChat]);
   const handleChatStatus = () => {
     const formData = {
       sender: sender,
@@ -65,24 +63,14 @@ const AllUserChat = () => {
     };
     updateChatStatus(formData, handleLoading);
   };
-
+const router = useNavigate();
   console.log(onlineUsers, "isOnline");
   return (
     <div className={` w-[100%]  h-[100vh] sticky md:block md:w-[30%] ${activeChatId ? "hidden" : "block"}`}>
       <div className=" shadow-lg pb-10 h-full md:h-[83%] overflow-hidden overflow-y-auto bg-[#17b3a6]  ">
         <div className="px-2 text-white">
           <div className="flex items-center gap-10">
-          {/* {activeChatId && <button className="bg-white rounded-full h-6 w-6 cursor-pointer" onClick={
-                handleBack
-            }>
-                 <FontAwesomeIcon
-                      icon={
-                       
-                          faChevronLeft
-                      }
-            
-                    />
-            </button>} */}
+      
           <h4 className="ml-0 md:ml-3">{t("MESSAGE")}</h4>
           </div>
       
@@ -90,7 +78,7 @@ const AllUserChat = () => {
         </div>
 
         {allChat.map((item: any) => {
-          const isActive = activeChatId === item.user.id;
+          const isActive = activeChatId == item.user.id;
           const hasNotification = notificationCount.some(
             (notif: any) => notif.sender == item.user.id
           );
@@ -104,6 +92,7 @@ const AllUserChat = () => {
               onClick={(e: any) => {
                 handleReceiver(item.user.id);
                 handleChatId(item.user.id);
+                router('/message-page/' + item.user.id)
               }}
             >
               <div className="flex items-center p-2 gap-4 z-[0]">

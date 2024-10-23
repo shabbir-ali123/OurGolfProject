@@ -19,6 +19,7 @@ export const EducatorCard = ({
   rating,
   aboutMyself,
   schedules,
+  userId,
   hourlyRate,
   teacherId,
   level
@@ -31,7 +32,7 @@ export const EducatorCard = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gigs, setGigs] = useState<any>(null);
   const tId = localStorage.getItem("teacher_id");
-  
+
   const handleMatchedShift = (matchedShifts: any) => {
     setShiftsData(matchedShifts);
   };
@@ -132,12 +133,15 @@ export const EducatorCard = ({
         <div className="lg:col-span-6">
           <div
             className="flex flex-col lg:flex-row"
-            onClick={(e) => {
+          // onClick={(e) => {
+          //   e.preventDefault();
+          //   navigate(`/teacher-details/${teacherId}`)
+          // }}
+          >
+            <div className="text-center " onClick={(e) => {
               e.preventDefault();
               navigate(`/teacher-details/${teacherId}`)
-            }}
-          >
-            <div className="text-center ">
+            }}>
               <img
                 src={imgUrl}
                 width="100px"
@@ -151,14 +155,17 @@ export const EducatorCard = ({
             </div>
             <div className="mt-4 md:mt-0 md:mx-4 flex-1">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
-                <h3>
+                <h3 onClick={(e) => {
+              e.preventDefault();
+              navigate(`/teacher-details/${teacherId}`)
+            }}>
                   {firstName} {lastName}
                 </h3>
                 <div className="grid grid-cols-2 xl:flex items-center gap-4 mt-2 md:mt-0 z-[]">
                   {tId != teacherId && (
                     <div onClick={(e) => {
                       e.preventDefault();
-                      document.location.href = '/message-page';
+                      navigate('/message-page/' + userId)
                     }}>
                       <button className="cursor-pointer bg-transparent w-full xl:w-auto border-2 border-solid border-[#d5d5d5] hover:bg-[#61cbc2] hover:text-white hover:border-none text-[#5d5d5d] font-bold py-2 px-4 rounded">
                         {t("CHAT")}
@@ -177,7 +184,10 @@ export const EducatorCard = ({
                   </button> */}
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row gap-10 mt-4 md:mt-0">
+              <div className="flex flex-col md:flex-row gap-10 mt-4 md:mt-0" onClick={(e) => {
+                e.preventDefault();
+                navigate(`/teacher-details/${teacherId}`)
+              }}>
                 <div className="flex items-center gap-2">
                   <MapPinIcon
                     className="w-4 h-4 text-white bg-[#61cbc2] rounded-full p-1"
@@ -205,7 +215,10 @@ export const EducatorCard = ({
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2" onClick={(e) => {
+                  e.preventDefault();
+                  navigate(`/teacher-details/${teacherId}`)
+                }}>
                   <StarIcon
                     className="w-4 h-4 text-white bg-[#61cbc2] rounded-full p-1"
                     aria-hidden="true"

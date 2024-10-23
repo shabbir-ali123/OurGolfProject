@@ -36,6 +36,7 @@ const TeachersListPage: React.FC = () => {
                 hourlyRate={teacher.hourlyRate}
                 level={teacher.level}
                 teacherId={teacher.id}
+                userId ={teacher.userId}
               />
             ))}
           </div>
