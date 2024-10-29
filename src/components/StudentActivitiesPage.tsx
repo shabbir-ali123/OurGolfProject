@@ -36,7 +36,7 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
       if (!selectedDate) {
         return appointment.status === 'PENDING';
       } else {
-        const date = new Date(appointment.createdAt);
+        const date = new Date(appointment.date);
         const formattedDate = date.toISOString().slice(0, 10);
         return formattedDate === selectedDate && appointment.status === 'PENDING';
       }
@@ -46,9 +46,9 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
       if (!selectedDate) {
         return appointment.status === 'BOOKED';
       } else {
-        const date = new Date(appointment.createdAt);
+        const date = new Date(appointment.date);
         const formattedDate = date.toISOString().slice(0, 10);
-        return formattedDate === selectedDate && appointment.status === 'BOOKED';
+        return formattedDate === selectedDate && appointment.status === 'BOOKEDs';
       }
     });
 
@@ -56,7 +56,7 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
       if (!selectedDate) {
         return appointment.status === 'COMPLETED';
       } else {
-        const date = new Date(appointment.createdAt);
+        const date = new Date(appointment.date);
         const formattedDate = date.toISOString().slice(0, 10);
         return formattedDate === selectedDate && appointment.status === 'COMPLETED';
       }
@@ -66,7 +66,7 @@ export default function StudentActivitiesPage({ selectedDate }: any) {
       if (!selectedDate) {
         return appointment.status === 'DECLINED';
       } else {
-        const date = new Date(appointment.createdAt);
+        const date = new Date(appointment.date);
         const formattedDate = date.toISOString().slice(0, 10);
         return formattedDate === selectedDate;
       }
