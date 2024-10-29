@@ -18,14 +18,14 @@ const AppointmentNotificationPage = () => {
     const studentNickName = activity?.bookedShifts?.nickName || localStorage.getItem('nickname');
 
     const handleAcceptClick = async (item: any) => {
-        const { scheduleId, day, startTime, endTime, bookedBy, notificationId = "" } = item;
+        const { scheduleId, day, startTime,date, endTime, bookedBy, notificationId = "" } = item;
         let studentId = bookedBy;
         let status = "BOOKED";
         try {
             setLoading(true);
             const response = await axios.post(
                 API_ENDPOINTS.ACCEPTAPPOINTMENT,
-                { studentId, scheduleId, day, startTime, endTime, status, notificationId },
+                { studentId, scheduleId, day,date, startTime, endTime, status, notificationId },
                 { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
             );
             if (response.status === 200) {
@@ -41,14 +41,14 @@ const AppointmentNotificationPage = () => {
     };
 
     const handleDeclineClick = async (item: any) => {
-        const { scheduleId, day, startTime, endTime, bookedBy, notificationId = "" } = item;
+        const { scheduleId, day, startTime,date, endTime, bookedBy, notificationId = "" } = item;
         let studentId = bookedBy;
         let status = "DECLINED";
         try {
             setLoading(true);
             const response = await axios.post(
                 API_ENDPOINTS.DECLINEAPPOINTMENT,
-                { studentId, scheduleId, day, startTime, endTime, status, notificationId },
+                { studentId, scheduleId, day,date,startTime, endTime, status, notificationId },
                 { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
             );
             if (response.status === 200) {

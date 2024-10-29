@@ -18,6 +18,7 @@ export const TeacherAppointments = () => {
     const {
       scheduleId,
       day,
+      date,
       startTime,
       endTime,
       notificationId = "",
@@ -33,6 +34,7 @@ export const TeacherAppointments = () => {
           studentId,
           scheduleId,
           day,
+          date,
           startTime,
           endTime,
           status,
@@ -59,6 +61,7 @@ export const TeacherAppointments = () => {
     const {
       scheduleId,
       day,
+      date,
       startTime,
       endTime,
       notificationId = "",
@@ -74,6 +77,7 @@ export const TeacherAppointments = () => {
           studentId,
           scheduleId,
           day,
+          date,
           startTime,
           endTime,
           status,
