@@ -91,7 +91,7 @@ const ActivtiesBox: React.FC<ActivtiesBoxProps> = ({ activity }) => {
             e.preventDefault();
             router('/message-page/' + activity.bookedBy);
           }}>
-            <p className='bg-[#3b82f6] p-2 rounded text-white ml-2' >{t("CHAT")}</p>
+            <p className='bg-[#3b82f6] p-2 rounded text-white ml-2 cursor-pointer' >{t("CHAT")}</p>
           </div>
           {isStudentPage && activity?.status === "BOOKED" && (
             <p
