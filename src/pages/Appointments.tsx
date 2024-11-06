@@ -239,7 +239,7 @@ export const TeacherAppointments = () => {
                               </p>
                               <p className="mt-1 text-sm text-gray-500">
                                 {item?.bookedShifts?.nickName} wants to book
-                                appointment from {item?.startTime} <span className="text-[#17b3a6] mx-2 px-0">{item?.date}</span> 
+                                appointment from {item?.startTime} <span className="text-[#17b3a6] mx-2 ">{item?.date}</span> 
                                 {item?.endTime} on {item?.day}
                               </p>
                               {item?.status == "PENDING" ? (
