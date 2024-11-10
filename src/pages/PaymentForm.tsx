@@ -64,10 +64,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = () => {
         router("/edit-team/" + eventID);
       }
     } catch (error) {
-      toast.error(
-        `Error fetching joined events : ${error}`,
-        toastProperties as ToastConfig
-      );
+      toast.error(t("JOINED_ERROR"));
     }
   };
 
