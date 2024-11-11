@@ -97,6 +97,7 @@ export const API_ENDPOINTS = {
   GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`,
   UPDATETEAMMEMBER: `${API_BASE_URL}/${API_VERSION}/update-team-member`,
   DELETETEAMEMBER: `${API_BASE_URL}/${API_VERSION}/delete-team-member`,
+  DELETE_WAITING_MEMBERS:`${API_BASE_URL}/${API_VERSION}/delete-waiting-user`,
   // student
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
 

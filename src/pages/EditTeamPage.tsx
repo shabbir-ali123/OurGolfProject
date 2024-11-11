@@ -548,7 +548,7 @@ const EditTeamPage: FunctionComponent = () => {
                 )}
                 <Link to="/message-page">
                   <div className="flex items-end gap-40">
-                    {(!isCreated) && (
+                    {(!isCreated) &&  (
                       <>
                         <div className=" flex justify-start text-center w-full">
                           <button

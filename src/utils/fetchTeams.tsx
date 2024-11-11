@@ -169,3 +169,44 @@ export const deleteTeamMember = async (teamId: any, userId: any,eventId:any) => 
         }
     }
 };
+export const deleteWaitingUsers = async (eventId: string, userId: string) => {
+    try {
+      const token = localStorage.getItem("token");
+  
+      // Log the data being sent
+      console.log('Deleting waiting user with:', { eventId, userId });
+  
+      const response = await axios.delete(API_ENDPOINTS.DELETE_WAITING_MEMBERS, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        data: { eventId, userId },
+      });
+  
+      if (response.status === 200) {
+        console.log('Delete successful:', response.data);
+        toast.success("Waiting user deleted successfully.");
+        // Optionally, refresh the data or update the UI as needed
+      }
+    } catch (error) {
+      console.error('Error deleting waiting user:', error);
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 404) {
+          toast.error("No users with status 'waiting' found.");
+        } else if (error.response.status === 401) {
+          // Clear user data and redirect to login if unauthorized
+          localStorage.clear();
+          toast.error("Session expired. Please log in again.");
+          // Optionally, redirect to login page
+        } else if (error.response.status === 400) {
+          toast.error("Bad request. Please check your input.");
+        } else {
+          toast.error("An error occurred while deleting waiting users. Please try again.");
+        }
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
+    }
+  };
+  

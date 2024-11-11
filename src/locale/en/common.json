@@ -227,6 +227,7 @@
     "UPDATE_GIG": "Update Gig",
     "UPDATE_SCHEDULES": "Update Schedules",
     "JOINED_SUCCESSFULLY": "User succesfully joined event",
+    "MEMBER_REMOVED_SUCCESS": "Member Removed Succesfully",
     "JOINED_ERROR": "User not able to joined event",
     "CREATED_GIG":"Created Gigs",
     "YOU_HAVE": "You have an",

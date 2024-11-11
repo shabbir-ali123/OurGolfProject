@@ -431,6 +431,7 @@
     "JOINED":"参加しました",
     "JOINED_SUCCESSFULLY":"イベントに参加しました",
     "JOINED_ERROR": "ユーザーがイベントに参加できない",
+    "MEMBER_REMOVED_SUCCESS": "メンバーが正常に削除されました",
     "ERROR_EVENTS":"参加中にエラーが発生する",
     "ERROR_GIGS":"参加中にエラーが発生する",
     "JOINING_OVER":"日付終了",
