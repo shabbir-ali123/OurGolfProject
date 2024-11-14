@@ -65,7 +65,7 @@ export default function AllMembers() {
         userId: id,
         eventId: singleEvent?.id,
       };
-      console.log("Approving member with:", obj); // Debugging
+      console.log("Approving member with:", obj);
       await approveEvent(obj);
       toast.success(t("Approved Successfully"));
       navigate(`/edit-team/${singleEvent?.id}`);
@@ -178,18 +178,18 @@ export default function AllMembers() {
                       if (player?.status !== "joined") return null;
 
                       // Debugging: Log the player object
-                      console.log("Confirmed Member:", player);
+                      console.log("Confirmed Member:", joinedUsers);
 
-                      // Determine the correct userId
-                      const userId = player.userId || player.id; // Adjust based on actual data structure
+                    
+                      const userId = player.userId || player.id;
                       if (!userId) {
                         console.warn(`User ID is missing for player:`, player);
                         return null;
                       }
 
                       return (
-                        <tr key={player.id} className="border-b">
-                          <td className="px-3 py-4 text-sm text-gray-500">
+                        <tr key={player.id} className="flex flex-col gap-0border-b">
+                          <td className="px-3 text-sm text-gray-500">
                             <div className="flex items-center">
                               <img
                                 className="h-10 w-10 rounded-full"
@@ -203,7 +203,7 @@ export default function AllMembers() {
                               </div>
                             </div>
                           </td>
-                          <td className="px-3 py-4 text-right">
+                          <td className="px-3 py-2 text-right">
                             {isCreated && (
                               <button
                                 className="flex items-center gap-1 cursor-pointer bg-transparent border border-solid border-[#e74c3c] text-[#e74c3c] rounded-lg my-2 py-1 px-2"
