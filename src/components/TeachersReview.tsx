@@ -50,11 +50,11 @@ const TeacherReviews: React.FC = () => {
           <div className="w-full">
             <h2 className="text-xl font-semibold mb-4">{t("RATING")}:</h2>
             {teacher?.teacherRatings?.length === 0 ? (
-              <h2 className="text-center">{t("NO_RATINGS_YET")}</h2>
+              <p className="text-center">{t("NO_RATINGS_YET")}</p>
             ) : (
               <div className="  w-full">
                 <div className="flex  items-center justify-start w-full">
-                  <div className="w-full px-4 py-4 space-y-4 border border-yellow-400 rounded-lg bg-[#17b3a6] ">
+                  <div className="w-full px-1 py-1 space-y-4 border border-yellow-400 rounded-lg bg-[#17b3a6] ">
                     {/* <div>
                       <p className="text-lg font-bold text-gray-700 uppercase tracking-wide lg:text-xl">
                         {averageRating?.toFixed(1)}
@@ -80,7 +80,7 @@ const TeacherReviews: React.FC = () => {
                     </div> */}
                     <div className="flex flex-col w-full">
                       {teacher?.teacherRatings?.map((rating: any, index: number) => (
-                        <div key={index} className="bg-white shadow-lg my-2 p-4  ">
+                        <div key={index} className="bg-white shadow-lg  p-4  ">
                           <div >
                             <div className="flex items-center gap-4">
                               <img src="/img/zozo.png" width="60px" height="60px" alt="" />
