@@ -49,7 +49,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
           <div className="text-center">
             <img
               className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full"
-              src={profileImage || imageUrl}
+              src={profileImage || imageUrl || "../../img/Profile.png"}
               alt="Profile"
             />
             <div className="mt-4">
