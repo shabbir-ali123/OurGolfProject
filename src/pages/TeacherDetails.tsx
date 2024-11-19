@@ -40,7 +40,7 @@ const TeacherDetails: React.FC = () => {
 
   return (
     <div className="mx-4 md:mx-20">
-      <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-8">
         <div className="col-span-1 md:col-span-4 order-last md:order-first">
           <TeacherSlotss
             slots={slots}
@@ -64,10 +64,9 @@ const TeacherDetails: React.FC = () => {
               </h3>
               <div className="relative flex justify-center items-center rounded-lg shadow-md overflow-hidden">
                 <video
-                  className="rounded-lg w-full h-[260px]"
+                  className="rounded-lg w-[480] h-[270]"
                   src={teacher.introductionVideo}
                   title="Introduction Video"
-                  width={260}
                   controls
                 ></video>
               </div>
@@ -77,7 +76,7 @@ const TeacherDetails: React.FC = () => {
             <VideoPortfolio />
           </div>
           <div className="my-8">  
-            <h2 className="text-xl text-start font-semibold mb-4 text-[#565656]">Gigs:</h2>
+          <h3 className="text-lg font-semibold mb-4 text-[#565656]">Gigs:</h3>
             {tId !== teacher?.id ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {gigs.gigs?.length != 0 ? (
