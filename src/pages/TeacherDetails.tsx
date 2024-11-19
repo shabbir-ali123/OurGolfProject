@@ -64,7 +64,7 @@ const TeacherDetails: React.FC = () => {
               </h3>
               <div className="relative flex justify-center items-center rounded-lg shadow-md overflow-hidden">
                 <video
-                  className="rounded-lg w-[480] h-[270]"
+                  className="rounded-lg w-[480px] h-[270px]"
                   src={teacher.introductionVideo}
                   title="Introduction Video"
                   controls
