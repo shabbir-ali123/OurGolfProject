@@ -213,7 +213,7 @@ export default function ProfileButton() {
                     </Link>
                   )}
                   {token ? (
-                    <Link to="/logout">
+                    <Link to="/login-page">
                       <li className="flex items-center justify-start gap-2 px-2 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +230,7 @@ export default function ProfileButton() {
                           />
                         </svg>
 
-                        <Link to="/logout">{t("SIGN_OUT")}</Link>
+                        <Link to="/login-page">{t("SIGN_OUT")}</Link>
                       </li>
                     </Link>
                   ) : (

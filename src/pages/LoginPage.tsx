@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Chat } from "@pubnub/chat";
 import { userAuthContext } from "../contexts/authContext";
 import "./app.css";
-import { Cog6ToothIcon, EyeDropperIcon, EyeIcon, EyeSlashIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'; // Importing the eye icons from react-icons
+import { Cog6ToothIcon, EyeDropperIcon, EyeIcon, EyeSlashIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
